@@ -20,6 +20,7 @@
 #include "cyber/common/log.h"
 #include "modules/perception/camera/common/util.h"
 #include "modules/perception/camera/lib/interface/base_calibration_service.h"
+#include <thread>
 
 namespace apollo {
 namespace perception {
@@ -27,6 +28,9 @@ namespace camera {
 
 void ObstacleReference::Init(const omt::ReferenceParam &ref_param, float width,
                              float height) {
+
+  AINFO<<"(pengzi) ObstacleReference::Init. thread:"<< std::this_thread::get_id();   
+
   ref_param_ = ref_param;
   img_width_ = width;
   img_height_ = height;
@@ -54,6 +58,10 @@ void ObstacleReference::Init(const omt::ReferenceParam &ref_param, float width,
 
 void ObstacleReference::UpdateReference(const CameraFrame *frame,
                                         const std::vector<Target> &targets) {
+
+  AINFO<<"(pengzi) void ObstacleReference::UpdateReference(const CameraFrame *frame,
+                                        const std::vector<Target> &targets). thread:"<< std::this_thread::get_id();  
+
   std::string sensor = frame->data_provider->sensor_name();
   SyncGroundEstimator(sensor, frame->camera_k_matrix,
                       static_cast<int>(img_width_),

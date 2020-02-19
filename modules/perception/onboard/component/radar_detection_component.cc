@@ -16,12 +16,14 @@
 #include "modules/perception/onboard/component/radar_detection_component.h"
 #include "modules/perception/common/sensor_manager/sensor_manager.h"
 #include "modules/perception/lib/utils/perf.h"
+#include<thread>
 
 namespace apollo {
 namespace perception {
 namespace onboard {
 
 bool RadarDetectionComponent::Init() {
+  AINFO<<"(pengzi) Radar RadarDetectionComponent::Init()";
   RadarComponentConfig comp_config;
   if (!GetProtoConfig(&comp_config)) {
     return false;

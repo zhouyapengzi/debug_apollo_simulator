@@ -34,6 +34,7 @@
 #include "modules/perception/lib/utils/time_util.h"
 #include "modules/perception/onboard/common_flags/common_flags.h"
 #include "modules/transform/proto/transform.pb.h"
+#include <thread>
 
 namespace apollo {
 namespace perception {
@@ -84,6 +85,8 @@ static int GetGpuId(
 bool TrafficLightsPerceptionComponent::Init() {
   writer_ = node_->CreateWriter<apollo::perception::TrafficLightDetection>(
       "/apollo/perception/traffic_light");
+
+      AINFO << "(pengzi) create TrafficLightDetection topic. thread: " << std::this_thread::get_id();
 
   if (InitConfig() != cyber::SUCC) {
     AERROR << "TrafficLightsPerceptionComponent InitConfig failed.";
@@ -161,6 +164,12 @@ int TrafficLightsPerceptionComponent::InitConfig() {
       traffic_light_param.camera_traffic_light_perception_conf_dir();
   camera_perception_init_options_.conf_file =
       traffic_light_param.camera_traffic_light_perception_conf_file();
+
+       std::thread::id this_id = std::this_thread::get_id();
+  std::cout << "thread " << this_id << " try to load model for traffic light...\n";
+  AINFO<<"(pengzi) init camera perception. load model from "<<  traffic_light_param.camera_traffic_light_perception_conf_file()<<". thread:" << this_id <<".";
+
+
   default_image_border_size_ = traffic_light_param.default_image_border_size();
 
   simulation_channel_name_ = traffic_light_param.simulation_channel_name();
@@ -179,12 +188,15 @@ int TrafficLightsPerceptionComponent::InitConfig() {
 int TrafficLightsPerceptionComponent::InitAlgorithmPlugin() {
   // init preprocessor
   preprocessor_.reset(new camera::TLPreprocessor);
+  AINFO << "(pengzi) New preprocessor for trafficlights perception component";
   if (!preprocessor_) {
     AERROR << "TrafficLightsPerceptionComponent new preprocessor failed";
     return cyber::FAIL;
   }
 
   preprocessor_init_options_.camera_names = camera_names_;
+   AINFO << "(pengzi) Init preprocessor for trafficlights perception component. camera_names:" << preprocessor_init_options_.camera_names;
+
   if (!preprocessor_->Init(preprocessor_init_options_)) {
     AERROR << "TrafficLightsPerceptionComponent init preprocessor failed";
     return cyber::FAIL;
@@ -408,7 +420,12 @@ void TrafficLightsPerceptionComponent::OnReceiveImage(
   last_proc_image_ts_ = lib::TimeUtil::GetCurrentTime();
 
   AINFO << "start proc.";
+  
+  AINFO << "(pengzi) Begin traffic light perception pipeline. thread:"<<std::this_thread::get_id();
+
   traffic_light_pipeline_->Perception(camera_perception_options_, &frame_);
+
+   AINFO << "(pengzi) Finish traffic light perception pipeline. thread:"<<std::this_thread::get_id();
 
   const auto traffic_lights_perception_time =
       PERCEPTION_PERF_BLOCK_END_WITH_INDICATOR(perf_indicator,

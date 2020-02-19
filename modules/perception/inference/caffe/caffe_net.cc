@@ -17,6 +17,7 @@
 #include "modules/perception/inference/caffe/caffe_net.h"
 
 #include "cyber/common/log.h"
+#include<thread>
 
 namespace apollo {
 namespace perception {
@@ -27,6 +28,9 @@ CaffeNet::CaffeNet(const std::string &net_file, const std::string &model_file,
     : net_file_(net_file), model_file_(model_file), output_names_(outputs) {}
 
 bool CaffeNet::Init(const std::map<std::string, std::vector<int>> &shapes) {
+
+  AINFO << "(pengzi)in method: CaffeNet::Init(const std::map<std::string, std::vector<int>> &shapes). thread:" << std::this_thread::get_id();
+
   if (gpu_id_ >= 0) {
     caffe::Caffe::SetDevice(gpu_id_);
     caffe::Caffe::set_mode(caffe::Caffe::GPU);
@@ -75,7 +79,14 @@ CaffeNet::CaffeNet(const std::string &net_file, const std::string &model_file,
     : net_file_(net_file),
       model_file_(model_file),
       output_names_(outputs),
-      input_names_(inputs) {}
+      input_names_(inputs) {
+
+
+AINFO << "(pengzi)CaffeNet. model_file:"<<&model_file
+      << " thread:" << std::this_thread::get_id();
+
+        
+      }
 
 std::shared_ptr<apollo::perception::base::Blob<float>> CaffeNet::get_blob(
     const std::string &name) {
@@ -102,6 +113,9 @@ bool CaffeNet::reshape() {
 }
 
 void CaffeNet::Infer() {
+
+  AINFO << "(pengzi)begin Caffe net infer. in method: CaffeNet::Infer()  thread:" << std::this_thread::get_id();
+
   if (gpu_id_ >= 0) {
     caffe::Caffe::SetDevice(gpu_id_);
     caffe::Caffe::set_mode(caffe::Caffe::GPU);
@@ -130,9 +144,13 @@ void CaffeNet::Infer() {
                  caffe_blob->count() * sizeof(float), cudaMemcpyDeviceToDevice);
     }
   }
+
+  AINFO << "(pengzi)finish Caffe net infer. thread:" << std::this_thread::get_id();
 }
 
 bool CaffeNet::shape(const std::string &name, std::vector<int> *res) {
+  AINFO << "(pengzi)in method: CaffeNet::shape(const std::string &name, std::vector<int> *res) thread:" << std::this_thread::get_id();
+
   auto blob = net_->blob_by_name(name);
   if (blob == nullptr) {
     return false;

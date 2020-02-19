@@ -23,6 +23,7 @@
 #include "modules/perception/inference/inference_factory.h"
 #include "modules/perception/inference/utils/resize.h"
 #include "modules/perception/lib/utils/perf.h"
+#include <thread>
 
 namespace apollo {
 namespace perception {
@@ -132,6 +133,13 @@ bool YoloObstacleDetector::InitNet(const yolo::YoloParam &yolo_param,
     AERROR << "Failed to init CNNAdapter";
     return false;
   }
+
+    AINFO << "(pengzi)info of YOLO obstacle detector. model_type: "<<model_type
+        <<" proto_file: "<< proto_file
+        << " weight_file: " << weight_file
+        << " model_root: " << model_root
+        << " thread: " << std::this_thread::get_id();
+
   inference_->set_gpu_id(gpu_id_);
   std::vector<int> shape = {1, height_, width_, 3};
   std::map<std::string, std::vector<int>> shape_map{
@@ -140,7 +148,12 @@ bool YoloObstacleDetector::InitNet(const yolo::YoloParam &yolo_param,
   if (!inference_->Init(shape_map)) {
     return false;
   }
+
+AINFO<<"(pengzi) begin YOLO infer"<< std::this_thread::get_id();
+
   inference_->Infer();
+
+  AINFO<<"(pengzi) finish YOLO infer" << std::this_thread::get_id();
   return true;
 }
 
@@ -338,7 +351,15 @@ bool YoloObstacleDetector::Detect(const ObstacleDetectorOptions &options,
   AINFO << "Resize: " << static_cast<double>(timer.Toc()) * 0.001 << "ms";
 
   /////////////////////////// detection part ///////////////////////////
+
+  AINFO << "(pengzi) YOLO object detector begin infer"
+        << " thread: " << std::this_thread::get_id();
+
   inference_->Infer();
+
+  AINFO << "(pengzi) YOLO object detector finish infer"
+        << " thread: " << std::this_thread::get_id();
+
   AINFO << "Network Forward: " << static_cast<double>(timer.Toc()) * 0.001
         << "ms";
   get_objects_gpu(yolo_blobs_, stream_, types_, nms_, yolo_param_.model_param(),
@@ -357,6 +378,9 @@ bool YoloObstacleDetector::Detect(const ObstacleDetectorOptions &options,
                &frame->detected_objects);
 
   // post processing
+    AINFO << "(pengzi) YOLO object detector post processing begin "
+        << " thread: " << std::this_thread::get_id();
+
   int left_boundary =
       static_cast<int>(border_ratio_ * static_cast<float>(image_->cols()));
   int right_boundary = static_cast<int>((1.0f - border_ratio_) *
@@ -380,8 +404,14 @@ bool YoloObstacleDetector::Detect(const ObstacleDetectorOptions &options,
   }
   AINFO << "Post2: " << static_cast<double>(timer.Toc()) * 0.001 << "ms";
 
+   AINFO << "(pengzi) YOLO object detector post processing finish"
+        << " thread: " << std::this_thread::get_id();
+
   return true;
 }
+
+ AINFO << "(pengzi) Register obstacle detector. "
+        << " thread: " << std::this_thread::get_id();
 
 REGISTER_OBSTACLE_DETECTOR(YoloObstacleDetector);
 

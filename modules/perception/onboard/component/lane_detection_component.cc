@@ -36,6 +36,7 @@
 #include "modules/perception/lib/utils/time_util.h"
 #include "modules/perception/onboard/common_flags/common_flags.h"
 #include "modules/perception/onboard/component/camera_perception_viz_message.h"
+#include <thread>
 
 namespace apollo {
 namespace perception {
@@ -188,6 +189,9 @@ bool LaneDetectionComponent::Init() {
   }
 
   writer_ = node_->CreateWriter<PerceptionLanes>(output_lanes_channel_name_);
+  AINFO<< "(pengzi) create a topic for lane perception" << output_lanes_channel_name_<<" .thread:"<< std::this_thread::get_id();
+
+
   if (!EXEC_ALL_FUNS(LaneDetectionComponent, this,
                      LaneDetectionComponent::init_func_arry_)) {
     return false;
@@ -223,6 +227,8 @@ bool LaneDetectionComponent::Init() {
     }
   }
   AINFO << "Init processes all succeed";
+  AINFO<< "(pengzi) finish initialize lane perception processes.thread:"<< std::this_thread::get_id();
+ 
   return true;
 }
 
@@ -275,6 +281,13 @@ void LaneDetectionComponent::OnReceiveImage(
   AINFO << "Enter LaneDetectionComponent::Proc(), "
         << " camera_name: " << camera_name
         << " image ts: " + std::to_string(msg_timestamp);
+
+  
+  AINFO << "(pengzi)Enter LaneDetectionComponent::Proc(), "
+        << " camera_name: " << camera_name
+        << " image ts: " + std::to_string(msg_timestamp)
+        <<". thread:"<< std::this_thread::get_id();
+
   // timestamp should be almost monotonic
   if (last_timestamp_ - msg_timestamp > ts_diff_) {
     AINFO << "Received an old message. Last ts is " << std::setprecision(19)
@@ -299,6 +312,8 @@ void LaneDetectionComponent::OnReceiveImage(
   std::shared_ptr<apollo::perception::PerceptionLanes> out_message(
       new (std::nothrow) apollo::perception::PerceptionLanes);
   apollo::common::ErrorCode error_code = apollo::common::OK;
+
+  AINFO << "(pengzi) lane protobuf message:" << out_message << ".thread:"<< std::this_thread::get_id();
 
   // prefused msg
   std::shared_ptr<SensorFrameMessage> prefused_message(new (std::nothrow)
@@ -391,6 +406,8 @@ int LaneDetectionComponent::InitConfig() {
           visual_debug_folder_ % visual_camera_ % output_lanes_channel_name_ %
           write_visual_img_);
   AINFO << config_info_str;
+
+AINFO << "(pengzi) this config info is for lane detection. conf_file:" << camera_perception_init_options_.conf_file<<".";
 
   return cyber::SUCC;
 }
@@ -630,6 +647,8 @@ int LaneDetectionComponent::InternalProc(
   camera_lane_pipeline_->GetCalibrationService(
       &camera_frame.calibration_service);
 
+AINFO <<"(pengzi) Begin camera lane perception" <<".thread:"<< std::this_thread::get_id();
+
   if (!camera_lane_pipeline_->Perception(camera_perception_options_,
                                          &camera_frame)) {
     AERROR << "camera_lane_pipeline_->Perception() failed"
@@ -678,6 +697,9 @@ int LaneDetectionComponent::InternalProc(
       visualize_.ShowResult_all_info_single_camera(output_image, camera_frame,
                                                    mot_buffer_, world2camera);
     }
+
+     AINFO << "(pengzi)finish visualization lane camera result.";
+
   }
 
   // send out lane message
@@ -690,6 +712,8 @@ int LaneDetectionComponent::InternalProc(
     return cyber::FAIL;
   }
   writer_->Write(lanes_msg);
+   AINFO << "(pengzi) send out lane perception message .thread:"<< std::this_thread::get_id();
+
 
   return cyber::SUCC;
 }

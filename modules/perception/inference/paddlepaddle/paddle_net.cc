@@ -132,6 +132,7 @@ bool PaddleNet::reshape() {
 }
 
 void PaddleNet::Infer() {
+  AINFO << "(pengzi)begin paddle net infer. thread:" << std::this_thread::get_id();
   // reshape and get input data from blob to paddle_blob.
   this->reshape();
   // If `out_blob->mutable_cpu_data()` is invoked outside,
@@ -168,6 +169,7 @@ void PaddleNet::Infer() {
                  count * sizeof(float), cudaMemcpyDeviceToDevice);
     }
   }
+  AINFO << "(pengzi)finish paddle net infer. thread:" << std::this_thread::get_id();
 }
 
 bool PaddleNet::shape(const std::string &name, std::vector<int> *res) {

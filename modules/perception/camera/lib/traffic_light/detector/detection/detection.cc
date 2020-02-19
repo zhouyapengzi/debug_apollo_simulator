@@ -25,6 +25,7 @@
 #include "modules/perception/inference/inference_factory.h"
 #include "modules/perception/inference/utils/resize.h"
 #include "modules/perception/inference/utils/util.h"
+#include <thread>
 
 namespace apollo {
 namespace perception {
@@ -34,12 +35,18 @@ using cyber::common::GetAbsolutePath;
 
 bool TrafficLightDetection::Init(
     const camera::TrafficLightDetectorInitOptions &options) {
+
+   AINFO<< "(pengzi) traffic light detection ini. in method: TrafficLightDetection::Init(
+    const camera::TrafficLightDetectorInitOptions &options).. thread:"<<std::this_thread::get_id();
+
   std::string proto_path = GetAbsolutePath(options.root_dir, options.conf_file);
   AINFO << "proto_path " << proto_path;
   if (!cyber::common::GetProtoFromFile(proto_path, &detection_param_)) {
     AINFO << "load proto param failed, root dir: " << options.root_dir;
     return false;
   }
+
+AINFO<< "(pengzi) proto_path " << proto_path<<" thread:"<<std::this_thread::get_id();
 
   std::string param_str;
   google::protobuf::TextFormat::PrintToString(detection_param_, &param_str);
@@ -56,6 +63,8 @@ bool TrafficLightDetection::Init(
   std::string weight_file =
       GetAbsolutePath(model_root, detection_param_.weight_file());
   AINFO << "weight_file " << weight_file;
+
+  AINFO << "(pengzi) weight_file " << weight_file;
 
   if (detection_param_.is_bgr()) {
     data_provider_image_option_.target_color = base::Color::BGR;
@@ -156,6 +165,10 @@ bool TrafficLightDetection::Init(
 
 bool TrafficLightDetection::Inference(
     std::vector<base::TrafficLightPtr> *lights, DataProvider *data_provider) {
+
+ AINFO<< "(pengzi) traffic light detection inference. in method: TrafficLightDetection::Inference(
+    std::vector<base::TrafficLightPtr> *lights, DataProvider *data_provider). thread:"<<std::this_thread::get_id();
+
   if (cudaSetDevice(gpu_id_) != cudaSuccess) {
     AERROR << "Failed to set device to " << gpu_id_;
     return false;
@@ -223,6 +236,7 @@ bool TrafficLightDetection::Inference(
   cudaDeviceSynchronize();
   AINFO << "rt_net run success";
 
+AINFO<< "(pengzi) rt_net infer. thread:"<<std::this_thread::get_id();
   // dump the output
   SelectOutputBoxes(crop_box_list_, resize_scale_list_, resize_scale_list_,
                     &detected_bboxes_);
@@ -286,6 +300,10 @@ bool TrafficLightDetection::Detect(const TrafficLightDetectorOptions &options,
   AINFO << "select success";
 
   AINFO << "detection success";
+
+   AINFO << "(pengzi) traffic light detector: detection success. select box number:"
+        << detected_bboxes_.size() << std::this_thread::get_id();
+
   return true;
 }
 
@@ -294,6 +312,14 @@ bool TrafficLightDetection::SelectOutputBoxes(
     const std::vector<float> &resize_scale_list_col,
     const std::vector<float> &resize_scale_list_row,
     std::vector<base::TrafficLightPtr> *lights) {
+
+       AINFO << "(pengzi) in method TrafficLightDetection::SelectOutputBoxes(
+    const std::vector<base::RectI> &crop_box_list,
+    const std::vector<float> &resize_scale_list_col,
+    const std::vector<float> &resize_scale_list_row,
+    std::vector<base::TrafficLightPtr> *lights). thread: " << std::this_thread::get_id();
+
+
   auto output_blob = rt_net_->get_blob(net_outputs_[0]);
   int result_box_num = output_blob->shape(0);
   int each_box_length = output_blob->shape(1);
@@ -374,6 +400,9 @@ bool TrafficLightDetection::SelectOutputBoxes(
 
 void TrafficLightDetection::ApplyNMS(std::vector<base::TrafficLightPtr> *lights,
                                      double iou_thresh) {
+
+  AINFO << "(pengzi) in method : trafficLightDetection::ApplyNMS";
+                                       
   CHECK_NOTNULL(lights);
 
   // (score, index) pairs sorted by detect score

@@ -18,6 +18,7 @@
 #include <algorithm>
 
 #include "modules/perception/camera/common/util.h"
+#include<thread>
 
 namespace apollo {
 namespace perception {
@@ -28,6 +29,8 @@ void CropBox::getCropBox(const int width, const int height,
                          base::RectI *crop_box) {
   int rows = height;
   int cols = width;
+
+AINFO<<"(pengzi) CropBox::getCropBox. rows:"<rows <<" cols:"<<cols << " thread:"<<std::this_thread::get_id();
 
   if (OutOfValidRegion(light->region.projection_roi, width, height) ||
       light->region.projection_roi.Area() <= 0) {

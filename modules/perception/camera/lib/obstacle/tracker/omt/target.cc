@@ -22,6 +22,7 @@
 #include "modules/perception/camera/common/math_functions.h"
 #include "modules/perception/camera/common/util.h"
 #include "modules/perception/common/geometry/basic.h"
+#include <thread>
 
 namespace apollo {
 namespace perception {
@@ -103,11 +104,17 @@ void Target::Init(const omt::TargetParam &param) {
 Target::Target(const omt::TargetParam &param) { Init(param); }
 
 void Target::Predict(CameraFrame *frame) {
+
+   AINFO<<"(pengzi) predict target. in method: Target::Predict(CameraFrame *frame). thread:"<< std::this_thread::get_id();
+
   auto delta_t =
       static_cast<float>(frame->timestamp - latest_object->timestamp);
   if (delta_t < 0) {
     return;
   }
+
+   AINFO<<"(pengzi) predict image_center. in method: Target::Predict(CameraFrame *frame). thread:"<< std::this_thread::get_id();
+
   image_center.Predict(delta_t);
   float acc_variance = target_param_.world_center().process_variance();
   float delta_t_2 = delta_t * delta_t;
@@ -125,6 +132,8 @@ void Target::Predict(CameraFrame *frame) {
   world_center_const.process_noise_(1, 1) =
       world_center_const.process_noise_(0, 0);
   world_center_const.Predict(delta_t);
+
+  AINFO<<"(pengzi)finish predict target. thread:"<< std::this_thread::get_id();
 }
 
 void Target::Update2D(CameraFrame *frame) {

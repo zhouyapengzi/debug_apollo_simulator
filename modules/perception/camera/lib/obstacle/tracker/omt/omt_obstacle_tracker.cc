@@ -24,6 +24,7 @@
 #include "modules/perception/camera/common/math_functions.h"
 #include "modules/perception/camera/common/util.h"
 #include "modules/perception/common/geometry/common.h"
+#include <thread>
 
 namespace apollo {
 namespace perception {
@@ -294,15 +295,20 @@ void ProjectBox(const base::BBox2DF &box_origin,
 
 bool OMTObstacleTracker::Predict(const ObstacleTrackerOptions &options,
                                  CameraFrame *frame) {
+  
+  AINFO<<"(pengzi) begin camera omto obstacle tracker predict.thread:"<< std::this_thread::get_id();                                 
   for (auto &target : targets_) {
     target.Predict(frame);
     auto obj = target.latest_object;
     frame->proposed_objects.push_back(obj->object);
   }
+   AINFO<<"(pengzi) finish camera omto obstacle tracker predict.thread:"<< std::this_thread::get_id();
+
   return true;
 }
 
 int OMTObstacleTracker::CreateNewTarget(const TrackObjectPtrs &objects) {
+   AINFO<<"(pengzi) create new camera omto obstacle track target.OMTObstacleTracker::CreateNewTarget. thread:"<< std::this_thread::get_id();
   const TemplateMap &kMinTemplateHWL =
       object_template_manager_->MinTemplateHWL();
   std::vector<base::RectF> target_rects;
@@ -349,6 +355,7 @@ int OMTObstacleTracker::CreateNewTarget(const TrackObjectPtrs &objects) {
 }
 bool OMTObstacleTracker::Associate2D(const ObstacleTrackerOptions &options,
                                      CameraFrame *frame) {
+  AINFO<<"(pengzi) OMTObstacleTracker::Associate2D(). thread:"<< std::this_thread::get_id();                                     
   inference::CudaUtil::set_device_id(gpu_id_);
   frame_list_.Add(frame);
   for (int t = 0; t < frame_list_.Size(); t++) {
@@ -432,6 +439,9 @@ void OMTObstacleTracker::ClearTargets() {
 
 bool OMTObstacleTracker::Associate3D(const ObstacleTrackerOptions &options,
                                      CameraFrame *frame) {
+
+AINFO<<"(pengzi) OMTObstacleTracker::Associate3D(). thread:"<< std::this_thread::get_id();  
+                                     
   reference_.UpdateReference(frame, targets_);
   frame->tracked_objects.clear();
   TrackObjectPtrs track_objects;
@@ -479,6 +489,7 @@ bool OMTObstacleTracker::Associate3D(const ObstacleTrackerOptions &options,
 
 bool OMTObstacleTracker::Track(const ObstacleTrackerOptions &options,
                                CameraFrame *frame) {
+  AINFO<<"(pengzi) OMTObstacleTracker::Track(). thread:"<< std::this_thread::get_id();                                 
   return true;
 }
 

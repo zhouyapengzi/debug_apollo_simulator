@@ -21,6 +21,7 @@
 #include "modules/perception/camera/common/util.h"
 #include "modules/perception/inference/inference_factory.h"
 #include "modules/perception/inference/utils/resize.h"
+#include <thread>
 
 namespace apollo {
 namespace perception {
@@ -59,6 +60,10 @@ void ClassifyBySimple::Init(
       GetAbsolutePath(work_root, model_config.weight_file());
 
   AINFO << "model_root" << model_root;
+
+  AINFO << "(pengzi) load model_root :" << model_root << ". thread:"<<std::this_thread::get_id();
+  AINFO << "(pengzi) load weight:" << model_config.weight_file() << ". thread:"<<std::this_thread::get_id();
+
 
   rt_net_.reset(inference::CreateInferenceByName(
       model_config.model_type(), proto_file, weight_file, net_outputs_,
@@ -102,11 +107,18 @@ void ClassifyBySimple::Init(
   image_.reset(
       new base::Image8U(resize_height_, resize_width_, base::Color::BGR));
 
+       AINFO << "(pengzi) resize image. height:" << resize_height_ 
+       << " width:"<<resize_width_<<". thread:"<<std::this_thread::get_id();
+
   AINFO << "Init Done";
 }
 
 void ClassifyBySimple::Perform(const CameraFrame* frame,
                                std::vector<base::TrafficLightPtr>* lights) {
+
+   AINFO<<"(pengzi) in method: ClassifyBySimple::Perform(const CameraFrame* frame,
+                               std::vector<base::TrafficLightPtr>* lights)"  << ". thread:"<<std::this_thread::get_id();
+
   if (cudaSetDevice(gpu_id_) != cudaSuccess) {
     AERROR << "Failed to set device to " << gpu_id_;
     return;
@@ -134,7 +146,11 @@ void ClassifyBySimple::Perform(const CameraFrame* frame,
 
     AINFO << "resize gpu finish.";
     cudaDeviceSynchronize();
+
+    AINFO<<"(pengzi) begin traffic light recognition infer. from method: ClassifyBySimple::Perform";
     rt_net_->Infer();
+AINFO<<"(pengzi) end traffic light recognition infer. from method: ClassifyBySimple::Perform";
+
     cudaDeviceSynchronize();
     AINFO << "infer finish.";
 
@@ -159,6 +175,9 @@ void ClassifyBySimple::Prob2Color(const float* out_put_data, float threshold,
   light->status.color = status_map[max_color_id];
   light->status.confidence = out_put_data[max_color_id];
   AINFO << "Light status recognized as " << name_map[max_color_id];
+  
+  AINFO << "(pengzi) traffic light status recognized as " << name_map[max_color_id];
+
   AINFO << "Color Prob:";
   for (size_t j = 0; j < status_map.size(); j++) {
     AINFO << out_put_data[j];

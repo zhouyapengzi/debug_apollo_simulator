@@ -22,6 +22,7 @@
 #include "modules/perception/camera/common/util.h"
 #include "modules/perception/inference/inference_factory.h"
 #include "modules/perception/inference/utils/resize.h"
+#include<thread>
 
 namespace apollo {
 namespace perception {

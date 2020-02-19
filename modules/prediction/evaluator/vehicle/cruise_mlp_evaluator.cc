@@ -28,6 +28,7 @@
 #include "modules/prediction/common/prediction_util.h"
 #include "modules/prediction/container/container_manager.h"
 #include "modules/prediction/container/obstacles/obstacles_container.h"
+#include <thread>
 
 namespace apollo {
 namespace prediction {
@@ -544,6 +545,13 @@ void CruiseMLPEvaluator::LoadModels() {
       torch::jit::load(FLAGS_torch_vehicle_cruise_go_file, device_);
   torch_cutin_model_ptr_ =
       torch::jit::load(FLAGS_torch_vehicle_cruise_cutin_file, device_);
+
+        std::thread::id this_id = std::this_thread::get_id();
+      std::cout << "(pengzi) prediction evaluator " << this_id << " using model \n";
+      AINFO << "(pengzi)Prediction evaluator";
+      AINFO << "(pengzi) load vehicle cruise MLP model. go_model:"<< FLAGS_torch_vehicle_cruise_go_file 
+          << ". cutin model:" << FLAGS_torch_vehicle_cruise_cutin_file 
+          <<". Thread: " << this_id ;
 }
 
 void CruiseMLPEvaluator::ModelInference(

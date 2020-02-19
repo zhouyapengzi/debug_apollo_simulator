@@ -23,6 +23,8 @@
 #include "modules/perception/camera/lib/traffic_light/tracker/semantic_decision.h"
 #include "modules/perception/lib/utils/perf.h"
 
+#include <thread>
+
 namespace apollo {
 namespace perception {
 namespace camera {
@@ -93,13 +95,23 @@ bool TrafficLightCameraPerception::Perception(
   PERCEPTION_PERF_FUNCTION();
   PERCEPTION_PERF_BLOCK_START();
   TrafficLightDetectorOptions detector_options;
+
+    std::thread::id this_id = std::this_thread::get_id();
+	std::cout << "(pengzi) detect traffic light thread: " << this_id << " . \n";
+  AINFO << "(pengzi) begin detect traffic light. thread: " <<this_id <<".";
+
   if (!detector_->Detect(detector_options, frame)) {
     AERROR << "tl failed to detect.";
     return false;
   }
+
+
   const auto traffic_light_detect_time =
       PERCEPTION_PERF_BLOCK_END_WITH_INDICATOR(
           frame->data_provider->sensor_name(), "traffic_light_detect");
+
+ AINFO << "(pengzi) end detect traffic light. time:" << traffic_light_detect_time <<".";
+  AINFO << "(pengzi) begin recognize traffic light. thread"<<std::this_thread::get_id();
 
   TrafficLightDetectorOptions recognizer_options;
   if (!recognizer_->Detect(recognizer_options, frame)) {
@@ -109,6 +121,9 @@ bool TrafficLightCameraPerception::Perception(
   const auto traffic_light_recognize_time =
       PERCEPTION_PERF_BLOCK_END_WITH_INDICATOR(
           frame->data_provider->sensor_name(), "traffic_light_recognize");
+
+AINFO << "(pengzi) end recognize traffic light. time:" << traffic_light_recognize_time <<".";
+AINFO << "(pengzi) Begin track traffic light"<<std::this_thread::get_id();
 
   TrafficLightTrackerOptions tracker_options;
   if (!tracker_->Track(tracker_options, frame)) {
@@ -124,6 +139,7 @@ bool TrafficLightCameraPerception::Perception(
         << " traffic_light_recognize_time: " << traffic_light_recognize_time
         << " ms."
         << " traffic_light_track_time: " << traffic_light_track_time << " ms.";
+  AINFO << "pengzi. check above message. trafficlight perception perf_info.";
   return true;
 }
 

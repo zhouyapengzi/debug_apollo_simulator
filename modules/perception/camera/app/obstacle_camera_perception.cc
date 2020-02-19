@@ -26,6 +26,7 @@
 #include "modules/perception/common/io/io_util.h"
 #include "modules/perception/inference/utils/cuda_util.h"
 #include "modules/perception/lib/utils/perf.h"
+#include <thread>
 
 namespace apollo {
 namespace perception {
@@ -50,6 +51,9 @@ bool ObstacleCameraPerception::Init(
   // Init detector
   CHECK(perception_param_.detector_param_size() > 0)
       << "Failed to init detector.";
+
+  AINFO<<"(pengzi) initial obstacle detector" ;
+
   // Init detector
   base::BaseCameraModelPtr model;
   for (int i = 0; i < perception_param_.detector_param_size(); ++i) {
@@ -298,6 +302,9 @@ bool ObstacleCameraPerception::GetCalibrationService(
 
 bool ObstacleCameraPerception::Perception(
     const CameraPerceptionOptions &options, CameraFrame *frame) {
+
+  AINFO<<"(pengzi) begin obstacle camera perception" <<".thread:"<< std::this_thread::get_id();
+
   PERCEPTION_PERF_FUNCTION();
   inference::CudaUtil::set_device_id(perception_param_.gpu_id());
   ObstacleDetectorOptions detector_options;
@@ -322,12 +329,17 @@ bool ObstacleCameraPerception::Perception(
     PERCEPTION_PERF_BLOCK_END_WITH_INDICATOR(
         frame->data_provider->sensor_name(), "LaneDetector");
 
+        AINFO<<"(pengzi) in obstacle perception, finish detect lane.thread:"<< std::this_thread::get_id();
+
     if (!lane_postprocessor_->Process2D(lane_postprocessor_options, frame)) {
       AERROR << "Failed to postprocess lane 2D.";
       return false;
     }
     PERCEPTION_PERF_BLOCK_END_WITH_INDICATOR(
         frame->data_provider->sensor_name(), "LanePostprocessor2D");
+      
+        AINFO<<"(pengzi) finish postprocess lane 2D.thread:"<< std::this_thread::get_id();
+  
 
     // Calibration service
     frame->calibration_service->Update(frame);
@@ -341,10 +353,18 @@ bool ObstacleCameraPerception::Perception(
     PERCEPTION_PERF_BLOCK_END_WITH_INDICATOR(
         frame->data_provider->sensor_name(), "LanePostprocessor3D");
 
+    AINFO<<"(pengzi) finish postprocess lane 3D.thread:"<< std::this_thread::get_id();
+   
+
     if (write_out_lane_file_) {
       std::string lane_file_path =
           out_lane_dir_ + "/" + std::to_string(frame->frame_id) + ".txt";
       WriteLanelines(write_out_lane_file_, lane_file_path, frame->lane_objects);
+
+         AINFO<<"(pengzi) finish write lane lines to file. write_out_lane_file: "
+           << write_out_lane_file_
+           <<" lane_file_path:" << lane_file_path
+           <<" thread:" << std::this_thread::get_id();
     }
   } else {
     AINFO << "Skip lane detection & calibration due to sensor mismatch.";
@@ -369,21 +389,28 @@ bool ObstacleCameraPerception::Perception(
   PERCEPTION_PERF_BLOCK_END_WITH_INDICATOR(frame->data_provider->sensor_name(),
                                            "Predict");
 
+ AINFO<<"(pengzi) finish predict obstacle in obstacle camera perception. thread:"<< std::this_thread::get_id();
+
   std::shared_ptr<BaseObstacleDetector> detector =
       name_detector_map_.at(frame->data_provider->sensor_name());
 
+AINFO<<"(pengzi) begin camera detect obstacle. thread:"<< std::this_thread::get_id();
   if (!detector->Detect(detector_options, frame)) {
     AERROR << "Failed to detect.";
     return false;
   }
   PERCEPTION_PERF_BLOCK_END_WITH_INDICATOR(frame->data_provider->sensor_name(),
                                            "detect");
+AINFO<<"(pengzi) finish camera detect obstacle. thread:"<< std::this_thread::get_id();
 
   // Save all detections results as kitti format
   WriteDetections(perception_param_.debug_param().has_detection_out_dir(),
                   perception_param_.debug_param().detection_out_dir() + "/" +
                       std::to_string(frame->frame_id) + ".txt",
                   frame->detected_objects);
+  AINFO <<"(pengzi) write detection result as kitti format" << perception_param_.debug_param().detection_out_dir() + "/" +
+                      std::to_string(frame->frame_id) + ".txt";
+
   if (extractor_ && !extractor_->Extract(extractor_options, frame)) {
     AERROR << "Failed to extractor";
     return false;
@@ -396,6 +423,12 @@ bool ObstacleCameraPerception::Perception(
                   perception_param_.debug_param().detect_feature_dir() + "/" +
                       std::to_string(frame->frame_id) + ".txt",
                   frame);
+    AINFO<<"(pengzi) finish save camera object detection result."
+  << "(pengzi) object detection result output to: " 
+  << perception_param_.debug_param().detect_feature_dir() + "/" +
+                      std::to_string(frame->frame_id) + ".txt"
+  << " thread:"<< std::this_thread::get_id();
+
   // Set the sensor name of each object
   for (size_t i = 0; i < frame->detected_objects.size(); ++i) {
     frame->detected_objects[i]->camera_supplement.sensor_name =
@@ -412,6 +445,10 @@ bool ObstacleCameraPerception::Perception(
     AERROR << "Failed to transform.";
     return false;
   }
+
+  AINFO<<"(pengzi) finish trasform camera perception. thread:"<< std::this_thread::get_id();
+  
+
   PERCEPTION_PERF_BLOCK_END_WITH_INDICATOR(frame->data_provider->sensor_name(),
                                            "Transform");
 
@@ -423,6 +460,9 @@ bool ObstacleCameraPerception::Perception(
     AERROR << "Failed to post process obstacles.";
     return false;
   }
+
+  AINFO<<"(pengzi) finish prostprocessor obstacle camera perception. thread:"<< std::this_thread::get_id();
+  
   PERCEPTION_PERF_BLOCK_END_WITH_INDICATOR(frame->data_provider->sensor_name(),
                                            "PostprocessObsacle");
 
@@ -430,6 +470,9 @@ bool ObstacleCameraPerception::Perception(
     AERROR << "Failed to Associate3D.";
     return false;
   }
+
+  AINFO<<"(pengzi) finish associate camera perception to 3d. thread:"<< std::this_thread::get_id();
+  
   PERCEPTION_PERF_BLOCK_END_WITH_INDICATOR(frame->data_provider->sensor_name(),
                                            "Associate3D");
 
@@ -437,6 +480,9 @@ bool ObstacleCameraPerception::Perception(
     AERROR << "Failed to track.";
     return false;
   }
+
+  AINFO<<"(pengzi) finish track camera perception result. thread:"<< std::this_thread::get_id();
+  
   PERCEPTION_PERF_BLOCK_END_WITH_INDICATOR(frame->data_provider->sensor_name(),
                                            "Track");
 
@@ -455,12 +501,20 @@ bool ObstacleCameraPerception::Perception(
           std::to_string(frame->frame_id) + ".txt",
       frame->tracked_objects);
 
+    AINFO<<"(pengzi) finish save camera object tracking result."
+  << "(pengzi) tracking result output to: " 
+  << perception_param_.debug_param().tracked_detection_out_dir() + "/" +
+                      std::to_string(frame->frame_id) + ".txt"
+  << " thread:"<< std::this_thread::get_id();
+
   // Fill polygon and set anchor point
   for (auto &obj : frame->tracked_objects) {
     FillObjectPolygonFromBBox3D(obj.get());
     obj->anchor_point = obj->center;
   }
 
+AINFO<<"(pengzi) finish obstacle camera perception" <<".thread:"<< std::this_thread::get_id();
+ 
   return true;
 }
 }  // namespace camera

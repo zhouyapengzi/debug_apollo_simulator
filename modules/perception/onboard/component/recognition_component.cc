@@ -21,12 +21,15 @@
 #include "modules/perception/lidar/common/lidar_error_code.h"
 #include "modules/perception/lidar/common/lidar_log.h"
 // #include "modules/perception/onboard/component/lidar_common_flags.h"
+#include<thread>
 
 namespace apollo {
 namespace perception {
 namespace onboard {
 
 bool RecognitionComponent::Init() {
+  AINFO<<"(pengzi) Lidar RecognitionComponent::Init()";
+
   LidarRecognitionComponentConfig comp_config;
   if (!GetProtoConfig(&comp_config)) {
     return false;

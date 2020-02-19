@@ -40,6 +40,7 @@ void KalmanFilterConstVelocity::Init(Eigen::VectorXd x) {
 }
 
 void KalmanFilterConstVelocity::Predict(float delta_t) {
+   AINFO<<"(pengzi) begin predict using kalmanfilter. in method: KalmanFilterConstVelocity::Predict(float delta_t). thread:"<< std::this_thread::get_id();
   if (inited_) {
     state_transition_matrix_(0, 2) = delta_t;
     state_transition_matrix_(1, 3) = delta_t;
@@ -51,6 +52,7 @@ void KalmanFilterConstVelocity::Predict(float delta_t) {
   }
 }
 void KalmanFilterConstVelocity::MagicVelocity(const Eigen::VectorXd &vel) {
+  AINFO<<"(pengzi) in method: KalmanFilterConstVelocity::MagicVelocity(const Eigen::VectorXd &vel). thread:"<< std::this_thread::get_id();
   state_(2) = vel(0);
   state_(3) = vel(1);
 }
@@ -100,6 +102,7 @@ void ExtendedKalmanFilter::Init(Eigen::VectorXd x) {
 }
 
 void ExtendedKalmanFilter::Predict(float delta_t) {
+   AINFO<<"(pengzi) in method: ExtendedKalmanFilter::Predict(float delta_t). thread:"<< std::this_thread::get_id();
   if (inited_) {
     float sin_theta = static_cast<float>(std::sin(state_(3)));
     float cos_theta = static_cast<float>(std::cos(state_(3)));
@@ -143,6 +146,7 @@ void MeanFilter::SetWindow(int window) {
 }
 
 void MeanFilter::AddMeasure(const Eigen::VectorXd &z) {
+   AINFO<<"(pengzi) in method: MeanFilter::AddMeasure(const Eigen::VectorXd &z) . thread:"<< std::this_thread::get_id();
   if (measures_.size() < static_cast<unsigned int>(window_)) {
     measures_.push_back(z);
   } else {
@@ -179,6 +183,7 @@ void FirstOrderRCLowPassFilter::SetAlpha(float alpha) {
 }
 
 void FirstOrderRCLowPassFilter::AddMeasure(const Eigen::VectorXd &z) {
+  AINFO<<"(pengzi) in method: FirstOrderRCLowPassFilter::AddMeasure(const Eigen::VectorXd &z) . thread:"<< std::this_thread::get_id();
   if (inited_) {
     state_ = z + alpha_ * (state_ - z);
   } else {

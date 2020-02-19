@@ -23,6 +23,7 @@
 #include "modules/perception/inference/tensorrt/plugins/argmax_plugin.h"
 #include "modules/perception/inference/tensorrt/plugins/slice_plugin.h"
 #include "modules/perception/inference/tensorrt/plugins/softmax_plugin.h"
+#include <thread>
 
 class RTLogger : public nvinfer1::ILogger {
   void log(Severity severity, const char *msg) override {
@@ -64,6 +65,9 @@ void RTNet::addConvLayer(const LayerParameter &layer_param,
                          nvinfer1::INetworkDefinition *net,
                          TensorMap *tensor_map,
                          TensorModifyMap *tensor_modify_map) {
+
+  AINFO << "(pengzi)RTNet::addConvLayer(). thread:" << std::this_thread::get_id();    
+
   ConvolutionParameter conv = layer_param.convolution_param();
   ConvParam param;
   CHECK(ParserConvParam(conv, &param));
@@ -117,6 +121,9 @@ void RTNet::addDeconvLayer(const LayerParameter &layer_param,
                            nvinfer1::INetworkDefinition *net,
                            TensorMap *tensor_map,
                            TensorModifyMap *tensor_modify_map) {
+
+  AINFO << "(pengzi)RTNet::addDeconvLayer. thread:" << std::this_thread::get_id(); 
+
   ConvolutionParameter conv = layer_param.convolution_param();
   ConvParam param;
   ParserConvParam(conv, &param);
@@ -154,6 +161,9 @@ void RTNet::addActiveLayer(const LayerParameter &layer_param,
                            nvinfer1::INetworkDefinition *net,
                            TensorMap *tensor_map,
                            TensorModifyMap *tensor_modify_map) {
+
+  AINFO << "(pengzi)RTNet::addActiveLayer. thread:" << std::this_thread::get_id();  
+
   nvinfer1::ActivationType type = nvinfer1::ActivationType::kSIGMOID;
   auto pair = active_map.find(layer_param.type());
   if (pair != active_map.end()) {
@@ -170,6 +180,9 @@ void RTNet::addConcatLayer(const LayerParameter &layer_param,
                            nvinfer1::INetworkDefinition *net,
                            TensorMap *tensor_map,
                            TensorModifyMap *tensor_modify_map) {
+
+   AINFO << "(pengzi)RTNet::addConcatLayer. thread:" << std::this_thread::get_id();  
+                             
   ConcatParameter concat = layer_param.concat_param();
   nvinfer1::IConcatenationLayer *concatLayer =
       net->addConcatenation(inputs, nbInputs);
@@ -401,6 +414,13 @@ void RTNet::addLayer(const LayerParameter &layer_param,
                      WeightMap *weight_map, nvinfer1::INetworkDefinition *net,
                      TensorMap *tensor_map,
                      TensorModifyMap *tensor_modify_map) {
+
+   AINFO<<"(pengzi) in method: RTNet::addLayer(const LayerParameter &layer_param,
+                     nvinfer1::ITensor *const *inputs, int nbInputs,
+                     WeightMap *weight_map, nvinfer1::INetworkDefinition *net,
+                     TensorMap *tensor_map,
+                     TensorModifyMap *tensor_modify_map).  thread:" << std::this_thread::get_id();
+
   if (layer_param.type() == "Convolution") {
     addConvLayer(layer_param, inputs, weight_map, net, tensor_map,
                  tensor_modify_map);
@@ -727,6 +747,8 @@ RTNet::~RTNet() {
 }
 
 void RTNet::Infer() {
+  AINFO << "(pengzi)begin RT net infer. thread:" << std::this_thread::get_id();
+
   BASE_CUDA_CHECK(cudaSetDevice(gpu_id_));
   BASE_CUDA_CHECK(cudaStreamSynchronize(stream_));
   for (auto name : input_names_) {
@@ -756,6 +778,7 @@ void RTNet::Infer() {
       blob->mutable_gpu_data();
     }
   }
+   AINFO << "(pengzi)finish RT net infer. thread:" << std::this_thread::get_id();
 }
 std::shared_ptr<apollo::perception::base::Blob<float>> RTNet::get_blob(
     const std::string &name) {

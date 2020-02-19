@@ -27,6 +27,7 @@
 #include "modules/prediction/container/container_manager.h"
 #include "modules/prediction/container/obstacles/obstacles_container.h"
 #include "modules/prediction/container/pose/pose_container.h"
+#include<thread>
 
 namespace apollo {
 namespace prediction {
@@ -68,14 +69,31 @@ void PedestrianInteractionEvaluator::LoadModel() {
   //   AERROR << "CUDA is available for PedestrianInteractionEvaluator!";
   //   device_ = torch::Device(torch::kCUDA);
   // }
+   std::thread::id this_id = std::this_thread::get_id();
+  std::cout << "(pengzi) prediction evaluator(pedestrian) " << this_id << " using model \n";
+  AINFO << "(pengzi) pedestrian_interaction_evaluator" ;
+
   torch_position_embedding_ptr_ = torch::jit::load(
       FLAGS_torch_pedestrian_interaction_position_embedding_file, device_);
+
+AINFO<< "(pengzi)(pedestrian) load position modelname:" << FLAGS_torch_pedestrian_interaction_position_embedding_file << ". thread:" << this_id <<".";
+
   torch_social_embedding_ptr_ = torch::jit::load(
       FLAGS_torch_pedestrian_interaction_social_embedding_file, device_);
+
+AINFO<< "(pengzi)(pedestrian)load social modelname:" << FLAGS_torch_pedestrian_interaction_social_embedding_file << ". thread:" << this_id <<".";
+
+
   torch_single_lstm_ptr_ = torch::jit::load(
       FLAGS_torch_pedestrian_interaction_single_lstm_file, device_);
+
+AINFO<< "(pengzi)(pedestrian)load single lstm modelname:" << FLAGS_torch_pedestrian_interaction_single_lstm_file << ". thread:" << this_id <<".";
+
   torch_prediction_layer_ptr_ = torch::jit::load(
       FLAGS_torch_pedestrian_interaction_prediction_layer_file, device_);
+
+   AINFO<< "(pengzi)(pedestrian)load FLAGS_torch_pedestrian_interaction_prediction_layer_file modelname:" << FLAGS_torch_pedestrian_interaction_prediction_layer_file << ". thread:" << this_id <<".";
+    
 }
 
 torch::Tensor PedestrianInteractionEvaluator::GetSocialPooling() {

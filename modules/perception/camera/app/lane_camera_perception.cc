@@ -32,6 +32,7 @@
 #include "modules/perception/common/io/io_util.h"
 #include "modules/perception/inference/utils/cuda_util.h"
 #include "modules/perception/lib/utils/perf.h"
+#include <thread>
 
 namespace apollo {
 namespace perception {
@@ -80,6 +81,9 @@ void LaneCameraPerception::InitLane(
     auto lane_detector_plugin_param = lane_detector_param.plugin_param();
     lane_detector_init_options.conf_file =
         lane_detector_plugin_param.config_file();
+
+    AINFO << "(pengzi) initial lane detector " <<". thread:"<< std::this_thread::get_id();
+    
     lane_detector_init_options.root_dir =
         GetAbsolutePath(work_root, lane_detector_plugin_param.root_dir());
     lane_detector_init_options.gpu_id = perception_param_.gpu_id();
@@ -96,6 +100,9 @@ void LaneCameraPerception::InitLane(
     CHECK(lane_detector_->Init(lane_detector_init_options))
         << "Failed to init " << lane_detector_plugin_param.name();
     AINFO << "Detector: " << lane_detector_->Name();
+    AINFO << "(pengzi)initialize Lane Detector: " << lane_detector_->Name()<<".thread:"<< std::this_thread::get_id();
+
+
 
     //  initialize lane postprocessor
     auto lane_postprocessor_param =
@@ -116,6 +123,8 @@ void LaneCameraPerception::InitLane(
     CHECK(lane_postprocessor_->Init(postprocessor_init_options))
         << "Failed to init " << lane_postprocessor_param.name();
     AINFO << "Lane postprocessor: " << lane_postprocessor_->Name();
+    AINFO << "(pengzi)initialize Lane postprocessor: " << lane_postprocessor_->Name()<<std::this_thread::get_id();;
+
 
     // Init output file folder
     if (perception_param_.has_debug_param() &&
@@ -160,6 +169,10 @@ void LaneCameraPerception::InitCalibrationService(
     CHECK(calibration_service_->Init(calibration_service_init_options))
         << "Failed to init " << calibration_service_param.plugin_param().name();
     AINFO << "Calibration service: " << calibration_service_->Name();
+
+      AINFO <<"(pengzi) initialize Lane Calibration service: " << calibration_service_->Name() 
+    <<".thread:"<< std::this_thread::get_id();
+
   }
 }
 
@@ -171,6 +184,8 @@ void LaneCameraPerception::SetCameraHeightAndPitch(
   calibration_service_->SetCameraHeightAndPitch(
       name_camera_ground_height_map, name_camera_pitch_angle_diff_map,
       pitch_angle_calibrator_working_sensor);
+AINFO <<"(pengzi))set camera height and pitch to detect lane. thread:"<< std::this_thread::get_id();
+  
 }
 
 void LaneCameraPerception::SetIm2CarHomography(
@@ -187,6 +202,9 @@ bool LaneCameraPerception::GetCalibrationService(
 
 bool LaneCameraPerception::Perception(const CameraPerceptionOptions &options,
                                       CameraFrame *frame) {
+
+AINFO << "(pengzi) lane camera perception begin.thread:"<< std::this_thread::get_id();
+  
   PERCEPTION_PERF_FUNCTION();
   inference::CudaUtil::set_device_id(perception_param_.gpu_id());
   PERCEPTION_PERF_BLOCK_START();
@@ -196,6 +214,9 @@ bool LaneCameraPerception::Perception(const CameraPerceptionOptions &options,
   // Lane detector and postprocessor: work on front_6mm only
   if (lane_calibration_working_sensor_name_ ==
       frame->data_provider->sensor_name()) {
+    
+    AINFO << "(pengzi) lane detector and postprocess on front_6mm camera. thread:"<< std::this_thread::get_id();
+
     frame->camera_k_matrix =
         name_intrinsic_map_.at(frame->data_provider->sensor_name());
     LaneDetectorOptions lane_detetor_options;
@@ -211,6 +232,7 @@ bool LaneCameraPerception::Perception(const CameraPerceptionOptions &options,
       AERROR << "Failed to postprocess lane 2D.";
       return false;
     }
+    AINFO <<"(pengzi)lane post processor 2d.thread:"<<std::this_thread::get_id();
     PERCEPTION_PERF_BLOCK_END_WITH_INDICATOR(
         frame->data_provider->sensor_name(), "LanePostprocessor2D");
 
@@ -225,11 +247,17 @@ bool LaneCameraPerception::Perception(const CameraPerceptionOptions &options,
     }
     PERCEPTION_PERF_BLOCK_END_WITH_INDICATOR(
         frame->data_provider->sensor_name(), "LanePostprocessor3D");
+    
+    AINFO <<"(pengzi)lane post processor 3d.thread:"<<std::this_thread::get_id();
+   
 
     if (write_out_lane_file_) {
       std::string lane_file_path =
           out_lane_dir_ + "/" + std::to_string(frame->frame_id) + ".txt";
       WriteLanelines(write_out_lane_file_, lane_file_path, frame->lane_objects);
+       
+    AINFO <<"(pengzi)write lane camera perception result to: "<<lane_file_path<<" thread:"<<std::this_thread::get_id();
+  
     }
   } else {
     AINFO << "Skip lane detection & calibration due to sensor mismatch.";
@@ -238,6 +266,8 @@ bool LaneCameraPerception::Perception(const CameraPerceptionOptions &options,
     frame->calibration_service->Update(frame);
     PERCEPTION_PERF_BLOCK_END_WITH_INDICATOR(
         frame->data_provider->sensor_name(), "CalibrationService");
+    AINFO <<"(pengzi)use service sync from obstacle camera instead.thread: "<<std::this_thread::get_id();
+   
   }
 
   if (write_out_calib_file_) {
@@ -245,6 +275,7 @@ bool LaneCameraPerception::Perception(const CameraPerceptionOptions &options,
         out_calib_dir_ + "/" + std::to_string(frame->frame_id) + ".txt";
     WriteCalibrationOutput(write_out_calib_file_, calib_file_path, frame);
   }
+  AINFO <<"(pengzi))Finish lane camera perception.thread:"<< std::this_thread::get_id();
   return true;
 }
 }  // namespace camera

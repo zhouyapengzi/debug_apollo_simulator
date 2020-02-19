@@ -25,6 +25,9 @@ namespace camera {
 void get_intersect_bbox(const NormalizedBBox &bbox1,
                         const NormalizedBBox &bbox2,
                         NormalizedBBox *intersect_bbox) {
+
+  AINFO<<"(pengzi). get_intersect_bbox" << std::this_thread::get_id();
+
   if (bbox2.xmin > bbox1.xmax || bbox2.xmax < bbox1.xmin ||
       bbox2.ymin > bbox1.ymax || bbox2.ymax < bbox1.ymin) {
     // Return [0, 0, 0, 0] if there is no intersection.
@@ -41,6 +44,7 @@ void get_intersect_bbox(const NormalizedBBox &bbox1,
 }
 
 float get_bbox_size(const NormalizedBBox &bbox) {
+  AINFO<<"(pengzi). get bbox size" << std::this_thread::get_id();
   if (bbox.xmax < bbox.xmin || bbox.ymax < bbox.ymin) {
     // If bbox is invalid (e.g. xmax < xmin or ymax < ymin), return 0.
     return 0;
@@ -78,6 +82,7 @@ void get_max_score_index(const std::vector<float> &scores,
                          const float threshold, const int top_k,
                          std::vector<std::pair<float, int> > *score_index_vec) {
   // Generate index score pairs.
+  AINFO<<"(pengzi). Generate index score pairs. thread: " << std::this_thread::get_id();
   for (int i = 0; i < static_cast<int>(scores.size()); ++i) {
     if (scores[i] > threshold) {
       score_index_vec->push_back(std::make_pair(scores[i], i));

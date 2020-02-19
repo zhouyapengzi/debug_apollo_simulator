@@ -16,6 +16,7 @@
 #include "modules/perception/camera/lib/traffic_light/detector/recognition/recognition.h"
 
 #include "cyber/common/file.h"
+#include <thread>
 
 namespace apollo {
 namespace perception {
@@ -23,6 +24,9 @@ namespace camera {
 
 bool TrafficLightRecognition::Init(
     const TrafficLightDetectorInitOptions& options) {
+
+  AINFO << "(pengzi) in method : TrafficLightRecognition::Init(
+    const TrafficLightDetectorInitOptions& options) .thread: "<<std::this_thread::get_id();
   std::string proto_path =
       cyber::common::GetAbsolutePath(options.root_dir, options.conf_file);
 
@@ -31,6 +35,10 @@ bool TrafficLightRecognition::Init(
     AINFO << "load proto param failed, root dir: " << options.root_dir;
     return false;
   }
+
+  AINFO << "(pengzi) load proto param for traffic light detector classify. proto path:"
+        <<proto_path
+        << " thread: "<<std::this_thread::get_id();  
 
   classify_quadrate_.reset(new ClassifyBySimple);
   classify_vertical_.reset(new ClassifyBySimple);
@@ -48,6 +56,10 @@ bool TrafficLightRecognition::Init(
 
 bool TrafficLightRecognition::Detect(const TrafficLightDetectorOptions& options,
                                      CameraFrame* frame) {
+
+  AINFO << "(pengzi) in method : TrafficLightRecognition::Detect(const TrafficLightDetectorOptions& options,
+                                     CameraFrame* frame) .thread: "<<std::this_thread::get_id();
+
   std::vector<base::TrafficLightPtr> candidate(1);
 
   for (base::TrafficLightPtr light : frame->traffic_lights) {
