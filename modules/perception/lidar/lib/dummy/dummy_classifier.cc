@@ -21,11 +21,13 @@ namespace perception {
 namespace lidar {
 
 bool DummyClassifier::Init(const ClassifierInitOptions& options) {
+AINFO<<"(DMCZP) EnteringMethod: DummyClassifier::Init";
   return true;
 }
 
 bool DummyClassifier::Classify(const ClassifierOptions& options,
                                LidarFrame* frame) {
+AINFO<<"(DMCZP) EnteringMethod: DummyClassifier::Classify";
   return true;
 }
 

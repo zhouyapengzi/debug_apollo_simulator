@@ -21,6 +21,7 @@ namespace cyber {
 namespace transport {
 
 QosProfileConf::QosProfileConf() {}
+AINFO<<"(DMCZP) EnteringMethod: QosProfileConf::QosProfileConf";
 
 QosProfileConf::~QosProfileConf() {}
 
@@ -28,6 +29,7 @@ QosProfile QosProfileConf::CreateQosProfile(
     const QosHistoryPolicy& history, uint32_t depth, uint32_t mps,
     const QosReliabilityPolicy& reliability,
     const QosDurabilityPolicy& durability) {
+AINFO<<"(DMCZP) EnteringMethod: QosProfileConf::CreateQosProfile";
   QosProfile qos_profile;
   qos_profile.set_history(history);
   qos_profile.set_depth(depth);

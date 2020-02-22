@@ -26,6 +26,7 @@ namespace apollo {
 namespace control {
 
 double PIDICController::Control(const double error, const double dt) {
+AINFO<<"(DMCZP) EnteringMethod: PIDICController::Control";
   if (dt <= 0) {
     AWARN << "dt <= 0, will use the last output";
     return previous_output_;
@@ -70,6 +71,7 @@ double PIDICController::Control(const double error, const double dt) {
 }
 
 int PIDICController::OutputSaturationStatus() {
+AINFO<<"(DMCZP) EnteringMethod: PIDICController::OutputSaturationStatus";
   return output_saturation_status_;
 }
 

@@ -26,8 +26,10 @@ namespace msf {
  */
 NdtMapNodePool::NdtMapNodePool(unsigned int pool_size, unsigned int thread_size)
     : BaseMapNodePool(pool_size, thread_size) {}
+AINFO<<"(DMCZP) EnteringMethod: NdtMapNodePool::NdtMapNodePool";
 
 BaseMapNode* NdtMapNodePool::AllocNewMapNode() { return new NdtMapNode(); }
+AINFO<<"(DMCZP) EnteringMethod: NdtMapNodePool::AllocNewMapNode";
 
 }  // namespace msf
 }  // namespace localization

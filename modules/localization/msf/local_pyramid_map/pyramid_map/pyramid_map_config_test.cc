@@ -19,6 +19,7 @@
 #include "modules/localization/msf/local_map/base_map/base_map_config.h"
 
 int main(int argc, char** argv) {
+AINFO<<"(DMCZP) EnteringMethod: main";
   testing::InitGoogleTest(&argc, argv);
   return RUN_ALL_TESTS();
 }
@@ -28,6 +29,7 @@ namespace localization {
 namespace msf {
 
 TEST(PyramidMapConfigTestSuite, base_config_method) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   PyramidMapConfig config("lossy_full_alt");
   // case 1: no config file
   // std::string config_file = "pyramid_map_config_error.xml";

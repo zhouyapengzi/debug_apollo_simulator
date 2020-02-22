@@ -25,6 +25,7 @@ namespace localization {
 namespace msf {
 
 BaseMapConfig::BaseMapConfig(std::string map_version) {
+AINFO<<"(DMCZP) EnteringMethod: BaseMapConfig::BaseMapConfig";
   map_resolutions_.push_back(0.125);  // Resolution: 0.125m in level 2
   map_node_size_x_ = 1024;            // in pixels
   map_node_size_y_ = 1024;            // in pixels
@@ -35,6 +36,7 @@ BaseMapConfig::BaseMapConfig(std::string map_version) {
 }
 
 bool BaseMapConfig::Save(const std::string file_path) {
+AINFO<<"(DMCZP) EnteringMethod: BaseMapConfig::Save";
   boost::property_tree::ptree config;
   CreateXml(&config);
   boost::property_tree::write_xml(file_path, config);
@@ -43,6 +45,7 @@ bool BaseMapConfig::Save(const std::string file_path) {
 }
 
 bool BaseMapConfig::Load(const std::string file_path) {
+AINFO<<"(DMCZP) EnteringMethod: BaseMapConfig::Load";
   boost::property_tree::ptree config;
   boost::property_tree::read_xml(file_path, config);
 
@@ -59,6 +62,7 @@ bool BaseMapConfig::Load(const std::string file_path) {
 }
 
 void BaseMapConfig::CreateXml(boost::property_tree::ptree* config) const {
+AINFO<<"(DMCZP) EnteringMethod: BaseMapConfig::CreateXml";
   config->put("map.map_config.version", map_version_);
   config->put("map.map_config.node_size.x", map_node_size_x_);
   config->put("map.map_config.node_size.y", map_node_size_y_);
@@ -80,6 +84,7 @@ void BaseMapConfig::CreateXml(boost::property_tree::ptree* config) const {
 }
 
 void BaseMapConfig::LoadXml(const boost::property_tree::ptree& config) {
+AINFO<<"(DMCZP) EnteringMethod: BaseMapConfig::LoadXml";
   map_resolutions_.clear();
   map_datasets_.clear();
   map_node_size_x_ = config.get<unsigned int>("map.map_config.node_size.x");
@@ -107,6 +112,7 @@ void BaseMapConfig::LoadXml(const boost::property_tree::ptree& config) {
 }
 
 void BaseMapConfig::ResizeMapRange() {
+AINFO<<"(DMCZP) EnteringMethod: BaseMapConfig::ResizeMapRange";
   double min_x = 0;
   double min_y = 0;
   double max_x = 0;
@@ -155,11 +161,13 @@ void BaseMapConfig::ResizeMapRange() {
 }
 
 void BaseMapConfig::SetSingleResolutions(float resolution) {
+AINFO<<"(DMCZP) EnteringMethod: BaseMapConfig::SetSingleResolutions";
   map_resolutions_.clear();
   map_resolutions_.push_back(resolution);
 }
 
 void BaseMapConfig::SetMultiResolutions() {
+AINFO<<"(DMCZP) EnteringMethod: BaseMapConfig::SetMultiResolutions";
   map_resolutions_.clear();
   map_resolutions_.push_back(0.03125);
   map_resolutions_.push_back(0.0625);

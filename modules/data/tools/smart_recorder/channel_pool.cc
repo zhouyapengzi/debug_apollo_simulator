@@ -24,6 +24,7 @@ namespace apollo {
 namespace data {
 
 ChannelPool::ChannelPool() {
+AINFO<<"(DMCZP) EnteringMethod: ChannelPool::ChannelPool";
   small_channels_ = {FLAGS_chassis_topic,
                      FLAGS_chassis_detail_topic,
                      FLAGS_control_command_topic,

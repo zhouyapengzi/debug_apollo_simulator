@@ -35,10 +35,12 @@ class Ge3VehicleFactoryTest : public ::testing::Test {
 };
 
 TEST_F(Ge3VehicleFactoryTest, InitVehicleController) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   EXPECT_NE(ge3_factory_.CreateVehicleController(), nullptr);
 }
 
 TEST_F(Ge3VehicleFactoryTest, InitMessageManager) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   EXPECT_NE(ge3_factory_.CreateMessageManager(), nullptr);
 }
 

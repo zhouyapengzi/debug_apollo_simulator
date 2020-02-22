@@ -28,19 +28,23 @@ const int32_t Adsshifter115::ID = 0x115;
 
 // public
 Adsshifter115::Adsshifter115() { Reset(); }
+AINFO<<"(DMCZP) EnteringMethod: Adsshifter115::Adsshifter115";
 
 uint32_t Adsshifter115::GetPeriod() const {
+AINFO<<"(DMCZP) EnteringMethod: Adsshifter115::GetPeriod";
   // TODO(ChaoMa) :modify every protocol's period manually
   static const uint32_t PERIOD = 20 * 1000;
   return PERIOD;
 }
 
 void Adsshifter115::UpdateData(uint8_t* data) {
+AINFO<<"(DMCZP) EnteringMethod: Adsshifter115::UpdateData";
   set_p_ads_shiftmode(data, ads_shiftmode_);
   set_p_ads_targetgear(data, ads_targetgear_);
 }
 
 void Adsshifter115::Reset() {
+AINFO<<"(DMCZP) EnteringMethod: Adsshifter115::Reset";
   // TODO(ChaoMa) :you should check this manually
   ads_shiftmode_ = Ads_shifter_115::ADS_SHIFTMODE_INVALID;
   ads_targetgear_ = Ads_shifter_115::ADS_TARGETGEAR_N;
@@ -48,6 +52,7 @@ void Adsshifter115::Reset() {
 
 Adsshifter115* Adsshifter115::set_ads_shiftmode(
     Ads_shifter_115::Ads_shiftmodeType ads_shiftmode) {
+AINFO<<"(DMCZP) EnteringMethod: Adsshifter115::set_ads_shiftmode";
   ads_shiftmode_ = ads_shiftmode;
   return this;
 }
@@ -59,6 +64,7 @@ Adsshifter115* Adsshifter115::set_ads_shiftmode(
 // 'physical_unit': ''}
 void Adsshifter115::set_p_ads_shiftmode(
     uint8_t* data, Ads_shifter_115::Ads_shiftmodeType ads_shiftmode) {
+AINFO<<"(DMCZP) EnteringMethod: Adsshifter115::set_p_ads_shiftmode";
   int x = ads_shiftmode;
 
   Byte to_set(data + 3);
@@ -67,6 +73,7 @@ void Adsshifter115::set_p_ads_shiftmode(
 
 Adsshifter115* Adsshifter115::set_ads_targetgear(
     Ads_shifter_115::Ads_targetgearType ads_targetgear) {
+AINFO<<"(DMCZP) EnteringMethod: Adsshifter115::set_ads_targetgear";
   ads_targetgear_ = ads_targetgear;
   return this;
 }
@@ -78,6 +85,7 @@ Adsshifter115* Adsshifter115::set_ads_targetgear(
 // 'type': 'enum', 'order': 'motorola', 'physical_unit': ''}
 void Adsshifter115::set_p_ads_targetgear(
     uint8_t* data, Ads_shifter_115::Ads_targetgearType ads_targetgear) {
+AINFO<<"(DMCZP) EnteringMethod: Adsshifter115::set_p_ads_targetgear";
   int x = ads_targetgear;
 
   Byte to_set(data + 4);

@@ -28,10 +28,12 @@ namespace gem {
 using ::apollo::drivers::canbus::Byte;
 
 Brakerpt6c::Brakerpt6c() {}
+AINFO<<"(DMCZP) EnteringMethod: Brakerpt6c::Brakerpt6c";
 const int32_t Brakerpt6c::ID = 0x6C;
 
 void Brakerpt6c::Parse(const std::uint8_t* bytes, int32_t length,
                        ChassisDetail* chassis) const {
+AINFO<<"(DMCZP) EnteringMethod: Brakerpt6c::Parse";
   chassis->mutable_gem()->mutable_brake_rpt_6c()->set_manual_input(
       manual_input(bytes, length));
   chassis->mutable_gem()->mutable_brake_rpt_6c()->set_commanded_value(
@@ -47,7 +49,9 @@ void Brakerpt6c::Parse(const std::uint8_t* bytes, int32_t length,
 // 'type': 'double', 'order': 'motorola', 'physical_unit': '%'}
 double Brakerpt6c::manual_input(const std::uint8_t* bytes,
                                 int32_t length) const {
+AINFO<<"(DMCZP) EnteringMethod: Brakerpt6c::manual_input";
   Byte t0(bytes + 0);
+AINFO<<"(DMCZP) EnteringMethod: Brakerpt6c::output_value";
   int32_t x = t0.get_byte(0, 8);
 
   Byte t1(bytes + 1);
@@ -64,6 +68,7 @@ double Brakerpt6c::manual_input(const std::uint8_t* bytes,
 // 'type': 'double', 'order': 'motorola', 'physical_unit': '%'}
 double Brakerpt6c::commanded_value(const std::uint8_t* bytes,
                                    int32_t length) const {
+AINFO<<"(DMCZP) EnteringMethod: Brakerpt6c::commanded_value";
   Byte t0(bytes + 2);
   int32_t x = t0.get_byte(0, 8);
 
@@ -99,6 +104,7 @@ double Brakerpt6c::output_value(const std::uint8_t* bytes,
 // 'motorola', 'physical_unit': ''}
 Brake_rpt_6c::Brake_on_offType Brakerpt6c::brake_on_off(
     const std::uint8_t* bytes, int32_t length) const {
+AINFO<<"(DMCZP) EnteringMethod: Brakerpt6c::brake_on_off";
   Byte t0(bytes + 6);
   int32_t x = t0.get_byte(0, 1);
 

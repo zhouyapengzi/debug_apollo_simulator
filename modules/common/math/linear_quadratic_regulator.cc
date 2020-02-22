@@ -30,6 +30,7 @@ using Matrix = Eigen::MatrixXd;
 void SolveLQRProblem(const Matrix &A, const Matrix &B, const Matrix &Q,
                      const Matrix &R, const double tolerance,
                      const uint max_num_iteration, Matrix *ptr_K) {
+AINFO<<"(DMCZP) EnteringMethod: SolveLQRProblem";
   if (A.rows() != A.cols() || B.rows() != A.rows() || Q.rows() != Q.cols() ||
       Q.rows() != A.rows() || R.rows() != R.cols() || R.rows() != B.cols()) {
     AERROR << "LQR solver: one or more matrices have incompatible dimensions.";

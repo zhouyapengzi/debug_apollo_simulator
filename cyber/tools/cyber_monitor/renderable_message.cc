@@ -20,6 +20,7 @@
 #include <ncurses.h>
 
 void RenderableMessage::SplitPages(int key) {
+AINFO<<"(DMCZP) EnteringMethod: RenderableMessage::SplitPages";
   switch (key) {
     case CTRL('d'):
     case KEY_NPAGE:

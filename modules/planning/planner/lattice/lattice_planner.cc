@@ -81,6 +81,7 @@ void ComputeInitFrenetState(const PathPoint& matched_point,
                             const TrajectoryPoint& cartesian_state,
                             std::array<double, 3>* ptr_s,
                             std::array<double, 3>* ptr_d) {
+AINFO<<"(DMCZP) EnteringMethod: ComputeInitFrenetState";
   CartesianFrenetConverter::cartesian_to_frenet(
       matched_point.s(), matched_point.x(), matched_point.y(),
       matched_point.theta(), matched_point.kappa(), matched_point.dkappa(),
@@ -95,6 +96,7 @@ void ComputeInitFrenetState(const PathPoint& matched_point,
 Status LatticePlanner::Plan(const TrajectoryPoint& planning_start_point,
                             Frame* frame,
                             ADCTrajectory* ptr_computed_trajectory) {
+AINFO<<"(DMCZP) EnteringMethod: LatticePlanner::Plan";
   size_t success_line_count = 0;
   size_t index = 0;
   for (auto& reference_line_info : *frame->mutable_reference_line_info()) {
@@ -130,6 +132,7 @@ Status LatticePlanner::Plan(const TrajectoryPoint& planning_start_point,
 Status LatticePlanner::PlanOnReferenceLine(
     const TrajectoryPoint& planning_init_point, Frame* frame,
     ReferenceLineInfo* reference_line_info) {
+AINFO<<"(DMCZP) EnteringMethod: LatticePlanner::PlanOnReferenceLine";
   static size_t num_planning_cycles = 0;
   static size_t num_planning_succeeded_cycles = 0;
 

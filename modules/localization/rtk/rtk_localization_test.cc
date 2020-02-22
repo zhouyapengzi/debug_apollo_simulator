@@ -41,6 +41,7 @@ class RTKLocalizationTest : public ::testing::Test {
 };
 
 TEST_F(RTKLocalizationTest, InterpolateIMU) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   // timestamp in between + time_diff is big enough(>0.001), interpolate
   {
     apollo::localization::CorrectedImu imu1;
@@ -117,6 +118,7 @@ TEST_F(RTKLocalizationTest, InterpolateIMU) {
 }
 
 TEST_F(RTKLocalizationTest, ComposeLocalizationMsg) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   {
     apollo::localization::Gps gps;
     load_data("modules/localization/testdata/3_gps_1.pb.txt", &gps);

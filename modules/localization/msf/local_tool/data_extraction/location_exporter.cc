@@ -27,6 +27,7 @@ namespace localization {
 namespace msf {
 
 LocationExporter::LocationExporter(const std::string &loc_file_folder) {
+AINFO<<"(DMCZP) EnteringMethod: LocationExporter::LocationExporter";
   gnss_loc_file_ = loc_file_folder + "/gnss_loc.txt";
   lidar_loc_file_ = loc_file_folder + "/lidar_loc.txt";
   fusion_loc_file_ = loc_file_folder + "/fusion_loc.txt";
@@ -71,6 +72,7 @@ LocationExporter::~LocationExporter() {
 }
 
 void LocationExporter::GnssLocCallback(const std::string &msg_string) {
+AINFO<<"(DMCZP) EnteringMethod: LocationExporter::GnssLocCallback";
   AINFO << "GNSS location callback.";
   LocalizationEstimate msg;
   msg.ParseFromString(msg_string);
@@ -99,6 +101,7 @@ void LocationExporter::GnssLocCallback(const std::string &msg_string) {
 }
 
 void LocationExporter::LidarLocCallback(const std::string &msg_string) {
+AINFO<<"(DMCZP) EnteringMethod: LocationExporter::LidarLocCallback";
   AINFO << "Lidar location callback.";
   LocalizationEstimate msg;
   msg.ParseFromString(msg_string);
@@ -132,6 +135,7 @@ void LocationExporter::LidarLocCallback(const std::string &msg_string) {
 }
 
 void LocationExporter::FusionLocCallback(const std::string &msg_string) {
+AINFO<<"(DMCZP) EnteringMethod: LocationExporter::FusionLocCallback";
   AINFO << "Fusion location callback.";
   LocalizationEstimate msg;
   msg.ParseFromString(msg_string);
@@ -165,6 +169,7 @@ void LocationExporter::FusionLocCallback(const std::string &msg_string) {
 }
 
 void LocationExporter::OdometryLocCallback(const std::string &msg_string) {
+AINFO<<"(DMCZP) EnteringMethod: LocationExporter::OdometryLocCallback";
   AINFO << "Odometry location callback.";
   Gps msg;
   msg.ParseFromString(msg_string);

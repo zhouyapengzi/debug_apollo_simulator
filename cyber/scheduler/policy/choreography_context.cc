@@ -60,6 +60,7 @@ std::shared_ptr<CRoutine> ChoreographyContext::NextRoutine() {
 }
 
 bool ChoreographyContext::Enqueue(const std::shared_ptr<CRoutine>& cr) {
+AINFO<<"(DMCZP) EnteringMethod: ChoreographyContext::Enqueue";
   PerfEventCache::Instance()->AddSchedEvent(SchedPerf::RT_CREATE, cr->id(),
                                             cr->processor_id());
   WriteLockGuard<AtomicRWLock> lock(rq_lk_);
@@ -68,6 +69,7 @@ bool ChoreographyContext::Enqueue(const std::shared_ptr<CRoutine>& cr) {
 }
 
 void ChoreographyContext::Notify() {
+AINFO<<"(DMCZP) EnteringMethod: ChoreographyContext::Notify";
   if (!notified_.test_and_set(std::memory_order_acquire)) {
     cv_wq_.notify_one();
     return;
@@ -75,11 +77,13 @@ void ChoreographyContext::Notify() {
 }
 
 void ChoreographyContext::Wait() {
+AINFO<<"(DMCZP) EnteringMethod: ChoreographyContext::Wait";
   std::unique_lock<std::mutex> lk(mtx_wq_);
   cv_wq_.wait_for(lk, std::chrono::milliseconds(1));
 }
 
 void ChoreographyContext::RemoveCRoutine(uint64_t crid) {
+AINFO<<"(DMCZP) EnteringMethod: ChoreographyContext::RemoveCRoutine";
   WriteLockGuard<AtomicRWLock> lock(rq_lk_);
   for (auto it = cr_queue_.begin(); it != cr_queue_.end();) {
     auto cr = it->second;

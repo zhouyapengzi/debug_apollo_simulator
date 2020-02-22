@@ -23,6 +23,7 @@ namespace cyber {
 namespace message {
 
 TEST(MessageHeaderTest, magic_num) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   MessageHeader header;
   EXPECT_FALSE(header.is_magic_num_match(nullptr, 0));
   EXPECT_FALSE(header.is_magic_num_match("ABCD", 4));
@@ -32,6 +33,7 @@ TEST(MessageHeaderTest, magic_num) {
 }
 
 TEST(MessageHeaderTest, seq) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   MessageHeader header;
   EXPECT_EQ(header.seq(), 0);
   header.set_seq(0xffffffff00000001UL);
@@ -41,6 +43,7 @@ TEST(MessageHeaderTest, seq) {
 }
 
 TEST(MessageHeaderTest, timestamp_ns) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   MessageHeader header;
   EXPECT_EQ(header.timestamp_ns(), 0);
   header.set_timestamp_ns(0xffffffff00000001UL);
@@ -50,6 +53,7 @@ TEST(MessageHeaderTest, timestamp_ns) {
 }
 
 TEST(MessageHeaderTest, src_id) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   MessageHeader header;
   EXPECT_EQ(header.src_id(), 0);
   header.set_src_id(0xffffffff00000001UL);
@@ -59,6 +63,7 @@ TEST(MessageHeaderTest, src_id) {
 }
 
 TEST(MessageHeaderTest, dst_id) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   MessageHeader header;
   EXPECT_EQ(header.dst_id(), 0);
   header.set_dst_id(0xffffffff00000001UL);
@@ -68,6 +73,7 @@ TEST(MessageHeaderTest, dst_id) {
 }
 
 TEST(MessageHeaderTest, msg_type) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   MessageHeader header;
   std::string msg_type = header.msg_type();
   EXPECT_TRUE(msg_type.empty());
@@ -80,6 +86,7 @@ TEST(MessageHeaderTest, msg_type) {
 }
 
 TEST(MessageHeaderTest, content_size) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   MessageHeader header;
   EXPECT_EQ(header.content_size(), 0);
   header.set_content_size(0xffff0001);

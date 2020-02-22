@@ -42,6 +42,7 @@ class JunctionPredictorTest : public KMLMapBasedTest {
 };
 
 TEST_F(JunctionPredictorTest, InJunctionCase) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   EXPECT_DOUBLE_EQ(perception_obstacles_.header().timestamp_sec(),
                    1501183430.161906);
   apollo::perception::PerceptionObstacle perception_obstacle =

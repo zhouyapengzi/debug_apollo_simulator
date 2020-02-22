@@ -32,10 +32,12 @@ namespace planning {
 
 Spline1dKernel::Spline1dKernel(const Spline1d& spline1d)
     : Spline1dKernel(spline1d.x_knots(), spline1d.spline_order()) {}
+AINFO<<"(DMCZP) EnteringMethod: Spline1dKernel::Spline1dKernel";
 
 Spline1dKernel::Spline1dKernel(const std::vector<double>& x_knots,
                                const uint32_t spline_order)
     : x_knots_(x_knots), spline_order_(spline_order) {
+AINFO<<"(DMCZP) EnteringMethod: Spline1dKernel::Spline1dKernel";
   total_params_ =
       (static_cast<uint32_t>(x_knots.size()) > 1
            ? (static_cast<uint32_t>(x_knots.size()) - 1) * (1 + spline_order_)
@@ -45,6 +47,7 @@ Spline1dKernel::Spline1dKernel(const std::vector<double>& x_knots,
 }
 
 void Spline1dKernel::AddRegularization(const double regularized_param) {
+AINFO<<"(DMCZP) EnteringMethod: Spline1dKernel::AddRegularization";
   Eigen::MatrixXd id_matrix =
       Eigen::MatrixXd::Identity(kernel_matrix_.rows(), kernel_matrix_.cols());
   kernel_matrix_ += 2.0 * id_matrix * regularized_param;
@@ -53,6 +56,8 @@ void Spline1dKernel::AddRegularization(const double regularized_param) {
 bool Spline1dKernel::AddKernel(const Eigen::MatrixXd& kernel,
                                const Eigen::MatrixXd& offset,
                                const double weight) {
+AINFO<<"(DMCZP) EnteringMethod: Spline1dKernel::AddKernel";
+AINFO<<"(DMCZP) EnteringMethod: Spline1dKernel::AddKernel";
   if (kernel.rows() != kernel.cols() ||
       kernel.rows() != kernel_matrix_.rows() || offset.cols() != 1 ||
       offset.rows() != offset_.rows()) {
@@ -70,20 +75,25 @@ bool Spline1dKernel::AddKernel(const Eigen::MatrixXd& kernel,
 }
 
 Eigen::MatrixXd* Spline1dKernel::mutable_kernel_matrix() {
+AINFO<<"(DMCZP) EnteringMethod: Spline1dKernel::mutable_kernel_matrix";
   return &kernel_matrix_;
 }
 
 Eigen::MatrixXd* Spline1dKernel::mutable_offset() { return &offset_; }
+AINFO<<"(DMCZP) EnteringMethod: Spline1dKernel::mutable_offset";
 
 const Eigen::MatrixXd& Spline1dKernel::kernel_matrix() const {
+AINFO<<"(DMCZP) EnteringMethod: Spline1dKernel::kernel_matrix";
   return kernel_matrix_;
 }
 
 const Eigen::MatrixXd& Spline1dKernel::offset() const { return offset_; }
+AINFO<<"(DMCZP) EnteringMethod: Spline1dKernel::offset";
 
 // build-in kernel methods
 void Spline1dKernel::AddNthDerivativekernelMatrix(const uint32_t n,
                                                   const double weight) {
+AINFO<<"(DMCZP) EnteringMethod: Spline1dKernel::AddNthDerivativekernelMatrix";
   const uint32_t num_params = spline_order_ + 1;
   for (uint32_t i = 0; i + 1 < x_knots_.size(); ++i) {
     Eigen::MatrixXd cur_kernel =
@@ -97,19 +107,23 @@ void Spline1dKernel::AddNthDerivativekernelMatrix(const uint32_t n,
 }
 
 void Spline1dKernel::AddDerivativeKernelMatrix(const double weight) {
+AINFO<<"(DMCZP) EnteringMethod: Spline1dKernel::AddDerivativeKernelMatrix";
   AddNthDerivativekernelMatrix(1, weight);
 }
 
 void Spline1dKernel::AddSecondOrderDerivativeMatrix(const double weight) {
+AINFO<<"(DMCZP) EnteringMethod: Spline1dKernel::AddSecondOrderDerivativeMatrix";
   AddNthDerivativekernelMatrix(2, weight);
 }
 
 void Spline1dKernel::AddThirdOrderDerivativeMatrix(const double weight) {
+AINFO<<"(DMCZP) EnteringMethod: Spline1dKernel::AddThirdOrderDerivativeMatrix";
   AddNthDerivativekernelMatrix(3, weight);
 }
 
 void Spline1dKernel::AddNthDerivativekernelMatrixForSplineK(
     const uint32_t n, const uint32_t k, const double weight) {
+AINFO<<"(DMCZP) EnteringMethod: Spline1dKernel::AddNthDerivativekernelMatrixForSplineK";
   if (k + 1 >= x_knots_.size()) {
     AERROR << "Cannot add NthDerivativeKernel for spline K because k is out of "
               "range. k = "
@@ -128,11 +142,14 @@ void Spline1dKernel::AddNthDerivativekernelMatrixForSplineK(
 
 void Spline1dKernel::AddDerivativeKernelMatrixForSplineK(const uint32_t k,
                                                          const double weight) {
+AINFO<<"(DMCZP) EnteringMethod: Spline1dKernel::AddDerivativeKernelMatrixForSplineK";
   AddNthDerivativekernelMatrixForSplineK(1, k, weight);
 }
 
 void Spline1dKernel::AddSecondOrderDerivativeMatrixForSplineK(
     const uint32_t k, const double weight) {
+AINFO<<"(DMCZP) EnteringMethod: Spline1dKernel::AddSecondOrderDerivativeMatrixForSplineK";
+AINFO<<"(DMCZP) EnteringMethod: Spline1dKernel::AddThirdOrderDerivativeMatrixForSplineK";
   AddNthDerivativekernelMatrixForSplineK(2, k, weight);
 }
 
@@ -144,6 +161,7 @@ void Spline1dKernel::AddThirdOrderDerivativeMatrixForSplineK(
 bool Spline1dKernel::AddReferenceLineKernelMatrix(
     const std::vector<double>& x_coord, const std::vector<double>& ref_x,
     const double weight) {
+AINFO<<"(DMCZP) EnteringMethod: Spline1dKernel::AddReferenceLineKernelMatrix";
   if (ref_x.size() != x_coord.size()) {
     return false;
   }
@@ -181,6 +199,7 @@ bool Spline1dKernel::AddReferenceLineKernelMatrix(
 }
 
 uint32_t Spline1dKernel::FindIndex(const double x) const {
+AINFO<<"(DMCZP) EnteringMethod: Spline1dKernel::FindIndex";
   auto upper_bound = std::upper_bound(x_knots_.begin() + 1, x_knots_.end(), x);
   return std::min(static_cast<uint32_t>(x_knots_.size() - 1),
                   static_cast<uint32_t>(upper_bound - x_knots_.begin())) -
@@ -188,6 +207,7 @@ uint32_t Spline1dKernel::FindIndex(const double x) const {
 }
 
 void Spline1dKernel::AddDistanceOffset(const double weight) {
+AINFO<<"(DMCZP) EnteringMethod: Spline1dKernel::AddDistanceOffset";
   for (uint32_t i = 1; i < x_knots_.size(); ++i) {
     const double cur_x = x_knots_[i] - x_knots_[i - 1];
     double pw_x = 2.0 * weight;

@@ -23,10 +23,12 @@ namespace cyber {
 namespace record {
 
 RecordFileReader::RecordFileReader() : end_of_file_(false) {}
+AINFO<<"(DMCZP) EnteringMethod: RecordFileReader::RecordFileReader";
 
 RecordFileReader::~RecordFileReader() {}
 
 bool RecordFileReader::Open(const std::string& path) {
+AINFO<<"(DMCZP) EnteringMethod: RecordFileReader::Open";
   std::lock_guard<std::mutex> lock(mutex_);
   path_ = path;
   if (!::apollo::cyber::common::PathExists(path_)) {
@@ -48,8 +50,10 @@ bool RecordFileReader::Open(const std::string& path) {
 }
 
 void RecordFileReader::Close() { close(fd_); }
+AINFO<<"(DMCZP) EnteringMethod: RecordFileReader::Close";
 
 bool RecordFileReader::Reset() {
+AINFO<<"(DMCZP) EnteringMethod: RecordFileReader::Reset";
   if (!SetPosition(sizeof(struct Section) + HEADER_LENGTH)) {
     AERROR << "Reset position fail, file: " << path_;
     return false;
@@ -59,6 +63,7 @@ bool RecordFileReader::Reset() {
 }
 
 bool RecordFileReader::ReadHeader() {
+AINFO<<"(DMCZP) EnteringMethod: RecordFileReader::ReadHeader";
   Section section;
   if (!ReadSection(&section)) {
     AERROR << "Read header section fail, file is broken or it is not a record "
@@ -84,6 +89,7 @@ bool RecordFileReader::ReadHeader() {
 }
 
 bool RecordFileReader::ReadIndex() {
+AINFO<<"(DMCZP) EnteringMethod: RecordFileReader::ReadIndex";
   if (!header_.is_complete()) {
     AERROR << "Record file is not complete.";
     return false;
@@ -112,6 +118,7 @@ bool RecordFileReader::ReadIndex() {
 }
 
 bool RecordFileReader::ReadSection(Section* section) {
+AINFO<<"(DMCZP) EnteringMethod: RecordFileReader::ReadSection";
   ssize_t count = read(fd_, section, sizeof(struct Section));
   if (count < 0) {
     AERROR << "Read fd failed, fd_: " << fd_ << ", errno: " << errno;
@@ -130,6 +137,7 @@ bool RecordFileReader::ReadSection(Section* section) {
 }
 
 bool RecordFileReader::SkipSection(int64_t size) {
+AINFO<<"(DMCZP) EnteringMethod: RecordFileReader::SkipSection";
   int64_t pos = CurrentPosition();
   if (size > INT64_MAX - pos) {
     AERROR << "Current position plus skip count is larger than INT64_MAX, "

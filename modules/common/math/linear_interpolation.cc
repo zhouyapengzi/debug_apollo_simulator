@@ -27,6 +27,7 @@ namespace math {
 
 double slerp(const double a0, const double t0, const double a1, const double t1,
              const double t) {
+AINFO<<"(DMCZP) EnteringMethod: slerp";
   if (std::abs(t1 - t0) <= kMathEpsilon) {
     ADEBUG << "input time difference is too small";
     return NormalizeAngle(a0);
@@ -47,6 +48,7 @@ double slerp(const double a0, const double t0, const double a1, const double t1,
 
 SLPoint InterpolateUsingLinearApproximation(const SLPoint &p0,
                                             const SLPoint &p1, const double w) {
+AINFO<<"(DMCZP) EnteringMethod: InterpolateUsingLinearApproximation";
   CHECK_GE(w, 0.0);
 
   SLPoint p;
@@ -58,6 +60,7 @@ SLPoint InterpolateUsingLinearApproximation(const SLPoint &p0,
 PathPoint InterpolateUsingLinearApproximation(const PathPoint &p0,
                                               const PathPoint &p1,
                                               const double s) {
+AINFO<<"(DMCZP) EnteringMethod: InterpolateUsingLinearApproximation";
   double s0 = p0.s();
   double s1 = p1.s();
 
@@ -82,6 +85,7 @@ PathPoint InterpolateUsingLinearApproximation(const PathPoint &p0,
 TrajectoryPoint InterpolateUsingLinearApproximation(const TrajectoryPoint &tp0,
                                                     const TrajectoryPoint &tp1,
                                                     const double t) {
+AINFO<<"(DMCZP) EnteringMethod: InterpolateUsingLinearApproximation";
   if (!tp0.has_path_point() || !tp1.has_path_point()) {
     TrajectoryPoint p;
     p.mutable_path_point()->CopyFrom(PathPoint());

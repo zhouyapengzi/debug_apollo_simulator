@@ -57,9 +57,11 @@ using LaneType = ReferenceLineInfo::LaneType;
 
 PathBoundsDecider::PathBoundsDecider(const TaskConfig& config)
     : Decider(config) {}
+AINFO<<"(DMCZP) EnteringMethod: PathBoundsDecider::PathBoundsDecider";
 
 Status PathBoundsDecider::Process(
     Frame* const frame, ReferenceLineInfo* const reference_line_info) {
+AINFO<<"(DMCZP) EnteringMethod: PathBoundsDecider::Process";
   // Sanity checks.
   CHECK_NOTNULL(frame);
   CHECK_NOTNULL(reference_line_info);
@@ -220,6 +222,7 @@ Status PathBoundsDecider::Process(
 
 void PathBoundsDecider::InitPathBoundsDecider(
     const Frame& frame, const ReferenceLineInfo& reference_line_info) {
+AINFO<<"(DMCZP) EnteringMethod: PathBoundsDecider::InitPathBoundsDecider";
   const ReferenceLine& reference_line = reference_line_info.reference_line();
   const common::TrajectoryPoint& planning_start_point =
       frame.PlanningStartPoint();
@@ -261,6 +264,7 @@ std::string PathBoundsDecider::GenerateRegularPathBound(
     const LaneBorrowInfo lane_borrow_info, PathBound* const path_bound,
     std::string* const blocking_obstacle_id,
     std::string* const borrow_lane_type) {
+AINFO<<"(DMCZP) EnteringMethod: PathBoundsDecider::GenerateRegularPathBound";
   // 1. Initialize the path boundaries to be an indefinitely large area.
   if (!InitPathBoundary(reference_line_info.reference_line(), path_bound)) {
     const std::string msg = "Failed to initialize path boundaries.";
@@ -310,6 +314,7 @@ std::string PathBoundsDecider::GenerateRegularPathBound(
 std::string PathBoundsDecider::GeneratePullOverPathBound(
     const Frame& frame, const ReferenceLineInfo& reference_line_info,
     PathBound* const path_bound) {
+AINFO<<"(DMCZP) EnteringMethod: PathBoundsDecider::GeneratePullOverPathBound";
   // 1. Initialize the path boundaries to be an indefinitely large area.
   if (!InitPathBoundary(reference_line_info.reference_line(), path_bound)) {
     const std::string msg = "Failed to initialize path boundaries.";
@@ -420,12 +425,15 @@ std::string PathBoundsDecider::GeneratePullOverPathBound(
 
 std::string PathBoundsDecider::GenerateFallbackPathBound(
     const ReferenceLineInfo& reference_line_info, PathBound* const path_bound) {
+AINFO<<"(DMCZP) EnteringMethod: PathBoundsDecider::GenerateFallbackPathBound";
   // 1. Initialize the path boundaries to be an indefinitely large area.
   if (!InitPathBoundary(reference_line_info.reference_line(), path_bound)) {
     const std::string msg = "Failed to initialize fallback path boundaries.";
     AERROR << msg;
     return msg;
+AINFO<<"(DMCZP) EnteringMethod: PathBoundsDecider::GetBoundaryFromRoads";
   }
+AINFO<<"(DMCZP) EnteringMethod: PathBoundsDecider::ConvertBoundaryAxesFromLaneCenterToRefLine";
   // PathBoundsDebugString(*path_bound);
 
   // 2. Decide a rough boundary based on lane info and ADC's position
@@ -449,6 +457,7 @@ int PathBoundsDecider::IsPointWithinPathBound(
     const ReferenceLineInfo& reference_line_info, const double x,
     const double y,
     const std::vector<std::tuple<double, double, double>>& path_bound) {
+AINFO<<"(DMCZP) EnteringMethod: PathBoundsDecider::IsPointWithinPathBound";
   common::SLPoint point_sl;
   reference_line_info.reference_line().XYToSL({x, y}, &point_sl);
   if (point_sl.s() > std::get<0>(path_bound.back()) ||
@@ -482,6 +491,7 @@ bool PathBoundsDecider::SearchPullOverPosition(
     const Frame& frame, const ReferenceLineInfo& reference_line_info,
     const std::vector<std::tuple<double, double, double>>& path_bound,
     std::tuple<double, double, double, int>* const pull_over_configuration) {
+AINFO<<"(DMCZP) EnteringMethod: PathBoundsDecider::SearchPullOverPosition";
   // destination_s based on routing_end
   const auto& reference_line = reference_line_info_->reference_line();
   common::SLPoint destination_sl;
@@ -612,6 +622,7 @@ bool PathBoundsDecider::SearchPullOverPosition(
 
 void PathBoundsDecider::RemoveRedundantPathBoundaries(
     std::vector<PathBoundary>* const candidate_path_boundaries) {
+AINFO<<"(DMCZP) EnteringMethod: PathBoundsDecider::RemoveRedundantPathBoundaries";
   // 1. Check to see if both "left" and "right" exist.
   bool is_left_exist = false;
   std::vector<std::pair<double, double>> left_boundary;
@@ -662,6 +673,7 @@ void PathBoundsDecider::RemoveRedundantPathBoundaries(
 bool PathBoundsDecider::IsContained(
     const std::vector<std::pair<double, double>>& lhs,
     const std::vector<std::pair<double, double>>& rhs) {
+AINFO<<"(DMCZP) EnteringMethod: PathBoundsDecider::IsContained";
   if (lhs.size() > rhs.size()) {
     return false;
   }
@@ -678,6 +690,7 @@ bool PathBoundsDecider::IsContained(
 
 bool PathBoundsDecider::InitPathBoundary(const ReferenceLine& reference_line,
                                          PathBound* const path_bound) {
+AINFO<<"(DMCZP) EnteringMethod: PathBoundsDecider::InitPathBoundary";
   // Sanity checks.
   CHECK_NOTNULL(path_bound);
   path_bound->clear();
@@ -759,6 +772,7 @@ bool PathBoundsDecider::GetBoundaryFromLanesAndADC(
     const ReferenceLineInfo& reference_line_info,
     const LaneBorrowInfo lane_borrow_info, double ADC_buffer,
     PathBound* const path_bound, std::string* const borrow_lane_type) {
+AINFO<<"(DMCZP) EnteringMethod: PathBoundsDecider::GetBoundaryFromLanesAndADC";
   // Sanity checks.
   CHECK_NOTNULL(path_bound);
   CHECK(!path_bound->empty());
@@ -902,6 +916,7 @@ void PathBoundsDecider::ConvertBoundaryAxesFromLaneCenterToRefLine(
 bool PathBoundsDecider::GetBoundaryFromStaticObstacles(
     const PathDecision& path_decision, PathBound* const path_boundaries,
     std::string* const blocking_obstacle_id) {
+AINFO<<"(DMCZP) EnteringMethod: PathBoundsDecider::GetBoundaryFromStaticObstacles";
   // Preprocessing.
   auto indexed_obstacles = path_decision.obstacles();
   auto sorted_obstacles = SortObstaclesForSweepLine(indexed_obstacles);
@@ -1274,6 +1289,7 @@ std::vector<std::vector<bool>> PathBoundsDecider::DecidePassDirections(
 }
 
 double PathBoundsDecider::GetBufferBetweenADCCenterAndEdge() {
+AINFO<<"(DMCZP) EnteringMethod: PathBoundsDecider::GetBufferBetweenADCCenterAndEdge";
   double adc_half_width =
       VehicleConfigHelper::GetConfig().vehicle_param().width() / 2.0;
   // TODO(all): currently it's a fixed number. But it can take into account many
@@ -1286,6 +1302,7 @@ double PathBoundsDecider::GetBufferBetweenADCCenterAndEdge() {
 bool PathBoundsDecider::UpdatePathBoundaryAndCenterLine(
     size_t idx, double left_bound, double right_bound,
     PathBound* const path_boundaries, double* const center_line) {
+AINFO<<"(DMCZP) EnteringMethod: PathBoundsDecider::UpdatePathBoundaryAndCenterLine";
   // Update the right bound (l_min):
   double new_l_min =
       std::fmax(std::get<1>((*path_boundaries)[idx]),
@@ -1311,6 +1328,7 @@ bool PathBoundsDecider::UpdatePathBoundaryAndCenterLine(
 
 void PathBoundsDecider::TrimPathBounds(const int path_blocked_idx,
                                        PathBound* const path_boundaries) {
+AINFO<<"(DMCZP) EnteringMethod: PathBoundsDecider::TrimPathBounds";
   if (path_blocked_idx != -1) {
     if (path_blocked_idx == 0) {
       ADEBUG << "Completely blocked. Cannot move at all.";
@@ -1324,6 +1342,7 @@ void PathBoundsDecider::TrimPathBounds(const int path_blocked_idx,
 
 void PathBoundsDecider::PathBoundsDebugString(
     const PathBound& path_boundaries) {
+AINFO<<"(DMCZP) EnteringMethod: PathBoundsDecider::PathBoundsDebugString";
   for (size_t i = 0; i < path_boundaries.size(); ++i) {
     AWARN << "idx " << i << "; s = " << std::get<0>(path_boundaries[i])
           << "; l_min = " << std::get<1>(path_boundaries[i])

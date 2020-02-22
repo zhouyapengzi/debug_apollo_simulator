@@ -31,6 +31,7 @@ namespace math {
 namespace {
 
 bool IsWithin(double val, double bound1, double bound2) {
+AINFO<<"(DMCZP) EnteringMethod: IsWithin";
   if (bound1 > bound2) {
     std::swap(bound1, bound2);
   }
@@ -40,9 +41,11 @@ bool IsWithin(double val, double bound1, double bound2) {
 }  // namespace
 
 LineSegment2d::LineSegment2d() { unit_direction_ = Vec2d(1, 0); }
+AINFO<<"(DMCZP) EnteringMethod: LineSegment2d::LineSegment2d";
 
 LineSegment2d::LineSegment2d(const Vec2d &start, const Vec2d &end)
     : start_(start), end_(end) {
+AINFO<<"(DMCZP) EnteringMethod: LineSegment2d::LineSegment2d";
   const double dx = end_.x() - start_.x();
   const double dy = end_.y() - start_.y();
   length_ = hypot(dx, dy);
@@ -53,10 +56,13 @@ LineSegment2d::LineSegment2d(const Vec2d &start, const Vec2d &end)
 }
 
 double LineSegment2d::length() const { return length_; }
+AINFO<<"(DMCZP) EnteringMethod: LineSegment2d::length";
 
 double LineSegment2d::length_sqr() const { return length_ * length_; }
+AINFO<<"(DMCZP) EnteringMethod: LineSegment2d::length_sqr";
 
 double LineSegment2d::DistanceTo(const Vec2d &point) const {
+AINFO<<"(DMCZP) EnteringMethod: LineSegment2d::DistanceTo";
   if (length_ <= kMathEpsilon) {
     return point.DistanceTo(start_);
   }
@@ -74,6 +80,7 @@ double LineSegment2d::DistanceTo(const Vec2d &point) const {
 
 double LineSegment2d::DistanceTo(const Vec2d &point,
                                  Vec2d *const nearest_pt) const {
+AINFO<<"(DMCZP) EnteringMethod: LineSegment2d::DistanceTo";
   CHECK_NOTNULL(nearest_pt);
   if (length_ <= kMathEpsilon) {
     *nearest_pt = start_;
@@ -95,6 +102,7 @@ double LineSegment2d::DistanceTo(const Vec2d &point,
 }
 
 double LineSegment2d::DistanceSquareTo(const Vec2d &point) const {
+AINFO<<"(DMCZP) EnteringMethod: LineSegment2d::DistanceSquareTo";
   if (length_ <= kMathEpsilon) {
     return point.DistanceSquareTo(start_);
   }
@@ -112,6 +120,7 @@ double LineSegment2d::DistanceSquareTo(const Vec2d &point) const {
 
 double LineSegment2d::DistanceSquareTo(const Vec2d &point,
                                        Vec2d *const nearest_pt) const {
+AINFO<<"(DMCZP) EnteringMethod: LineSegment2d::DistanceSquareTo";
   CHECK_NOTNULL(nearest_pt);
   if (length_ <= kMathEpsilon) {
     *nearest_pt = start_;
@@ -133,6 +142,7 @@ double LineSegment2d::DistanceSquareTo(const Vec2d &point,
 }
 
 bool LineSegment2d::IsPointIn(const Vec2d &point) const {
+AINFO<<"(DMCZP) EnteringMethod: LineSegment2d::IsPointIn";
   if (length_ <= kMathEpsilon) {
     return std::abs(point.x() - start_.x()) <= kMathEpsilon &&
            std::abs(point.y() - start_.y()) <= kMathEpsilon;
@@ -146,20 +156,24 @@ bool LineSegment2d::IsPointIn(const Vec2d &point) const {
 }
 
 double LineSegment2d::ProjectOntoUnit(const Vec2d &point) const {
+AINFO<<"(DMCZP) EnteringMethod: LineSegment2d::ProjectOntoUnit";
   return unit_direction_.InnerProd(point - start_);
 }
 
 double LineSegment2d::ProductOntoUnit(const Vec2d &point) const {
+AINFO<<"(DMCZP) EnteringMethod: LineSegment2d::ProductOntoUnit";
   return unit_direction_.CrossProd(point - start_);
 }
 
 bool LineSegment2d::HasIntersect(const LineSegment2d &other_segment) const {
+AINFO<<"(DMCZP) EnteringMethod: LineSegment2d::HasIntersect";
   Vec2d point;
   return GetIntersect(other_segment, &point);
 }
 
 bool LineSegment2d::GetIntersect(const LineSegment2d &other_segment,
                                  Vec2d *const point) const {
+AINFO<<"(DMCZP) EnteringMethod: LineSegment2d::GetIntersect";
   CHECK_NOTNULL(point);
   if (IsPointIn(other_segment.start())) {
     *point = other_segment.start();
@@ -201,6 +215,7 @@ bool LineSegment2d::GetIntersect(const LineSegment2d &other_segment,
 // return distance with perpendicular foot point.
 double LineSegment2d::GetPerpendicularFoot(const Vec2d &point,
                                            Vec2d *const foot_point) const {
+AINFO<<"(DMCZP) EnteringMethod: LineSegment2d::GetPerpendicularFoot";
   CHECK_NOTNULL(foot_point);
   if (length_ <= kMathEpsilon) {
     *foot_point = start_;
@@ -214,6 +229,7 @@ double LineSegment2d::GetPerpendicularFoot(const Vec2d &point,
 }
 
 std::string LineSegment2d::DebugString() const {
+AINFO<<"(DMCZP) EnteringMethod: LineSegment2d::DebugString";
   return util::StrCat("segment2d ( start = ", start_.DebugString(),
                       "  end = ", end_.DebugString(), " )");
 }

@@ -25,10 +25,12 @@ namespace transport {
 
 SubListener::SubListener(const NewMsgCallback& callback)
     : callback_(callback) {}
+AINFO<<"(DMCZP) EnteringMethod: SubListener::SubListener";
 
 SubListener::~SubListener() {}
 
 void SubListener::onNewDataMessage(eprosima::fastrtps::Subscriber* sub) {
+AINFO<<"(DMCZP) EnteringMethod: SubListener::onNewDataMessage";
   RETURN_IF_NULL(sub);
   RETURN_IF_NULL(callback_);
   std::lock_guard<std::mutex> lock(mutex_);
@@ -68,6 +70,7 @@ void SubListener::onNewDataMessage(eprosima::fastrtps::Subscriber* sub) {
 void SubListener::onSubscriptionMatched(
     eprosima::fastrtps::Subscriber* sub,
     eprosima::fastrtps::MatchingInfo& info) {
+AINFO<<"(DMCZP) EnteringMethod: SubListener::onSubscriptionMatched";
   (void)sub;
   (void)info;
 }

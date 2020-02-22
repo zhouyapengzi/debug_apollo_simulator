@@ -32,6 +32,7 @@ constexpr double kMaxVariableRange = 1.0e10;
 PiecewiseJerkProblem::PiecewiseJerkProblem(
     const size_t num_of_knots, const double delta_s,
     const std::array<double, 3>& x_init) {
+AINFO<<"(DMCZP) EnteringMethod: PiecewiseJerkProblem::PiecewiseJerkProblem";
   CHECK_GE(num_of_knots, 2);
   num_of_knots_ = num_of_knots;
 
@@ -50,6 +51,7 @@ PiecewiseJerkProblem::PiecewiseJerkProblem(
 }
 
 OSQPData* PiecewiseJerkProblem::FormulateProblem() {
+AINFO<<"(DMCZP) EnteringMethod: PiecewiseJerkProblem::FormulateProblem";
   // calculate kernel
   std::vector<c_float> P_data;
   std::vector<c_int> P_indices;
@@ -89,6 +91,7 @@ OSQPData* PiecewiseJerkProblem::FormulateProblem() {
 }
 
 bool PiecewiseJerkProblem::Optimize(const int max_iter) {
+AINFO<<"(DMCZP) EnteringMethod: PiecewiseJerkProblem::Optimize";
   OSQPData* data = FormulateProblem();
 
   OSQPSettings* settings = SolverDefaultSettings();
@@ -136,6 +139,7 @@ void PiecewiseJerkProblem::CalculateAffineConstraint(
     std::vector<c_float>* A_data, std::vector<c_int>* A_indices,
     std::vector<c_int>* A_indptr, std::vector<c_float>* lower_bounds,
     std::vector<c_float>* upper_bounds) {
+AINFO<<"(DMCZP) EnteringMethod: PiecewiseJerkProblem::CalculateAffineConstraint";
   // 3N params bounds on x, x', x''
   // 3(N-1) constraints on x, x', x''
   // 3 constraints on x_init_
@@ -256,6 +260,7 @@ void PiecewiseJerkProblem::CalculateAffineConstraint(
 }
 
 OSQPSettings* PiecewiseJerkProblem::SolverDefaultSettings() {
+AINFO<<"(DMCZP) EnteringMethod: PiecewiseJerkProblem::SolverDefaultSettings";
   // Define Solver default settings
   OSQPSettings* settings =
       reinterpret_cast<OSQPSettings*>(c_malloc(sizeof(OSQPSettings)));
@@ -268,24 +273,28 @@ OSQPSettings* PiecewiseJerkProblem::SolverDefaultSettings() {
 
 void PiecewiseJerkProblem::set_x_bounds(
     std::vector<std::pair<double, double>> x_bounds) {
+AINFO<<"(DMCZP) EnteringMethod: PiecewiseJerkProblem::set_x_bounds";
   CHECK_EQ(x_bounds.size(), num_of_knots_);
   x_bounds_ = std::move(x_bounds);
 }
 
 void PiecewiseJerkProblem::set_dx_bounds(
     std::vector<std::pair<double, double>> dx_bounds) {
+AINFO<<"(DMCZP) EnteringMethod: PiecewiseJerkProblem::set_dx_bounds";
   CHECK_EQ(dx_bounds.size(), num_of_knots_);
   dx_bounds_ = std::move(dx_bounds);
 }
 
 void PiecewiseJerkProblem::set_ddx_bounds(
     std::vector<std::pair<double, double>> ddx_bounds) {
+AINFO<<"(DMCZP) EnteringMethod: PiecewiseJerkProblem::set_ddx_bounds";
   CHECK_EQ(ddx_bounds.size(), num_of_knots_);
   ddx_bounds_ = std::move(ddx_bounds);
 }
 
 void PiecewiseJerkProblem::set_x_bounds(const double x_lower_bound,
                                         const double x_upper_bound) {
+AINFO<<"(DMCZP) EnteringMethod: PiecewiseJerkProblem::set_x_bounds";
   for (auto& x : x_bounds_) {
     x.first = x_lower_bound;
     x.second = x_upper_bound;
@@ -294,6 +303,7 @@ void PiecewiseJerkProblem::set_x_bounds(const double x_lower_bound,
 
 void PiecewiseJerkProblem::set_dx_bounds(const double dx_lower_bound,
                                          const double dx_upper_bound) {
+AINFO<<"(DMCZP) EnteringMethod: PiecewiseJerkProblem::set_dx_bounds";
   for (auto& x : dx_bounds_) {
     x.first = dx_lower_bound;
     x.second = dx_upper_bound;
@@ -302,6 +312,7 @@ void PiecewiseJerkProblem::set_dx_bounds(const double dx_lower_bound,
 
 void PiecewiseJerkProblem::set_ddx_bounds(const double ddx_lower_bound,
                                           const double ddx_upper_bound) {
+AINFO<<"(DMCZP) EnteringMethod: PiecewiseJerkProblem::set_ddx_bounds";
   for (auto& x : ddx_bounds_) {
     x.first = ddx_lower_bound;
     x.second = ddx_upper_bound;
@@ -310,6 +321,7 @@ void PiecewiseJerkProblem::set_ddx_bounds(const double ddx_lower_bound,
 
 void PiecewiseJerkProblem::set_x_ref(const double weight_x_ref,
                                      std::vector<double> x_ref) {
+AINFO<<"(DMCZP) EnteringMethod: PiecewiseJerkProblem::set_x_ref";
   CHECK_EQ(x_ref.size(), num_of_knots_);
   weight_x_ref_ = weight_x_ref;
   x_ref_ = std::move(x_ref);
@@ -319,12 +331,14 @@ void PiecewiseJerkProblem::set_x_ref(const double weight_x_ref,
 void PiecewiseJerkProblem::set_end_state_ref(
     const std::array<double, 3>& weight_end_state,
     const std::array<double, 3>& end_state_ref) {
+AINFO<<"(DMCZP) EnteringMethod: PiecewiseJerkProblem::set_end_state_ref";
   weight_end_state_ = weight_end_state;
   end_state_ref_ = end_state_ref;
   has_end_state_ref_ = true;
 }
 
 void PiecewiseJerkProblem::FreeData(OSQPData* data) {
+AINFO<<"(DMCZP) EnteringMethod: PiecewiseJerkProblem::FreeData";
   delete[] data->q;
   delete[] data->l;
   delete[] data->u;

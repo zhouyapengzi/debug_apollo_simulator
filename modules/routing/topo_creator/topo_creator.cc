@@ -20,6 +20,7 @@
 #include "modules/routing/topo_creator/graph_creator.h"
 
 int main(int argc, char **argv) {
+AINFO<<"(DMCZP) EnteringMethod: main";
   google::InitGoogleLogging(argv[0]);
   google::ParseCommandLineFlags(&argc, &argv, true);
 

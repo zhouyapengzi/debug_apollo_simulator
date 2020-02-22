@@ -28,10 +28,12 @@ namespace wey {
 using ::apollo::drivers::canbus::Byte;
 
 Fbs2240::Fbs2240() {}
+AINFO<<"(DMCZP) EnteringMethod: Fbs2240::Fbs2240";
 const int32_t Fbs2240::ID = 0x240;
 
 void Fbs2240::Parse(const std::uint8_t* bytes, int32_t length,
                     ChassisDetail* chassis) const {
+AINFO<<"(DMCZP) EnteringMethod: Fbs2240::Parse";
   chassis->mutable_wey()->mutable_fbs2_240()->set_flwheeldirection(
       flwheeldirection(bytes, length));
   chassis->mutable_wey()->mutable_fbs2_240()->set_frwheelspd(
@@ -57,8 +59,11 @@ void Fbs2240::Parse(const std::uint8_t* bytes, int32_t length,
 // 'bit': 57, 'type': 'enum', 'order': 'motorola', 'physical_unit': ''}
 Fbs2_240::FlwheeldirectionType Fbs2240::flwheeldirection(
     const std::uint8_t* bytes, int32_t length) const {
+AINFO<<"(DMCZP) EnteringMethod: Fbs2240::flwheeldirection";
   Byte t0(bytes + 7);
+AINFO<<"(DMCZP) EnteringMethod: Fbs2240::rlwheeldrivedirection";
   int32_t x = t0.get_byte(0, 2);
+AINFO<<"(DMCZP) EnteringMethod: Fbs2240::rrwheeldirection";
 
   Fbs2_240::FlwheeldirectionType ret =
       static_cast<Fbs2_240::FlwheeldirectionType>(x);
@@ -70,6 +75,7 @@ Fbs2_240::FlwheeldirectionType Fbs2240::flwheeldirection(
 // 'is_signed_var': False, 'physical_range': '[0|299.98125]', 'bit': 7,
 // 'type': 'double', 'order': 'motorola', 'physical_unit': 'Km/h'}
 double Fbs2240::frwheelspd(const std::uint8_t* bytes, int32_t length) const {
+AINFO<<"(DMCZP) EnteringMethod: Fbs2240::frwheelspd";
   Byte t0(bytes + 0);
   int32_t x = t0.get_byte(0, 8);
 
@@ -103,6 +109,7 @@ Fbs2_240::RlwheeldrivedirectionType Fbs2240::rlwheeldrivedirection(
 // 'physical_range': '[0|299.98125]', 'bit': 23, 'type': 'double',
 // 'order': 'motorola', 'physical_unit': 'Km/h'}
 double Fbs2240::rlwheelspd(const std::uint8_t* bytes, int32_t length) const {
+AINFO<<"(DMCZP) EnteringMethod: Fbs2240::rlwheelspd";
   Byte t0(bytes + 2);
   int32_t x = t0.get_byte(0, 8);
 
@@ -136,6 +143,7 @@ Fbs2_240::RrwheeldirectionType Fbs2240::rrwheeldirection(
 // 'physical_range': '[0|299.98125]', 'bit': 39, 'type': 'double',
 // 'order': 'motorola', 'physical_unit': 'Km/h'}
 double Fbs2240::rrwheelspd(const std::uint8_t* bytes, int32_t length) const {
+AINFO<<"(DMCZP) EnteringMethod: Fbs2240::rrwheelspd";
   Byte t0(bytes + 4);
   int32_t x = t0.get_byte(0, 8);
 
@@ -153,6 +161,7 @@ double Fbs2240::rrwheelspd(const std::uint8_t* bytes, int32_t length) const {
 // 'is_signed_var': False, 'physical_range': '[0|299.98125]', 'bit': 55,
 // 'type': 'double', 'order': 'motorola', 'physical_unit': 'Km/h'}
 double Fbs2240::vehiclespd(const std::uint8_t* bytes, int32_t length) const {
+AINFO<<"(DMCZP) EnteringMethod: Fbs2240::vehiclespd";
   Byte t0(bytes + 6);
   int32_t x = t0.get_byte(0, 8);
 

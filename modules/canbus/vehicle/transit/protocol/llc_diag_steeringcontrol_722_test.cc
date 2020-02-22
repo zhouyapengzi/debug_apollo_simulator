@@ -31,6 +31,7 @@ class llc_diag_steeringcontrol_722Test : public ::testing ::Test {
 };
 
 TEST_F(llc_diag_steeringcontrol_722Test, General) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   Llcdiagsteeringcontrol722 steeringctrl_722_;
   uint8_t data[7] = {0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF};
   EXPECT_EQ(steeringctrl_722_.GetPeriod(), 10 * 1000);

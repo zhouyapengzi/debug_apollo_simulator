@@ -28,23 +28,28 @@ const int32_t Accelcmd67::ID = 0x67;
 
 // public
 Accelcmd67::Accelcmd67() { Reset(); }
+AINFO<<"(DMCZP) EnteringMethod: Accelcmd67::Accelcmd67";
 
 uint32_t Accelcmd67::GetPeriod() const {
+AINFO<<"(DMCZP) EnteringMethod: Accelcmd67::GetPeriod";
   // TODO(QiL) :modify every protocol's period manually
   static const uint32_t PERIOD = 20 * 1000;
   return PERIOD;
 }
 
 void Accelcmd67::UpdateData(uint8_t* data) {
+AINFO<<"(DMCZP) EnteringMethod: Accelcmd67::UpdateData";
   set_p_accel_cmd(data, accel_cmd_);
 }
 
 void Accelcmd67::Reset() {
+AINFO<<"(DMCZP) EnteringMethod: Accelcmd67::Reset";
   // TODO(QiL) :you should check this manually
   accel_cmd_ = 0.0;
 }
 
 Accelcmd67* Accelcmd67::set_accel_cmd(double accel_cmd) {
+AINFO<<"(DMCZP) EnteringMethod: Accelcmd67::set_accel_cmd";
   accel_cmd_ = accel_cmd;
   return this;
 }
@@ -53,6 +58,7 @@ Accelcmd67* Accelcmd67::set_accel_cmd(double accel_cmd) {
 // 'len': 16, 'is_signed_var': False, 'physical_range': '[0|1]', 'bit': 7,
 // 'type': 'double', 'order': 'motorola', 'physical_unit': '%'}
 void Accelcmd67::set_p_accel_cmd(uint8_t* data, double accel_cmd) {
+AINFO<<"(DMCZP) EnteringMethod: Accelcmd67::set_p_accel_cmd";
   accel_cmd = ProtocolData::BoundedValue(0.0, 1.0, accel_cmd);
   int x = static_cast<int>(accel_cmd / 0.001000);
   uint8_t t = 0;

@@ -24,6 +24,7 @@ namespace {
 using hdmap::Curve;
 
 void AddCurve(Curve* curve) {
+AINFO<<"(DMCZP) EnteringMethod: AddCurve";
   auto* curve_segment = curve->add_segment();
   curve_segment->set_s(TEST_START_S);
   curve_segment->mutable_start_position()->set_x(0.0);
@@ -52,6 +53,7 @@ void AddCurve(Curve* curve) {
 
 void GetNodeDetailForTest(Node* const node, const std::string& lane_id,
                           const std::string& road_id) {
+AINFO<<"(DMCZP) EnteringMethod: GetNodeDetailForTest";
   node->set_lane_id(lane_id);
   node->set_length(TEST_LANE_LENGTH);
   node->set_road_id(road_id);
@@ -67,6 +69,7 @@ void GetNodeDetailForTest(Node* const node, const std::string& lane_id,
 
 void GetNodeForTest(Node* const node, const std::string& lane_id,
                     const std::string& road_id) {
+AINFO<<"(DMCZP) EnteringMethod: GetNodeForTest";
   node->set_lane_id(lane_id);
   node->set_length(TEST_LANE_LENGTH);
   node->set_road_id(road_id);
@@ -82,6 +85,7 @@ void GetNodeForTest(Node* const node, const std::string& lane_id,
 void GetEdgeForTest(Edge* const edge, const std::string& lane_id_1,
                     const std::string& lane_id_2,
                     const Edge::DirectionType& type) {
+AINFO<<"(DMCZP) EnteringMethod: GetEdgeForTest";
   edge->set_from_lane_id(lane_id_1);
   edge->set_to_lane_id(lane_id_2);
   edge->set_cost(TEST_EDGE_COST);
@@ -89,6 +93,7 @@ void GetEdgeForTest(Edge* const edge, const std::string& lane_id_1,
 }
 
 void GetGraphForTest(Graph* graph) {
+AINFO<<"(DMCZP) EnteringMethod: GetGraphForTest";
   graph->set_hdmap_version(TEST_MAP_VERSION);
   graph->set_hdmap_district(TEST_MAP_DISTRICT);
   GetNodeForTest(graph->add_node(), TEST_L1, TEST_R1);
@@ -105,6 +110,7 @@ void GetGraphForTest(Graph* graph) {
 }
 
 void GetGraph2ForTest(Graph* graph) {
+AINFO<<"(DMCZP) EnteringMethod: GetGraph2ForTest";
   graph->set_hdmap_version(TEST_MAP_VERSION);
   graph->set_hdmap_district(TEST_MAP_DISTRICT);
   GetNodeForTest(graph->add_node(), TEST_L1, TEST_R1);
@@ -126,6 +132,7 @@ void GetGraph2ForTest(Graph* graph) {
 }
 
 void GetGraph3ForTest(Graph* graph) {
+AINFO<<"(DMCZP) EnteringMethod: GetGraph3ForTest";
   graph->set_hdmap_version(TEST_MAP_VERSION);
   graph->set_hdmap_district(TEST_MAP_DISTRICT);
   GetNodeForTest(graph->add_node(), TEST_L1, TEST_R1);

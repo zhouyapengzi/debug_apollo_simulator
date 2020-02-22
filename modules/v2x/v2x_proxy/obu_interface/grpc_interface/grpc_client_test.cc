@@ -28,6 +28,7 @@ namespace apollo {
 namespace v2x {
 
 TEST(GrpcClientImplTest, Construct) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   apollo::cyber::Init("grpc_client_test");
   GrpcClientImpl grpc_client(
       grpc::CreateChannel(FLAGS_grpc_client_host + ":" + FLAGS_grpc_client_port,

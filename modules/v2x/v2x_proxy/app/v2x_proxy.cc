@@ -28,6 +28,7 @@ using apollo::localization::LocalizationEstimate;
 
 V2xProxy::V2xProxy()
     : node_(cyber::CreateNode("v2x_proxy")), init_flag_(false) {
+AINFO<<"(DMCZP) EnteringMethod: V2xProxy::V2xProxy";
   if (node_ == nullptr) {
     AFATAL << "Create v2x proxy node failed.";
     exit(1);
@@ -87,8 +88,10 @@ V2xProxy::V2xProxy()
 }
 
 bool V2xProxy::InitFlag() { return init_flag_; }
+AINFO<<"(DMCZP) EnteringMethod: V2xProxy::InitFlag";
 
 bool V2xProxy::TrafficLightProc(CurrentLaneTrafficLight* msg) {
+AINFO<<"(DMCZP) EnteringMethod: V2xProxy::TrafficLightProc";
   if (!msg->has_gps_x_m() || !msg->has_gps_y_m()) {
     AERROR << "Error::v2x trafficlight ignore, gps point is null";
     return false;
@@ -125,6 +128,7 @@ bool V2xProxy::TrafficLightProc(CurrentLaneTrafficLight* msg) {
 }
 
 void V2xProxy::OnX2vTrafficLightTimer() {
+AINFO<<"(DMCZP) EnteringMethod: V2xProxy::OnX2vTrafficLightTimer";
   x2v_trafficlight_->Clear();
   obu_interface_->GetV2xTrafficLightFromObu(x2v_trafficlight_);
   if (!x2v_trafficlight_->has_current_lane_trafficlight()) {
@@ -144,6 +148,7 @@ void V2xProxy::OnX2vTrafficLightTimer() {
 }
 
 void V2xProxy::OnV2xCarStatusTimer() {
+AINFO<<"(DMCZP) EnteringMethod: V2xProxy::OnV2xCarStatusTimer";
   v2x_carstatus_->Clear();
   auto localization = std::make_shared<LocalizationEstimate>();
   os_interface_->GetLocalizationFromOs(localization);

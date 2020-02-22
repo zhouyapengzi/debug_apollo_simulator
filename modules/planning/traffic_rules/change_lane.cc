@@ -31,8 +31,10 @@ using apollo::common::Status;
 using apollo::common::math::Vec2d;
 
 ChangeLane::ChangeLane(const TrafficRuleConfig& config) : TrafficRule(config) {}
+AINFO<<"(DMCZP) EnteringMethod: ChangeLane::ChangeLane";
 
 bool ChangeLane::FilterObstacles(ReferenceLineInfo* reference_line_info) {
+AINFO<<"(DMCZP) EnteringMethod: ChangeLane::FilterObstacles";
   const auto& reference_line = reference_line_info->reference_line();
   const auto& adc_sl_boundary = reference_line_info->AdcSlBoundary();
   const auto& path_decision = reference_line_info->path_decision();
@@ -82,6 +84,7 @@ bool ChangeLane::FilterObstacles(ReferenceLineInfo* reference_line_info) {
 
 bool ChangeLane::CreateGuardObstacle(
     const ReferenceLineInfo* reference_line_info, Obstacle* obstacle) {
+AINFO<<"(DMCZP) EnteringMethod: ChangeLane::CreateGuardObstacle";
   if (!obstacle || !obstacle->HasTrajectory()) {
     return false;
   }
@@ -129,6 +132,7 @@ bool ChangeLane::CreateGuardObstacle(
 
 Status ChangeLane::ApplyRule(Frame* const frame,
                              ReferenceLineInfo* const reference_line_info) {
+AINFO<<"(DMCZP) EnteringMethod: ChangeLane::ApplyRule";
   // The reference line is not a change lane reference line, skip
   if (reference_line_info->Lanes().IsOnSegment()) {
     return Status::OK();
@@ -163,6 +167,7 @@ Status ChangeLane::ApplyRule(Frame* const frame,
 
 ObjectDecisionType ChangeLane::CreateOvertakeDecision(
     const ReferenceLine& reference_line, const Obstacle& obstacle) const {
+AINFO<<"(DMCZP) EnteringMethod: ChangeLane::CreateOvertakeDecision";
   ObjectDecisionType overtake;
   overtake.mutable_overtake();
   double distance =

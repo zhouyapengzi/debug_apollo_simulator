@@ -28,6 +28,7 @@ namespace lidar {
 using cyber::common::GetAbsolutePath;
 
 bool GroundServiceDetector::Init(const GroundDetectorInitOptions& options) {
+AINFO<<"(DMCZP) EnteringMethod: GroundServiceDetector::Init";
   auto config_manager = lib::ConfigManager::Instance();
 
   const lib::ModelConfig* model_config = nullptr;
@@ -56,6 +57,7 @@ bool GroundServiceDetector::Init(const GroundDetectorInitOptions& options) {
 
 bool GroundServiceDetector::Detect(const GroundDetectorOptions& options,
                                    LidarFrame* frame) {
+AINFO<<"(DMCZP) EnteringMethod: GroundServiceDetector::Detect";
   if (frame == nullptr || frame->world_cloud == nullptr) {
     AERROR << "Frame is nullptr.";
     return false;

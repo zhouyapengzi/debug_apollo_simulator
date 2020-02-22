@@ -78,6 +78,7 @@ class PbMessage {
 };
 
 TEST(MessageTraitsTest, type_trait) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   EXPECT_FALSE(HasType<Data>::value);
   EXPECT_FALSE(HasSerializer<Data>::value);
   EXPECT_FALSE(HasDescriptor<Data>::value);
@@ -105,6 +106,7 @@ TEST(MessageTraitsTest, type_trait) {
 }
 
 TEST(MessageTraitsTest, byte_size) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   Data data;
   EXPECT_EQ(ByteSize(data), -1);
 
@@ -130,6 +132,7 @@ TEST(MessageTraitsTest, byte_size) {
 }
 
 TEST(MessageTraitsTest, serialize_to_array) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   const int kArraySize = 256;
   char array[kArraySize] = {0};
 
@@ -165,6 +168,7 @@ TEST(MessageTraitsTest, serialize_to_array) {
 }
 
 TEST(MessageTraitsTest, serialize_to_string) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   std::string str("");
 
   // protobuf message
@@ -191,6 +195,7 @@ TEST(MessageTraitsTest, serialize_to_string) {
 }
 
 TEST(MessageTraitsTest, parse_from_array) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   const int kArraySize = 256;
   const char array[kArraySize] = "\n\rMessageTraits\x12\x11parse_from_string";
   const int arr_str_len = static_cast<int>(strlen(array));
@@ -214,6 +219,7 @@ TEST(MessageTraitsTest, parse_from_array) {
 }
 
 TEST(MessageTraitsTest, parse_from_string) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   proto::UnitTest ut;
   std::string str("\n\rMessageTraits\x12\x11parse_from_string");
   EXPECT_TRUE(ParseFromString(str, &ut));
@@ -233,6 +239,7 @@ TEST(MessageTraitsTest, parse_from_string) {
 }
 
 TEST(MessageTraitsTest, serialize_parse_hc) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   auto msg = std::make_shared<proto::Chatter>();
   msg->set_timestamp(12345);
   msg->set_seq(1);
@@ -269,6 +276,7 @@ TEST(MessageTraitsTest, serialize_parse_hc) {
 }
 
 TEST(MessageTraitsTest, message_type) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   std::string msg_type = MessageType<proto::UnitTest>();
   EXPECT_EQ(msg_type, "apollo.cyber.proto.UnitTest");
 
@@ -278,6 +286,7 @@ TEST(MessageTraitsTest, message_type) {
 }
 
 TEST(MessageTraitsTest, descriptor) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   const std::string pb_desc =
       "\n\xFA\x1\n\x1B"
       "cyber/proto/unit_test.proto\x12\x12"

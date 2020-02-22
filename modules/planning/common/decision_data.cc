@@ -24,6 +24,7 @@ namespace planning {
 // this sanity check will move to the very beginning of planning
 bool DecisionData::IsValidTrajectoryPoint(
     const common::TrajectoryPoint& point) {
+AINFO<<"(DMCZP) EnteringMethod: DecisionData::IsValidTrajectoryPoint";
   return !((!point.has_path_point()) || std::isnan(point.path_point().x()) ||
            std::isnan(point.path_point().y()) ||
            std::isnan(point.path_point().z()) ||
@@ -35,6 +36,7 @@ bool DecisionData::IsValidTrajectoryPoint(
 }
 
 bool DecisionData::IsValidTrajectory(const prediction::Trajectory& trajectory) {
+AINFO<<"(DMCZP) EnteringMethod: DecisionData::IsValidTrajectory";
   for (const auto& point : trajectory.trajectory_point()) {
     if (!IsValidTrajectoryPoint(point)) {
       AERROR << " TrajectoryPoint: " << trajectory.ShortDebugString()
@@ -49,6 +51,7 @@ DecisionData::DecisionData(
     const prediction::PredictionObstacles& prediction_obstacles,
     const ReferenceLine& reference_line)
     : reference_line_(reference_line) {
+AINFO<<"(DMCZP) EnteringMethod: DecisionData::DecisionData";
   for (const auto& prediction_obstacle :
        prediction_obstacles.prediction_obstacle()) {
     const std::string perception_id =
@@ -82,6 +85,7 @@ DecisionData::DecisionData(
 }
 
 Obstacle* DecisionData::GetObstacleById(const std::string& id) {
+AINFO<<"(DMCZP) EnteringMethod: DecisionData::GetObstacleById";
   std::lock_guard<std::mutex> lock(mutex_);
   return common::util::FindPtrOrNull(obstacle_map_, id);
 }
@@ -135,6 +139,8 @@ const std::vector<Obstacle*>& DecisionData::GetAllObstacle() const {
 bool DecisionData::CreateVirtualObstacle(const ReferencePoint& point,
                                          const VirtualObjectType& type,
                                          std::string* const id) {
+AINFO<<"(DMCZP) EnteringMethod: DecisionData::CreateVirtualObstacle";
+AINFO<<"(DMCZP) EnteringMethod: DecisionData::CreateVirtualObstacle";
   // should build different box by type;
   common::SLPoint sl_point;
   if (!reference_line_.XYToSL(point, &sl_point)) {
@@ -170,6 +176,7 @@ bool DecisionData::CreateVirtualObstacle(const double point_s,
 bool DecisionData::CreateVirtualObstacle(
     const common::math::Box2d& obstacle_box, const VirtualObjectType& type,
     std::string* const id) {
+AINFO<<"(DMCZP) EnteringMethod: DecisionData::CreateVirtualObstacle";
   std::lock_guard<std::mutex> transaction_lock(transaction_mutex_);
   std::lock_guard<std::mutex> lock(mutex_);
 

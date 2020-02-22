@@ -39,6 +39,7 @@ std::shared_ptr<base::CCObjectPool<RoutineContext>> context_pool = nullptr;
 std::once_flag pool_init_flag;
 
 void CRoutineEntry(void *arg) {
+AINFO<<"(DMCZP) EnteringMethod: CRoutineEntry";
   CRoutine *r = static_cast<CRoutine *>(arg);
   r->Run();
   CRoutine::Yield(RoutineState::FINISHED);
@@ -46,6 +47,7 @@ void CRoutineEntry(void *arg) {
 }  // namespace
 
 CRoutine::CRoutine(const std::function<void()> &func) : func_(func) {
+AINFO<<"(DMCZP) EnteringMethod: CRoutine::CRoutine";
   std::call_once(pool_init_flag, [&]() {
     auto routine_num = 100;
     auto &global_conf = common::GlobalData::Instance()->Config();
@@ -71,6 +73,7 @@ CRoutine::CRoutine(const std::function<void()> &func) : func_(func) {
 CRoutine::~CRoutine() { context_ = nullptr; }
 
 RoutineState CRoutine::Resume() {
+AINFO<<"(DMCZP) EnteringMethod: CRoutine::Resume";
   if (unlikely(force_stop_)) {
     state_ = RoutineState::FINISHED;
     return state_;
@@ -92,6 +95,7 @@ RoutineState CRoutine::Resume() {
 }
 
 void CRoutine::Stop() { force_stop_ = true; }
+AINFO<<"(DMCZP) EnteringMethod: CRoutine::Stop";
 
 }  // namespace croutine
 }  // namespace cyber

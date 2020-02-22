@@ -61,6 +61,8 @@ Rate::Rate(double frequency)
     : start_(Time::Now()),
       expected_cycle_time_(1.0 / frequency),
       actual_cycle_time_(0.0) {}
+AINFO<<"(DMCZP) EnteringMethod: Rate::Rate";
+AINFO<<"(DMCZP) EnteringMethod: Rate::Rate";
 
 Rate::Rate(uint64_t nanoseconds)
     : start_(Time::Now()),
@@ -69,8 +71,10 @@ Rate::Rate(uint64_t nanoseconds)
 
 Rate::Rate(const Duration& d)
     : start_(Time::Now()), expected_cycle_time_(d), actual_cycle_time_(0.0) {}
+AINFO<<"(DMCZP) EnteringMethod: Rate::Rate";
 
 void Rate::Sleep() {
+AINFO<<"(DMCZP) EnteringMethod: Rate::Sleep";
   Time expected_end = start_ + expected_cycle_time_;
 
   Time actual_end = Time::Now();
@@ -107,8 +111,10 @@ void Rate::Sleep() {
 }
 
 void Rate::Reset() { start_ = Time::Now(); }
+AINFO<<"(DMCZP) EnteringMethod: Rate::Reset";
 
 Duration Rate::CycleTime() const { return actual_cycle_time_; }
+AINFO<<"(DMCZP) EnteringMethod: Rate::CycleTime";
 
 }  // namespace cyber
 }  // namespace apollo

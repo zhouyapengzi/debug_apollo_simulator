@@ -28,12 +28,16 @@ namespace planning {
 using apollo::common::Status;
 
 NaviTask::NaviTask(const std::string& name) : name_(name) {}
+AINFO<<"(DMCZP) EnteringMethod: NaviTask::NaviTask";
 
 const std::string& NaviTask::Name() const { return name_; }
+AINFO<<"(DMCZP) EnteringMethod: NaviTask::Name";
 
 bool NaviTask::Init(const PlanningConfig& config) { return true; }
+AINFO<<"(DMCZP) EnteringMethod: NaviTask::Init";
 
 Status NaviTask::Execute(Frame* frame, ReferenceLineInfo* reference_line_info) {
+AINFO<<"(DMCZP) EnteringMethod: NaviTask::Execute";
   frame_ = frame;
   reference_line_info_ = reference_line_info;
   return Status::OK();

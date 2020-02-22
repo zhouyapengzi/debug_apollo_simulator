@@ -35,6 +35,7 @@ using apollo::common::adapter::AdapterConfig;
 using apollo::hdmap::LaneInfo;
 
 void SequencePredictor::Predict(Obstacle* obstacle) {
+AINFO<<"(DMCZP) EnteringMethod: SequencePredictor::Predict";
   Clear();
 
   CHECK_NOTNULL(obstacle);
@@ -42,8 +43,10 @@ void SequencePredictor::Predict(Obstacle* obstacle) {
 }
 
 void SequencePredictor::Clear() { Predictor::Clear(); }
+AINFO<<"(DMCZP) EnteringMethod: SequencePredictor::Clear";
 
 std::string SequencePredictor::ToString(const LaneSequence& sequence) {
+AINFO<<"(DMCZP) EnteringMethod: SequencePredictor::ToString";
   std::string str_lane_sequence = "";
   if (sequence.lane_segment_size() > 0) {
     str_lane_sequence += sequence.lane_segment(0).lane_id();
@@ -57,6 +60,7 @@ std::string SequencePredictor::ToString(const LaneSequence& sequence) {
 void SequencePredictor::FilterLaneSequences(
     const Feature& feature, const std::string& lane_id,
     std::vector<bool>* enable_lane_sequence) {
+AINFO<<"(DMCZP) EnteringMethod: SequencePredictor::FilterLaneSequences";
   if (!feature.has_lane() || !feature.lane().has_lane_graph()) {
     return;
   }
@@ -176,6 +180,7 @@ void SequencePredictor::FilterLaneSequences(
 
 SequencePredictor::LaneChangeType SequencePredictor::GetLaneChangeType(
     const std::string& lane_id, const LaneSequence& lane_sequence) {
+AINFO<<"(DMCZP) EnteringMethod: SequencePredictor::GetLaneChangeType";
   if (lane_id.empty()) {
     return LaneChangeType::ONTO_LANE;
   }
@@ -198,6 +203,7 @@ SequencePredictor::LaneChangeType SequencePredictor::GetLaneChangeType(
 
 double SequencePredictor::GetLaneChangeDistanceWithADC(
     const LaneSequence& lane_sequence) {
+AINFO<<"(DMCZP) EnteringMethod: SequencePredictor::GetLaneChangeDistanceWithADC";
   auto pose_container =
       ContainerManager::Instance()->GetContainer<PoseContainer>(
           AdapterConfig::LOCALIZATION);
@@ -238,6 +244,7 @@ double SequencePredictor::GetLaneChangeDistanceWithADC(
 bool SequencePredictor::LaneSequenceWithMaxProb(const LaneChangeType& type,
                                                 const double probability,
                                                 const double max_prob) {
+AINFO<<"(DMCZP) EnteringMethod: SequencePredictor::LaneSequenceWithMaxProb";
   if (probability > max_prob) {
     return true;
   } else {
@@ -253,6 +260,7 @@ bool SequencePredictor::LaneSequenceWithMaxProb(const LaneChangeType& type,
 bool SequencePredictor::LaneChangeWithMaxProb(const LaneChangeType& type,
                                               const double probability,
                                               const double max_prob) {
+AINFO<<"(DMCZP) EnteringMethod: SequencePredictor::LaneChangeWithMaxProb";
   if (type == LaneChangeType::LEFT || type == LaneChangeType::RIGHT) {
     if (probability > max_prob) {
       return true;
@@ -265,6 +273,7 @@ void SequencePredictor::DrawConstantAccelerationTrajectory(
     const Obstacle& obstacle, const LaneSequence& lane_sequence,
     const double total_time, const double period, const double acceleration,
     std::vector<TrajectoryPoint>* points) {
+AINFO<<"(DMCZP) EnteringMethod: SequencePredictor::DrawConstantAccelerationTrajectory";
   const Feature& feature = obstacle.latest_feature();
   if (!feature.has_position() || !feature.has_velocity() ||
       !feature.position().has_x() || !feature.position().has_y()) {
@@ -330,6 +339,7 @@ void SequencePredictor::DrawConstantAccelerationTrajectory(
 
 double SequencePredictor::GetLaneSequenceCurvatureByS(
     const LaneSequence& lane_sequence, const double s) {
+AINFO<<"(DMCZP) EnteringMethod: SequencePredictor::GetLaneSequenceCurvatureByS";
   CHECK_GT(lane_sequence.lane_segment_size(), 0);
   double lane_s = s + lane_sequence.lane_segment(0).start_s();
   for (const LaneSegment& lane_segment : lane_sequence.lane_segment()) {
@@ -351,6 +361,7 @@ bool SequencePredictor::GetLongitudinalPolynomial(
     const Obstacle& obstacle, const LaneSequence& lane_sequence,
     const std::pair<double, double>& lon_end_vt,
     std::array<double, 5>* coefficients) {
+AINFO<<"(DMCZP) EnteringMethod: SequencePredictor::GetLongitudinalPolynomial";
   // Sanity check.
   CHECK_NOTNULL(coefficients);
   CHECK_GT(obstacle.history_size(), 0);
@@ -405,6 +416,7 @@ bool SequencePredictor::GetLongitudinalPolynomial(
 bool SequencePredictor::GetLateralPolynomial(
     const Obstacle& obstacle, const LaneSequence& lane_sequence,
     const double time_to_end_state, std::array<double, 4>* coefficients) {
+AINFO<<"(DMCZP) EnteringMethod: SequencePredictor::GetLateralPolynomial";
   // Sanity check.
   CHECK_NOTNULL(coefficients);
   CHECK_GT(obstacle.history_size(), 0);

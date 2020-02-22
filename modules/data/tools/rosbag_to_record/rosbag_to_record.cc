@@ -56,12 +56,14 @@ using apollo::cyber::proto::SingleMessage;
 using apollo::data::ChannelInfo;
 
 void PrintUsage() {
+AINFO<<"(DMCZP) EnteringMethod: PrintUsage";
   std::cout << "Usage:\n"
             << "  rosbag_to_record input.bag output.record" << std::endl;
 }
 
 int convert_PointCloud(std::shared_ptr<apollo::drivers::PointCloud> proto,
                        sensor_msgs::PointCloud2::ConstPtr rawdata) {
+AINFO<<"(DMCZP) EnteringMethod: convert_PointCloud";
   auto header = proto->mutable_header();
   header->set_timestamp_sec(rawdata->header.stamp.toSec());
   header->set_frame_id(rawdata->header.frame_id);
@@ -117,6 +119,7 @@ int convert_PointCloud(std::shared_ptr<apollo::drivers::PointCloud> proto,
 
 int convert_Image(std::shared_ptr<apollo::drivers::Image> proto,
                        sensor_msgs::Image::ConstPtr rawdata) {
+AINFO<<"(DMCZP) EnteringMethod: convert_Image";
   auto header = proto->mutable_header();
   header->set_timestamp_sec(rawdata->header.stamp.toSec());
   header->set_frame_id(rawdata->header.frame_id);
@@ -133,6 +136,7 @@ int convert_Image(std::shared_ptr<apollo::drivers::Image> proto,
 
 int convert_CompressedImage(std::shared_ptr<apollo::drivers::CompressedImage> proto,
                        sensor_msgs::CompressedImage::ConstPtr rawdata) {
+AINFO<<"(DMCZP) EnteringMethod: convert_CompressedImage";
   auto header = proto->mutable_header();
   header->set_timestamp_sec(rawdata->header.stamp.toSec());
   header->set_frame_id(rawdata->header.frame_id);
@@ -147,6 +151,7 @@ int convert_CompressedImage(std::shared_ptr<apollo::drivers::CompressedImage> pr
 }
 
 int main(int argc, char **argv) {
+AINFO<<"(DMCZP) EnteringMethod: main";
   if (argc != 3) {
     PrintUsage();
     return -1;

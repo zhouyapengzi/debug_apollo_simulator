@@ -50,6 +50,7 @@ static double QUATERNION_NORMALIZATION_TOLERANCE = 10e-3;
 /** \brief convert Transform msg to Transform */
 void transformMsgToTF2(const geometry_msgs::Transform& msg,
                        tf2::Transform& tf2) {
+AINFO<<"(DMCZP) EnteringMethod: transformMsgToTF2";
   tf2 = tf2::Transform(
       tf2::Quaternion(msg.rotation.x, msg.rotation.y, msg.rotation.z,
                       msg.rotation.w),
@@ -59,6 +60,10 @@ void transformMsgToTF2(const geometry_msgs::Transform& msg,
 /** \brief convert Transform to Transform msg*/
 void transformTF2ToMsg(const tf2::Transform& tf2,
                        geometry_msgs::Transform& msg) {
+AINFO<<"(DMCZP) EnteringMethod: transformTF2ToMsg";
+AINFO<<"(DMCZP) EnteringMethod: transformTF2ToMsg";
+AINFO<<"(DMCZP) EnteringMethod: transformTF2ToMsg";
+AINFO<<"(DMCZP) EnteringMethod: transformTF2ToMsg";
   msg.translation.x = tf2.getOrigin().x();
   msg.translation.y = tf2.getOrigin().y();
   msg.translation.z = tf2.getOrigin().z();
@@ -101,6 +106,7 @@ void transformTF2ToMsg(const tf2::Quaternion& orient, const tf2::Vector3& pos,
 }
 
 void setIdentity(geometry_msgs::Transform& tx) {
+AINFO<<"(DMCZP) EnteringMethod: setIdentity";
   tx.translation.x = 0;
   tx.translation.y = 0;
   tx.translation.z = 0;
@@ -111,12 +117,14 @@ void setIdentity(geometry_msgs::Transform& tx) {
 }
 
 bool startsWithSlash(const std::string& frame_id) {
+AINFO<<"(DMCZP) EnteringMethod: startsWithSlash";
   if (frame_id.size() > 0)
     if (frame_id[0] == '/') return true;
   return false;
 }
 
 std::string stripSlash(const std::string& in) {
+AINFO<<"(DMCZP) EnteringMethod: stripSlash";
   std::string out = in;
   if (startsWithSlash(in)) out.erase(0, 1);
   return out;
@@ -124,6 +132,7 @@ std::string stripSlash(const std::string& in) {
 
 bool BufferCore::warnFrameId(const char* function_name_arg,
                              const std::string& frame_id) const {
+AINFO<<"(DMCZP) EnteringMethod: BufferCore::warnFrameId";
   if (frame_id.size() == 0) {
     std::stringstream ss;
     ss << "Invalid argument passed to " << function_name_arg
@@ -146,6 +155,7 @@ bool BufferCore::warnFrameId(const char* function_name_arg,
 
 CompactFrameID BufferCore::validateFrameId(const char* function_name_arg,
                                            const std::string& frame_id) const {
+AINFO<<"(DMCZP) EnteringMethod: BufferCore::validateFrameId";
   if (frame_id.empty()) {
     std::stringstream ss;
     ss << "Invalid argument passed to " << function_name_arg
@@ -177,6 +187,7 @@ BufferCore::BufferCore(Duration cache_time)
       transformable_callbacks_counter_(0),
       transformable_requests_counter_(0),
       using_dedicated_thread_(false) {
+AINFO<<"(DMCZP) EnteringMethod: BufferCore::BufferCore";
   frameIDs_["NO_PARENT"] = 0;
   frames_.push_back(TimeCacheInterfacePtr());
   frameIDs_reverse.push_back("NO_PARENT");
@@ -185,6 +196,7 @@ BufferCore::BufferCore(Duration cache_time)
 BufferCore::~BufferCore() {}
 
 void BufferCore::clear() {
+AINFO<<"(DMCZP) EnteringMethod: BufferCore::clear";
   // old_tf_.clear();
 
   boost::mutex::scoped_lock lock(frame_mutex_);
@@ -200,6 +212,7 @@ void BufferCore::clear() {
 bool BufferCore::setTransform(
     const geometry_msgs::TransformStamped& transform_in,
     const std::string& authority, bool is_static) {
+AINFO<<"(DMCZP) EnteringMethod: BufferCore::setTransform";
   /////BACKEARDS COMPATABILITY
   /* tf::StampedTransform tf_transform;
   tf::transformStampedMsgToTF(transform_in, tf_transform);
@@ -306,6 +319,7 @@ bool BufferCore::setTransform(
 
 TimeCacheInterfacePtr BufferCore::allocateFrame(CompactFrameID cfid,
                                                 bool is_static) {
+AINFO<<"(DMCZP) EnteringMethod: BufferCore::allocateFrame";
   TimeCacheInterfacePtr frame_ptr = frames_[cfid];
   if (is_static) {
     frames_[cfid] = TimeCacheInterfacePtr(new StaticCache());
@@ -329,6 +343,7 @@ template <typename F>
 int BufferCore::walkToTopParent(F& f, Time time, CompactFrameID target_id,
                                 CompactFrameID source_id,
                                 std::string* error_string) const {
+AINFO<<"(DMCZP) EnteringMethod: BufferCore::walkToTopParent";
   return walkToTopParent(f, time, target_id, source_id, error_string, NULL);
 }
 
@@ -336,6 +351,7 @@ template <typename F>
 int BufferCore::walkToTopParent(
     F& f, Time time, CompactFrameID target_id, CompactFrameID source_id,
     std::string* error_string, std::vector<CompactFrameID>* frame_chain) const {
+AINFO<<"(DMCZP) EnteringMethod: BufferCore::walkToTopParent";
   if (frame_chain) frame_chain->clear();
 
   // Short circuit if zero length transform to allow lookups on non existant
@@ -569,6 +585,8 @@ struct TransformAccum {
 geometry_msgs::TransformStamped BufferCore::lookupTransform(
     const std::string& target_frame, const std::string& source_frame,
     const Time& time) const {
+AINFO<<"(DMCZP) EnteringMethod: BufferCore::lookupTransform";
+AINFO<<"(DMCZP) EnteringMethod: BufferCore::lookupTransform";
   boost::mutex::scoped_lock lock(frame_mutex_);
 
   if (target_frame == source_frame) {
@@ -654,6 +672,8 @@ geometry_msgs::Twist BufferCore::lookupTwist(const std::string& tracking_frame,
                                           const Duration& averaging_interval)
 const
 {
+AINFO<<"(DMCZP) EnteringMethod: BufferCore::lookupTwist";
+AINFO<<"(DMCZP) EnteringMethod: BufferCore::lookupTwist";
   try
   {
   geometry_msgs::Twist t;
@@ -734,6 +754,7 @@ struct CanTransformAccum {
 bool BufferCore::canTransformNoLock(CompactFrameID target_id,
                                     CompactFrameID source_id, const Time& time,
                                     std::string* error_msg) const {
+AINFO<<"(DMCZP) EnteringMethod: BufferCore::canTransformNoLock";
   if (target_id == 0 || source_id == 0) {
     if (error_msg) {
       if (target_id == 0) {
@@ -770,6 +791,7 @@ bool BufferCore::canTransformInternal(CompactFrameID target_id,
                                       CompactFrameID source_id,
                                       const Time& time,
                                       std::string* error_msg) const {
+AINFO<<"(DMCZP) EnteringMethod: BufferCore::canTransformInternal";
   boost::mutex::scoped_lock lock(frame_mutex_);
   return canTransformNoLock(target_id, source_id, time, error_msg);
 }
@@ -777,6 +799,8 @@ bool BufferCore::canTransformInternal(CompactFrameID target_id,
 bool BufferCore::canTransform(const std::string& target_frame,
                               const std::string& source_frame, const Time& time,
                               std::string* error_msg) const {
+AINFO<<"(DMCZP) EnteringMethod: BufferCore::canTransform";
+AINFO<<"(DMCZP) EnteringMethod: BufferCore::canTransform";
   // Short circuit if target_frame == source_frame
   if (target_frame == source_frame) return true;
 
@@ -855,6 +879,7 @@ bool BufferCore::canTransform(const std::string& target_frame,
 }
 
 tf2::TimeCacheInterfacePtr BufferCore::getFrame(CompactFrameID frame_id) const {
+AINFO<<"(DMCZP) EnteringMethod: BufferCore::getFrame";
   if (frame_id >= frames_.size())
     return TimeCacheInterfacePtr();
   else {
@@ -864,6 +889,7 @@ tf2::TimeCacheInterfacePtr BufferCore::getFrame(CompactFrameID frame_id) const {
 
 CompactFrameID BufferCore::lookupFrameNumber(
     const std::string& frameid_str) const {
+AINFO<<"(DMCZP) EnteringMethod: BufferCore::lookupFrameNumber";
   CompactFrameID retval;
   M_StringToCompactFrameID::const_iterator map_it = frameIDs_.find(frameid_str);
   if (map_it == frameIDs_.end()) {
@@ -875,6 +901,7 @@ CompactFrameID BufferCore::lookupFrameNumber(
 
 CompactFrameID BufferCore::lookupOrInsertFrameNumber(
     const std::string& frameid_str) {
+AINFO<<"(DMCZP) EnteringMethod: BufferCore::lookupOrInsertFrameNumber";
   CompactFrameID retval = 0;
   M_StringToCompactFrameID::iterator map_it = frameIDs_.find(frameid_str);
   if (map_it == frameIDs_.end()) {
@@ -891,6 +918,7 @@ CompactFrameID BufferCore::lookupOrInsertFrameNumber(
 
 const std::string& BufferCore::lookupFrameString(
     CompactFrameID frame_id_num) const {
+AINFO<<"(DMCZP) EnteringMethod: BufferCore::lookupFrameString";
   if (frame_id_num >= frameIDs_reverse.size()) {
     std::stringstream ss;
     ss << "Reverse lookup of frame id " << frame_id_num << " failed!";
@@ -902,6 +930,7 @@ const std::string& BufferCore::lookupFrameString(
 void BufferCore::createConnectivityErrorString(CompactFrameID source_frame,
                                                CompactFrameID target_frame,
                                                std::string* out) const {
+AINFO<<"(DMCZP) EnteringMethod: BufferCore::createConnectivityErrorString";
   if (!out) {
     return;
   }
@@ -913,11 +942,13 @@ void BufferCore::createConnectivityErrorString(CompactFrameID source_frame,
 }
 
 std::string BufferCore::allFramesAsString() const {
+AINFO<<"(DMCZP) EnteringMethod: BufferCore::allFramesAsString";
   boost::mutex::scoped_lock lock(frame_mutex_);
   return this->allFramesAsStringNoLock();
 }
 
 std::string BufferCore::allFramesAsStringNoLock() const {
+AINFO<<"(DMCZP) EnteringMethod: BufferCore::allFramesAsStringNoLock";
   std::stringstream mstream;
 
   TransformStorage temp;
@@ -955,6 +986,7 @@ struct TimeAndFrameIDFrameComparator {
 int BufferCore::getLatestCommonTime(CompactFrameID target_id,
                                     CompactFrameID source_id, Time& time,
                                     std::string* error_string) const {
+AINFO<<"(DMCZP) EnteringMethod: BufferCore::getLatestCommonTime";
   // Error if one of the frames don't exist.
   if (source_id == 0 || target_id == 0) return tf2_msgs::TF2Error::LOOKUP_ERROR;
 
@@ -1106,6 +1138,7 @@ int BufferCore::getLatestCommonTime(CompactFrameID target_id,
 }
 
 std::string BufferCore::allFramesAsYAML(double current_time) const {
+AINFO<<"(DMCZP) EnteringMethod: BufferCore::allFramesAsYAML";
   std::stringstream mstream;
   boost::mutex::scoped_lock lock(frame_mutex_);
 
@@ -1171,11 +1204,13 @@ std::string BufferCore::allFramesAsYAML(double current_time) const {
 }
 
 std::string BufferCore::allFramesAsYAML() const {
+AINFO<<"(DMCZP) EnteringMethod: BufferCore::allFramesAsYAML";
   return this->allFramesAsYAML(0.0);
 }
 
 TransformableCallbackHandle BufferCore::addTransformableCallback(
     const TransformableCallback& cb) {
+AINFO<<"(DMCZP) EnteringMethod: BufferCore::addTransformableCallback";
   boost::mutex::scoped_lock lock(transformable_callbacks_mutex_);
   TransformableCallbackHandle handle = ++transformable_callbacks_counter_;
   while (!transformable_callbacks_.insert(std::make_pair(handle, cb)).second) {
@@ -1198,6 +1233,7 @@ struct BufferCore::RemoveRequestByCallback {
 
 void BufferCore::removeTransformableCallback(
     TransformableCallbackHandle handle) {
+AINFO<<"(DMCZP) EnteringMethod: BufferCore::removeTransformableCallback";
   {
     boost::mutex::scoped_lock lock(transformable_callbacks_mutex_);
     transformable_callbacks_.erase(handle);
@@ -1215,6 +1251,7 @@ void BufferCore::removeTransformableCallback(
 TransformableRequestHandle BufferCore::addTransformableRequest(
     TransformableCallbackHandle handle, const std::string& target_frame,
     const std::string& source_frame, Time time) {
+AINFO<<"(DMCZP) EnteringMethod: BufferCore::addTransformableRequest";
   // shortcut if target == source
   if (target_frame == source_frame) {
     return 0;
@@ -1274,6 +1311,7 @@ struct BufferCore::RemoveRequestByID {
 };
 
 void BufferCore::cancelTransformableRequest(TransformableRequestHandle handle) {
+AINFO<<"(DMCZP) EnteringMethod: BufferCore::cancelTransformableRequest";
   boost::mutex::scoped_lock lock(transformable_requests_mutex_);
   V_TransformableRequest::iterator it =
       std::remove_if(transformable_requests_.begin(),
@@ -1287,23 +1325,27 @@ void BufferCore::cancelTransformableRequest(TransformableRequestHandle handle) {
 // backwards compability for tf methods
 boost::signals2::connection BufferCore::_addTransformsChangedListener(
     boost::function<void(void)> callback) {
+AINFO<<"(DMCZP) EnteringMethod: BufferCore::_addTransformsChangedListener";
   boost::mutex::scoped_lock lock(transformable_requests_mutex_);
   return _transforms_changed_.connect(callback);
 }
 
 void BufferCore::_removeTransformsChangedListener(
     boost::signals2::connection c) {
+AINFO<<"(DMCZP) EnteringMethod: BufferCore::_removeTransformsChangedListener";
   boost::mutex::scoped_lock lock(transformable_requests_mutex_);
   c.disconnect();
 }
 
 bool BufferCore::_frameExists(const std::string& frame_id_str) const {
+AINFO<<"(DMCZP) EnteringMethod: BufferCore::_frameExists";
   boost::mutex::scoped_lock lock(frame_mutex_);
   return frameIDs_.count(frame_id_str);
 }
 
 bool BufferCore::_getParent(const std::string& frame_id, Time time,
                             std::string& parent) const {
+AINFO<<"(DMCZP) EnteringMethod: BufferCore::_getParent";
   boost::mutex::scoped_lock lock(frame_mutex_);
   CompactFrameID frame_number = lookupFrameNumber(frame_id);
   TimeCacheInterfacePtr frame = getFrame(frame_number);
@@ -1318,6 +1360,7 @@ bool BufferCore::_getParent(const std::string& frame_id, Time time,
 };
 
 void BufferCore::_getFrameStrings(std::vector<std::string>& vec) const {
+AINFO<<"(DMCZP) EnteringMethod: BufferCore::_getFrameStrings";
   vec.clear();
 
   boost::mutex::scoped_lock lock(frame_mutex_);
@@ -1333,6 +1376,7 @@ void BufferCore::_getFrameStrings(std::vector<std::string>& vec) const {
 }
 
 void BufferCore::testTransformableRequests() {
+AINFO<<"(DMCZP) EnteringMethod: BufferCore::testTransformableRequests";
   boost::mutex::scoped_lock lock(transformable_requests_mutex_);
   V_TransformableRequest::iterator it = transformable_requests_.begin();
 
@@ -1409,6 +1453,7 @@ void BufferCore::testTransformableRequests() {
 }
 
 std::string BufferCore::_allFramesAsDot(double current_time) const {
+AINFO<<"(DMCZP) EnteringMethod: BufferCore::_allFramesAsDot";
   std::stringstream mstream;
   mstream << "digraph G {" << std::endl;
   boost::mutex::scoped_lock lock(frame_mutex_);
@@ -1515,6 +1560,7 @@ std::string BufferCore::_allFramesAsDot(double current_time) const {
 }
 
 std::string BufferCore::_allFramesAsDot() const { return _allFramesAsDot(0.0); }
+AINFO<<"(DMCZP) EnteringMethod: BufferCore::_allFramesAsDot";
 
 void BufferCore::_chainAsVector(const std::string& target_frame,
                                 Time target_time,
@@ -1522,6 +1568,7 @@ void BufferCore::_chainAsVector(const std::string& target_frame,
                                 Time source_time,
                                 const std::string& fixed_frame,
                                 std::vector<std::string>& output) const {
+AINFO<<"(DMCZP) EnteringMethod: BufferCore::_chainAsVector";
   std::string error_string;
 
   output.clear();  // empty vector

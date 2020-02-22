@@ -28,19 +28,23 @@ const int32_t Adseps113::ID = 0x113;
 
 // public
 Adseps113::Adseps113() { Reset(); }
+AINFO<<"(DMCZP) EnteringMethod: Adseps113::Adseps113";
 
 uint32_t Adseps113::GetPeriod() const {
+AINFO<<"(DMCZP) EnteringMethod: Adseps113::GetPeriod";
   // TODO(ChaoMa) :modify every protocol's period manually
   static const uint32_t PERIOD = 20 * 1000;
   return PERIOD;
 }
 
 void Adseps113::UpdateData(uint8_t* data) {
+AINFO<<"(DMCZP) EnteringMethod: Adseps113::UpdateData";
   set_p_ads_epsmode(data, ads_epsmode_);
   set_p_ads_reqepstargetangle(data, ads_reqepstargetangle_);
 }
 
 void Adseps113::Reset() {
+AINFO<<"(DMCZP) EnteringMethod: Adseps113::Reset";
   // TODO(ChaoMa) :you should check this manually
   ads_epsmode_ = Ads_eps_113::ADS_EPSMODE_DISABLE;
   ads_reqepstargetangle_ = 0.0;
@@ -48,6 +52,7 @@ void Adseps113::Reset() {
 
 Adseps113* Adseps113::set_ads_epsmode(
     Ads_eps_113::Ads_epsmodeType ads_epsmode) {
+AINFO<<"(DMCZP) EnteringMethod: Adseps113::set_ads_epsmode";
   ads_epsmode_ = ads_epsmode;
   return this;
 }
@@ -58,6 +63,7 @@ Adseps113* Adseps113::set_ads_epsmode(
 // 'type': 'enum', 'order': 'motorola', 'physical_unit': ''}
 void Adseps113::set_p_ads_epsmode(uint8_t* data,
                                   Ads_eps_113::Ads_epsmodeType ads_epsmode) {
+AINFO<<"(DMCZP) EnteringMethod: Adseps113::set_p_ads_epsmode";
   int x = ads_epsmode;
 
   Byte to_set(data + 0);
@@ -65,6 +71,7 @@ void Adseps113::set_p_ads_epsmode(uint8_t* data,
 }
 
 Adseps113* Adseps113::set_ads_reqepstargetangle(double ads_reqepstargetangle) {
+AINFO<<"(DMCZP) EnteringMethod: Adseps113::set_ads_reqepstargetangle";
   ads_reqepstargetangle_ = ads_reqepstargetangle;
   return this;
 }
@@ -75,6 +82,7 @@ Adseps113* Adseps113::set_ads_reqepstargetangle(double ads_reqepstargetangle) {
 // 'type': 'double', 'order': 'motorola', 'physical_unit': 'deg'}
 void Adseps113::set_p_ads_reqepstargetangle(uint8_t* data,
                                             double ads_reqepstargetangle) {
+AINFO<<"(DMCZP) EnteringMethod: Adseps113::set_p_ads_reqepstargetangle";
   ads_reqepstargetangle =
       ProtocolData::BoundedValue(-800.0, 838.3, ads_reqepstargetangle);
   int x = static_cast<int>((ads_reqepstargetangle - -800.000000) / 0.100000);

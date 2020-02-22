@@ -24,6 +24,7 @@ namespace perception {
 namespace common {
 
 TEST(CameraHomographyTest, is_camera_overlap_test) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   base::PinholeCameraModel camera1;
   camera1.set_width(1080);
   camera1.set_height(720);

@@ -62,6 +62,7 @@ constexpr double kStraightForwardLineCost = 10.0;
 }  // namespace
 
 void NaviPlanner::RegisterTasks() {
+AINFO<<"(DMCZP) EnteringMethod: NaviPlanner::RegisterTasks";
   task_factory_.Register(TaskConfig::NAVI_PATH_DECIDER,
                          []() -> NaviTask* { return new NaviPathDecider(); });
   task_factory_.Register(TaskConfig::NAVI_SPEED_DECIDER,
@@ -69,6 +70,7 @@ void NaviPlanner::RegisterTasks() {
 }
 
 Status NaviPlanner::Init(const PlanningConfig& config) {
+AINFO<<"(DMCZP) EnteringMethod: NaviPlanner::Init";
   // NaviPlanner is only used in navigation mode based on the real-time relative
   // map.
   if (!FLAGS_use_navigation_mode) {
@@ -99,6 +101,7 @@ Status NaviPlanner::Init(const PlanningConfig& config) {
 
 Status NaviPlanner::Plan(const TrajectoryPoint& planning_init_point,
                          Frame* frame, ADCTrajectory* ptr_computed_trajectory) {
+AINFO<<"(DMCZP) EnteringMethod: NaviPlanner::Plan";
   // NaviPlanner is only used in navigation mode based on the real-time relative
   // map.
   if (!FLAGS_use_navigation_mode) {
@@ -142,6 +145,8 @@ Status NaviPlanner::Plan(const TrajectoryPoint& planning_init_point,
 Status NaviPlanner::PlanOnReferenceLine(
     const TrajectoryPoint& planning_init_point, Frame* frame,
     ReferenceLineInfo* reference_line_info) {
+AINFO<<"(DMCZP) EnteringMethod: NaviPlanner::PlanOnReferenceLine";
+AINFO<<"(DMCZP) EnteringMethod: NaviPlanner::RecordObstacleDebugInfo";
   if (!reference_line_info->IsChangeLanePath() &&
       reference_line_info->IsNeighborLanePath()) {
     reference_line_info->AddCost(kStraightForwardLineCost);
@@ -259,6 +264,7 @@ void NaviPlanner::RecordObstacleDebugInfo(
 void NaviPlanner::RecordDebugInfo(ReferenceLineInfo* reference_line_info,
                                   const std::string& name,
                                   const double time_diff_ms) {
+AINFO<<"(DMCZP) EnteringMethod: NaviPlanner::RecordDebugInfo";
   if (!FLAGS_enable_record_debug) {
     ADEBUG << "Skip record debug info";
     return;
@@ -362,6 +368,7 @@ std::vector<SpeedPoint> NaviPlanner::GenerateSpeedHotStart(
 
 void NaviPlanner::GenerateFallbackPathProfile(
     const ReferenceLineInfo* reference_line_info, PathData* path_data) {
+AINFO<<"(DMCZP) EnteringMethod: NaviPlanner::GenerateFallbackPathProfile";
   auto adc_point = EgoInfo::Instance()->start_point();
   double adc_s = reference_line_info->AdcSlBoundary().end_s();
   const double max_s = 150.0;
@@ -391,6 +398,7 @@ void NaviPlanner::GenerateFallbackPathProfile(
 }
 
 void NaviPlanner::GenerateFallbackSpeedProfile(SpeedData* speed_data) {
+AINFO<<"(DMCZP) EnteringMethod: NaviPlanner::GenerateFallbackSpeedProfile";
   const auto& start_point = EgoInfo::Instance()->start_point();
   *speed_data =
       GenerateStopProfileFromPolynomial(start_point.v(), start_point.a());
@@ -401,6 +409,7 @@ void NaviPlanner::GenerateFallbackSpeedProfile(SpeedData* speed_data) {
 
 SpeedData NaviPlanner::GenerateStopProfile(const double init_speed,
                                            const double init_acc) const {
+AINFO<<"(DMCZP) EnteringMethod: NaviPlanner::GenerateStopProfile";
   AERROR << "Slowing down the car.";
   SpeedData speed_data;
 
@@ -446,6 +455,7 @@ SpeedData NaviPlanner::GenerateStopProfile(const double init_speed,
 
 SpeedData NaviPlanner::GenerateStopProfileFromPolynomial(
     const double init_speed, const double init_acc) const {
+AINFO<<"(DMCZP) EnteringMethod: NaviPlanner::GenerateStopProfileFromPolynomial";
   AERROR << "Slowing down the car with polynomial.";
   constexpr double kMaxT = 4.0;
   for (double t = 2.0; t <= kMaxT; t += 0.5) {
@@ -471,6 +481,7 @@ SpeedData NaviPlanner::GenerateStopProfileFromPolynomial(
 }
 
 bool NaviPlanner::IsValidProfile(const QuinticPolynomialCurve1d& curve) const {
+AINFO<<"(DMCZP) EnteringMethod: NaviPlanner::IsValidProfile";
   for (double evaluate_t = 0.1; evaluate_t <= curve.ParamLength();
        evaluate_t += 0.2) {
     const double v = curve.Evaluate(1, evaluate_t);

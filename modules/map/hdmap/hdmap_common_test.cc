@@ -38,6 +38,7 @@ class HDMapCommonTestSuite : public ::testing::Test {
 };
 
 void HDMapCommonTestSuite::InitLaneObj(Lane* lane) {
+AINFO<<"(DMCZP) EnteringMethod: HDMapCommonTestSuite::InitLaneObj";
   lane->mutable_id()->set_id("lane_1");
   CurveSegment* curve_segment = lane->mutable_central_curve()->add_segment();
   LineSegment* line_segment = curve_segment->mutable_line_segment();
@@ -92,6 +93,7 @@ void HDMapCommonTestSuite::InitLaneObj(Lane* lane) {
 }
 
 void HDMapCommonTestSuite::InitJunctionObj(Junction* junction) {
+AINFO<<"(DMCZP) EnteringMethod: HDMapCommonTestSuite::InitJunctionObj";
   junction->mutable_id()->set_id("junction_1");
   Polygon* polygon = junction->mutable_polygon();
   apollo::common::PointENU* pt = polygon->add_point();
@@ -124,6 +126,7 @@ void HDMapCommonTestSuite::InitJunctionObj(Junction* junction) {
 }
 
 void HDMapCommonTestSuite::InitSignalObj(Signal* signal) {
+AINFO<<"(DMCZP) EnteringMethod: HDMapCommonTestSuite::InitSignalObj";
   signal->mutable_id()->set_id("signal_1");
   Polygon* polygon = signal->mutable_boundary();
   apollo::common::PointENU* pt = polygon->add_point();
@@ -193,6 +196,7 @@ void HDMapCommonTestSuite::InitSignalObj(Signal* signal) {
   pt->set_z(0.0);
 }
 void HDMapCommonTestSuite::InitCrosswalkObj(Crosswalk* crosswalk) {
+AINFO<<"(DMCZP) EnteringMethod: HDMapCommonTestSuite::InitCrosswalkObj";
   crosswalk->mutable_id()->set_id("crosswalk_1");
   Polygon* polygon = crosswalk->mutable_polygon();
   apollo::common::PointENU* pt = polygon->add_point();
@@ -213,6 +217,7 @@ void HDMapCommonTestSuite::InitCrosswalkObj(Crosswalk* crosswalk) {
   pt->set_z(0.0);
 }
 void HDMapCommonTestSuite::InitStopSignObj(StopSign* stop_sign) {
+AINFO<<"(DMCZP) EnteringMethod: HDMapCommonTestSuite::InitStopSignObj";
   stop_sign->mutable_id()->set_id("stop_sign_1");
   CurveSegment* curve_segment = stop_sign->add_stop_line()->add_segment();
   LineSegment* line_segment = curve_segment->mutable_line_segment();
@@ -230,6 +235,7 @@ void HDMapCommonTestSuite::InitStopSignObj(StopSign* stop_sign) {
   pt->set_z(0.0);
 }
 void HDMapCommonTestSuite::InitYieldSignObj(YieldSign* yield_sign) {
+AINFO<<"(DMCZP) EnteringMethod: HDMapCommonTestSuite::InitYieldSignObj";
   yield_sign->mutable_id()->set_id("yield_sign_1");
   CurveSegment* curve_segment = yield_sign->add_stop_line()->add_segment();
   LineSegment* line_segment = curve_segment->mutable_line_segment();
@@ -247,6 +253,7 @@ void HDMapCommonTestSuite::InitYieldSignObj(YieldSign* yield_sign) {
   pt->set_z(0.0);
 }
 void HDMapCommonTestSuite::InitClearAreaObj(ClearArea* clear_area) {
+AINFO<<"(DMCZP) EnteringMethod: HDMapCommonTestSuite::InitClearAreaObj";
   clear_area->mutable_id()->set_id("clear_area_1");
   Polygon* polygon = clear_area->mutable_polygon();
   apollo::common::PointENU* pt = polygon->add_point();
@@ -267,6 +274,7 @@ void HDMapCommonTestSuite::InitClearAreaObj(ClearArea* clear_area) {
   pt->set_z(0.0);
 }
 void HDMapCommonTestSuite::InitSpeedBumpObj(SpeedBump* speed_bump) {
+AINFO<<"(DMCZP) EnteringMethod: HDMapCommonTestSuite::InitSpeedBumpObj";
   speed_bump->mutable_id()->set_id("speed_bump_1");
   CurveSegment* curve_segment = speed_bump->add_position()->add_segment();
   LineSegment* line_segment = curve_segment->mutable_line_segment();
@@ -284,6 +292,7 @@ void HDMapCommonTestSuite::InitSpeedBumpObj(SpeedBump* speed_bump) {
   pt->set_z(0.0);
 }
 void HDMapCommonTestSuite::InitParkingSpaceObj(ParkingSpace* parking_space) {
+AINFO<<"(DMCZP) EnteringMethod: HDMapCommonTestSuite::InitParkingSpaceObj";
   parking_space->mutable_id()->set_id("parking_space_1");
   Polygon* polygon = parking_space->mutable_polygon();
   apollo::common::PointENU* pt = polygon->add_point();
@@ -305,6 +314,7 @@ void HDMapCommonTestSuite::InitParkingSpaceObj(ParkingSpace* parking_space) {
 }
 
 void HDMapCommonTestSuite::InitRoadObj(Road* road) {
+AINFO<<"(DMCZP) EnteringMethod: HDMapCommonTestSuite::InitRoadObj";
   road->mutable_id()->set_id("road_1");
   road->mutable_junction_id()->set_id("junction_1");
 
@@ -319,6 +329,7 @@ void HDMapCommonTestSuite::InitRoadObj(Road* road) {
 }
 
 TEST_F(HDMapCommonTestSuite, TestLaneInfo) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   Lane lane;
   InitLaneObj(&lane);
   LaneInfo lane_info(lane);
@@ -366,6 +377,7 @@ TEST_F(HDMapCommonTestSuite, TestLaneInfo) {
 }
 
 TEST_F(HDMapCommonTestSuite, GetWidth) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   Lane lane;
   InitLaneObj(&lane);
   LaneInfo lane_info(lane);
@@ -374,6 +386,7 @@ TEST_F(HDMapCommonTestSuite, GetWidth) {
 }
 
 TEST_F(HDMapCommonTestSuite, GetEffectiveWidth) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   Lane lane;
   InitLaneObj(&lane);
   LaneInfo lane_info(lane);
@@ -382,6 +395,7 @@ TEST_F(HDMapCommonTestSuite, GetEffectiveWidth) {
 }
 
 TEST_F(HDMapCommonTestSuite, PointIsOnLane) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   Lane lane;
   InitLaneObj(&lane);
   LaneInfo lane_info(lane);
@@ -393,6 +407,7 @@ TEST_F(HDMapCommonTestSuite, PointIsOnLane) {
 }
 
 TEST_F(HDMapCommonTestSuite, BoxIsOnLane) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   Lane lane;
   InitLaneObj(&lane);
   LaneInfo lane_info(lane);
@@ -407,6 +422,7 @@ TEST_F(HDMapCommonTestSuite, BoxIsOnLane) {
 }
 
 TEST_F(HDMapCommonTestSuite, GetSmoothPoint) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   Lane lane;
   InitLaneObj(&lane);
   LaneInfo lane_info(lane);
@@ -417,6 +433,7 @@ TEST_F(HDMapCommonTestSuite, GetSmoothPoint) {
 }
 
 TEST_F(HDMapCommonTestSuite, DistanceTo) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   Lane lane;
   InitLaneObj(&lane);
   LaneInfo lane_info(lane);
@@ -429,6 +446,7 @@ TEST_F(HDMapCommonTestSuite, DistanceTo) {
 }
 
 TEST_F(HDMapCommonTestSuite, DistanceToWithMoreInfo) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   Lane lane;
   InitLaneObj(&lane);
   LaneInfo lane_info(lane);
@@ -452,6 +470,7 @@ TEST_F(HDMapCommonTestSuite, DistanceToWithMoreInfo) {
 }
 
 TEST_F(HDMapCommonTestSuite, GetNearestPoint) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   Lane lane;
   InitLaneObj(&lane);
   LaneInfo lane_info(lane);
@@ -471,6 +490,7 @@ TEST_F(HDMapCommonTestSuite, GetNearestPoint) {
 }
 
 TEST_F(HDMapCommonTestSuite, GetProjection) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   Lane lane;
   InitLaneObj(&lane);
   LaneInfo lane_info(lane);
@@ -495,6 +515,7 @@ TEST_F(HDMapCommonTestSuite, GetProjection) {
 }
 
 TEST_F(HDMapCommonTestSuite, TestJunctionInfo) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   Junction junction;
   InitJunctionObj(&junction);
   JunctionInfo junction_info(junction);
@@ -511,6 +532,7 @@ TEST_F(HDMapCommonTestSuite, TestJunctionInfo) {
 }
 
 TEST_F(HDMapCommonTestSuite, TestSignalInfo) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   Signal signal;
   InitSignalObj(&signal);
   SignalInfo signal_info(signal);
@@ -528,6 +550,7 @@ TEST_F(HDMapCommonTestSuite, TestSignalInfo) {
 }
 
 TEST_F(HDMapCommonTestSuite, TestCrosswalkInfo) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   Crosswalk crosswalk;
   InitCrosswalkObj(&crosswalk);
   CrosswalkInfo crosswalk_info(crosswalk);
@@ -544,6 +567,7 @@ TEST_F(HDMapCommonTestSuite, TestCrosswalkInfo) {
 }
 
 TEST_F(HDMapCommonTestSuite, TestStopSignInfo) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   StopSign stop_sign;
   InitStopSignObj(&stop_sign);
   StopSignInfo stop_sign_info(stop_sign);
@@ -556,6 +580,7 @@ TEST_F(HDMapCommonTestSuite, TestStopSignInfo) {
 }
 
 TEST_F(HDMapCommonTestSuite, TestYieldSignInfo) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   YieldSign yield_sign;
   InitYieldSignObj(&yield_sign);
   YieldSignInfo yield_sign_info(yield_sign);
@@ -568,6 +593,7 @@ TEST_F(HDMapCommonTestSuite, TestYieldSignInfo) {
 }
 
 TEST_F(HDMapCommonTestSuite, TestClearAreaInfo) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   ClearArea clear_area;
   InitClearAreaObj(&clear_area);
   ClearAreaInfo clear_area_info(clear_area);
@@ -584,6 +610,7 @@ TEST_F(HDMapCommonTestSuite, TestClearAreaInfo) {
 }
 
 TEST_F(HDMapCommonTestSuite, TestSpeedBumpInfo) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   SpeedBump speed_bump;
   InitSpeedBumpObj(&speed_bump);
   SpeedBumpInfo speed_bump_info(speed_bump);
@@ -596,6 +623,7 @@ TEST_F(HDMapCommonTestSuite, TestSpeedBumpInfo) {
 }
 
 TEST_F(HDMapCommonTestSuite, TestRoadInfo) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   Road road;
   InitRoadObj(&road);
   RoadInfo road_info(road);
@@ -615,6 +643,7 @@ TEST_F(HDMapCommonTestSuite, TestRoadInfo) {
 }
 
 TEST_F(HDMapCommonTestSuite, TestParkingSpaceInfo) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   ParkingSpace parking_space;
   InitParkingSpaceObj(&parking_space);
   ParkingSpaceInfo parking_space_info(parking_space);

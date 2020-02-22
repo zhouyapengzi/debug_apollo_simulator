@@ -28,8 +28,10 @@ namespace localization {
 using apollo::common::time::Clock;
 
 MSFLocalizationComponent::MSFLocalizationComponent() {}
+AINFO<<"(DMCZP) EnteringMethod: MSFLocalizationComponent::MSFLocalizationComponent";
 
 bool MSFLocalizationComponent::Init() {
+AINFO<<"(DMCZP) EnteringMethod: MSFLocalizationComponent::Init";
   Clock::SetMode(Clock::CYBER);
   publisher_.reset(new LocalizationMsgPublisher(this->node_));
 
@@ -47,6 +49,7 @@ bool MSFLocalizationComponent::Init() {
 }
 
 bool MSFLocalizationComponent::InitConfig() {
+AINFO<<"(DMCZP) EnteringMethod: MSFLocalizationComponent::InitConfig";
   lidar_topic_ = FLAGS_lidar_topic;
   bestgnsspos_topic_ = FLAGS_gnss_best_pose_topic;
   gnss_heading_topic_ = FLAGS_heading_topic;
@@ -65,6 +68,7 @@ bool MSFLocalizationComponent::InitConfig() {
 }
 
 bool MSFLocalizationComponent::InitIO() {
+AINFO<<"(DMCZP) EnteringMethod: MSFLocalizationComponent::InitIO";
   cyber::ReaderConfig reader_config;
   reader_config.channel_name = lidar_topic_;
   reader_config.pending_queue_size = 1;
@@ -103,6 +107,7 @@ bool MSFLocalizationComponent::InitIO() {
 
 bool MSFLocalizationComponent::Proc(
     const std::shared_ptr<drivers::gnss::Imu>& imu_msg) {
+AINFO<<"(DMCZP) EnteringMethod: MSFLocalizationComponent::Proc";
   localization_.OnRawImu(imu_msg);
   return true;
 }
@@ -110,8 +115,10 @@ bool MSFLocalizationComponent::Proc(
 LocalizationMsgPublisher::LocalizationMsgPublisher(
     const std::shared_ptr<cyber::Node>& node)
     : node_(node), tf2_broadcaster_(node) {}
+AINFO<<"(DMCZP) EnteringMethod: LocalizationMsgPublisher::LocalizationMsgPublisher";
 
 bool LocalizationMsgPublisher::InitConfig() {
+AINFO<<"(DMCZP) EnteringMethod: LocalizationMsgPublisher::InitConfig";
   localization_topic_ = FLAGS_localization_topic;
   broadcast_tf_frame_id_ = FLAGS_broadcast_tf_frame_id;
   broadcast_tf_child_frame_id_ = FLAGS_broadcast_tf_child_frame_id;
@@ -123,6 +130,7 @@ bool LocalizationMsgPublisher::InitConfig() {
 }
 
 bool LocalizationMsgPublisher::InitIO() {
+AINFO<<"(DMCZP) EnteringMethod: LocalizationMsgPublisher::InitIO";
   localization_talker_ =
       node_->CreateWriter<LocalizationEstimate>(localization_topic_);
 
@@ -139,6 +147,10 @@ bool LocalizationMsgPublisher::InitIO() {
 
 void LocalizationMsgPublisher::PublishPoseBroadcastTF(
     const LocalizationEstimate& localization) {
+AINFO<<"(DMCZP) EnteringMethod: LocalizationMsgPublisher::PublishPoseBroadcastTF";
+AINFO<<"(DMCZP) EnteringMethod: LocalizationMsgPublisher::PublishPoseBroadcastTopic";
+AINFO<<"(DMCZP) EnteringMethod: LocalizationMsgPublisher::PublishLocalizationMsfGnss";
+AINFO<<"(DMCZP) EnteringMethod: LocalizationMsgPublisher::PublishLocalizationMsfLidar";
   // broadcast tf message
   apollo::transform::TransformStamped tf2_msg;
 
@@ -182,6 +194,7 @@ void LocalizationMsgPublisher::PublishLocalizationMsfLidar(
 
 void LocalizationMsgPublisher::PublishLocalizationStatus(
     const LocalizationStatus& localization_status) {
+AINFO<<"(DMCZP) EnteringMethod: LocalizationMsgPublisher::PublishLocalizationStatus";
   localization_status_talker_->Write(localization_status);
 }
 

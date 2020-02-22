@@ -28,6 +28,7 @@ namespace base {
 
 Eigen::Vector2f OmnidirectionalCameraDistortionModel::Project(
     const Eigen::Vector3f& point3d) {
+AINFO<<"(DMCZP) EnteringMethod: OmnidirectionalCameraDistortionModel::Project";
   CHECK_GT(point3d[2], 0.f)
       << "the input point should be in front of the camera";
   // rotate:
@@ -56,6 +57,7 @@ Eigen::Vector2f OmnidirectionalCameraDistortionModel::Project(
 
 std::shared_ptr<BaseCameraModel>
 OmnidirectionalCameraDistortionModel::get_camera_model() {
+AINFO<<"(DMCZP) EnteringMethod: OmnidirectionalCameraDistortionModel::get_camera_model";
   std::shared_ptr<PinholeCameraModel> camera_model(new PinholeCameraModel());
   camera_model->set_width(width_);
   camera_model->set_height(height_);
@@ -66,6 +68,7 @@ OmnidirectionalCameraDistortionModel::get_camera_model() {
 
 bool OmnidirectionalCameraDistortionModel::set_params(
     size_t width, size_t height, const Eigen::VectorXf& params) {
+AINFO<<"(DMCZP) EnteringMethod: OmnidirectionalCameraDistortionModel::set_params";
   if (params.size() < 9) {
     AINFO << "Missing cam2world and world2cam model.";
     return false;

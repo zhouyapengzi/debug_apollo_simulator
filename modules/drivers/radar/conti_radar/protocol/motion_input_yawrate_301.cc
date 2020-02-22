@@ -28,9 +28,11 @@ using apollo::drivers::canbus::Byte;
 const uint32_t MotionInputYawRate301::ID = 0x301;
 
 MotionInputYawRate301::MotionInputYawRate301() {}
+AINFO<<"(DMCZP) EnteringMethod: MotionInputYawRate301::MotionInputYawRate301";
 MotionInputYawRate301::~MotionInputYawRate301() {}
 
 uint32_t MotionInputYawRate301::GetPeriod() const {
+AINFO<<"(DMCZP) EnteringMethod: MotionInputYawRate301::GetPeriod";
   static const uint32_t PERIOD = 20 * 1000;
   return PERIOD;
 }
@@ -40,6 +42,7 @@ uint32_t MotionInputYawRate301::GetPeriod() const {
  * @param data a pointer to the data to be updated
  */
 void MotionInputYawRate301::UpdateData(uint8_t* data) {
+AINFO<<"(DMCZP) EnteringMethod: MotionInputYawRate301::UpdateData";
   if (std::isnan(yaw_rate_)) {
     AWARN << "yaw_rate is nan";
     return;
@@ -58,8 +61,10 @@ void MotionInputYawRate301::UpdateData(uint8_t* data) {
  * @brief reset the private variables
  */
 void MotionInputYawRate301::Reset() { yaw_rate_ = NAN; }
+AINFO<<"(DMCZP) EnteringMethod: MotionInputYawRate301::Reset";
 
 void MotionInputYawRate301::SetYawRate(const float& yaw_rate) {
+AINFO<<"(DMCZP) EnteringMethod: MotionInputYawRate301::SetYawRate";
   yaw_rate_ = yaw_rate;
 }
 

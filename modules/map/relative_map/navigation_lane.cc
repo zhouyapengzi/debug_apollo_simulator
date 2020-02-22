@@ -61,6 +61,7 @@ bool CreateSingleLaneMap(
     const perception::PerceptionObstacles &perception_obstacles,
     hdmap::Map *const hdmap,
     google::protobuf::Map<std::string, NavigationPath> *const navigation_path) {
+AINFO<<"(DMCZP) EnteringMethod: CreateSingleLaneMap";
   CHECK_NOTNULL(hdmap);
   CHECK_NOTNULL(navigation_path);
 
@@ -139,13 +140,16 @@ bool CreateSingleLaneMap(
 
 NavigationLane::NavigationLane(const NavigationLaneConfig &config)
     : config_(config) {}
+AINFO<<"(DMCZP) EnteringMethod: NavigationLane::NavigationLane";
 
 void NavigationLane::SetConfig(const NavigationLaneConfig &config) {
+AINFO<<"(DMCZP) EnteringMethod: NavigationLane::SetConfig";
   config_ = config;
 }
 
 void NavigationLane::UpdateNavigationInfo(
     const NavigationInfo &navigation_path) {
+AINFO<<"(DMCZP) EnteringMethod: NavigationLane::UpdateNavigationInfo";
   navigation_info_ = navigation_path;
   last_project_index_map_.clear();
   navigation_path_list_.clear();
@@ -156,6 +160,7 @@ void NavigationLane::UpdateNavigationInfo(
 }
 
 bool NavigationLane::GeneratePath() {
+AINFO<<"(DMCZP) EnteringMethod: NavigationLane::GeneratePath";
   navigation_path_list_.clear();
   current_navi_path_tuple_ = std::make_tuple(-1, -1.0, -1.0, nullptr);
 
@@ -344,11 +349,13 @@ bool NavigationLane::GeneratePath() {
 double NavigationLane::EvaluateCubicPolynomial(const double c0, const double c1,
                                                const double c2, const double c3,
                                                const double x) const {
+AINFO<<"(DMCZP) EnteringMethod: NavigationLane::EvaluateCubicPolynomial";
   return ((c3 * x + c2) * x + c1) * x + c0;
 }
 
 void NavigationLane::MergeNavigationLineAndLaneMarker(
     const int line_index, common::Path *const path) {
+AINFO<<"(DMCZP) EnteringMethod: NavigationLane::MergeNavigationLineAndLaneMarker";
   CHECK_NOTNULL(path);
 
   // If the size of "path" points is smaller than 2, it indicates that a
@@ -403,6 +410,7 @@ common::PathPoint NavigationLane::GetPathPointByS(const common::Path &path,
                                                   const int start_index,
                                                   const double s,
                                                   int *const matched_index) {
+AINFO<<"(DMCZP) EnteringMethod: NavigationLane::GetPathPointByS";
   CHECK_NOTNULL(matched_index);
   const int size = path.path_point_size();
 
@@ -437,6 +445,7 @@ common::PathPoint NavigationLane::GetPathPointByS(const common::Path &path,
 
 bool NavigationLane::ConvertNavigationLineToPath(const int line_index,
                                                  common::Path *const path) {
+AINFO<<"(DMCZP) EnteringMethod: NavigationLane::ConvertNavigationLineToPath";
   CHECK_NOTNULL(path);
   if (!navigation_info_.navigation_path(line_index).has_path() ||
       navigation_info_.navigation_path(line_index).path().path_point_size() ==
@@ -560,6 +569,7 @@ bool NavigationLane::ConvertNavigationLineToPath(const int line_index,
 // project adc_state_ onto path
 ProjIndexPair NavigationLane::UpdateProjectionIndex(const common::Path &path,
                                                     const int line_index) {
+AINFO<<"(DMCZP) EnteringMethod: NavigationLane::UpdateProjectionIndex";
   if (path.path_point_size() < 2) {
     return std::make_pair(-1, std::numeric_limits<double>::max());
   }
@@ -652,6 +662,7 @@ ProjIndexPair NavigationLane::UpdateProjectionIndex(const common::Path &path,
 
 double NavigationLane::GetKappa(const double c1, const double c2,
                                 const double c3, const double x) {
+AINFO<<"(DMCZP) EnteringMethod: NavigationLane::GetKappa";
   const double dy = 3 * c3 * x * x + 2 * c2 * x + c1;
   const double d2y = 6 * c3 * x + 2 * c2;
   return d2y / std::pow((1 + dy * dy), 1.5);
@@ -659,6 +670,7 @@ double NavigationLane::GetKappa(const double c1, const double c2,
 
 void NavigationLane::ConvertLaneMarkerToPath(
     const perception::LaneMarkers &lane_marker, common::Path *const path) {
+AINFO<<"(DMCZP) EnteringMethod: NavigationLane::ConvertLaneMarkerToPath";
   CHECK_NOTNULL(path);
 
   path->set_name("Path from lane markers.");
@@ -736,6 +748,7 @@ void NavigationLane::ConvertLaneMarkerToPath(
 
 bool NavigationLane::CreateMap(const MapGenerationParam &map_config,
                                MapMsg *const map_msg) const {
+AINFO<<"(DMCZP) EnteringMethod: NavigationLane::CreateMap";
   auto *navigation_path = map_msg->mutable_navigation_path();
   auto *hdmap = map_msg->mutable_hdmap();
   auto *lane_marker = map_msg->mutable_lane_marker();
@@ -824,6 +837,7 @@ bool NavigationLane::CreateMap(const MapGenerationParam &map_config,
 }
 
 void NavigationLane::UpdateStitchIndexInfo() {
+AINFO<<"(DMCZP) EnteringMethod: NavigationLane::UpdateStitchIndexInfo";
   stitch_index_map_.clear();
 
   int navigation_line_num = navigation_info_.navigation_path_size();

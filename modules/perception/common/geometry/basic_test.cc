@@ -28,6 +28,7 @@ using base::PointCloud;
 using base::PointF;
 
 TEST(GeometryBasicTest, cross_product_test) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   Eigen::Vector2f p1(0.0, 0.0);
   Eigen::Vector2f p2(1.0, 0.0);
   Eigen::Vector2f p3(0.0, 1.0);
@@ -36,6 +37,7 @@ TEST(GeometryBasicTest, cross_product_test) {
 }
 
 TEST(GeometryBasicTest, cross_product_test2) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   base::PointF pt1, pt2, pt3;
   pt1.x = 0.0;
   pt1.y = 0.0;
@@ -48,6 +50,7 @@ TEST(GeometryBasicTest, cross_product_test2) {
 }
 
 TEST(GeometryBasicTest, calculate_eucliden_dist_test) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   base::PointF pt1, pt2;
   pt1.x = 1.f;
   pt1.y = 1.f;
@@ -60,6 +63,7 @@ TEST(GeometryBasicTest, calculate_eucliden_dist_test) {
 }
 
 TEST(GeometryBasicTest, calculate_eucliden_dist_2d_xy_test) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   base::PointF pt1, pt2;
   pt1.x = 1.f;
   pt1.y = 1.f;
@@ -72,6 +76,7 @@ TEST(GeometryBasicTest, calculate_eucliden_dist_2d_xy_test) {
 }
 
 TEST(GeometryBasicTest, calculate_cos_theta_2d_xy_test) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   Eigen::Vector3f v1(1.0, 0.0, 0.0);
   Eigen::Vector3f v2(0.0, 1.0, 0.0);
   float result = CalculateCosTheta2DXY<float>(v1, v2);
@@ -82,6 +87,7 @@ TEST(GeometryBasicTest, calculate_cos_theta_2d_xy_test) {
 }
 
 TEST(GeometryBasicTest, calculate_theta_2d_xy_test) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   Eigen::Vector3f v1(1.0, 0.0, 0.0);
   Eigen::Vector3f v2(2.0, 0.0, 0.0);
   float result = CalculateTheta2DXY<float>(v1, v2);
@@ -96,6 +102,7 @@ TEST(GeometryBasicTest, calculate_theta_2d_xy_test) {
 }
 
 TEST(GeometryBasicTest, calculate_rotation_mat_2d_xy) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   Eigen::Vector3f v1(1.0, 0.0, 0.0);
   Eigen::Vector3f v2(2.0, 0.0, 0.0);
   Eigen::Matrix3f result = CalculateRotationMat2DXY<float>(v1, v2);
@@ -122,6 +129,7 @@ TEST(GeometryBasicTest, calculate_rotation_mat_2d_xy) {
 }
 
 TEST(GeometryBasicTest, calculate_2d_xy_project_vector) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   Eigen::Vector3d v1(1.0, 0.0, 0.0);
   Eigen::Vector3d v2(0.0, 1.0, 0.0);
   Eigen::Vector3d result = Calculate2DXYProjectVector(v1, v2);
@@ -136,6 +144,7 @@ TEST(GeometryBasicTest, calculate_2d_xy_project_vector) {
 }
 
 TEST(GeometryBasicTest, convert_cartesian_to_polar_coordinate) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   base::PointF pt;
   pt.x = 10.f;
   pt.y = 10.f;
@@ -149,6 +158,7 @@ TEST(GeometryBasicTest, convert_cartesian_to_polar_coordinate) {
 }
 
 TEST(GeometryCommonTest, is_point_xy_in_polygon_2d_xy) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   base::PointF pt, temp;
   PointCloud<PointF> polygon;
   temp.x = 10.f;
@@ -186,6 +196,7 @@ TEST(GeometryCommonTest, is_point_xy_in_polygon_2d_xy) {
 }
 
 TEST(GeometryCommonTest, is_point_in_bbox) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   Eigen::Vector3f gnd_c(0.0, 0.0, 0.0);
   Eigen::Vector3f dir_x(1.0, 0.0, 0.0);
   Eigen::Vector3f dir_y(0.0, 1.0, 0.0);
@@ -216,6 +227,7 @@ TEST(GeometryCommonTest, is_point_in_bbox) {
 }
 
 TEST(GeometryCommonTest, calculate_bbox_size_center_2d_xy) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   Eigen::Vector3f size;
   Eigen::Vector3d center;
   PointCloud<PointF> cloud;
@@ -245,6 +257,7 @@ TEST(GeometryCommonTest, calculate_bbox_size_center_2d_xy) {
 }
 
 TEST(GeometryCommonTest, calculate_most_consistent_bbox_direction) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   Eigen::Vector3f previous_dir(1.0, 0.0, 0.0);
   Eigen::Vector3f current_dir(0.0, 1.0, 0.0);
   CalculateMostConsistentBBoxDir2DXY(previous_dir, &current_dir);
@@ -264,6 +277,7 @@ TEST(GeometryCommonTest, calculate_most_consistent_bbox_direction) {
 }
 
 TEST(GeometryCommonTest, calculate_iou_2d_xy) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   Eigen::Vector3f center0(0.0, 0.0, 0.0);
   Eigen::Vector3f center1(0.0, 1.0, 0.0);
   Eigen::Vector3f size0(2.0, 2.0, 2.0);
@@ -279,6 +293,7 @@ TEST(GeometryCommonTest, calculate_iou_2d_xy) {
 }
 
 TEST(GeometryCommonTest, calculate_dist_and_dir_to_segs) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   Eigen::Vector3f pt(0.0, 0.0, 0.0);
   PointCloud<PointF> cloud;
   base::PointF temp;
@@ -312,6 +327,7 @@ TEST(GeometryCommonTest, calculate_dist_and_dir_to_segs) {
 }
 
 TEST(GeometryCommonTest, calculate_dist_and_dir_to_boundary) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   Eigen::Vector3f pt(0.0, 0.0, 0.0);
   PointCloud<PointF> left, right;
   base::PointF temp;
@@ -346,6 +362,7 @@ TEST(GeometryCommonTest, calculate_dist_and_dir_to_boundary) {
 }
 
 TEST(GeometryCommonTest, calculate_dist_and_dir_to_boundary_list) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   Eigen::Vector3f pt(0.0, 0.0, 0.0);
   PointCloud<PointF> left, right;
   std::vector<PointCloud<PointF>> left_list, right_list;

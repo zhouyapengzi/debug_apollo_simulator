@@ -28,10 +28,12 @@ namespace gem {
 using ::apollo::drivers::canbus::Byte;
 
 Steeringmotorrpt375::Steeringmotorrpt375() {}
+AINFO<<"(DMCZP) EnteringMethod: Steeringmotorrpt375::Steeringmotorrpt375";
 const int32_t Steeringmotorrpt375::ID = 0x75;
 
 void Steeringmotorrpt375::Parse(const std::uint8_t* bytes, int32_t length,
                                 ChassisDetail* chassis) const {
+AINFO<<"(DMCZP) EnteringMethod: Steeringmotorrpt375::Parse";
   chassis->mutable_gem()->mutable_steering_motor_rpt_3_75()->set_torque_output(
       torque_output(bytes, length));
   chassis->mutable_gem()->mutable_steering_motor_rpt_3_75()->set_torque_input(
@@ -44,6 +46,7 @@ void Steeringmotorrpt375::Parse(const std::uint8_t* bytes, int32_t length,
 // 'motorola', 'physical_unit': 'N-m'}
 double Steeringmotorrpt375::torque_output(const std::uint8_t* bytes,
                                           int32_t length) const {
+AINFO<<"(DMCZP) EnteringMethod: Steeringmotorrpt375::torque_output";
   Byte t0(bytes + 0);
   int32_t x = t0.get_byte(0, 8);
 
@@ -75,6 +78,7 @@ double Steeringmotorrpt375::torque_output(const std::uint8_t* bytes,
 // 'motorola', 'physical_unit': 'N-m'}
 double Steeringmotorrpt375::torque_input(const std::uint8_t* bytes,
                                          int32_t length) const {
+AINFO<<"(DMCZP) EnteringMethod: Steeringmotorrpt375::torque_input";
   Byte t0(bytes + 4);
   int32_t x = t0.get_byte(0, 8);
 

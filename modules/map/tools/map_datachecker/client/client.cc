@@ -31,6 +31,7 @@ namespace apollo {
 namespace hdmap {
 
 Client::Client() {
+AINFO<<"(DMCZP) EnteringMethod: Client::Client";
   YAML::Node node = YAML::LoadFile(FLAGS_client_conf_yaml);
   std::string bin_path = boost::filesystem::current_path().string();
   data_collect_time_flag_file_ =
@@ -45,6 +46,7 @@ Client::Client() {
 }
 
 int Client::Run() {
+AINFO<<"(DMCZP) EnteringMethod: Client::Run";
   std::string stage = FLAGS_stage;
   AINFO << "stage [" << stage << "]";
   int ret = 0;
@@ -65,6 +67,7 @@ int Client::Run() {
 }
 
 int Client::RecordCheckStage() {
+AINFO<<"(DMCZP) EnteringMethod: Client::RecordCheckStage";
   std::string cmd = FLAGS_cmd;
   ChannelChecker channel_checker(channel_checker_stop_flag_file_);
   AINFO << "cmd [" << cmd << "]";
@@ -94,6 +97,7 @@ int Client::RecordCheckStage() {
 }
 
 int Client::StaticAlignStage() {
+AINFO<<"(DMCZP) EnteringMethod: Client::StaticAlignStage";
   std::string cmd = FLAGS_cmd;
   AINFO << "cmd [" << cmd << "]";
   StaticAlign static_align;
@@ -121,6 +125,7 @@ int Client::StaticAlignStage() {
 }
 
 int Client::EightRouteStage() {
+AINFO<<"(DMCZP) EnteringMethod: Client::EightRouteStage";
   std::string cmd = FLAGS_cmd;
   AINFO << "cmd [" << cmd << "]";
   EightRoute eight_route;
@@ -148,6 +153,7 @@ int Client::EightRouteStage() {
 }
 
 int Client::DataCollectStage() {
+AINFO<<"(DMCZP) EnteringMethod: Client::DataCollectStage";
   std::string cmd = FLAGS_cmd;
   AINFO << "cmd [" << cmd << "]";
   std::vector<std::string> lines = GetFileLines(data_collect_time_flag_file_);
@@ -215,6 +221,7 @@ int Client::DataCollectStage() {
 }
 
 int Client::LoopsCheckStage() {
+AINFO<<"(DMCZP) EnteringMethod: Client::LoopsCheckStage";
   LoopsChecker loops_checker(data_collect_time_flag_file_);
   bool reached = false;
   int ret = loops_checker.SyncStart(&reached);
@@ -236,6 +243,7 @@ int Client::LoopsCheckStage() {
 }
 
 int Client::CleanStage() {
+AINFO<<"(DMCZP) EnteringMethod: Client::CleanStage";
   if (boost::filesystem::exists(data_collect_time_flag_file_)) {
     boost::filesystem::remove(data_collect_time_flag_file_);
     AINFO << "removed " << data_collect_time_flag_file_;

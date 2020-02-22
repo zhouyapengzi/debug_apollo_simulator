@@ -24,9 +24,11 @@ namespace localization {
 namespace msf {
 
 NdtMapNode::NdtMapNode() {}
+AINFO<<"(DMCZP) EnteringMethod: NdtMapNode::NdtMapNode";
 NdtMapNode::~NdtMapNode() {}
 
 void NdtMapNode::Init(const BaseMapConfig* map_config) {
+AINFO<<"(DMCZP) EnteringMethod: NdtMapNode::Init";
   map_config_ = map_config;
 
   map_node_config_.reset(new NdtMapNodeConfig());
@@ -47,6 +49,7 @@ void NdtMapNode::Init(const BaseMapConfig* map_config) {
 }
 void NdtMapNode::Init(const BaseMapConfig* map_config,
                       const MapNodeIndex& index, bool create_map_cells) {
+AINFO<<"(DMCZP) EnteringMethod: NdtMapNode::Init";
   map_config_ = map_config;
 
   map_node_config_.reset(new NdtMapNodeConfig());
@@ -73,6 +76,7 @@ void NdtMapNode::Init(const BaseMapConfig* map_config,
 
 Eigen::Vector3d NdtMapNode::GetCoordinate3D(unsigned int x, unsigned int y,
                                             int altitude_index) const {
+AINFO<<"(DMCZP) EnteringMethod: NdtMapNode::GetCoordinate3D";
   const Eigen::Vector2d& left_top_corner = GetLeftTopCorner();
   Eigen::Vector2d coord_2d;
   coord_2d[0] =
@@ -93,6 +97,7 @@ Eigen::Vector3d NdtMapNode::GetCoordinate3D(unsigned int x, unsigned int y,
 Eigen::Vector3d NdtMapNode::GetCoordinateCenter3D(unsigned int x,
                                                   unsigned int y,
                                                   int altitude_index) const {
+AINFO<<"(DMCZP) EnteringMethod: NdtMapNode::GetCoordinateCenter3D";
   const Eigen::Vector2d& left_top_corner = GetLeftTopCorner();
   Eigen::Vector2d coord_2d;
   coord_2d[0] =
@@ -111,6 +116,7 @@ Eigen::Vector3d NdtMapNode::GetCoordinateCenter3D(unsigned int x,
 }
 
 void NdtMapNode::Reduce(NdtMapNode* map_node, const NdtMapNode& map_node_new) {
+AINFO<<"(DMCZP) EnteringMethod: NdtMapNode::Reduce";
   assert(map_node->index_.m_ == map_node_new.index_.m_);
   assert(map_node->index_.n_ == map_node_new.index_.n_);
   assert(map_node->index_.resolution_id_ == map_node_new.index_.resolution_id_);

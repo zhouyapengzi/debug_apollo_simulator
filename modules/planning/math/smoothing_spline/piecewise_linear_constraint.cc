@@ -29,6 +29,7 @@ namespace planning {
 namespace {
 
 Eigen::MatrixXd MergeMaxtrices(const std::vector<Eigen::MatrixXd>& matrices) {
+AINFO<<"(DMCZP) EnteringMethod: MergeMaxtrices";
   if (matrices.empty()) {
     return Eigen::MatrixXd(0, 0);
   }
@@ -50,10 +51,14 @@ Eigen::MatrixXd MergeMaxtrices(const std::vector<Eigen::MatrixXd>& matrices) {
 PiecewiseLinearConstraint::PiecewiseLinearConstraint(const uint32_t dimension,
                                                      const double unit_segment)
     : dimension_(dimension), unit_segment_(unit_segment) {}
+AINFO<<"(DMCZP) EnteringMethod: PiecewiseLinearConstraint::PiecewiseLinearConstraint";
 
 Eigen::MatrixXd PiecewiseLinearConstraint::inequality_constraint_matrix()
     const {
+AINFO<<"(DMCZP) EnteringMethod: PiecewiseLinearConstraint::inequality_constraint_matrix";
+AINFO<<"(DMCZP) EnteringMethod: PiecewiseLinearConstraint::inequality_constraint_boundary";
   return MergeMaxtrices(inequality_matrices_);
+AINFO<<"(DMCZP) EnteringMethod: PiecewiseLinearConstraint::equality_constraint_boundary";
 }
 
 Eigen::MatrixXd PiecewiseLinearConstraint::inequality_constraint_boundary()
@@ -62,6 +67,7 @@ Eigen::MatrixXd PiecewiseLinearConstraint::inequality_constraint_boundary()
 }
 
 Eigen::MatrixXd PiecewiseLinearConstraint::equality_constraint_matrix() const {
+AINFO<<"(DMCZP) EnteringMethod: PiecewiseLinearConstraint::equality_constraint_matrix";
   return MergeMaxtrices(equality_matrices_);
 }
 
@@ -74,6 +80,9 @@ bool PiecewiseLinearConstraint::AddBoundary(
     const std::vector<uint32_t>& index_list,
     const std::vector<double>& lower_bound,
     const std::vector<double>& upper_bound) {
+AINFO<<"(DMCZP) EnteringMethod: PiecewiseLinearConstraint::AddBoundary";
+AINFO<<"(DMCZP) EnteringMethod: PiecewiseLinearConstraint::AddDerivativeBoundary";
+AINFO<<"(DMCZP) EnteringMethod: PiecewiseLinearConstraint::AddSecondDerivativeBoundary";
   if (index_list.size() != lower_bound.size() ||
       index_list.size() != upper_bound.size()) {
     AERROR << "The sizes of index list, lower_bound, upper_bound are not "
@@ -189,6 +198,7 @@ bool PiecewiseLinearConstraint::AddSecondDerivativeBoundary(
 
 bool PiecewiseLinearConstraint::AddPointConstraint(const uint32_t index,
                                                    const double val) {
+AINFO<<"(DMCZP) EnteringMethod: PiecewiseLinearConstraint::AddPointConstraint";
   Eigen::MatrixXd equality_matrix = Eigen::MatrixXd::Zero(1, dimension_);
   Eigen::MatrixXd equality_boundary = Eigen::MatrixXd::Zero(1, 1);
 
@@ -202,6 +212,7 @@ bool PiecewiseLinearConstraint::AddPointConstraint(const uint32_t index,
 
 bool PiecewiseLinearConstraint::AddPointDerivativeConstraint(
     const uint32_t index, const double val) {
+AINFO<<"(DMCZP) EnteringMethod: PiecewiseLinearConstraint::AddPointDerivativeConstraint";
   CHECK_GE(index, 1);
   Eigen::MatrixXd equality_matrix = Eigen::MatrixXd::Zero(1, dimension_);
   Eigen::MatrixXd equality_boundary = Eigen::MatrixXd::Zero(1, 1);
@@ -217,6 +228,7 @@ bool PiecewiseLinearConstraint::AddPointDerivativeConstraint(
 }
 
 bool PiecewiseLinearConstraint::AddMonotoneInequalityConstraint() {
+AINFO<<"(DMCZP) EnteringMethod: PiecewiseLinearConstraint::AddMonotoneInequalityConstraint";
   Eigen::MatrixXd inequality_matrix =
       Eigen::MatrixXd::Zero(dimension_, dimension_);
   Eigen::MatrixXd inequality_boundary = Eigen::MatrixXd::Zero(dimension_, 1);

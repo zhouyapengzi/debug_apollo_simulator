@@ -37,6 +37,7 @@ namespace gnss {
 constexpr size_t BUFFER_SIZE = 128;
 
 void ParseBin(const char* filename, DataParser* parser) {
+AINFO<<"(DMCZP) EnteringMethod: ParseBin";
   std::ios::sync_with_stdio(false);
   std::ifstream f(filename, std::ifstream::binary);
   char b[BUFFER_SIZE];
@@ -48,6 +49,7 @@ void ParseBin(const char* filename, DataParser* parser) {
 }
 
 void ParseRecord(const char* filename, DataParser* parser) {
+AINFO<<"(DMCZP) EnteringMethod: ParseRecord";
   cyber::record::RecordReader reader(filename);
   cyber::record::RecordMessage message;
   while (reader.ReadMessage(&message)) {
@@ -62,6 +64,7 @@ void ParseRecord(const char* filename, DataParser* parser) {
 
 void Parse(const char* filename, const char* file_type,
            const std::shared_ptr<::apollo::cyber::Node>& node) {
+AINFO<<"(DMCZP) EnteringMethod: Parse";
   std::string type = std::string(file_type);
   config::Config config;
   if (!apollo::cyber::common::GetProtoFromFile(
@@ -86,6 +89,7 @@ void Parse(const char* filename, const char* file_type,
 }  // namespace apollo
 
 int main(int argc, char** argv) {
+AINFO<<"(DMCZP) EnteringMethod: main";
   if (argc < 3) {
     std::cout << "Usage: " << argv[0] << " filename [record|bin]" << std::endl;
     return 0;

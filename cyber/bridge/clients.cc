@@ -9,6 +9,10 @@
 
 Clients::Clients()
 {
+AINFO<<"(DMCZP) EnteringMethod: Clients::Clients";
+AINFO<<"(DMCZP) EnteringMethod: Clients::start";
+AINFO<<"(DMCZP) EnteringMethod: Clients::stop";
+AINFO<<"(DMCZP) EnteringMethod: Clients::stop_all";
 }
 
 Clients::~Clients()

@@ -32,22 +32,26 @@ class DisjointSetTest : public testing::Test {
 };
 
 TEST_F(DisjointSetTest, test_get_sets_num) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   EXPECT_EQ(16, universe_->GetSetsNum());
 }
 
 TEST_F(DisjointSetTest, test_get_size) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   EXPECT_EQ(1, universe_->GetSize(0));
   EXPECT_EQ(1, universe_->GetSize(5));
   EXPECT_EQ(1, universe_->GetSize(12));
 }
 
 TEST_F(DisjointSetTest, test_reset) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   universe_->Reset(10);
   EXPECT_EQ(10, universe_->GetSetsNum());
   EXPECT_EQ(1, universe_->GetSize(7));
 }
 
 TEST_F(DisjointSetTest, test_find_join) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   EXPECT_EQ(6, universe_->Find(6));
   EXPECT_EQ(9, universe_->Find(9));
   universe_->Join(6, 9);

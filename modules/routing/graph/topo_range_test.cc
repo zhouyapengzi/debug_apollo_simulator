@@ -26,6 +26,7 @@ namespace routing {
 namespace {
 
 void GetRangeVec(std::vector<NodeSRange>* range_vec) {
+AINFO<<"(DMCZP) EnteringMethod: GetRangeVec";
   double s_s_1 = 0.1;
   double e_s_1 = 1.1;
   double s_s_2 = 1.5;
@@ -55,6 +56,7 @@ void GetRangeVec(std::vector<NodeSRange>* range_vec) {
 }  // namespace
 
 TEST(NodeSRangeTestSuit, basic_test) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   FLAGS_min_length_for_lane_change = 10.0;
   double start_s_1 = 0.0;
   double start_s_2 = 5.0;
@@ -92,6 +94,7 @@ TEST(NodeSRangeTestSuit, basic_test) {
 }
 
 TEST(NodeWithRangeTestSuit, basic_test) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   Node node_1;
   node_1.set_length(20);
   Node node_2;
@@ -114,6 +117,7 @@ TEST(NodeWithRangeTestSuit, basic_test) {
 }
 
 TEST(SortNodeRangeAndSearchTestSuit, start_s_test) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   std::vector<NodeSRange> range_vec;
   GetRangeVec(&range_vec);
 
@@ -141,6 +145,7 @@ TEST(SortNodeRangeAndSearchTestSuit, start_s_test) {
 }
 
 TEST(SortNodeRangeAndSearchTestSuit, end_s_test) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   std::vector<NodeSRange> range_vec;
   GetRangeVec(&range_vec);
 

@@ -37,6 +37,7 @@ VelodyneDriver::~VelodyneDriver() {
 }
 
 void VelodyneDriver::Init() {
+AINFO<<"(DMCZP) EnteringMethod: VelodyneDriver::Init";
   double frequency = (config_.rpm() / 60.0);  // expected Hz rate
 
   // default number of packets for each scan is a single revolution
@@ -58,6 +59,7 @@ void VelodyneDriver::Init() {
 
 void VelodyneDriver::SetBaseTimeFromNmeaTime(NMEATimePtr nmea_time,
                                              uint64_t* basetime) {
+AINFO<<"(DMCZP) EnteringMethod: VelodyneDriver::SetBaseTimeFromNmeaTime";
   tm time;
   time.tm_year = nmea_time->year + (2000 - 1900);
   time.tm_mon = nmea_time->mon - 1;
@@ -78,6 +80,7 @@ void VelodyneDriver::SetBaseTimeFromNmeaTime(NMEATimePtr nmea_time,
 }
 
 bool VelodyneDriver::SetBaseTime() {
+AINFO<<"(DMCZP) EnteringMethod: VelodyneDriver::SetBaseTime";
   NMEATimePtr nmea_time(new NMEATime);
   while (true) {
     int rc = input_->get_positioning_data_packet(nmea_time);
@@ -99,6 +102,7 @@ bool VelodyneDriver::SetBaseTime() {
  *  @returns true unless end of file reached
  */
 bool VelodyneDriver::Poll(const std::shared_ptr<VelodyneScan>& scan) {
+AINFO<<"(DMCZP) EnteringMethod: VelodyneDriver::Poll";
   // Allocate a new shared pointer for zero-copy sharing with other nodelets.
   if (basetime_ == 0) {
     usleep(100);  // waiting for positioning data
@@ -135,6 +139,7 @@ bool VelodyneDriver::Poll(const std::shared_ptr<VelodyneScan>& scan) {
 }
 
 int VelodyneDriver::PollStandard(std::shared_ptr<VelodyneScan> scan) {
+AINFO<<"(DMCZP) EnteringMethod: VelodyneDriver::PollStandard";
   // Since the velodyne delivers data at a very high rate, keep reading and
   // publishing scans as fast as possible.
   while ((config_.use_poll_sync() &&
@@ -166,6 +171,7 @@ int VelodyneDriver::PollStandard(std::shared_ptr<VelodyneScan> scan) {
 }
 
 void VelodyneDriver::PollPositioningPacket(void) {
+AINFO<<"(DMCZP) EnteringMethod: VelodyneDriver::PollPositioningPacket";
   while (!cyber::IsShutdown()) {
     NMEATimePtr nmea_time(new NMEATime);
     bool ret = true;
@@ -204,6 +210,7 @@ void VelodyneDriver::PollPositioningPacket(void) {
 }
 
 void VelodyneDriver::UpdateGpsTopHour(uint32_t current_time) {
+AINFO<<"(DMCZP) EnteringMethod: VelodyneDriver::UpdateGpsTopHour";
   if (last_gps_time_ == 0) {
     last_gps_time_ = current_time;
     return;
@@ -223,6 +230,7 @@ void VelodyneDriver::UpdateGpsTopHour(uint32_t current_time) {
 }
 
 VelodyneDriver* VelodyneDriverFactory::CreateDriver(const Config& config) {
+AINFO<<"(DMCZP) EnteringMethod: VelodyneDriverFactory::CreateDriver";
   auto new_config = config;
   if (new_config.prefix_angle() > 35900 || new_config.prefix_angle() < 100) {
     AWARN << "invalid prefix angle, prefix_angle must be between 100 and 35900";

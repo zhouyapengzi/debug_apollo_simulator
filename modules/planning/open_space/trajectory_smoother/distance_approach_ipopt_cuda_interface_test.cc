@@ -70,6 +70,7 @@ class DistanceApproachIPOPTCUDAInterfaceTest : public ::testing::Test {
 };
 
 void DistanceApproachIPOPTCUDAInterfaceTest::ProblemSetup() {
+AINFO<<"(DMCZP) EnteringMethod: DistanceApproachIPOPTCUDAInterfaceTest::ProblemSetup";
   // obstacles_edges_num_ = 4 * Eigen::MatrixXi::Ones(obstacles_num_, 1);
   obstacles_edges_num_ = Eigen::MatrixXi(obstacles_num_, 1);
   obstacles_edges_num_ << 2, 1, 2, 1;
@@ -85,10 +86,12 @@ void DistanceApproachIPOPTCUDAInterfaceTest::ProblemSetup() {
 }
 
 TEST_F(DistanceApproachIPOPTCUDAInterfaceTest, initilization) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   EXPECT_NE(ptop_, nullptr);
 }
 
 TEST_F(DistanceApproachIPOPTCUDAInterfaceTest, get_bounds_info) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   int n = 1274;
   int m = 2194;
   double x_l[1274];
@@ -100,6 +103,7 @@ TEST_F(DistanceApproachIPOPTCUDAInterfaceTest, get_bounds_info) {
 }
 
 TEST_F(DistanceApproachIPOPTCUDAInterfaceTest, get_starting_point) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   int n = 1274;
   int m = 2194;
   bool init_x = true;
@@ -115,6 +119,7 @@ TEST_F(DistanceApproachIPOPTCUDAInterfaceTest, get_starting_point) {
 }
 
 TEST_F(DistanceApproachIPOPTCUDAInterfaceTest, eval_f) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   int n = 1274;
   double obj_value = 0.0;
   double x[1274];
@@ -125,6 +130,7 @@ TEST_F(DistanceApproachIPOPTCUDAInterfaceTest, eval_f) {
 }
 
 TEST_F(DistanceApproachIPOPTCUDAInterfaceTest, eval_jac_g_par) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   int n = 1274;
   int m = 2194;
   int kNnzJac = 0;
@@ -170,6 +176,7 @@ TEST_F(DistanceApproachIPOPTCUDAInterfaceTest, eval_jac_g_par) {
 }
 
 TEST_F(DistanceApproachIPOPTCUDAInterfaceTest, eval_grad_f_hand) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   int n = 1274;
   double x[1274];
   std::fill_n(x, n, 1.2);

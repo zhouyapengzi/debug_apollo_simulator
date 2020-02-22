@@ -32,6 +32,8 @@ using Json = nlohmann::json;
 
 Status HttpClient::Post(const std::string &url, const Json &json,
                         std::string *result) {
+AINFO<<"(DMCZP) EnteringMethod: HttpClient::Post";
+AINFO<<"(DMCZP) EnteringMethod: HttpClient::Post";
   try {
     curlpp::Cleanup cleaner;
     curlpp::Easy request;

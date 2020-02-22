@@ -28,6 +28,7 @@ namespace math {
 
 PathPoint SplineInterpolate(const PathPoint &p0, const PathPoint &p1,
                             const double s) {
+AINFO<<"(DMCZP) EnteringMethod: SplineInterpolate";
   double s0 = p0.s();
   double s1 = p1.s();
   CHECK(s0 <= s && s <= s1);
@@ -67,6 +68,7 @@ PathPoint SplineInterpolate(const PathPoint &p0, const PathPoint &p1,
 
 TrajectoryPoint SplineInterpolate(const TrajectoryPoint &tp0,
                                   const TrajectoryPoint &tp1, const double t) {
+AINFO<<"(DMCZP) EnteringMethod: SplineInterpolate";
   if (std::fabs(tp1.path_point().s() - tp0.path_point().s()) < 1.0e-4) {
     return tp1;
   }

@@ -50,6 +50,7 @@ class ObstacleTest : public KMLMapBasedTest {
 };
 
 TEST_F(ObstacleTest, VehicleBasic) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   Obstacle* obstacle_ptr = container_.GetObstacle(1);
   EXPECT_NE(obstacle_ptr, nullptr);
   EXPECT_EQ(obstacle_ptr->id(), 1);
@@ -60,6 +61,7 @@ TEST_F(ObstacleTest, VehicleBasic) {
 }
 
 TEST_F(ObstacleTest, VehiclePosition) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   Obstacle* obstacle_ptr = container_.GetObstacle(1);
 
   const Feature& start_feature = obstacle_ptr->feature(2);
@@ -85,6 +87,7 @@ TEST_F(ObstacleTest, VehiclePosition) {
 }
 
 TEST_F(ObstacleTest, VehicleVelocity) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   Obstacle* obstacle_ptr = container_.GetObstacle(1);
 
   const Feature& start_feature = obstacle_ptr->feature(2);
@@ -106,12 +109,14 @@ TEST_F(ObstacleTest, VehicleVelocity) {
 }
 
 TEST_F(ObstacleTest, VehicleHeading) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   Obstacle* obstacle_ptr = container_.GetObstacle(1);
   const Feature& latest_feature = obstacle_ptr->latest_feature();
   EXPECT_DOUBLE_EQ(latest_feature.theta(), -0.352);
 }
 
 TEST_F(ObstacleTest, VehicleLaneGraph) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   Obstacle* obstacle_ptr = container_.GetObstacle(1);
   const Feature& latest_feature = obstacle_ptr->latest_feature();
   const LaneGraph& lane_graph = latest_feature.lane().lane_graph();
@@ -129,6 +134,7 @@ TEST_F(ObstacleTest, VehicleLaneGraph) {
 }
 
 TEST_F(ObstacleTest, PedestrianBasic) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   Obstacle* obstacle_ptr = container_.GetObstacle(101);
   EXPECT_NE(obstacle_ptr, nullptr);
   EXPECT_EQ(obstacle_ptr->id(), 101);
@@ -138,6 +144,7 @@ TEST_F(ObstacleTest, PedestrianBasic) {
 }
 
 TEST_F(ObstacleTest, PedestrianPosition) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   Obstacle* obstacle_ptr = container_.GetObstacle(101);
 
   const Feature& start_feature = obstacle_ptr->feature(2);
@@ -163,6 +170,7 @@ TEST_F(ObstacleTest, PedestrianPosition) {
 }
 
 TEST_F(ObstacleTest, PedestrianVelocity) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   Obstacle* obstacle_ptr = container_.GetObstacle(101);
 
   const Feature& start_feature = obstacle_ptr->feature(2);
@@ -184,12 +192,14 @@ TEST_F(ObstacleTest, PedestrianVelocity) {
 }
 
 TEST_F(ObstacleTest, PedestrianHeading) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   Obstacle* obstacle_ptr = container_.GetObstacle(101);
   const Feature& latest_feature = obstacle_ptr->latest_feature();
   EXPECT_DOUBLE_EQ(latest_feature.theta(), 1.220);
 }
 
 TEST_F(ObstacleTest, Priority) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   Obstacle* obstacle_ptr = container_.GetObstacle(101);
   EXPECT_FALSE(obstacle_ptr->ToIgnore());
 }

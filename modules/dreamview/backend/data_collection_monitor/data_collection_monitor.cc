@@ -42,6 +42,7 @@ bool GetProtobufFloatByFieldName(const google::protobuf::Message& message,
                                  const google::protobuf::Descriptor* descriptor,
                                  const google::protobuf::Reflection* reflection,
                                  const std::string& field_name, float* value) {
+AINFO<<"(DMCZP) EnteringMethod: GetProtobufFloatByFieldName";
   if (!descriptor) {
     AERROR << "Protobuf descriptor not found";
     return false;
@@ -69,6 +70,7 @@ bool GetProtobufFloatByFieldName(const google::protobuf::Message& message,
 bool IsCompliedWithCriterion(float actual_value,
                              const ComparisonOperator& comparison_operator,
                              float target_value) {
+AINFO<<"(DMCZP) EnteringMethod: IsCompliedWithCriterion";
   switch (comparison_operator) {
     case ComparisonOperator::EQUAL:
       return std::fabs(actual_value - target_value) <
@@ -93,6 +95,7 @@ bool IsCompliedWithCriterion(float actual_value,
 
 DataCollectionMonitor::DataCollectionMonitor()
     : node_(cyber::CreateNode("data_collection_monitor")) {
+AINFO<<"(DMCZP) EnteringMethod: DataCollectionMonitor::DataCollectionMonitor";
   InitReaders();
   LoadConfiguration(FLAGS_data_collection_config_path);
 }
@@ -100,6 +103,7 @@ DataCollectionMonitor::DataCollectionMonitor()
 DataCollectionMonitor::~DataCollectionMonitor() { Stop(); }
 
 void DataCollectionMonitor::InitReaders() {
+AINFO<<"(DMCZP) EnteringMethod: DataCollectionMonitor::InitReaders";
   node_->CreateReader<Chassis>(FLAGS_chassis_topic,
                                [this](const std::shared_ptr<Chassis>& chassis) {
                                  this->OnChassis(chassis);
@@ -108,6 +112,7 @@ void DataCollectionMonitor::InitReaders() {
 
 void DataCollectionMonitor::LoadConfiguration(
     const std::string& data_collection_config_path) {
+AINFO<<"(DMCZP) EnteringMethod: DataCollectionMonitor::LoadConfiguration";
   CHECK(cyber::common::GetProtoFromFile(data_collection_config_path,
                                         &data_collection_table_))
       << "Unable to parse data collection configuration from file "
@@ -131,6 +136,7 @@ void DataCollectionMonitor::LoadConfiguration(
 }
 
 void DataCollectionMonitor::Start() {
+AINFO<<"(DMCZP) EnteringMethod: DataCollectionMonitor::Start";
   if (!enabled_) {
     category_consecutive_frame_count_.clear();
     category_frame_count_.clear();
@@ -141,8 +147,10 @@ void DataCollectionMonitor::Start() {
 }
 
 void DataCollectionMonitor::Stop() { enabled_ = false; }
+AINFO<<"(DMCZP) EnteringMethod: DataCollectionMonitor::Stop";
 
 void DataCollectionMonitor::OnChassis(const std::shared_ptr<Chassis>& chassis) {
+AINFO<<"(DMCZP) EnteringMethod: DataCollectionMonitor::OnChassis";
   if (!enabled_) {
     return;
   }
@@ -194,6 +202,7 @@ void DataCollectionMonitor::OnChassis(const std::shared_ptr<Chassis>& chassis) {
 
 bool DataCollectionMonitor::IsCompliedWithCriteria(
     const std::shared_ptr<Chassis>& chassis, const Category& category) {
+AINFO<<"(DMCZP) EnteringMethod: DataCollectionMonitor::IsCompliedWithCriteria";
   const auto& vehicle_param = VehicleConfigHelper::GetConfig().vehicle_param();
   const auto* vehicle_param_descriptor = vehicle_param.GetDescriptor();
   const auto* vehicle_param_reflection = vehicle_param.GetReflection();
@@ -229,6 +238,7 @@ bool DataCollectionMonitor::IsCompliedWithCriteria(
 }
 
 nlohmann::json DataCollectionMonitor::GetProgressAsJson() {
+AINFO<<"(DMCZP) EnteringMethod: DataCollectionMonitor::GetProgressAsJson";
   boost::unique_lock<boost::shared_mutex> reader_lock(mutex_);
   return current_progress_json_;
 }

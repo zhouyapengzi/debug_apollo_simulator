@@ -25,11 +25,14 @@ namespace routing {
 using apollo::common::ErrorCode;
 
 std::string Routing::Name() const { return FLAGS_routing_node_name; }
+AINFO<<"(DMCZP) EnteringMethod: Routing::Name";
 
 Routing::Routing()
     : monitor_logger_buffer_(common::monitor::MonitorMessageItem::ROUTING) {}
+AINFO<<"(DMCZP) EnteringMethod: Routing::Routing";
 
 apollo::common::Status Routing::Init() {
+AINFO<<"(DMCZP) EnteringMethod: Routing::Init";
   const auto routing_map_file = apollo::hdmap::RoutingMapFile();
   AINFO << "Use routing topology graph path: " << routing_map_file;
   navigator_ptr_.reset(new Navigator(routing_map_file));
@@ -46,6 +49,7 @@ apollo::common::Status Routing::Init() {
 }
 
 apollo::common::Status Routing::Start() {
+AINFO<<"(DMCZP) EnteringMethod: Routing::Start";
   if (!navigator_ptr_->IsReady()) {
     AERROR << "Navigator is not ready!";
     return apollo::common::Status(ErrorCode::ROUTING_ERROR,
@@ -58,6 +62,7 @@ apollo::common::Status Routing::Start() {
 
 RoutingRequest Routing::FillLaneInfoIfMissing(
     const RoutingRequest& routing_request) {
+AINFO<<"(DMCZP) EnteringMethod: Routing::FillLaneInfoIfMissing";
   RoutingRequest fixed_request(routing_request);
   for (int i = 0; i < routing_request.waypoint_size(); ++i) {
     const auto& lane_waypoint = routing_request.waypoint(i);
@@ -88,6 +93,7 @@ RoutingRequest Routing::FillLaneInfoIfMissing(
 
 bool Routing::Process(const std::shared_ptr<RoutingRequest>& routing_request,
                       RoutingResponse* const routing_response) {
+AINFO<<"(DMCZP) EnteringMethod: Routing::Process";
   CHECK_NOTNULL(routing_response);
   AINFO << "Get new routing request:" << routing_request->DebugString();
   const auto& fixed_request = FillLaneInfoIfMissing(*routing_request);

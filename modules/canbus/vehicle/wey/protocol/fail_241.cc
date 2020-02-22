@@ -28,10 +28,12 @@ namespace wey {
 using ::apollo::drivers::canbus::Byte;
 
 Fail241::Fail241() {}
+AINFO<<"(DMCZP) EnteringMethod: Fail241::Fail241";
 const int32_t Fail241::ID = 0x241;
 
 void Fail241::Parse(const std::uint8_t* bytes, int32_t length,
                     ChassisDetail* chassis) const {
+AINFO<<"(DMCZP) EnteringMethod: Fail241::Parse";
   chassis->mutable_wey()->mutable_fail_241()->set_engfail(
       engfail(bytes, length));
   chassis->mutable_wey()->mutable_fail_241()->set_espfail(
@@ -50,7 +52,11 @@ void Fail241::Parse(const std::uint8_t* bytes, int32_t length,
 // 'bit': 7, 'type': 'enum', 'order': 'motorola', 'physical_unit': ''}
 Fail_241::EngfailType Fail241::engfail(const std::uint8_t* bytes,
                                        int32_t length) const {
+AINFO<<"(DMCZP) EnteringMethod: Fail241::engfail";
+AINFO<<"(DMCZP) EnteringMethod: Fail241::espfail";
+AINFO<<"(DMCZP) EnteringMethod: Fail241::epbfail";
   Byte t0(bytes + 0);
+AINFO<<"(DMCZP) EnteringMethod: Fail241::epsfail";
   int32_t x = t0.get_byte(7, 1);
 
   Fail_241::EngfailType ret = static_cast<Fail_241::EngfailType>(x);
@@ -94,6 +100,7 @@ Fail_241::EpbfailType Fail241::epbfail(const std::uint8_t* bytes,
 // 'physical_unit': ''}
 Fail_241::ShiftfailType Fail241::shiftfail(const std::uint8_t* bytes,
                                            int32_t length) const {
+AINFO<<"(DMCZP) EnteringMethod: Fail241::shiftfail";
   Byte t0(bytes + 3);
   int32_t x = t0.get_byte(4, 4);
 

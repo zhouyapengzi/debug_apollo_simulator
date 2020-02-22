@@ -27,12 +27,16 @@ namespace lidar {
 
 MatchCost::MatchCost(size_t ridx, size_t cidx, double cost)
     : row_idx_(ridx), col_idx_(cidx), cost_(cost) {}
+AINFO<<"(DMCZP) EnteringMethod: MatchCost::MatchCost";
 
 size_t MatchCost::RowIdx() const { return row_idx_; }
+AINFO<<"(DMCZP) EnteringMethod: MatchCost::RowIdx";
 
 size_t MatchCost::ColIdx() const { return col_idx_; }
+AINFO<<"(DMCZP) EnteringMethod: MatchCost::ColIdx";
 
 double MatchCost::Cost() const { return cost_; }
+AINFO<<"(DMCZP) EnteringMethod: MatchCost::Cost";
 
 bool operator<(const MatchCost& m1, const MatchCost& m2) {
   return m1.cost_ < m2.cost_;
@@ -45,6 +49,7 @@ std::ostream& operator<<(std::ostream& os, const MatchCost& m) {
 }
 
 GnnBipartiteGraphMatcher::GnnBipartiteGraphMatcher(size_t max_size) {
+AINFO<<"(DMCZP) EnteringMethod: GnnBipartiteGraphMatcher::GnnBipartiteGraphMatcher";
   row_tag_.reserve(max_size);
   col_tag_.reserve(max_size);
   cost_matrix_ = new common::SecureMat<float>();
@@ -59,6 +64,7 @@ void GnnBipartiteGraphMatcher::Match(
     std::vector<NodeNodePair>* assignments,
     std::vector<size_t>* unassigned_rows,
     std::vector<size_t>* unassigned_cols) {
+AINFO<<"(DMCZP) EnteringMethod: GnnBipartiteGraphMatcher::Match";
   assignments->clear();
   unassigned_rows->clear();
   unassigned_cols->clear();

@@ -26,10 +26,12 @@ namespace ge3 {
 using ::apollo::drivers::canbus::Byte;
 
 Scubcs3308::Scubcs3308() {}
+AINFO<<"(DMCZP) EnteringMethod: Scubcs3308::Scubcs3308";
 const int32_t Scubcs3308::ID = 0x308;
 
 void Scubcs3308::Parse(const std::uint8_t* bytes, int32_t length,
                        ChassisDetail* chassis) const {
+AINFO<<"(DMCZP) EnteringMethod: Scubcs3308::Parse";
   chassis->mutable_ge3()->mutable_scu_bcs_3_308()->set_bcs_rrwheelspdvd(
       bcs_rrwheelspdvd(bytes, length));
   chassis->mutable_ge3()->mutable_scu_bcs_3_308()->set_bcs_rrwheeldirectionvd(
@@ -71,10 +73,22 @@ void Scubcs3308::Parse(const std::uint8_t* bytes, int32_t length,
 // 'order': 'motorola', 'physical_unit': '-'}
 Scu_bcs_3_308::Bcs_rrwheelspdvdType Scubcs3308::bcs_rrwheelspdvd(
     const std::uint8_t* bytes, int32_t length) const {
+AINFO<<"(DMCZP) EnteringMethod: Scubcs3308::bcs_rrwheelspdvd";
+AINFO<<"(DMCZP) EnteringMethod: Scubcs3308::bcs_rrwheeldirectionvd";
+AINFO<<"(DMCZP) EnteringMethod: Scubcs3308::bcs_rlwheelspdvd";
+AINFO<<"(DMCZP) EnteringMethod: Scubcs3308::bcs_rlwheeldirectionvd";
+AINFO<<"(DMCZP) EnteringMethod: Scubcs3308::bcs_frwheelspdvd";
+AINFO<<"(DMCZP) EnteringMethod: Scubcs3308::bcs_frwheeldirectionvd";
+AINFO<<"(DMCZP) EnteringMethod: Scubcs3308::bcs_flwheelspdvd";
+AINFO<<"(DMCZP) EnteringMethod: Scubcs3308::bcs_flwheeldirectionvd";
   Byte t0(bytes + 7);
+AINFO<<"(DMCZP) EnteringMethod: Scubcs3308::bcs_rrwheeldirection";
   int32_t x = t0.get_byte(1, 1);
+AINFO<<"(DMCZP) EnteringMethod: Scubcs3308::bcs_rlwheeldirection";
 
+AINFO<<"(DMCZP) EnteringMethod: Scubcs3308::bcs_frwheeldirection";
   Scu_bcs_3_308::Bcs_rrwheelspdvdType ret =
+AINFO<<"(DMCZP) EnteringMethod: Scubcs3308::bcs_flwheeldirection";
       static_cast<Scu_bcs_3_308::Bcs_rrwheelspdvdType>(x);
   return ret;
 }
@@ -194,6 +208,10 @@ Scu_bcs_3_308::Bcs_flwheeldirectionvdType Scubcs3308::bcs_flwheeldirectionvd(
 // 'motorola', 'physical_unit': 'km/h'}
 double Scubcs3308::bcs_rrwheelspd(const std::uint8_t* bytes,
                                   int32_t length) const {
+AINFO<<"(DMCZP) EnteringMethod: Scubcs3308::bcs_rrwheelspd";
+AINFO<<"(DMCZP) EnteringMethod: Scubcs3308::bcs_rlwheelspd";
+AINFO<<"(DMCZP) EnteringMethod: Scubcs3308::bcs_frwheelspd";
+AINFO<<"(DMCZP) EnteringMethod: Scubcs3308::bcs_flwheelspd";
   Byte t0(bytes + 6);
   int32_t x = t0.get_byte(0, 8);
 

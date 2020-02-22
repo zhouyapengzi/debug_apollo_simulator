@@ -76,6 +76,7 @@ class SpeedLimitDeciderTest : public ::testing::Test {
 };
 
 TEST_F(SpeedLimitDeciderTest, get_centric_acc_limit) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   SpeedBoundsDeciderConfig config;
   SpeedLimitDecider speed_limit_decider(config, *reference_line_, path_data_);
 

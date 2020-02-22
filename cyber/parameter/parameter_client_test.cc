@@ -57,6 +57,7 @@ class ParameterClientTest : public ::testing::Test {
 };
 
 TEST_F(ParameterClientTest, set_parameter) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   EXPECT_TRUE(pc_->SetParameter(Parameter("int", 1)));
   usleep(100000);
 
@@ -65,6 +66,7 @@ TEST_F(ParameterClientTest, set_parameter) {
 }
 
 TEST_F(ParameterClientTest, get_parameter) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   ps_->SetParameter(Parameter("int", 1));
   Parameter parameter;
   EXPECT_TRUE(pc_->GetParameter("int", &parameter));
@@ -77,6 +79,7 @@ TEST_F(ParameterClientTest, get_parameter) {
 }
 
 TEST_F(ParameterClientTest, list_parameter) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   ps_->SetParameter(Parameter("int", 1));
   std::vector<Parameter> parameters;
   EXPECT_TRUE(pc_->ListParameters(&parameters));
@@ -92,6 +95,7 @@ TEST_F(ParameterClientTest, list_parameter) {
 }  // namespace apollo
 
 int main(int argc, char** argv) {
+AINFO<<"(DMCZP) EnteringMethod: main";
   apollo::cyber::Init(argv[0]);
   testing::InitGoogleTest(&argc, argv);
   auto res = RUN_ALL_TESTS();

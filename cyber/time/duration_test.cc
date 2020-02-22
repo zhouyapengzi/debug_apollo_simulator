@@ -25,6 +25,7 @@ namespace apollo {
 namespace cyber {
 
 TEST(DurationTest, constructor) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   Duration duration(100);
   EXPECT_EQ(100, duration.ToNanosecond());
 
@@ -41,6 +42,7 @@ TEST(DurationTest, constructor) {
 }
 
 TEST(DurationTest, operators) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   Duration d1(100);
   Duration d2(200);
   Duration d3(300);
@@ -60,6 +62,7 @@ TEST(DurationTest, operators) {
 }
 
 TEST(DurationTest, is_zero) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   Duration duration;
   EXPECT_TRUE(duration.IsZero());
 }

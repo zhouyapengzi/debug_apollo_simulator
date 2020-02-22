@@ -26,6 +26,7 @@ namespace can {
 using apollo::common::ErrorCode;
 
 TEST(HermesCanClient, init) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   CANCardParameter param;
   param.set_brand(CANCardParameter::HERMES_CAN);
   param.set_channel_id(CANCardParameter::CHANNEL_ID_ZERO);
@@ -37,6 +38,7 @@ TEST(HermesCanClient, init) {
 
 /*
 TEST(HermesCanClient, send) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   CANCardParameter param;
   param.set_brand(CANCardParameter::HERMES_CAN);
   param.set_channel_id(CANCardParameter::CHANNEL_ID_ZERO);
@@ -62,6 +64,7 @@ TEST(HermesCanClient, send) {
 }
 
 TEST(HermesCanClient, receiver) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   CANCardParameter param;
   param.set_brand(CANCardParameter::HERMES_CAN);
   param.set_channel_id(CANCardParameter::CHANNEL_ID_ZERO);
@@ -86,6 +89,7 @@ TEST(HermesCanClient, receiver) {
 }  // namespace apollo
 
 int main(int argc, char **argv) {
+AINFO<<"(DMCZP) EnteringMethod: main";
   ::testing::InitGoogleTest(&argc, argv);
   int ret = RUN_ALL_TESTS();
   return ret;

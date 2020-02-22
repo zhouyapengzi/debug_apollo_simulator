@@ -30,6 +30,7 @@ namespace apollo {
 namespace control {
 
 bool Interpolation2D::Init(const DataType &xyz) {
+AINFO<<"(DMCZP) EnteringMethod: Interpolation2D::Init";
   if (xyz.empty()) {
     AERROR << "empty input.";
     return false;
@@ -41,6 +42,7 @@ bool Interpolation2D::Init(const DataType &xyz) {
 }
 
 double Interpolation2D::Interpolate(const KeyType &xy) const {
+AINFO<<"(DMCZP) EnteringMethod: Interpolation2D::Interpolate";
   double max_x = xyz_.rbegin()->first;
   double min_x = xyz_.begin()->first;
   if (xy.first >= max_x - kDoubleEpsilon) {
@@ -69,6 +71,7 @@ double Interpolation2D::Interpolate(const KeyType &xy) const {
 
 double Interpolation2D::InterpolateYz(const std::map<double, double> &yz_table,
                                       double y) const {
+AINFO<<"(DMCZP) EnteringMethod: Interpolation2D::InterpolateYz";
   if (yz_table.empty()) {
     AERROR << "Unable to interpolateYz because yz_table is empty.";
     return y;
@@ -104,6 +107,7 @@ double Interpolation2D::InterpolateValue(const double value_before,
                                          const double dist_before,
                                          const double value_after,
                                          const double dist_after) const {
+AINFO<<"(DMCZP) EnteringMethod: Interpolation2D::InterpolateValue";
   if (dist_before < kDoubleEpsilon) {
     return value_before;
   }

@@ -27,14 +27,17 @@ const int32_t Pcvcu205::ID = 0x205;
 
 // public
 Pcvcu205::Pcvcu205() { Reset(); }
+AINFO<<"(DMCZP) EnteringMethod: Pcvcu205::Pcvcu205";
 
 uint32_t Pcvcu205::GetPeriod() const {
+AINFO<<"(DMCZP) EnteringMethod: Pcvcu205::GetPeriod";
   // modify every protocol's period manually
   static const uint32_t PERIOD = 20 * 1000;
   return PERIOD;
 }
 
 void Pcvcu205::UpdateData(uint8_t* data) {
+AINFO<<"(DMCZP) EnteringMethod: Pcvcu205::UpdateData";
   set_p_pc_accpedreq(data, pc_accpedreq_);
   set_p_pc_accpedenable(data, pc_accpedenable_);
   set_p_pc_torqreq(data, pc_torqreq_);
@@ -44,6 +47,7 @@ void Pcvcu205::UpdateData(uint8_t* data) {
 }
 
 void Pcvcu205::Reset() {
+AINFO<<"(DMCZP) EnteringMethod: Pcvcu205::Reset";
   // you should check this manually
   pc_accpedreq_ = 0.0;
   pc_accpedenable_ = Pc_vcu_205::PC_ACCPEDENABLE_DISABLE;
@@ -54,6 +58,7 @@ void Pcvcu205::Reset() {
 }
 
 Pcvcu205* Pcvcu205::set_pc_accpedreq(double pc_accpedreq) {
+AINFO<<"(DMCZP) EnteringMethod: Pcvcu205::set_pc_accpedreq";
   pc_accpedreq_ = pc_accpedreq;
   return this;
 }
@@ -63,6 +68,7 @@ Pcvcu205* Pcvcu205::set_pc_accpedreq(double pc_accpedreq) {
 // 'physical_range': '[0|100]', 'bit': 15, 'type': 'double', 'order':
 // 'motorola', 'physical_unit': '%'}
 void Pcvcu205::set_p_pc_accpedreq(uint8_t* data, double pc_accpedreq) {
+AINFO<<"(DMCZP) EnteringMethod: Pcvcu205::set_p_pc_accpedreq";
   pc_accpedreq = ProtocolData::BoundedValue(0.0, 100.0, pc_accpedreq);
   int x = static_cast<int>(pc_accpedreq / 0.050000);
   uint8_t t = 0;
@@ -79,6 +85,7 @@ void Pcvcu205::set_p_pc_accpedreq(uint8_t* data, double pc_accpedreq) {
 
 Pcvcu205* Pcvcu205::set_pc_accpedenable(
     Pc_vcu_205::Pc_accpedenableType pc_accpedenable) {
+AINFO<<"(DMCZP) EnteringMethod: Pcvcu205::set_pc_accpedenable";
   pc_accpedenable_ = pc_accpedenable;
   return this;
 }
@@ -90,6 +97,7 @@ Pcvcu205* Pcvcu205::set_pc_accpedenable(
 // 'order': 'motorola', 'physical_unit': ''}
 void Pcvcu205::set_p_pc_accpedenable(
     uint8_t* data, Pc_vcu_205::Pc_accpedenableType pc_accpedenable) {
+AINFO<<"(DMCZP) EnteringMethod: Pcvcu205::set_p_pc_accpedenable";
   int x = pc_accpedenable;
 
   Byte to_set(data + 0);
@@ -97,6 +105,7 @@ void Pcvcu205::set_p_pc_accpedenable(
 }
 
 Pcvcu205* Pcvcu205::set_pc_torqreq(double pc_torqreq) {
+AINFO<<"(DMCZP) EnteringMethod: Pcvcu205::set_pc_torqreq";
   pc_torqreq_ = pc_torqreq;
   return this;
 }
@@ -106,6 +115,7 @@ Pcvcu205* Pcvcu205::set_pc_torqreq(double pc_torqreq) {
 // 'physical_range': '[-3000|3000]', 'bit': 19, 'type': 'double', 'order':
 // 'motorola', 'physical_unit': 'Nm'}
 void Pcvcu205::set_p_pc_torqreq(uint8_t* data, double pc_torqreq) {
+AINFO<<"(DMCZP) EnteringMethod: Pcvcu205::set_p_pc_torqreq";
   pc_torqreq = ProtocolData::BoundedValue(-3000.0, 3000.0, pc_torqreq);
   int x = static_cast<int>((pc_torqreq - -3000.000000) / 1.500000);
   uint8_t t = 0;
@@ -122,6 +132,7 @@ void Pcvcu205::set_p_pc_torqreq(uint8_t* data, double pc_torqreq) {
 
 Pcvcu205* Pcvcu205::set_pc_torqenable(
     Pc_vcu_205::Pc_torqenableType pc_torqenable) {
+AINFO<<"(DMCZP) EnteringMethod: Pcvcu205::set_pc_torqenable";
   pc_torqenable_ = pc_torqenable;
   return this;
 }
@@ -133,6 +144,7 @@ Pcvcu205* Pcvcu205::set_pc_torqenable(
 // 'physical_unit': ''}
 void Pcvcu205::set_p_pc_torqenable(
     uint8_t* data, Pc_vcu_205::Pc_torqenableType pc_torqenable) {
+AINFO<<"(DMCZP) EnteringMethod: Pcvcu205::set_p_pc_torqenable";
   int x = pc_torqenable;
 
   Byte to_set(data + 0);
@@ -140,6 +152,7 @@ void Pcvcu205::set_p_pc_torqenable(
 }
 
 Pcvcu205* Pcvcu205::set_pc_gearreq(Pc_vcu_205::Pc_gearreqType pc_gearreq) {
+AINFO<<"(DMCZP) EnteringMethod: Pcvcu205::set_pc_gearreq";
   pc_gearreq_ = pc_gearreq;
   return this;
 }
@@ -152,6 +165,7 @@ Pcvcu205* Pcvcu205::set_pc_gearreq(Pc_vcu_205::Pc_gearreqType pc_gearreq) {
 // 'physical_unit': ''}
 void Pcvcu205::set_p_pc_gearreq(uint8_t* data,
                                 Pc_vcu_205::Pc_gearreqType pc_gearreq) {
+AINFO<<"(DMCZP) EnteringMethod: Pcvcu205::set_p_pc_gearreq";
   int x = pc_gearreq;
 
   Byte to_set(data + 0);
@@ -160,6 +174,7 @@ void Pcvcu205::set_p_pc_gearreq(uint8_t* data,
 
 Pcvcu205* Pcvcu205::set_pc_gearenable(
     Pc_vcu_205::Pc_gearenableType pc_gearenable) {
+AINFO<<"(DMCZP) EnteringMethod: Pcvcu205::set_pc_gearenable";
   pc_gearenable_ = pc_gearenable;
   return this;
 }
@@ -171,6 +186,7 @@ Pcvcu205* Pcvcu205::set_pc_gearenable(
 // 'physical_unit': ''}
 void Pcvcu205::set_p_pc_gearenable(
     uint8_t* data, Pc_vcu_205::Pc_gearenableType pc_gearenable) {
+AINFO<<"(DMCZP) EnteringMethod: Pcvcu205::set_p_pc_gearenable";
   int x = pc_gearenable;
 
   Byte to_set(data + 0);

@@ -23,6 +23,7 @@ namespace perception {
 namespace inference {
 
 TEST(BinaryDataTest, test_string_io) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   // // write and read empty string
   // {
   //   FILE *fp = fopen("./inference_test_data/utils/bd_empty", "wb");
@@ -51,6 +52,7 @@ TEST(BinaryDataTest, test_string_io) {
 }
 
 TEST(BinaryDataTest, test_blob_io) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   // // write and read empty blob
   // {
   //   base::Blob<float> blob;
@@ -88,6 +90,7 @@ TEST(BinaryDataTest, test_blob_io) {
 }
 
 TEST(BinaryDataTest, test_dict_io) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   // // write to non-exist directory
   // {
   //   std::map<std::string, boost::shared_ptr<base::Blob<float>>> data_dict;

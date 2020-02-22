@@ -31,6 +31,8 @@ void CartesianFrenetConverter::cartesian_to_frenet(
     const double v, const double a, const double theta, const double kappa,
     std::array<double, 3>* const ptr_s_condition,
     std::array<double, 3>* const ptr_d_condition) {
+AINFO<<"(DMCZP) EnteringMethod: CartesianFrenetConverter::cartesian_to_frenet";
+AINFO<<"(DMCZP) EnteringMethod: CartesianFrenetConverter::cartesian_to_frenet";
   const double dx = x - rx;
   const double dy = y - ry;
 
@@ -92,6 +94,7 @@ void CartesianFrenetConverter::frenet_to_cartesian(
     const std::array<double, 3>& d_condition, double* const ptr_x,
     double* const ptr_y, double* const ptr_theta, double* const ptr_kappa,
     double* const ptr_v, double* const ptr_a) {
+AINFO<<"(DMCZP) EnteringMethod: CartesianFrenetConverter::frenet_to_cartesian";
   CHECK(std::abs(rs - s_condition[0]) < 1.0e-6)
       << "The reference point s and s_condition[0] don't match";
 
@@ -134,6 +137,7 @@ double CartesianFrenetConverter::CalculateTheta(const double rtheta,
                                                 const double rkappa,
                                                 const double l,
                                                 const double dl) {
+AINFO<<"(DMCZP) EnteringMethod: CartesianFrenetConverter::CalculateTheta";
   return NormalizeAngle(rtheta + std::atan2(dl, 1 - l * rkappa));
 }
 
@@ -141,6 +145,7 @@ double CartesianFrenetConverter::CalculateKappa(const double rkappa,
                                                 const double rdkappa,
                                                 const double l, const double dl,
                                                 const double ddl) {
+AINFO<<"(DMCZP) EnteringMethod: CartesianFrenetConverter::CalculateKappa";
   double denominator = (dl * dl + (1 - l * rkappa) * (1 - l * rkappa));
   if (std::fabs(denominator) < 1e-8) {
     return 0.0;
@@ -155,6 +160,7 @@ double CartesianFrenetConverter::CalculateKappa(const double rkappa,
 Vec2d CartesianFrenetConverter::CalculateCartesianPoint(const double rtheta,
                                                         const Vec2d& rpoint,
                                                         const double l) {
+AINFO<<"(DMCZP) EnteringMethod: CartesianFrenetConverter::CalculateCartesianPoint";
   const double x = rpoint.x() - l * std::sin(rtheta);
   const double y = rpoint.y() + l * std::cos(rtheta);
   return Vec2d(x, y);
@@ -163,12 +169,14 @@ Vec2d CartesianFrenetConverter::CalculateCartesianPoint(const double rtheta,
 double CartesianFrenetConverter::CalculateLateralDerivative(
     const double rtheta, const double theta, const double l,
     const double rkappa) {
+AINFO<<"(DMCZP) EnteringMethod: CartesianFrenetConverter::CalculateLateralDerivative";
   return (1 - rkappa * l) * std::tan(theta - rtheta);
 }
 
 double CartesianFrenetConverter::CalculateSecondOrderLateralDerivative(
     const double rtheta, const double theta, const double rkappa,
     const double kappa, const double rdkappa, const double l) {
+AINFO<<"(DMCZP) EnteringMethod: CartesianFrenetConverter::CalculateSecondOrderLateralDerivative";
   const double dl = CalculateLateralDerivative(rtheta, theta, l, rkappa);
   const double theta_diff = theta - rtheta;
   const double cos_theta_diff = std::cos(theta_diff);

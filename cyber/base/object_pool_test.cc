@@ -37,6 +37,7 @@ struct TestNode {
 };
 
 TEST(CCObjectPoolTest, base) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   const uint32_t capacity = 1024;
   std::vector<std::shared_ptr<TestNode>> vec;
   vec.reserve(capacity);
@@ -57,6 +58,7 @@ TEST(CCObjectPoolTest, base) {
 }
 
 TEST(CCObjectPoolTest, multi_thread) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   const uint32_t capacity = 1024;
   std::vector<std::shared_ptr<TestNode>> vec;
   std::vector<std::thread> thread_pool;
@@ -83,6 +85,7 @@ TEST(CCObjectPoolTest, multi_thread) {
 }
 
 TEST(CCObjectPoolTest, construct_object) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   const uint32_t capacity = 1024;
   auto pool = std::make_shared<CCObjectPool<TestNode>>(capacity);
   std::vector<std::shared_ptr<TestNode>> vec;
@@ -114,6 +117,7 @@ TEST(CCObjectPoolTest, construct_object) {
 }
 
 TEST(CCObjectPoolTest, construct_all) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   const uint32_t capacity = 1024;
   std::vector<std::shared_ptr<TestNode>> vec;
   auto pool = std::make_shared<CCObjectPool<TestNode>>(capacity);
@@ -128,6 +132,7 @@ TEST(CCObjectPoolTest, construct_all) {
 }
 
 TEST(ObjectPoolTest, get_object) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   auto pool = std::make_shared<ObjectPool<TestNode>>(100, 10);
   FOR_EACH(i, 0, 10) { EXPECT_EQ(10, pool->GetObject()->value); }
   EXPECT_NE(nullptr, pool->GetObject());

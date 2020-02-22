@@ -32,6 +32,7 @@ RecordViewer::RecordViewer(const RecordReaderPtr& reader, uint64_t begin_time,
       end_time_(end_time),
       channels_(channels),
       readers_({reader}) {
+AINFO<<"(DMCZP) EnteringMethod: RecordViewer::RecordViewer";
   Init();
   UpdateTime();
 }
@@ -43,11 +44,13 @@ RecordViewer::RecordViewer(const std::vector<RecordReaderPtr>& readers,
       end_time_(end_time),
       channels_(channels),
       readers_(readers) {
+AINFO<<"(DMCZP) EnteringMethod: RecordViewer::RecordViewer";
   Init();
   UpdateTime();
 }
 
 bool RecordViewer::IsValid() const {
+AINFO<<"(DMCZP) EnteringMethod: RecordViewer::IsValid";
   if (begin_time_ > end_time_) {
     AERROR << "Begin time must be earlier than end time"
            << ", begin_time=" << begin_time_ << ", end_time=" << end_time_;
@@ -57,6 +60,7 @@ bool RecordViewer::IsValid() const {
 }
 
 bool RecordViewer::Update(RecordMessage* message) {
+AINFO<<"(DMCZP) EnteringMethod: RecordViewer::Update";
   bool find = false;
   do {
     if (msg_buffer_.empty() && !FillBuffer()) {
@@ -74,10 +78,13 @@ bool RecordViewer::Update(RecordMessage* message) {
 }
 
 RecordViewer::Iterator RecordViewer::begin() { return Iterator(this); }
+AINFO<<"(DMCZP) EnteringMethod: RecordViewer::begin";
 
 RecordViewer::Iterator RecordViewer::end() { return Iterator(this, true); }
+AINFO<<"(DMCZP) EnteringMethod: RecordViewer::end";
 
 void RecordViewer::Init() {
+AINFO<<"(DMCZP) EnteringMethod: RecordViewer::Init";
   // Init the channel list
   for (auto& reader : readers_) {
     auto all_channel = reader->GetChannelList();
@@ -100,6 +107,7 @@ void RecordViewer::Init() {
 }
 
 void RecordViewer::Reset() {
+AINFO<<"(DMCZP) EnteringMethod: RecordViewer::Reset";
   for (auto& reader : readers_) {
     reader->Reset();
   }
@@ -109,6 +117,7 @@ void RecordViewer::Reset() {
 }
 
 void RecordViewer::UpdateTime() {
+AINFO<<"(DMCZP) EnteringMethod: RecordViewer::UpdateTime";
   uint64_t min_begin_time = UINT64_MAX;
   uint64_t max_end_time = 0;
 
@@ -137,6 +146,7 @@ void RecordViewer::UpdateTime() {
 }
 
 bool RecordViewer::FillBuffer() {
+AINFO<<"(DMCZP) EnteringMethod: RecordViewer::FillBuffer";
   while (curr_begin_time_ <= end_time_ && msg_buffer_.size() < kBufferMinSize) {
     uint64_t this_begin_time = curr_begin_time_;
     uint64_t this_end_time = this_begin_time + kStepTimeNanoSec;
@@ -176,6 +186,7 @@ bool RecordViewer::FillBuffer() {
 
 RecordViewer::Iterator::Iterator(RecordViewer* viewer, bool end)
     : end_(end), viewer_(viewer) {
+AINFO<<"(DMCZP) EnteringMethod: RecordViewer::Iterator::Iterator";
   if (end_) {
     return;
   }
@@ -208,6 +219,7 @@ RecordViewer::Iterator::pointer RecordViewer::Iterator::operator->() {
 }
 
 RecordViewer::Iterator::reference RecordViewer::Iterator::operator*() {
+AINFO<<"(DMCZP) EnteringMethod: RecordViewer::Iterator::operator*";
   return message_instance_;
 }
 

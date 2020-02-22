@@ -26,12 +26,14 @@ namespace planning {
 
 Spline1d::Spline1d(const std::vector<double>& x_knots, const uint32_t order)
     : x_knots_(x_knots), spline_order_(order) {
+AINFO<<"(DMCZP) EnteringMethod: Spline1d::Spline1d";
   for (uint32_t i = 1; i < x_knots_.size(); ++i) {
     splines_.emplace_back(spline_order_);
   }
 }
 
 double Spline1d::operator()(const double x) const {
+AINFO<<"(DMCZP) EnteringMethod: Spline1d::operator";
   if (splines_.empty()) {
     return 0.0;
   }
@@ -40,6 +42,7 @@ double Spline1d::operator()(const double x) const {
 }
 
 double Spline1d::Derivative(const double x) const {
+AINFO<<"(DMCZP) EnteringMethod: Spline1d::Derivative";
   // zero order spline
   if (splines_.empty()) {
     return 0.0;
@@ -49,6 +52,7 @@ double Spline1d::Derivative(const double x) const {
 }
 
 double Spline1d::SecondOrderDerivative(const double x) const {
+AINFO<<"(DMCZP) EnteringMethod: Spline1d::SecondOrderDerivative";
   if (splines_.empty()) {
     return 0.0;
   }
@@ -57,6 +61,7 @@ double Spline1d::SecondOrderDerivative(const double x) const {
 }
 
 double Spline1d::ThirdOrderDerivative(const double x) const {
+AINFO<<"(DMCZP) EnteringMethod: Spline1d::ThirdOrderDerivative";
   if (splines_.empty()) {
     return 0.0;
   }
@@ -66,6 +71,7 @@ double Spline1d::ThirdOrderDerivative(const double x) const {
 
 bool Spline1d::SetSplineSegs(const Eigen::MatrixXd& param_matrix,
                              const uint32_t order) {
+AINFO<<"(DMCZP) EnteringMethod: Spline1d::SetSplineSegs";
   const uint32_t num_params = order + 1;
   // check if the parameter size fit
   if (x_knots_.size() * num_params !=
@@ -86,10 +92,12 @@ bool Spline1d::SetSplineSegs(const Eigen::MatrixXd& param_matrix,
 const std::vector<double>& Spline1d::x_knots() const { return x_knots_; }
 
 uint32_t Spline1d::spline_order() const { return spline_order_; }
+AINFO<<"(DMCZP) EnteringMethod: Spline1d::spline_order";
 
 const std::vector<Spline1dSeg>& Spline1d::splines() const { return splines_; }
 
 uint32_t Spline1d::FindIndex(const double x) const {
+AINFO<<"(DMCZP) EnteringMethod: Spline1d::FindIndex";
   auto upper_bound = std::upper_bound(x_knots_.begin() + 1, x_knots_.end(), x);
   const uint32_t dis =
       static_cast<uint32_t>(std::distance(x_knots_.begin(), upper_bound));

@@ -28,20 +28,24 @@ const int32_t Llcdiagsteeringcontrol722::ID = 0x722;
 
 // public
 Llcdiagsteeringcontrol722::Llcdiagsteeringcontrol722() { Reset(); }
+AINFO<<"(DMCZP) EnteringMethod: Llcdiagsteeringcontrol722::Llcdiagsteeringcontrol722";
 
 uint32_t Llcdiagsteeringcontrol722::GetPeriod() const {
+AINFO<<"(DMCZP) EnteringMethod: Llcdiagsteeringcontrol722::GetPeriod";
   // TODO(All) :  modify every protocol's period manually
   static const uint32_t PERIOD = 10 * 1000;
   return PERIOD;
 }
 
 void Llcdiagsteeringcontrol722::UpdateData(uint8_t* data) {
+AINFO<<"(DMCZP) EnteringMethod: Llcdiagsteeringcontrol722::UpdateData";
   set_p_llc_dbg_steeringsensorposition(data, llc_dbg_steeringsensorposition_);
   set_p_llc_dbg_steeringrackinputtorque(data, llc_dbg_steeringrackinputtorque_);
   set_p_llc_dbg_steeringmotorposition(data, llc_dbg_steeringmotorposition_);
 }
 
 void Llcdiagsteeringcontrol722::Reset() {
+AINFO<<"(DMCZP) EnteringMethod: Llcdiagsteeringcontrol722::Reset";
   // TODO(All) :  you should check this manually
   llc_dbg_steeringsensorposition_ = 0.0;
   llc_dbg_steeringrackinputtorque_ = 0;
@@ -51,6 +55,7 @@ void Llcdiagsteeringcontrol722::Reset() {
 Llcdiagsteeringcontrol722*
 Llcdiagsteeringcontrol722::set_llc_dbg_steeringsensorposition(
     double llc_dbg_steeringsensorposition) {
+AINFO<<"(DMCZP) EnteringMethod: Llcdiagsteeringcontrol722::set_llc_dbg_steeringsensorposition";
   llc_dbg_steeringsensorposition_ = llc_dbg_steeringsensorposition;
   return this;
 }
@@ -62,6 +67,7 @@ Llcdiagsteeringcontrol722::set_llc_dbg_steeringsensorposition(
 // 'physical_unit': 'rev'}
 void Llcdiagsteeringcontrol722::set_p_llc_dbg_steeringsensorposition(
     uint8_t* data, double llc_dbg_steeringsensorposition) {
+AINFO<<"(DMCZP) EnteringMethod: Llcdiagsteeringcontrol722::set_p_llc_dbg_steeringsensorposition";
   llc_dbg_steeringsensorposition = ProtocolData::BoundedValue(
       -6.5536, 6.5534, llc_dbg_steeringsensorposition);
   int x = static_cast<int>(llc_dbg_steeringsensorposition / 0.000200);
@@ -80,6 +86,7 @@ void Llcdiagsteeringcontrol722::set_p_llc_dbg_steeringsensorposition(
 Llcdiagsteeringcontrol722*
 Llcdiagsteeringcontrol722::set_llc_dbg_steeringrackinputtorque(
     int llc_dbg_steeringrackinputtorque) {
+AINFO<<"(DMCZP) EnteringMethod: Llcdiagsteeringcontrol722::set_llc_dbg_steeringrackinputtorque";
   llc_dbg_steeringrackinputtorque_ = llc_dbg_steeringrackinputtorque;
   return this;
 }
@@ -91,6 +98,7 @@ Llcdiagsteeringcontrol722::set_llc_dbg_steeringrackinputtorque(
 // 'physical_unit': 'counts'}
 void Llcdiagsteeringcontrol722::set_p_llc_dbg_steeringrackinputtorque(
     uint8_t* data, int llc_dbg_steeringrackinputtorque) {
+AINFO<<"(DMCZP) EnteringMethod: Llcdiagsteeringcontrol722::set_p_llc_dbg_steeringrackinputtorque";
   llc_dbg_steeringrackinputtorque = ProtocolData::BoundedValue(
       -32768, 32767, llc_dbg_steeringrackinputtorque);
   int x = llc_dbg_steeringrackinputtorque;
@@ -109,6 +117,7 @@ void Llcdiagsteeringcontrol722::set_p_llc_dbg_steeringrackinputtorque(
 Llcdiagsteeringcontrol722*
 Llcdiagsteeringcontrol722::set_llc_dbg_steeringmotorposition(
     double llc_dbg_steeringmotorposition) {
+AINFO<<"(DMCZP) EnteringMethod: Llcdiagsteeringcontrol722::set_llc_dbg_steeringmotorposition";
   llc_dbg_steeringmotorposition_ = llc_dbg_steeringmotorposition;
   return this;
 }
@@ -120,6 +129,7 @@ Llcdiagsteeringcontrol722::set_llc_dbg_steeringmotorposition(
 // 'physical_unit': 'rev'}
 void Llcdiagsteeringcontrol722::set_p_llc_dbg_steeringmotorposition(
     uint8_t* data, double llc_dbg_steeringmotorposition) {
+AINFO<<"(DMCZP) EnteringMethod: Llcdiagsteeringcontrol722::set_p_llc_dbg_steeringmotorposition";
   llc_dbg_steeringmotorposition = ProtocolData::BoundedValue(
       -83.88608, 83.88607, llc_dbg_steeringmotorposition);
   int x = static_cast<int>(llc_dbg_steeringmotorposition / 0.000010);

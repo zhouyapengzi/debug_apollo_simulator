@@ -22,6 +22,7 @@ namespace adapter {
 
 CoordinateConvertTool::CoordinateConvertTool()
     : pj_from_(nullptr), pj_to_(nullptr) {}
+AINFO<<"(DMCZP) EnteringMethod: CoordinateConvertTool::CoordinateConvertTool";
 
 CoordinateConvertTool::~CoordinateConvertTool() {
   if (pj_from_) {
@@ -36,12 +37,14 @@ CoordinateConvertTool::~CoordinateConvertTool() {
 }
 
 CoordinateConvertTool* CoordinateConvertTool::GetInstance() {
+AINFO<<"(DMCZP) EnteringMethod: CoordinateConvertTool::GetInstance";
   static CoordinateConvertTool instance;
   return &instance;
 }
 
 Status CoordinateConvertTool::SetConvertParam(const std::string& source_param,
                                               const std::string& dst_param) {
+AINFO<<"(DMCZP) EnteringMethod: CoordinateConvertTool::SetConvertParam";
   source_convert_param_ = source_param;
   dst_convert_param_ = dst_param;
   if (pj_from_) {
@@ -74,6 +77,7 @@ Status CoordinateConvertTool::CoordiateConvert(const double longitude,
                                                const double height_ellipsoid,
                                                double* utm_x, double* utm_y,
                                                double* utm_z) {
+AINFO<<"(DMCZP) EnteringMethod: CoordinateConvertTool::CoordiateConvert";
   CHECK_NOTNULL(utm_x);
   CHECK_NOTNULL(utm_y);
   CHECK_NOTNULL(utm_z);

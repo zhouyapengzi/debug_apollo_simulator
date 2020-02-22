@@ -32,9 +32,11 @@ DEFINE_bool(enable_functional_safety, true,
             "Whether to enable functional safety check.");
 
 namespace apollo {
+AINFO<<"(DMCZP) EnteringMethod: DEFINE_bool";
 namespace monitor {
 
 bool Monitor::Init() {
+AINFO<<"(DMCZP) EnteringMethod: Monitor::Init";
   MonitorManager::Instance()->Init(node_);
 
   // Only the one CAN card corresponding to current mode will take effect.
@@ -65,6 +67,7 @@ bool Monitor::Init() {
 }
 
 bool Monitor::Proc() {
+AINFO<<"(DMCZP) EnteringMethod: Monitor::Proc";
   const double current_time = apollo::common::time::Clock::NowInSeconds();
   if (!MonitorManager::Instance()->StartFrame(current_time)) {
     return false;

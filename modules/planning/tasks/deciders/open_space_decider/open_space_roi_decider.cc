@@ -41,6 +41,7 @@ using apollo::hdmap::Path;
 
 OpenSpaceRoiDecider::OpenSpaceRoiDecider(const TaskConfig &config)
     : Decider(config) {
+AINFO<<"(DMCZP) EnteringMethod: OpenSpaceRoiDecider::OpenSpaceRoiDecider";
   hdmap_ = hdmap::HDMapUtil::BaseMapPtr();
   CHECK_NOTNULL(hdmap_);
   vehicle_params_ =
@@ -48,6 +49,7 @@ OpenSpaceRoiDecider::OpenSpaceRoiDecider(const TaskConfig &config)
 }
 
 Status OpenSpaceRoiDecider::Process(Frame *frame) {
+AINFO<<"(DMCZP) EnteringMethod: OpenSpaceRoiDecider::Process";
   if (frame == nullptr) {
     const std::string msg =
         "Invalid frame, fail to process the OpenSpaceRoiDecider.";
@@ -128,6 +130,8 @@ Status OpenSpaceRoiDecider::Process(Frame *frame) {
 
 void OpenSpaceRoiDecider::SetOrigin(
     Frame *const frame, const std::array<common::math::Vec2d, 4> &vertices) {
+AINFO<<"(DMCZP) EnteringMethod: OpenSpaceRoiDecider::SetOrigin";
+AINFO<<"(DMCZP) EnteringMethod: OpenSpaceRoiDecider::SetParkingSpotEndPose";
   auto left_top = vertices[0];
   auto right_top = vertices[3];
   // rotate the points to have the lane to be horizontal to x axis positive
@@ -207,6 +211,7 @@ void OpenSpaceRoiDecider::SetParkingSpotEndPose(
 }
 
 void OpenSpaceRoiDecider::SetPullOverSpotEndPose(Frame *const frame) {
+AINFO<<"(DMCZP) EnteringMethod: OpenSpaceRoiDecider::SetPullOverSpotEndPose";
   const auto &pull_over_status =
       PlanningContext::Instance()->planning_status().pull_over();
   const double pull_over_x = pull_over_status.position().x();
@@ -242,6 +247,7 @@ void OpenSpaceRoiDecider::GetRoadBoundary(
     std::vector<double> *center_lane_s_right,
     std::vector<double> *left_lane_road_width,
     std::vector<double> *right_lane_road_width) {
+AINFO<<"(DMCZP) EnteringMethod: OpenSpaceRoiDecider::GetRoadBoundary";
   double start_s =
       center_line_s -
       config_.open_space_roi_decider_config().roi_longitudinal_range();
@@ -313,6 +319,7 @@ void OpenSpaceRoiDecider::AddBoundaryKeyPoint(
     const bool is_left_curb, std::vector<Vec2d> *center_lane_boundary,
     std::vector<Vec2d> *curb_lane_boundary, std::vector<double> *center_lane_s,
     std::vector<double> *road_width) {
+AINFO<<"(DMCZP) EnteringMethod: OpenSpaceRoiDecider::AddBoundaryKeyPoint";
   // Check if current centerl-lane checking point's mapping on the left/right
   // road boundary is a key point. The road boundary point is a key point if one
   // of the following two confitions is satisfied:
@@ -408,6 +415,8 @@ bool OpenSpaceRoiDecider::GetParkingBoundary(
     Frame *const frame, const std::array<Vec2d, 4> &vertices,
     const hdmap::Path &nearby_path,
     std::vector<std::vector<common::math::Vec2d>> *const roi_parking_boundary) {
+AINFO<<"(DMCZP) EnteringMethod: OpenSpaceRoiDecider::GetParkingBoundary";
+AINFO<<"(DMCZP) EnteringMethod: OpenSpaceRoiDecider::GetPullOverBoundary";
   auto left_top = vertices[0];
   auto left_down = vertices[1];
   auto right_down = vertices[2];
@@ -783,6 +792,7 @@ bool OpenSpaceRoiDecider::GetPullOverBoundary(
 bool OpenSpaceRoiDecider::GetParkingSpot(Frame *const frame,
                                          std::array<Vec2d, 4> *vertices,
                                          Path *nearby_path) {
+AINFO<<"(DMCZP) EnteringMethod: OpenSpaceRoiDecider::GetParkingSpot";
   if (frame == nullptr) {
     AERROR << "Invalid frame, fail to GetParkingSpotFromMap from frame. ";
     return false;
@@ -877,6 +887,7 @@ bool OpenSpaceRoiDecider::GetParkingSpot(Frame *const frame,
 bool OpenSpaceRoiDecider::GetPullOverSpot(
     Frame *const frame, std::array<common::math::Vec2d, 4> *vertices,
     hdmap::Path *nearby_path) {
+AINFO<<"(DMCZP) EnteringMethod: OpenSpaceRoiDecider::GetPullOverSpot";
   const auto &pull_over_status =
       PlanningContext::Instance()->planning_status().pull_over();
   if (!pull_over_status.has_position() ||
@@ -938,6 +949,7 @@ bool OpenSpaceRoiDecider::GetPullOverSpot(
 void OpenSpaceRoiDecider::SearchTargetParkingSpotOnPath(
     const hdmap::Path &nearby_path,
     ParkingSpaceInfoConstPtr *target_parking_spot) {
+AINFO<<"(DMCZP) EnteringMethod: OpenSpaceRoiDecider::SearchTargetParkingSpotOnPath";
   const auto &parking_space_overlaps = nearby_path.parking_space_overlaps();
   for (const auto &parking_overlap : parking_space_overlaps) {
     if (parking_overlap.object_id == target_parking_spot_id_) {
@@ -951,6 +963,7 @@ void OpenSpaceRoiDecider::SearchTargetParkingSpotOnPath(
 bool OpenSpaceRoiDecider::CheckDistanceToParkingSpot(
     const hdmap::Path &nearby_path,
     const hdmap::ParkingSpaceInfoConstPtr &target_parking_spot) {
+AINFO<<"(DMCZP) EnteringMethod: OpenSpaceRoiDecider::CheckDistanceToParkingSpot";
   Vec2d left_bottom_point = target_parking_spot->polygon().points().at(0);
   Vec2d right_bottom_point = target_parking_spot->polygon().points().at(1);
   double left_bottom_point_s = 0.0;
@@ -976,6 +989,7 @@ bool OpenSpaceRoiDecider::CheckDistanceToParkingSpot(
 
 bool OpenSpaceRoiDecider::FuseLineSegments(
     std::vector<std::vector<common::math::Vec2d>> *line_segments_vec) {
+AINFO<<"(DMCZP) EnteringMethod: OpenSpaceRoiDecider::FuseLineSegments";
   constexpr double kEpsilon = 1.0e-8;
   auto cur_segment = line_segments_vec->begin();
   while (cur_segment != line_segments_vec->end() - 1) {
@@ -1011,6 +1025,8 @@ bool OpenSpaceRoiDecider::FuseLineSegments(
 bool OpenSpaceRoiDecider::FormulateBoundaryConstraints(
     const std::vector<std::vector<common::math::Vec2d>> &roi_parking_boundary,
     Frame *const frame) {
+AINFO<<"(DMCZP) EnteringMethod: OpenSpaceRoiDecider::FormulateBoundaryConstraints";
+AINFO<<"(DMCZP) EnteringMethod: OpenSpaceRoiDecider::LoadObstacleInVertices";
   // Gather vertice needed by warm start and distance approach
   if (!LoadObstacleInVertices(roi_parking_boundary, frame)) {
     AERROR << "fail at LoadObstacleInVertices()";
@@ -1123,6 +1139,7 @@ bool OpenSpaceRoiDecider::LoadObstacleInVertices(
 
 bool OpenSpaceRoiDecider::FilterOutObstacle(const Frame &frame,
                                             const Obstacle &obstacle) {
+AINFO<<"(DMCZP) EnteringMethod: OpenSpaceRoiDecider::FilterOutObstacle";
   if (obstacle.IsVirtual()) {
     return true;
   }
@@ -1169,6 +1186,7 @@ bool OpenSpaceRoiDecider::FilterOutObstacle(const Frame &frame,
 }
 
 bool OpenSpaceRoiDecider::LoadObstacleInHyperPlanes(Frame *const frame) {
+AINFO<<"(DMCZP) EnteringMethod: OpenSpaceRoiDecider::LoadObstacleInHyperPlanes";
   *(frame->mutable_open_space_info()->mutable_obstacles_A()) =
       Eigen::MatrixXd::Zero(
           frame->open_space_info().obstacles_edges_num().sum(), 2);
@@ -1192,6 +1210,7 @@ bool OpenSpaceRoiDecider::GetHyperPlanes(
     const size_t &obstacles_num, const Eigen::MatrixXi &obstacles_edges_num,
     const std::vector<std::vector<Vec2d>> &obstacles_vertices_vec,
     Eigen::MatrixXd *A_all, Eigen::MatrixXd *b_all) {
+AINFO<<"(DMCZP) EnteringMethod: OpenSpaceRoiDecider::GetHyperPlanes";
   if (obstacles_num != obstacles_vertices_vec.size()) {
     AERROR << "obstacles_num != obstacles_vertices_vec.size()";
     return false;

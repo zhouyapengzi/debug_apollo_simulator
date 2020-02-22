@@ -44,6 +44,7 @@ ErrorCode LexusController::Init(
     const VehicleParameter& params,
     CanSender<::apollo::canbus::ChassisDetail>* const can_sender,
     MessageManager<::apollo::canbus::ChassisDetail>* const message_manager) {
+AINFO<<"(DMCZP) EnteringMethod: LexusController::Init";
   if (is_initialized_) {
     AINFO << "LexusController has already been initiated.";
     return ErrorCode::CANBUS_ERROR;
@@ -119,6 +120,7 @@ ErrorCode LexusController::Init(
 LexusController::~LexusController() {}
 
 bool LexusController::Start() {
+AINFO<<"(DMCZP) EnteringMethod: LexusController::Start";
   if (!is_initialized_) {
     AERROR << "LexusController has NOT been initiated.";
     return false;
@@ -130,6 +132,7 @@ bool LexusController::Start() {
 }
 
 void LexusController::Stop() {
+AINFO<<"(DMCZP) EnteringMethod: LexusController::Stop";
   if (!is_initialized_) {
     AERROR << "LexusController stops or starts improperly!";
     return;
@@ -143,6 +146,7 @@ void LexusController::Stop() {
 }
 
 Chassis LexusController::chassis() {
+AINFO<<"(DMCZP) EnteringMethod: LexusController::chassis";
   chassis_.Clear();
 
   ChassisDetail chassis_detail;
@@ -299,11 +303,13 @@ Chassis LexusController::chassis() {
 }
 
 void LexusController::Emergency() {
+AINFO<<"(DMCZP) EnteringMethod: LexusController::Emergency";
   set_driving_mode(Chassis::EMERGENCY_MODE);
   ResetProtocol();
 }
 
 ErrorCode LexusController::EnableAutoMode() {
+AINFO<<"(DMCZP) EnteringMethod: LexusController::EnableAutoMode";
   if (driving_mode() == Chassis::COMPLETE_AUTO_DRIVE) {
     AINFO << "Already in COMPLETE_AUTO_DRIVE mode";
     return ErrorCode::OK;
@@ -333,6 +339,7 @@ ErrorCode LexusController::EnableAutoMode() {
 }
 
 ErrorCode LexusController::DisableAutoMode() {
+AINFO<<"(DMCZP) EnteringMethod: LexusController::DisableAutoMode";
   ResetProtocol();
   can_sender_->Update();
   set_driving_mode(Chassis::COMPLETE_MANUAL);
@@ -342,6 +349,7 @@ ErrorCode LexusController::DisableAutoMode() {
 }
 
 ErrorCode LexusController::EnableSteeringOnlyMode() {
+AINFO<<"(DMCZP) EnteringMethod: LexusController::EnableSteeringOnlyMode";
   if (driving_mode() == Chassis::COMPLETE_AUTO_DRIVE ||
       driving_mode() == Chassis::AUTO_STEER_ONLY) {
     set_driving_mode(Chassis::AUTO_STEER_ONLY);
@@ -367,6 +375,7 @@ ErrorCode LexusController::EnableSteeringOnlyMode() {
 }
 
 ErrorCode LexusController::EnableSpeedOnlyMode() {
+AINFO<<"(DMCZP) EnteringMethod: LexusController::EnableSpeedOnlyMode";
   if (driving_mode() == Chassis::COMPLETE_AUTO_DRIVE ||
       driving_mode() == Chassis::AUTO_SPEED_ONLY) {
     set_driving_mode(Chassis::AUTO_SPEED_ONLY);
@@ -393,6 +402,7 @@ ErrorCode LexusController::EnableSpeedOnlyMode() {
 
 // NEUTRAL, REVERSE, DRIVE
 void LexusController::Gear(Chassis::GearPosition gear_position) {
+AINFO<<"(DMCZP) EnteringMethod: LexusController::Gear";
   if (driving_mode() != Chassis::COMPLETE_AUTO_DRIVE &&
       driving_mode() != Chassis::AUTO_SPEED_ONLY) {
     AINFO << "This drive mode no need to set gear.";
@@ -442,6 +452,7 @@ void LexusController::Gear(Chassis::GearPosition gear_position) {
 // acceleration_spd:60 ~ 100, suggest: 90
 // -> pedal
 void LexusController::Brake(double pedal) {
+AINFO<<"(DMCZP) EnteringMethod: LexusController::Brake";
   // double real_value = params_.max_acc() * acceleration / 100;
   if (driving_mode() != Chassis::COMPLETE_AUTO_DRIVE &&
       driving_mode() != Chassis::AUTO_SPEED_ONLY) {
@@ -454,6 +465,7 @@ void LexusController::Brake(double pedal) {
 // drive with old acceleration
 // gas:0.00~99.99 unit:
 void LexusController::Throttle(double pedal) {
+AINFO<<"(DMCZP) EnteringMethod: LexusController::Throttle";
   if (driving_mode() != Chassis::COMPLETE_AUTO_DRIVE &&
       driving_mode() != Chassis::AUTO_SPEED_ONLY) {
     AINFO << "The current drive mode does not need to set acceleration.";
@@ -465,6 +477,7 @@ void LexusController::Throttle(double pedal) {
 // drive with acceleration/deceleration
 // acc:-7.0 ~ 5.0, unit:m/s^2
 void LexusController::Acceleration(double acc) {
+AINFO<<"(DMCZP) EnteringMethod: LexusController::Acceleration";
   if (driving_mode() != Chassis::COMPLETE_AUTO_DRIVE &&
       driving_mode() != Chassis::AUTO_SPEED_ONLY) {
     AINFO << "The current drive mode does not need to set acceleration.";
@@ -478,6 +491,7 @@ void LexusController::Acceleration(double acc) {
 // steering with old angle speed
 // angle:-99.99~0.00~99.99, unit:, left:-, right:+
 void LexusController::Steer(double angle) {
+AINFO<<"(DMCZP) EnteringMethod: LexusController::Steer";
   if (driving_mode() != Chassis::COMPLETE_AUTO_DRIVE &&
       driving_mode() != Chassis::AUTO_STEER_ONLY) {
     AINFO << "The current driving mode does not need to set steer.";
@@ -495,6 +509,7 @@ void LexusController::Steer(double angle) {
 // angle:-99.99~0.00~99.99, unit:, left:-, right:+
 // angle_spd:0.00~99.99, unit:deg/s
 void LexusController::Steer(double angle, double angle_spd) {
+AINFO<<"(DMCZP) EnteringMethod: LexusController::Steer";
   if (driving_mode() != Chassis::COMPLETE_AUTO_DRIVE &&
       driving_mode() != Chassis::AUTO_STEER_ONLY) {
     AINFO << "The current driving mode does not need to set steer.";
@@ -515,6 +530,7 @@ void LexusController::Steer(double angle, double angle_spd) {
 }
 
 void LexusController::SetEpbBreak(const ControlCommand& command) {
+AINFO<<"(DMCZP) EnteringMethod: LexusController::SetEpbBreak";
   if (command.parking_brake()) {
     // None
   } else {
@@ -523,6 +539,7 @@ void LexusController::SetEpbBreak(const ControlCommand& command) {
 }
 
 void LexusController::SetBeam(const ControlCommand& command) {
+AINFO<<"(DMCZP) EnteringMethod: LexusController::SetBeam";
   if (command.signal().high_beam()) {
     // None
   } else if (command.signal().low_beam()) {
@@ -533,6 +550,7 @@ void LexusController::SetBeam(const ControlCommand& command) {
 }
 
 void LexusController::SetHorn(const ControlCommand& command) {
+AINFO<<"(DMCZP) EnteringMethod: LexusController::SetHorn";
   if (command.signal().horn()) {
     // None
   } else {
@@ -541,6 +559,7 @@ void LexusController::SetHorn(const ControlCommand& command) {
 }
 
 void LexusController::SetTurningSignal(const ControlCommand& command) {
+AINFO<<"(DMCZP) EnteringMethod: LexusController::SetTurningSignal";
   auto signal = command.signal().turn_signal();
   if (signal == common::VehicleSignal::TURN_LEFT) {
     turn_cmd_130_->set_turn_signal_cmd(Turn_cmd_130::TURN_SIGNAL_CMD_LEFT);
@@ -552,14 +571,17 @@ void LexusController::SetTurningSignal(const ControlCommand& command) {
 }
 
 void LexusController::ResetProtocol() { message_manager_->ResetSendMessages(); }
+AINFO<<"(DMCZP) EnteringMethod: LexusController::ResetProtocol";
 
 bool LexusController::CheckChassisError() {
+AINFO<<"(DMCZP) EnteringMethod: LexusController::CheckChassisError";
   /* ADD YOUR OWN CAR CHASSIS OPERATION
    */
   return false;
 }
 
 void LexusController::SecurityDogThreadFunc() {
+AINFO<<"(DMCZP) EnteringMethod: LexusController::SecurityDogThreadFunc";
   int32_t vertical_ctrl_fail = 0;
   int32_t horizontal_ctrl_fail = 0;
 
@@ -628,28 +650,33 @@ void LexusController::SecurityDogThreadFunc() {
 }
 
 bool LexusController::CheckResponse(const int32_t flags, bool need_wait) {
+AINFO<<"(DMCZP) EnteringMethod: LexusController::CheckResponse";
   /* ADD YOUR OWN CAR CHASSIS OPERATION
    */
   return false;
 }
 
 void LexusController::set_chassis_error_mask(const int32_t mask) {
+AINFO<<"(DMCZP) EnteringMethod: LexusController::set_chassis_error_mask";
   std::lock_guard<std::mutex> lock(chassis_mask_mutex_);
   chassis_error_mask_ = mask;
 }
 
 int32_t LexusController::chassis_error_mask() {
+AINFO<<"(DMCZP) EnteringMethod: LexusController::chassis_error_mask";
   std::lock_guard<std::mutex> lock(chassis_mask_mutex_);
   return chassis_error_mask_;
 }
 
 Chassis::ErrorCode LexusController::chassis_error_code() {
+AINFO<<"(DMCZP) EnteringMethod: LexusController::chassis_error_code";
   std::lock_guard<std::mutex> lock(chassis_error_code_mutex_);
   return chassis_error_code_;
 }
 
 void LexusController::set_chassis_error_code(
     const Chassis::ErrorCode& error_code) {
+AINFO<<"(DMCZP) EnteringMethod: LexusController::set_chassis_error_code";
   std::lock_guard<std::mutex> lock(chassis_error_code_mutex_);
   chassis_error_code_ = error_code;
 }

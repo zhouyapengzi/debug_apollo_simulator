@@ -25,6 +25,7 @@ namespace adapter {
 
 Status UtilXmlParser::ParseCurve(const tinyxml2::XMLElement& xml_node,
                                  PbCurve* curve) {
+AINFO<<"(DMCZP) EnteringMethod: UtilXmlParser::ParseCurve";
   CHECK_NOTNULL(curve);
 
   const tinyxml2::XMLElement* sub_node = xml_node.FirstChildElement("geometry");
@@ -39,6 +40,7 @@ Status UtilXmlParser::ParseCurve(const tinyxml2::XMLElement& xml_node,
 
 Status UtilXmlParser::ParseGeometry(const tinyxml2::XMLElement& xml_node,
                                     PbCurveSegment* curve_segment) {
+AINFO<<"(DMCZP) EnteringMethod: UtilXmlParser::ParseGeometry";
   CHECK_NOTNULL(curve_segment);
 
   // Read geometry attributes
@@ -82,6 +84,7 @@ Status UtilXmlParser::ParseGeometry(const tinyxml2::XMLElement& xml_node,
 
 Status UtilXmlParser::ParsePointSet(const tinyxml2::XMLElement& xml_node,
                                     PbLineSegment* line_segment) {
+AINFO<<"(DMCZP) EnteringMethod: UtilXmlParser::ParsePointSet";
   const tinyxml2::XMLElement* sub_node = xml_node.FirstChildElement("point");
   while (sub_node) {
     double ptx = 0.0;
@@ -112,6 +115,7 @@ Status UtilXmlParser::ParsePointSet(const tinyxml2::XMLElement& xml_node,
 
 Status UtilXmlParser::ParseOutline(const tinyxml2::XMLElement& xml_node,
                                    PbPolygon* polygon) {
+AINFO<<"(DMCZP) EnteringMethod: UtilXmlParser::ParseOutline";
   const tinyxml2::XMLElement* sub_node =
       xml_node.FirstChildElement("cornerGlobal");
   while (sub_node) {
@@ -145,6 +149,7 @@ Status UtilXmlParser::ParseOutline(const tinyxml2::XMLElement& xml_node,
 
 Status UtilXmlParser::ParsePoint(const tinyxml2::XMLElement& xml_node,
                                  PbPoint3D* pt) {
+AINFO<<"(DMCZP) EnteringMethod: UtilXmlParser::ParsePoint";
   CHECK_NOTNULL(pt);
 
   const auto sub_node = xml_node.FirstChildElement("centerPoint");
@@ -174,6 +179,7 @@ Status UtilXmlParser::ParsePoint(const tinyxml2::XMLElement& xml_node,
 }
 
 std::string UtilXmlParser::ToUpper(const std::string& s) {
+AINFO<<"(DMCZP) EnteringMethod: UtilXmlParser::ToUpper";
   std::string value = s;
   std::transform(value.begin(), value.end(), value.begin(),
                  [](unsigned char c) { return std::toupper(c); });
@@ -184,11 +190,13 @@ std::string UtilXmlParser::ToUpper(const std::string& s) {
 void UtilXmlParser::WGS84ToUTM(const double x, const double y, const double z,
                                double* output_x, double* output_y,
                                double* output_z) {
+AINFO<<"(DMCZP) EnteringMethod: UtilXmlParser::WGS84ToUTM";
   CoordinateConvertTool::GetInstance()->CoordiateConvert(x, y, z, output_x,
                                                          output_y, output_z);
 }
 
 double UtilXmlParser::CurveLength(const PbCurve& curve) {
+AINFO<<"(DMCZP) EnteringMethod: UtilXmlParser::CurveLength";
   double length = 0.0;
   for (int i = 0; i < curve.segment_size(); ++i) {
     length += curve.segment(i).length();
@@ -200,6 +208,7 @@ double UtilXmlParser::CurveLength(const PbCurve& curve) {
 tinyxml2::XMLError UtilXmlParser::QueryStringAttribute(
     const tinyxml2::XMLElement& xml_node, const std::string& name,
     std::string* value) {
+AINFO<<"(DMCZP) EnteringMethod: UtilXmlParser::QueryStringAttribute";
   CHECK_NOTNULL(value);
   const char* val = xml_node.Attribute(name.c_str());
   if (val == nullptr) {

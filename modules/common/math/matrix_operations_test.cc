@@ -23,6 +23,7 @@ namespace common {
 namespace math {
 
 TEST(PseudoInverseTest, PseudoInverseI) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   const Eigen::Matrix<float, 2, 2> A = Eigen::MatrixXf::Identity(2, 2);
 
   const double epsilon = 1.0e-6;
@@ -45,6 +46,7 @@ TEST(PseudoInverseTest, PseudoInverseI) {
 }
 
 TEST(PseudoInverseTest, PseudoInverseII) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   const Eigen::Matrix<float, 5, 1> A = Eigen::MatrixXf::Ones(5, 1);
 
   const double epsilon = 1.0e-6;
@@ -73,6 +75,7 @@ TEST(PseudoInverseTest, PseudoInverseII) {
 }
 
 TEST(ContinuousToDiscreteTest, c2d_fixed_size) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   double ts = 0.0;
 
   Eigen::Matrix<float, 2, 2> m_a = Eigen::MatrixXf::Identity(2, 2);
@@ -158,6 +161,7 @@ TEST(ContinuousToDiscreteTest, c2d_fixed_size) {
 }
 
 TEST(ContinuousToDiscreteTest, c2d_dynamic_size) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   double ts = 0.0;
 
   Eigen::MatrixXd m_a = Eigen::MatrixXd::Identity(2, 2);
@@ -243,6 +247,7 @@ TEST(ContinuousToDiscreteTest, c2d_dynamic_size) {
 }
 
 TEST(DENSE_TO_CSC_MATRIX, dense_to_csc_matrix_test) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   {
     std::vector<double> data;
     std::vector<int> indices;
@@ -328,6 +333,7 @@ TEST(DENSE_TO_CSC_MATRIX, dense_to_csc_matrix_test) {
 }
 
 TEST(DENSE_TO_CSC_MATRIX, patterned_dense_to_csc_matrix_test) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   int N = 5;
   Eigen::MatrixXd dense_matrix = Eigen::MatrixXd::Zero(N * 3, N * 3);
   for (int i = 0; i < N; ++i) {

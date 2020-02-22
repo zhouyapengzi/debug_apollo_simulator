@@ -40,6 +40,7 @@ class HungarianOptimizerTest : public testing::Test {
 };  // class HungarianOptimizerTest
 
 TEST_F(HungarianOptimizerTest, test_Minimize) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   std::vector<std::pair<size_t, size_t>> assignments;
   optimizer_->costs()->Reserve(1000, 1000);
 
@@ -174,6 +175,7 @@ TEST_F(HungarianOptimizerTest, test_Minimize) {
 }
 
 TEST_F(HungarianOptimizerTest, test_Maximize) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   std::vector<std::pair<size_t, size_t>> assignments;
   optimizer_->costs()->Reserve(1000, 1000);
 

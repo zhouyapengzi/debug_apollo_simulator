@@ -36,18 +36,22 @@ PiecewiseLinearGenerator::PiecewiseLinearGenerator(
       total_t_(num_of_segments * unit_segment),
       constraint_(num_of_segments, unit_segment),
       kernel_(num_of_segments, unit_segment) {
+AINFO<<"(DMCZP) EnteringMethod: PiecewiseLinearGenerator::PiecewiseLinearGenerator";
   CHECK_GE(num_of_segments, 3);
 }
 
 PiecewiseLinearConstraint* PiecewiseLinearGenerator::mutable_constraint() {
+AINFO<<"(DMCZP) EnteringMethod: PiecewiseLinearGenerator::mutable_constraint";
   return &constraint_;
 }
 
 PiecewiseLinearKernel* PiecewiseLinearGenerator::mutable_kernel() {
+AINFO<<"(DMCZP) EnteringMethod: PiecewiseLinearGenerator::mutable_kernel";
   return &kernel_;
 }
 
 bool PiecewiseLinearGenerator::Solve() {
+AINFO<<"(DMCZP) EnteringMethod: PiecewiseLinearGenerator::Solve";
   const Eigen::MatrixXd& kernel_matrix = kernel_.kernel_matrix();
   const Eigen::MatrixXd& offset = kernel_.offset_matrix();
 

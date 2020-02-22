@@ -28,14 +28,17 @@ const int32_t Cruisecontrolbuttonscmd108::ID = 0x108;
 
 // public
 Cruisecontrolbuttonscmd108::Cruisecontrolbuttonscmd108() { Reset(); }
+AINFO<<"(DMCZP) EnteringMethod: Cruisecontrolbuttonscmd108::Cruisecontrolbuttonscmd108";
 
 uint32_t Cruisecontrolbuttonscmd108::GetPeriod() const {
+AINFO<<"(DMCZP) EnteringMethod: Cruisecontrolbuttonscmd108::GetPeriod";
   // TODO(QiL) modify every protocol's period manually
   static const uint32_t PERIOD = 20 * 1000;
   return PERIOD;
 }
 
 void Cruisecontrolbuttonscmd108::UpdateData(uint8_t* data) {
+AINFO<<"(DMCZP) EnteringMethod: Cruisecontrolbuttonscmd108::UpdateData";
   set_p_cruise_control_button(data, cruise_control_button_);
   set_p_ignore_overrides(data, ignore_overrides_);
   set_p_clear_override(data, clear_override_);
@@ -44,6 +47,7 @@ void Cruisecontrolbuttonscmd108::UpdateData(uint8_t* data) {
 }
 
 void Cruisecontrolbuttonscmd108::Reset() {
+AINFO<<"(DMCZP) EnteringMethod: Cruisecontrolbuttonscmd108::Reset";
   // TODO(QiL) you should check this manually
   cruise_control_button_ =
       Cruise_control_buttons_cmd_108::CRUISE_CONTROL_BUTTON_CRUISE_CONTROL_NONE;
@@ -57,6 +61,7 @@ Cruisecontrolbuttonscmd108*
 Cruisecontrolbuttonscmd108::set_cruise_control_button(
     Cruise_control_buttons_cmd_108::Cruise_control_buttonType
         cruise_control_button) {
+AINFO<<"(DMCZP) EnteringMethod: Cruisecontrolbuttonscmd108::set_cruise_control_button";
   cruise_control_button_ = cruise_control_button;
   return this;
 }
@@ -74,6 +79,7 @@ Cruisecontrolbuttonscmd108::set_cruise_control_button(
 void Cruisecontrolbuttonscmd108::set_p_cruise_control_button(
     uint8_t* data, Cruise_control_buttons_cmd_108::Cruise_control_buttonType
                        cruise_control_button) {
+AINFO<<"(DMCZP) EnteringMethod: Cruisecontrolbuttonscmd108::set_p_cruise_control_button";
   uint8_t x = cruise_control_button;
 
   Byte to_set(data + 1);
@@ -82,6 +88,7 @@ void Cruisecontrolbuttonscmd108::set_p_cruise_control_button(
 
 Cruisecontrolbuttonscmd108* Cruisecontrolbuttonscmd108::set_ignore_overrides(
     bool ignore_overrides) {
+AINFO<<"(DMCZP) EnteringMethod: Cruisecontrolbuttonscmd108::set_ignore_overrides";
   ignore_overrides_ = ignore_overrides;
   return this;
 }
@@ -91,6 +98,7 @@ Cruisecontrolbuttonscmd108* Cruisecontrolbuttonscmd108::set_ignore_overrides(
 // 'type': 'bool', 'order': 'motorola', 'physical_unit': ''}
 void Cruisecontrolbuttonscmd108::set_p_ignore_overrides(uint8_t* data,
                                                         bool ignore_overrides) {
+AINFO<<"(DMCZP) EnteringMethod: Cruisecontrolbuttonscmd108::set_p_ignore_overrides";
   uint8_t x = ignore_overrides;
 
   Byte to_set(data + 0);
@@ -99,6 +107,7 @@ void Cruisecontrolbuttonscmd108::set_p_ignore_overrides(uint8_t* data,
 
 Cruisecontrolbuttonscmd108* Cruisecontrolbuttonscmd108::set_clear_override(
     bool clear_override) {
+AINFO<<"(DMCZP) EnteringMethod: Cruisecontrolbuttonscmd108::set_clear_override";
   clear_override_ = clear_override;
   return this;
 }
@@ -108,6 +117,7 @@ Cruisecontrolbuttonscmd108* Cruisecontrolbuttonscmd108::set_clear_override(
 // 'type': 'bool', 'order': 'motorola', 'physical_unit': ''}
 void Cruisecontrolbuttonscmd108::set_p_clear_override(uint8_t* data,
                                                       bool clear_override) {
+AINFO<<"(DMCZP) EnteringMethod: Cruisecontrolbuttonscmd108::set_p_clear_override";
   uint8_t x = clear_override;
 
   Byte to_set(data + 0);
@@ -116,6 +126,7 @@ void Cruisecontrolbuttonscmd108::set_p_clear_override(uint8_t* data,
 
 Cruisecontrolbuttonscmd108* Cruisecontrolbuttonscmd108::set_enable(
     bool enable) {
+AINFO<<"(DMCZP) EnteringMethod: Cruisecontrolbuttonscmd108::set_enable";
   enable_ = enable;
   return this;
 }
@@ -124,6 +135,7 @@ Cruisecontrolbuttonscmd108* Cruisecontrolbuttonscmd108::set_enable(
 // 'is_signed_var': False, 'physical_range': '[0|1]', 'bit': 0, 'type': 'bool',
 // 'order': 'motorola', 'physical_unit': ''}
 void Cruisecontrolbuttonscmd108::set_p_enable(uint8_t* data, bool enable) {
+AINFO<<"(DMCZP) EnteringMethod: Cruisecontrolbuttonscmd108::set_p_enable";
   uint8_t x = enable;
 
   Byte to_set(data + 0);
@@ -132,6 +144,7 @@ void Cruisecontrolbuttonscmd108::set_p_enable(uint8_t* data, bool enable) {
 
 Cruisecontrolbuttonscmd108* Cruisecontrolbuttonscmd108::set_clear_faults(
     bool clear_faults) {
+AINFO<<"(DMCZP) EnteringMethod: Cruisecontrolbuttonscmd108::set_clear_faults";
   clear_faults_ = clear_faults;
   return this;
 }
@@ -141,6 +154,7 @@ Cruisecontrolbuttonscmd108* Cruisecontrolbuttonscmd108::set_clear_faults(
 // 'type': 'bool', 'order': 'motorola', 'physical_unit': ''}
 void Cruisecontrolbuttonscmd108::set_p_clear_faults(uint8_t* data,
                                                     bool clear_faults) {
+AINFO<<"(DMCZP) EnteringMethod: Cruisecontrolbuttonscmd108::set_p_clear_faults";
   uint8_t x = clear_faults;
 
   Byte to_set(data + 0);

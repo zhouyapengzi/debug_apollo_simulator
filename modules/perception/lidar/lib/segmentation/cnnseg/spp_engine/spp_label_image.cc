@@ -28,6 +28,7 @@ namespace lidar {
 
 void SppLabelImage::Init(size_t width, size_t height,
                          const std::string& sensor_name) {
+AINFO<<"(DMCZP) EnteringMethod: SppLabelImage::Init";
   // simply release the last memory and allocate new one
   if (labels_) {
     common::IFree2(&labels_);
@@ -42,6 +43,7 @@ void SppLabelImage::Init(size_t width, size_t height,
 }
 
 void SppLabelImage::InitRangeMask(float range, float boundary_distance) {
+AINFO<<"(DMCZP) EnteringMethod: SppLabelImage::InitRangeMask";
   if (range_mask_) {
     common::IFree2(&range_mask_);
   }
@@ -65,6 +67,7 @@ void SppLabelImage::InitRangeMask(float range, float boundary_distance) {
 }
 
 void SppLabelImage::CollectClusterFromSppLabelImage() {
+AINFO<<"(DMCZP) EnteringMethod: SppLabelImage::CollectClusterFromSppLabelImage";
   size_t size = width_ * height_;
   // find max label
   uint16_t max_label = *(std::max_element(labels_[0], labels_[0] + size));
@@ -83,6 +86,7 @@ void SppLabelImage::CollectClusterFromSppLabelImage() {
 }
 
 void SppLabelImage::ProjectClusterToSppLabelImage() {
+AINFO<<"(DMCZP) EnteringMethod: SppLabelImage::ProjectClusterToSppLabelImage";
   memset(labels_[0], 0, sizeof(uint16_t) * width_ * height_);
   for (size_t n = 0; n < clusters_.size(); ++n) {
     auto& cluster = clusters_[n];
@@ -94,6 +98,8 @@ void SppLabelImage::ProjectClusterToSppLabelImage() {
 
 void SppLabelImage::FilterClusters(const float* confidence_map,
                                    float threshold) {
+AINFO<<"(DMCZP) EnteringMethod: SppLabelImage::FilterClusters";
+AINFO<<"(DMCZP) EnteringMethod: SppLabelImage::FilterClusters";
   for (auto& cluster : clusters_) {
     float sum = 0.f;
     for (auto& pixel : cluster->pixels) {
@@ -181,6 +187,7 @@ void SppLabelImage::FilterClusters(const float* confidence_map,
 
 void SppLabelImage::CalculateClusterClass(const float* class_map,
                                           size_t class_num) {
+AINFO<<"(DMCZP) EnteringMethod: SppLabelImage::CalculateClusterClass";
   for (auto& cluster : clusters_) {
     cluster->class_prob.assign(class_num, 0.f);
   }
@@ -208,6 +215,7 @@ void SppLabelImage::CalculateClusterClass(const float* class_map,
 }
 
 void SppLabelImage::CalculateClusterHeading(const float* heading_map) {
+AINFO<<"(DMCZP) EnteringMethod: SppLabelImage::CalculateClusterHeading";
   std::vector<std::pair<float, float>> directions(clusters_.size(),
                                                   std::make_pair(0.f, 0.f));
   const float* heading_map_x_ptr = heading_map;
@@ -228,6 +236,7 @@ void SppLabelImage::CalculateClusterHeading(const float* heading_map) {
 }
 
 void SppLabelImage::CalculateClusterTopZ(const float* top_z_map) {
+AINFO<<"(DMCZP) EnteringMethod: SppLabelImage::CalculateClusterTopZ";
   for (auto& cluster : clusters_) {
     float sum = 0.f;
     for (auto& pixel : cluster->pixels) {
@@ -241,6 +250,7 @@ void SppLabelImage::CalculateClusterTopZ(const float* top_z_map) {
 }
 
 void SppLabelImage::AddPixelSample(size_t id, uint32_t pixel) {
+AINFO<<"(DMCZP) EnteringMethod: SppLabelImage::AddPixelSample";
   if (clusters_.size() <= id) {
     SppClusterPool::Instance(sensor_name_)
         .BatchGet(id + 1 - clusters_.size(), &clusters_);
@@ -249,6 +259,7 @@ void SppLabelImage::AddPixelSample(size_t id, uint32_t pixel) {
 }
 
 void SppLabelImage::ResizeClusters(size_t size) {
+AINFO<<"(DMCZP) EnteringMethod: SppLabelImage::ResizeClusters";
   if (size > clusters_.size()) {
     SppClusterPool::Instance(sensor_name_)
         .BatchGet(size - clusters_.size(), &clusters_);
@@ -258,6 +269,7 @@ void SppLabelImage::ResizeClusters(size_t size) {
 }
 
 void SppLabelImage::ResetClusters(size_t size) {
+AINFO<<"(DMCZP) EnteringMethod: SppLabelImage::ResetClusters";
   size_t reset_pos = std::min(clusters_.size(), size);
   ResizeClusters(size);
   for (size_t i = 0; i < reset_pos; ++i) {

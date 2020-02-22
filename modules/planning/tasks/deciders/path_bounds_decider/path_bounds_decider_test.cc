@@ -44,12 +44,14 @@ class PathBoundsDeciderTest : public ::testing::Test {
 };
 
 TEST_F(PathBoundsDeciderTest, Init) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   PathBoundsDecider path_bounds_decider(config_);
   EXPECT_EQ(path_bounds_decider.Name(),
             TaskConfig::TaskType_Name(config_.task_type()));
 }
 
 TEST_F(PathBoundsDeciderTest, InitPathBoundary) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   PathBoundsDecider path_bounds_decider(config_);
   path_bounds_decider.adc_frenet_s_ = 10.0;
 
@@ -62,12 +64,14 @@ TEST_F(PathBoundsDeciderTest, InitPathBoundary) {
 }
 
 TEST_F(PathBoundsDeciderTest, GetBoundaryFromLanesAndADC) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   PathBoundsDecider path_bounds_decider(config_);
   path_bounds_decider.adc_frenet_s_ = 10.0;
   // TODO(all): implement this unit test.
 }
 
 TEST_F(PathBoundsDeciderTest, GetBoundaryFromStaticObstacles) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   PathBoundsDecider path_bounds_decider(config_);
   std::vector<std::tuple<double, double, double>> path_bound;
   PathDecision path_decision;

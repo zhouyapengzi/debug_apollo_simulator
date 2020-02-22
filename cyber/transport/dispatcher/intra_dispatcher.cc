@@ -21,6 +21,7 @@ namespace cyber {
 namespace transport {
 
 IntraDispatcher::IntraDispatcher() {}
+AINFO<<"(DMCZP) EnteringMethod: IntraDispatcher::IntraDispatcher";
 
 IntraDispatcher::~IntraDispatcher() {}
 

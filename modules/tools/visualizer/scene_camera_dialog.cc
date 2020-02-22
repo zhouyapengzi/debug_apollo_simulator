@@ -22,6 +22,7 @@
 
 SceneCameraDialog::SceneCameraDialog(QWidget* parent)
     : QDialog(parent), ui(new Ui::SceneCameraDialog) {
+AINFO<<"(DMCZP) EnteringMethod: SceneCameraDialog::SceneCameraDialog";
   ui->setupUi(this);
   ui->cameraX->setEnabled(false);
   ui->cameraY->setEnabled(false);
@@ -49,18 +50,21 @@ SceneCameraDialog::SceneCameraDialog(QWidget* parent)
 SceneCameraDialog::~SceneCameraDialog() { delete ui; }
 
 void SceneCameraDialog::updateCameraAttitude(const QVector3D& attitude) {
+AINFO<<"(DMCZP) EnteringMethod: SceneCameraDialog::updateCameraAttitude";
   ui->cameraYaw->setValue(attitude.x());
   ui->cameraPitch->setValue(attitude.y());
   ui->cameraRoll->setValue(attitude.z());
 }
 
 void SceneCameraDialog::updateCameraPos(const QVector3D& pos) {
+AINFO<<"(DMCZP) EnteringMethod: SceneCameraDialog::updateCameraPos";
   ui->cameraX->setValue(pos.x());
   ui->cameraY->setValue(pos.y());
   ui->cameraZ->setValue(pos.z());
 }
 
 void SceneCameraDialog::OnStepSlideChanged(int v) {
+AINFO<<"(DMCZP) EnteringMethod: SceneCameraDialog::OnStepSlideChanged";
   const float step =
       static_cast<float>(v) / static_cast<float>(ui->stepSlider->maximum());
 
@@ -76,6 +80,7 @@ void SceneCameraDialog::OnStepSlideChanged(int v) {
 }
 
 void SceneCameraDialog::onCameraTypeChanged(int index) {
+AINFO<<"(DMCZP) EnteringMethod: SceneCameraDialog::onCameraTypeChanged";
   emit cameraTypeChanged(index);
   ui->cameraX->setEnabled(index);
   ui->cameraY->setEnabled(index);

@@ -26,8 +26,10 @@ Texture::Texture()
       image_height_(0),
       data_size_(0),
       data_(nullptr) {}
+AINFO<<"(DMCZP) EnteringMethod: Texture::Texture";
 
 bool Texture::UpdateData(const QImage& img) {
+AINFO<<"(DMCZP) EnteringMethod: Texture::UpdateData";
   if (data_size_ < img.byteCount()) {
     if (!data_) {
       delete[] data_;
@@ -54,6 +56,7 @@ bool Texture::UpdateData(const QImage& img) {
 
 bool Texture::UpdateData(
     const std::shared_ptr<const apollo::drivers::Image>& imgData) {
+AINFO<<"(DMCZP) EnteringMethod: Texture::UpdateData";
   std::size_t imgSize = imgData->width() * imgData->height() * 3;
 
   if (static_cast<std::size_t>(data_size_) < imgSize) {

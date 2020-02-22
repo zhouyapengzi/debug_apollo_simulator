@@ -56,11 +56,13 @@ class ChControllerTest : public ::testing::Test {
 };
 
 TEST_F(ChControllerTest, Init) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   ErrorCode ret = controller_.Init(params_, &sender_, &msg_manager_);
   EXPECT_EQ(ret, ErrorCode::OK);
 }
 
 TEST_F(ChControllerTest, SetDrivingMode) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   Chassis chassis;
   chassis.set_driving_mode(Chassis::COMPLETE_AUTO_DRIVE);
 
@@ -71,6 +73,7 @@ TEST_F(ChControllerTest, SetDrivingMode) {
 }
 
 TEST_F(ChControllerTest, Status) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   controller_.Init(params_, &sender_, &msg_manager_);
   controller_.set_driving_mode(Chassis::COMPLETE_AUTO_DRIVE);
   EXPECT_EQ(controller_.Update(control_cmd_), ErrorCode::OK);
@@ -81,6 +84,7 @@ TEST_F(ChControllerTest, Status) {
 }
 
 TEST_F(ChControllerTest, UpdateDrivingMode) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   controller_.Init(params_, &sender_, &msg_manager_);
   controller_.set_driving_mode(Chassis::COMPLETE_AUTO_DRIVE);
   EXPECT_EQ(controller_.SetDrivingMode(Chassis::COMPLETE_MANUAL),

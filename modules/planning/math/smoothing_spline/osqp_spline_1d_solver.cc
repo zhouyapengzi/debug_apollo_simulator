@@ -35,6 +35,7 @@ using Eigen::MatrixXd;
 OsqpSpline1dSolver::OsqpSpline1dSolver(const std::vector<double>& x_knots,
                                        const uint32_t order)
     : Spline1dSolver(x_knots, order) {
+AINFO<<"(DMCZP) EnteringMethod: OsqpSpline1dSolver::OsqpSpline1dSolver";
   // Problem settings
   settings_ = reinterpret_cast<OSQPSettings*>(c_malloc(sizeof(OSQPSettings)));
 
@@ -55,6 +56,7 @@ OsqpSpline1dSolver::OsqpSpline1dSolver(const std::vector<double>& x_knots,
 OsqpSpline1dSolver::~OsqpSpline1dSolver() { CleanUp(); }
 
 void OsqpSpline1dSolver::CleanUp() {
+AINFO<<"(DMCZP) EnteringMethod: OsqpSpline1dSolver::CleanUp";
   osqp_cleanup(work_);
   if (data_ != nullptr) {
     c_free(data_->A);
@@ -67,6 +69,7 @@ void OsqpSpline1dSolver::CleanUp() {
 }
 
 void OsqpSpline1dSolver::ResetOsqp() {
+AINFO<<"(DMCZP) EnteringMethod: OsqpSpline1dSolver::ResetOsqp";
   // Problem settings
   settings_ = reinterpret_cast<OSQPSettings*>(c_malloc(sizeof(OSQPSettings)));
   // Populate data
@@ -74,6 +77,7 @@ void OsqpSpline1dSolver::ResetOsqp() {
 }
 
 bool OsqpSpline1dSolver::Solve() {
+AINFO<<"(DMCZP) EnteringMethod: OsqpSpline1dSolver::Solve";
   // Namings here are following osqp convention.
   // For details, visit: https://osqp.org/docs/examples/demo.html
 

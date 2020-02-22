@@ -17,6 +17,7 @@
 #include "modules/map/tools/map_datachecker/server/worker.h"
 
 int main(int argc, char** argv) {
+AINFO<<"(DMCZP) EnteringMethod: main";
   google::ParseCommandLineFlags(&argc, &argv, true);
 
   AINFO << "cyber init";

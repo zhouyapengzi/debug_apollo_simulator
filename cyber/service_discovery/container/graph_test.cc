@@ -25,6 +25,7 @@ namespace cyber {
 namespace service_discovery {
 
 TEST(GraphTest, vertice) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   Vertice a;
   EXPECT_TRUE(a.IsDummy());
 
@@ -45,6 +46,7 @@ TEST(GraphTest, vertice) {
 }
 
 TEST(GraphTest, edge) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   Edge a;
   EXPECT_FALSE(a.IsValid());
 
@@ -93,6 +95,7 @@ TEST(GraphTest, edge) {
 }
 
 TEST(GraphTest, graph) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   Graph g;
   EXPECT_EQ(g.GetNumOfEdge(), 0);
 

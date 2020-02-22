@@ -78,6 +78,7 @@ std::shared_ptr<cyber::Writer<apollo::control::ControlCommand>>
     SimulationWorldServiceTest::control_writer_;
 
 TEST_F(SimulationWorldServiceTest, UpdateMonitorSuccess) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   MonitorMessage monitor;
   monitor.add_item()->set_msg("I am the latest message.");
   monitor.mutable_header()->set_timestamp_sec(2000);
@@ -100,6 +101,7 @@ TEST_F(SimulationWorldServiceTest, UpdateMonitorSuccess) {
 }
 
 TEST_F(SimulationWorldServiceTest, UpdateMonitorRemove) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   MonitorMessage monitor;
   monitor.add_item()->set_msg("I am message -1");
   monitor.add_item()->set_msg("I am message -2");
@@ -133,6 +135,7 @@ TEST_F(SimulationWorldServiceTest, UpdateMonitorRemove) {
 }
 
 TEST_F(SimulationWorldServiceTest, UpdateMonitorTruncate) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   MonitorMessage monitor;
   int large_size = SimulationWorldService::kMaxMonitorItems + 10;
   for (int i = 0; i < large_size; ++i) {
@@ -159,6 +162,7 @@ TEST_F(SimulationWorldServiceTest, UpdateMonitorTruncate) {
 }
 
 TEST_F(SimulationWorldServiceTest, UpdateChassisInfo) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   // Prepare the chassis message that will be used to update the
   // SimulationWorld object.
   Chassis chassis;
@@ -185,6 +189,7 @@ TEST_F(SimulationWorldServiceTest, UpdateChassisInfo) {
 }
 
 TEST_F(SimulationWorldServiceTest, UpdateLocalization) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   // Prepare the localization message that will be used to update the
   // SimulationWorld object.
   LocalizationEstimate localization;
@@ -214,6 +219,7 @@ TEST_F(SimulationWorldServiceTest, UpdateLocalization) {
 }
 
 TEST_F(SimulationWorldServiceTest, UpdatePerceptionObstacles) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   PerceptionObstacles obstacles;
   PerceptionObstacle* obstacle1 = obstacles.add_perception_obstacle();
   obstacle1->set_id(1);
@@ -274,6 +280,7 @@ TEST_F(SimulationWorldServiceTest, UpdatePerceptionObstacles) {
 }
 
 TEST_F(SimulationWorldServiceTest, UpdatePlanningTrajectory) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   // Prepare the trajectory message that will be used to update the
   // SimulationWorld object.
   ADCTrajectory planning_trajectory;
@@ -310,6 +317,7 @@ TEST_F(SimulationWorldServiceTest, UpdatePlanningTrajectory) {
 }
 
 TEST_F(SimulationWorldServiceTest, UpdateDecision) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   DecisionResult decision_res;
 
   decision_res.mutable_vehicle_signal()->set_turn_signal(
@@ -414,6 +422,7 @@ TEST_F(SimulationWorldServiceTest, UpdateDecision) {
 }
 
 TEST_F(SimulationWorldServiceTest, UpdatePrediction) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   // Update with prediction obstacles
   PredictionObstacles prediction_obstacles;
   for (int i = 0; i < 3; ++i) {
@@ -457,6 +466,7 @@ TEST_F(SimulationWorldServiceTest, UpdatePrediction) {
 }
 
 TEST_F(SimulationWorldServiceTest, UpdateRouting) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   // Load routing from file
   sim_world_service_.reset(nullptr);
   sim_world_service_.reset(
@@ -489,6 +499,7 @@ TEST_F(SimulationWorldServiceTest, UpdateRouting) {
 }
 
 TEST_F(SimulationWorldServiceTest, UpdateGps) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   // Prepare the gps message that will be used to update the
   // SimulationWorld object.
   apollo::localization::Gps gps;
@@ -513,6 +524,7 @@ TEST_F(SimulationWorldServiceTest, UpdateGps) {
 }
 
 TEST_F(SimulationWorldServiceTest, UpdateControlCommandWithSimpleLonLat) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   // Prepare the ControlCommand message that will be used to update the
   // SimulationWorld object.
   apollo::control::ControlCommand control_command;
@@ -537,6 +549,7 @@ TEST_F(SimulationWorldServiceTest, UpdateControlCommandWithSimpleLonLat) {
 }
 
 TEST_F(SimulationWorldServiceTest, UpdateControlCommandWithSimpleMpc) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   // Prepare the ControlCommand message that will be used to update the
   // SimulationWorld object.
   apollo::control::ControlCommand control_command;
@@ -559,6 +572,7 @@ TEST_F(SimulationWorldServiceTest, UpdateControlCommandWithSimpleMpc) {
 }
 
 TEST_F(SimulationWorldServiceTest, DownsampleSpeedPointsByInterval) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   apollo::planning_internal::STGraphDebug graph;
   auto* speed_points = graph.mutable_speed_profile();
   for (int i = 0; i < 10; ++i) {
@@ -587,6 +601,7 @@ TEST_F(SimulationWorldServiceTest, DownsampleSpeedPointsByInterval) {
 }
 
 TEST_F(SimulationWorldServiceTest, UpdateLatency) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   std::shared_ptr<apollo::control::ControlCommand> control_command =
       std::make_shared<apollo::control::ControlCommand>();
   auto* header = control_command->mutable_header();

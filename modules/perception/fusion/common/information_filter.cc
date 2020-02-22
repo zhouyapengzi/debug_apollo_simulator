@@ -21,9 +21,11 @@ namespace fusion {
 
 InformationFilter::InformationFilter()
     : BaseFilter("InformationFilter"), last_observation_init_(false) {}
+AINFO<<"(DMCZP) EnteringMethod: InformationFilter::InformationFilter";
 
 bool InformationFilter::Init(const Eigen::VectorXd &global_states,
                              const Eigen::MatrixXd &global_uncertainty) {
+AINFO<<"(DMCZP) EnteringMethod: InformationFilter::Init";
   if (global_uncertainty.rows() != global_uncertainty.cols()) {
     return false;
   }
@@ -63,6 +65,7 @@ bool InformationFilter::SetLastObservation(
     const Eigen::MatrixXd &last_observation_uncertainty,
     const Eigen::MatrixXd &last_to_cur_transform_matrix,
     const Eigen::MatrixXd &last_to_cur_env_uncertainty) {
+AINFO<<"(DMCZP) EnteringMethod: InformationFilter::SetLastObservation";
   if (!init_) {
     return false;
   }
@@ -98,6 +101,7 @@ bool InformationFilter::SetLastObservation(
 
 bool InformationFilter::Predict(const Eigen::MatrixXd &transform_matrix,
                                 const Eigen::MatrixXd &env_uncertainty) {
+AINFO<<"(DMCZP) EnteringMethod: InformationFilter::Predict";
   if (!init_) {
     return false;
   }
@@ -125,6 +129,7 @@ bool InformationFilter::Predict(const Eigen::MatrixXd &transform_matrix,
 bool InformationFilter::Correct(
     const Eigen::VectorXd &cur_observation,
     const Eigen::MatrixXd &cur_observation_uncertainty) {
+AINFO<<"(DMCZP) EnteringMethod: InformationFilter::Correct";
   if (!init_) {
     return false;
   }
@@ -177,6 +182,7 @@ bool InformationFilter::Correct(
 }
 bool InformationFilter::SetControlMatrix(
     const Eigen::MatrixXd &control_matrix) {
+AINFO<<"(DMCZP) EnteringMethod: InformationFilter::SetControlMatrix";
   if (!init_) {
     return false;
   }

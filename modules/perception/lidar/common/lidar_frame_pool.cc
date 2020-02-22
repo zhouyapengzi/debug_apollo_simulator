@@ -23,6 +23,7 @@ namespace lidar {
 
 // @brief call pool instance once to initialize memory
 __attribute__((constructor)) void LidarFramePoolInitialize() {
+AINFO<<"(DMCZP) EnteringMethod: __attribute__";
   LidarFramePool::Instance();
   AINFO << "Initialize lidar frame pool.";
 }

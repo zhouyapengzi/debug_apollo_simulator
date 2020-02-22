@@ -35,10 +35,12 @@ class ChVehicleFactoryTest : public ::testing::Test {
 };
 
 TEST_F(ChVehicleFactoryTest, InitVehicleController) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   EXPECT_NE(ch_factory_.CreateVehicleController(), nullptr);
 }
 
 TEST_F(ChVehicleFactoryTest, InitMessageManager) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   EXPECT_NE(ch_factory_.CreateMessageManager(), nullptr);
 }
 

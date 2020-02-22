@@ -47,10 +47,12 @@ SimulationWorldUpdater::SimulationWorldUpdater(
       map_ws_(map_ws),
       sim_control_(sim_control),
       data_collection_monitor_(data_collection_monitor) {
+AINFO<<"(DMCZP) EnteringMethod: SimulationWorldUpdater::SimulationWorldUpdater";
   RegisterMessageHandlers();
 }
 
 void SimulationWorldUpdater::RegisterMessageHandlers() {
+AINFO<<"(DMCZP) EnteringMethod: SimulationWorldUpdater::RegisterMessageHandlers";
   // Send current sim_control status to the new client.
   websocket_->RegisterConnectionReadyHandler(
       [this](WebSocketHandler::Connection *conn) {
@@ -264,6 +266,7 @@ void SimulationWorldUpdater::RegisterMessageHandlers() {
 }
 
 Json SimulationWorldUpdater::CheckRoutingPoint(const Json &json) {
+AINFO<<"(DMCZP) EnteringMethod: SimulationWorldUpdater::CheckRoutingPoint";
   Json result;
   if (!ContainsKey(json, "point")) {
     result["error"] = "Failed to check routing point: point not found.";
@@ -286,6 +289,7 @@ Json SimulationWorldUpdater::CheckRoutingPoint(const Json &json) {
 
 bool SimulationWorldUpdater::ConstructRoutingRequest(
     const Json &json, RoutingRequest *routing_request) {
+AINFO<<"(DMCZP) EnteringMethod: SimulationWorldUpdater::ConstructRoutingRequest";
   routing_request->clear_waypoint();
   // set start point
   if (!ContainsKey(json, "start")) {
@@ -366,6 +370,7 @@ bool SimulationWorldUpdater::ConstructRoutingRequest(
 }
 
 bool SimulationWorldUpdater::ValidateCoordinate(const nlohmann::json &json) {
+AINFO<<"(DMCZP) EnteringMethod: SimulationWorldUpdater::ValidateCoordinate";
   if (!ContainsKey(json, "x") || !ContainsKey(json, "y")) {
     AERROR << "Failed to find x or y coordinate.";
     return false;
@@ -378,12 +383,14 @@ bool SimulationWorldUpdater::ValidateCoordinate(const nlohmann::json &json) {
 }
 
 void SimulationWorldUpdater::Start() {
+AINFO<<"(DMCZP) EnteringMethod: SimulationWorldUpdater::Start";
   timer_.reset(new cyber::Timer(kSimWorldTimeIntervalMs,
                                 [this]() { this->OnTimer(); }, false));
   timer_->Start();
 }
 
 void SimulationWorldUpdater::OnTimer() {
+AINFO<<"(DMCZP) EnteringMethod: SimulationWorldUpdater::OnTimer";
   sim_world_service_.Update();
 
   {
@@ -397,6 +404,7 @@ void SimulationWorldUpdater::OnTimer() {
 }
 
 bool SimulationWorldUpdater::LoadPOI() {
+AINFO<<"(DMCZP) EnteringMethod: SimulationWorldUpdater::LoadPOI";
   if (GetProtoFromASCIIFile(EndWayPointFile(), &poi_)) {
     return true;
   }

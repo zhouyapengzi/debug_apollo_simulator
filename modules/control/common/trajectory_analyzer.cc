@@ -38,12 +38,14 @@ namespace {
 // Squared distance from the point to (x, y).
 double PointDistanceSquare(const TrajectoryPoint &point, const double x,
                            const double y) {
+AINFO<<"(DMCZP) EnteringMethod: PointDistanceSquare";
   const double dx = point.path_point().x() - x;
   const double dy = point.path_point().y() - y;
   return dx * dx + dy * dy;
 }
 
 PathPoint TrajectoryPointToPathPoint(const TrajectoryPoint &point) {
+AINFO<<"(DMCZP) EnteringMethod: TrajectoryPointToPathPoint";
   if (point.has_path_point()) {
     return point.path_point();
   } else {
@@ -55,6 +57,7 @@ PathPoint TrajectoryPointToPathPoint(const TrajectoryPoint &point) {
 
 TrajectoryAnalyzer::TrajectoryAnalyzer(
     const planning::ADCTrajectory *planning_published_trajectory) {
+AINFO<<"(DMCZP) EnteringMethod: TrajectoryAnalyzer::TrajectoryAnalyzer";
   header_time_ = planning_published_trajectory->header().timestamp_sec();
   seq_num_ = planning_published_trajectory->header().sequence_num();
 
@@ -67,6 +70,7 @@ TrajectoryAnalyzer::TrajectoryAnalyzer(
 
 PathPoint TrajectoryAnalyzer::QueryMatchedPathPoint(const double x,
                                                     const double y) const {
+AINFO<<"(DMCZP) EnteringMethod: TrajectoryAnalyzer::QueryMatchedPathPoint";
   CHECK_GT(trajectory_points_.size(), 0);
 
   double d_min = PointDistanceSquare(trajectory_points_.front(), x, y);
@@ -108,6 +112,7 @@ void TrajectoryAnalyzer::ToTrajectoryFrame(const double x, const double y,
                                            double *ptr_s, double *ptr_s_dot,
                                            double *ptr_d,
                                            double *ptr_d_dot) const {
+AINFO<<"(DMCZP) EnteringMethod: TrajectoryAnalyzer::ToTrajectoryFrame";
   double dx = x - ref_point.x();
   double dy = y - ref_point.y();
 
@@ -149,6 +154,8 @@ void TrajectoryAnalyzer::ToTrajectoryFrame(const double x, const double y,
 
 TrajectoryPoint TrajectoryAnalyzer::QueryNearestPointByAbsoluteTime(
     const double t) const {
+AINFO<<"(DMCZP) EnteringMethod: TrajectoryAnalyzer::QueryNearestPointByAbsoluteTime";
+AINFO<<"(DMCZP) EnteringMethod: TrajectoryAnalyzer::QueryNearestPointByRelativeTime";
   return QueryNearestPointByRelativeTime(t - header_time_);
 }
 
@@ -183,6 +190,7 @@ TrajectoryPoint TrajectoryAnalyzer::QueryNearestPointByRelativeTime(
 
 TrajectoryPoint TrajectoryAnalyzer::QueryNearestPointByPosition(
     const double x, const double y) const {
+AINFO<<"(DMCZP) EnteringMethod: TrajectoryAnalyzer::QueryNearestPointByPosition";
   CHECK_GT(trajectory_points_.size(), 0);
 
   double d_min = PointDistanceSquare(trajectory_points_.front(), x, y);
@@ -207,6 +215,7 @@ PathPoint TrajectoryAnalyzer::FindMinDistancePoint(const TrajectoryPoint &p0,
                                                    const TrajectoryPoint &p1,
                                                    const double x,
                                                    const double y) const {
+AINFO<<"(DMCZP) EnteringMethod: TrajectoryAnalyzer::FindMinDistancePoint";
   // given the fact that the discretized trajectory is dense enough,
   // we assume linear trajectory between consecutive trajectory points.
   auto dist_square = [&p0, &p1, &x, &y](const double s) {
@@ -239,6 +248,7 @@ PathPoint TrajectoryAnalyzer::FindMinDistancePoint(const TrajectoryPoint &p0,
 
 void TrajectoryAnalyzer::TrajectoryTransformToCOM(
     const double rear_to_com_distance) {
+AINFO<<"(DMCZP) EnteringMethod: TrajectoryAnalyzer::TrajectoryTransformToCOM";
   CHECK_GT(trajectory_points_.size(), 0);
   for (size_t i = 0; i < trajectory_points_.size(); ++i) {
     auto com = ComputeCOMPosition(rear_to_com_distance,
@@ -250,6 +260,7 @@ void TrajectoryAnalyzer::TrajectoryTransformToCOM(
 
 common::math::Vec2d TrajectoryAnalyzer::ComputeCOMPosition(
     const double rear_to_com_distance, const PathPoint &path_point) const {
+AINFO<<"(DMCZP) EnteringMethod: TrajectoryAnalyzer::ComputeCOMPosition";
   // Initialize the vector for coordinate transformation of the position
   // reference point
   Eigen::Vector3d v;

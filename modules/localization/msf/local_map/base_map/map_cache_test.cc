@@ -33,6 +33,7 @@ class MapCacheTestSuite : public ::testing::Test {
 
 /**@brief Test LRUCache. */
 TEST_F(MapCacheTestSuite, LRUCacheTest) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   LRUCache<unsigned int, std::string> lru_cache(3);
 
   unsigned int id0 = 0;

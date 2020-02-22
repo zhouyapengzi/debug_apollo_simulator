@@ -20,6 +20,7 @@ namespace localization {
 namespace msf {
 
 NdtMapNodeConfig::NdtMapNodeConfig() {}
+AINFO<<"(DMCZP) EnteringMethod: NdtMapNodeConfig::NdtMapNodeConfig";
 
 NdtMapNodeConfig::~NdtMapNodeConfig() {}
 

@@ -53,7 +53,12 @@ void DisplayUsage(const std::string& binary, const std::string& command,
                   const std::string& options);
 
 void DisplayUsage(const std::string& binary) {
+AINFO<<"(DMCZP) EnteringMethod: DisplayUsage";
+AINFO<<"(DMCZP) EnteringMethod: DisplayUsage";
+AINFO<<"(DMCZP) EnteringMethod: DisplayUsage";
+AINFO<<"(DMCZP) EnteringMethod: DisplayUsage";
   std::cout << "usage: " << binary << " <command> [<args>]\n"
+AINFO<<"(DMCZP) EnteringMethod: DisplayUsage";
             << "The " << binary << " commands are:\n"
             << "\tinfo\tShow information of an exist record.\n"
             << "\tplay\tPlay an exist record.\n"
@@ -64,6 +69,7 @@ void DisplayUsage(const std::string& binary) {
 }
 
 void DisplayUsage(const std::string& binary, const std::string& command) {
+AINFO<<"(DMCZP) EnteringMethod: DisplayUsage";
   if (command == "info") {
     std::cout << "usage: cyber_recorder info file" << std::endl;
     std::cout << "usage: " << binary << " " << command << " [options]"
@@ -158,6 +164,7 @@ void DisplayUsage(const std::string& binary, const std::string& command,
 }
 
 int main(int argc, char** argv) {
+AINFO<<"(DMCZP) EnteringMethod: main";
   std::string binary = GetFileName(std::string(argv[0]));
   if (argc < 2) {
     DisplayUsage(binary);

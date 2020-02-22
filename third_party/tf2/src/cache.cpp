@@ -43,9 +43,23 @@ namespace tf2 {
 
 TransformStorage::TransformStorage()
 {
+AINFO<<"(DMCZP) EnteringMethod: TransformStorage::TransformStorage";
+AINFO<<"(DMCZP) EnteringMethod: TransformStorage::TransformStorage";
 }
+AINFO<<"(DMCZP) EnteringMethod: createExtrapolationException1";
+AINFO<<"(DMCZP) EnteringMethod: createExtrapolationException2";
+AINFO<<"(DMCZP) EnteringMethod: createExtrapolationException3";
+AINFO<<"(DMCZP) EnteringMethod: TimeCache::findClosest";
+AINFO<<"(DMCZP) EnteringMethod: TimeCache::interpolate";
+AINFO<<"(DMCZP) EnteringMethod: TimeCache::getData";
+AINFO<<"(DMCZP) EnteringMethod: TimeCache::getParent";
+AINFO<<"(DMCZP) EnteringMethod: TimeCache::insertData";
+AINFO<<"(DMCZP) EnteringMethod: TimeCache::clearList";
+AINFO<<"(DMCZP) EnteringMethod: TimeCache::getListLength";
+AINFO<<"(DMCZP) EnteringMethod: TimeCache::getLatestTimeAndParent";
 
 TransformStorage::TransformStorage(const geometry_msgs::TransformStamped& data, CompactFrameID frame_id,
+AINFO<<"(DMCZP) EnteringMethod: TimeCache::pruneList";
                                    CompactFrameID child_frame_id)
 : stamp_(data.header.stamp)
 , frame_id_(frame_id)
@@ -60,6 +74,7 @@ TransformStorage::TransformStorage(const geometry_msgs::TransformStamped& data, 
 TimeCache::TimeCache(Duration max_storage_time)
 : max_storage_time_(max_storage_time)
 {}
+AINFO<<"(DMCZP) EnteringMethod: TimeCache::TimeCache";
 
 namespace cache { // Avoid ODR collisions https://github.com/ros/geometry2/issues/175 
 // hoisting these into separate functions causes an ~8% speedup.  Removing calling them altogether adds another ~10%
@@ -295,6 +310,8 @@ P_TimeAndFrameID TimeCache::getLatestTimeAndParent()
 
 Time TimeCache::getLatestTimestamp() 
 {   
+AINFO<<"(DMCZP) EnteringMethod: TimeCache::getLatestTimestamp";
+AINFO<<"(DMCZP) EnteringMethod: TimeCache::getOldestTimestamp";
   if (storage_.empty()) return Time(); //empty list case
   return storage_.front().stamp_;
 }

@@ -27,6 +27,7 @@ class Errorstatee1Test : public ::testing::Test {
 };
 
 TEST_F(Errorstatee1Test, reset) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   Errorstatee1 error_state_;
   int32_t length = 8;
   ChassisDetail cd;

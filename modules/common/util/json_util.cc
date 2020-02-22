@@ -27,6 +27,7 @@ using Json = nlohmann::json;
 using google::protobuf::util::MessageToJsonString;
 
 google::protobuf::util::JsonOptions JsonOption() {
+AINFO<<"(DMCZP) EnteringMethod: JsonOption";
   google::protobuf::util::JsonOptions json_option;
   json_option.always_print_primitive_fields = true;
   return json_option;
@@ -36,6 +37,7 @@ google::protobuf::util::JsonOptions JsonOption() {
 
 nlohmann::json JsonUtil::ProtoToTypedJson(
     const std::string &json_type, const google::protobuf::Message &proto) {
+AINFO<<"(DMCZP) EnteringMethod: JsonUtil::ProtoToTypedJson";
   static const auto kJsonOption = JsonOption();
   std::string json_string;
   const auto status = MessageToJsonString(proto, &json_string, kJsonOption);
@@ -49,6 +51,7 @@ nlohmann::json JsonUtil::ProtoToTypedJson(
 
 bool JsonUtil::GetStringFromJson(const Json &json, const std::string &key,
                                  std::string *value) {
+AINFO<<"(DMCZP) EnteringMethod: JsonUtil::GetStringFromJson";
   const auto iter = json.find(key);
   if (iter == json.end()) {
     AERROR << "The json has no such key: " << key;
@@ -64,6 +67,7 @@ bool JsonUtil::GetStringFromJson(const Json &json, const std::string &key,
 
 bool JsonUtil::GetStringVectorFromJson(const Json &json, const std::string &key,
                                        std::vector<std::string> *value) {
+AINFO<<"(DMCZP) EnteringMethod: JsonUtil::GetStringVectorFromJson";
   const auto iter = json.find(key);
   if (iter == json.end()) {
     AERROR << "The json has no such key: " << key;
@@ -92,6 +96,7 @@ bool JsonUtil::GetStringVectorFromJson(const Json &json, const std::string &key,
 
 bool JsonUtil::GetBooleanFromJson(const nlohmann::json &json,
                                   const std::string &key, bool *value) {
+AINFO<<"(DMCZP) EnteringMethod: JsonUtil::GetBooleanFromJson";
   const auto iter = json.find(key);
   if (iter == json.end()) {
     AERROR << "The json has no such key: " << key;

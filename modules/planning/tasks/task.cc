@@ -28,18 +28,22 @@ namespace planning {
 using apollo::common::Status;
 
 Task::Task(const TaskConfig& config) : config_(config) {
+AINFO<<"(DMCZP) EnteringMethod: Task::Task";
   name_ = TaskConfig::TaskType_Name(config_.task_type());
 }
 
 const std::string& Task::Name() const { return name_; }
+AINFO<<"(DMCZP) EnteringMethod: Task::Name";
 
 Status Task::Execute(Frame* frame, ReferenceLineInfo* reference_line_info) {
+AINFO<<"(DMCZP) EnteringMethod: Task::Execute";
   frame_ = frame;
   reference_line_info_ = reference_line_info;
   return Status::OK();
 }
 
 Status Task::Execute(Frame* frame) {
+AINFO<<"(DMCZP) EnteringMethod: Task::Execute";
   frame_ = frame;
   return Status::OK();
 }

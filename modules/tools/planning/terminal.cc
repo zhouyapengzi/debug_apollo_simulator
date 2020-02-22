@@ -31,6 +31,7 @@ using apollo::planning::DrivingAction;
 using apollo::planning::PadMessage;
 
 void help() {
+AINFO<<"(DMCZP) EnteringMethod: help";
   AINFO << "COMMAND:0~10\n";
   AINFO << "\t0: follow.";
   AINFO << "\t1: change left.";
@@ -42,6 +43,7 @@ void help() {
 }
 
 void send(int action) {
+AINFO<<"(DMCZP) EnteringMethod: send";
   PadMessage pad;
   pad.set_action(DrivingAction(action));
   if (action == DrivingAction::FOLLOW)
@@ -60,6 +62,7 @@ void send(int action) {
 }
 
 void terminal_thread_func() {
+AINFO<<"(DMCZP) EnteringMethod: terminal_thread_func";
   int mode = 0;
   bool should_exit = false;
   while (std::cin >> mode) {
@@ -96,6 +99,7 @@ void terminal_thread_func() {
 }  // namespace
 
 int main(int argc, char **argv) {
+AINFO<<"(DMCZP) EnteringMethod: main";
   google::InitGoogleLogging(argv[0]);
   FLAGS_alsologtostderr = true;
   FLAGS_v = 3;

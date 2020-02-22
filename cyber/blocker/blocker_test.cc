@@ -28,6 +28,7 @@ namespace blocker {
 using apollo::cyber::proto::UnitTest;
 
 TEST(BlockerTest, constructor) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   BlockerAttr attr(10, "channel");
   Blocker<UnitTest> blocker(attr);
   EXPECT_EQ(blocker.capacity(), 10);
@@ -38,6 +39,7 @@ TEST(BlockerTest, constructor) {
 }
 
 TEST(BlockerTest, publish) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   BlockerAttr attr(10, "channel");
   Blocker<UnitTest> blocker(attr);
 
@@ -77,6 +79,7 @@ TEST(BlockerTest, publish) {
 }
 
 TEST(BlockerTest, subscribe) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   BlockerAttr attr(10, "channel");
   Blocker<UnitTest> blocker(attr);
 

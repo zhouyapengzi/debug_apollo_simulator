@@ -29,6 +29,7 @@ namespace traffic_light {
 
 Stage::StageStatus TrafficLightProtectedStageIntersectionCruise::Process(
     const common::TrajectoryPoint& planning_init_point, Frame* frame) {
+AINFO<<"(DMCZP) EnteringMethod: TrafficLightProtectedStageIntersectionCruise::Process";
   ADEBUG << "stage: IntersectionCruise";
   CHECK_NOTNULL(frame);
 
@@ -46,6 +47,7 @@ Stage::StageStatus TrafficLightProtectedStageIntersectionCruise::Process(
 }
 
 Stage::StageStatus TrafficLightProtectedStageIntersectionCruise::FinishStage() {
+AINFO<<"(DMCZP) EnteringMethod: TrafficLightProtectedStageIntersectionCruise::FinishStage";
   return FinishScenario();
 }
 

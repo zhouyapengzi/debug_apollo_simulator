@@ -41,9 +41,11 @@ using common::TrajectoryPoint;
 PullOverStageApproach::PullOverStageApproach(
     const ScenarioConfig::StageConfig& config)
     : Stage(config) {}
+AINFO<<"(DMCZP) EnteringMethod: PullOverStageApproach::PullOverStageApproach";
 
 Stage::StageStatus PullOverStageApproach::Process(
     const TrajectoryPoint& planning_init_point, Frame* frame) {
+AINFO<<"(DMCZP) EnteringMethod: PullOverStageApproach::Process";
   ADEBUG << "stage: Approach";
   CHECK_NOTNULL(frame);
 
@@ -139,6 +141,7 @@ Stage::StageStatus PullOverStageApproach::Process(
 }
 
 Stage::StageStatus PullOverStageApproach::FinishStage(const bool success) {
+AINFO<<"(DMCZP) EnteringMethod: PullOverStageApproach::FinishStage";
   if (success) {
     return FinishScenario();
   } else {

@@ -28,6 +28,7 @@ class Accelrpt68Test : public ::testing::Test {
 };
 
 TEST_F(Accelrpt68Test, reset) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   Accelrpt68 acc;
   int32_t length = 8;
   ChassisDetail chassis_detail;

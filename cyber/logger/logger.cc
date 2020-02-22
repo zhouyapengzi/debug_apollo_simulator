@@ -33,6 +33,7 @@ namespace logger {
 static std::unordered_map<std::string, LogFileObject*> moduleLoggerMap;
 
 Logger::Logger(google::base::Logger* wrapped) : wrapped_(wrapped) {}
+AINFO<<"(DMCZP) EnteringMethod: Logger::Logger";
 
 Logger::~Logger() {
   for (auto itr = moduleLoggerMap.begin(); itr != moduleLoggerMap.end();
@@ -43,6 +44,7 @@ Logger::~Logger() {
 
 void Logger::Write(bool force_flush, time_t timestamp, const char* message,
                    int message_len) {
+AINFO<<"(DMCZP) EnteringMethod: Logger::Write";
   std::string log_message = std::string(message, message_len);
   std::string module_name;
   // set the same bracket as the bracket in log.h
@@ -66,8 +68,10 @@ void Logger::Write(bool force_flush, time_t timestamp, const char* message,
 }
 
 void Logger::Flush() { wrapped_->Flush(); }
+AINFO<<"(DMCZP) EnteringMethod: Logger::Flush";
 
 uint32_t Logger::LogSize() { return wrapped_->LogSize(); }
+AINFO<<"(DMCZP) EnteringMethod: Logger::LogSize";
 
 }  // namespace logger
 }  // namespace cyber

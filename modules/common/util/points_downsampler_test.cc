@@ -28,6 +28,7 @@ namespace util {
 using common::math::Vec2d;
 
 TEST(DownSamplerTest, DownsampleByAngle) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   std::vector<Vec2d> points;
   points.emplace_back(-405.778, -134.969);
   points.emplace_back(-403.919, -127.696);
@@ -50,6 +51,7 @@ TEST(DownSamplerTest, DownsampleByAngle) {
 }
 
 TEST(DownSamplerTest, DownsampleByDistanceNormal) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   std::vector<Vec2d> points;
   points.emplace_back(0, 0);
   points.emplace_back(0, 4);
@@ -67,6 +69,7 @@ TEST(DownSamplerTest, DownsampleByDistanceNormal) {
 }
 
 TEST(DownSamplerTest, DownsampleByDistanceSteepTurn) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   std::vector<Vec2d> points;
   points.emplace_back(-2, 0);
   points.emplace_back(-1, 1);

@@ -20,10 +20,12 @@ namespace apollo {
 namespace prediction {
 
 EmptyPredictor::EmptyPredictor() {
+AINFO<<"(DMCZP) EnteringMethod: EmptyPredictor::EmptyPredictor";
   predictor_type_ = ObstacleConf::EMPTY_PREDICTOR;
 }
 
 void EmptyPredictor::Predict(Obstacle* obstacle) {
+AINFO<<"(DMCZP) EnteringMethod: EmptyPredictor::Predict";
   obstacle->SetPredictorType(predictor_type_);
 }
 

@@ -25,16 +25,19 @@ namespace msf {
 
 NdtMapConfig::NdtMapConfig(std::string map_version)
     : BaseMapConfig(map_version) {
+AINFO<<"(DMCZP) EnteringMethod: NdtMapConfig::NdtMapConfig";
   map_is_compression_ = true;
   map_resolutions_z_.push_back(1.0f);
 }
 
 void NdtMapConfig::SetSingleResolutionZ(float resolution) {
+AINFO<<"(DMCZP) EnteringMethod: NdtMapConfig::SetSingleResolutionZ";
   map_resolutions_z_.clear();
   map_resolutions_z_.push_back(resolution);
 }
 
 void NdtMapConfig::SetMultiResolutionsZ() {
+AINFO<<"(DMCZP) EnteringMethod: NdtMapConfig::SetMultiResolutionsZ";
   map_resolutions_z_.clear();
   map_resolutions_z_.push_back(0.03125);
   map_resolutions_z_.push_back(0.0625);
@@ -49,6 +52,7 @@ void NdtMapConfig::SetMultiResolutionsZ() {
 }
 
 bool NdtMapConfig::CreateXml(boost::property_tree::ptree* config) const {
+AINFO<<"(DMCZP) EnteringMethod: NdtMapConfig::CreateXml";
   BaseMapConfig::CreateXml(config);
   config->put("map.map_config.compression", map_is_compression_);
   for (size_t i = 0; i < map_resolutions_.size(); ++i) {
@@ -59,6 +63,7 @@ bool NdtMapConfig::CreateXml(boost::property_tree::ptree* config) const {
 }
 
 bool NdtMapConfig::LoadXml(boost::property_tree::ptree* config) {
+AINFO<<"(DMCZP) EnteringMethod: NdtMapConfig::LoadXml";
   BaseMapConfig::LoadXml(*config);
   map_is_compression_ = config->get<bool>("map.map_config.compression");
   map_resolutions_z_.clear();

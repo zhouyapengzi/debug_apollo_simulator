@@ -24,11 +24,13 @@ namespace lidar {
 
 bool DummyMultiTargetTracker::Init(
     const MultiTargetTrackerInitOptions& options) {
+AINFO<<"(DMCZP) EnteringMethod: DummyMultiTargetTracker::Init";
   return true;
 }
 
 bool DummyMultiTargetTracker::Track(const MultiTargetTrackerOptions& options,
                                     LidarFrame* frame) {
+AINFO<<"(DMCZP) EnteringMethod: DummyMultiTargetTracker::Track";
   if (frame == nullptr) {
     return false;
   }

@@ -28,8 +28,10 @@ using std::chrono::duration_cast;
 using std::chrono::milliseconds;
 
 void Timer::Start() { start_time_ = Clock::Now(); }
+AINFO<<"(DMCZP) EnteringMethod: Timer::Start";
 
 uint64_t Timer::End(const string &msg) {
+AINFO<<"(DMCZP) EnteringMethod: Timer::End";
   end_time_ = Clock::Now();
   uint64_t elapsed_time =
       duration_cast<milliseconds>(end_time_ - start_time_).count();

@@ -34,6 +34,7 @@ namespace camera {
 using apollo::common::util::StrCat;
 
 int lane_postprocessor_eval() {
+AINFO<<"(DMCZP) EnteringMethod: lane_postprocessor_eval";
   //  initialize lane detector
   LaneDetectorInitOptions init_options;
   LaneDetectorOptions detetor_options;
@@ -221,6 +222,7 @@ int lane_postprocessor_eval() {
 }  // namespace apollo
 
 int main(int argc, char** argv) {
+AINFO<<"(DMCZP) EnteringMethod: main";
   google::ParseCommandLineFlags(&argc, &argv, true);
   FLAGS_alsologtostderr = true;
   google::InitGoogleLogging(argv[0]);

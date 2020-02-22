@@ -28,14 +28,17 @@ const int32_t Adcmotioncontrol110::ID = 0x10;
 
 // public
 Adcmotioncontrol110::Adcmotioncontrol110() { Reset(); }
+AINFO<<"(DMCZP) EnteringMethod: Adcmotioncontrol110::Adcmotioncontrol110";
 
 uint32_t Adcmotioncontrol110::GetPeriod() const {
+AINFO<<"(DMCZP) EnteringMethod: Adcmotioncontrol110::GetPeriod";
   // TODO(All) :  modify every protocol's period manually
   static const uint32_t PERIOD = 10 * 1000;
   return PERIOD;
 }
 
 void Adcmotioncontrol110::UpdateData(uint8_t* data) {
+AINFO<<"(DMCZP) EnteringMethod: Adcmotioncontrol110::UpdateData";
   set_p_adc_cmd_steerwheelangle(data, adc_cmd_steerwheelangle_);
   set_p_adc_cmd_steeringcontrolmode(data, adc_cmd_steeringcontrolmode_);
   set_p_adc_cmd_parkingbrake(data, adc_cmd_parkingbrake_);
@@ -49,6 +52,7 @@ void Adcmotioncontrol110::UpdateData(uint8_t* data) {
 }
 
 void Adcmotioncontrol110::Reset() {
+AINFO<<"(DMCZP) EnteringMethod: Adcmotioncontrol110::Reset";
   // TODO(All) :  you should check this manually
   adc_cmd_steerwheelangle_ = 0.0;
   adc_cmd_steeringcontrolmode_ =
@@ -67,6 +71,7 @@ void Adcmotioncontrol110::Reset() {
 
 Adcmotioncontrol110* Adcmotioncontrol110::set_adc_cmd_steerwheelangle(
     double adc_cmd_steerwheelangle) {
+AINFO<<"(DMCZP) EnteringMethod: Adcmotioncontrol110::set_adc_cmd_steerwheelangle";
   adc_cmd_steerwheelangle_ = adc_cmd_steerwheelangle;
   return this;
 }
@@ -78,6 +83,7 @@ Adcmotioncontrol110* Adcmotioncontrol110::set_adc_cmd_steerwheelangle(
 // 'physical_unit': 'deg'}
 void Adcmotioncontrol110::set_p_adc_cmd_steerwheelangle(
     uint8_t* data, double adc_cmd_steerwheelangle) {
+AINFO<<"(DMCZP) EnteringMethod: Adcmotioncontrol110::set_p_adc_cmd_steerwheelangle";
   adc_cmd_steerwheelangle =
       ProtocolData::BoundedValue(-1638.4, 1638.35, adc_cmd_steerwheelangle);
   int x = static_cast<int>(adc_cmd_steerwheelangle / -0.050000);
@@ -101,6 +107,7 @@ void Adcmotioncontrol110::set_p_adc_cmd_steerwheelangle(
 Adcmotioncontrol110* Adcmotioncontrol110::set_adc_cmd_steeringcontrolmode(
     Adc_motioncontrol1_10::Adc_cmd_steeringcontrolmodeType
         adc_cmd_steeringcontrolmode) {
+AINFO<<"(DMCZP) EnteringMethod: Adcmotioncontrol110::set_adc_cmd_steeringcontrolmode";
   adc_cmd_steeringcontrolmode_ = adc_cmd_steeringcontrolmode;
   return this;
 }
@@ -115,6 +122,7 @@ Adcmotioncontrol110* Adcmotioncontrol110::set_adc_cmd_steeringcontrolmode(
 void Adcmotioncontrol110::set_p_adc_cmd_steeringcontrolmode(
     uint8_t* data, Adc_motioncontrol1_10::Adc_cmd_steeringcontrolmodeType
                        adc_cmd_steeringcontrolmode) {
+AINFO<<"(DMCZP) EnteringMethod: Adcmotioncontrol110::set_p_adc_cmd_steeringcontrolmode";
   int x = adc_cmd_steeringcontrolmode;
 
   Byte to_set(data + 0);
@@ -123,6 +131,7 @@ void Adcmotioncontrol110::set_p_adc_cmd_steeringcontrolmode(
 
 Adcmotioncontrol110* Adcmotioncontrol110::set_adc_cmd_parkingbrake(
     bool adc_cmd_parkingbrake) {
+AINFO<<"(DMCZP) EnteringMethod: Adcmotioncontrol110::set_adc_cmd_parkingbrake";
   adc_cmd_parkingbrake_ = adc_cmd_parkingbrake;
   return this;
 }
@@ -133,6 +142,7 @@ Adcmotioncontrol110* Adcmotioncontrol110::set_adc_cmd_parkingbrake(
 // 'order': 'intel', 'physical_unit': 'T/F'}
 void Adcmotioncontrol110::set_p_adc_cmd_parkingbrake(
     uint8_t* data, bool adc_cmd_parkingbrake) {
+AINFO<<"(DMCZP) EnteringMethod: Adcmotioncontrol110::set_p_adc_cmd_parkingbrake";
   int x = adc_cmd_parkingbrake;
 
   Byte to_set(data + 6);
@@ -141,6 +151,7 @@ void Adcmotioncontrol110::set_p_adc_cmd_parkingbrake(
 
 Adcmotioncontrol110* Adcmotioncontrol110::set_adc_cmd_gear(
     Adc_motioncontrol1_10::Adc_cmd_gearType adc_cmd_gear) {
+AINFO<<"(DMCZP) EnteringMethod: Adcmotioncontrol110::set_adc_cmd_gear";
   adc_cmd_gear_ = adc_cmd_gear;
   return this;
 }
@@ -153,6 +164,7 @@ Adcmotioncontrol110* Adcmotioncontrol110::set_adc_cmd_gear(
 // '[0|7]', 'bit': 50, 'type': 'enum', 'order': 'intel', 'physical_unit': ''}
 void Adcmotioncontrol110::set_p_adc_cmd_gear(
     uint8_t* data, Adc_motioncontrol1_10::Adc_cmd_gearType adc_cmd_gear) {
+AINFO<<"(DMCZP) EnteringMethod: Adcmotioncontrol110::set_p_adc_cmd_gear";
   int x = adc_cmd_gear;
 
   Byte to_set(data + 6);
@@ -161,6 +173,7 @@ void Adcmotioncontrol110::set_p_adc_cmd_gear(
 
 Adcmotioncontrol110* Adcmotioncontrol110::set_adc_motioncontrol1_checksum(
     int adc_motioncontrol1_checksum) {
+AINFO<<"(DMCZP) EnteringMethod: Adcmotioncontrol110::set_adc_motioncontrol1_checksum";
   adc_motioncontrol1_checksum_ = adc_motioncontrol1_checksum;
   return this;
 }
@@ -171,6 +184,7 @@ Adcmotioncontrol110* Adcmotioncontrol110::set_adc_motioncontrol1_checksum(
 // 'int', 'order': 'intel', 'physical_unit': ''}
 void Adcmotioncontrol110::set_p_adc_motioncontrol1_checksum(
     uint8_t* data, int adc_motioncontrol1_checksum) {
+AINFO<<"(DMCZP) EnteringMethod: Adcmotioncontrol110::set_p_adc_motioncontrol1_checksum";
   adc_motioncontrol1_checksum =
       ProtocolData::BoundedValue(0, 255, adc_motioncontrol1_checksum);
   int x = adc_motioncontrol1_checksum;
@@ -181,6 +195,7 @@ void Adcmotioncontrol110::set_p_adc_motioncontrol1_checksum(
 
 Adcmotioncontrol110* Adcmotioncontrol110::set_adc_cmd_brakepercentage(
     double adc_cmd_brakepercentage) {
+AINFO<<"(DMCZP) EnteringMethod: Adcmotioncontrol110::set_adc_cmd_brakepercentage";
   adc_cmd_brakepercentage_ = adc_cmd_brakepercentage;
   return this;
 }
@@ -192,6 +207,7 @@ Adcmotioncontrol110* Adcmotioncontrol110::set_adc_cmd_brakepercentage(
 // 'physical_unit': '%'}
 void Adcmotioncontrol110::set_p_adc_cmd_brakepercentage(
     uint8_t* data, double adc_cmd_brakepercentage) {
+AINFO<<"(DMCZP) EnteringMethod: Adcmotioncontrol110::set_p_adc_cmd_brakepercentage";
   adc_cmd_brakepercentage =
       ProtocolData::BoundedValue(0.0, 113.8132, adc_cmd_brakepercentage);
   int x = static_cast<int>(adc_cmd_brakepercentage / 0.055600);
@@ -214,6 +230,7 @@ void Adcmotioncontrol110::set_p_adc_cmd_brakepercentage(
 
 Adcmotioncontrol110* Adcmotioncontrol110::set_adc_cmd_throttleposition(
     double adc_cmd_throttleposition) {
+AINFO<<"(DMCZP) EnteringMethod: Adcmotioncontrol110::set_adc_cmd_throttleposition";
   adc_cmd_throttleposition_ = adc_cmd_throttleposition;
   return this;
 }
@@ -225,6 +242,7 @@ Adcmotioncontrol110* Adcmotioncontrol110::set_adc_cmd_throttleposition(
 // '%'}
 void Adcmotioncontrol110::set_p_adc_cmd_throttleposition(
     uint8_t* data, double adc_cmd_throttleposition) {
+AINFO<<"(DMCZP) EnteringMethod: Adcmotioncontrol110::set_p_adc_cmd_throttleposition";
   adc_cmd_throttleposition =
       ProtocolData::BoundedValue(0.0, 100.0, adc_cmd_throttleposition);
   int x = static_cast<int>(adc_cmd_throttleposition / 0.100000);
@@ -242,6 +260,7 @@ void Adcmotioncontrol110::set_p_adc_cmd_throttleposition(
 
 Adcmotioncontrol110* Adcmotioncontrol110::set_adc_motioncontrol1_counter(
     int adc_motioncontrol1_counter) {
+AINFO<<"(DMCZP) EnteringMethod: Adcmotioncontrol110::set_adc_motioncontrol1_counter";
   adc_motioncontrol1_counter_ = adc_motioncontrol1_counter;
   return this;
 }
@@ -252,6 +271,7 @@ Adcmotioncontrol110* Adcmotioncontrol110::set_adc_motioncontrol1_counter(
 // '[0|3]', 'bit': 54, 'type': 'int', 'order': 'intel', 'physical_unit': ''}
 void Adcmotioncontrol110::set_p_adc_motioncontrol1_counter(
     uint8_t* data, int adc_motioncontrol1_counter) {
+AINFO<<"(DMCZP) EnteringMethod: Adcmotioncontrol110::set_p_adc_motioncontrol1_counter";
   adc_motioncontrol1_counter =
       ProtocolData::BoundedValue(0, 3, adc_motioncontrol1_counter);
   int x = adc_motioncontrol1_counter;
@@ -263,6 +283,7 @@ void Adcmotioncontrol110::set_p_adc_motioncontrol1_counter(
 Adcmotioncontrol110* Adcmotioncontrol110::set_adc_cmd_autonomyrequest(
     Adc_motioncontrol1_10::Adc_cmd_autonomyrequestType
         adc_cmd_autonomyrequest) {
+AINFO<<"(DMCZP) EnteringMethod: Adcmotioncontrol110::set_adc_cmd_autonomyrequest";
   adc_cmd_autonomyrequest_ = adc_cmd_autonomyrequest;
   return this;
 }
@@ -277,6 +298,7 @@ Adcmotioncontrol110* Adcmotioncontrol110::set_adc_cmd_autonomyrequest(
 void Adcmotioncontrol110::set_p_adc_cmd_autonomyrequest(
     uint8_t* data, Adc_motioncontrol1_10::Adc_cmd_autonomyrequestType
                        adc_cmd_autonomyrequest) {
+AINFO<<"(DMCZP) EnteringMethod: Adcmotioncontrol110::set_p_adc_cmd_autonomyrequest";
   int x = adc_cmd_autonomyrequest;
 
   Byte to_set(data + 0);
@@ -286,6 +308,7 @@ void Adcmotioncontrol110::set_p_adc_cmd_autonomyrequest(
 Adcmotioncontrol110* Adcmotioncontrol110::set_adc_cmd_longitudinalcontrolmode(
     Adc_motioncontrol1_10::Adc_cmd_longitudinalcontrolmodeType
         adc_cmd_longitudinalcontrolmode) {
+AINFO<<"(DMCZP) EnteringMethod: Adcmotioncontrol110::set_adc_cmd_longitudinalcontrolmode";
   adc_cmd_longitudinalcontrolmode_ = adc_cmd_longitudinalcontrolmode;
   return this;
 }
@@ -301,6 +324,7 @@ Adcmotioncontrol110* Adcmotioncontrol110::set_adc_cmd_longitudinalcontrolmode(
 void Adcmotioncontrol110::set_p_adc_cmd_longitudinalcontrolmode(
     uint8_t* data, Adc_motioncontrol1_10::Adc_cmd_longitudinalcontrolmodeType
                        adc_cmd_longitudinalcontrolmode) {
+AINFO<<"(DMCZP) EnteringMethod: Adcmotioncontrol110::set_p_adc_cmd_longitudinalcontrolmode";
   int x = adc_cmd_longitudinalcontrolmode;
 
   Byte to_set(data + 0);

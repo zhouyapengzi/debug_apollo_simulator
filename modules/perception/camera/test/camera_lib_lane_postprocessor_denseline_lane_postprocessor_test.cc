@@ -30,6 +30,7 @@ namespace perception {
 namespace camera {
 
 TEST(DenselineLanePostprocessor, camera_lane_postprocessor_point_test) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   unsetenv("MODULE_PATH");
   unsetenv("CYBER_PATH");
   //  initialize lane detector
@@ -144,6 +145,7 @@ TEST(DenselineLanePostprocessor, camera_lane_postprocessor_point_test) {
 }
 
 TEST(DenselineLanePostprocessor, lane_postprocessor_init_test) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   unsetenv("MODULE_PATH");
   unsetenv("CYBER_PATH");
   std::shared_ptr<DenselineLanePostprocessor> lane_postprocessor;

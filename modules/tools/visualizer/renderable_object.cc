@@ -49,10 +49,12 @@ RenderableObject::RenderableObject(
       shader_program_(shaderProgram),
       vao_(),
       vbo_(QOpenGLBuffer::VertexBuffer) {}
+AINFO<<"(DMCZP) EnteringMethod: RenderableObject::RenderableObject";
 
 RenderableObject::~RenderableObject() { Destroy(); }
 
 void RenderableObject::Destroy(void) {
+AINFO<<"(DMCZP) EnteringMethod: RenderableObject::Destroy";
   if (is_init_) {
     is_renderable_ = false;
     is_init_ = false;
@@ -64,6 +66,7 @@ void RenderableObject::Destroy(void) {
 
 bool RenderableObject::Init(
     std::shared_ptr<QOpenGLShaderProgram>& shaderProgram) {
+AINFO<<"(DMCZP) EnteringMethod: RenderableObject::Init";
   if (is_init_) {
     return true;
   }
@@ -116,6 +119,7 @@ bool RenderableObject::Init(
 }
 
 void RenderableObject::Render(const QMatrix4x4* mvp) {
+AINFO<<"(DMCZP) EnteringMethod: RenderableObject::Render";
   if (is_init_) {
     if (is_renderable()) {
       shader_program_->bind();

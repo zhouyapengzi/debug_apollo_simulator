@@ -28,6 +28,7 @@ namespace perception {
 namespace camera {
 
 TEST(CIPV, cipv_ground_test) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   {
     // Two lane test
     Eigen::Matrix3d homography_im2car_;
@@ -325,6 +326,7 @@ TEST(CIPV, cipv_ground_test) {
 }
 
 TEST(CIPV, cipv_image_test) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   {
     // Two lane test
     Eigen::Matrix3d homography_im2car_;

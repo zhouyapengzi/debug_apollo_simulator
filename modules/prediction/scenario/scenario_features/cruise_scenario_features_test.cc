@@ -27,6 +27,7 @@ class CruiseScenarioFeaturesTest : public ::testing::Test {
 };
 
 TEST_F(CruiseScenarioFeaturesTest, LaneId) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   CruiseScenarioFeatures cruise_scenario_features;
   EXPECT_FALSE(cruise_scenario_features.IsLaneOfInterest("1-1"));
   cruise_scenario_features.InsertLaneOfInterest("1-1");

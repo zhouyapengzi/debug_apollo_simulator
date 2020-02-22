@@ -52,6 +52,7 @@ namespace {
 template <typename MapElementInfoConstPtr>
 void ExtractIds(const std::vector<MapElementInfoConstPtr> &items,
                 RepeatedPtrField<std::string> *ids) {
+AINFO<<"(DMCZP) EnteringMethod: ExtractIds";
   ids->Reserve(static_cast<unsigned int>(items.size()));
   for (const auto &item : items) {
     ids->Add()->assign(item->id().id());
@@ -64,6 +65,7 @@ void ExtractIds(const std::vector<MapElementInfoConstPtr> &items,
 void ExtractRoadAndLaneIds(const std::vector<LaneInfoConstPtr> &lanes,
                            RepeatedPtrField<std::string> *lane_ids,
                            RepeatedPtrField<std::string> *road_ids) {
+AINFO<<"(DMCZP) EnteringMethod: ExtractRoadAndLaneIds";
   lane_ids->Reserve(static_cast<unsigned int>(lanes.size()));
   road_ids->Reserve(static_cast<unsigned int>(lanes.size()));
 
@@ -84,10 +86,12 @@ void ExtractRoadAndLaneIds(const std::vector<LaneInfoConstPtr> &lanes,
 const char MapService::kMetaFileName[] = "/metaInfo.json";
 
 MapService::MapService(bool use_sim_map) : use_sim_map_(use_sim_map) {
+AINFO<<"(DMCZP) EnteringMethod: MapService::MapService";
   ReloadMap(false);
 }
 
 bool MapService::ReloadMap(bool force_reload) {
+AINFO<<"(DMCZP) EnteringMethod: MapService::ReloadMap";
   boost::unique_lock<boost::shared_mutex> writer_lock(mutex_);
   bool ret = true;
   if (force_reload) {
@@ -100,6 +104,7 @@ bool MapService::ReloadMap(bool force_reload) {
 }
 
 void MapService::UpdateOffsets() {
+AINFO<<"(DMCZP) EnteringMethod: MapService::UpdateOffsets";
   x_offset_ = 0.0;
   y_offset_ = 0.0;
   std::ifstream ifs(FLAGS_map_dir + kMetaFileName);
@@ -146,17 +151,21 @@ void MapService::UpdateOffsets() {
 }
 
 const hdmap::HDMap *MapService::HDMap() const {
+AINFO<<"(DMCZP) EnteringMethod: *MapService::HDMap";
   return HDMapUtil::BaseMapPtr();
 }
 
 const hdmap::HDMap *MapService::SimMap() const {
+AINFO<<"(DMCZP) EnteringMethod: *MapService::SimMap";
   return use_sim_map_ ? HDMapUtil::SimMapPtr() : HDMapUtil::BaseMapPtr();
 }
 
 bool MapService::MapReady() const { return HDMap() && SimMap(); }
+AINFO<<"(DMCZP) EnteringMethod: MapService::MapReady";
 
 void MapService::CollectMapElementIds(const PointENU &point, double radius,
                                       MapElementIds *ids) const {
+AINFO<<"(DMCZP) EnteringMethod: MapService::CollectMapElementIds";
   if (!MapReady()) {
     return;
   }
@@ -225,6 +234,7 @@ void MapService::CollectMapElementIds(const PointENU &point, double radius,
 }
 
 Map MapService::RetrieveMapElements(const MapElementIds &ids) const {
+AINFO<<"(DMCZP) EnteringMethod: MapService::RetrieveMapElements";
   boost::shared_lock<boost::shared_mutex> reader_lock(mutex_);
 
   Map result;
@@ -332,6 +342,7 @@ Map MapService::RetrieveMapElements(const MapElementIds &ids) const {
 bool MapService::GetNearestLane(const double x, const double y,
                                 LaneInfoConstPtr *nearest_lane,
                                 double *nearest_s, double *nearest_l) const {
+AINFO<<"(DMCZP) EnteringMethod: MapService::GetNearestLane";
   boost::shared_lock<boost::shared_mutex> reader_lock(mutex_);
 
   PointENU point;
@@ -349,6 +360,7 @@ bool MapService::GetNearestLaneWithHeading(const double x, const double y,
                                            LaneInfoConstPtr *nearest_lane,
                                            double *nearest_s, double *nearest_l,
                                            const double heading) const {
+AINFO<<"(DMCZP) EnteringMethod: MapService::GetNearestLaneWithHeading";
   boost::shared_lock<boost::shared_mutex> reader_lock(mutex_);
 
   PointENU point;
@@ -367,6 +379,7 @@ bool MapService::GetNearestLaneWithHeading(const double x, const double y,
 
 bool MapService::GetPathsFromRouting(const RoutingResponse &routing,
                                      std::vector<Path> *paths) const {
+AINFO<<"(DMCZP) EnteringMethod: MapService::GetPathsFromRouting";
   if (!CreatePathsFromRouting(routing, paths)) {
     AERROR << "Unable to get paths from routing!";
     return false;
@@ -376,6 +389,7 @@ bool MapService::GetPathsFromRouting(const RoutingResponse &routing,
 
 bool MapService::GetPoseWithRegardToLane(const double x, const double y,
                                          double *theta, double *s) const {
+AINFO<<"(DMCZP) EnteringMethod: MapService::GetPoseWithRegardToLane";
   double l;
   LaneInfoConstPtr nearest_lane;
   if (!GetNearestLane(x, y, &nearest_lane, s, &l)) {
@@ -388,6 +402,7 @@ bool MapService::GetPoseWithRegardToLane(const double x, const double y,
 
 bool MapService::ConstructLaneWayPoint(
     const double x, const double y, routing::LaneWaypoint *laneWayPoint) const {
+AINFO<<"(DMCZP) EnteringMethod: MapService::ConstructLaneWayPoint";
   double s, l;
   LaneInfoConstPtr lane;
   if (!GetNearestLane(x, y, &lane, &s, &l)) {
@@ -410,6 +425,7 @@ bool MapService::ConstructLaneWayPoint(
 bool MapService::ConstructLaneWayPointWithHeading(
     const double x, const double y, const double heading,
     routing::LaneWaypoint *laneWayPoint) const {
+AINFO<<"(DMCZP) EnteringMethod: MapService::ConstructLaneWayPointWithHeading";
   double s, l;
   LaneInfoConstPtr lane;
   if (!GetNearestLaneWithHeading(x, y, &lane, &s, &l, heading)) {
@@ -430,6 +446,7 @@ bool MapService::ConstructLaneWayPointWithHeading(
 }
 
 bool MapService::CheckRoutingPoint(const double x, const double y) const {
+AINFO<<"(DMCZP) EnteringMethod: MapService::CheckRoutingPoint";
   double s, l;
   LaneInfoConstPtr lane;
   if (!GetNearestLane(x, y, &lane, &s, &l)) {
@@ -442,6 +459,7 @@ bool MapService::CheckRoutingPoint(const double x, const double y) const {
 }
 
 bool MapService::CheckRoutingPointLaneType(LaneInfoConstPtr lane) const {
+AINFO<<"(DMCZP) EnteringMethod: MapService::CheckRoutingPointLaneType";
   if (lane->lane().type() != Lane::CITY_DRIVING) {
     AERROR
         << "Failed to construct LaneWayPoint for RoutingRequest: Expected lane "
@@ -453,6 +471,7 @@ bool MapService::CheckRoutingPointLaneType(LaneInfoConstPtr lane) const {
 }
 
 bool MapService::GetStartPoint(apollo::common::PointENU *start_point) const {
+AINFO<<"(DMCZP) EnteringMethod: MapService::GetStartPoint";
   // Start from origin to find a lane from the map.
   double s, l;
   LaneInfoConstPtr lane;
@@ -466,6 +485,7 @@ bool MapService::GetStartPoint(apollo::common::PointENU *start_point) const {
 
 bool MapService::CreatePathsFromRouting(const RoutingResponse &routing,
                                         std::vector<Path> *paths) const {
+AINFO<<"(DMCZP) EnteringMethod: MapService::CreatePathsFromRouting";
   if (routing.road_size() == 0) {
     return false;
   }
@@ -483,6 +503,7 @@ bool MapService::CreatePathsFromRouting(const RoutingResponse &routing,
 
 bool MapService::AddPathFromPassageRegion(
     const routing::Passage &passage_region, std::vector<Path> *paths) const {
+AINFO<<"(DMCZP) EnteringMethod: MapService::AddPathFromPassageRegion";
   if (!MapReady()) {
     return false;
   }
@@ -512,6 +533,7 @@ bool MapService::AddPathFromPassageRegion(
 }
 
 size_t MapService::CalculateMapHash(const MapElementIds &ids) const {
+AINFO<<"(DMCZP) EnteringMethod: MapService::CalculateMapHash";
   static std::hash<std::string> hash_function;
   return hash_function(ids.DebugString());
 }

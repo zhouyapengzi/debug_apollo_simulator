@@ -31,6 +31,7 @@ namespace localization {
 namespace ndt {
 
 void NDTLocalization::Init() {
+AINFO<<"(DMCZP) EnteringMethod: NDTLocalization::Init";
   tf_buffer_ = apollo::transform::Buffer::Instance();
   tf_buffer_->Init();
 
@@ -95,6 +96,7 @@ void NDTLocalization::Init() {
 // receive odometry message
 void NDTLocalization::OdometryCallback(
     const std::shared_ptr<localization::Gps>& odometry_msg) {
+AINFO<<"(DMCZP) EnteringMethod: NDTLocalization::OdometryCallback";
   double odometry_time = odometry_msg->header().timestamp_sec();
   static double pre_odometry_time = odometry_time;
   double time_delay = odometry_time - pre_odometry_time;
@@ -169,6 +171,7 @@ void NDTLocalization::OdometryCallback(
 // receive lidar pointcloud message
 void NDTLocalization::LidarCallback(
     const std::shared_ptr<drivers::PointCloud>& lidar_msg) {
+AINFO<<"(DMCZP) EnteringMethod: NDTLocalization::LidarCallback";
   static unsigned int frame_idx = 0;
   LidarFrame lidar_frame;
   LidarMsgTransfer(lidar_msg, &lidar_frame);
@@ -225,6 +228,7 @@ void NDTLocalization::LidarCallback(
 
 void NDTLocalization::OdometryStatusCallback(
     const std::shared_ptr<drivers::gnss::InsStat>& status_msg) {
+AINFO<<"(DMCZP) EnteringMethod: NDTLocalization::OdometryStatusCallback";
   std::unique_lock<std::mutex> lock(odometry_status_list_mutex_);
   if (odometry_status_list_.size() < odometry_status_list_max_size_) {
     odometry_status_list_.push_back(*status_msg);
@@ -236,6 +240,8 @@ void NDTLocalization::OdometryStatusCallback(
 // output localization result
 void NDTLocalization::GetLocalization(
     LocalizationEstimate* localization) const {
+AINFO<<"(DMCZP) EnteringMethod: NDTLocalization::GetLocalization";
+AINFO<<"(DMCZP) EnteringMethod: NDTLocalization::GetLidarLocalization";
   *localization = localization_result_;
 }
 
@@ -246,13 +252,17 @@ void NDTLocalization::GetLidarLocalization(
 
 void NDTLocalization::GetLocalizationStatus(
     LocalizationStatus* localization_status) const {
+AINFO<<"(DMCZP) EnteringMethod: NDTLocalization::GetLocalizationStatus";
   *localization_status = localization_status_;
 }
 
 bool NDTLocalization::IsServiceStarted() { return is_service_started_; }
+AINFO<<"(DMCZP) EnteringMethod: NDTLocalization::IsServiceStarted";
 
 void NDTLocalization::FillLocalizationMsgHeader(
     LocalizationEstimate* localization) {
+AINFO<<"(DMCZP) EnteringMethod: NDTLocalization::FillLocalizationMsgHeader";
+AINFO<<"(DMCZP) EnteringMethod: NDTLocalization::ComposeLocalizationEstimate";
   DCHECK_NOTNULL(localization);
 
   auto* header = localization->mutable_header();
@@ -316,6 +326,7 @@ void NDTLocalization::ComposeLocalizationEstimate(
 void NDTLocalization::ComposeLidarResult(double time_stamp,
                                          const Eigen::Affine3d& pose,
                                          LocalizationEstimate* localization) {
+AINFO<<"(DMCZP) EnteringMethod: NDTLocalization::ComposeLidarResult";
   localization->Clear();
   FillLocalizationMsgHeader(localization);
 
@@ -341,6 +352,7 @@ void NDTLocalization::ComposeLidarResult(double time_stamp,
 }
 
 bool NDTLocalization::QueryPoseFromTF(double time, Eigen::Affine3d* pose) {
+AINFO<<"(DMCZP) EnteringMethod: NDTLocalization::QueryPoseFromTF";
   cyber::Time query_time(time);
   const float time_out = 0.01f;
   std::string err_msg = "";
@@ -372,6 +384,7 @@ bool NDTLocalization::QueryPoseFromTF(double time, Eigen::Affine3d* pose) {
 void NDTLocalization::ComposeLocalizationStatus(
     const drivers::gnss::InsStat& status,
     LocalizationStatus* localization_status) {
+AINFO<<"(DMCZP) EnteringMethod: NDTLocalization::ComposeLocalizationStatus";
   apollo::common::Header* header = localization_status->mutable_header();
   double timestamp = apollo::common::time::Clock::NowInSeconds();
   header->set_timestamp_sec(timestamp);
@@ -404,6 +417,7 @@ void NDTLocalization::ComposeLocalizationStatus(
 }
 
 bool NDTLocalization::QueryPoseFromBuffer(double time, Eigen::Affine3d* pose) {
+AINFO<<"(DMCZP) EnteringMethod: NDTLocalization::QueryPoseFromBuffer";
   CHECK_NOTNULL(pose);
 
   TimeStampPose pre_pose;
@@ -460,6 +474,7 @@ bool NDTLocalization::QueryPoseFromBuffer(double time, Eigen::Affine3d* pose) {
 }
 
 bool NDTLocalization::ZeroOdometry(const Eigen::Affine3d& pose) {
+AINFO<<"(DMCZP) EnteringMethod: NDTLocalization::ZeroOdometry";
   double x = pose.translation().x();
   double y = pose.translation().y();
   double z = pose.translation().z();
@@ -472,6 +487,7 @@ bool NDTLocalization::ZeroOdometry(const Eigen::Affine3d& pose) {
 
 void NDTLocalization::LidarMsgTransfer(
     const std::shared_ptr<drivers::PointCloud>& msg, LidarFrame* lidar_frame) {
+AINFO<<"(DMCZP) EnteringMethod: NDTLocalization::LidarMsgTransfer";
   CHECK_NOTNULL(lidar_frame);
 
   if (msg->height() > 1 && msg->width() > 1) {
@@ -534,6 +550,7 @@ void NDTLocalization::LidarMsgTransfer(
 
 bool NDTLocalization::LoadLidarExtrinsic(const std::string& file_path,
                                          Eigen::Affine3d* lidar_extrinsic) {
+AINFO<<"(DMCZP) EnteringMethod: NDTLocalization::LoadLidarExtrinsic";
   CHECK_NOTNULL(lidar_extrinsic);
 
   YAML::Node config = YAML::LoadFile(file_path);
@@ -561,6 +578,7 @@ bool NDTLocalization::LoadLidarExtrinsic(const std::string& file_path,
 
 bool NDTLocalization::LoadLidarHeight(const std::string& file_path,
                                       LidarHeight* height) {
+AINFO<<"(DMCZP) EnteringMethod: NDTLocalization::LoadLidarHeight";
   CHECK_NOTNULL(height);
 
   if (!cyber::common::PathExists(file_path)) {
@@ -581,6 +599,7 @@ bool NDTLocalization::LoadLidarHeight(const std::string& file_path,
 
 bool NDTLocalization::LoadZoneIdFromFolder(const std::string& folder_path,
                                            int* zone_id) {
+AINFO<<"(DMCZP) EnteringMethod: NDTLocalization::LoadZoneIdFromFolder";
   std::string map_zone_id_folder;
   if (cyber::common::DirectoryExists(folder_path + "/map/000/north")) {
     map_zone_id_folder = folder_path + "/map/000/north";
@@ -600,6 +619,7 @@ bool NDTLocalization::LoadZoneIdFromFolder(const std::string& folder_path,
 
 bool NDTLocalization::FindNearestOdometryStatus(
     const double odometry_timestamp, drivers::gnss::InsStat* status) {
+AINFO<<"(DMCZP) EnteringMethod: NDTLocalization::FindNearestOdometryStatus";
   CHECK_NOTNULL(status);
 
   std::unique_lock<std::mutex> lock(odometry_status_list_mutex_);

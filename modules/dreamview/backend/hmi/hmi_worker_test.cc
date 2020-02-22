@@ -22,6 +22,7 @@ namespace apollo {
 namespace dreamview {
 
 TEST(HMIWorker, LoadConfigAndMode) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   const HMIConfig config = HMIWorker::LoadConfig();
   for (const auto& iter : config.modes()) {
     const std::string& mode_conf_file = iter.second;

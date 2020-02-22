@@ -29,6 +29,7 @@ void ConvertGround3ToGround4(const float &baseline,
                              const std::vector<float> &k_mat,
                              const std::vector<float> &ground3,
                              std::vector<float> *ground4) {
+AINFO<<"(DMCZP) EnteringMethod: ConvertGround3ToGround4";
   CHECK_GT(baseline, 0.0f);
   CHECK_EQ(k_mat.size(), 9);
   CHECK_EQ(ground3.size(), 3);
@@ -50,6 +51,7 @@ bool ConvertGround4ToGround3(const float &baseline,
                              const std::vector<float> &k_mat,
                              const std::vector<float> &ground4,
                              std::vector<float> *ground3) {
+AINFO<<"(DMCZP) EnteringMethod: ConvertGround4ToGround3";
   CHECK_GT(baseline, 0.0f);
   CHECK_EQ(k_mat.size(), 9);
   CHECK_EQ(ground4.size(), 4);
@@ -79,6 +81,7 @@ void GetGroundPlanePitchHeight(const float &baseline,
                                const std::vector<float> &k_mat,
                                const std::vector<float> &ground3, float *pitch,
                                float *cam_height) {
+AINFO<<"(DMCZP) EnteringMethod: GetGroundPlanePitchHeight";
   CHECK_GT(baseline, 0.0f);
   CHECK_EQ(k_mat.size(), 9);
   CHECK_EQ(ground3.size(), 3);
@@ -99,6 +102,7 @@ void GetGround3FromPitchHeight(const std::vector<float> &k_mat,
                                const float &baseline, const float &pitch,
                                const float &cam_height,
                                std::vector<float> *ground3) {
+AINFO<<"(DMCZP) EnteringMethod: GetGround3FromPitchHeight";
   CHECK_EQ(k_mat.size(), 9);
   CHECK_GT(baseline, 0.0f);
   CHECK_GT(cam_height, 0.0f);
@@ -111,6 +115,7 @@ void GetGround3FromPitchHeight(const std::vector<float> &k_mat,
 }
 
 GroundPlaneTracker::GroundPlaneTracker(int track_length) {
+AINFO<<"(DMCZP) EnteringMethod: GroundPlaneTracker::GroundPlaneTracker";
   CHECK_GT(track_length, 0);
   pitch_height_inlier_tracks_.resize(track_length * 3);
   const_weight_temporal_.resize(track_length, 0.0f);
@@ -131,6 +136,7 @@ GroundPlaneTracker::GroundPlaneTracker(int track_length) {
 
 void GroundPlaneTracker::Push(const std::vector<float> &ph,
                               const float &inlier_ratio) {
+AINFO<<"(DMCZP) EnteringMethod: GroundPlaneTracker::Push";
   CHECK_EQ(ph.size(), 2);
   int i = 0;
   int length = static_cast<int>(pitch_height_inlier_tracks_.size());
@@ -152,6 +158,7 @@ void GroundPlaneTracker::Push(const std::vector<float> &ph,
 }
 
 void GroundPlaneTracker::GetGround(float *pitch, float *cam_height) {
+AINFO<<"(DMCZP) EnteringMethod: GroundPlaneTracker::GetGround";
   CHECK_NOTNULL(pitch);
   CHECK_NOTNULL(cam_height);
   int i = 0;
@@ -189,6 +196,7 @@ void GroundPlaneTracker::GetGround(float *pitch, float *cam_height) {
 }
 
 void GroundPlaneTracker::Restart() {
+AINFO<<"(DMCZP) EnteringMethod: GroundPlaneTracker::Restart";
   unsigned int track_length =
       static_cast<unsigned int>(pitch_height_inlier_tracks_.size() / 3);
   auto &data = pitch_height_inlier_tracks_;
@@ -202,6 +210,7 @@ void GroundPlaneTracker::Restart() {
 }
 
 void CameraGroundPlaneParams::SetDefault() {
+AINFO<<"(DMCZP) EnteringMethod: CameraGroundPlaneParams::SetDefault";
   min_nr_samples = 6;   // 40
   nr_frames_track = 3;  // 2
   max_tilt_angle = common::IDegreeToRadians(10.0f);
@@ -216,6 +225,7 @@ void CameraGroundPlaneParams::SetDefault() {
 bool CameraGroundPlaneDetector::DetetGround(float pitch, float camera_height,
                                             float *vd, int count_vd,
                                             const std::vector<float> &plane) {
+AINFO<<"(DMCZP) EnteringMethod: CameraGroundPlaneDetector::DetetGround";
   ground_is_valid_ = false;
 
   std::vector<float> ground3(l_, l_ + 3);
@@ -278,6 +288,7 @@ bool CameraGroundPlaneDetector::DetetGround(float pitch, float camera_height,
 
 bool CameraGroundPlaneDetector::DetectGroundFromSamples(float *vd, int count_vd,
                                                         float *inlier_ratio) {
+AINFO<<"(DMCZP) EnteringMethod: CameraGroundPlaneDetector::DetectGroundFromSamples";
   CHECK(vd != nullptr);
   CHECK(inlier_ratio != nullptr);
   *inlier_ratio = 0.0f;

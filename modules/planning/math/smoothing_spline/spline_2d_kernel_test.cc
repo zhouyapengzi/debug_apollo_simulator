@@ -27,6 +27,7 @@ namespace apollo {
 namespace planning {
 
 TEST(Spline2dKernel, add_regularization) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   std::vector<double> x_knots = {0.0, 1.0, 2.0, 3.0};
   int32_t spline_order = 4;
   Spline2dKernel kernel(x_knots, spline_order);

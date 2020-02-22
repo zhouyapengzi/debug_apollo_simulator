@@ -27,6 +27,7 @@ namespace cyber {
 namespace mainboard {
 
 void ModuleController::Clear() {
+AINFO<<"(DMCZP) EnteringMethod: ModuleController::Clear";
   for (auto& component : component_list_) {
     component->Shutdown();
   }
@@ -35,6 +36,7 @@ void ModuleController::Clear() {
 }
 
 bool ModuleController::LoadAll() {
+AINFO<<"(DMCZP) EnteringMethod: ModuleController::LoadAll";
   const std::string work_root = common::WorkRoot();
   const std::string current_path = common::GetCurrentPath();
   const std::string dag_root_path = common::GetAbsolutePath(work_root, "dag");
@@ -64,6 +66,7 @@ bool ModuleController::LoadAll() {
 }
 
 bool ModuleController::LoadModule(const DagConfig& dag_config) {
+AINFO<<"(DMCZP) EnteringMethod: ModuleController::LoadModule";
   const std::string work_root = common::WorkRoot();
 
   for (auto module_config : dag_config.module_config()) {
@@ -106,6 +109,7 @@ bool ModuleController::LoadModule(const DagConfig& dag_config) {
 }
 
 bool ModuleController::LoadModule(const std::string& path) {
+AINFO<<"(DMCZP) EnteringMethod: ModuleController::LoadModule";
   DagConfig dag_config;
   if (!common::GetProtoFromFile(path, &dag_config)) {
     AERROR << "Get proto failed, file: " << path;

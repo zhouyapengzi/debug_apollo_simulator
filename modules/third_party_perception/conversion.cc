@@ -56,6 +56,7 @@ std::map<std::int32_t, apollo::hdmap::LaneBoundaryType_Type>
 PerceptionObstacles MobileyeToPerceptionObstacles(
     const Mobileye& mobileye, const LocalizationEstimate& localization,
     const Chassis& chassis) {
+AINFO<<"(DMCZP) EnteringMethod: MobileyeToPerceptionObstacles";
   PerceptionObstacles obstacles;
   // retrieve position and velocity of the main vehicle from the localization
   // position
@@ -265,6 +266,7 @@ RadarObstacles ContiToRadarObstacles(
     const apollo::drivers::ContiRadar& conti_radar,
     const apollo::localization::LocalizationEstimate& localization,
     const RadarObstacles& last_radar_obstacles, const Chassis& chassis) {
+AINFO<<"(DMCZP) EnteringMethod: ContiToRadarObstacles";
   RadarObstacles obstacles;
 
   const double last_timestamp = last_radar_obstacles.header().timestamp_sec();
@@ -364,6 +366,7 @@ RadarObstacles ContiToRadarObstacles(
 RadarObstacles DelphiToRadarObstacles(
     const DelphiESR& delphi_esr, const LocalizationEstimate& localization,
     const RadarObstacles& last_radar_obstacles) {
+AINFO<<"(DMCZP) EnteringMethod: DelphiToRadarObstacles";
   RadarObstacles obstacles;
 
   const double last_timestamp = last_radar_obstacles.header().timestamp_sec();
@@ -490,6 +493,7 @@ RadarObstacles DelphiToRadarObstacles(
 
 PerceptionObstacles RadarObstaclesToPerceptionObstacles(
     const RadarObstacles& radar_obstacles) {
+AINFO<<"(DMCZP) EnteringMethod: RadarObstaclesToPerceptionObstacles";
   PerceptionObstacles obstacles;
 
   for (const auto& iter : radar_obstacles.radar_obstacle()) {

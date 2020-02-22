@@ -28,6 +28,7 @@ namespace cyber {
 namespace logger {
 
 TEST(LogFileObjectTest, init_and_write) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   std::string basename = "logfile";
   LogFileObject logfileobject(google::INFO, basename.c_str());
   logfileobject.SetBasename("base");

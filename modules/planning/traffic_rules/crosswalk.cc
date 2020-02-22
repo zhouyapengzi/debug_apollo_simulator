@@ -55,9 +55,11 @@ using CrosswalkStopTimer =
     std::unordered_map<std::string, std::unordered_map<std::string, double>>;
 
 Crosswalk::Crosswalk(const TrafficRuleConfig& config) : TrafficRule(config) {}
+AINFO<<"(DMCZP) EnteringMethod: Crosswalk::Crosswalk";
 
 Status Crosswalk::ApplyRule(Frame* const frame,
                             ReferenceLineInfo* const reference_line_info) {
+AINFO<<"(DMCZP) EnteringMethod: Crosswalk::ApplyRule";
   CHECK_NOTNULL(frame);
   CHECK_NOTNULL(reference_line_info);
 
@@ -72,6 +74,7 @@ Status Crosswalk::ApplyRule(Frame* const frame,
 
 void Crosswalk::MakeDecisions(Frame* const frame,
                               ReferenceLineInfo* const reference_line_info) {
+AINFO<<"(DMCZP) EnteringMethod: Crosswalk::MakeDecisions";
   CHECK_NOTNULL(frame);
   CHECK_NOTNULL(reference_line_info);
 
@@ -243,6 +246,7 @@ void Crosswalk::MakeDecisions(Frame* const frame,
 }
 
 bool Crosswalk::FindCrosswalks(ReferenceLineInfo* const reference_line_info) {
+AINFO<<"(DMCZP) EnteringMethod: Crosswalk::FindCrosswalks";
   CHECK_NOTNULL(reference_line_info);
 
   crosswalk_overlaps_.clear();
@@ -259,6 +263,7 @@ bool Crosswalk::CheckStopForObstacle(
     const CrosswalkInfoConstPtr crosswalk_ptr,
     const Obstacle& obstacle,
     const double stop_deceleration) {
+AINFO<<"(DMCZP) EnteringMethod: Crosswalk::CheckStopForObstacle";
   CHECK_NOTNULL(reference_line_info);
 
   std::string crosswalk_id = crosswalk_ptr->id().id();

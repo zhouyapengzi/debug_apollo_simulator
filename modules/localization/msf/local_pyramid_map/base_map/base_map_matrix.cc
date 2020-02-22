@@ -21,16 +21,20 @@ namespace localization {
 namespace msf {
 
 BaseMapMatrix::BaseMapMatrix() {}
+AINFO<<"(DMCZP) EnteringMethod: BaseMapMatrix::BaseMapMatrix";
 
 BaseMapMatrix::~BaseMapMatrix() {}
 
 BaseMapMatrix::BaseMapMatrix(const BaseMapMatrix& map_matrix) {}
+AINFO<<"(DMCZP) EnteringMethod: BaseMapMatrix::BaseMapMatrix";
 
 bool BaseMapMatrix::GetIntensityImg(cv::Mat* intensity_img) const {
+AINFO<<"(DMCZP) EnteringMethod: BaseMapMatrix::GetIntensityImg";
   return false;
 }
 /**@brief get altitude image of node. */
 bool BaseMapMatrix::GetAltitudeImg(cv::Mat* altitude_img) const {
+AINFO<<"(DMCZP) EnteringMethod: BaseMapMatrix::GetAltitudeImg";
   return false;
 }
 

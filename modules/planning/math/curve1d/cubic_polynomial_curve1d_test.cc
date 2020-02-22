@@ -27,6 +27,7 @@ namespace apollo {
 namespace planning {
 
 TEST(CubicPolynomialCurve1dTest, Evaluate) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   {
     double x0 = 0.0;
     double dx0 = 0.0;
@@ -70,6 +71,7 @@ TEST(CubicPolynomialCurve1dTest, Evaluate) {
 }
 
 TEST(CubicPolynomialCurve1dTest, derived_from_quartic_curve) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   QuarticPolynomialCurve1d quartic_curve(0., 0., 0.5, 1., 1., 2.);
   CubicPolynomialCurve1d cubic_curve;
   cubic_curve.DerivedFromQuarticCurve(quartic_curve);

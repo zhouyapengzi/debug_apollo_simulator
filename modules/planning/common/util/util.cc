@@ -34,6 +34,7 @@ using perception::TrafficLight;
 using routing::RoutingResponse;
 
 bool IsVehicleStateValid(const VehicleState& vehicle_state) {
+AINFO<<"(DMCZP) EnteringMethod: IsVehicleStateValid";
   if (std::isnan(vehicle_state.x()) || std::isnan(vehicle_state.y()) ||
       std::isnan(vehicle_state.z()) || std::isnan(vehicle_state.heading()) ||
       std::isnan(vehicle_state.kappa()) ||
@@ -46,6 +47,7 @@ bool IsVehicleStateValid(const VehicleState& vehicle_state) {
 
 bool IsDifferentRouting(const RoutingResponse& first,
                         const RoutingResponse& second) {
+AINFO<<"(DMCZP) EnteringMethod: IsDifferentRouting";
   if (first.has_header() && second.has_header()) {
     if (first.header().sequence_num() != second.header().sequence_num()) {
       return true;
@@ -58,6 +60,7 @@ bool IsDifferentRouting(const RoutingResponse& first,
 
 double GetADCStopDeceleration(const double adc_front_edge_s,
                               const double stop_line_s) {
+AINFO<<"(DMCZP) EnteringMethod: GetADCStopDeceleration";
   double adc_speed =
       common::VehicleStateProvider::Instance()->linear_velocity();
   if (adc_speed < FLAGS_max_stop_speed) {
@@ -80,6 +83,7 @@ double GetADCStopDeceleration(const double adc_front_edge_s,
  */
 bool CheckStopSignOnReferenceLine(const ReferenceLineInfo& reference_line_info,
                                   const std::string& stop_sign_overlap_id) {
+AINFO<<"(DMCZP) EnteringMethod: CheckStopSignOnReferenceLine";
   const std::vector<PathOverlap>& stop_sign_overlaps =
       reference_line_info.reference_line().map_path().stop_sign_overlaps();
   auto stop_sign_overlap_it =
@@ -96,6 +100,7 @@ bool CheckStopSignOnReferenceLine(const ReferenceLineInfo& reference_line_info,
 bool CheckTrafficLightOnReferenceLine(
     const ReferenceLineInfo& reference_line_info,
     const std::string& traffic_light_overlap_id) {
+AINFO<<"(DMCZP) EnteringMethod: CheckTrafficLightOnReferenceLine";
   const std::vector<PathOverlap>& traffic_light_overlaps =
       reference_line_info.reference_line().map_path().signal_overlaps();
   auto traffic_light_overlap_it =
@@ -110,6 +115,7 @@ bool CheckTrafficLightOnReferenceLine(
  * @brief: check if ADC is till inside a pnc-junction
  */
 bool CheckInsidePnCJunction(const ReferenceLineInfo& reference_line_info) {
+AINFO<<"(DMCZP) EnteringMethod: CheckInsidePnCJunction";
   const double adc_front_edge_s = reference_line_info.AdcSlBoundary().end_s();
   const double adc_back_edge_s = reference_line_info.AdcSlBoundary().start_s();
 

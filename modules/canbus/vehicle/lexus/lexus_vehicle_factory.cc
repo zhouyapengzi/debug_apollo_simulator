@@ -26,11 +26,13 @@ namespace canbus {
 
 std::unique_ptr<VehicleController>
 LexusVehicleFactory::CreateVehicleController() {
+AINFO<<"(DMCZP) EnteringMethod: LexusVehicleFactory::CreateVehicleController";
   return std::unique_ptr<VehicleController>(new lexus::LexusController());
 }
 
 std::unique_ptr<MessageManager<::apollo::canbus::ChassisDetail>>
 LexusVehicleFactory::CreateMessageManager() {
+AINFO<<"(DMCZP) EnteringMethod: LexusVehicleFactory::CreateMessageManager";
   return std::unique_ptr<MessageManager<::apollo::canbus::ChassisDetail>>(
       new lexus::LexusMessageManager());
 }

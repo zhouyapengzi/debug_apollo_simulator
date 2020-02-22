@@ -33,8 +33,10 @@ using apollo::dreamview::HMIWorker;
 MonitorManager::MonitorManager()
     : hmi_config_(HMIWorker::LoadConfig()),
       log_buffer_(apollo::common::monitor::MonitorMessageItem::MONITOR) {}
+AINFO<<"(DMCZP) EnteringMethod: MonitorManager::MonitorManager";
 
 void MonitorManager::Init(const std::shared_ptr<apollo::cyber::Node>& node) {
+AINFO<<"(DMCZP) EnteringMethod: MonitorManager::Init";
   node_ = node;
   if (FLAGS_use_sim_time) {
     status_.set_is_realtime_in_simulation(true);
@@ -42,6 +44,7 @@ void MonitorManager::Init(const std::shared_ptr<apollo::cyber::Node>& node) {
 }
 
 bool MonitorManager::StartFrame(const double current_time) {
+AINFO<<"(DMCZP) EnteringMethod: MonitorManager::StartFrame";
   // Get latest HMIStatus.
   static auto hmi_status_reader =
       CreateReader<apollo::dreamview::HMIStatus>(FLAGS_hmi_status_topic);
@@ -76,11 +79,13 @@ bool MonitorManager::StartFrame(const double current_time) {
 }
 
 void MonitorManager::EndFrame() {
+AINFO<<"(DMCZP) EnteringMethod: MonitorManager::EndFrame";
   // Print and publish all monitor logs.
   log_buffer_.Publish();
 }
 
 bool MonitorManager::CheckAutonomousDriving(const double current_time) {
+AINFO<<"(DMCZP) EnteringMethod: MonitorManager::CheckAutonomousDriving";
   // It's in offline mode if use_sim_time is set.
   if (FLAGS_use_sim_time) {
     return false;

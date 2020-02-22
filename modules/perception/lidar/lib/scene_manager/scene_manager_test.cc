@@ -52,6 +52,7 @@ class LidarLibSceneManagerTest : public testing::Test {
 };
 
 void LoadPlanes(std::string path, GroundNode* node_ptr) {
+AINFO<<"(DMCZP) EnteringMethod: LoadPlanes";
   int index = 0;
   std::ifstream file(path.c_str(), std::ifstream::in);
   while (file.good()) {
@@ -71,6 +72,7 @@ void LoadPlanes(std::string path, GroundNode* node_ptr) {
 
 void LoadPoints(const std::string path, std::vector<std::vector<double>>* pts,
                 std::vector<float>* height_gts) {
+AINFO<<"(DMCZP) EnteringMethod: LoadPoints";
   std::vector<double> pt;
   std::ifstream file(path.c_str(), std::ifstream::in);
   double temp;
@@ -95,6 +97,7 @@ void LoadPoints(const std::string path, std::vector<std::vector<double>>* pts,
 }
 
 TEST_F(LidarLibSceneManagerTest, lidar_lib_scene_manager_test) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   EXPECT_TRUE(SceneManager::Instance().Init());
   EXPECT_TRUE(SceneManager::Instance().Reset());
   EXPECT_TRUE(SceneManager::Instance().Init());
@@ -102,6 +105,7 @@ TEST_F(LidarLibSceneManagerTest, lidar_lib_scene_manager_test) {
 }
 
 TEST_F(LidarLibSceneManagerTest, lidar_lib_scene_manager_ground_service_test) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   EXPECT_TRUE(SceneManager::Instance().Init());
   auto ground_service_err = SceneManager::Instance().Service("GroundService1");
   EXPECT_EQ(ground_service_err.get(), nullptr);
@@ -193,6 +197,7 @@ TEST_F(LidarLibSceneManagerTest, lidar_lib_scene_manager_ground_service_test) {
 }
 
 void MockData(LidarFrame* frame) {
+AINFO<<"(DMCZP) EnteringMethod: MockData";
   std::string pcd =
       "/apollo/modules/perception/testdata/lidar/lib/scene_manager/data/"
       "pcd/1532063882.176900.pcd";
@@ -233,6 +238,7 @@ void MockData(LidarFrame* frame) {
 }
 
 TEST_F(LidarLibSceneManagerTest, lidar_lib_roi_service_test) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   // FIXME(perception): fix the missing data files.
   return;
 

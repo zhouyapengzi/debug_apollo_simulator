@@ -68,6 +68,7 @@ class SunnyvaleBigLoopTest : public PlanningTestBase {
  *   decision: STOP
  */
 TEST_F(SunnyvaleBigLoopTest, stop_sign_01) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   FLAGS_enable_scenario_stop_sign = true;
 
   std::string seq_num = "1";
@@ -93,6 +94,7 @@ TEST_F(SunnyvaleBigLoopTest, stop_sign_01) {
  *   decision: STOP
  */
 TEST_F(SunnyvaleBigLoopTest, stop_sign_02) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   FLAGS_enable_scenario_stop_sign = true;
 
   std::string seq_num = "2";
@@ -118,6 +120,7 @@ TEST_F(SunnyvaleBigLoopTest, stop_sign_02) {
  *   decision: STOP
  */
 TEST_F(SunnyvaleBigLoopTest, stop_sign_03) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   FLAGS_enable_scenario_stop_sign = true;
 
   std::string seq_num = "2";
@@ -157,6 +160,7 @@ TEST_F(SunnyvaleBigLoopTest, stop_sign_03) {
  */
 /* TODO(all): to rewrite
 TEST_F(SunnyvaleBigLoopTest, stop_sign_04) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   ENABLE_RULE(TrafficRuleConfig::STOP_SIGN, true);
 
   std::string seq_num = "2";
@@ -202,6 +206,7 @@ TEST_F(SunnyvaleBigLoopTest, stop_sign_04) {
  */
 /* TODO(all): to rewrite
 TEST_F(SunnyvaleBigLoopTest, stop_sign_05) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   ENABLE_RULE(TrafficRuleConfig::STOP_SIGN, true);
 
   std::string seq_num = "3";
@@ -260,6 +265,7 @@ TEST_F(SunnyvaleBigLoopTest, stop_sign_05) {
  */
 /* TODO(all): to rewrite
 TEST_F(SunnyvaleBigLoopTest, stop_sign_06) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   ENABLE_RULE(TrafficRuleConfig::STOP_SIGN, true);
 
   std::string seq_num = "5";
@@ -353,6 +359,7 @@ TEST_F(SunnyvaleBigLoopTest, stop_sign_06) {
  */
 /* TODO(all): to rewrite
 TEST_F(SunnyvaleBigLoopTest, stop_sign_07) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   ENABLE_RULE(TrafficRuleConfig::STOP_SIGN, true);
 
   std::string seq_num = "12";
@@ -420,6 +427,7 @@ TEST_F(SunnyvaleBigLoopTest, stop_sign_07) {
  */
 /* TODO(all): to rewrite
 TEST_F(SunnyvaleBigLoopTest, stop_sign_08) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   ENABLE_RULE(TrafficRuleConfig::STOP_SIGN, true);
 
   std::string seq_num = "14";
@@ -482,6 +490,7 @@ TEST_F(SunnyvaleBigLoopTest, stop_sign_08) {
  * decision: not stopped by KEEP_CLEAR
  */
 TEST_F(SunnyvaleBigLoopTest, keep_clear_01) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   ENABLE_RULE(TrafficRuleConfig::CROSSWALK, false);
   ENABLE_RULE(TrafficRuleConfig::KEEP_CLEAR, true);
   ENABLE_RULE(TrafficRuleConfig::TRAFFIC_LIGHT, false);
@@ -502,6 +511,7 @@ TEST_F(SunnyvaleBigLoopTest, keep_clear_01) {
  * decision: STOP
  */
 TEST_F(SunnyvaleBigLoopTest, keep_clear_02) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   ENABLE_RULE(TrafficRuleConfig::CROSSWALK, false);
   ENABLE_RULE(TrafficRuleConfig::KEEP_CLEAR, true);
   ENABLE_RULE(TrafficRuleConfig::TRAFFIC_LIGHT, false);
@@ -522,6 +532,7 @@ TEST_F(SunnyvaleBigLoopTest, keep_clear_02) {
  * decision: CRUISE
  */
 TEST_F(SunnyvaleBigLoopTest, keep_clear_03) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   ENABLE_RULE(TrafficRuleConfig::CROSSWALK, false);
   ENABLE_RULE(TrafficRuleConfig::KEEP_CLEAR, true);
   ENABLE_RULE(TrafficRuleConfig::TRAFFIC_LIGHT, false);
@@ -542,6 +553,7 @@ TEST_F(SunnyvaleBigLoopTest, keep_clear_03) {
  * decision: STOP
  */
 TEST_F(SunnyvaleBigLoopTest, crosswalk_01) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   ENABLE_RULE(TrafficRuleConfig::CROSSWALK, true);
   ENABLE_RULE(TrafficRuleConfig::KEEP_CLEAR, false);
   ENABLE_RULE(TrafficRuleConfig::TRAFFIC_LIGHT, true);
@@ -562,6 +574,7 @@ TEST_F(SunnyvaleBigLoopTest, crosswalk_01) {
  * decision: STOP first, and then CRUISE
  */
 TEST_F(SunnyvaleBigLoopTest, crosswalk_02) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   ENABLE_RULE(TrafficRuleConfig::CROSSWALK, true);
   ENABLE_RULE(TrafficRuleConfig::KEEP_CLEAR, false);
   ENABLE_RULE(TrafficRuleConfig::TRAFFIC_LIGHT, true);
@@ -601,6 +614,7 @@ TEST_F(SunnyvaleBigLoopTest, crosswalk_02) {
 }
 
 TEST_F(SunnyvaleBigLoopTest, traffic_light_green) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   ENABLE_RULE(TrafficRuleConfig::CROSSWALK, false);
   ENABLE_RULE(TrafficRuleConfig::KEEP_CLEAR, false);
   ENABLE_RULE(TrafficRuleConfig::TRAFFIC_LIGHT, true);
@@ -616,6 +630,7 @@ TEST_F(SunnyvaleBigLoopTest, traffic_light_green) {
 }
 
 TEST_F(SunnyvaleBigLoopTest, change_lane_abort_for_fast_back_vehicle) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   ENABLE_RULE(TrafficRuleConfig::CROSSWALK, false);
   ENABLE_RULE(TrafficRuleConfig::KEEP_CLEAR, false);
   ENABLE_RULE(TrafficRuleConfig::TRAFFIC_LIGHT, true);
@@ -636,6 +651,7 @@ TEST_F(SunnyvaleBigLoopTest, change_lane_abort_for_fast_back_vehicle) {
  * decision: STOP
  */
 TEST_F(SunnyvaleBigLoopTest, destination_stop_01) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   ENABLE_RULE(TrafficRuleConfig::CROSSWALK, false);
   ENABLE_RULE(TrafficRuleConfig::DESTINATION, true);
   ENABLE_RULE(TrafficRuleConfig::KEEP_CLEAR, false);
@@ -658,6 +674,7 @@ TEST_F(SunnyvaleBigLoopTest, destination_stop_01) {
  */
 /* TODO(all): rewrite
 TEST_F(SunnyvaleBigLoopTest, destination_pull_over_01) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   ENABLE_RULE(TrafficRuleConfig::CROSSWALK, false);
   ENABLE_RULE(TrafficRuleConfig::DESTINATION, true);
   ENABLE_RULE(TrafficRuleConfig::KEEP_CLEAR, false);
@@ -725,6 +742,7 @@ TEST_F(SunnyvaleBigLoopTest, destination_pull_over_01) {
  */
 /* TODO(all): rewrite
 TEST_F(SunnyvaleBigLoopTest, destination_pull_over_02) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   ENABLE_RULE(TrafficRuleConfig::CROSSWALK, false);
   ENABLE_RULE(TrafficRuleConfig::DESTINATION, true);
   ENABLE_RULE(TrafficRuleConfig::KEEP_CLEAR, false);
@@ -786,6 +804,7 @@ TEST_F(SunnyvaleBigLoopTest, destination_pull_over_02) {
 /*
 // TODO(all): this test need rewrite
 TEST_F(SunnyvaleBigLoopTest, bypass_parked_bus) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   ENABLE_RULE(TrafficRuleConfig::TRAFFIC_LIGHT, false);
   ENABLE_RULE(TrafficRuleConfig::KEEP_CLEAR, false);
 

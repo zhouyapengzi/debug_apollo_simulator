@@ -20,6 +20,7 @@ limitations under the License.
 DEFINE_string(output_dir, "/tmp", "output map directory");
 
 namespace {
+AINFO<<"(DMCZP) EnteringMethod: DEFINE_string";
 
 constexpr char kMapFilename[] = "modules/map/hdmap/test-data/base_map.bin";
 
@@ -39,6 +40,7 @@ class HDMapImplTestSuite : public ::testing::Test {
 };
 
 TEST_F(HDMapImplTestSuite, GetLaneById) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   Id lane_id;
   lane_id.set_id("1");
   EXPECT_EQ(nullptr, hdmap_impl_.GetLaneById(lane_id));
@@ -49,6 +51,7 @@ TEST_F(HDMapImplTestSuite, GetLaneById) {
 }
 
 TEST_F(HDMapImplTestSuite, GetJunctionById) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   Id junction_id;
   junction_id.set_id("1");
   EXPECT_EQ(nullptr, hdmap_impl_.GetJunctionById(junction_id));
@@ -59,6 +62,7 @@ TEST_F(HDMapImplTestSuite, GetJunctionById) {
 }
 
 TEST_F(HDMapImplTestSuite, GetSignalById) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   Id signal_id;
   signal_id.set_id("abc");
   EXPECT_EQ(nullptr, hdmap_impl_.GetSignalById(signal_id));
@@ -69,6 +73,7 @@ TEST_F(HDMapImplTestSuite, GetSignalById) {
 }
 
 TEST_F(HDMapImplTestSuite, GetCrosswalkById) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   Id crosswalk_id;
   crosswalk_id.set_id("1");
   EXPECT_EQ(nullptr, hdmap_impl_.GetCrosswalkById(crosswalk_id));
@@ -80,6 +85,7 @@ TEST_F(HDMapImplTestSuite, GetCrosswalkById) {
 }
 
 TEST_F(HDMapImplTestSuite, GetStopSignById) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   Id stop_sign_id;
   stop_sign_id.set_id("1");
   EXPECT_EQ(nullptr, hdmap_impl_.GetStopSignById(stop_sign_id));
@@ -91,6 +97,7 @@ TEST_F(HDMapImplTestSuite, GetStopSignById) {
 }
 
 TEST_F(HDMapImplTestSuite, GetYieldSignById) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   Id yield_sign_id;
   yield_sign_id.set_id("1");
   EXPECT_EQ(nullptr, hdmap_impl_.GetYieldSignById(yield_sign_id));
@@ -102,6 +109,7 @@ TEST_F(HDMapImplTestSuite, GetYieldSignById) {
 }
 
 TEST_F(HDMapImplTestSuite, GetClearAreaById) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   Id clear_area_id;
   clear_area_id.set_id("1");
   EXPECT_EQ(nullptr, hdmap_impl_.GetClearAreaById(clear_area_id));
@@ -113,12 +121,14 @@ TEST_F(HDMapImplTestSuite, GetClearAreaById) {
 }
 
 TEST_F(HDMapImplTestSuite, GetSpeedBumpById) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   Id speed_bump_id;
   speed_bump_id.set_id("1");
   EXPECT_EQ(nullptr, hdmap_impl_.GetSpeedBumpById(speed_bump_id));
 }
 
 TEST_F(HDMapImplTestSuite, GetOverlapById) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   Id overlap_id;
   overlap_id.set_id("1");
   EXPECT_EQ(nullptr, hdmap_impl_.GetOverlapById(overlap_id));
@@ -129,6 +139,7 @@ TEST_F(HDMapImplTestSuite, GetOverlapById) {
 }
 
 TEST_F(HDMapImplTestSuite, GetRoadById) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   Id road_id;
   road_id.set_id("1");
   EXPECT_EQ(nullptr, hdmap_impl_.GetRoadById(road_id));
@@ -139,6 +150,7 @@ TEST_F(HDMapImplTestSuite, GetRoadById) {
 }
 
 TEST_F(HDMapImplTestSuite, GetLanes) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   std::vector<LaneInfoConstPtr> lanes;
   apollo::common::PointENU point;
   point.set_x(586424.09);
@@ -157,6 +169,7 @@ TEST_F(HDMapImplTestSuite, GetLanes) {
 }
 
 TEST_F(HDMapImplTestSuite, GetNearestLaneWithHeading) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   apollo::common::PointENU point;
   point.set_x(586424.09);
   point.set_y(4140727.02);
@@ -178,6 +191,7 @@ TEST_F(HDMapImplTestSuite, GetNearestLaneWithHeading) {
 }
 
 TEST_F(HDMapImplTestSuite, GetLanesWithHeading) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   apollo::common::PointENU point;
   point.set_x(586424.09);
   point.set_y(4140727.02);
@@ -193,6 +207,7 @@ TEST_F(HDMapImplTestSuite, GetLanesWithHeading) {
 }
 
 TEST_F(HDMapImplTestSuite, GetJunctions) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   std::vector<JunctionInfoConstPtr> junctions;
   apollo::common::PointENU point;
   point.set_x(586441.61);
@@ -206,6 +221,7 @@ TEST_F(HDMapImplTestSuite, GetJunctions) {
 }
 
 TEST_F(HDMapImplTestSuite, GetCrosswalks) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   std::vector<CrosswalkInfoConstPtr> crosswalks;
   apollo::common::PointENU point;
   point.set_x(586449.32);
@@ -219,6 +235,7 @@ TEST_F(HDMapImplTestSuite, GetCrosswalks) {
 }
 
 TEST_F(HDMapImplTestSuite, GetSignals) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   std::vector<SignalInfoConstPtr> signals;
 
   apollo::common::PointENU point;
@@ -233,6 +250,7 @@ TEST_F(HDMapImplTestSuite, GetSignals) {
 }
 
 TEST_F(HDMapImplTestSuite, GetStopSigns) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   std::vector<StopSignInfoConstPtr> stop_signs;
 
   apollo::common::PointENU point;
@@ -245,6 +263,7 @@ TEST_F(HDMapImplTestSuite, GetStopSigns) {
 }
 
 TEST_F(HDMapImplTestSuite, GetYieldSigns) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   std::vector<YieldSignInfoConstPtr> yield_signs;
 
   apollo::common::PointENU point;
@@ -257,6 +276,7 @@ TEST_F(HDMapImplTestSuite, GetYieldSigns) {
 }
 
 TEST_F(HDMapImplTestSuite, GetClearAreas) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   std::vector<ClearAreaInfoConstPtr> clear_areas;
 
   apollo::common::PointENU point;
@@ -269,6 +289,7 @@ TEST_F(HDMapImplTestSuite, GetClearAreas) {
 }
 
 TEST_F(HDMapImplTestSuite, GetSpeedBumps) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   std::vector<SpeedBumpInfoConstPtr> speed_bumps;
 
   apollo::common::PointENU point;
@@ -280,6 +301,7 @@ TEST_F(HDMapImplTestSuite, GetSpeedBumps) {
 }
 
 TEST_F(HDMapImplTestSuite, GetRoads) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   std::vector<RoadInfoConstPtr> roads;
 
   apollo::common::PointENU point;
@@ -307,6 +329,7 @@ TEST_F(HDMapImplTestSuite, GetRoads) {
 }
 
 TEST_F(HDMapImplTestSuite, GetNearestLane) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   LaneInfoConstPtr lane;
   double s = 0.0;
   double l = 0.0;
@@ -322,6 +345,7 @@ TEST_F(HDMapImplTestSuite, GetNearestLane) {
 }
 
 TEST_F(HDMapImplTestSuite, GetRoadBoundaries) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   apollo::common::PointENU point;
   point.set_x(586427.58);
   point.set_y(4140749.35);
@@ -349,6 +373,7 @@ TEST_F(HDMapImplTestSuite, GetRoadBoundaries) {
 }
 
 TEST_F(HDMapImplTestSuite, GetForwardNearestSignalsOnLane) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   apollo::common::PointENU point;
   point.set_x(586441.73);
   point.set_y(4140745.25);
@@ -372,6 +397,7 @@ TEST_F(HDMapImplTestSuite, GetForwardNearestSignalsOnLane) {
 }
 
 TEST_F(HDMapImplTestSuite, GetRoi) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   apollo::common::PointENU point;
   point.set_x(586441.73);
   point.set_y(4140745.25);
@@ -388,6 +414,7 @@ TEST_F(HDMapImplTestSuite, GetRoi) {
 }
 
 TEST_F(HDMapImplTestSuite, GetRoadBounrariesAndJunctions) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   apollo::common::PointENU point;
   point.set_x(586441.73);
   point.set_y(4140745.25);
@@ -406,6 +433,7 @@ TEST_F(HDMapImplTestSuite, GetRoadBounrariesAndJunctions) {
 }
 
 TEST_F(HDMapImplTestSuite, GetLocalMap) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   apollo::common::PointENU point;
   point.set_x(586441.73);
   point.set_y(4140745.25);

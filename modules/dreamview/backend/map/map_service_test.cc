@@ -39,6 +39,7 @@ class MapServiceTest : public ::testing::Test {
 };
 
 TEST_F(MapServiceTest, CollectMapElementIds) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   PointENU p;
   p.set_x(0.0);
   p.set_y(0.0);
@@ -55,6 +56,7 @@ TEST_F(MapServiceTest, CollectMapElementIds) {
 }
 
 TEST_F(MapServiceTest, RetrieveMapElements) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   MapElementIds map_element_ids;
   map_element_ids.add_lane("l1");
   Map map = map_service->RetrieveMapElements(map_element_ids);
@@ -63,6 +65,7 @@ TEST_F(MapServiceTest, RetrieveMapElements) {
 }
 
 TEST_F(MapServiceTest, GetStartPoint) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   PointENU start_point;
   EXPECT_TRUE(map_service->GetStartPoint(&start_point));
   EXPECT_DOUBLE_EQ(-1826.4050789145094, start_point.x());
@@ -71,6 +74,7 @@ TEST_F(MapServiceTest, GetStartPoint) {
 }
 
 TEST_F(MapServiceTest, GetPoseWithRegardToLane) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   double theta, s;
   EXPECT_TRUE(map_service->GetPoseWithRegardToLane(-1826, -3027, &theta, &s));
   EXPECT_DOUBLE_EQ(2.8771504789266014, theta);
@@ -78,6 +82,7 @@ TEST_F(MapServiceTest, GetPoseWithRegardToLane) {
 }
 
 TEST_F(MapServiceTest, ConstructLaneWayPoint) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   apollo::routing::LaneWaypoint way_point;
   EXPECT_TRUE(map_service->ConstructLaneWayPoint(-1826, -3027, &way_point));
   EXPECT_EQ("l1", way_point.id());
@@ -87,6 +92,7 @@ TEST_F(MapServiceTest, ConstructLaneWayPoint) {
 }
 
 TEST_F(MapServiceTest, CalculateMapHash) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   MapElementIds ids;
   ids.add_lane("l1");
   size_t hash_code = map_service->CalculateMapHash(ids);

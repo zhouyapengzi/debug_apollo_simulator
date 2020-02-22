@@ -24,14 +24,17 @@ namespace perception {
 namespace inference {
 
 inline std::string get_dtype(const base::Blob<double> &blob) {
+AINFO<<"(DMCZP) EnteringMethod: get_dtype";
   return "float64";
 }
 
 inline std::string get_dtype(const base::Blob<float> &blob) {
+AINFO<<"(DMCZP) EnteringMethod: get_dtype";
   return "float32";
 }
 
 size_t BinaryReadString(FILE *fp, char *name) {
+AINFO<<"(DMCZP) EnteringMethod: BinaryReadString";
   size_t len = 0;
   size_t nmemb = fread(&len, sizeof(len), 1, fp);
   if (nmemb != 1 || len == 0) {
@@ -45,6 +48,7 @@ size_t BinaryReadString(FILE *fp, char *name) {
 }
 
 size_t BinaryWriteString(FILE *fp, const std::string &str) {
+AINFO<<"(DMCZP) EnteringMethod: BinaryWriteString";
   size_t len = str.length();
   fwrite(&len, sizeof(len), 1, fp);
   fwrite(str.c_str(), sizeof(str[0]), len, fp);
@@ -87,6 +91,7 @@ boost::shared_ptr<base::Blob<Dtype>> BinaryReadBlob(FILE *fp) {
 
 template <typename Dtype>
 void BinaryWriteBlob(FILE *fp, const base::Blob<Dtype> &blob) {
+AINFO<<"(DMCZP) EnteringMethod: BinaryWriteBlob";
   int ndim, dim;
   // write dtype
   BinaryWriteString(fp, get_dtype(blob));
@@ -113,6 +118,8 @@ template void BinaryWriteBlob(FILE *fp, const base::Blob<double> &blob);
 template <typename Dtype>
 std::map<std::string, boost::shared_ptr<base::Blob<Dtype>>> BinaryReadFile(
     const char *file_path) {
+AINFO<<"(DMCZP) EnteringMethod: BinaryWriteBlob";
+AINFO<<"(DMCZP) EnteringMethod: BinaryWriteBlob";
   char name[kMaxStrLen];
   std::map<std::string, boost::shared_ptr<base::Blob<Dtype>>> data_dict;
 
@@ -135,6 +142,7 @@ std::map<std::string, boost::shared_ptr<base::Blob<Dtype>>> BinaryReadFile(
 template <typename Btype>
 bool BinaryWriteFile(const char *file_path,
                      const std::map<std::string, Btype> &data_dict) {
+AINFO<<"(DMCZP) EnteringMethod: BinaryWriteFile";
   FILE *fp = fopen(file_path, "wb");
   if (NULL == fp) {
     AERROR << "Failed opening Binaryary file: " << file_path;

@@ -21,6 +21,7 @@ namespace drivers {
 namespace camera {
 
 bool CameraComponent::Init() {
+AINFO<<"(DMCZP) EnteringMethod: CameraComponent::Init";
   camera_config_ = std::make_shared<Config>();
   if (!apollo::cyber::common::GetProtoFromFile(config_file_path_,
                                                camera_config_.get())) {
@@ -82,6 +83,7 @@ bool CameraComponent::Init() {
 }
 
 void CameraComponent::run() {
+AINFO<<"(DMCZP) EnteringMethod: CameraComponent::run";
   running_.exchange(true);
   while (!cyber::IsShutdown()) {
     if (!camera_device_->wait_for_device()) {

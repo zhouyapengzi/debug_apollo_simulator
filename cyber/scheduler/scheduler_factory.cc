@@ -47,6 +47,7 @@ std::mutex mutex;
 }  // namespace
 
 Scheduler* Instance() {
+AINFO<<"(DMCZP) EnteringMethod: Instance";
   Scheduler* obj = instance.load(std::memory_order_acquire);
   if (obj == nullptr) {
     std::lock_guard<std::mutex> lock(mutex);
@@ -77,6 +78,7 @@ Scheduler* Instance() {
 }
 
 void CleanUp() {
+AINFO<<"(DMCZP) EnteringMethod: CleanUp";
   Scheduler* obj = instance.load(std::memory_order_acquire);
   if (obj != nullptr) {
     obj->Shutdown();

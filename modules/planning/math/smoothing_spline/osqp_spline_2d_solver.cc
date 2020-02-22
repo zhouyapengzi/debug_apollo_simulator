@@ -39,9 +39,11 @@ using Eigen::MatrixXd;
 OsqpSpline2dSolver::OsqpSpline2dSolver(const std::vector<double>& t_knots,
                                        const uint32_t order)
     : Spline2dSolver(t_knots, order) {}
+AINFO<<"(DMCZP) EnteringMethod: OsqpSpline2dSolver::OsqpSpline2dSolver";
 
 void OsqpSpline2dSolver::Reset(const std::vector<double>& t_knots,
                                const uint32_t order) {
+AINFO<<"(DMCZP) EnteringMethod: OsqpSpline2dSolver::Reset";
   spline_ = Spline2d(t_knots, order);
   kernel_ = Spline2dKernel(t_knots, order);
   constraint_ = Spline2dConstraint(t_knots, order);
@@ -49,14 +51,18 @@ void OsqpSpline2dSolver::Reset(const std::vector<double>& t_knots,
 
 // customize setup
 Spline2dConstraint* OsqpSpline2dSolver::mutable_constraint() {
+AINFO<<"(DMCZP) EnteringMethod: OsqpSpline2dSolver::mutable_constraint";
   return &constraint_;
 }
 
 Spline2dKernel* OsqpSpline2dSolver::mutable_kernel() { return &kernel_; }
+AINFO<<"(DMCZP) EnteringMethod: OsqpSpline2dSolver::mutable_kernel";
 
 Spline2d* OsqpSpline2dSolver::mutable_spline() { return &spline_; }
+AINFO<<"(DMCZP) EnteringMethod: OsqpSpline2dSolver::mutable_spline";
 
 bool OsqpSpline2dSolver::Solve() {
+AINFO<<"(DMCZP) EnteringMethod: OsqpSpline2dSolver::Solve";
   // Namings here are following osqp convention.
   // For details, visit: https://osqp.org/docs/examples/demo.html
 
@@ -172,6 +178,7 @@ bool OsqpSpline2dSolver::Solve() {
 
 // extract
 const Spline2d& OsqpSpline2dSolver::spline() const { return spline_; }
+AINFO<<"(DMCZP) EnteringMethod: OsqpSpline2dSolver::spline";
 
 }  // namespace planning
 }  // namespace apollo

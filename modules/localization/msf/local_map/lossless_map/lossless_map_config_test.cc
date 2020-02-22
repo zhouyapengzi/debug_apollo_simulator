@@ -24,6 +24,7 @@ namespace msf {
 
 /**@brief Test load and set methods in LosslessMapConfig. */
 TEST(LosslessMapConfigTestSuite, LoadSetTest) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   BaseMapConfig config("lossless_map");
   ASSERT_TRUE(
       config.Load("/apollo/modules/localization/msf/local_map/"
@@ -50,6 +51,7 @@ TEST(LosslessMapConfigTestSuite, LoadSetTest) {
 
 /**@brief Test save method. */
 TEST(LosslessMapConfigTestSuite, SaveTest) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   BaseMapConfig config("lossless_map");
   ASSERT_TRUE(
       config.Load("/apollo/modules/localization/msf/local_map/"

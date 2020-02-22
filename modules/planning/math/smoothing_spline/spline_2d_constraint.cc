@@ -34,6 +34,7 @@ using apollo::common::math::Vec2d;
 Spline2dConstraint::Spline2dConstraint(const std::vector<double>& t_knots,
                                        const uint32_t order)
     : t_knots_(t_knots), spline_order_(order) {
+AINFO<<"(DMCZP) EnteringMethod: Spline2dConstraint::Spline2dConstraint";
   inequality_constraint_.SetIsEquality(false);
   equality_constraint_.SetIsEquality(true);
   total_param_ =
@@ -44,6 +45,8 @@ Spline2dConstraint::Spline2dConstraint(const std::vector<double>& t_knots,
 bool Spline2dConstraint::AddInequalityConstraint(
     const Eigen::MatrixXd& constraint_matrix,
     const Eigen::MatrixXd& constraint_boundary) {
+AINFO<<"(DMCZP) EnteringMethod: Spline2dConstraint::AddInequalityConstraint";
+AINFO<<"(DMCZP) EnteringMethod: Spline2dConstraint::AddEqualityConstraint";
   return inequality_constraint_.AddConstraint(constraint_matrix,
                                               constraint_boundary);
 }
@@ -65,6 +68,10 @@ bool Spline2dConstraint::Add2dBoundary(
     const std::vector<Vec2d>& ref_point,
     const std::vector<double>& longitudinal_bound,
     const std::vector<double>& lateral_bound) {
+AINFO<<"(DMCZP) EnteringMethod: Spline2dConstraint::Add2dBoundary";
+AINFO<<"(DMCZP) EnteringMethod: Spline2dConstraint::Add2dDerivativeBoundary";
+AINFO<<"(DMCZP) EnteringMethod: Spline2dConstraint::Add2dSecondDerivativeBoundary";
+AINFO<<"(DMCZP) EnteringMethod: Spline2dConstraint::Add2dThirdDerivativeBoundary";
   if (t_coord.size() != angle.size() || angle.size() != ref_point.size() ||
       ref_point.size() != lateral_bound.size() ||
       lateral_bound.size() != longitudinal_bound.size()) {
@@ -235,6 +242,7 @@ bool Spline2dConstraint::Add2dThirdDerivativeBoundary(
 
 bool Spline2dConstraint::AddPointConstraint(const double t, const double x,
                                             const double y) {
+AINFO<<"(DMCZP) EnteringMethod: Spline2dConstraint::AddPointConstraint";
   const uint32_t index = FindIndex(t);
   const double rel_t = t - t_knots_[index];
   std::vector<double> coef = PolyCoef(rel_t);
@@ -244,6 +252,7 @@ bool Spline2dConstraint::AddPointConstraint(const double t, const double x,
 bool Spline2dConstraint::AddPointSecondDerivativeConstraint(const double t,
                                                             const double ddx,
                                                             const double ddy) {
+AINFO<<"(DMCZP) EnteringMethod: Spline2dConstraint::AddPointSecondDerivativeConstraint";
   const size_t index = FindIndex(t);
   const double rel_t = t - t_knots_[index];
   std::vector<double> coef = SecondDerivativeCoef(rel_t);
@@ -253,6 +262,7 @@ bool Spline2dConstraint::AddPointSecondDerivativeConstraint(const double t,
 bool Spline2dConstraint::AddPointThirdDerivativeConstraint(const double t,
                                                            const double dddx,
                                                            const double dddy) {
+AINFO<<"(DMCZP) EnteringMethod: Spline2dConstraint::AddPointThirdDerivativeConstraint";
   const size_t index = FindIndex(t);
   const double rel_t = t - t_knots_[index];
   std::vector<double> coef = ThirdDerivativeCoef(rel_t);
@@ -262,6 +272,7 @@ bool Spline2dConstraint::AddPointThirdDerivativeConstraint(const double t,
 bool Spline2dConstraint::AddPointKthOrderDerivativeConstraint(
     const double t, const double x_kth_derivative,
     const double y_kth_derivative, const std::vector<double>& coef) {
+AINFO<<"(DMCZP) EnteringMethod: Spline2dConstraint::AddPointKthOrderDerivativeConstraint";
   const uint32_t num_params = spline_order_ + 1;
   Eigen::MatrixXd affine_equality = Eigen::MatrixXd::Zero(2, total_param_);
   Eigen::MatrixXd affine_boundary = Eigen::MatrixXd::Zero(2, 1);
@@ -277,6 +288,7 @@ bool Spline2dConstraint::AddPointKthOrderDerivativeConstraint(
 
 bool Spline2dConstraint::AddPointAngleConstraint(const double t,
                                                  const double angle) {
+AINFO<<"(DMCZP) EnteringMethod: Spline2dConstraint::AddPointAngleConstraint";
   const uint32_t index = FindIndex(t);
   const uint32_t num_params = spline_order_ + 1;
   const uint32_t index_offset = index * 2 * num_params;
@@ -322,6 +334,7 @@ bool Spline2dConstraint::AddPointAngleConstraint(const double t,
 
 // guarantee up to values are joint
 bool Spline2dConstraint::AddSmoothConstraint() {
+AINFO<<"(DMCZP) EnteringMethod: Spline2dConstraint::AddSmoothConstraint";
   if (t_knots_.size() < 3) {
     return false;
   }
@@ -347,6 +360,7 @@ bool Spline2dConstraint::AddSmoothConstraint() {
 
 // guarantee up to derivative are joint
 bool Spline2dConstraint::AddDerivativeSmoothConstraint() {
+AINFO<<"(DMCZP) EnteringMethod: Spline2dConstraint::AddDerivativeSmoothConstraint";
   if (t_knots_.size() < 3) {
     return true;
   }
@@ -378,6 +392,7 @@ bool Spline2dConstraint::AddDerivativeSmoothConstraint() {
 
 // guarantee up to second order derivative are joint
 bool Spline2dConstraint::AddSecondDerivativeSmoothConstraint() {
+AINFO<<"(DMCZP) EnteringMethod: Spline2dConstraint::AddSecondDerivativeSmoothConstraint";
   if (t_knots_.size() < 3) {
     return true;
   }
@@ -415,6 +430,7 @@ bool Spline2dConstraint::AddSecondDerivativeSmoothConstraint() {
 
 // guarantee up to third order derivative are joint
 bool Spline2dConstraint::AddThirdDerivativeSmoothConstraint() {
+AINFO<<"(DMCZP) EnteringMethod: Spline2dConstraint::AddThirdDerivativeSmoothConstraint";
   if (t_knots_.size() < 3) {
     return false;
   }
@@ -460,14 +476,17 @@ bool Spline2dConstraint::AddThirdDerivativeSmoothConstraint() {
  *   @brief: output interface inequality constraint
  **/
 const AffineConstraint& Spline2dConstraint::inequality_constraint() const {
+AINFO<<"(DMCZP) EnteringMethod: Spline2dConstraint::inequality_constraint";
   return inequality_constraint_;
 }
 
 const AffineConstraint& Spline2dConstraint::equality_constraint() const {
+AINFO<<"(DMCZP) EnteringMethod: Spline2dConstraint::equality_constraint";
   return equality_constraint_;
 }
 
 uint32_t Spline2dConstraint::FindIndex(const double t) const {
+AINFO<<"(DMCZP) EnteringMethod: Spline2dConstraint::FindIndex";
   auto upper_bound = std::upper_bound(t_knots_.begin() + 1, t_knots_.end(), t);
   return std::min(static_cast<uint32_t>(t_knots_.size() - 1),
                   static_cast<uint32_t>(upper_bound - t_knots_.begin())) -
@@ -533,6 +552,7 @@ std::vector<double> Spline2dConstraint::AffineThirdDerivativeCoef(
 
 double Spline2dConstraint::SignDistance(const Vec2d& xy_point,
                                         const double angle) const {
+AINFO<<"(DMCZP) EnteringMethod: Spline2dConstraint::SignDistance";
   return common::math::InnerProd(
       xy_point.x(), xy_point.y(),
       -common::math::sin(common::math::Angle16::from_rad(angle)),

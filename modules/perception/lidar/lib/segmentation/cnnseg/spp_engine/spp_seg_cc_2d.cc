@@ -26,6 +26,7 @@ namespace lidar {
 void SppCCDetector::SetData(const float* const* prob_map,
                             const float* offset_map, float scale,
                             float objectness_threshold) {
+AINFO<<"(DMCZP) EnteringMethod: SppCCDetector::SetData";
   prob_map_ = prob_map;
   offset_map_ = offset_map;
   scale_ = scale;
@@ -35,6 +36,7 @@ void SppCCDetector::SetData(const float* const* prob_map,
 }
 
 bool SppCCDetector::BuildNodes(int start_row_index, int end_row_index) {
+AINFO<<"(DMCZP) EnteringMethod: SppCCDetector::BuildNodes";
   const float* offset_row_ptr = offset_map_ + start_row_index * cols_;
   const float* offset_col_ptr = offset_map_ + (rows_ + start_row_index) * cols_;
   const float* prob_map_ptr = prob_map_[0] + start_row_index * cols_;
@@ -55,6 +57,7 @@ bool SppCCDetector::BuildNodes(int start_row_index, int end_row_index) {
 }
 
 bool SppCCDetector::CleanNodes() {
+AINFO<<"(DMCZP) EnteringMethod: SppCCDetector::CleanNodes";
   memset(nodes_[0], 0, sizeof(Node) * rows_ * cols_);
   uint32_t node_idx = 0;
   for (int row = 0; row < rows_; ++row) {
@@ -66,6 +69,7 @@ bool SppCCDetector::CleanNodes() {
 }
 
 size_t SppCCDetector::Detect(SppLabelImage* labels) {
+AINFO<<"(DMCZP) EnteringMethod: SppCCDetector::Detect";
   Timer timer;
   if (!first_process_) {
     worker_.Join();  // sync for cleaning nodes
@@ -94,6 +98,7 @@ size_t SppCCDetector::Detect(SppLabelImage* labels) {
 }
 
 void SppCCDetector::TraverseNodes() {
+AINFO<<"(DMCZP) EnteringMethod: SppCCDetector::TraverseNodes";
   for (int row = 0; row < rows_; row++) {
     for (int col = 0; col < cols_; col++) {
       Node& node = nodes_[row][col];
@@ -105,6 +110,7 @@ void SppCCDetector::TraverseNodes() {
 }
 
 void SppCCDetector::UnionNodes() {
+AINFO<<"(DMCZP) EnteringMethod: SppCCDetector::UnionNodes";
   for (int row = 0; row < rows_; ++row) {
     for (int col = 0; col < cols_; ++col) {
       Node* node = &nodes_[row][col];
@@ -145,6 +151,7 @@ void SppCCDetector::UnionNodes() {
 }
 
 size_t SppCCDetector::ToLabelMap(SppLabelImage* labels) {
+AINFO<<"(DMCZP) EnteringMethod: SppCCDetector::ToLabelMap";
   uint16_t id = 0;
   uint32_t pixel_id = 0;
   labels->ResetClusters(kDefaultReserveSize);
@@ -170,6 +177,7 @@ size_t SppCCDetector::ToLabelMap(SppLabelImage* labels) {
 }
 
 void SppCCDetector::Traverse(SppCCDetector::Node* x) {
+AINFO<<"(DMCZP) EnteringMethod: SppCCDetector::Traverse";
   std::vector<SppCCDetector::Node*> p;
   p.clear();
   while (x->get_traversed() == 0) {
@@ -191,6 +199,7 @@ void SppCCDetector::Traverse(SppCCDetector::Node* x) {
 }
 
 SppCCDetector::Node* SppCCDetector::DisjointSetFindLoop(Node* x) {
+AINFO<<"(DMCZP) EnteringMethod: SppCCDetector::DisjointSetFindLoop";
   Node* root = x;
   while (nodes_[0] + root->parent != root) {
     root = nodes_[0] + root->parent;
@@ -205,6 +214,7 @@ SppCCDetector::Node* SppCCDetector::DisjointSetFindLoop(Node* x) {
 }
 
 SppCCDetector::Node* SppCCDetector::DisjointSetFind(Node* x) {
+AINFO<<"(DMCZP) EnteringMethod: SppCCDetector::DisjointSetFind";
   Node* y = nodes_[0] + x->parent;
   if (y == x || nodes_[0] + y->parent == y) {
     return y;
@@ -216,6 +226,7 @@ SppCCDetector::Node* SppCCDetector::DisjointSetFind(Node* x) {
 }
 
 void SppCCDetector::DisjointSetUnion(Node* x, Node* y) {
+AINFO<<"(DMCZP) EnteringMethod: SppCCDetector::DisjointSetUnion";
   x = DisjointSetFind(x);
   y = DisjointSetFind(y);
   if (x == y) {

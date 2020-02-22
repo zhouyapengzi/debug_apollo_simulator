@@ -28,6 +28,8 @@ const int32_t Steering65::ID = 0x65;
 
 void Steering65::Parse(const std::uint8_t *bytes, int32_t length,
                        ChassisDetail *chassis_detail) const {
+AINFO<<"(DMCZP) EnteringMethod: Steering65::Parse";
+AINFO<<"(DMCZP) EnteringMethod: Steering65::Parse";
   chassis_detail->mutable_eps()->set_steering_angle(
       steering_angle(bytes, length));
   // no steering angle speed
@@ -78,6 +80,7 @@ void Steering65::Parse(const std::uint8_t *bytes, int32_t length,
 
 double Steering65::steering_angle(const std::uint8_t *bytes,
                                   int32_t length) const {
+AINFO<<"(DMCZP) EnteringMethod: Steering65::steering_angle";
   Byte frame_high(bytes + 1);
   int32_t high = frame_high.get_byte(0, 8);
   Byte frame_low(bytes + 0);
@@ -92,6 +95,7 @@ double Steering65::steering_angle(const std::uint8_t *bytes,
 
 double Steering65::reported_steering_angle_cmd(const std::uint8_t *bytes,
                                                int32_t length) const {
+AINFO<<"(DMCZP) EnteringMethod: Steering65::reported_steering_angle_cmd";
   Byte frame_high(bytes + 3);
   int32_t high = frame_high.get_byte(0, 8);
   Byte frame_low(bytes + 2);
@@ -106,6 +110,7 @@ double Steering65::reported_steering_angle_cmd(const std::uint8_t *bytes,
 
 double Steering65::vehicle_speed(const std::uint8_t *bytes,
                                  int32_t length) const {
+AINFO<<"(DMCZP) EnteringMethod: Steering65::vehicle_speed";
   Byte frame_high(bytes + 5);
   int32_t high = frame_high.get_byte(0, 8);
   Byte frame_low(bytes + 4);
@@ -116,6 +121,7 @@ double Steering65::vehicle_speed(const std::uint8_t *bytes,
 
 double Steering65::epas_torque(const std::uint8_t *bytes,
                                int32_t length) const {
+AINFO<<"(DMCZP) EnteringMethod: Steering65::epas_torque";
   Byte frame(bytes + 6);
   int32_t x = frame.get_byte(0, 8);
   if (x > 0x7F) {
@@ -125,14 +131,20 @@ double Steering65::epas_torque(const std::uint8_t *bytes,
 }
 
 bool Steering65::is_enabled(const std::uint8_t *bytes, int32_t length) const {
+AINFO<<"(DMCZP) EnteringMethod: Steering65::is_enabled";
   Byte frame(bytes + 7);
   return frame.is_bit_1(0);
 }
 
 bool Steering65::is_driver_override(const std::uint8_t *bytes,
                                     int32_t length) const {
+AINFO<<"(DMCZP) EnteringMethod: Steering65::is_driver_override";
+AINFO<<"(DMCZP) EnteringMethod: Steering65::is_driver_activity";
   // Cleared on rising edge of EN bit in command message
+AINFO<<"(DMCZP) EnteringMethod: Steering65::is_channel_1_fault";
+AINFO<<"(DMCZP) EnteringMethod: Steering65::is_channel_2_fault";
   Byte frame(bytes + 7);
+AINFO<<"(DMCZP) EnteringMethod: Steering65::is_connector_fault";
   return frame.is_bit_1(1);
 }
 
@@ -144,6 +156,7 @@ bool Steering65::is_driver_activity(const std::uint8_t *bytes,
 
 bool Steering65::is_watchdog_counter_fault(const std::uint8_t *bytes,
                                            int32_t length) const {
+AINFO<<"(DMCZP) EnteringMethod: Steering65::is_watchdog_counter_fault";
   Byte frame(bytes + 7);
   return frame.is_bit_1(3);
 }
@@ -162,6 +175,7 @@ bool Steering65::is_channel_2_fault(const std::uint8_t *bytes,
 
 bool Steering65::is_calibration_fault(const std::uint8_t *bytes,
                                       int32_t length) const {
+AINFO<<"(DMCZP) EnteringMethod: Steering65::is_calibration_fault";
   Byte frame(bytes + 7);
   return frame.is_bit_1(6);
 }

@@ -28,6 +28,7 @@ namespace planning {
 
 using StringIndexedQueue = IndexedQueue<int, std::string>;
 TEST(IndexedQueue, QueueSize1) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   StringIndexedQueue object(1);
   ASSERT_TRUE(object.Add(1, std::make_unique<std::string>("one")));
   ASSERT_TRUE(object.Find(1) != nullptr);
@@ -41,6 +42,7 @@ TEST(IndexedQueue, QueueSize1) {
 }
 
 TEST(IndexedQueue, QueueSize2) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   StringIndexedQueue object(2);
   ASSERT_TRUE(object.Add(1, std::make_unique<std::string>("one")));
   ASSERT_TRUE(object.Find(1) != nullptr);

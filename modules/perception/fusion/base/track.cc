@@ -25,8 +25,10 @@ double Track::s_max_radar_invisible_period_ = 0.50;   // in second
 double Track::s_max_camera_invisible_period_ = 0.75;  // in second
 
 Track::Track() { fused_object_.reset(new FusedObject()); }
+AINFO<<"(DMCZP) EnteringMethod: Track::Track";
 
 bool Track::Initialize(SensorObjectPtr obj, bool is_background) {
+AINFO<<"(DMCZP) EnteringMethod: Track::Initialize";
   Reset();
   int track_id = static_cast<int>(GenerateNewTrackId());
   is_background_ = is_background;
@@ -39,6 +41,7 @@ bool Track::Initialize(SensorObjectPtr obj, bool is_background) {
 }
 
 void Track::Reset() {
+AINFO<<"(DMCZP) EnteringMethod: Track::Reset";
   fused_object_->GetBaseObject()->track_id = 0;
   lidar_objects_.clear();
   radar_objects_.clear();
@@ -52,6 +55,7 @@ void Track::Reset() {
 
 SensorObjectConstPtr Track::GetSensorObject(
     const std::string& sensor_id) const {
+AINFO<<"(DMCZP) EnteringMethod: Track::GetSensorObject";
   auto lidar_it = lidar_objects_.find(sensor_id);
   if (lidar_it != lidar_objects_.end()) {
     return lidar_it->second;
@@ -71,19 +75,23 @@ SensorObjectConstPtr Track::GetSensorObject(
 }
 
 SensorObjectConstPtr Track::GetLatestLidarObject() const {
+AINFO<<"(DMCZP) EnteringMethod: Track::GetLatestLidarObject";
   return GetLatestSensorObject(lidar_objects_);
 }
 
 SensorObjectConstPtr Track::GetLatestRadarObject() const {
+AINFO<<"(DMCZP) EnteringMethod: Track::GetLatestRadarObject";
   return GetLatestSensorObject(radar_objects_);
 }
 
 SensorObjectConstPtr Track::GetLatestCameraObject() const {
+AINFO<<"(DMCZP) EnteringMethod: Track::GetLatestCameraObject";
   return GetLatestSensorObject(camera_objects_);
 }
 
 SensorObjectConstPtr Track::GetLatestSensorObject(
     const SensorId2ObjectMap& objects) const {
+AINFO<<"(DMCZP) EnteringMethod: Track::GetLatestSensorObject";
   SensorObjectConstPtr obj = nullptr;
   for (auto it = objects.begin(); it != objects.end(); ++it) {
     if (obj == nullptr || obj->GetTimestamp() < it->second->GetTimestamp()) {
@@ -94,6 +102,7 @@ SensorObjectConstPtr Track::GetLatestSensorObject(
 }
 
 size_t Track::GenerateNewTrackId() {
+AINFO<<"(DMCZP) EnteringMethod: Track::GenerateNewTrackId";
   int ret_track_id = static_cast<int>(s_track_idx_);
   if (s_track_idx_ == UINT_MAX) {
     s_track_idx_ = 1;
@@ -105,6 +114,7 @@ size_t Track::GenerateNewTrackId() {
 
 void Track::UpdateSensorObject(SensorId2ObjectMap* objects,
                                const SensorObjectPtr& obj) {
+AINFO<<"(DMCZP) EnteringMethod: Track::UpdateSensorObject";
   std::string sensor_id = obj->GetSensorId();
   auto it = objects->find(sensor_id);
   if (it == objects->end()) {
@@ -115,6 +125,7 @@ void Track::UpdateSensorObject(SensorId2ObjectMap* objects,
 }
 
 void Track::UpdateWithSensorObject(const SensorObjectPtr& obj) {
+AINFO<<"(DMCZP) EnteringMethod: Track::UpdateWithSensorObject";
   std::string sensor_id = obj->GetSensorId();
   SensorId2ObjectMap* objects = nullptr;
   if (IsLidar(obj)) {
@@ -152,6 +163,7 @@ void Track::UpdateWithSensorObject(const SensorObjectPtr& obj) {
 
 void Track::UpdateWithoutSensorObject(const std::string& sensor_id,
                                       double measurement_timestamp) {
+AINFO<<"(DMCZP) EnteringMethod: Track::UpdateWithoutSensorObject";
   UpdateSensorObjectWithoutMeasurement(&lidar_objects_, sensor_id,
                                        measurement_timestamp,
                                        s_max_lidar_invisible_period_);
@@ -171,6 +183,7 @@ void Track::UpdateSensorObjectWithoutMeasurement(SensorId2ObjectMap* objects,
                                                  const std::string& sensor_id,
                                                  double measurement_timestamp,
                                                  double max_invisible_period) {
+AINFO<<"(DMCZP) EnteringMethod: Track::UpdateSensorObjectWithoutMeasurement";
   for (auto it = objects->begin(); it != objects->end();) {
     double period = measurement_timestamp - it->second->GetTimestamp();
     if (it->first == sensor_id) {
@@ -192,6 +205,7 @@ void Track::UpdateSensorObjectWithMeasurement(SensorId2ObjectMap* objects,
                                               const std::string& sensor_id,
                                               double measurement_timestamp,
                                               double max_invisible_period) {
+AINFO<<"(DMCZP) EnteringMethod: Track::UpdateSensorObjectWithMeasurement";
   for (auto it = objects->begin(); it != objects->end();) {
     if (it->first != sensor_id) {
       double period = measurement_timestamp - it->second->GetTimestamp();
@@ -208,6 +222,7 @@ void Track::UpdateSensorObjectWithMeasurement(SensorId2ObjectMap* objects,
 }
 
 void Track::UpdateSupplementState(const SensorObjectPtr& src_object) {
+AINFO<<"(DMCZP) EnteringMethod: Track::UpdateSupplementState";
   std::shared_ptr<base::Object> dst_obj = fused_object_->GetBaseObject();
   if (src_object != nullptr) {
     std::shared_ptr<const base::Object> src_obj = src_object->GetBaseObject();
@@ -232,6 +247,7 @@ void Track::UpdateSupplementState(const SensorObjectPtr& src_object) {
 }
 
 void Track::UpdateUnfusedState(const SensorObjectPtr& src_object) {
+AINFO<<"(DMCZP) EnteringMethod: Track::UpdateUnfusedState";
   std::shared_ptr<base::Object> dst_obj = fused_object_->GetBaseObject();
   std::shared_ptr<const base::Object> src_obj = src_object->GetBaseObject();
   if (IsLidar(src_object)) {
@@ -245,11 +261,13 @@ void Track::UpdateUnfusedState(const SensorObjectPtr& src_object) {
 }
 
 bool Track::IsVisible(const std::string& sensor_id) const {
+AINFO<<"(DMCZP) EnteringMethod: Track::IsVisible";
   SensorObjectConstPtr sensor_obj = GetSensorObject(sensor_id);
   return (sensor_obj != nullptr && sensor_obj->GetInvisiblePeriod() < 1.0e-6);
 }
 
 bool Track::IsLidarVisible() const {
+AINFO<<"(DMCZP) EnteringMethod: Track::IsLidarVisible";
   for (auto it = lidar_objects_.begin(); it != lidar_objects_.end(); ++it) {
     if (it->second->GetInvisiblePeriod() < 1.0e-6) {
       return true;
@@ -259,6 +277,7 @@ bool Track::IsLidarVisible() const {
 }
 
 bool Track::IsRadarVisible() const {
+AINFO<<"(DMCZP) EnteringMethod: Track::IsRadarVisible";
   for (auto it = radar_objects_.begin(); it != radar_objects_.end(); ++it) {
     if (it->second->GetInvisiblePeriod() < 1.0e-6) {
       return true;
@@ -268,6 +287,7 @@ bool Track::IsRadarVisible() const {
 }
 
 bool Track::IsCameraVisible() const {
+AINFO<<"(DMCZP) EnteringMethod: Track::IsCameraVisible";
   for (auto it = camera_objects_.begin(); it != camera_objects_.end(); ++it) {
     if (it->second->GetInvisiblePeriod() < 1.0e-6) {
       return true;
@@ -277,6 +297,7 @@ bool Track::IsCameraVisible() const {
 }
 
 void Track::UpdateWithSensorObjectForBackground(const SensorObjectPtr& obj) {
+AINFO<<"(DMCZP) EnteringMethod: Track::UpdateWithSensorObjectForBackground";
   std::shared_ptr<base::Object> fused_base_object =
       fused_object_->GetBaseObject();
   std::shared_ptr<const base::Object> measurement_base_object =
@@ -288,8 +309,10 @@ void Track::UpdateWithSensorObjectForBackground(const SensorObjectPtr& obj) {
 
 void Track::UpdateWithoutSensorObjectForBackground(
     const std::string& sensor_id, double measurement_timestamp) {}
+AINFO<<"(DMCZP) EnteringMethod: Track::UpdateWithoutSensorObjectForBackground";
 
 std::string Track::DebugString() const {
+AINFO<<"(DMCZP) EnteringMethod: Track::DebugString";
   std::ostringstream oss;
   oss << "fusion_track[id: " << this->GetTrackId() << ", fused_object("
       << fused_object_->GetBaseObject()->ToString() << ")\n";

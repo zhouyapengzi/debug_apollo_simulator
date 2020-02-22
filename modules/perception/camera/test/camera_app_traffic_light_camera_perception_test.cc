@@ -27,8 +27,11 @@ DECLARE_string(obs_sensor_meta_path);
 DECLARE_string(obs_sensor_intrinsic_path);
 }  // namespace common
 namespace camera {
+AINFO<<"(DMCZP) EnteringMethod: DECLARE_string";
+AINFO<<"(DMCZP) EnteringMethod: DECLARE_string";
 
 TEST(TrafficLightCameraPerceptionTest, normal) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   unsetenv("MODULE_PATH");
   unsetenv("CYBER_PATH");
   fLS::FLAGS_obs_sensor_meta_path =
@@ -86,6 +89,7 @@ TEST(TrafficLightCameraPerceptionTest, normal) {
 }
 
 TEST(TrafficLightCameraPerceptionTest, bad_proto) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   unsetenv("MODULE_PATH");
   unsetenv("CYBER_PATH");
   fLS::FLAGS_obs_sensor_meta_path =
@@ -104,6 +108,7 @@ TEST(TrafficLightCameraPerceptionTest, bad_proto) {
 }
 
 TEST(TrafficLightCameraPerceptionTest, bad_detector) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   unsetenv("MODULE_PATH");
   unsetenv("CYBER_PATH");
   fLS::FLAGS_obs_sensor_meta_path =
@@ -122,6 +127,7 @@ TEST(TrafficLightCameraPerceptionTest, bad_detector) {
 }
 
 TEST(TrafficLightCameraPerceptionTest, bad_recognizer) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   unsetenv("MODULE_PATH");
   unsetenv("CYBER_PATH");
   fLS::FLAGS_obs_sensor_meta_path =
@@ -140,6 +146,7 @@ TEST(TrafficLightCameraPerceptionTest, bad_recognizer) {
 }
 
 TEST(TrafficLightCameraPerceptionTest, bad_tracker) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   unsetenv("MODULE_PATH");
   unsetenv("CYBER_PATH");
   fLS::FLAGS_obs_sensor_meta_path =

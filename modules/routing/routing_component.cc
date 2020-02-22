@@ -24,9 +24,11 @@
 DECLARE_string(flagfile);
 
 namespace apollo {
+AINFO<<"(DMCZP) EnteringMethod: DECLARE_string";
 namespace routing {
 
 bool RoutingComponent::Init() {
+AINFO<<"(DMCZP) EnteringMethod: RoutingComponent::Init";
   apollo::cyber::proto::RoleAttributes attr;
   attr.set_channel_name(FLAGS_routing_response_topic);
   auto qos = attr.mutable_qos_profile();
@@ -71,6 +73,7 @@ bool RoutingComponent::Init() {
 }
 
 bool RoutingComponent::Proc(const std::shared_ptr<RoutingRequest>& request) {
+AINFO<<"(DMCZP) EnteringMethod: RoutingComponent::Proc";
   auto response = std::make_shared<RoutingResponse>();
   if (!routing_.Process(request, response.get())) {
     return false;

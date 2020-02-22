@@ -31,6 +31,9 @@ DEFINE_string(smart_recorder_component_name, "SmartRecorder",
               "Smart recorder component name.");
 
 namespace apollo {
+AINFO<<"(DMCZP) EnteringMethod: DEFINE_string";
+AINFO<<"(DMCZP) EnteringMethod: DEFINE_double";
+AINFO<<"(DMCZP) EnteringMethod: DEFINE_string";
 namespace monitor {
 
 using apollo::common::util::StrCat;
@@ -40,8 +43,10 @@ using apollo::data::SmartRecorderStatus;
 RecorderMonitor::RecorderMonitor()
     : RecurrentRunner(FLAGS_smart_recorder_monitor_name,
                       FLAGS_smart_recorder_monitor_interval) {}
+AINFO<<"(DMCZP) EnteringMethod: RecorderMonitor::RecorderMonitor";
 
 void RecorderMonitor::RunOnce(const double current_time) {
+AINFO<<"(DMCZP) EnteringMethod: RecorderMonitor::RunOnce";
   auto manager = MonitorManager::Instance();
   auto* component = apollo::common::util::FindOrNull(
       *manager->GetStatus()->mutable_components(),

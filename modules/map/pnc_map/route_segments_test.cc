@@ -33,6 +33,8 @@ DEFINE_string(
     "The test map file");
 
 class RouteSegmentsTest : public ::testing::Test {
+AINFO<<"(DMCZP) EnteringMethod: DEFINE_string";
+AINFO<<"(DMCZP) EnteringMethod: DEFINE_string";
  public:
   static void SetUpTestCase() {
     AINFO << "map file: " << FLAGS_test_map_file;
@@ -48,6 +50,7 @@ class RouteSegmentsTest : public ::testing::Test {
 hdmap::HDMap RouteSegmentsTest::hdmap_;
 
 TEST_F(RouteSegmentsTest, GetProjection) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   auto lane1 = hdmap_.GetLaneById(hdmap::MakeMapId("9_1_-1"));
   RouteSegments route_segments;
   route_segments.emplace_back(lane1, 5, 10);
@@ -85,6 +88,7 @@ TEST_F(RouteSegmentsTest, GetProjection) {
 }
 
 TEST_F(RouteSegmentsTest, Stitch) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   auto lane1 = hdmap_.GetLaneById(hdmap::MakeMapId("9_1_-1"));
   auto lane2 = hdmap_.GetLaneById(hdmap::MakeMapId("13_1_-1"));
   {
@@ -128,6 +132,7 @@ TEST_F(RouteSegmentsTest, Stitch) {
 }
 
 TEST_F(RouteSegmentsTest, Shrink) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   auto lane1 = hdmap_.GetLaneById(hdmap::MakeMapId("9_1_-1"));
   auto lane2 = hdmap_.GetLaneById(hdmap::MakeMapId("13_1_-1"));
   {

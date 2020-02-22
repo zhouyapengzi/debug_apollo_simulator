@@ -23,6 +23,7 @@ PointCloud::PointCloud(
     const std::shared_ptr<QOpenGLShaderProgram>& shaderProgram)
     : RenderableObject(pointCount, vertexElementCount, shaderProgram),
       buffer_(nullptr) {}
+AINFO<<"(DMCZP) EnteringMethod: PointCloud::PointCloud";
 
 PointCloud::~PointCloud(void) {
   if (buffer_) {
@@ -32,6 +33,7 @@ PointCloud::~PointCloud(void) {
 }
 
 bool PointCloud::FillVertexBuffer(GLfloat* pBuffer) {
+AINFO<<"(DMCZP) EnteringMethod: PointCloud::FillVertexBuffer";
   if (buffer_ && pBuffer) {
     memcpy(pBuffer, buffer_, VertexBufferSize());
     delete[] buffer_;
@@ -46,6 +48,7 @@ bool PointCloud::FillVertexBuffer(GLfloat* pBuffer) {
 
 bool PointCloud::FillData(
     const std::shared_ptr<const apollo::drivers::PointCloud>& pdata) {
+AINFO<<"(DMCZP) EnteringMethod: PointCloud::FillData";
   assert(vertex_count() == pdata->point_size());
   buffer_ = new GLfloat[vertex_count() * vertex_element_count()];
   if (buffer_) {

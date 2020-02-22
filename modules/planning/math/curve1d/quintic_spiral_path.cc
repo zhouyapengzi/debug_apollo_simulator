@@ -28,6 +28,7 @@ QuinticSpiralPath::QuinticSpiralPath(const double x0, const double dx0,
                                      const double dx1, const double ddx1,
                                      const double p)
     : QuinticPolynomialCurve1d(x0, dx0, ddx0, x1, dx1, ddx1, p) {
+AINFO<<"(DMCZP) EnteringMethod: QuinticSpiralPath::QuinticSpiralPath";
   CHECK(p > 0.0);
 
   double p2 = p * p;
@@ -144,9 +145,11 @@ QuinticSpiralPath::QuinticSpiralPath(const std::array<double, 3>& start,
                                      const double delta_s)
     : QuinticSpiralPath(start[0], start[1], start[2], end[0], end[1], end[2],
                         delta_s) {}
+AINFO<<"(DMCZP) EnteringMethod: QuinticSpiralPath::QuinticSpiralPath";
 
 double QuinticSpiralPath::DeriveTheta(const size_t param_index,
                                       const double r) const {
+AINFO<<"(DMCZP) EnteringMethod: QuinticSpiralPath::DeriveTheta";
   double s = param_ * r;
   double s2 = s * s;
   double s3 = s2 * s;
@@ -168,6 +171,7 @@ double QuinticSpiralPath::DeriveTheta(const size_t param_index,
 
 double QuinticSpiralPath::DeriveKappaDerivative(const size_t param_index,
                                                 const double r) const {
+AINFO<<"(DMCZP) EnteringMethod: QuinticSpiralPath::DeriveKappaDerivative";
   double s = param_ * r;
   double s2 = s * s;
   double s3 = s2 * s;
@@ -189,6 +193,7 @@ double QuinticSpiralPath::DeriveKappaDerivative(const size_t param_index,
 
 double QuinticSpiralPath::DeriveDKappaDerivative(const size_t param_index,
                                                  const double r) const {
+AINFO<<"(DMCZP) EnteringMethod: QuinticSpiralPath::DeriveDKappaDerivative";
   double s = param_ * r;
   double s2 = s * s;
   double s3 = s2 * s;
@@ -207,6 +212,7 @@ double QuinticSpiralPath::DeriveDKappaDerivative(const size_t param_index,
 
 double QuinticSpiralPath::DeriveD2KappaDerivative(const size_t param_index,
                                                   const double r) const {
+AINFO<<"(DMCZP) EnteringMethod: QuinticSpiralPath::DeriveD2KappaDerivative";
   double s = param_ * r;
   double s2 = s * s;
 

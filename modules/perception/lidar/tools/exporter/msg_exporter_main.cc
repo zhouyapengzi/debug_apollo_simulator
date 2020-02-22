@@ -27,6 +27,7 @@ namespace lidar {
 bool config_parser(const std::string& config_file,
                    std::vector<std::string>* channels,
                    std::vector<std::string>* child_frame_ids) {
+AINFO<<"(DMCZP) EnteringMethod: config_parser";
   std::ifstream fin(config_file);
   if (!fin.is_open()) {
     return false;
@@ -62,6 +63,7 @@ bool config_parser(const std::string& config_file,
 }  // namespace apollo
 
 int main(int argc, char** argv) {
+AINFO<<"(DMCZP) EnteringMethod: main";
   if (argc < 2) {
     std::cout << "export_msgs config_file" << std::endl;
     return -1;

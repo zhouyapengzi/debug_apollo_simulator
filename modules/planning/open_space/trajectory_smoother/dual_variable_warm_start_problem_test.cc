@@ -25,6 +25,7 @@ namespace apollo {
 namespace planning {
 
 TEST(DualVariableWarmStartProblem, SetUp) {}
+AINFO<<"(DMCZP) EnteringMethod: TEST";
 
 }  // namespace planning
 }  // namespace apollo

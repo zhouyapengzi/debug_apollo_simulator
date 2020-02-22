@@ -57,6 +57,8 @@ class MyInferenceEngine : public BaseInferenceEngine {
 REGISTER_INFERENCE_ENGINE(MyInferenceEngine);
 
 TEST(ObstacleInterfaceTest, test_inference_engine) {
+AINFO<<"(DMCZP) EnteringMethod: REGISTER_INFERENCE_ENGINE";
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   BaseInferenceEngine* inference_engine =
       BaseInferenceEngineRegisterer::GetInstanceByName("MyInferenceEngine");
   EXPECT_NE(inference_engine, nullptr);
@@ -84,6 +86,8 @@ class MyObstacleDetector : public BaseObstacleDetector {
 REGISTER_OBSTACLE_DETECTOR(MyObstacleDetector);
 
 TEST(ObstacleInterfaceTest, test_camera_detector) {
+AINFO<<"(DMCZP) EnteringMethod: REGISTER_OBSTACLE_DETECTOR";
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   BaseObstacleDetector* camera_detector =
       BaseObstacleDetectorRegisterer::GetInstanceByName("MyObstacleDetector");
   EXPECT_NE(camera_detector, nullptr);
@@ -123,6 +127,8 @@ class MyObstacleTracker : public BaseObstacleTracker {
 REGISTER_OBSTACLE_TRACKER(MyObstacleTracker);
 
 TEST(ObstacleInterfaceTest, test_camera_tracker) {
+AINFO<<"(DMCZP) EnteringMethod: REGISTER_OBSTACLE_TRACKER";
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   BaseObstacleTracker* camera_tracker =
       BaseObstacleTrackerRegisterer::GetInstanceByName("MyObstacleTracker");
   EXPECT_NE(camera_tracker, nullptr);
@@ -149,6 +155,8 @@ class MyObstacleTransformer : public BaseObstacleTransformer {
 REGISTER_OBSTACLE_TRANSFORMER(MyObstacleTransformer);
 
 TEST(ObstacleInterfaceTest, test_camera_transformer) {
+AINFO<<"(DMCZP) EnteringMethod: REGISTER_OBSTACLE_TRANSFORMER";
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   BaseObstacleTransformer* camera_transformer =
       BaseObstacleTransformerRegisterer::GetInstanceByName(
           "MyObstacleTransformer");
@@ -177,6 +185,8 @@ class MyObstaclePostprocessor : public BaseObstaclePostprocessor {
 REGISTER_OBSTACLE_POSTPROCESSOR(MyObstaclePostprocessor);
 
 TEST(ObstacleInterfaceTest, test_camera_postprocessor) {
+AINFO<<"(DMCZP) EnteringMethod: REGISTER_OBSTACLE_POSTPROCESSOR";
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   BaseObstaclePostprocessor* camera_postprocessor =
       BaseObstaclePostprocessorRegisterer::GetInstanceByName(
           "MyObstaclePostprocessor");
@@ -205,6 +215,8 @@ class MyTrafficLightDetector : public BaseTrafficLightDetector {
 REGISTER_TRAFFIC_LIGHT_DETECTOR(MyTrafficLightDetector);
 
 TEST(TrafficLightInterfaceTest, test_traffic_light_detector) {
+AINFO<<"(DMCZP) EnteringMethod: REGISTER_TRAFFIC_LIGHT_DETECTOR";
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   BaseTrafficLightDetector* traffic_light_detector =
       BaseTrafficLightDetectorRegisterer::GetInstanceByName(
           "MyTrafficLightDetector");
@@ -233,6 +245,8 @@ class MyTrafficLightTracker : public BaseTrafficLightTracker {
 REGISTER_TRAFFIC_LIGHT_TRACKER(MyTrafficLightTracker);
 
 TEST(TrafficLightInterfaceTest, test_traffic_light_tracker) {
+AINFO<<"(DMCZP) EnteringMethod: REGISTER_TRAFFIC_LIGHT_TRACKER";
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   BaseTrafficLightTracker* traffic_light_tracker =
       BaseTrafficLightTrackerRegisterer::GetInstanceByName(
           "MyTrafficLightTracker");
@@ -261,6 +275,8 @@ class MyLandmarkDetector : public BaseLandmarkDetector {
 REGISTER_LANDMARK_DETECTOR(MyLandmarkDetector);
 
 TEST(LandmarkDetectorInterfaceTest, test_landmark_detector) {
+AINFO<<"(DMCZP) EnteringMethod: REGISTER_LANDMARK_DETECTOR";
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   BaseLandmarkDetector* landmark_detector =
       BaseLandmarkDetectorRegisterer::GetInstanceByName("MyLandmarkDetector");
   EXPECT_NE(landmark_detector, nullptr);
@@ -285,6 +301,8 @@ class MyLaneDetector : public BaseLaneDetector {
 REGISTER_LANE_DETECTOR(MyLaneDetector);
 
 TEST(LaneInterfaceTest, test_lane_detector) {
+AINFO<<"(DMCZP) EnteringMethod: REGISTER_LANE_DETECTOR";
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   BaseLaneDetector* lane_detector =
       BaseLaneDetectorRegisterer::GetInstanceByName("MyLaneDetector");
   EXPECT_NE(lane_detector, nullptr);
@@ -309,6 +327,8 @@ class MyLaneTracker : public BaseLaneTracker {
 REGISTER_LANE_TRACKER(MyLaneTracker);
 
 TEST(LaneInterfaceTest, test_lane_tracker) {
+AINFO<<"(DMCZP) EnteringMethod: REGISTER_LANE_TRACKER";
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   BaseLaneTracker* lane_tracker =
       BaseLaneTrackerRegisterer::GetInstanceByName("MyLaneTracker");
   EXPECT_NE(lane_tracker, nullptr);
@@ -340,6 +360,8 @@ class MyLanePostprocessor : public BaseLanePostprocessor {
 REGISTER_LANE_POSTPROCESSOR(MyLanePostprocessor);
 
 TEST(LaneInterfaceTest, test_lane_postprocessor) {
+AINFO<<"(DMCZP) EnteringMethod: REGISTER_LANE_POSTPROCESSOR";
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   BaseLanePostprocessor* lane_postprocessor =
       BaseLanePostprocessorRegisterer::GetInstanceByName("MyLanePostprocessor");
   EXPECT_NE(lane_postprocessor, nullptr);
@@ -367,6 +389,8 @@ class MyFeatureExtractor : public BaseFeatureExtractor {
 REGISTER_FEATURE_EXTRACTOR(MyFeatureExtractor);
 
 TEST(FeatureExtractorInterfaceTest, test_feature_extractor) {
+AINFO<<"(DMCZP) EnteringMethod: REGISTER_FEATURE_EXTRACTOR";
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   BaseFeatureExtractor* feature_extractor =
       BaseFeatureExtractorRegisterer::GetInstanceByName("MyFeatureExtractor");
   EXPECT_NE(feature_extractor, nullptr);
@@ -417,6 +441,8 @@ class MySceneParser : public BaseSceneParser {
 REGISTER_SCENE_PARSER(MySceneParser);
 
 TEST(SceneInterfaceTest, test_scene_parser) {
+AINFO<<"(DMCZP) EnteringMethod: REGISTER_SCENE_PARSER";
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   BaseSceneParser* scene_parser =
       BaseSceneParserRegisterer::GetInstanceByName("MySceneParser");
   EXPECT_NE(scene_parser, nullptr);
@@ -442,6 +468,8 @@ class MyCalibrator : public BaseCalibrator {
 REGISTER_CALIBRATOR(MyCalibrator);
 
 TEST(CalibratorInterfaceTest, test_calibrator) {
+AINFO<<"(DMCZP) EnteringMethod: REGISTER_CALIBRATOR";
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   BaseCalibrator* calibrator =
       BaseCalibratorRegisterer::GetInstanceByName("MyCalibrator");
   EXPECT_NE(calibrator, nullptr);
@@ -466,6 +494,8 @@ class MyCalibrationService : public BaseCalibrationService {
 REGISTER_CALIBRATION_SERVICE(MyCalibrationService);
 
 TEST(CalibrationServiceInterfaceTest, test_calibrator) {
+AINFO<<"(DMCZP) EnteringMethod: REGISTER_CALIBRATION_SERVICE";
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   BaseCalibrationService* calibrator =
       BaseCalibrationServiceRegisterer::GetInstanceByName(
           "MyCalibrationService");
@@ -492,6 +522,8 @@ class MyCameraPerception : public BaseCameraPerception {
 PERCEPTION_REGISTER_CAMERA_PERCEPTION(MyCameraPerception);
 
 TEST(CameraPerceptionInterfaceTest, test_camera_perception) {
+AINFO<<"(DMCZP) EnteringMethod: PERCEPTION_REGISTER_CAMERA_PERCEPTION";
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   BaseCameraPerception* camera_perception =
       BaseCameraPerceptionRegisterer::GetInstanceByName("MyCameraPerception");
   EXPECT_NE(camera_perception, nullptr);

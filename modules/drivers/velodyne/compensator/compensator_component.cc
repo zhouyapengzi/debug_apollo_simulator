@@ -24,6 +24,7 @@ namespace drivers {
 namespace velodyne {
 
 bool CompensatorComponent::Init() {
+AINFO<<"(DMCZP) EnteringMethod: CompensatorComponent::Init";
   CompensatorConfig config;
   if (!GetProtoConfig(&config)) {
     AWARN << "Load config failed, config file" << ConfigFilePath();
@@ -48,6 +49,7 @@ bool CompensatorComponent::Init() {
 
 bool CompensatorComponent::Proc(
     const std::shared_ptr<PointCloud>& point_cloud) {
+AINFO<<"(DMCZP) EnteringMethod: CompensatorComponent::Proc";
   uint64_t start = cyber::Time().Now().ToNanosecond();
   std::shared_ptr<PointCloud> point_cloud_compensated =
       compensator_pool_->GetObject();

@@ -40,6 +40,7 @@ EndConditionSampler::EndConditionSampler(
       feasible_region_(init_s),
       ptr_path_time_graph_(std::move(ptr_path_time_graph)),
       ptr_prediction_querier_(std::move(ptr_prediction_querier)) {}
+AINFO<<"(DMCZP) EnteringMethod: EndConditionSampler::EndConditionSampler";
 
 std::vector<Condition> EndConditionSampler::SampleLatEndConditions() const {
   std::vector<Condition> end_d_conditions;
@@ -121,6 +122,7 @@ std::vector<Condition> EndConditionSampler::SampleLonEndConditionsForStopping(
 
 std::vector<Condition>
 EndConditionSampler::SampleLonEndConditionsForPathTimePoints() const {
+AINFO<<"(DMCZP) EnteringMethod: EndConditionSampler::SampleLonEndConditionsForPathTimePoints";
   std::vector<Condition> end_s_conditions;
 
   std::vector<SamplePoint> sample_points = QueryPathTimeObstacleSamplePoints();
@@ -142,6 +144,7 @@ EndConditionSampler::SampleLonEndConditionsForPathTimePoints() const {
 
 std::vector<SamplePoint>
 EndConditionSampler::QueryPathTimeObstacleSamplePoints() const {
+AINFO<<"(DMCZP) EnteringMethod: EndConditionSampler::QueryPathTimeObstacleSamplePoints";
   const auto& vehicle_config =
       common::VehicleConfigHelper::Instance()->GetConfig();
   std::vector<SamplePoint> sample_points;
@@ -157,6 +160,7 @@ EndConditionSampler::QueryPathTimeObstacleSamplePoints() const {
 void EndConditionSampler::QueryFollowPathTimePoints(
     const common::VehicleConfig& vehicle_config, const std::string& obstacle_id,
     std::vector<SamplePoint>* const sample_points) const {
+AINFO<<"(DMCZP) EnteringMethod: EndConditionSampler::QueryFollowPathTimePoints";
   std::vector<STPoint> follow_path_time_points =
       ptr_path_time_graph_->GetObstacleSurroundingPoints(
           obstacle_id, -FLAGS_numerical_epsilon, FLAGS_time_min_density);
@@ -186,6 +190,7 @@ void EndConditionSampler::QueryFollowPathTimePoints(
 void EndConditionSampler::QueryOvertakePathTimePoints(
     const common::VehicleConfig& vehicle_config, const std::string& obstacle_id,
     std::vector<SamplePoint>* sample_points) const {
+AINFO<<"(DMCZP) EnteringMethod: EndConditionSampler::QueryOvertakePathTimePoints";
   std::vector<STPoint> overtake_path_time_points =
       ptr_path_time_graph_->GetObstacleSurroundingPoints(
           obstacle_id, FLAGS_numerical_epsilon, FLAGS_time_min_density);

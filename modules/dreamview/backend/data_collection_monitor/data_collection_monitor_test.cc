@@ -56,6 +56,7 @@ class DataCollectionMonitorTest : public ::testing::Test {
 };
 
 TEST_F(DataCollectionMonitorTest, UpdateCollectionProgress) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   data_collection_monitor_->Start();
 
   auto chassis = std::make_shared<Chassis>();

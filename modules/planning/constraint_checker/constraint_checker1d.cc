@@ -30,12 +30,14 @@ namespace {
 
 inline bool fuzzy_within(const double v, const double lower, const double upper,
                          const double e = 1.0e-4) {
+AINFO<<"(DMCZP) EnteringMethod: fuzzy_within";
   return v > lower - e && v < upper + e;
 }
 }  // namespace
 
 bool ConstraintChecker1d::IsValidLongitudinalTrajectory(
     const Curve1d& lon_trajectory) {
+AINFO<<"(DMCZP) EnteringMethod: ConstraintChecker1d::IsValidLongitudinalTrajectory";
   double t = 0.0;
   while (t < lon_trajectory.ParamLength()) {
     double v = lon_trajectory.Evaluate(1, t);  // evaluate_v
@@ -61,6 +63,7 @@ bool ConstraintChecker1d::IsValidLongitudinalTrajectory(
 
 bool ConstraintChecker1d::IsValidLateralTrajectory(
     const Curve1d& lat_trajectory, const Curve1d& lon_trajectory) {
+AINFO<<"(DMCZP) EnteringMethod: ConstraintChecker1d::IsValidLateralTrajectory";
   double t = 0.0;
   while (t < lon_trajectory.ParamLength()) {
     double s = lon_trajectory.Evaluate(0, t);

@@ -47,6 +47,10 @@ DEFINE_bool(
     "switch to use acceleration instead of throttle pedal and brake pedal");
 
 namespace {
+AINFO<<"(DMCZP) EnteringMethod: DEFINE_double";
+AINFO<<"(DMCZP) EnteringMethod: DEFINE_double";
+AINFO<<"(DMCZP) EnteringMethod: DEFINE_double";
+AINFO<<"(DMCZP) EnteringMethod: DEFINE_bool";
 
 using apollo::canbus::Chassis;
 using apollo::common::VehicleSignal;
@@ -461,6 +465,7 @@ class Teleop {
 }  // namespace
 
 int main(int32_t argc, char **argv) {
+AINFO<<"(DMCZP) EnteringMethod: main";
   apollo::cyber::Init(argv[0]);
   FLAGS_alsologtostderr = true;
   FLAGS_v = 3;

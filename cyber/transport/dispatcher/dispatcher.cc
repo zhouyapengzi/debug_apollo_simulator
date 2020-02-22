@@ -21,15 +21,18 @@ namespace cyber {
 namespace transport {
 
 Dispatcher::Dispatcher() : is_shutdown_(false) {}
+AINFO<<"(DMCZP) EnteringMethod: Dispatcher::Dispatcher";
 
 Dispatcher::~Dispatcher() { Shutdown(); }
 
 void Dispatcher::Shutdown() {
+AINFO<<"(DMCZP) EnteringMethod: Dispatcher::Shutdown";
   is_shutdown_.store(true);
   ADEBUG << "Shutdown";
 }
 
 bool Dispatcher::HasChannel(uint64_t channel_id) {
+AINFO<<"(DMCZP) EnteringMethod: Dispatcher::HasChannel";
   return msg_listeners_.Has(channel_id);
 }
 

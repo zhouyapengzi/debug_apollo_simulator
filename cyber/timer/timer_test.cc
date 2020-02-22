@@ -36,6 +36,7 @@ using cyber::Timer;
 using cyber::TimerOption;
 
 TEST(TimerTest, one_shot) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   int count = 0;
   Timer timer(100, [&count] { count = 100; }, true);
   timer.Start();
@@ -49,6 +50,7 @@ TEST(TimerTest, one_shot) {
 }
 
 TEST(TimerTest, cycle) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   int count = 0;
   Timer timers[1000];
   TimerOption opt;
@@ -67,6 +69,7 @@ TEST(TimerTest, cycle) {
 }
 
 TEST(TimerTest, start_stop) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   int count = 0;
   Timer timer(2, [count] { AINFO << count; }, false);
   for (int i = 0; i < 100; i++) {
@@ -77,6 +80,7 @@ TEST(TimerTest, start_stop) {
 }
 
 TEST(TimerTest, test1) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   auto count = 0;
 
   auto func = [count]() { AINFO << count; };
@@ -99,6 +103,7 @@ TEST(TimerTest, test1) {
 }  // namespace apollo
 
 int main(int argc, char** argv) {
+AINFO<<"(DMCZP) EnteringMethod: main";
   testing::InitGoogleTest(&argc, argv);
   apollo::cyber::Init(argv[0]);
   return RUN_ALL_TESTS();

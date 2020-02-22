@@ -25,6 +25,7 @@ namespace cyber {
 namespace service_discovery {
 
 ServiceManager::ServiceManager() {
+AINFO<<"(DMCZP) EnteringMethod: ServiceManager::ServiceManager";
   allowed_role_ |= 1 << RoleType::ROLE_SERVER;
   allowed_role_ |= 1 << RoleType::ROLE_CLIENT;
   change_type_ = ChangeType::CHANGE_SERVICE;
@@ -34,29 +35,34 @@ ServiceManager::ServiceManager() {
 ServiceManager::~ServiceManager() {}
 
 bool ServiceManager::HasService(const std::string& service_name) {
+AINFO<<"(DMCZP) EnteringMethod: ServiceManager::HasService";
   uint64_t key = common::Hash(service_name);
   return servers_.Search(key);
 }
 
 void ServiceManager::GetServers(RoleAttrVec* servers) {
+AINFO<<"(DMCZP) EnteringMethod: ServiceManager::GetServers";
   RETURN_IF_NULL(servers);
   servers_.GetAllRoles(servers);
 }
 
 void ServiceManager::GetClients(const std::string& service_name,
                                 RoleAttrVec* clients) {
+AINFO<<"(DMCZP) EnteringMethod: ServiceManager::GetClients";
   RETURN_IF_NULL(clients);
   uint64_t key = common::Hash(service_name);
   clients_.Search(key, clients);
 }
 
 bool ServiceManager::Check(const RoleAttributes& attr) {
+AINFO<<"(DMCZP) EnteringMethod: ServiceManager::Check";
   RETURN_VAL_IF(!attr.has_service_name(), false);
   RETURN_VAL_IF(!attr.has_service_id(), false);
   return true;
 }
 
 void ServiceManager::Dispose(const ChangeMsg& msg) {
+AINFO<<"(DMCZP) EnteringMethod: ServiceManager::Dispose";
   if (msg.operate_type() == OperateType::OPT_JOIN) {
     DisposeJoin(msg);
   } else {
@@ -67,6 +73,7 @@ void ServiceManager::Dispose(const ChangeMsg& msg) {
 
 void ServiceManager::OnTopoModuleLeave(const std::string& host_name,
                                        int process_id) {
+AINFO<<"(DMCZP) EnteringMethod: ServiceManager::OnTopoModuleLeave";
   RETURN_IF(!is_discovery_started_.load());
 
   RoleAttributes attr;
@@ -100,6 +107,7 @@ void ServiceManager::OnTopoModuleLeave(const std::string& host_name,
 }
 
 void ServiceManager::DisposeJoin(const ChangeMsg& msg) {
+AINFO<<"(DMCZP) EnteringMethod: ServiceManager::DisposeJoin";
   if (msg.role_type() == RoleType::ROLE_SERVER) {
     auto role = std::make_shared<RoleServer>(msg.role_attr());
     servers_.Add(role->attributes().service_id(), role);
@@ -110,6 +118,7 @@ void ServiceManager::DisposeJoin(const ChangeMsg& msg) {
 }
 
 void ServiceManager::DisposeLeave(const ChangeMsg& msg) {
+AINFO<<"(DMCZP) EnteringMethod: ServiceManager::DisposeLeave";
   if (msg.role_type() == RoleType::ROLE_SERVER) {
     auto role = std::make_shared<RoleServer>(msg.role_attr());
     servers_.Remove(role->attributes().service_id());

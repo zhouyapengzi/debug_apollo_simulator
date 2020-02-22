@@ -21,6 +21,7 @@
 #include "modules/tools/visualizer/main_window.h"
 
 int main(int argc, char* argv[]) {
+AINFO<<"(DMCZP) EnteringMethod: main";
   QApplication a(argc, argv);
   int major, minor;
   {

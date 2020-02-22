@@ -45,6 +45,7 @@ class MyThread : public Thread {
 };
 
 TEST(TestThread, Test) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   MyThread my_thread;
   EXPECT_EQ(my_thread.get_value(), 0);
   my_thread.set_thread_name("my_thread");

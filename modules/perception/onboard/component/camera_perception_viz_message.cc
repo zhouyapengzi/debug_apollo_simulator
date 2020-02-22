@@ -31,6 +31,7 @@ CameraPerceptionVizMessage::CameraPerceptionVizMessage(
       pose_camera_to_world_(pose_camera_to_world),
       image_blob_(image_blob),
       error_code_(error_code) {
+AINFO<<"(DMCZP) EnteringMethod: CameraPerceptionVizMessage::CameraPerceptionVizMessage";
   camera_objects_.clear();
   for (const auto& obj : camera_objects) {
     camera_objects_.push_back(obj);

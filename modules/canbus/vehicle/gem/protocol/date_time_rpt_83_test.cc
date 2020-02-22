@@ -28,6 +28,7 @@ class Datetimerpt83Test : public ::testing::Test {
 };
 
 TEST_F(Datetimerpt83Test, reset) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   Datetimerpt83 datetime;
   int32_t length = 8;
   ChassisDetail chassis_detail;

@@ -23,6 +23,7 @@
 DECLARE_string(vehicle_data_config_filename);
 
 namespace apollo {
+AINFO<<"(DMCZP) EnteringMethod: DECLARE_string";
 namespace dreamview {
 using apollo::common::util::StrCat;
 
@@ -41,10 +42,12 @@ class VehicleManagerTest : public ::testing::Test {
 };
 
 TEST_F(VehicleManagerTest, Failure) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   EXPECT_FALSE(VehicleManager::Instance()->UseVehicle("/somewhere/bad"));
 }
 
 TEST_F(VehicleManagerTest, Success) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   ASSERT_TRUE(cyber::common::EnsureDirectory(kTargetDir));
 
   EXPECT_TRUE(VehicleManager::Instance()->UseVehicle(kTestVehicle));

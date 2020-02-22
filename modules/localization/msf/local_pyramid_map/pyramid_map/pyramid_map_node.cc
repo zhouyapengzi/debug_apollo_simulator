@@ -25,10 +25,12 @@ namespace localization {
 namespace msf {
 
 PyramidMapNode::PyramidMapNode() {}
+AINFO<<"(DMCZP) EnteringMethod: PyramidMapNode::PyramidMapNode";
 
 PyramidMapNode::~PyramidMapNode() {}
 
 void PyramidMapNode::Init(const BaseMapConfig* map_config) {
+AINFO<<"(DMCZP) EnteringMethod: PyramidMapNode::Init";
   map_config_ = map_config;
 
   map_node_config_.reset(new PyramidMapNodeConfig());
@@ -66,6 +68,7 @@ void PyramidMapNode::Init(const BaseMapConfig* map_config) {
 
 void PyramidMapNode::Init(const BaseMapConfig* map_config,
                           const MapNodeIndex& index, bool create_map_cells) {
+AINFO<<"(DMCZP) EnteringMethod: PyramidMapNode::Init";
   map_config_ = map_config;
 
   map_node_config_.reset(new PyramidMapNodeConfig());
@@ -98,12 +101,14 @@ void PyramidMapNode::Init(const BaseMapConfig* map_config,
 }
 
 void PyramidMapNode::BottomUpBase() {
+AINFO<<"(DMCZP) EnteringMethod: PyramidMapNode::BottomUpBase";
   std::shared_ptr<PyramidMapMatrix> map_matrix =
       std::dynamic_pointer_cast<PyramidMapMatrix>(map_matrix_);
   map_matrix->BottomUpBase();
 }
 
 void PyramidMapNode::BottomUpSafe() {
+AINFO<<"(DMCZP) EnteringMethod: PyramidMapNode::BottomUpSafe";
   std::shared_ptr<PyramidMapMatrix> map_matrix =
       std::dynamic_pointer_cast<PyramidMapMatrix>(map_matrix_);
   map_matrix->BottomUpSafe();
@@ -112,6 +117,7 @@ void PyramidMapNode::BottomUpSafe() {
 bool PyramidMapNode::AddValueIfInBound(const Eigen::Vector3d& coordinate,
                                        unsigned char intensity,
                                        unsigned int level) {
+AINFO<<"(DMCZP) EnteringMethod: PyramidMapNode::AddValueIfInBound";
   Eigen::Vector2d coord2d(coordinate[0], coordinate[1]);
   //    Eigen::Map<Eigen::Vector2d>(coordinate.data(), 2);
   unsigned int x = 0;
@@ -131,6 +137,7 @@ bool PyramidMapNode::AddValueIfInBound(const Eigen::Vector3d& coordinate,
 void PyramidMapNode::AddValueIfInBound(
     const std::vector<Eigen::Vector3d>& coordinates,
     const std::vector<unsigned char>& intensity, unsigned int level) {
+AINFO<<"(DMCZP) EnteringMethod: PyramidMapNode::AddValueIfInBound";
   if (coordinates.size() != intensity.size()) {
     return;
   }
@@ -143,7 +150,9 @@ void PyramidMapNode::AddValueIfInBound(
 bool PyramidMapNode::GetCoordinate(const Eigen::Vector2d& coordinate,
                                    unsigned int level, unsigned int* x,
                                    unsigned int* y) const {
+AINFO<<"(DMCZP) EnteringMethod: PyramidMapNode::GetCoordinate";
   std::shared_ptr<PyramidMapMatrix> map_matrix =
+AINFO<<"(DMCZP) EnteringMethod: PyramidMapNode::GetCoordinate";
       std::dynamic_pointer_cast<PyramidMapMatrix>(map_matrix_);
 
   const float& current_resolution = resolutions_mr_[level];
@@ -165,7 +174,9 @@ bool PyramidMapNode::GetCoordinate(const Eigen::Vector2d& coordinate,
 Eigen::Vector2d PyramidMapNode::GetCoordinate(unsigned int level,
                                               unsigned int x,
                                               unsigned int y) const {
+AINFO<<"(DMCZP) EnteringMethod: PyramidMapNode::GetCoordinate";
   const PyramidMapConfig* map_config =
+AINFO<<"(DMCZP) EnteringMethod: PyramidMapNode::GetCoordinate";
       dynamic_cast<const PyramidMapConfig*>(map_config_);
 
   float current_resolution =
@@ -180,6 +191,7 @@ Eigen::Vector2d PyramidMapNode::GetCoordinate(unsigned int level,
 
 bool PyramidMapNode::GetCoordinate(const Eigen::Vector2d& coordinate,
                                    unsigned int* x, unsigned int* y) const {
+AINFO<<"(DMCZP) EnteringMethod: PyramidMapNode::GetCoordinate";
   return BaseMapNode::GetCoordinate(coordinate, x, y);
 }
 bool PyramidMapNode::GetCoordinate(const Eigen::Vector3d& coordinate,
@@ -194,6 +206,7 @@ Eigen::Vector2d PyramidMapNode::GetCoordinate(unsigned int x,
 
 float PyramidMapNode::GetIntensitySafe(const Eigen::Vector3d& coordinate,
                                        unsigned int level) const {
+AINFO<<"(DMCZP) EnteringMethod: PyramidMapNode::GetIntensitySafe";
   Eigen::Vector2d coord2d(coordinate[0], coordinate[1]);
   unsigned int x = 0;
   unsigned int y = 0;
@@ -215,9 +228,11 @@ float PyramidMapNode::GetIntensitySafe(const Eigen::Vector3d& coordinate,
 
 float PyramidMapNode::GetIntensityVarSafe(const Eigen::Vector3d& coordinate,
                                           unsigned int level) const {
+AINFO<<"(DMCZP) EnteringMethod: PyramidMapNode::GetIntensityVarSafe";
   Eigen::Vector2d coord2d(coordinate[0], coordinate[1]);
   unsigned int x = 0;
   unsigned int y = 0;
+AINFO<<"(DMCZP) EnteringMethod: PyramidMapNode::GetCountSafe";
   bool is_success = GetCoordinate(coord2d, level, &x, &y);
 
   float intensity_var = 0.0;
@@ -237,13 +252,16 @@ float PyramidMapNode::GetIntensityVarSafe(const Eigen::Vector3d& coordinate,
 
 float PyramidMapNode::GetAltitudeSafe(const Eigen::Vector3d& coordinate,
                                       unsigned int level) const {
+AINFO<<"(DMCZP) EnteringMethod: PyramidMapNode::GetAltitudeSafe";
   Eigen::Vector2d coord2d(coordinate[0], coordinate[1]);
   unsigned int x = 0;
   unsigned int y = 0;
   bool is_success = GetCoordinate(coord2d, level, &x, &y);
+AINFO<<"(DMCZP) EnteringMethod: PyramidMapNode::GetIntensityVar";
 
   float altitude = 0.0;
   if (is_success) {
+AINFO<<"(DMCZP) EnteringMethod: PyramidMapNode::GetCount";
     std::shared_ptr<PyramidMapMatrix> map_matrix =
         std::dynamic_pointer_cast<PyramidMapMatrix>(map_matrix_);
     const float* altitude_ptr = map_matrix->GetAltitudeSafe(y, x, level);
@@ -258,6 +276,7 @@ float PyramidMapNode::GetAltitudeSafe(const Eigen::Vector3d& coordinate,
 
 float PyramidMapNode::GetAltitudeVarSafe(const Eigen::Vector3d& coordinate,
                                          unsigned int level) const {
+AINFO<<"(DMCZP) EnteringMethod: PyramidMapNode::GetAltitudeVarSafe";
   Eigen::Vector2d coord2d(coordinate[0], coordinate[1]);
   unsigned int x = 0;
   unsigned int y = 0;
@@ -279,11 +298,13 @@ float PyramidMapNode::GetAltitudeVarSafe(const Eigen::Vector3d& coordinate,
 
 float PyramidMapNode::GetGroundAltitudeSafe(const Eigen::Vector3d& coordinate,
                                             unsigned int level) const {
+AINFO<<"(DMCZP) EnteringMethod: PyramidMapNode::GetGroundAltitudeSafe";
   Eigen::Vector2d coord2d(coordinate[0], coordinate[1]);
   unsigned int x = 0;
   unsigned int y = 0;
   bool is_success = GetCoordinate(coord2d, level, &x, &y);
 
+AINFO<<"(DMCZP) EnteringMethod: PyramidMapNode::GetGroundCount";
   float ground_altitude = 0.0;
   if (is_success) {
     std::shared_ptr<PyramidMapMatrix> map_matrix =
@@ -322,6 +343,7 @@ unsigned int PyramidMapNode::GetCountSafe(const Eigen::Vector3d& coordinate,
 
 unsigned int PyramidMapNode::GetGroundCountSafe(
     const Eigen::Vector3d& coordinate, unsigned int level) const {
+AINFO<<"(DMCZP) EnteringMethod: PyramidMapNode::GetGroundCountSafe";
   Eigen::Vector2d coord2d(coordinate[0], coordinate[1]);
   unsigned int x = 0;
   unsigned int y = 0;
@@ -344,6 +366,7 @@ unsigned int PyramidMapNode::GetGroundCountSafe(
 
 float PyramidMapNode::GetIntensity(const Eigen::Vector3d& coordinate,
                                    unsigned int level) const {
+AINFO<<"(DMCZP) EnteringMethod: PyramidMapNode::GetIntensity";
   Eigen::Vector2d coord2d(coordinate[0], coordinate[1]);
   unsigned int x = 0;
   unsigned int y = 0;
@@ -386,6 +409,7 @@ float PyramidMapNode::GetIntensityVar(const Eigen::Vector3d& coordinate,
 
 float PyramidMapNode::GetAltitude(const Eigen::Vector3d& coordinate,
                                   unsigned int level) const {
+AINFO<<"(DMCZP) EnteringMethod: PyramidMapNode::GetAltitude";
   Eigen::Vector2d coord2d(coordinate[0], coordinate[1]);
   unsigned int x = 0;
   unsigned int y = 0;
@@ -407,6 +431,7 @@ float PyramidMapNode::GetAltitude(const Eigen::Vector3d& coordinate,
 
 float PyramidMapNode::GetAltitudeVar(const Eigen::Vector3d& coordinate,
                                      unsigned int level) const {
+AINFO<<"(DMCZP) EnteringMethod: PyramidMapNode::GetAltitudeVar";
   Eigen::Vector2d coord2d(coordinate[0], coordinate[1]);
   unsigned int x = 0;
   unsigned int y = 0;
@@ -428,6 +453,7 @@ float PyramidMapNode::GetAltitudeVar(const Eigen::Vector3d& coordinate,
 
 float PyramidMapNode::GetGroundAltitude(const Eigen::Vector3d& coordinate,
                                         unsigned int level) const {
+AINFO<<"(DMCZP) EnteringMethod: PyramidMapNode::GetGroundAltitude";
   Eigen::Vector2d coord2d(coordinate[0], coordinate[1]);
   unsigned int x = 0;
   unsigned int y = 0;
@@ -492,6 +518,7 @@ unsigned int PyramidMapNode::GetGroundCount(const Eigen::Vector3d& coordinate,
 }
 
 double PyramidMapNode::ComputeMeanIntensity(unsigned int level) {
+AINFO<<"(DMCZP) EnteringMethod: PyramidMapNode::ComputeMeanIntensity";
   std::shared_ptr<PyramidMapMatrix> map_matrix =
       std::dynamic_pointer_cast<PyramidMapMatrix>(map_matrix_);
   return map_matrix->ComputeMeanIntensity(level);

@@ -22,10 +22,13 @@ namespace apollo {
 namespace planning {
 
 PlanningContext::PlanningContext() {}
+AINFO<<"(DMCZP) EnteringMethod: PlanningContext::PlanningContext";
 
 void PlanningContext::Init() {}
+AINFO<<"(DMCZP) EnteringMethod: PlanningContext::Init";
 
 void PlanningContext::Clear() {
+AINFO<<"(DMCZP) EnteringMethod: PlanningContext::Clear";
   planning_status_.Clear();
   fallback_info_ = {};
   open_space_info_ = {};

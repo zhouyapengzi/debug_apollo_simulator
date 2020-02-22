@@ -27,6 +27,7 @@ namespace perception {
 namespace radar {
 
 bool RadarObstaclePerception::Init(const std::string& pipeline_name) {
+AINFO<<"(DMCZP) EnteringMethod: RadarObstaclePerception::Init";
   std::string model_name = pipeline_name;
   const ModelConfig* model_config = nullptr;
   CHECK(ConfigManager::Instance()->GetModelConfig(model_name, &model_config))
@@ -69,6 +70,7 @@ bool RadarObstaclePerception::Perceive(
     const drivers::ContiRadar& corrected_obstacles,
     const RadarPerceptionOptions& options,
     std::vector<base::ObjectPtr>* objects) {
+AINFO<<"(DMCZP) EnteringMethod: RadarObstaclePerception::Perceive";
   PERCEPTION_PERF_FUNCTION();
   const std::string& sensor_name = options.sensor_name;
   PERCEPTION_PERF_BLOCK_START();
@@ -100,6 +102,7 @@ bool RadarObstaclePerception::Perceive(
 }
 
 std::string RadarObstaclePerception::Name() const {
+AINFO<<"(DMCZP) EnteringMethod: RadarObstaclePerception::Name";
   return "RadarObstaclePerception";
 }
 

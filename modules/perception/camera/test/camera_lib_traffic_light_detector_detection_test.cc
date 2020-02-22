@@ -21,6 +21,7 @@ namespace perception {
 namespace camera {
 
 TEST(DetectionTest, init_test) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   unsetenv("MODULE_PATH");
   unsetenv("CYBER_PATH");
   {
@@ -56,6 +57,7 @@ TEST(DetectionTest, init_test) {
 }
 
 TEST(DetectionTest, all) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   unsetenv("MODULE_PATH");
   unsetenv("CYBER_PATH");
   std::shared_ptr<TrafficLightDetection> detector(new TrafficLightDetection);
@@ -140,6 +142,7 @@ TEST(DetectionTest, all) {
 }
 
 TEST(DetectionTest, no_light) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   unsetenv("MODULE_PATH");
   unsetenv("CYBER_PATH");
   std::shared_ptr<TrafficLightDetection> detector(new TrafficLightDetection);
@@ -191,6 +194,7 @@ TEST(DetectionTest, no_light) {
 }
 
 TEST(DetectionTest, out_of_img_light) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   unsetenv("MODULE_PATH");
   unsetenv("CYBER_PATH");
   std::shared_ptr<TrafficLightDetection> detector(new TrafficLightDetection);
@@ -265,6 +269,7 @@ TEST(DetectionTest, out_of_img_light) {
 }
 
 TEST(DetectionTest, nms_test) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   unsetenv("MODULE_PATH");
   unsetenv("CYBER_PATH");
   std::shared_ptr<TrafficLightDetection> detector(new TrafficLightDetection);

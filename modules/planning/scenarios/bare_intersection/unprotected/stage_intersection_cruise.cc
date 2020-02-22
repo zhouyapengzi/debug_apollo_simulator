@@ -29,6 +29,7 @@ namespace bare_intersection {
 
 Stage::StageStatus BareIntersectionUnprotectedStageIntersectionCruise::Process(
     const common::TrajectoryPoint& planning_init_point, Frame* frame) {
+AINFO<<"(DMCZP) EnteringMethod: BareIntersectionUnprotectedStageIntersectionCruise::Process";
   ADEBUG << "stage: IntersectionCruise";
   CHECK_NOTNULL(frame);
 
@@ -47,6 +48,7 @@ Stage::StageStatus BareIntersectionUnprotectedStageIntersectionCruise::Process(
 
 Stage::StageStatus
 BareIntersectionUnprotectedStageIntersectionCruise::FinishStage() {
+AINFO<<"(DMCZP) EnteringMethod: BareIntersectionUnprotectedStageIntersectionCruise::FinishStage";
   return FinishScenario();
 }
 

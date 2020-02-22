@@ -46,6 +46,7 @@ using apollo::common::time::Clock;
 namespace {
 
 std::string GetLogFileName() {
+AINFO<<"(DMCZP) EnteringMethod: GetLogFileName";
   time_t raw_time;
   char name_buffer[80];
   std::time(&raw_time);
@@ -57,6 +58,7 @@ std::string GetLogFileName() {
 }
 
 void WriteHeaders(std::ofstream &file_stream) {
+AINFO<<"(DMCZP) EnteringMethod: WriteHeaders";
   file_stream << "current_lateral_error,"
               << "current_ref_heading,"
               << "current_heading,"
@@ -77,6 +79,7 @@ void WriteHeaders(std::ofstream &file_stream) {
 }  // namespace
 
 LatController::LatController() : name_("LQR-based Lateral Controller") {
+AINFO<<"(DMCZP) EnteringMethod: LatController::LatController";
   if (FLAGS_enable_csv_debug) {
     steer_log_file_.open(GetLogFileName());
     steer_log_file_ << std::fixed;
@@ -89,6 +92,7 @@ LatController::LatController() : name_("LQR-based Lateral Controller") {
 LatController::~LatController() { CloseLogFile(); }
 
 bool LatController::LoadControlConf(const ControlConf *control_conf) {
+AINFO<<"(DMCZP) EnteringMethod: LatController::LoadControlConf";
   if (!control_conf) {
     AERROR << "[LatController] control_conf == nullptr";
     return false;
@@ -136,6 +140,7 @@ bool LatController::LoadControlConf(const ControlConf *control_conf) {
 
 void LatController::ProcessLogs(const SimpleLateralDebug *debug,
                                 const canbus::Chassis *chassis) {
+AINFO<<"(DMCZP) EnteringMethod: LatController::ProcessLogs";
   // StrCat supports 9 arguments at most.
   const std::string log_str = StrCat(
       StrCat(debug->lateral_error(), ",", debug->ref_heading(), ",",
@@ -156,6 +161,7 @@ void LatController::ProcessLogs(const SimpleLateralDebug *debug,
 }
 
 void LatController::LogInitParameters() {
+AINFO<<"(DMCZP) EnteringMethod: LatController::LogInitParameters";
   AINFO << name_ << " begin.";
   AINFO << "[LatController parameters]"
         << " mass_: " << mass_ << ","
@@ -165,6 +171,7 @@ void LatController::LogInitParameters() {
 }
 
 void LatController::InitializeFilters(const ControlConf *control_conf) {
+AINFO<<"(DMCZP) EnteringMethod: LatController::InitializeFilters";
   // Low pass filter
   std::vector<double> den(3, 0.0);
   std::vector<double> num(3, 0.0);
@@ -178,6 +185,7 @@ void LatController::InitializeFilters(const ControlConf *control_conf) {
 }
 
 Status LatController::Init(const ControlConf *control_conf) {
+AINFO<<"(DMCZP) EnteringMethod: LatController::Init";
   control_conf_ = control_conf;
   if (!LoadControlConf(control_conf_)) {
     AERROR << "failed to load control conf";
@@ -246,6 +254,7 @@ Status LatController::Init(const ControlConf *control_conf) {
 }
 
 void LatController::CloseLogFile() {
+AINFO<<"(DMCZP) EnteringMethod: LatController::CloseLogFile";
   if (FLAGS_enable_csv_debug && steer_log_file_.is_open()) {
     steer_log_file_.close();
   }
@@ -253,6 +262,7 @@ void LatController::CloseLogFile() {
 
 void LatController::LoadLatGainScheduler(
     const LatControllerConf &lat_controller_conf) {
+AINFO<<"(DMCZP) EnteringMethod: LatController::LoadLatGainScheduler";
   const auto &lat_err_gain_scheduler =
       lat_controller_conf.lat_err_gain_scheduler();
   const auto &heading_err_gain_scheduler =
@@ -276,14 +286,17 @@ void LatController::LoadLatGainScheduler(
 }
 
 void LatController::Stop() { CloseLogFile(); }
+AINFO<<"(DMCZP) EnteringMethod: LatController::Stop";
 
 std::string LatController::Name() const { return name_; }
+AINFO<<"(DMCZP) EnteringMethod: LatController::Name";
 
 Status LatController::ComputeControlCommand(
     const localization::LocalizationEstimate *localization,
     const canbus::Chassis *chassis,
     const planning::ADCTrajectory *planning_published_trajectory,
     ControlCommand *cmd) {
+AINFO<<"(DMCZP) EnteringMethod: LatController::ComputeControlCommand";
   auto vehicle_state = VehicleStateProvider::Instance();
 
   auto target_tracking_trajectory = *planning_published_trajectory;
@@ -539,8 +552,10 @@ Status LatController::ComputeControlCommand(
 }
 
 Status LatController::Reset() { return Status::OK(); }
+AINFO<<"(DMCZP) EnteringMethod: LatController::Reset";
 
 void LatController::UpdateState(SimpleLateralDebug *debug) {
+AINFO<<"(DMCZP) EnteringMethod: LatController::UpdateState";
   auto vehicle_state = VehicleStateProvider::Instance();
   if (FLAGS_use_navigation_mode) {
     ComputeLateralErrors(
@@ -596,6 +611,7 @@ void LatController::UpdateState(SimpleLateralDebug *debug) {
 }
 
 void LatController::UpdateMatrix() {
+AINFO<<"(DMCZP) EnteringMethod: LatController::UpdateMatrix";
   double v;
   // At reverse driving, replace the lateral translational motion dynamics with
   // the corresponding kinematic models
@@ -619,6 +635,7 @@ void LatController::UpdateMatrix() {
 }
 
 void LatController::UpdateMatrixCompound() {
+AINFO<<"(DMCZP) EnteringMethod: LatController::UpdateMatrixCompound";
   // Initialize preview matrix
   matrix_adc_.block(0, 0, basic_state_size_, basic_state_size_) = matrix_ad_;
   matrix_bdc_.block(0, 0, basic_state_size_, 1) = matrix_bd_;
@@ -632,6 +649,7 @@ void LatController::UpdateMatrixCompound() {
 }
 
 double LatController::ComputeFeedForward(double ref_curvature) const {
+AINFO<<"(DMCZP) EnteringMethod: LatController::ComputeFeedForward";
   const double kv =
       lr_ * mass_ / 2 / cf_ / wheelbase_ - lf_ * mass_ / 2 / cr_ / wheelbase_;
 
@@ -660,6 +678,7 @@ void LatController::ComputeLateralErrors(
     const double x, const double y, const double theta, const double linear_v,
     const double angular_v, const double linear_a,
     const TrajectoryAnalyzer &trajectory_analyzer, SimpleLateralDebug *debug) {
+AINFO<<"(DMCZP) EnteringMethod: LatController::ComputeLateralErrors";
   TrajectoryPoint target_point;
 
   if (FLAGS_query_time_nearest_point_only) {
@@ -782,6 +801,7 @@ void LatController::ComputeLateralErrors(
 }
 
 void LatController::UpdateDrivingOrientation() {
+AINFO<<"(DMCZP) EnteringMethod: LatController::UpdateDrivingOrientation";
   auto vehicle_state = VehicleStateProvider::Instance();
   driving_orientation_ = vehicle_state->heading();
   matrix_bd_ = matrix_b_ * ts_;

@@ -466,12 +466,14 @@ class OpenSpaceROITest {
 
 extern "C" {
 OpenSpaceROITest* CreateROITestPtr() { return new OpenSpaceROITest(); }
+AINFO<<"(DMCZP) EnteringMethod: CreateROITestPtr";
 // all data in form of array
 bool ROITest(OpenSpaceROITest* test_ptr, char* lane_id, char* parking_id,
              double* unrotated_roi_boundary_x, double* unrotated_roi_boundary_y,
              double* roi_boundary_x, double* roi_boundary_y,
              double* parking_spot_x, double* parking_spot_y, double* end_pose,
              double* xy_boundary, double* origin_pose) {
+AINFO<<"(DMCZP) EnteringMethod: ROITest";
   std::string lane_id_str(lane_id);
   std::string parking_id_str(parking_id);
   if (!test_ptr->VPresentationObstacle(lane_id_str, parking_id_str)) {

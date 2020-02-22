@@ -203,6 +203,7 @@ class ResultContainer {
 
 extern "C" {
 HybridAStar* CreateHybridAPtr() {
+AINFO<<"(DMCZP) EnteringMethod: CreateHybridAPtr";
   apollo::planning::PlannerOpenSpaceConfig planner_open_space_config_;
   CHECK(apollo::cyber::common::GetProtoFromFile(
       FLAGS_planner_open_space_config_filename, &planner_open_space_config_))
@@ -211,17 +212,21 @@ HybridAStar* CreateHybridAPtr() {
   return new HybridAStar(planner_open_space_config_);
 }
 ObstacleContainer* DistanceCreateObstaclesPtr() {
+AINFO<<"(DMCZP) EnteringMethod: DistanceCreateObstaclesPtr";
   return new ObstacleContainer();
 }
 ResultContainer* DistanceCreateResultPtr() { return new ResultContainer(); }
+AINFO<<"(DMCZP) EnteringMethod: DistanceCreateResultPtr";
 
 void AddObstacle(ObstacleContainer* obstacles_ptr,
                  const double* ROI_distance_approach_parking_boundary) {
+AINFO<<"(DMCZP) EnteringMethod: AddObstacle";
   obstacles_ptr->AddObstacle(ROI_distance_approach_parking_boundary);
 }
 
 double InterpolateUsingLinearApproximation(const double p0, const double p1,
                                            const double w) {
+AINFO<<"(DMCZP) EnteringMethod: InterpolateUsingLinearApproximation";
   return p0 * (1.0 - w) + p1 * w;
 }
 
@@ -252,6 +257,7 @@ bool DistanceSmoothing(
     HybridAStartResult* hybrid_a_star_result, Eigen::MatrixXd* state_result_ds_,
     Eigen::MatrixXd* control_result_ds_, Eigen::MatrixXd* time_result_ds_,
     Eigen::MatrixXd* dual_l_result_ds_, Eigen::MatrixXd* dual_n_result_ds_) {
+AINFO<<"(DMCZP) EnteringMethod: DistanceSmoothing";
   // load Warm Start result(horizon is the "N", not the size of step points)
   size_t horizon_ = hybrid_a_star_result->x.size() - 1;
   // nominal sampling time
@@ -402,6 +408,7 @@ bool DistancePlan(HybridAStar* hybridA_ptr, ObstacleContainer* obstacles_ptr,
                   ResultContainer* result_ptr, double sx, double sy,
                   double sphi, double ex, double ey, double ephi,
                   double* XYbounds) {
+AINFO<<"(DMCZP) EnteringMethod: DistancePlan";
   apollo::planning::PlannerOpenSpaceConfig planner_open_space_config_;
   CHECK(apollo::cyber::common::GetProtoFromFile(
       FLAGS_planner_open_space_config_filename, &planner_open_space_config_))
@@ -588,6 +595,7 @@ void DistanceGetResult(ResultContainer* result_ptr,
                        double* opt_v, double* opt_a, double* opt_steer,
                        double* opt_time, double* opt_dual_l, double* opt_dual_n,
                        size_t* output_size) {
+AINFO<<"(DMCZP) EnteringMethod: DistanceGetResult";
   result_ptr->LoadHybridAResult();
   size_t size = result_ptr->GetX()->size();
   size_t size_by_distance = result_ptr->PrepareStateResult()->cols();

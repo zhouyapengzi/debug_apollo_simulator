@@ -27,6 +27,7 @@ class Fail241Test : public ::testing::Test {
 };
 
 TEST_F(Fail241Test, reset) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   Fail241 fail1;
   int32_t length = 8;
   ChassisDetail chassis_detail;

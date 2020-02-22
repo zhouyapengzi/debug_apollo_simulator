@@ -25,6 +25,7 @@ using apollo::common::math::LineSegment2d;
 using apollo::common::math::Vec2d;
 
 TEST(CudaUtil, CudaNearestSegment) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   CudaNearestSegment segment_tool;
   Vec2d p1(0, 0);
   Vec2d p2(1, 0);

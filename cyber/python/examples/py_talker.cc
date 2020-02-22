@@ -30,6 +30,7 @@ using apollo::cyber::proto::Chatter;
 using apollo::cyber::message::PyMessageWrap;
 
 int main(int argc, char *argv[]) {
+AINFO<<"(DMCZP) EnteringMethod: main";
   // init cyber framework
   apollo::cyber::Init("cyber_python");
   auto msgChat = std::make_shared<apollo::cyber::proto::Chatter>();

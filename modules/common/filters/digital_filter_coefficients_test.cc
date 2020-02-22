@@ -27,6 +27,7 @@ class DigitalFilterCoefficientsTest : public ::testing::Test {
 };
 
 TEST_F(DigitalFilterCoefficientsTest, LpfCoefficients) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   double ts = 0.01;
   double cutoff_freq = 20;
   std::vector<double> den;

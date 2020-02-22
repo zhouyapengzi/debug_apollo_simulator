@@ -28,14 +28,17 @@ const int32_t Turncmd130::ID = 0x130;
 
 // public
 Turncmd130::Turncmd130() { Reset(); }
+AINFO<<"(DMCZP) EnteringMethod: Turncmd130::Turncmd130";
 
 uint32_t Turncmd130::GetPeriod() const {
+AINFO<<"(DMCZP) EnteringMethod: Turncmd130::GetPeriod";
   // TODO(QiL) modify every protocol's period manually
   static const uint32_t PERIOD = 20 * 1000;
   return PERIOD;
 }
 
 void Turncmd130::UpdateData(uint8_t* data) {
+AINFO<<"(DMCZP) EnteringMethod: Turncmd130::UpdateData";
   set_p_ignore_overrides(data, ignore_overrides_);
   set_p_enable(data, enable_);
   set_p_clear_override(data, clear_override_);
@@ -44,6 +47,7 @@ void Turncmd130::UpdateData(uint8_t* data) {
 }
 
 void Turncmd130::Reset() {
+AINFO<<"(DMCZP) EnteringMethod: Turncmd130::Reset";
   // TODO(QiL) you should check this manually
   ignore_overrides_ = false;
   enable_ = false;
@@ -53,6 +57,7 @@ void Turncmd130::Reset() {
 }
 
 Turncmd130* Turncmd130::set_ignore_overrides(bool ignore_overrides) {
+AINFO<<"(DMCZP) EnteringMethod: Turncmd130::set_ignore_overrides";
   ignore_overrides_ = ignore_overrides;
   return this;
 }
@@ -61,6 +66,7 @@ Turncmd130* Turncmd130::set_ignore_overrides(bool ignore_overrides) {
 // 'len': 1, 'is_signed_var': False, 'physical_range': '[0|1]', 'bit': 1,
 // 'type': 'bool', 'order': 'motorola', 'physical_unit': ''}
 void Turncmd130::set_p_ignore_overrides(uint8_t* data, bool ignore_overrides) {
+AINFO<<"(DMCZP) EnteringMethod: Turncmd130::set_p_ignore_overrides";
   uint8_t x = ignore_overrides;
 
   Byte to_set(data + 0);
@@ -68,6 +74,7 @@ void Turncmd130::set_p_ignore_overrides(uint8_t* data, bool ignore_overrides) {
 }
 
 Turncmd130* Turncmd130::set_enable(bool enable) {
+AINFO<<"(DMCZP) EnteringMethod: Turncmd130::set_enable";
   enable_ = enable;
   return this;
 }
@@ -76,6 +83,7 @@ Turncmd130* Turncmd130::set_enable(bool enable) {
 // 'is_signed_var': False, 'physical_range': '[0|1]', 'bit': 0, 'type': 'bool',
 // 'order': 'motorola', 'physical_unit': ''}
 void Turncmd130::set_p_enable(uint8_t* data, bool enable) {
+AINFO<<"(DMCZP) EnteringMethod: Turncmd130::set_p_enable";
   uint8_t x = enable;
 
   Byte to_set(data + 0);
@@ -83,6 +91,7 @@ void Turncmd130::set_p_enable(uint8_t* data, bool enable) {
 }
 
 Turncmd130* Turncmd130::set_clear_override(bool clear_override) {
+AINFO<<"(DMCZP) EnteringMethod: Turncmd130::set_clear_override";
   clear_override_ = clear_override;
   return this;
 }
@@ -91,6 +100,7 @@ Turncmd130* Turncmd130::set_clear_override(bool clear_override) {
 // 'len': 1, 'is_signed_var': False, 'physical_range': '[0|1]', 'bit': 2,
 // 'type': 'bool', 'order': 'motorola', 'physical_unit': ''}
 void Turncmd130::set_p_clear_override(uint8_t* data, bool clear_override) {
+AINFO<<"(DMCZP) EnteringMethod: Turncmd130::set_p_clear_override";
   uint8_t x = clear_override;
 
   Byte to_set(data + 0);
@@ -98,6 +108,7 @@ void Turncmd130::set_p_clear_override(uint8_t* data, bool clear_override) {
 }
 
 Turncmd130* Turncmd130::set_clear_faults(bool clear_faults) {
+AINFO<<"(DMCZP) EnteringMethod: Turncmd130::set_clear_faults";
   clear_faults_ = clear_faults;
   return this;
 }
@@ -106,6 +117,7 @@ Turncmd130* Turncmd130::set_clear_faults(bool clear_faults) {
 // 'len': 1, 'is_signed_var': False, 'physical_range': '[0|1]', 'bit': 3,
 // 'type': 'bool', 'order': 'motorola', 'physical_unit': ''}
 void Turncmd130::set_p_clear_faults(uint8_t* data, bool clear_faults) {
+AINFO<<"(DMCZP) EnteringMethod: Turncmd130::set_p_clear_faults";
   uint8_t x = clear_faults;
 
   Byte to_set(data + 0);
@@ -114,6 +126,7 @@ void Turncmd130::set_p_clear_faults(uint8_t* data, bool clear_faults) {
 
 Turncmd130* Turncmd130::set_turn_signal_cmd(
     Turn_cmd_130::Turn_signal_cmdType turn_signal_cmd) {
+AINFO<<"(DMCZP) EnteringMethod: Turncmd130::set_turn_signal_cmd";
   turn_signal_cmd_ = turn_signal_cmd;
   return this;
 }
@@ -125,6 +138,7 @@ Turncmd130* Turncmd130::set_turn_signal_cmd(
 // 'bit': 15, 'type': 'enum', 'order': 'motorola', 'physical_unit': ''}
 void Turncmd130::set_p_turn_signal_cmd(
     uint8_t* data, Turn_cmd_130::Turn_signal_cmdType turn_signal_cmd) {
+AINFO<<"(DMCZP) EnteringMethod: Turncmd130::set_p_turn_signal_cmd";
   uint8_t x = turn_signal_cmd;
 
   Byte to_set(data + 1);

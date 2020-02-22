@@ -31,8 +31,10 @@ namespace apollo {
 namespace prediction {
 
 SemanticMap::SemanticMap() {}
+AINFO<<"(DMCZP) EnteringMethod: SemanticMap::SemanticMap";
 
 void SemanticMap::Init() {
+AINFO<<"(DMCZP) EnteringMethod: SemanticMap::Init";
   const std::string semantic_map_path =
       apollo::common::util::StrCat(FLAGS_map_dir, "/semantic_map.png");
   if (cyber::common::PathExists(semantic_map_path)) {
@@ -50,6 +52,7 @@ void SemanticMap::Init() {
 
 void SemanticMap::RunCurrFrame(
     const std::unordered_map<int, ObstacleHistory>& obstacle_id_history_map) {
+AINFO<<"(DMCZP) EnteringMethod: SemanticMap::RunCurrFrame";
   if (obstacle_id_history_map.find(FLAGS_ego_vehicle_id) ==
       obstacle_id_history_map.end()) {
     return;
@@ -88,6 +91,8 @@ void SemanticMap::RunCurrFrame(
 
 void SemanticMap::DrawRect(const Feature& feature, const cv::Scalar& color,
                            cv::Mat* img) {
+AINFO<<"(DMCZP) EnteringMethod: SemanticMap::DrawRect";
+AINFO<<"(DMCZP) EnteringMethod: SemanticMap::DrawPoly";
   double obs_l = feature.length();
   double obs_w = feature.width();
   double obs_x = feature.position().x();
@@ -124,6 +129,7 @@ void SemanticMap::DrawPoly(const Feature& feature, const cv::Scalar& color,
 
 void SemanticMap::DrawHistory(const ObstacleHistory& history,
                               const cv::Scalar& color, cv::Mat* img) {
+AINFO<<"(DMCZP) EnteringMethod: SemanticMap::DrawHistory";
   for (int i = history.feature_size() - 1; i >= 0; --i) {
     const Feature& feature = history.feature(i);
     double time_decay = 1.0 - curr_timestamp_ + feature.timestamp();
@@ -139,6 +145,7 @@ void SemanticMap::DrawHistory(const ObstacleHistory& history,
 cv::Mat SemanticMap::CropArea(const cv::Mat& input_img,
                               const cv::Point2i& center_point,
                               const double heading) {
+AINFO<<"(DMCZP) EnteringMethod: SemanticMap::CropArea";
   cv::Mat rotation_mat =
       cv::getRotationMatrix2D(center_point, 90.0 - heading * 180.0 / M_PI, 1.0);
   cv::Mat rotated_mat;
@@ -151,6 +158,7 @@ cv::Mat SemanticMap::CropArea(const cv::Mat& input_img,
 
 cv::Mat SemanticMap::CropByHistory(const ObstacleHistory& history,
                                    const cv::Scalar& color) {
+AINFO<<"(DMCZP) EnteringMethod: SemanticMap::CropByHistory";
   cv::Mat feature_map = curr_img_.clone();
   DrawHistory(history, color, &feature_map);
   const Feature& curr_feature = history.feature(0);
@@ -160,6 +168,7 @@ cv::Mat SemanticMap::CropByHistory(const ObstacleHistory& history,
 }
 
 bool SemanticMap::GetMapById(const int obstacle_id, cv::Mat* feature_map) {
+AINFO<<"(DMCZP) EnteringMethod: SemanticMap::GetMapById";
   if (obstacle_id_history_map_.find(obstacle_id) ==
       obstacle_id_history_map_.end()) {
     return false;

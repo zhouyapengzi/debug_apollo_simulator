@@ -36,9 +36,11 @@ using apollo::common::Status;
 using apollo::hdmap::PathOverlap;
 
 KeepClear::KeepClear(const TrafficRuleConfig& config) : TrafficRule(config) {}
+AINFO<<"(DMCZP) EnteringMethod: KeepClear::KeepClear";
 
 Status KeepClear::ApplyRule(Frame* const frame,
                             ReferenceLineInfo* const reference_line_info) {
+AINFO<<"(DMCZP) EnteringMethod: KeepClear::ApplyRule";
   CHECK_NOTNULL(frame);
   CHECK_NOTNULL(reference_line_info);
 
@@ -157,6 +159,7 @@ Status KeepClear::ApplyRule(Frame* const frame,
 
 bool KeepClear::IsCreeping(const double pnc_junction_start_s,
                            const double adc_front_edge_s) const {
+AINFO<<"(DMCZP) EnteringMethod: KeepClear::IsCreeping";
   // check if in scenario creep stage
   // while creeping, no need create keep clear obstacle
   const auto& stage_type =
@@ -176,6 +179,7 @@ bool KeepClear::BuildKeepClearObstacle(
     Frame* const frame, ReferenceLineInfo* const reference_line_info,
     const std::string& virtual_obstacle_id, const double keep_clear_start_s,
     const double keep_clear_end_s) {
+AINFO<<"(DMCZP) EnteringMethod: KeepClear::BuildKeepClearObstacle";
   CHECK_NOTNULL(frame);
   CHECK_NOTNULL(reference_line_info);
 

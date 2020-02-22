@@ -25,6 +25,7 @@ namespace common {
 void LpfCoefficients(const double ts, const double cutoff_freq,
                      std::vector<double> *denominators,
                      std::vector<double> *numerators) {
+AINFO<<"(DMCZP) EnteringMethod: LpfCoefficients";
   denominators->clear();
   numerators->clear();
   denominators->reserve(3);

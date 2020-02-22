@@ -30,6 +30,7 @@ using apollo::cyber::proto::Chatter;
 using apollo::cyber::message::PyMessageWrap;
 apollo::cyber::PyService *server = nullptr;
 int service_callback(const char *channel_name) {
+AINFO<<"(DMCZP) EnteringMethod: service_callback";
   if (server == nullptr) {
     AERROR << "server is null.";
     return -1;
@@ -54,6 +55,7 @@ int service_callback(const char *channel_name) {
 }
 
 int main(int argc, char *argv[]) {
+AINFO<<"(DMCZP) EnteringMethod: main";
   apollo::cyber::Init(argv[0]);
   apollo::cyber::PyNode node("start_node");
   Chatter driver_msg;

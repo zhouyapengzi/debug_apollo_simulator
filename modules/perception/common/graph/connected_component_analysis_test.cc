@@ -32,6 +32,7 @@ class ConnectedComponentAnalysisTest : public testing::Test {
 };  // class ConnectedComponentAnalysisTest
 
 TEST_F(ConnectedComponentAnalysisTest, test_ConnectedComponenetAnalysis) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   Eigen::MatrixXf association_mat(3, 4);
   association_mat << 0.3f, 1.2f, 4.0f, 3.0f, 0.9f, 2.0f, 3.0f, 8.0f, 4.0f, 3.0f,
       0.3f, 0.1f;

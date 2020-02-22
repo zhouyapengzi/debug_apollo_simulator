@@ -28,6 +28,7 @@ namespace camera {
 
 void ObstacleReference::Init(const omt::ReferenceParam &ref_param, float width,
                              float height) {
+AINFO<<"(DMCZP) EnteringMethod: ObstacleReference::Init";
 
   AINFO<<"(pengzi) ObstacleReference::Init. thread:"<< std::this_thread::get_id();   
 
@@ -58,6 +59,7 @@ void ObstacleReference::Init(const omt::ReferenceParam &ref_param, float width,
 
 void ObstacleReference::UpdateReference(const CameraFrame *frame,
                                         const std::vector<Target> &targets) {
+AINFO<<"(DMCZP) EnteringMethod: ObstacleReference::UpdateReference";
 
   AINFO<<"(pengzi) void ObstacleReference::UpdateReference(const CameraFrame *frame,
                                         const std::vector<Target> &targets). thread:"<< std::this_thread::get_id();  
@@ -141,6 +143,7 @@ void ObstacleReference::UpdateReference(const CameraFrame *frame,
   }
 }
 void ObstacleReference::CorrectSize(CameraFrame *frame) {
+AINFO<<"(DMCZP) EnteringMethod: ObstacleReference::CorrectSize";
   const TemplateMap &kMinTemplateHWL =
       object_template_manager_->MinTemplateHWL();
   const TemplateMap &kMaxTemplateHWL =

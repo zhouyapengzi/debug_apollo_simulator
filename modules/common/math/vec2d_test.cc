@@ -25,6 +25,7 @@ namespace common {
 namespace math {
 
 TEST(Vec2dTest, NomralCases) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   Vec2d pt(2, 3);
   EXPECT_NEAR(pt.Length(), std::sqrt(13.0), 1e-5);
   EXPECT_NEAR(pt.LengthSquare(), 13.0, 1e-5);
@@ -65,6 +66,7 @@ TEST(Vec2dTest, NomralCases) {
 }
 
 TEST(Vec2dTest, rotate) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   Vec2d pt(4, 0);
   auto p1 = pt.rotate(M_PI / 2.0);
   EXPECT_NEAR(p1.x(), 0.0, 1e-5);
@@ -81,6 +83,7 @@ TEST(Vec2dTest, rotate) {
 }
 
 TEST(Vec2dTest, selfrotate) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   Vec2d p1(4, 0);
   p1.SelfRotate(M_PI / 2.0);
   EXPECT_NEAR(p1.x(), 0.0, 1e-5);

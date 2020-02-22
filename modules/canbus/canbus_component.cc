@@ -33,12 +33,15 @@ using apollo::drivers::canbus::CanClientFactory;
 using apollo::guardian::GuardianCommand;
 
 std::string CanbusComponent::Name() const { return FLAGS_canbus_module_name; }
+AINFO<<"(DMCZP) EnteringMethod: CanbusComponent::Name";
 
 CanbusComponent::CanbusComponent()
     : monitor_logger_buffer_(
           apollo::common::monitor::MonitorMessageItem::CANBUS) {}
+AINFO<<"(DMCZP) EnteringMethod: CanbusComponent::CanbusComponent";
 
 bool CanbusComponent::Init() {
+AINFO<<"(DMCZP) EnteringMethod: CanbusComponent::Init";
   if (!GetProtoConfig(&canbus_conf_)) {
     AERROR << "Unable to load canbus conf file: " << ConfigFilePath();
     return false;
@@ -167,6 +170,7 @@ bool CanbusComponent::Init() {
 }
 
 void CanbusComponent::Clear() {
+AINFO<<"(DMCZP) EnteringMethod: CanbusComponent::Clear";
   can_sender_.Stop();
   can_receiver_.Stop();
   can_client_->Stop();
@@ -175,6 +179,7 @@ void CanbusComponent::Clear() {
 }
 
 void CanbusComponent::PublishChassis() {
+AINFO<<"(DMCZP) EnteringMethod: CanbusComponent::PublishChassis";
   Chassis chassis = vehicle_controller_->chassis();
   common::util::FillHeader(node_->Name(), &chassis);
   chassis_writer_->Write(std::make_shared<Chassis>(chassis));
@@ -182,6 +187,7 @@ void CanbusComponent::PublishChassis() {
 }
 
 void CanbusComponent::PublishChassisDetail() {
+AINFO<<"(DMCZP) EnteringMethod: CanbusComponent::PublishChassisDetail";
   ChassisDetail chassis_detail;
   message_manager_->GetSensorData(&chassis_detail);
   ADEBUG << chassis_detail.ShortDebugString();
@@ -190,6 +196,7 @@ void CanbusComponent::PublishChassisDetail() {
 }
 
 bool CanbusComponent::Proc() {
+AINFO<<"(DMCZP) EnteringMethod: CanbusComponent::Proc";
   PublishChassis();
   if (FLAGS_enable_chassis_detail_pub) {
     PublishChassisDetail();
@@ -198,6 +205,7 @@ bool CanbusComponent::Proc() {
 }
 
 void CanbusComponent::OnControlCommand(const ControlCommand &control_command) {
+AINFO<<"(DMCZP) EnteringMethod: CanbusComponent::OnControlCommand";
   int64_t current_timestamp =
       apollo::common::time::AsInt64<common::time::micros>(Clock::Now());
   // if command coming too soon, just ignore it.
@@ -225,12 +233,14 @@ void CanbusComponent::OnControlCommand(const ControlCommand &control_command) {
 
 void CanbusComponent::OnGuardianCommand(
     const GuardianCommand &guardian_command) {
+AINFO<<"(DMCZP) EnteringMethod: CanbusComponent::OnGuardianCommand";
   apollo::control::ControlCommand control_command;
   control_command.CopyFrom(guardian_command.control_command());
   OnControlCommand(control_command);
 }
 
 common::Status CanbusComponent::OnError(const std::string &error_msg) {
+AINFO<<"(DMCZP) EnteringMethod: CanbusComponent::OnError";
   monitor_logger_buffer_.ERROR(error_msg);
   return ::apollo::common::Status(ErrorCode::CANBUS_ERROR, error_msg);
 }

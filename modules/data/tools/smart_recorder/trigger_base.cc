@@ -24,6 +24,7 @@ namespace apollo {
 namespace data {
 
 bool TriggerBase::Init(const SmartRecordTrigger& trigger_conf) {
+AINFO<<"(DMCZP) EnteringMethod: TriggerBase::Init";
   LockTrigger(trigger_conf);
   if (trigger_obj_ == nullptr) {
     AERROR << "failed to lock trigger " << GetTriggerName();
@@ -33,6 +34,7 @@ bool TriggerBase::Init(const SmartRecordTrigger& trigger_conf) {
 }
 
 void TriggerBase::LockTrigger(const SmartRecordTrigger& trigger_conf) {
+AINFO<<"(DMCZP) EnteringMethod: TriggerBase::LockTrigger";
   for (const auto& trigger : trigger_conf.triggers()) {
     if (trigger.trigger_name() == trigger_name_) {
       trigger_obj_.reset(new Trigger(trigger));
@@ -42,6 +44,7 @@ void TriggerBase::LockTrigger(const SmartRecordTrigger& trigger_conf) {
 }
 
 void TriggerBase::TriggerIt(const uint64_t msg_time) const {
+AINFO<<"(DMCZP) EnteringMethod: TriggerBase::TriggerIt";
   constexpr float kMaxBackwardTime = 30.0, kMaxForwardTime = 10.0;
   const uint64_t backword_time = static_cast<uint64_t>(
       (trigger_obj_->backward_time() < 0.0

@@ -54,6 +54,7 @@ class Object {
 }  // namespace
 
 TEST(AABoxKDTree2dNode, OverallTests) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   const int kNumBoxes[4] = {1, 10, 50, 100};
   const int kNumQueries = 1000;
   const double kSize = 100;

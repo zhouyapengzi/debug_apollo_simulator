@@ -20,6 +20,7 @@
 #include "modules/localization/msf/local_tool/map_creation/poses_interpolation/poses_interpolation.h"
 
 int main(int argc, char **argv) {
+AINFO<<"(DMCZP) EnteringMethod: main";
   boost::program_options::options_description boost_desc("Allowed options");
   boost_desc.add_options()("help", "produce help message")(
       "input_poses_path", boost::program_options::value<std::string>(),

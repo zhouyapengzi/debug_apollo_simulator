@@ -45,6 +45,7 @@ namespace canbus {
 namespace lincoln {
 
 LincolnMessageManager::LincolnMessageManager() {
+AINFO<<"(DMCZP) EnteringMethod: LincolnMessageManager::LincolnMessageManager";
   // TODO(Authors): verify which one is recv/sent
   AddSendProtocolData<Brake60, true>();
   AddSendProtocolData<Throttle62, true>();

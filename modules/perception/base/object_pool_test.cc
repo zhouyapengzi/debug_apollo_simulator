@@ -26,6 +26,7 @@ namespace perception {
 namespace base {
 
 TEST(ObjectPoolTest, basic_test) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
 #ifndef PERCEPTION_BASE_DISABLE_POOL
   EXPECT_EQ(ObjectPool::Instance().RemainedNum(), kObjectPoolSize);
   EXPECT_EQ(PointFCloudPool::Instance().RemainedNum(), kPointCloudPoolSize);
@@ -35,6 +36,7 @@ TEST(ObjectPoolTest, basic_test) {
 }
 
 TEST(ObjectPoolTest, dummy_object_pool_test) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   typedef DummyObjectPool<Object> TestObjectPool;
   std::shared_ptr<Object> obj = TestObjectPool::Instance().Get();
   EXPECT_NE(obj, nullptr);
@@ -80,6 +82,7 @@ TEST(ObjectPoolTest, dummy_object_pool_test) {
 }
 
 TEST(ObjectPoolTest, concurrent_object_pool_capacity_test) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
 #ifndef PERCEPTION_BASE_DISABLE_POOL
   typedef ConcurrentObjectPool<Object> TestObjectPool;
   size_t capacity = TestObjectPool::Instance().RemainedNum();
@@ -91,6 +94,7 @@ TEST(ObjectPoolTest, concurrent_object_pool_capacity_test) {
 }
 
 TEST(ObjectPoolTest, concurrent_object_pool_get_test) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   typedef ConcurrentObjectPool<Object> TestObjectPool;
   auto& instance = TestObjectPool::Instance();
   size_t size = instance.RemainedNum();
@@ -111,6 +115,7 @@ TEST(ObjectPoolTest, concurrent_object_pool_get_test) {
 }
 
 TEST(ObjectPoolTest, concurrent_object_pool_batch_get_vec_test) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   typedef ConcurrentObjectPool<Object> TestObjectPool;
   auto& instance = TestObjectPool::Instance();
 #ifndef PERCEPTION_BASE_DISABLE_POOL
@@ -142,6 +147,7 @@ TEST(ObjectPoolTest, concurrent_object_pool_batch_get_vec_test) {
 }
 
 TEST(ObjectPoolTest, concurrent_object_pool_batch_get_list_test) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   typedef ConcurrentObjectPool<Object> TestObjectPool;
   auto& instance = TestObjectPool::Instance();
 #ifndef PERCEPTION_BASE_DISABLE_POOL
@@ -174,6 +180,7 @@ TEST(ObjectPoolTest, concurrent_object_pool_batch_get_list_test) {
 }
 
 TEST(ObjectPoolTest, concurrent_object_pool_batch_get_deque_test) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   typedef ConcurrentObjectPool<Object> TestObjectPool;
   auto& instance = TestObjectPool::Instance();
 #ifndef PERCEPTION_BASE_DISABLE_POOL
@@ -209,6 +216,7 @@ TEST(ObjectPoolTest, concurrent_object_pool_batch_get_deque_test) {
 
 #ifndef PERCEPTION_BASE_DISABLE_POOL
 TEST(ObjectPoolTest, concurrent_object_pool_constructor_test) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   typedef ConcurrentObjectPool<Object, 10> TestObjectPool;
   auto& pool = TestObjectPool::Instance();
   EXPECT_EQ(pool.RemainedNum(), 10);
@@ -221,6 +229,7 @@ struct TestObjectPoolInitializer {
 };
 
 TEST(ObjectPoolTest, concurrent_object_pool_initializer_test) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
 #ifndef PERCEPTION_BASE_DISABLE_POOL
   {
     typedef ConcurrentObjectPool<Object, 10, TestObjectPoolInitializer>
@@ -283,6 +292,7 @@ TEST(ObjectPoolTest, concurrent_object_pool_initializer_test) {
 }
 
 TEST(ObjectPoolTest, light_object_pool_capacity_test) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   typedef LightObjectPool<Object, kPoolDefaultSize, TestObjectPoolInitializer,
                           SensorType::UNKNOWN_SENSOR_TYPE>
       TestObjectPool;
@@ -295,6 +305,7 @@ TEST(ObjectPoolTest, light_object_pool_capacity_test) {
 }
 
 TEST(ObjectPoolTest, light_object_pool_get_test) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   typedef LightObjectPool<Object> TestObjectPool;
   auto& instance = TestObjectPool::Instance();
   size_t size = instance.RemainedNum();
@@ -311,6 +322,7 @@ TEST(ObjectPoolTest, light_object_pool_get_test) {
 }
 
 TEST(ObjectPoolTest, light_object_pool_batch_get_vec_test) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   typedef LightObjectPool<Object> TestObjectPool;
   auto& instance = TestObjectPool::Instance();
   size_t size = instance.RemainedNum();
@@ -338,6 +350,7 @@ TEST(ObjectPoolTest, light_object_pool_batch_get_vec_test) {
 }
 
 TEST(ObjectPoolTest, light_object_pool_batch_get_list_test) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   typedef LightObjectPool<Object> TestObjectPool;
   auto& instance = TestObjectPool::Instance();
   size_t size = instance.RemainedNum();
@@ -366,6 +379,7 @@ TEST(ObjectPoolTest, light_object_pool_batch_get_list_test) {
 }
 
 TEST(ObjectPoolTest, light_object_pool_batch_get_deque_test) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   typedef LightObjectPool<Object> TestObjectPool;
   auto& instance = TestObjectPool::Instance();
   size_t size = instance.RemainedNum();
@@ -396,6 +410,7 @@ TEST(ObjectPoolTest, light_object_pool_batch_get_deque_test) {
 }
 
 TEST(ObjectPoolTest, light_object_pool_constructor_test) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   typedef LightObjectPool<Object, 10> TestObjectPool;
   auto& pool = TestObjectPool::Instance();
   EXPECT_EQ(pool.RemainedNum(), 10);
@@ -403,6 +418,7 @@ TEST(ObjectPoolTest, light_object_pool_constructor_test) {
 }
 
 TEST(ObjectPoolTest, light_object_pool_initializer_test) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   {
     typedef LightObjectPool<Object, 10, TestObjectPoolInitializer>
         TestObjectPool;

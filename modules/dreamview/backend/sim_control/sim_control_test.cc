@@ -62,6 +62,7 @@ void SetTrajectory(const std::vector<double> &xs, const std::vector<double> &ys,
                    const std::vector<double> &ths,
                    const std::vector<double> &ks, const std::vector<double> &ts,
                    planning::ADCTrajectory *adc_trajectory) {
+AINFO<<"(DMCZP) EnteringMethod: SetTrajectory";
   for (size_t i = 0; i < xs.size(); ++i) {
     auto *point = adc_trajectory->add_trajectory_point();
     point->mutable_path_point()->set_x(xs[i]);
@@ -77,6 +78,7 @@ void SetTrajectory(const std::vector<double> &xs, const std::vector<double> &ys,
 }
 
 TEST_F(SimControlTest, Test) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   sim_control_->Init(false);
   sim_control_->enabled_ = true;
 
@@ -167,6 +169,7 @@ TEST_F(SimControlTest, Test) {
 }
 
 TEST_F(SimControlTest, TestDummyPrediction) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   Clock::SetMode(Clock::MOCK);
 
   sim_control_->Init(false);

@@ -44,6 +44,7 @@ DistanceApproachIPOPTInterface::DistanceApproachIPOPTInterface(
       obstacles_edges_num_(obstacles_edges_num),
       obstacles_A_(obstacles_A),
       obstacles_b_(obstacles_b) {
+AINFO<<"(DMCZP) EnteringMethod: DistanceApproachIPOPTInterface::DistanceApproachIPOPTInterface";
   CHECK(horizon < std::numeric_limits<int>::max())
       << "Invalid cast on horizon in open space planner";
   horizon_ = static_cast<int>(horizon);
@@ -109,6 +110,7 @@ bool DistanceApproachIPOPTInterface::get_nlp_info(int& n, int& m,
                                                   int& nnz_jac_g,
                                                   int& nnz_h_lag,
                                                   IndexStyleEnum& index_style) {
+AINFO<<"(DMCZP) EnteringMethod: DistanceApproachIPOPTInterface::get_nlp_info";
   ADEBUG << "get_nlp_info";
   // n1 : states variables, 4 * (N+1)
   int n1 = 4 * (horizon_ + 1);
@@ -167,6 +169,7 @@ bool DistanceApproachIPOPTInterface::get_nlp_info(int& n, int& m,
 bool DistanceApproachIPOPTInterface::get_bounds_info(int n, double* x_l,
                                                      double* x_u, int m,
                                                      double* g_l, double* g_u) {
+AINFO<<"(DMCZP) EnteringMethod: DistanceApproachIPOPTInterface::get_bounds_info";
   ADEBUG << "get_bounds_info";
   CHECK(XYbounds_.size() == 4)
       << "XYbounds_ size is not 4, but" << XYbounds_.size();
@@ -385,6 +388,7 @@ bool DistanceApproachIPOPTInterface::get_bounds_info(int n, double* x_l,
 bool DistanceApproachIPOPTInterface::get_starting_point(
     int n, bool init_x, double* x, bool init_z, double* z_L, double* z_U, int m,
     bool init_lambda, double* lambda) {
+AINFO<<"(DMCZP) EnteringMethod: DistanceApproachIPOPTInterface::get_starting_point";
   ADEBUG << "get_starting_point";
   CHECK(init_x) << "Warm start init_x setting failed";
 
@@ -433,18 +437,21 @@ bool DistanceApproachIPOPTInterface::get_starting_point(
 
 bool DistanceApproachIPOPTInterface::eval_f(int n, const double* x, bool new_x,
                                             double& obj_value) {
+AINFO<<"(DMCZP) EnteringMethod: DistanceApproachIPOPTInterface::eval_f";
   eval_obj(n, x, &obj_value);
   return true;
 }
 
 bool DistanceApproachIPOPTInterface::eval_grad_f(int n, const double* x,
                                                  bool new_x, double* grad_f) {
+AINFO<<"(DMCZP) EnteringMethod: DistanceApproachIPOPTInterface::eval_grad_f";
   gradient(tag_f, n, x, grad_f);
   return true;
 }
 
 bool DistanceApproachIPOPTInterface::eval_g(int n, const double* x, bool new_x,
                                             int m, double* g) {
+AINFO<<"(DMCZP) EnteringMethod: DistanceApproachIPOPTInterface::eval_g";
   eval_constraints(n, x, m, g);
   // if (enable_constraint_check_) check_g(n, x, m, g);
   return true;
@@ -454,6 +461,7 @@ bool DistanceApproachIPOPTInterface::eval_jac_g(int n, const double* x,
                                                 bool new_x, int m, int nele_jac,
                                                 int* iRow, int* jCol,
                                                 double* values) {
+AINFO<<"(DMCZP) EnteringMethod: DistanceApproachIPOPTInterface::eval_jac_g";
   if (enable_jacobian_ad_) {
     if (values == nullptr) {
       // return the structure of the jacobian
@@ -479,6 +487,7 @@ bool DistanceApproachIPOPTInterface::eval_jac_g_ser(int n, const double* x,
                                                     bool new_x, int m,
                                                     int nele_jac, int* iRow,
                                                     int* jCol, double* values) {
+AINFO<<"(DMCZP) EnteringMethod: DistanceApproachIPOPTInterface::eval_jac_g_ser";
   ADEBUG << "eval_jac_g";
   CHECK_EQ(n, num_of_variables_)
       << "No. of variables wrong in eval_jac_g. n : " << n;
@@ -1309,6 +1318,7 @@ bool DistanceApproachIPOPTInterface::eval_h(int n, const double* x, bool new_x,
                                             bool new_lambda, int nele_hess,
                                             int* iRow, int* jCol,
                                             double* values) {
+AINFO<<"(DMCZP) EnteringMethod: DistanceApproachIPOPTInterface::eval_h";
   if (values == nullptr) {
     // return the structure. This is a symmetric matrix, fill the lower left
     // triangle only.
@@ -1344,6 +1354,7 @@ void DistanceApproachIPOPTInterface::finalize_solution(
     const double* z_U, int m, const double* g, const double* lambda,
     double obj_value, const Ipopt::IpoptData* ip_data,
     Ipopt::IpoptCalculatedQuantities* ip_cq) {
+AINFO<<"(DMCZP) EnteringMethod: DistanceApproachIPOPTInterface::finalize_solution";
   int state_index = state_start_index_;
   int control_index = control_start_index_;
   int time_index = time_start_index_;
@@ -1412,6 +1423,7 @@ void DistanceApproachIPOPTInterface::get_optimization_results(
     Eigen::MatrixXd* state_result, Eigen::MatrixXd* control_result,
     Eigen::MatrixXd* time_result, Eigen::MatrixXd* dual_l_result,
     Eigen::MatrixXd* dual_n_result) const {
+AINFO<<"(DMCZP) EnteringMethod: DistanceApproachIPOPTInterface::get_optimization_results";
   ADEBUG << "get_optimization_results";
   *state_result = state_result_;
   *control_result = control_result_;
@@ -1474,6 +1486,7 @@ void DistanceApproachIPOPTInterface::get_optimization_results(
 //***************    start ADOL-C part ***********************************
 template <class T>
 void DistanceApproachIPOPTInterface::eval_obj(int n, const T* x, T* obj_value) {
+AINFO<<"(DMCZP) EnteringMethod: DistanceApproachIPOPTInterface::eval_obj";
   // Objective is :
   // min control inputs
   // min input rate
@@ -1545,6 +1558,7 @@ void DistanceApproachIPOPTInterface::eval_obj(int n, const T* x, T* obj_value) {
 template <class T>
 void DistanceApproachIPOPTInterface::eval_constraints(int n, const T* x, int m,
                                                       T* g) {
+AINFO<<"(DMCZP) EnteringMethod: DistanceApproachIPOPTInterface::eval_constraints";
   // state start index
   int state_index = state_start_index_;
 
@@ -1804,6 +1818,7 @@ void DistanceApproachIPOPTInterface::eval_constraints(int n, const T* x, int m,
 
 bool DistanceApproachIPOPTInterface::check_g(int n, const double* x, int m,
                                              const double* g) {
+AINFO<<"(DMCZP) EnteringMethod: DistanceApproachIPOPTInterface::check_g";
   int kN = n;
   int kM = m;
   double x_u_tmp[kN];
@@ -1884,6 +1899,7 @@ bool DistanceApproachIPOPTInterface::check_g(int n, const double* x, int m,
 void DistanceApproachIPOPTInterface::generate_tapes(int n, int m,
                                                     int* nnz_jac_g,
                                                     int* nnz_h_lag) {
+AINFO<<"(DMCZP) EnteringMethod: DistanceApproachIPOPTInterface::generate_tapes";
   std::vector<double> xp(n);
   std::vector<double> lamp(m);
   std::vector<double> zl(m);

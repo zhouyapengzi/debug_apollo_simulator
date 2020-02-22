@@ -27,6 +27,7 @@ namespace planning {
 
 CosThetaIpoptInterface::CosThetaIpoptInterface(
     std::vector<std::pair<double, double>> points, std::vector<double> bounds) {
+AINFO<<"(DMCZP) EnteringMethod: CosThetaIpoptInterface::CosThetaIpoptInterface";
   CHECK_GT(points.size(), 1);
   CHECK_GT(bounds.size(), 1);
   bounds_ = std::move(bounds);
@@ -36,6 +37,7 @@ CosThetaIpoptInterface::CosThetaIpoptInterface(
 
 void CosThetaIpoptInterface::get_optimization_results(
     std::vector<double>* ptr_x, std::vector<double>* ptr_y) const {
+AINFO<<"(DMCZP) EnteringMethod: CosThetaIpoptInterface::get_optimization_results";
   *ptr_x = opt_x_;
   *ptr_y = opt_y_;
 }
@@ -43,6 +45,7 @@ void CosThetaIpoptInterface::get_optimization_results(
 bool CosThetaIpoptInterface::get_nlp_info(int& n, int& m, int& nnz_jac_g,
                                           int& nnz_h_lag,
                                           IndexStyleEnum& index_style) {
+AINFO<<"(DMCZP) EnteringMethod: CosThetaIpoptInterface::get_nlp_info";
   // number of variables
   n = static_cast<int>(num_of_points_ << 1);
   num_of_variables_ = n;
@@ -72,6 +75,7 @@ bool CosThetaIpoptInterface::get_nlp_info(int& n, int& m, int& nnz_jac_g,
 
 bool CosThetaIpoptInterface::get_bounds_info(int n, double* x_l, double* x_u,
                                              int m, double* g_l, double* g_u) {
+AINFO<<"(DMCZP) EnteringMethod: CosThetaIpoptInterface::get_bounds_info";
   CHECK_EQ(static_cast<size_t>(n), num_of_variables_);
   CHECK_EQ(static_cast<size_t>(m), num_of_constraints_);
   // variables
@@ -117,6 +121,7 @@ bool CosThetaIpoptInterface::get_starting_point(int n, bool init_x, double* x,
                                                 double* z_U, int m,
                                                 bool init_lambda,
                                                 double* lambda) {
+AINFO<<"(DMCZP) EnteringMethod: CosThetaIpoptInterface::get_starting_point";
   CHECK_EQ(static_cast<size_t>(n), num_of_variables_);
   std::random_device rd;
   std::default_random_engine gen = std::default_random_engine(rd());
@@ -131,6 +136,7 @@ bool CosThetaIpoptInterface::get_starting_point(int n, bool init_x, double* x,
 
 bool CosThetaIpoptInterface::eval_f(int n, const double* x, bool new_x,
                                     double& obj_value) {
+AINFO<<"(DMCZP) EnteringMethod: CosThetaIpoptInterface::eval_f";
   CHECK_EQ(static_cast<size_t>(n), num_of_variables_);
   if (use_automatic_differentiation_) {
     eval_obj(n, x, &obj_value);
@@ -165,6 +171,7 @@ bool CosThetaIpoptInterface::eval_f(int n, const double* x, bool new_x,
 
 bool CosThetaIpoptInterface::eval_grad_f(int n, const double* x, bool new_x,
                                          double* grad_f) {
+AINFO<<"(DMCZP) EnteringMethod: CosThetaIpoptInterface::eval_grad_f";
   CHECK_EQ(static_cast<size_t>(n), num_of_variables_);
 
   if (use_automatic_differentiation_) {
@@ -230,6 +237,7 @@ bool CosThetaIpoptInterface::eval_grad_f(int n, const double* x, bool new_x,
 
 bool CosThetaIpoptInterface::eval_g(int n, const double* x, bool new_x, int m,
                                     double* g) {
+AINFO<<"(DMCZP) EnteringMethod: CosThetaIpoptInterface::eval_g";
   CHECK_EQ(static_cast<size_t>(n), num_of_variables_);
   CHECK_EQ(static_cast<size_t>(m), num_of_constraints_);
 
@@ -249,6 +257,7 @@ bool CosThetaIpoptInterface::eval_g(int n, const double* x, bool new_x, int m,
 bool CosThetaIpoptInterface::eval_jac_g(int n, const double* x, bool new_x,
                                         int m, int nele_jac, int* iRow,
                                         int* jCol, double* values) {
+AINFO<<"(DMCZP) EnteringMethod: CosThetaIpoptInterface::eval_jac_g";
   CHECK_EQ(static_cast<size_t>(n), num_of_variables_);
   CHECK_EQ(static_cast<size_t>(m), num_of_constraints_);
 
@@ -294,6 +303,7 @@ bool CosThetaIpoptInterface::eval_h(int n, const double* x, bool new_x,
                                     const double* lambda, bool new_lambda,
                                     int nele_hess, int* iRow, int* jCol,
                                     double* values) {
+AINFO<<"(DMCZP) EnteringMethod: CosThetaIpoptInterface::eval_h";
   if (use_automatic_differentiation_) {
     if (values == nullptr) {
       // return the structure. This is a symmetric matrix, fill the lower left
@@ -526,6 +536,7 @@ void CosThetaIpoptInterface::finalize_solution(
     const double* z_U, int m, const double* g, const double* lambda,
     double obj_value, const Ipopt::IpoptData* ip_data,
     Ipopt::IpoptCalculatedQuantities* ip_cq) {
+AINFO<<"(DMCZP) EnteringMethod: CosThetaIpoptInterface::finalize_solution";
   opt_x_.reserve(num_of_points_);
   opt_y_.reserve(num_of_points_);
   for (size_t i = 0; i < num_of_points_; ++i) {
@@ -545,24 +556,29 @@ void CosThetaIpoptInterface::finalize_solution(
 
 void CosThetaIpoptInterface::set_automatic_differentiation_flag(
     const bool use_ad) {
+AINFO<<"(DMCZP) EnteringMethod: CosThetaIpoptInterface::set_automatic_differentiation_flag";
   use_automatic_differentiation_ = use_ad;
 }
 
 void CosThetaIpoptInterface::set_weight_cos_included_angle(
     const double weight_cos_included_angle) {
+AINFO<<"(DMCZP) EnteringMethod: CosThetaIpoptInterface::set_weight_cos_included_angle";
   weight_cos_included_angle_ = weight_cos_included_angle;
 }
 
 void CosThetaIpoptInterface::set_weight_anchor_points(
     const double weight_anchor_points) {
+AINFO<<"(DMCZP) EnteringMethod: CosThetaIpoptInterface::set_weight_anchor_points";
   weight_anchor_points_ = weight_anchor_points;
 }
 
 void CosThetaIpoptInterface::set_weight_length(const double weight_length) {
+AINFO<<"(DMCZP) EnteringMethod: CosThetaIpoptInterface::set_weight_length";
   weight_length_ = weight_length;
 }
 
 void CosThetaIpoptInterface::hessian_strcuture() {
+AINFO<<"(DMCZP) EnteringMethod: CosThetaIpoptInterface::hessian_strcuture";
   size_t index = 0;
   for (size_t i = 0; i < 6; ++i) {
     for (size_t j = 0; j <= i; ++j) {
@@ -597,6 +613,7 @@ void CosThetaIpoptInterface::hessian_strcuture() {
 /** Template to return the objective value */
 template <class T>
 bool CosThetaIpoptInterface::eval_obj(int n, const T* x, T* obj_value) {
+AINFO<<"(DMCZP) EnteringMethod: CosThetaIpoptInterface::eval_obj";
   *obj_value = 0.0;
   for (size_t i = 0; i < num_of_points_; ++i) {
     size_t index = i << 1;
@@ -637,6 +654,7 @@ bool CosThetaIpoptInterface::eval_obj(int n, const T* x, T* obj_value) {
 /** Template to compute contraints */
 template <class T>
 bool CosThetaIpoptInterface::eval_constraints(int n, const T* x, int m, T* g) {
+AINFO<<"(DMCZP) EnteringMethod: CosThetaIpoptInterface::eval_constraints";
   // fill in the positional deviation constraints
   for (size_t i = 0; i < num_of_points_; ++i) {
     size_t index = i << 1;
@@ -649,6 +667,7 @@ bool CosThetaIpoptInterface::eval_constraints(int n, const T* x, int m, T* g) {
 /** Method to generate the required tapes */
 void CosThetaIpoptInterface::generate_tapes(int n, int m, int* nnz_jac_g,
                                             int* nnz_h_lag) {
+AINFO<<"(DMCZP) EnteringMethod: CosThetaIpoptInterface::generate_tapes";
   std::vector<double> xp(n, 0.0);
   std::vector<double> lamp(m, 0.0);
   std::vector<double> zl(m, 0.0);

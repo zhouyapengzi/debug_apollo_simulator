@@ -37,6 +37,7 @@ using hdmap::HDMapUtil;
 using perception::TrafficLight;
 
 void TrafficLightProtectedScenario::Init() {
+AINFO<<"(DMCZP) EnteringMethod: TrafficLightProtectedScenario::Init";
   if (init_) {
     return;
   }
@@ -81,6 +82,7 @@ apollo::common::util::Factory<
     TrafficLightProtectedScenario::s_stage_factory_;
 
 void TrafficLightProtectedScenario::RegisterStages() {
+AINFO<<"(DMCZP) EnteringMethod: TrafficLightProtectedScenario::RegisterStages";
   if (!s_stage_factory_.Empty()) {
     s_stage_factory_.Clear();
   }
@@ -113,6 +115,7 @@ std::unique_ptr<Stage> TrafficLightProtectedScenario::CreateStage(
  * read scenario specific configs and set in context_ for stages to read
  */
 bool TrafficLightProtectedScenario::GetScenarioConfig() {
+AINFO<<"(DMCZP) EnteringMethod: TrafficLightProtectedScenario::GetScenarioConfig";
   if (!config_.has_traffic_light_protected_config()) {
     AERROR << "miss scenario specific config";
     return false;

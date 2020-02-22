@@ -43,13 +43,16 @@ using base::RoadBoundary;
 // HDMapInput
 
 HDMapInput::HDMapInput() {}
+AINFO<<"(DMCZP) EnteringMethod: HDMapInput::HDMapInput";
 
 bool HDMapInput::Init() {
+AINFO<<"(DMCZP) EnteringMethod: HDMapInput::Init";
   lib::MutexLock lock(&mutex_);
   return InitInternal();
 }
 
 bool HDMapInput::InitInternal() {
+AINFO<<"(DMCZP) EnteringMethod: HDMapInput::InitInternal";
   if (inited_) {
     return true;
   }
@@ -61,12 +64,14 @@ bool HDMapInput::InitInternal() {
 }
 
 bool HDMapInput::Reset() {
+AINFO<<"(DMCZP) EnteringMethod: HDMapInput::Reset";
   lib::MutexLock lock(&mutex_);
   inited_ = false;
   return InitInternal();
 }
 
 bool HDMapInput::InitHDMap() {
+AINFO<<"(DMCZP) EnteringMethod: HDMapInput::InitHDMap";
   hdmap_.reset(new apollo::hdmap::HDMap());
   const std::string model_name = "HDMapInput";
   const lib::ModelConfig* model_config = nullptr;
@@ -104,6 +109,7 @@ bool HDMapInput::InitHDMap() {
 bool HDMapInput::GetRoiHDMapStruct(
     const base::PointD& pointd, const double distance,
     std::shared_ptr<base::HdmapStruct> hdmap_struct_ptr) {
+AINFO<<"(DMCZP) EnteringMethod: HDMapInput::GetRoiHDMapStruct";
   lib::MutexLock lock(&mutex_);
   CHECK_NOTNULL(hdmap_.get());
   // Get original road boundary and junction
@@ -144,6 +150,7 @@ void HDMapInput::MergeBoundaryJunction(
     std::vector<base::RoadBoundary>* road_boundaries_ptr,
     std::vector<base::PolygonDType>* road_polygons_ptr,
     std::vector<base::PolygonDType>* junction_polygons_ptr) {
+AINFO<<"(DMCZP) EnteringMethod: HDMapInput::MergeBoundaryJunction";
   const int boundary_size = static_cast<int>(boundary.size());
   const int junctions_size = static_cast<int>(junctions.size());
   const int polygon_size = boundary_size;
@@ -228,6 +235,7 @@ bool HDMapInput::GetRoadBoundaryFilteredByJunctions(
     const std::vector<base::RoadBoundary>& road_boundaries,
     const std::vector<base::PointCloud<PointD>>& junctions,
     std::vector<base::RoadBoundary>* flt_road_boundaries_ptr) {
+AINFO<<"(DMCZP) EnteringMethod: HDMapInput::GetRoadBoundaryFilteredByJunctions";
   for (size_t n_rd = 0; n_rd < road_boundaries.size(); ++n_rd) {
     const base::RoadBoundary& temp_road_boundary = road_boundaries[n_rd];
     std::vector<base::PolygonDType> temp_left_boundary_vec;
@@ -258,6 +266,7 @@ bool HDMapInput::GetRoadBoundaryFilteredByJunctions(
 void HDMapInput::DownsamplePoints(const base::PointDCloudPtr& raw_cloud_ptr,
                                   base::PointCloud<base::PointD>* polygon_ptr,
                                   size_t min_points_num_for_sample) const {
+AINFO<<"(DMCZP) EnteringMethod: HDMapInput::DownsamplePoints";
   const PointDCloud& raw_cloud = *raw_cloud_ptr;
   unsigned int spt = 0;
   double acos_theta = 0.0;
@@ -307,6 +316,7 @@ void HDMapInput::SplitBoundary(
     const base::PointCloud<base::PointD>& boundary_line,
     const std::vector<base::PointCloud<base::PointD>>& junctions,
     std::vector<base::PointCloud<base::PointD>>* boundary_line_vec_ptr) {
+AINFO<<"(DMCZP) EnteringMethod: HDMapInput::SplitBoundary";
   std::vector<bool> boundary_flag(boundary_line.size());
   for (size_t npt = 0; npt < boundary_line.size(); ++npt) {
     const PointD& pointd = boundary_line[npt];
@@ -350,6 +360,7 @@ void HDMapInput::SplitBoundary(
 
 bool HDMapInput::GetNearestLaneDirection(const base::PointD& pointd,
                                          Eigen::Vector3d* lane_direction) {
+AINFO<<"(DMCZP) EnteringMethod: HDMapInput::GetNearestLaneDirection";
   // if (hdmap_ == nullptr) {
   //   return false;
   // }
@@ -380,6 +391,7 @@ bool HDMapInput::GetNearestLaneDirection(const base::PointD& pointd,
 bool HDMapInput::GetSignalsFromHDMap(
     const Eigen::Vector3d& pointd, double forward_distance,
     std::vector<apollo::hdmap::Signal>* signals) {
+AINFO<<"(DMCZP) EnteringMethod: HDMapInput::GetSignalsFromHDMap";
   apollo::common::PointENU point;
   point.set_x(pointd(0));
   point.set_y(pointd(1));
@@ -404,6 +416,7 @@ bool HDMapInput::GetSignalsFromHDMap(
 bool HDMapInput::GetSignals(const Eigen::Vector3d& pointd,
                             double forward_distance,
                             std::vector<apollo::hdmap::Signal>* signals) {
+AINFO<<"(DMCZP) EnteringMethod: HDMapInput::GetSignals";
   lib::MutexLock lock(&mutex_);
   CHECK_NOTNULL(hdmap_.get());
   return GetSignalsFromHDMap(pointd, forward_distance, signals);

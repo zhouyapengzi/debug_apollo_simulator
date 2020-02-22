@@ -33,6 +33,7 @@ namespace cyber {
 namespace transport {
 
 TEST(AttributesFillerTest, fill_in_pub_attr_test) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   QosProfile qos;
   AttributesFiller filler;
   eprosima::fastrtps::PublisherAttributes attrs;
@@ -91,6 +92,7 @@ TEST(AttributesFillerTest, fill_in_pub_attr_test) {
 }
 
 TEST(AttributesFillerTest, fill_in_sub_attr_test) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   QosProfile qos;
   AttributesFiller filler;
   eprosima::fastrtps::SubscriberAttributes attrs;
@@ -136,11 +138,13 @@ TEST(AttributesFillerTest, fill_in_sub_attr_test) {
 }
 
 TEST(ParticipantTest, participant_test) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   eprosima::fastrtps::ParticipantListener listener;
   eprosima::fastrtps::ParticipantListener listener1;
 }
 
 TEST(UnderlayMessageTest, underlay_message_test) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   UnderlayMessage message;
   message.timestamp(1024);
   int32_t& t = message.timestamp();

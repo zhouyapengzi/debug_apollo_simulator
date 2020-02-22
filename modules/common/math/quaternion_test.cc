@@ -25,6 +25,7 @@ namespace common {
 namespace math {
 
 TEST(QuaternionTest, QuaternionToHeading) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   const double v = sqrt(0.5);  // = cos(pi / 4) = sin(pi / 4)
   EXPECT_DOUBLE_EQ(0,
                    QuaternionToHeading(v, 0.0, 0.0, -v));  // Pointing to east.
@@ -47,6 +48,7 @@ TEST(QuaternionTest, QuaternionToHeading) {
 }
 
 TEST(QuaternionTest, QuaternionRotate) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   apollo::common::Quaternion q;
   q.set_qx(0.016590540978116377);
   q.set_qy(0.012968083311103572);
@@ -63,6 +65,7 @@ TEST(QuaternionTest, QuaternionRotate) {
 }
 
 TEST(QuaternionTest, InverseQuaternionRotate) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   apollo::common::Quaternion q;
   q.set_qx(0.016590540978116377);
   q.set_qy(0.012968083311103572);

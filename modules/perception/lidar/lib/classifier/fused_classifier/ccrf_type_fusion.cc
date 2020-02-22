@@ -31,6 +31,7 @@ using apollo::cyber::common::GetAbsolutePath;
 using apollo::perception::base::ObjectType;
 
 bool CCRFOneShotTypeFusion::Init(const TypeFusionInitOption& option) {
+AINFO<<"(DMCZP) EnteringMethod: CCRFOneShotTypeFusion::Init";
   auto config_manager = lib::ConfigManager::Instance();
   const lib::ModelConfig* model_config = nullptr;
   CHECK(config_manager->GetModelConfig(Name(), &model_config));
@@ -68,6 +69,7 @@ bool CCRFOneShotTypeFusion::Init(const TypeFusionInitOption& option) {
 
 bool CCRFOneShotTypeFusion::TypeFusion(const TypeFusionOption& option,
                                        ObjectPtr object) {
+AINFO<<"(DMCZP) EnteringMethod: CCRFOneShotTypeFusion::TypeFusion";
   if (object == nullptr) {
     return false;
   }
@@ -86,6 +88,7 @@ bool CCRFOneShotTypeFusion::TypeFusion(const TypeFusionOption& option,
 
 bool CCRFOneShotTypeFusion::FuseOneShotTypeProbs(const ObjectPtr& object,
                                                  Vectord* log_prob) {
+AINFO<<"(DMCZP) EnteringMethod: CCRFOneShotTypeFusion::FuseOneShotTypeProbs";
   if (object == nullptr) {
     return false;
   }
@@ -124,6 +127,7 @@ bool CCRFOneShotTypeFusion::FuseOneShotTypeProbs(const ObjectPtr& object,
 }
 
 bool CCRFSequenceTypeFusion::Init(const TypeFusionInitOption& option) {
+AINFO<<"(DMCZP) EnteringMethod: CCRFSequenceTypeFusion::Init";
   CHECK(one_shot_fuser_.Init(option));
   auto config_manager = lib::ConfigManager::Instance();
   const lib::ModelConfig* model_config = nullptr;
@@ -158,6 +162,7 @@ bool CCRFSequenceTypeFusion::Init(const TypeFusionInitOption& option) {
 
 bool CCRFSequenceTypeFusion::TypeFusion(const TypeFusionOption& option,
                                         TrackedObjects* tracked_objects) {
+AINFO<<"(DMCZP) EnteringMethod: CCRFSequenceTypeFusion::TypeFusion";
   if (tracked_objects == nullptr) {
     return false;
   }
@@ -169,6 +174,7 @@ bool CCRFSequenceTypeFusion::TypeFusion(const TypeFusionOption& option,
 
 bool CCRFSequenceTypeFusion::FuseWithConditionalProbabilityInference(
     TrackedObjects* tracked_objects) {
+AINFO<<"(DMCZP) EnteringMethod: CCRFSequenceTypeFusion::FuseWithConditionalProbabilityInference";
   // AINFO << "Enter fuse with conditional probability inference";
   fused_oneshot_probs_.resize(tracked_objects->size());
 
@@ -218,6 +224,7 @@ bool CCRFSequenceTypeFusion::FuseWithConditionalProbabilityInference(
 bool CCRFSequenceTypeFusion::RecoverFromLogProbability(Vectord* prob,
                                                        std::vector<float>* dst,
                                                        ObjectType* type) {
+AINFO<<"(DMCZP) EnteringMethod: CCRFSequenceTypeFusion::RecoverFromLogProbability";
   util::ToExpStable(prob);
   util::Normalize(prob);
   util::FromEigenToVector(*prob, dst);

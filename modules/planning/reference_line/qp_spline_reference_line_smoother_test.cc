@@ -71,6 +71,7 @@ class QpSplineReferenceLineSmootherTest : public ::testing::Test {
 };
 
 TEST_F(QpSplineReferenceLineSmootherTest, smooth) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   ReferenceLine smoothed_reference_line;
   EXPECT_DOUBLE_EQ(153.87421245682503, reference_line_->Length());
   std::vector<AnchorPoint> anchor_points;

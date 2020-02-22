@@ -29,6 +29,7 @@ namespace apollo {
 namespace planning {
 
 void SpeedLimit::AppendSpeedLimit(const double s, const double v) {
+AINFO<<"(DMCZP) EnteringMethod: SpeedLimit::AppendSpeedLimit";
   if (!speed_limit_points_.empty()) {
     DCHECK_GE(s, speed_limit_points_.back().first);
   }
@@ -41,6 +42,7 @@ const std::vector<std::pair<double, double>>& SpeedLimit::speed_limit_points()
 }
 
 double SpeedLimit::GetSpeedLimitByS(const double s) const {
+AINFO<<"(DMCZP) EnteringMethod: SpeedLimit::GetSpeedLimitByS";
   CHECK_GE(speed_limit_points_.size(), 2);
   DCHECK_GE(s, speed_limit_points_.front().first);
 
@@ -58,6 +60,7 @@ double SpeedLimit::GetSpeedLimitByS(const double s) const {
 }
 
 void SpeedLimit::Clear() { speed_limit_points_.clear(); }
+AINFO<<"(DMCZP) EnteringMethod: SpeedLimit::Clear";
 
 }  // namespace planning
 }  // namespace apollo

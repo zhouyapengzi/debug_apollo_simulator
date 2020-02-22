@@ -28,6 +28,7 @@ namespace cyber {
 namespace io {
 
 TEST(PollerTest, operation) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   auto poller = Poller::Instance();
   ASSERT_NE(poller, nullptr);
   std::this_thread::sleep_for(std::chrono::milliseconds(10));
@@ -104,6 +105,7 @@ TEST(PollerTest, operation) {
 }  // namespace apollo
 
 int main(int argc, char** argv) {
+AINFO<<"(DMCZP) EnteringMethod: main";
   testing::InitGoogleTest(&argc, argv);
   apollo::cyber::Init(argv[0]);
   return RUN_ALL_TESTS();

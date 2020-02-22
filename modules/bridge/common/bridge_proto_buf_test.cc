@@ -26,6 +26,7 @@ namespace apollo {
 namespace bridge {
 
 TEST(BridgeProtoBufTest, Simple) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   cyber::Init("bridge_proto_buf_test");
   BridgeProtoSerializedBuf<planning::ADCTrajectory> proto_buf;
 

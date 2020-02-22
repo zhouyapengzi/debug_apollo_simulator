@@ -32,14 +32,17 @@ using common::TrajectoryPoint;
 PullOverStageRetryApproachParking::PullOverStageRetryApproachParking(
     const ScenarioConfig::StageConfig& config)
     : Stage(config) {}
+AINFO<<"(DMCZP) EnteringMethod: PullOverStageRetryApproachParking::PullOverStageRetryApproachParking";
 
 Stage::StageStatus PullOverStageRetryApproachParking::FinishStage() {
+AINFO<<"(DMCZP) EnteringMethod: PullOverStageRetryApproachParking::FinishStage";
   next_stage_ = ScenarioConfig::PULL_OVER_RETRY_PARKING;
   return Stage::FINISHED;
 }
 
 Stage::StageStatus PullOverStageRetryApproachParking::Process(
     const TrajectoryPoint& planning_init_point, Frame* frame) {
+AINFO<<"(DMCZP) EnteringMethod: PullOverStageRetryApproachParking::Process";
   ADEBUG << "stage: RetryApproachParking";
   CHECK_NOTNULL(frame);
 
@@ -58,6 +61,7 @@ Stage::StageStatus PullOverStageRetryApproachParking::Process(
 }
 
 bool PullOverStageRetryApproachParking::CheckADCStop(const Frame& frame) {
+AINFO<<"(DMCZP) EnteringMethod: PullOverStageRetryApproachParking::CheckADCStop";
   const auto& reference_line_info = frame.reference_line_info().front();
   const double adc_speed =
       common::VehicleStateProvider::Instance()->linear_velocity();

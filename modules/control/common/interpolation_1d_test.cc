@@ -42,6 +42,7 @@ class Interpolation1DTest : public ::testing::Test {
 };
 
 TEST_F(Interpolation1DTest, normal) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   Interpolation1D::DataType xy{{0, 0}, {15, 12}, {30, 17}};
 
   Interpolation1D estimator;
@@ -61,6 +62,7 @@ TEST_F(Interpolation1DTest, normal) {
 }
 
 TEST_F(Interpolation1DTest, unordered) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   Interpolation1D::DataType xy{{15, 12}, {5, 5}, {40, 25}, {30, 17}};
 
   Interpolation1D estimator;
@@ -72,6 +74,7 @@ TEST_F(Interpolation1DTest, unordered) {
 }
 
 TEST_F(Interpolation1DTest, gain_scheduler) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   const auto& gain_scheduler =
       control_conf_.lat_controller_conf().lat_err_gain_scheduler();
   AINFO << "Lateral Error Gain Scheduler:" << gain_scheduler.DebugString();

@@ -26,11 +26,13 @@ namespace common {
 namespace math {
 
 TEST(Angle, SIN_TABLE) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   EXPECT_FLOAT_EQ(0.0f, SIN_TABLE[0]);
   EXPECT_FLOAT_EQ(1.0f, SIN_TABLE[16384]);
 }
 
 TEST(Angle, Angle8) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   auto a = Angle8::from_deg(90.0);
   EXPECT_DOUBLE_EQ(90.0, a.to_deg());
   EXPECT_DOUBLE_EQ(M_PI_2, a.to_rad());
@@ -39,6 +41,7 @@ TEST(Angle, Angle8) {
 }
 
 TEST(Angle, Angle16) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   auto a = Angle16(1);
   EXPECT_DOUBLE_EQ(180.0 / 32768, a.to_deg());
 
@@ -48,12 +51,14 @@ TEST(Angle, Angle16) {
 }
 
 TEST(Angle, Angle32) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   auto a = Angle32::from_rad(1.0);
   EXPECT_NEAR(180 / M_PI, a.to_deg(), 1e-7);
   EXPECT_NEAR(1.0, a.to_rad(), 1e-9);
 }
 
 TEST(Angle, operators) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   auto a = Angle16::from_deg(100.0);
   auto b = a;
   a += b;

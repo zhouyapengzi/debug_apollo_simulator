@@ -32,6 +32,7 @@ using apollo::cyber::Reader;
 using apollo::cyber::Writer;
 
 int main(int32_t argc, char **argv) {
+AINFO<<"(DMCZP) EnteringMethod: main";
   google::InitGoogleLogging(argv[0]);
   google::ParseCommandLineFlags(&argc, &argv, true);
   FLAGS_alsologtostderr = true;

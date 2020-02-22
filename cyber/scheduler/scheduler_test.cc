@@ -31,8 +31,10 @@ namespace cyber {
 namespace scheduler {
 
 void proc() {}
+AINFO<<"(DMCZP) EnteringMethod: proc";
 
 TEST(SchedulerTest, create_task) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   GlobalData::Instance()->SetProcessGroup("example_sched_classic");
   auto sched = Instance();
   cyber::Init("scheduler_test");
@@ -53,6 +55,7 @@ TEST(SchedulerTest, create_task) {
 }
 
 TEST(SchedulerTest, notify_task) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   auto sched = Instance();
   cyber::Init("scheduler_test");
   std::string name = "croutine";

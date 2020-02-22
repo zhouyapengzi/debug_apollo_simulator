@@ -30,6 +30,7 @@ using common::time::TimeUtil;
 
 LocalizationInteg::LocalizationInteg()
     : localization_integ_impl_(new LocalizationIntegImpl()) {}
+AINFO<<"(DMCZP) EnteringMethod: LocalizationInteg::LocalizationInteg";
 
 LocalizationInteg::~LocalizationInteg() {
   delete localization_integ_impl_;
@@ -37,10 +38,12 @@ LocalizationInteg::~LocalizationInteg() {
 }
 
 Status LocalizationInteg::Init(const LocalizationIntegParam &params) {
+AINFO<<"(DMCZP) EnteringMethod: LocalizationInteg::Init";
   return localization_integ_impl_->Init(params);
 }
 
 void LocalizationInteg::PcdProcess(const drivers::PointCloud &message) {
+AINFO<<"(DMCZP) EnteringMethod: LocalizationInteg::PcdProcess";
   LidarFrame lidar_frame;
   LidarMsgTransfer transfer;
   transfer.Transfer(message, &lidar_frame);
@@ -49,6 +52,7 @@ void LocalizationInteg::PcdProcess(const drivers::PointCloud &message) {
 }
 
 void LocalizationInteg::RawImuProcessFlu(const drivers::gnss::Imu &imu_msg) {
+AINFO<<"(DMCZP) EnteringMethod: LocalizationInteg::RawImuProcessFlu";
   ImuData imu;
   TransferImuFlu(imu_msg, &imu);
   localization_integ_impl_->RawImuProcessRfu(imu);
@@ -56,6 +60,7 @@ void LocalizationInteg::RawImuProcessFlu(const drivers::gnss::Imu &imu_msg) {
 }
 
 void LocalizationInteg::RawImuProcessRfu(const drivers::gnss::Imu &imu_msg) {
+AINFO<<"(DMCZP) EnteringMethod: LocalizationInteg::RawImuProcessRfu";
   ImuData imu;
   TransferImuRfu(imu_msg, &imu);
   localization_integ_impl_->RawImuProcessRfu(imu);
@@ -64,30 +69,37 @@ void LocalizationInteg::RawImuProcessRfu(const drivers::gnss::Imu &imu_msg) {
 
 void LocalizationInteg::RawObservationProcess(
     const drivers::gnss::EpochObservation &raw_obs_msg) {
+AINFO<<"(DMCZP) EnteringMethod: LocalizationInteg::RawObservationProcess";
   localization_integ_impl_->RawObservationProcess(raw_obs_msg);
   return;
 }
 
 void LocalizationInteg::RawEphemerisProcess(
     const drivers::gnss::GnssEphemeris &gnss_orbit_msg) {
+AINFO<<"(DMCZP) EnteringMethod: LocalizationInteg::RawEphemerisProcess";
   localization_integ_impl_->RawEphemerisProcess(gnss_orbit_msg);
   return;
 }
 
 void LocalizationInteg::GnssBestPoseProcess(
     const drivers::gnss::GnssBestPose &bestgnsspos_msg) {
+AINFO<<"(DMCZP) EnteringMethod: LocalizationInteg::GnssBestPoseProcess";
   localization_integ_impl_->GnssBestPoseProcess(bestgnsspos_msg);
   return;
 }
 
 void LocalizationInteg::GnssHeadingProcess(
     const drivers::gnss::Heading &gnssheading_msg) {
+AINFO<<"(DMCZP) EnteringMethod: LocalizationInteg::GnssHeadingProcess";
   localization_integ_impl_->GnssHeadingProcess(gnssheading_msg);
   return;
 }
 
 const LocalizationResult &LocalizationInteg::GetLastestLidarLocalization()
     const {
+AINFO<<"(DMCZP) EnteringMethod: &LocalizationInteg::GetLastestLidarLocalization";
+AINFO<<"(DMCZP) EnteringMethod: &LocalizationInteg::GetLastestIntegLocalization";
+AINFO<<"(DMCZP) EnteringMethod: &LocalizationInteg::GetLastestGnssLocalization";
   return localization_integ_impl_->GetLastestLidarLocalization();
 }
 
@@ -103,6 +115,7 @@ const LocalizationResult &LocalizationInteg::GetLastestGnssLocalization()
 
 void LocalizationInteg::TransferImuRfu(const drivers::gnss::Imu &imu_msg,
                                        ImuData *imu_rfu) {
+AINFO<<"(DMCZP) EnteringMethod: LocalizationInteg::TransferImuRfu";
   CHECK_NOTNULL(imu_rfu);
 
   double measurement_time = TimeUtil::Gps2unix(imu_msg.measurement_time());
@@ -119,6 +132,7 @@ void LocalizationInteg::TransferImuRfu(const drivers::gnss::Imu &imu_msg,
 
 void LocalizationInteg::TransferImuFlu(const drivers::gnss::Imu &imu_msg,
                                        ImuData *imu_flu) {
+AINFO<<"(DMCZP) EnteringMethod: LocalizationInteg::TransferImuFlu";
   CHECK_NOTNULL(imu_flu);
 
   double measurement_time = TimeUtil::Gps2unix(imu_msg.measurement_time());

@@ -20,6 +20,7 @@ namespace perception {
 namespace base {
 
 TEST(ImageTest, image8u_test) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   {
     Image8U image;
     EXPECT_EQ(image.rows(), 0);

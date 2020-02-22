@@ -37,6 +37,7 @@ using cyber::common::GetAbsolutePath;
 
 bool ObstacleCameraPerception::Init(
     const CameraPerceptionInitOptions &options) {
+AINFO<<"(DMCZP) EnteringMethod: ObstacleCameraPerception::Init";
   std::string work_root = "";
   if (options.use_cyber_work_root) {
     work_root = GetCyberWorkRoot();
@@ -186,6 +187,8 @@ bool ObstacleCameraPerception::Init(
 void ObstacleCameraPerception::InitLane(
     const std::string &work_root, const base::BaseCameraModelPtr model,
     const app::PerceptionParam &perception_param) {
+AINFO<<"(DMCZP) EnteringMethod: ObstacleCameraPerception::InitLane";
+AINFO<<"(DMCZP) EnteringMethod: ObstacleCameraPerception::InitCalibrationService";
   // Init lane
   CHECK(perception_param.has_lane_param()) << "Failed to include lane_param.";
   {
@@ -282,6 +285,7 @@ void ObstacleCameraPerception::SetCameraHeightAndPitch(
     const std::map<std::string, float> &name_camera_ground_height_map,
     const std::map<std::string, float> &name_camera_pitch_angle_diff_map,
     const float &pitch_angle_calibrator_working_sensor) {
+AINFO<<"(DMCZP) EnteringMethod: ObstacleCameraPerception::SetCameraHeightAndPitch";
   CHECK(calibration_service_ != nullptr);
   calibration_service_->SetCameraHeightAndPitch(
       name_camera_ground_height_map, name_camera_pitch_angle_diff_map,
@@ -290,18 +294,21 @@ void ObstacleCameraPerception::SetCameraHeightAndPitch(
 
 void ObstacleCameraPerception::SetIm2CarHomography(
     Eigen::Matrix3d homography_im2car) {
+AINFO<<"(DMCZP) EnteringMethod: ObstacleCameraPerception::SetIm2CarHomography";
   CHECK(calibration_service_ != nullptr);
   lane_postprocessor_->SetIm2CarHomography(homography_im2car);
 }
 
 bool ObstacleCameraPerception::GetCalibrationService(
     BaseCalibrationService **calibration_service) {
+AINFO<<"(DMCZP) EnteringMethod: ObstacleCameraPerception::GetCalibrationService";
   *calibration_service = calibration_service_.get();
   return true;
 }
 
 bool ObstacleCameraPerception::Perception(
     const CameraPerceptionOptions &options, CameraFrame *frame) {
+AINFO<<"(DMCZP) EnteringMethod: ObstacleCameraPerception::Perception";
 
   AINFO<<"(pengzi) begin obstacle camera perception" <<".thread:"<< std::this_thread::get_id();
 

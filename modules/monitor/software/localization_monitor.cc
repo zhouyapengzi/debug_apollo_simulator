@@ -33,6 +33,9 @@ DEFINE_string(localization_component_name, "Localization",
               "Localization component name.");
 
 namespace apollo {
+AINFO<<"(DMCZP) EnteringMethod: DEFINE_string";
+AINFO<<"(DMCZP) EnteringMethod: DEFINE_double";
+AINFO<<"(DMCZP) EnteringMethod: DEFINE_string";
 namespace monitor {
 using apollo::common::util::StrCat;
 using apollo::localization::LocalizationStatus;
@@ -41,8 +44,10 @@ using apollo::localization::MeasureState;
 LocalizationMonitor::LocalizationMonitor()
     : RecurrentRunner(FLAGS_localization_monitor_name,
                       FLAGS_localization_monitor_interval) {}
+AINFO<<"(DMCZP) EnteringMethod: LocalizationMonitor::LocalizationMonitor";
 
 void LocalizationMonitor::RunOnce(const double current_time) {
+AINFO<<"(DMCZP) EnteringMethod: LocalizationMonitor::RunOnce";
   auto manager = MonitorManager::Instance();
   auto* component = apollo::common::util::FindOrNull(
       *manager->GetStatus()->mutable_components(),

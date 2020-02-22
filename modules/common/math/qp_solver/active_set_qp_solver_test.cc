@@ -29,6 +29,7 @@ namespace math {
 using Eigen::MatrixXd;
 
 TEST(ActiveSetQpSolver, simple_problem_01) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   MatrixXd kernel_matrix = MatrixXd::Zero(1, 1);
   kernel_matrix(0, 0) = 1.0;
   MatrixXd offset = MatrixXd::Zero(1, 1);

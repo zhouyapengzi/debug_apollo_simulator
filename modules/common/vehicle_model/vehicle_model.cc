@@ -27,6 +27,7 @@ void VehicleModel::RearCenteredKinematicBicycleModel(
     const VehicleParam& vehicle_param, const double predicted_time_horizon,
     const VehicleState& cur_vehicle_state,
     VehicleState* predicted_vehicle_state) {
+AINFO<<"(DMCZP) EnteringMethod: VehicleModel::RearCenteredKinematicBicycleModel";
   // Kinematic bicycle model centered at rear axis center by Euler forward
   // discretization
   // Assume constant control command and constant z axis position
@@ -86,6 +87,7 @@ void VehicleModel::RearCenteredKinematicBicycleModel(
 
 VehicleState VehicleModel::Predict(const double predicted_time_horizon,
                                    const VehicleState& cur_vehicle_state) {
+AINFO<<"(DMCZP) EnteringMethod: VehicleModel::Predict";
   VehicleModelConfig vehicle_model_config;
 
   const VehicleParam& vehicle_param =

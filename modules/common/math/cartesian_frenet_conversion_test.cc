@@ -26,6 +26,7 @@ namespace common {
 namespace math {
 
 TEST(TestCartesianFrenetConversion, cartesian_to_frenet_test) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   double rs = 10.0;
   double rx = 0.0;
   double ry = 0.0;

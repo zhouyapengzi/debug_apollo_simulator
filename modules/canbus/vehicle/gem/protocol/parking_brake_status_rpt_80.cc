@@ -28,10 +28,12 @@ namespace gem {
 using ::apollo::drivers::canbus::Byte;
 
 Parkingbrakestatusrpt80::Parkingbrakestatusrpt80() {}
+AINFO<<"(DMCZP) EnteringMethod: Parkingbrakestatusrpt80::Parkingbrakestatusrpt80";
 const int32_t Parkingbrakestatusrpt80::ID = 0x80;
 
 void Parkingbrakestatusrpt80::Parse(const std::uint8_t* bytes, int32_t length,
                                     ChassisDetail* chassis) const {
+AINFO<<"(DMCZP) EnteringMethod: Parkingbrakestatusrpt80::Parse";
   chassis->mutable_gem()
       ->mutable_parking_brake_status_rpt_80()
       ->set_parking_brake_enabled(parking_brake_enabled(bytes, length));
@@ -45,6 +47,7 @@ void Parkingbrakestatusrpt80::Parse(const std::uint8_t* bytes, int32_t length,
 Parking_brake_status_rpt_80::Parking_brake_enabledType
 Parkingbrakestatusrpt80::parking_brake_enabled(const std::uint8_t* bytes,
                                                int32_t length) const {
+AINFO<<"(DMCZP) EnteringMethod: Parkingbrakestatusrpt80::parking_brake_enabled";
   Byte t0(bytes + 0);
   int32_t x = t0.get_byte(0, 1);
 

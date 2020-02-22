@@ -34,17 +34,20 @@ using common::TrajectoryPoint;
 DiscretizedTrajectory::DiscretizedTrajectory(
     const std::vector<TrajectoryPoint>& trajectory_points)
     : std::vector<TrajectoryPoint>(trajectory_points) {
+AINFO<<"(DMCZP) EnteringMethod: DiscretizedTrajectory::DiscretizedTrajectory";
   CHECK(!trajectory_points.empty())
       << "trajectory_points should NOT be empty()";
 }
 
 DiscretizedTrajectory::DiscretizedTrajectory(const ADCTrajectory& trajectory) {
+AINFO<<"(DMCZP) EnteringMethod: DiscretizedTrajectory::DiscretizedTrajectory";
   assign(trajectory.trajectory_point().begin(),
          trajectory.trajectory_point().end());
 }
 
 TrajectoryPoint DiscretizedTrajectory::Evaluate(
     const double relative_time) const {
+AINFO<<"(DMCZP) EnteringMethod: DiscretizedTrajectory::Evaluate";
   auto comp = [](const TrajectoryPoint& p, const double relative_time) {
     return p.relative_time() < relative_time;
   };
@@ -64,6 +67,7 @@ TrajectoryPoint DiscretizedTrajectory::Evaluate(
 
 size_t DiscretizedTrajectory::QueryLowerBoundPoint(const double relative_time,
                                                    const double epsilon) const {
+AINFO<<"(DMCZP) EnteringMethod: DiscretizedTrajectory::QueryLowerBoundPoint";
   CHECK(!empty());
 
   if (relative_time >= back().relative_time()) {
@@ -79,6 +83,7 @@ size_t DiscretizedTrajectory::QueryLowerBoundPoint(const double relative_time,
 
 size_t DiscretizedTrajectory::QueryNearestPoint(
     const common::math::Vec2d& position) const {
+AINFO<<"(DMCZP) EnteringMethod: DiscretizedTrajectory::QueryNearestPoint";
   double dist_sqr_min = std::numeric_limits<double>::max();
   size_t index_min = 0;
   for (size_t i = 0; i < size(); ++i) {
@@ -96,6 +101,7 @@ size_t DiscretizedTrajectory::QueryNearestPoint(
 
 size_t DiscretizedTrajectory::QueryNearestPointWithBuffer(
     const common::math::Vec2d& position, const double buffer) const {
+AINFO<<"(DMCZP) EnteringMethod: DiscretizedTrajectory::QueryNearestPointWithBuffer";
   double dist_sqr_min = std::numeric_limits<double>::max();
   size_t index_min = 0;
   for (size_t i = 0; i < size(); ++i) {
@@ -113,6 +119,7 @@ size_t DiscretizedTrajectory::QueryNearestPointWithBuffer(
 
 void DiscretizedTrajectory::AppendTrajectoryPoint(
     const TrajectoryPoint& trajectory_point) {
+AINFO<<"(DMCZP) EnteringMethod: DiscretizedTrajectory::AppendTrajectoryPoint";
   if (!empty()) {
     CHECK_GT(trajectory_point.relative_time(), back().relative_time());
   }
@@ -121,16 +128,19 @@ void DiscretizedTrajectory::AppendTrajectoryPoint(
 
 const TrajectoryPoint& DiscretizedTrajectory::TrajectoryPointAt(
     const size_t index) const {
+AINFO<<"(DMCZP) EnteringMethod: DiscretizedTrajectory::TrajectoryPointAt";
   CHECK_LT(index, NumOfPoints());
   return data()[index];
 }
 
 TrajectoryPoint DiscretizedTrajectory::StartPoint() const {
+AINFO<<"(DMCZP) EnteringMethod: DiscretizedTrajectory::StartPoint";
   CHECK(!empty());
   return front();
 }
 
 double DiscretizedTrajectory::GetTemporalLength() const {
+AINFO<<"(DMCZP) EnteringMethod: DiscretizedTrajectory::GetTemporalLength";
   if (empty()) {
     return 0.0;
   }
@@ -138,6 +148,7 @@ double DiscretizedTrajectory::GetTemporalLength() const {
 }
 
 double DiscretizedTrajectory::GetSpatialLength() const {
+AINFO<<"(DMCZP) EnteringMethod: DiscretizedTrajectory::GetSpatialLength";
   if (empty()) {
     return 0.0;
   }

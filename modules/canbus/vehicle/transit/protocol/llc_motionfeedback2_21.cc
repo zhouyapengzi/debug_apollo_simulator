@@ -28,10 +28,12 @@ namespace transit {
 using ::apollo::drivers::canbus::Byte;
 
 Llcmotionfeedback221::Llcmotionfeedback221() {}
+AINFO<<"(DMCZP) EnteringMethod: Llcmotionfeedback221::Llcmotionfeedback221";
 const int32_t Llcmotionfeedback221::ID = 0x21;
 
 void Llcmotionfeedback221::Parse(const std::uint8_t* bytes, int32_t length,
                                  ChassisDetail* chassis) const {
+AINFO<<"(DMCZP) EnteringMethod: Llcmotionfeedback221::Parse";
   chassis->mutable_transit()
       ->mutable_llc_motionfeedback2_21()
       ->set_llc_fbk_vehiclespeed(llc_fbk_vehiclespeed(bytes, length));
@@ -56,8 +58,10 @@ void Llcmotionfeedback221::Parse(const std::uint8_t* bytes, int32_t length,
 // 'bit': 32, 'type': 'double', 'order': 'intel', 'physical_unit': 'm/s'}
 double Llcmotionfeedback221::llc_fbk_vehiclespeed(const std::uint8_t* bytes,
                                                   int32_t length) const {
+AINFO<<"(DMCZP) EnteringMethod: Llcmotionfeedback221::llc_fbk_vehiclespeed";
   Byte t0(bytes + 5);
   int32_t x = t0.get_byte(0, 8);
+AINFO<<"(DMCZP) EnteringMethod: Llcmotionfeedback221::llc_fbk_steeringrate";
 
   Byte t1(bytes + 4);
   int32_t t = t1.get_byte(0, 8);
@@ -74,6 +78,7 @@ double Llcmotionfeedback221::llc_fbk_vehiclespeed(const std::uint8_t* bytes,
 // '[0|3]', 'bit': 54, 'type': 'int', 'order': 'intel', 'physical_unit': ''}
 int Llcmotionfeedback221::llc_motionfeedback2_counter(const std::uint8_t* bytes,
                                                       int32_t length) const {
+AINFO<<"(DMCZP) EnteringMethod: Llcmotionfeedback221::llc_motionfeedback2_counter";
   Byte t0(bytes + 6);
   int32_t x = t0.get_byte(6, 2);
 
@@ -87,6 +92,7 @@ int Llcmotionfeedback221::llc_motionfeedback2_counter(const std::uint8_t* bytes,
 // 'int', 'order': 'intel', 'physical_unit': ''}
 int Llcmotionfeedback221::llc_motionfeedback2_checksum(
     const std::uint8_t* bytes, int32_t length) const {
+AINFO<<"(DMCZP) EnteringMethod: Llcmotionfeedback221::llc_motionfeedback2_checksum";
   Byte t0(bytes + 7);
   int32_t x = t0.get_byte(0, 8);
 
@@ -122,6 +128,7 @@ double Llcmotionfeedback221::llc_fbk_steeringrate(const std::uint8_t* bytes,
 // 'type': 'double', 'order': 'intel', 'physical_unit': 'deg'}
 double Llcmotionfeedback221::llc_fbk_steeringangle(const std::uint8_t* bytes,
                                                    int32_t length) const {
+AINFO<<"(DMCZP) EnteringMethod: Llcmotionfeedback221::llc_fbk_steeringangle";
   Byte t0(bytes + 1);
   int32_t x = t0.get_byte(0, 8);
 

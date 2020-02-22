@@ -27,6 +27,7 @@ namespace planning {
 
 FemPosDeviationIpoptInterface::FemPosDeviationIpoptInterface(
     std::vector<std::pair<double, double>> points, std::vector<double> bounds) {
+AINFO<<"(DMCZP) EnteringMethod: FemPosDeviationIpoptInterface::FemPosDeviationIpoptInterface";
   CHECK_GT(points.size(), 1);
   CHECK_GT(bounds.size(), 1);
   bounds_around_refs_ = std::move(bounds);
@@ -36,6 +37,7 @@ FemPosDeviationIpoptInterface::FemPosDeviationIpoptInterface(
 
 void FemPosDeviationIpoptInterface::get_optimization_results(
     std::vector<double>* ptr_x, std::vector<double>* ptr_y) const {
+AINFO<<"(DMCZP) EnteringMethod: FemPosDeviationIpoptInterface::get_optimization_results";
   *ptr_x = opt_x_;
   *ptr_y = opt_y_;
 }
@@ -43,6 +45,7 @@ void FemPosDeviationIpoptInterface::get_optimization_results(
 bool FemPosDeviationIpoptInterface::get_nlp_info(int& n, int& m, int& nnz_jac_g,
                                                  int& nnz_h_lag,
                                                  IndexStyleEnum& index_style) {
+AINFO<<"(DMCZP) EnteringMethod: FemPosDeviationIpoptInterface::get_nlp_info";
   CHECK_GT(num_of_points_, 3);
   // Number of variables
   // Variables include 2D points and curvature constraints slack variable
@@ -79,6 +82,7 @@ bool FemPosDeviationIpoptInterface::get_nlp_info(int& n, int& m, int& nnz_jac_g,
 bool FemPosDeviationIpoptInterface::get_bounds_info(int n, double* x_l,
                                                     double* x_u, int m,
                                                     double* g_l, double* g_u) {
+AINFO<<"(DMCZP) EnteringMethod: FemPosDeviationIpoptInterface::get_bounds_info";
   CHECK_EQ(static_cast<size_t>(n), num_of_variables_);
   CHECK_EQ(static_cast<size_t>(m), num_of_constraints_);
   // variables
@@ -147,6 +151,7 @@ bool FemPosDeviationIpoptInterface::get_starting_point(int n, bool init_x,
                                                        double* z_L, double* z_U,
                                                        int m, bool init_lambda,
                                                        double* lambda) {
+AINFO<<"(DMCZP) EnteringMethod: FemPosDeviationIpoptInterface::get_starting_point";
   CHECK_EQ(static_cast<size_t>(n), num_of_variables_);
   for (size_t i = 0; i < num_of_points_; ++i) {
     size_t index = i * 2;
@@ -163,6 +168,7 @@ bool FemPosDeviationIpoptInterface::get_starting_point(int n, bool init_x,
 
 bool FemPosDeviationIpoptInterface::eval_f(int n, const double* x, bool new_x,
                                            double& obj_value) {
+AINFO<<"(DMCZP) EnteringMethod: FemPosDeviationIpoptInterface::eval_f";
   CHECK_EQ(static_cast<size_t>(n), num_of_variables_);
 
   eval_obj(n, x, &obj_value);
@@ -171,6 +177,7 @@ bool FemPosDeviationIpoptInterface::eval_f(int n, const double* x, bool new_x,
 
 bool FemPosDeviationIpoptInterface::eval_grad_f(int n, const double* x,
                                                 bool new_x, double* grad_f) {
+AINFO<<"(DMCZP) EnteringMethod: FemPosDeviationIpoptInterface::eval_grad_f";
   CHECK_EQ(static_cast<size_t>(n), num_of_variables_);
 
   gradient(tag_f, n, x, grad_f);
@@ -179,6 +186,7 @@ bool FemPosDeviationIpoptInterface::eval_grad_f(int n, const double* x,
 
 bool FemPosDeviationIpoptInterface::eval_g(int n, const double* x, bool new_x,
                                            int m, double* g) {
+AINFO<<"(DMCZP) EnteringMethod: FemPosDeviationIpoptInterface::eval_g";
   CHECK_EQ(static_cast<size_t>(n), num_of_variables_);
   CHECK_EQ(static_cast<size_t>(m), num_of_constraints_);
 
@@ -190,6 +198,7 @@ bool FemPosDeviationIpoptInterface::eval_jac_g(int n, const double* x,
                                                bool new_x, int m, int nele_jac,
                                                int* iRow, int* jCol,
                                                double* values) {
+AINFO<<"(DMCZP) EnteringMethod: FemPosDeviationIpoptInterface::eval_jac_g";
   CHECK_EQ(static_cast<size_t>(n), num_of_variables_);
   CHECK_EQ(static_cast<size_t>(m), num_of_constraints_);
 
@@ -216,6 +225,7 @@ bool FemPosDeviationIpoptInterface::eval_h(int n, const double* x, bool new_x,
                                            bool new_lambda, int nele_hess,
                                            int* iRow, int* jCol,
                                            double* values) {
+AINFO<<"(DMCZP) EnteringMethod: FemPosDeviationIpoptInterface::eval_h";
   if (values == nullptr) {
     // return the structure. This is a symmetric matrix, fill the lower left
     // triangle only.
@@ -246,6 +256,7 @@ void FemPosDeviationIpoptInterface::finalize_solution(
     const double* z_U, int m, const double* g, const double* lambda,
     double obj_value, const Ipopt::IpoptData* ip_data,
     Ipopt::IpoptCalculatedQuantities* ip_cq) {
+AINFO<<"(DMCZP) EnteringMethod: FemPosDeviationIpoptInterface::finalize_solution";
   opt_x_.reserve(num_of_points_);
   opt_y_.reserve(num_of_points_);
   for (size_t i = 0; i < num_of_points_; ++i) {
@@ -266,6 +277,7 @@ void FemPosDeviationIpoptInterface::finalize_solution(
 /** Template to return the objective value */
 template <class T>
 bool FemPosDeviationIpoptInterface::eval_obj(int n, const T* x, T* obj_value) {
+AINFO<<"(DMCZP) EnteringMethod: FemPosDeviationIpoptInterface::eval_obj";
   *obj_value = 0.0;
 
   // Distance to refs
@@ -313,6 +325,7 @@ bool FemPosDeviationIpoptInterface::eval_obj(int n, const T* x, T* obj_value) {
 template <class T>
 bool FemPosDeviationIpoptInterface::eval_constraints(int n, const T* x, int m,
                                                      T* g) {
+AINFO<<"(DMCZP) EnteringMethod: FemPosDeviationIpoptInterface::eval_constraints";
   // a. positional deviation constraints
   for (size_t i = 0; i < num_of_points_; ++i) {
     size_t index = i * 2;
@@ -345,6 +358,7 @@ bool FemPosDeviationIpoptInterface::eval_constraints(int n, const T* x, int m,
 /** Method to generate the required tapes */
 void FemPosDeviationIpoptInterface::generate_tapes(int n, int m, int* nnz_jac_g,
                                                    int* nnz_h_lag) {
+AINFO<<"(DMCZP) EnteringMethod: FemPosDeviationIpoptInterface::generate_tapes";
   std::vector<double> xp(n, 0.0);
   std::vector<double> lamp(m, 0.0);
   std::vector<double> zl(m, 0.0);

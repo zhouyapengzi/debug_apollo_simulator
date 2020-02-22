@@ -23,6 +23,7 @@ namespace cyber {
 
 ParameterServer::ParameterServer(const std::shared_ptr<Node>& node)
     : node_(node) {
+AINFO<<"(DMCZP) EnteringMethod: ParameterServer::ParameterServer";
   auto name = node_->Name();
   get_parameter_service_ = node_->CreateService<ParamName, Param>(
       FixParameterServiceName(name, GET_PARAMETER_SERVICE_NAME),
@@ -58,12 +59,14 @@ ParameterServer::ParameterServer(const std::shared_ptr<Node>& node)
 }
 
 void ParameterServer::SetParameter(const Parameter& parameter) {
+AINFO<<"(DMCZP) EnteringMethod: ParameterServer::SetParameter";
   std::lock_guard<std::mutex> lock(param_map_mutex_);
   param_map_[parameter.Name()] = parameter.ToProtoParam();
 }
 
 bool ParameterServer::GetParameter(const std::string& parameter_name,
                                    Parameter* parameter) {
+AINFO<<"(DMCZP) EnteringMethod: ParameterServer::GetParameter";
   std::lock_guard<std::mutex> lock(param_map_mutex_);
   auto ite = param_map_.find(parameter_name);
   if (ite == param_map_.end()) {
@@ -74,6 +77,7 @@ bool ParameterServer::GetParameter(const std::string& parameter_name,
 }
 
 void ParameterServer::ListParameters(std::vector<Parameter>* parameters) {
+AINFO<<"(DMCZP) EnteringMethod: ParameterServer::ListParameters";
   std::lock_guard<std::mutex> lock(param_map_mutex_);
   for (auto& item : param_map_) {
     Parameter parameter;

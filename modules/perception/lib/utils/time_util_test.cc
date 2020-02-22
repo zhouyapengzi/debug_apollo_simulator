@@ -22,6 +22,7 @@ namespace perception {
 namespace lib {
 
 TEST(TimeUtilTest, TestUnix2Gps) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   double unix_time = 1476761767;
   double gps_time = TimeUtil::Unix2Gps(unix_time);
   EXPECT_NEAR(gps_time, 1160796984, 0.000001);
@@ -32,6 +33,7 @@ TEST(TimeUtilTest, TestUnix2Gps) {
 }
 
 TEST(TimeUtilTest, TestGps2Unix) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   double gps_time = 1160796984;
   double unix_time = TimeUtil::Gps2Unix(gps_time);
   EXPECT_NEAR(unix_time, 1476761767, 0.000001);
@@ -41,6 +43,7 @@ TEST(TimeUtilTest, TestGps2Unix) {
 }
 
 TEST(TimeUtilTest, TestGetCurrentTime) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   for (int i = 0; i < 20; i++) {
     const double unix_time = TimeUtil::GetCurrentTime();
     uint64_t current_time = ::time(NULL);

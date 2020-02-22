@@ -32,6 +32,7 @@ constexpr double kMaxSidePassDistance = 100.0;
 }  // namespace
 
 common::Status AutotuningSpeedMLPModel::SetParams() {
+AINFO<<"(DMCZP) EnteringMethod: AutotuningSpeedMLPModel::SetParams";
   mlp_model_.reset(new AutotuningMLPModel());
   feature_builder_.reset(new AutotuningSpeedFeatureBuilder());
   return common::Status::OK();
@@ -39,6 +40,8 @@ common::Status AutotuningSpeedMLPModel::SetParams() {
 
 double AutotuningSpeedMLPModel::Evaluate(
     const autotuning::TrajectoryFeature& trajectory_feature) const {
+AINFO<<"(DMCZP) EnteringMethod: AutotuningSpeedMLPModel::Evaluate";
+AINFO<<"(DMCZP) EnteringMethod: AutotuningSpeedMLPModel::Evaluate";
   return 0.0;
 }
 
@@ -50,6 +53,8 @@ double AutotuningSpeedMLPModel::Evaluate(
 void AutotuningSpeedMLPModel::FlattenFeatures(
     const autotuning::TrajectoryFeature& feature,
     Eigen::MatrixXd* const flat_feature) const {
+AINFO<<"(DMCZP) EnteringMethod: AutotuningSpeedMLPModel::FlattenFeatures";
+AINFO<<"(DMCZP) EnteringMethod: AutotuningSpeedMLPModel::FlattenFeatures";
   int row_count = feature.point_feature_size();
   int col_count = 21;
   flat_feature->resize(row_count, col_count);

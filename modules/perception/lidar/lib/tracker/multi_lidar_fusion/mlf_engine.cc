@@ -30,6 +30,7 @@ namespace lidar {
 using cyber::common::GetAbsolutePath;
 
 bool MlfEngine::Init(const MultiTargetTrackerInitOptions& options) {
+AINFO<<"(DMCZP) EnteringMethod: MlfEngine::Init";
   auto config_manager = lib::ConfigManager::Instance();
   const lib::ModelConfig* model_config = nullptr;
   CHECK(config_manager->GetModelConfig(Name(), &model_config));
@@ -73,6 +74,7 @@ bool MlfEngine::Init(const MultiTargetTrackerInitOptions& options) {
 
 bool MlfEngine::Track(const MultiTargetTrackerOptions& options,
                       LidarFrame* frame) {
+AINFO<<"(DMCZP) EnteringMethod: MlfEngine::Track";
   // 0. modify objects timestamp if necessary
   if (use_frame_timestamp_) {
     for (auto& object : frame->segmented_objects) {
@@ -118,6 +120,7 @@ bool MlfEngine::Track(const MultiTargetTrackerOptions& options,
 void MlfEngine::SplitAndTransformToTrackedObjects(
     const std::vector<base::ObjectPtr>& objects,
     const base::SensorInfo& sensor_info) {
+AINFO<<"(DMCZP) EnteringMethod: MlfEngine::SplitAndTransformToTrackedObjects";
   std::vector<TrackedObjectPtr> tracked_objects;
   TrackedObjectPool::Instance().BatchGet(objects.size(), &tracked_objects);
   foreground_objects_.clear();
@@ -145,6 +148,7 @@ void MlfEngine::TrackObjectMatchAndAssign(
     const MlfTrackObjectMatcherOptions& match_options,
     const std::vector<TrackedObjectPtr>& objects, const std::string& name,
     std::vector<MlfTrackDataPtr>* tracks) {
+AINFO<<"(DMCZP) EnteringMethod: MlfEngine::TrackObjectMatchAndAssign";
   std::vector<std::pair<size_t, size_t> > assignments;
   std::vector<size_t> unassigned_tracks;
   std::vector<size_t> unassigned_objects;
@@ -170,6 +174,7 @@ void MlfEngine::TrackObjectMatchAndAssign(
 
 void MlfEngine::TrackStateFilter(const std::vector<MlfTrackDataPtr>& tracks,
                                  double frame_timestamp) {
+AINFO<<"(DMCZP) EnteringMethod: MlfEngine::TrackStateFilter";
   std::vector<TrackedObjectPtr> objects;
   for (auto& track_data : tracks) {
     track_data->GetAndCleanCachedObjectsInTimeInterval(&objects);
@@ -183,6 +188,7 @@ void MlfEngine::TrackStateFilter(const std::vector<MlfTrackDataPtr>& tracks,
 }
 
 void MlfEngine::CollectTrackedResult(LidarFrame* frame) {
+AINFO<<"(DMCZP) EnteringMethod: MlfEngine::CollectTrackedResult";
   auto& tracked_objects = frame->tracked_objects;
   tracked_objects.clear();
   size_t num_objects =
@@ -213,6 +219,7 @@ void MlfEngine::CollectTrackedResult(LidarFrame* frame) {
 
 void MlfEngine::RemoveStaleTrackData(const std::string& name, double timestamp,
                                      std::vector<MlfTrackDataPtr>* tracks) {
+AINFO<<"(DMCZP) EnteringMethod: MlfEngine::RemoveStaleTrackData";
   size_t pos = 0;
   for (size_t i = 0; i < tracks->size(); ++i) {
     if (tracks->at(i)->latest_visible_time_ + reserved_invisible_time_ >=

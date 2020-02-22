@@ -36,8 +36,10 @@ const double kDuplicatedPointsEpsilon = 1e-7;
 ReferencePoint::ReferencePoint(const MapPathPoint& map_path_point,
                                const double kappa, const double dkappa)
     : hdmap::MapPathPoint(map_path_point), kappa_(kappa), dkappa_(dkappa) {}
+AINFO<<"(DMCZP) EnteringMethod: ReferencePoint::ReferencePoint";
 
 common::PathPoint ReferencePoint::ToPathPoint(double s) const {
+AINFO<<"(DMCZP) EnteringMethod: ReferencePoint::ToPathPoint";
   common::PathPoint path_point = common::util::MakePathPoint(
       x(), y(), 0.0, heading(), kappa_, dkappa_, 0.0);
   path_point.set_s(s);
@@ -45,16 +47,20 @@ common::PathPoint ReferencePoint::ToPathPoint(double s) const {
 }
 
 double ReferencePoint::kappa() const { return kappa_; }
+AINFO<<"(DMCZP) EnteringMethod: ReferencePoint::kappa";
 
 double ReferencePoint::dkappa() const { return dkappa_; }
+AINFO<<"(DMCZP) EnteringMethod: ReferencePoint::dkappa";
 
 std::string ReferencePoint::DebugString() const {
+AINFO<<"(DMCZP) EnteringMethod: ReferencePoint::DebugString";
   // StrCat only support 9 parameters
   return StrCat("{x: ", x(), ", y: ", y(), ", theta: ", heading()) +
          StrCat(", kappa: ", kappa(), ", dkappa: ", dkappa(), "}");
 }
 
 void ReferencePoint::RemoveDuplicates(std::vector<ReferencePoint>* points) {
+AINFO<<"(DMCZP) EnteringMethod: ReferencePoint::RemoveDuplicates";
   CHECK_NOTNULL(points);
   int count = 0;
   const double limit = kDuplicatedPointsEpsilon * kDuplicatedPointsEpsilon;

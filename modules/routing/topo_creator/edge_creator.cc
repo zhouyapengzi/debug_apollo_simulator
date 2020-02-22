@@ -25,6 +25,7 @@ namespace edge_creator {
 void GetPbEdge(const Node& node_from, const Node& node_to,
                const Edge::DirectionType& type,
                const RoutingConfig& routing_config, Edge* edge) {
+AINFO<<"(DMCZP) EnteringMethod: GetPbEdge";
   edge->set_from_lane_id(node_from.lane_id());
   edge->set_to_lane_id(node_to.lane_id());
   edge->set_direction_type(type);

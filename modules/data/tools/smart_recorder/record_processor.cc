@@ -35,8 +35,10 @@ RecordProcessor::RecordProcessor(const std::string& source_record_dir,
                                  const std::string& restored_output_dir)
     : source_record_dir_(source_record_dir),
       restored_output_dir_(restored_output_dir) {}
+AINFO<<"(DMCZP) EnteringMethod: RecordProcessor::RecordProcessor";
 
 bool RecordProcessor::Init(const SmartRecordTrigger& trigger_conf) {
+AINFO<<"(DMCZP) EnteringMethod: RecordProcessor::Init";
   // Init input/output
   if (!DirectoryExists(source_record_dir_)) {
     AERROR << "source record dir does not exist: " << source_record_dir_;
@@ -69,6 +71,7 @@ bool RecordProcessor::Init(const SmartRecordTrigger& trigger_conf) {
 }
 
 bool RecordProcessor::InitTriggers(const SmartRecordTrigger& trigger_conf) {
+AINFO<<"(DMCZP) EnteringMethod: RecordProcessor::InitTriggers";
   triggers_.push_back(std::unique_ptr<TriggerBase>(new DriveEventTrigger));
   triggers_.push_back(std::unique_ptr<TriggerBase>(new EmergencyModeTrigger));
   triggers_.push_back(std::unique_ptr<TriggerBase>(new SmallTopicsTrigger));
@@ -82,6 +85,7 @@ bool RecordProcessor::InitTriggers(const SmartRecordTrigger& trigger_conf) {
 }
 
 bool RecordProcessor::ShouldRestore(const RecordMessage& msg) const {
+AINFO<<"(DMCZP) EnteringMethod: RecordProcessor::ShouldRestore";
   for (const auto& trigger : triggers_) {
     if (trigger->ShouldRestore(msg)) {
       return true;

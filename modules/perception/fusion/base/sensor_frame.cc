@@ -20,12 +20,15 @@ namespace perception {
 namespace fusion {
 
 SensorFrame::SensorFrame() { header_.reset(new SensorFrameHeader()); }
+AINFO<<"(DMCZP) EnteringMethod: SensorFrame::SensorFrame";
 
 SensorFrame::SensorFrame(const base::FrameConstPtr& base_frame_ptr) {
+AINFO<<"(DMCZP) EnteringMethod: SensorFrame::SensorFrame";
   Initialize(base_frame_ptr);
 }
 
 void SensorFrame::Initialize(const base::FrameConstPtr& base_frame_ptr) {
+AINFO<<"(DMCZP) EnteringMethod: SensorFrame::Initialize";
   header_.reset(new SensorFrameHeader(base_frame_ptr->sensor_info,
                                       base_frame_ptr->timestamp,
                                       base_frame_ptr->sensor2world_pose));
@@ -49,10 +52,12 @@ void SensorFrame::Initialize(const base::FrameConstPtr& base_frame_ptr) {
 
 void SensorFrame::Initialize(const base::FrameConstPtr& base_frame_ptr,
                              const SensorPtr& sensor) {
+AINFO<<"(DMCZP) EnteringMethod: SensorFrame::Initialize";
   Initialize(base_frame_ptr);
 }
 
 std::string SensorFrame::GetSensorId() const {
+AINFO<<"(DMCZP) EnteringMethod: SensorFrame::GetSensorId";
   if (header_ == nullptr) {
     return std::string("");
   }
@@ -61,6 +66,7 @@ std::string SensorFrame::GetSensorId() const {
 }
 
 base::SensorType SensorFrame::GetSensorType() const {
+AINFO<<"(DMCZP) EnteringMethod: SensorFrame::GetSensorType";
   if (header_ == nullptr) {
     return base::SensorType::UNKNOWN_SENSOR_TYPE;
   }

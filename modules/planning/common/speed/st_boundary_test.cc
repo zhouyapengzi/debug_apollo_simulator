@@ -25,6 +25,7 @@ namespace apollo {
 namespace planning {
 
 TEST(StBoundaryTest, basic_test) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   std::vector<STPoint> upper_points;
   std::vector<STPoint> lower_points;
 
@@ -49,6 +50,7 @@ TEST(StBoundaryTest, basic_test) {
 }
 
 TEST(StBoundaryTest, boundary_range) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   std::vector<STPoint> upper_points;
   std::vector<STPoint> lower_points;
 
@@ -89,6 +91,7 @@ TEST(StBoundaryTest, boundary_range) {
 }
 
 TEST(StBoundaryTest, get_index_range) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   std::vector<STPoint> upper_points;
   std::vector<STPoint> lower_points;
 
@@ -127,6 +130,7 @@ TEST(StBoundaryTest, get_index_range) {
 }
 
 TEST(StBoundaryTest, remove_redundant_points) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   std::vector<std::pair<STPoint, STPoint>> points;
   points.emplace_back(STPoint(0.0, 0.0), STPoint(1.0, 0.0));
   points.emplace_back(STPoint(0.1, 0.2), STPoint(1.1, 0.2));

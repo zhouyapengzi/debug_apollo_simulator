@@ -78,6 +78,7 @@ const std::string CompressedImageType("apollo.drivers.CompressedImage");
                                 MEMBER_OFFSET(StructType, Member))
 
 struct MainWindow::VideoImgProxy {
+AINFO<<"(DMCZP) EnteringMethod: CompressedImageType";
   FixedAspectRatioWidget video_image_viewer_;
   QTreeWidgetItem root_item_;
   QTreeWidgetItem channel_name_item_;
@@ -189,6 +190,7 @@ MainWindow::MainWindow(QWidget* parent)
       radarData_list_(),
       closed_radarData_list_(),
       _channelName2TypeMap() {
+AINFO<<"(DMCZP) EnteringMethod: MainWindow::MainWindow";
   ui_->setupUi(this);
   ui_->videoImageGridLayout->setContentsMargins(2, 2, 2, 2);
   ui_->videoImageWidget->setVisible(false);
@@ -276,6 +278,7 @@ MainWindow::~MainWindow() {
 }
 
 void MainWindow::calculateWH(void) {
+AINFO<<"(DMCZP) EnteringMethod: MainWindow::calculateWH";
   int count = video_image_viewer_list_.count();
 
   if (count > 0) {
@@ -297,6 +300,7 @@ void MainWindow::calculateWH(void) {
 }
 
 MainWindow::VideoImgProxy* MainWindow::AddVideoImgViewer() {
+AINFO<<"(DMCZP) EnteringMethod: MainWindow::AddVideoImgViewer";
   std::shared_ptr<Texture> tex(new Texture);
   if (tex == nullptr) {
     return nullptr;
@@ -342,6 +346,7 @@ MainWindow::VideoImgProxy* MainWindow::AddVideoImgViewer() {
 }
 
 MainWindow::RadarData* MainWindow::createRadarData(void) {
+AINFO<<"(DMCZP) EnteringMethod: MainWindow::createRadarData";
   RadarData* ret = new RadarData();
 
   if (ret) {
@@ -370,8 +375,10 @@ MainWindow::RadarData* MainWindow::createRadarData(void) {
 }
 
 void MainWindow::EnableGrid(bool b) { grid_->set_is_renderable(b); }
+AINFO<<"(DMCZP) EnteringMethod: MainWindow::EnableGrid";
 
 void MainWindow::ActionAddGrid(void) {
+AINFO<<"(DMCZP) EnteringMethod: MainWindow::ActionAddGrid";
   if (grid_shader_ == nullptr) {
     grid_shader_ = RenderableObject::CreateShaderProgram(tr(gridVertexPath),
                                                          tr(gridFragPath));
@@ -476,6 +483,7 @@ void MainWindow::ActionAddGrid(void) {
 }
 
 void MainWindow::ChangeGridCellCountBySize(int v) {
+AINFO<<"(DMCZP) EnteringMethod: MainWindow::ChangeGridCellCountBySize";
   grid_->Destroy();
   grid_->set_shader_program(grid_shader_);
   grid_->SetCellCount(v);
@@ -483,6 +491,7 @@ void MainWindow::ChangeGridCellCountBySize(int v) {
 }
 
 void MainWindow::EditGridColor(QTreeWidgetItem* item, int column) {
+AINFO<<"(DMCZP) EnteringMethod: MainWindow::EditGridColor";
   if (column && item != nullptr && grid_root_item_ != nullptr &&
       item == grid_root_item_->child(0)) {
     QStringList rgb = item->text(1).split(';');
@@ -501,6 +510,7 @@ void MainWindow::EditGridColor(QTreeWidgetItem* item, int column) {
 }
 
 void MainWindow::EnableRadarPoints(bool b) {
+AINFO<<"(DMCZP) EnteringMethod: MainWindow::EnableRadarPoints";
   QCheckBox* obj = static_cast<QCheckBox*>(sender());
   RadarData* r = StructPtrByMemberPtr(obj, RadarData, enable_checkBox_);
   ui_->sceneWidget->setTempObjGroupEnabled(r->root_item_.text(0).toStdString(),
@@ -508,6 +518,7 @@ void MainWindow::EnableRadarPoints(bool b) {
 }
 
 void MainWindow::ActionOpenRadarChannel(void) {
+AINFO<<"(DMCZP) EnteringMethod: MainWindow::ActionOpenRadarChannel";
   if (radar_points_shader_ == nullptr) {
     radar_points_shader_ = RenderableObject::CreateShaderProgram(
         tr(radarVertexPath), tr(radarFragPath));
@@ -571,6 +582,7 @@ void MainWindow::ActionOpenRadarChannel(void) {
 }
 
 void MainWindow::openRadarChannel(bool b) {
+AINFO<<"(DMCZP) EnteringMethod: MainWindow::openRadarChannel";
   QPushButton* obj = static_cast<QPushButton*>(QObject::sender());
   RadarData* theVideoImg =
       StructPtrByMemberPtr(obj, RadarData, action_item_button_);
@@ -578,6 +590,7 @@ void MainWindow::openRadarChannel(bool b) {
 }
 
 void MainWindow::DoOpenRadarChannel(bool b, RadarData* radarProxy) {
+AINFO<<"(DMCZP) EnteringMethod: MainWindow::DoOpenRadarChannel";
   if (b) {
     if (radarProxy->channel_name_combobox_.currentText().isEmpty()) {
       QMessageBox::warning(
@@ -646,6 +659,7 @@ void MainWindow::DoOpenRadarChannel(bool b, RadarData* radarProxy) {
 void MainWindow::RadarRenderCallback(
     const std::shared_ptr<const apollo::drivers::RadarObstacles>& rawData,
     RadarData* radar) {
+AINFO<<"(DMCZP) EnteringMethod: MainWindow::RadarRenderCallback";
   radar->reader_mutex_.lock();
   radar->reader_mutex_.unlock();
 
@@ -666,6 +680,7 @@ void MainWindow::RadarRenderCallback(
 }
 
 void MainWindow::ActionOpenPointCloud(void) {
+AINFO<<"(DMCZP) EnteringMethod: MainWindow::ActionOpenPointCloud";
   if (pointcloud_shader_ == nullptr) {
     pointcloud_shader_ =
         RenderableObject::CreateShaderProgram(tr(pcVertexPath), tr(pcFragPath));
@@ -718,6 +733,7 @@ void MainWindow::ActionOpenPointCloud(void) {
 }
 
 void MainWindow::ActionOpenImages(void) {
+AINFO<<"(DMCZP) EnteringMethod: MainWindow::ActionOpenImages";
   if (open_images_dialog_ == nullptr) {
     open_images_dialog_ = new VideoImagesDialog(this);
     if (open_images_dialog_ == nullptr) {
@@ -734,6 +750,7 @@ void MainWindow::ActionOpenImages(void) {
 }
 
 void MainWindow::AddVideoImages(void) {
+AINFO<<"(DMCZP) EnteringMethod: MainWindow::AddVideoImages";
   int count = open_images_dialog_->count();
   while (count) {
     ActionOpenImage();
@@ -742,6 +759,7 @@ void MainWindow::AddVideoImages(void) {
 }
 
 void MainWindow::ActionOpenImage(void) {
+AINFO<<"(DMCZP) EnteringMethod: MainWindow::ActionOpenImage";
   VideoImgProxy* videoImgProxy;
 
   if (closed_video_image_viewer_list_.empty()) {
@@ -800,6 +818,7 @@ void MainWindow::ActionOpenImage(void) {
 }
 
 void MainWindow::ActionDelVideoImage(void) {
+AINFO<<"(DMCZP) EnteringMethod: MainWindow::ActionDelVideoImage";
   QTreeWidgetItem* topItem = ui_->treeWidget->currentItem();
   VideoImgProxy* proxy =
       StructPtrByMemberPtr(topItem, VideoImgProxy, root_item_);
@@ -809,6 +828,7 @@ void MainWindow::ActionDelVideoImage(void) {
 }
 
 void MainWindow::CloseVideoImgViewer(bool b) {
+AINFO<<"(DMCZP) EnteringMethod: MainWindow::CloseVideoImgViewer";
   if (!b) {
     VideoImgViewer* dock = static_cast<VideoImgViewer*>(sender());
     DoDeleteVideoImg(
@@ -817,6 +837,7 @@ void MainWindow::CloseVideoImgViewer(bool b) {
 }
 
 void MainWindow::DoDeleteVideoImg(VideoImgProxy* proxy) {
+AINFO<<"(DMCZP) EnteringMethod: MainWindow::DoDeleteVideoImg";
   disconnect(&proxy->action_item_button_, SIGNAL(clicked(bool)), this,
              SLOT(PlayVideoImage(bool)));
   disconnect(&proxy->channel_name_combobox_, SIGNAL(currentIndexChanged(int)),
@@ -844,6 +865,7 @@ void MainWindow::DoDeleteVideoImg(VideoImgProxy* proxy) {
 }
 
 void MainWindow::UpdateActions(void) {
+AINFO<<"(DMCZP) EnteringMethod: MainWindow::UpdateActions";
   QTreeWidgetItem* item = ui_->treeWidget->currentItem();
   ui_->actionDelImage->setEnabled(false);
   if (item) {
@@ -856,6 +878,7 @@ void MainWindow::UpdateActions(void) {
 
 void MainWindow::PointCloudReaderCallback(
     const std::shared_ptr<const apollo::drivers::PointCloud>& pdata) {
+AINFO<<"(DMCZP) EnteringMethod: MainWindow::PointCloudReaderCallback";
   pointcloud_reader_mutex_.lock();
   pointcloud_reader_mutex_.unlock();
   PointCloud* pc = new PointCloud(pdata->point_size(), 4, pointcloud_shader_);
@@ -870,6 +893,7 @@ void MainWindow::PointCloudReaderCallback(
 }
 
 void MainWindow::PlayRenderableObject(bool b) {
+AINFO<<"(DMCZP) EnteringMethod: MainWindow::PlayRenderableObject";
   if (b) {
     if (pointcloud_comboBox_->currentText().isEmpty()) {
       QMessageBox::warning(
@@ -935,6 +959,8 @@ void MainWindow::PlayRenderableObject(bool b) {
 void MainWindow::ImageReaderCallback(
     const std::shared_ptr<const apollo::drivers::Image>& imgData,
     VideoImgProxy* theVideoImgProxy) {
+AINFO<<"(DMCZP) EnteringMethod: MainWindow::ImageReaderCallback";
+AINFO<<"(DMCZP) EnteringMethod: MainWindow::ImageReaderCallback";
   theVideoImgProxy->reader_mutex_.lock();
   if (theVideoImgProxy->dynamic_texture_ != nullptr && imgData != nullptr) {
     if (theVideoImgProxy->dynamic_texture_->UpdateData(imgData)) {
@@ -982,6 +1008,7 @@ void MainWindow::ImageReaderCallback(
 }
 
 void MainWindow::PlayVideoImage(bool b) {
+AINFO<<"(DMCZP) EnteringMethod: MainWindow::PlayVideoImage";
   QPushButton* obj = static_cast<QPushButton*>(QObject::sender());
   VideoImgProxy* theVideoImg =
       StructPtrByMemberPtr(obj, VideoImgProxy, action_item_button_);
@@ -989,6 +1016,7 @@ void MainWindow::PlayVideoImage(bool b) {
 }
 
 void MainWindow::DoPlayVideoImage(bool b, VideoImgProxy* theVideoImg) {
+AINFO<<"(DMCZP) EnteringMethod: MainWindow::DoPlayVideoImage";
   if (b) {
     if (theVideoImg->channel_name_combobox_.currentText().isEmpty()) {
       QMessageBox::warning(
@@ -1076,6 +1104,7 @@ void MainWindow::DoPlayVideoImage(bool b, VideoImgProxy* theVideoImg) {
 }
 
 void MainWindow::ChangePointCloudChannel() {
+AINFO<<"(DMCZP) EnteringMethod: MainWindow::ChangePointCloudChannel";
   if (pointcloud_channel_Reader_ != nullptr) {
     pointcloud_channel_Reader_->CloseChannel();
     std::string nodeName("Visualizer-");
@@ -1086,6 +1115,7 @@ void MainWindow::ChangePointCloudChannel() {
 }
 
 void MainWindow::ChangeVideoImgChannel() {
+AINFO<<"(DMCZP) EnteringMethod: MainWindow::ChangeVideoImgChannel";
   QComboBox* obj = static_cast<QComboBox*>(QObject::sender());
   VideoImgProxy* theVideoImg =
       StructPtrByMemberPtr(obj, VideoImgProxy, channel_name_combobox_);
@@ -1096,6 +1126,7 @@ void MainWindow::ChangeVideoImgChannel() {
 }
 
 void MainWindow::ChangeRadarChannel(void) {
+AINFO<<"(DMCZP) EnteringMethod: MainWindow::ChangeRadarChannel";
   QComboBox* obj = static_cast<QComboBox*>(QObject::sender());
   RadarData* radar =
       StructPtrByMemberPtr(obj, RadarData, channel_name_combobox_);
@@ -1110,6 +1141,7 @@ void MainWindow::ChangeRadarChannel(void) {
 }
 
 void MainWindow::SelectCurrentTreeItem(FixedAspectRatioWidget* dock) {
+AINFO<<"(DMCZP) EnteringMethod: MainWindow::SelectCurrentTreeItem";
   if (dock) {
     VideoImgProxy* theVideoImg =
         StructPtrByMemberPtr(dock, VideoImgProxy, video_image_viewer_);
@@ -1125,6 +1157,7 @@ void MainWindow::SelectCurrentTreeItem(FixedAspectRatioWidget* dock) {
 
 void MainWindow::TopologyChanged(
     const apollo::cyber::proto::ChangeMsg& changeMsg) {
+AINFO<<"(DMCZP) EnteringMethod: MainWindow::TopologyChanged";
   if (apollo::cyber::proto::ChangeType::CHANGE_CHANNEL ==
           changeMsg.change_type() &&
       apollo::cyber::proto::RoleType::ROLE_WRITER == changeMsg.role_type() &&
@@ -1135,6 +1168,7 @@ void MainWindow::TopologyChanged(
 
 void MainWindow::AddNewWriter(
     const apollo::cyber::proto::RoleAttributes& role) {
+AINFO<<"(DMCZP) EnteringMethod: MainWindow::AddNewWriter";
   const std::string& channelName = role.channel_name();
   if (_channelName2TypeMap.find(channelName) != _channelName2TypeMap.end()) {
     return;
@@ -1193,6 +1227,7 @@ void MainWindow::AddNewWriter(
 }
 
 void MainWindow::PlayPause(void) {
+AINFO<<"(DMCZP) EnteringMethod: MainWindow::PlayPause";
   QObject* obj = QObject::sender();
   bool b = true;
   if (obj == ui_->actionPause) b = false;
@@ -1212,11 +1247,13 @@ void MainWindow::PlayPause(void) {
 }
 
 void MainWindow::resizeEvent(QResizeEvent* event) {
+AINFO<<"(DMCZP) EnteringMethod: MainWindow::resizeEvent";
   QMainWindow::resizeEvent(event);
   calculateWH();
 }
 
 void MainWindow::showMessage() {
+AINFO<<"(DMCZP) EnteringMethod: MainWindow::showMessage";
   QObject* obj = QObject::sender();
 
   if (obj == ui_->actionAbout) {

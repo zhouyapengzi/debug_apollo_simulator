@@ -37,6 +37,7 @@ class MoveSequencePredictorTest : public KMLMapBasedTest {
 };
 
 TEST_F(MoveSequencePredictorTest, OnLaneCase) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   EXPECT_DOUBLE_EQ(perception_obstacles_.header().timestamp_sec(),
                    1501183430.161906);
   apollo::perception::PerceptionObstacle perception_obstacle =
@@ -55,6 +56,7 @@ TEST_F(MoveSequencePredictorTest, OnLaneCase) {
 }
 
 TEST_F(MoveSequencePredictorTest, Polynomial) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   EXPECT_DOUBLE_EQ(perception_obstacles_.header().timestamp_sec(),
                    1501183430.161906);
   apollo::perception::PerceptionObstacle perception_obstacle =
@@ -84,6 +86,7 @@ TEST_F(MoveSequencePredictorTest, Polynomial) {
 }
 
 TEST_F(MoveSequencePredictorTest, Utils) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   EXPECT_DOUBLE_EQ(perception_obstacles_.header().timestamp_sec(),
                    1501183430.161906);
   apollo::perception::PerceptionObstacle perception_obstacle =

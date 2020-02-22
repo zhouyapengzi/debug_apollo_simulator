@@ -77,6 +77,7 @@ class KalmanFilterTest : public ::testing::Test {
 };
 
 TEST_F(KalmanFilterTest, SyntheticTrackingTest) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   kf_.Predict();
   Eigen::Matrix<double, 2, 1> state = kf_.GetStateEstimate();
   Eigen::Matrix<double, 2, 2> state_cov = kf_.GetStateCovariance();

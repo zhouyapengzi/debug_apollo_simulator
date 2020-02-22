@@ -36,6 +36,7 @@ class OpenSpaceFallbackDeciderTest : public ::testing::Test {
 };
 
 TEST_F(OpenSpaceFallbackDeciderTest, Init) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   OpenSpaceFallbackDecider open_space_fallback_decider(config_);
   EXPECT_EQ(open_space_fallback_decider.Name(),
             TaskConfig::TaskType_Name(config_.task_type()));

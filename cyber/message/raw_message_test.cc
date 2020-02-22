@@ -25,6 +25,7 @@ namespace cyber {
 namespace message {
 
 TEST(RawMessageTest, constructor) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   RawMessage msg_a;
   EXPECT_EQ(msg_a.message, "");
 
@@ -33,6 +34,7 @@ TEST(RawMessageTest, constructor) {
 }
 
 TEST(RawMessageTest, serialize_to_array) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   RawMessage msg("serialize_to_array");
   EXPECT_FALSE(msg.SerializeToArray(nullptr, 128));
   char buf[64] = {0};
@@ -43,6 +45,7 @@ TEST(RawMessageTest, serialize_to_array) {
 }
 
 TEST(RawMessageTest, serialize_to_string) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   RawMessage msg("serialize_to_string");
   std::string str("");
   EXPECT_FALSE(msg.SerializeToString(nullptr));
@@ -51,12 +54,14 @@ TEST(RawMessageTest, serialize_to_string) {
 }
 
 TEST(RawMessageTest, parse_from_string) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   RawMessage msg;
   EXPECT_TRUE(msg.ParseFromString("parse_from_string"));
   EXPECT_EQ(msg.message, "parse_from_string");
 }
 
 TEST(RawMessageTest, parse_from_array) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   RawMessage msg;
   std::string str("parse_from_array");
   EXPECT_FALSE(msg.ParseFromArray(nullptr, static_cast<int>(str.size())));
@@ -67,6 +72,7 @@ TEST(RawMessageTest, parse_from_array) {
 }
 
 TEST(RawMessageTest, message_type) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   RawMessage msg;
   std::string msg_type = RawMessage::TypeName();
   EXPECT_EQ(msg_type, "apollo.cyber.message.RawMessage");

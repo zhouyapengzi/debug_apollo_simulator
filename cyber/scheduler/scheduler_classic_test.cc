@@ -30,8 +30,10 @@ namespace cyber {
 namespace scheduler {
 
 void func() {}
+AINFO<<"(DMCZP) EnteringMethod: func";
 
 TEST(SchedulerClassicTest, classic) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   auto processor = std::make_shared<Processor>();
   auto ctx = std::make_shared<ClassicContext>();
   processor->BindContext(ctx);
@@ -60,6 +62,7 @@ TEST(SchedulerClassicTest, classic) {
 }
 
 TEST(SchedulerClassicTest, sched_classic) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   // read example_sched_classic.conf
   GlobalData::Instance()->SetProcessGroup("example_sched_classic");
   auto sched1 = dynamic_cast<SchedulerClassic*>(scheduler::Instance());
@@ -107,6 +110,7 @@ TEST(SchedulerClassicTest, sched_classic) {
 }  // namespace apollo
 
 int main(int argc, char** argv) {
+AINFO<<"(DMCZP) EnteringMethod: main";
   testing::InitGoogleTest(&argc, argv);
   apollo::cyber::Init(argv[0]);
   auto res = RUN_ALL_TESTS();

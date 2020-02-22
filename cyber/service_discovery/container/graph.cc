@@ -27,8 +27,10 @@ using base::ReadLockGuard;
 using base::WriteLockGuard;
 
 Vertice::Vertice(const std::string& val) : value_(val) {}
+AINFO<<"(DMCZP) EnteringMethod: Vertice::Vertice";
 
 Vertice::Vertice(const Vertice& other) { this->value_ = other.value_; }
+AINFO<<"(DMCZP) EnteringMethod: Vertice::Vertice";
 
 Vertice::~Vertice() {}
 
@@ -48,12 +50,16 @@ bool Vertice::operator!=(const Vertice& rhs) const {
 }
 
 bool Vertice::IsDummy() const { return value_.empty(); }
+AINFO<<"(DMCZP) EnteringMethod: Vertice::IsDummy";
 
 const std::string& Vertice::GetKey() const { return value_; }
+AINFO<<"(DMCZP) EnteringMethod: Vertice::GetKey";
 
 Edge::Edge() {}
+AINFO<<"(DMCZP) EnteringMethod: Edge::Edge";
 
 Edge::Edge(const Edge& other) {
+AINFO<<"(DMCZP) EnteringMethod: Edge::Edge";
   this->src_ = other.src_;
   this->dst_ = other.dst_;
   this->value_ = other.value_;
@@ -61,6 +67,7 @@ Edge::Edge(const Edge& other) {
 
 Edge::Edge(const Vertice& src, const Vertice& dst, const std::string& val)
     : src_(src), dst_(dst), value_(val) {}
+AINFO<<"(DMCZP) EnteringMethod: Edge::Edge";
 
 Edge::~Edge() {}
 
@@ -79,6 +86,7 @@ bool Edge::operator==(const Edge& rhs) const {
 }
 
 bool Edge::IsValid() const {
+AINFO<<"(DMCZP) EnteringMethod: Edge::IsValid";
   if (value_.empty()) {
     return false;
   }
@@ -89,8 +97,10 @@ bool Edge::IsValid() const {
 }
 
 std::string Edge::GetKey() const { return value_ + "_" + dst_.GetKey(); }
+AINFO<<"(DMCZP) EnteringMethod: Edge::GetKey";
 
 Graph::Graph() {}
+AINFO<<"(DMCZP) EnteringMethod: Graph::Graph";
 
 Graph::~Graph() {
   edges_.clear();
@@ -98,6 +108,7 @@ Graph::~Graph() {
 }
 
 void Graph::Insert(const Edge& e) {
+AINFO<<"(DMCZP) EnteringMethod: Graph::Insert";
   if (!e.IsValid()) {
     return;
   }
@@ -116,6 +127,7 @@ void Graph::Insert(const Edge& e) {
 }
 
 void Graph::Delete(const Edge& e) {
+AINFO<<"(DMCZP) EnteringMethod: Graph::Delete";
   if (!e.IsValid()) {
     return;
   }
@@ -134,6 +146,7 @@ void Graph::Delete(const Edge& e) {
 }
 
 uint32_t Graph::GetNumOfEdge() {
+AINFO<<"(DMCZP) EnteringMethod: Graph::GetNumOfEdge";
   ReadLockGuard<AtomicRWLock> lock(rw_lock_);
   uint32_t num = 0;
   for (auto& item : list_) {
@@ -143,6 +156,7 @@ uint32_t Graph::GetNumOfEdge() {
 }
 
 FlowDirection Graph::GetDirectionOf(const Vertice& lhs, const Vertice& rhs) {
+AINFO<<"(DMCZP) EnteringMethod: Graph::GetDirectionOf";
   if (lhs.IsDummy() || rhs.IsDummy()) {
     return UNREACHABLE;
   }
@@ -160,6 +174,7 @@ FlowDirection Graph::GetDirectionOf(const Vertice& lhs, const Vertice& rhs) {
 }
 
 void Graph::InsertOutgoingEdge(const Edge& e) {
+AINFO<<"(DMCZP) EnteringMethod: Graph::InsertOutgoingEdge";
   auto& e_v = e.value();
   auto& src_v_set = edges_[e_v].src;
   auto& src_v = e.src();
@@ -180,6 +195,7 @@ void Graph::InsertOutgoingEdge(const Edge& e) {
 }
 
 void Graph::InsertIncomingEdge(const Edge& e) {
+AINFO<<"(DMCZP) EnteringMethod: Graph::InsertIncomingEdge";
   auto& e_v = e.value();
   auto& dst_v_set = edges_[e_v].dst;
   auto& dst_v = e.dst();
@@ -200,6 +216,7 @@ void Graph::InsertIncomingEdge(const Edge& e) {
 }
 
 void Graph::InsertCompleteEdge(const Edge& e) {
+AINFO<<"(DMCZP) EnteringMethod: Graph::InsertCompleteEdge";
   auto& src_v_k = e.src().GetKey();
   if (list_.find(src_v_k) == list_.end()) {
     list_[src_v_k] = VerticeSet();
@@ -212,6 +229,7 @@ void Graph::InsertCompleteEdge(const Edge& e) {
 }
 
 void Graph::DeleteOutgoingEdge(const Edge& e) {
+AINFO<<"(DMCZP) EnteringMethod: Graph::DeleteOutgoingEdge";
   auto& e_v = e.value();
   auto& src_v_set = edges_[e_v].src;
   auto& src_v = e.src();
@@ -232,6 +250,7 @@ void Graph::DeleteOutgoingEdge(const Edge& e) {
 }
 
 void Graph::DeleteIncomingEdge(const Edge& e) {
+AINFO<<"(DMCZP) EnteringMethod: Graph::DeleteIncomingEdge";
   auto& e_v = e.value();
   auto& dst_v_set = edges_[e_v].dst;
   auto& dst_v = e.dst();
@@ -252,11 +271,13 @@ void Graph::DeleteIncomingEdge(const Edge& e) {
 }
 
 void Graph::DeleteCompleteEdge(const Edge& e) {
+AINFO<<"(DMCZP) EnteringMethod: Graph::DeleteCompleteEdge";
   auto& src_v_k = e.src().GetKey();
   list_[src_v_k].erase(e.GetKey());
 }
 
 bool Graph::LevelTraverse(const Vertice& start, const Vertice& end) {
+AINFO<<"(DMCZP) EnteringMethod: Graph::LevelTraverse";
   std::unordered_map<std::string, bool> visited;
   visited[end.GetKey()] = false;
   std::queue<Vertice> unvisited;

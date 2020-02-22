@@ -22,12 +22,15 @@ namespace cyber {
 namespace io {
 
 Session::Session() : Session(-1) {}
+AINFO<<"(DMCZP) EnteringMethod: Session::Session";
 
 Session::Session(int fd) : fd_(fd), poll_handler_(nullptr) {
+AINFO<<"(DMCZP) EnteringMethod: Session::Session";
   poll_handler_.reset(new PollHandler(fd_));
 }
 
 int Session::Socket(int domain, int type, int protocol) {
+AINFO<<"(DMCZP) EnteringMethod: Session::Socket";
   if (fd_ != -1) {
     AINFO << "session has hold a valid fd[" << fd_ << "]";
     return -1;
@@ -40,17 +43,20 @@ int Session::Socket(int domain, int type, int protocol) {
 }
 
 int Session::Listen(int backlog) {
+AINFO<<"(DMCZP) EnteringMethod: Session::Listen";
   ACHECK(fd_ != -1);
   return listen(fd_, backlog);
 }
 
 int Session::Bind(const struct sockaddr *addr, socklen_t addrlen) {
+AINFO<<"(DMCZP) EnteringMethod: Session::Bind";
   ACHECK(fd_ != -1);
   ACHECK(addr != nullptr);
   return bind(fd_, addr, addrlen);
 }
 
 auto Session::Accept(struct sockaddr *addr, socklen_t *addrlen) -> SessionPtr {
+AINFO<<"(DMCZP) EnteringMethod: Session::Accept";
   ACHECK(fd_ != -1);
 
   int sock_fd = accept4(fd_, addr, addrlen, SOCK_NONBLOCK);
@@ -67,6 +73,7 @@ auto Session::Accept(struct sockaddr *addr, socklen_t *addrlen) -> SessionPtr {
 }
 
 int Session::Connect(const struct sockaddr *addr, socklen_t addrlen) {
+AINFO<<"(DMCZP) EnteringMethod: Session::Connect";
   ACHECK(fd_ != -1);
 
   int optval;
@@ -86,6 +93,7 @@ int Session::Connect(const struct sockaddr *addr, socklen_t addrlen) {
 }
 
 int Session::Close() {
+AINFO<<"(DMCZP) EnteringMethod: Session::Close";
   ACHECK(fd_ != -1);
 
   poll_handler_->Unblock();
@@ -95,6 +103,7 @@ int Session::Close() {
 }
 
 ssize_t Session::Recv(void *buf, size_t len, int flags, int timeout_ms) {
+AINFO<<"(DMCZP) EnteringMethod: Session::Recv";
   ACHECK(buf != nullptr);
   ACHECK(fd_ != -1);
 
@@ -117,6 +126,7 @@ ssize_t Session::Recv(void *buf, size_t len, int flags, int timeout_ms) {
 ssize_t Session::RecvFrom(void *buf, size_t len, int flags,
                           struct sockaddr *src_addr, socklen_t *addrlen,
                           int timeout_ms) {
+AINFO<<"(DMCZP) EnteringMethod: Session::RecvFrom";
   ACHECK(buf != nullptr);
   ACHECK(fd_ != -1);
 
@@ -137,6 +147,7 @@ ssize_t Session::RecvFrom(void *buf, size_t len, int flags,
 }
 
 ssize_t Session::Send(const void *buf, size_t len, int flags, int timeout_ms) {
+AINFO<<"(DMCZP) EnteringMethod: Session::Send";
   ACHECK(buf != nullptr);
   ACHECK(fd_ != -1);
 
@@ -159,6 +170,7 @@ ssize_t Session::Send(const void *buf, size_t len, int flags, int timeout_ms) {
 ssize_t Session::SendTo(const void *buf, size_t len, int flags,
                         const struct sockaddr *dest_addr, socklen_t addrlen,
                         int timeout_ms) {
+AINFO<<"(DMCZP) EnteringMethod: Session::SendTo";
   ACHECK(buf != nullptr);
   ACHECK(dest_addr != nullptr);
   ACHECK(fd_ != -1);
@@ -180,6 +192,7 @@ ssize_t Session::SendTo(const void *buf, size_t len, int flags,
 }
 
 ssize_t Session::Read(void *buf, size_t count, int timeout_ms) {
+AINFO<<"(DMCZP) EnteringMethod: Session::Read";
   ACHECK(buf != nullptr);
   ACHECK(fd_ != -1);
 
@@ -200,6 +213,7 @@ ssize_t Session::Read(void *buf, size_t count, int timeout_ms) {
 }
 
 ssize_t Session::Write(const void *buf, size_t count, int timeout_ms) {
+AINFO<<"(DMCZP) EnteringMethod: Session::Write";
   ACHECK(buf != nullptr);
   ACHECK(fd_ != -1);
 

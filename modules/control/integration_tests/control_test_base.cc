@@ -31,6 +31,13 @@ DEFINE_string(test_planning_file, "", "planning input file");
 DEFINE_bool(test_update_golden_log, false, "true to update golden log file.");
 
 namespace apollo {
+AINFO<<"(DMCZP) EnteringMethod: DEFINE_string";
+AINFO<<"(DMCZP) EnteringMethod: DEFINE_string";
+AINFO<<"(DMCZP) EnteringMethod: DEFINE_string";
+AINFO<<"(DMCZP) EnteringMethod: DEFINE_string";
+AINFO<<"(DMCZP) EnteringMethod: DEFINE_string";
+AINFO<<"(DMCZP) EnteringMethod: DEFINE_string";
+AINFO<<"(DMCZP) EnteringMethod: DEFINE_bool";
 namespace control {
 
 using apollo::canbus::Chassis;
@@ -41,6 +48,7 @@ using apollo::planning::ADCTrajectory;
 uint32_t ControlTestBase::s_seq_num_ = 0;
 
 bool ControlTestBase::test_control() {
+AINFO<<"(DMCZP) EnteringMethod: ControlTestBase::test_control";
   if (!cyber::common::GetProtoFromFile(FLAGS_control_conf_file,
                                        &control_.control_conf_)) {
     AERROR << "Unable to load control conf file: " << FLAGS_control_conf_file;
@@ -129,6 +137,7 @@ bool ControlTestBase::test_control() {
 }
 
 void ControlTestBase::trim_control_command(ControlCommand *origin) {
+AINFO<<"(DMCZP) EnteringMethod: ControlTestBase::trim_control_command";
   origin->mutable_header()->clear_radar_timestamp();
   origin->mutable_header()->clear_lidar_timestamp();
   origin->mutable_header()->clear_timestamp_sec();
@@ -137,6 +146,7 @@ void ControlTestBase::trim_control_command(ControlCommand *origin) {
 
 bool ControlTestBase::test_control(const std::string &test_case_name,
                                    int case_num) {
+AINFO<<"(DMCZP) EnteringMethod: ControlTestBase::test_control";
   const std::string golden_result_file = apollo::common::util::StrCat(
       "result_", test_case_name, "_", case_num, ".pb.txt");
   std::string tmp_golden_path = "/tmp/" + golden_result_file;
@@ -178,12 +188,14 @@ bool ControlTestBase::test_control(const std::string &test_case_name,
 }
 
 void ControlTestBase::SetUpTestCase() {
+AINFO<<"(DMCZP) EnteringMethod: ControlTestBase::SetUpTestCase";
   FLAGS_control_conf_file =
       "/apollo/modules/control/testdata/conf/control_conf.pb.txt";
   FLAGS_is_control_test_mode = true;
 }
 
 void ControlTestBase::SetUp() { ++s_seq_num_; }
+AINFO<<"(DMCZP) EnteringMethod: ControlTestBase::SetUp";
 
 }  // namespace control
 }  // namespace apollo

@@ -78,6 +78,7 @@ class WarehouseTest : public ::testing::Test {
 };
 
 TEST_F(WarehouseTest, size) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   EXPECT_EQ(single_.Size(), key_num_);
   EXPECT_EQ(multi_.Size(), 2 * key_num_);
 
@@ -89,6 +90,7 @@ TEST_F(WarehouseTest, size) {
 }
 
 TEST_F(WarehouseTest, add) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   auto role = std::make_shared<RoleBase>();
   EXPECT_TRUE(single_.Add(key_num_, role, false));
   EXPECT_FALSE(single_.Add(key_num_, role, false));
@@ -98,6 +100,7 @@ TEST_F(WarehouseTest, add) {
 }
 
 TEST_F(WarehouseTest, remove) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   // key
   single_.Remove(0);
   EXPECT_EQ(single_.Size(), key_num_ - 1);
@@ -150,6 +153,7 @@ TEST_F(WarehouseTest, remove) {
 }
 
 TEST_F(WarehouseTest, search) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   // key
   for (int i = 0; i < key_num_; ++i) {
     EXPECT_TRUE(single_.Search(i));
@@ -255,6 +259,7 @@ TEST_F(WarehouseTest, search) {
 }
 
 TEST_F(WarehouseTest, get_all_roles) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   // role vec
   std::vector<RolePtr> role_vec;
   single_.GetAllRoles(&role_vec);

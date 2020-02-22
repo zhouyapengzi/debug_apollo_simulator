@@ -41,6 +41,7 @@ class PidBCControllerTest : public ::testing::Test {
 };
 
 TEST_F(PidBCControllerTest, StationPidController) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   PidConf pid_conf = lon_controller_conf_.station_pid_conf();
   PIDBCController pid_BC_controller;
   pid_BC_controller.Init(pid_conf);
@@ -57,6 +58,7 @@ TEST_F(PidBCControllerTest, StationPidController) {
 }
 
 TEST_F(PidBCControllerTest, SpeedPidController) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   PidConf pid_conf = lon_controller_conf_.low_speed_pid_conf();
   PIDBCController pid_BC_controller;
   pid_BC_controller.Init(pid_conf);

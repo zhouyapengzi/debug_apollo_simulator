@@ -25,6 +25,7 @@
 #include "modules/localization/msf/local_map/base_map/base_map_pool.h"
 
 int main(int argc, char** argv) {
+AINFO<<"(DMCZP) EnteringMethod: main";
   testing::InitGoogleTest(&argc, argv);
   return RUN_ALL_TESTS();
 }
@@ -42,6 +43,7 @@ class PyramidMapPoolTestSuite : public ::testing::Test {
 };
 
 TEST_F(PyramidMapPoolTestSuite, pyramid_map_pool_fixed) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   // init config
   std::unique_ptr<PyramidMapConfig> config(
       new PyramidMapConfig("lossy_full_alt"));
@@ -69,6 +71,7 @@ TEST_F(PyramidMapPoolTestSuite, pyramid_map_pool_fixed) {
 }
 
 TEST_F(PyramidMapPoolTestSuite, pyramid_map_pool_not_fixed) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   // init config
   std::unique_ptr<PyramidMapConfig> config(
       new PyramidMapConfig("lossy_full_alt"));

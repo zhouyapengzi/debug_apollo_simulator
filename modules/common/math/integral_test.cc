@@ -27,16 +27,21 @@ namespace math {
 namespace {
 
 double LinearFunc(double x) { return 2.0 * x; }
+AINFO<<"(DMCZP) EnteringMethod: LinearFunc";
 
 double SquareFunc(double x) { return x * x; }
+AINFO<<"(DMCZP) EnteringMethod: SquareFunc";
 
 double CubicFunc(double x) { return x * x * x; }
+AINFO<<"(DMCZP) EnteringMethod: CubicFunc";
 
 double SinFunc(double x) { return std::sin(x); }
+AINFO<<"(DMCZP) EnteringMethod: SinFunc";
 
 }  // namespace
 
 TEST(IntegralTest, Integration) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   double linear_integral = IntegrateByGaussLegendre<5>(LinearFunc, 0.0, 1.0);
   EXPECT_NEAR(linear_integral, 1.0, 1e-5);
   double square_integral = IntegrateByGaussLegendre<5>(SquareFunc, 0.0, 1.0);

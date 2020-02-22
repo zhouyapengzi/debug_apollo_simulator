@@ -28,10 +28,12 @@ namespace lexus {
 using ::apollo::drivers::canbus::Byte;
 
 Vehiclespeedrpt400::Vehiclespeedrpt400() {}
+AINFO<<"(DMCZP) EnteringMethod: Vehiclespeedrpt400::Vehiclespeedrpt400";
 const int32_t Vehiclespeedrpt400::ID = 0x400;
 
 void Vehiclespeedrpt400::Parse(const std::uint8_t* bytes, int32_t length,
                                ChassisDetail* chassis) const {
+AINFO<<"(DMCZP) EnteringMethod: Vehiclespeedrpt400::Parse";
   chassis->mutable_lexus()->mutable_vehicle_speed_rpt_400()->set_vehicle_speed(
       vehicle_speed(bytes, length));
   chassis->mutable_lexus()
@@ -44,6 +46,7 @@ void Vehiclespeedrpt400::Parse(const std::uint8_t* bytes, int32_t length,
 // 'bit': 7, 'type': 'double', 'order': 'motorola', 'physical_unit': 'm/s'}
 double Vehiclespeedrpt400::vehicle_speed(const std::uint8_t* bytes,
                                          int32_t length) const {
+AINFO<<"(DMCZP) EnteringMethod: Vehiclespeedrpt400::vehicle_speed";
   Byte t0(bytes + 0);
   int32_t x = t0.get_byte(0, 8);
 
@@ -67,6 +70,7 @@ double Vehiclespeedrpt400::vehicle_speed(const std::uint8_t* bytes,
 Vehicle_speed_rpt_400::Vehicle_speed_validType
 Vehiclespeedrpt400::vehicle_speed_valid(const std::uint8_t* bytes,
                                         int32_t length) const {
+AINFO<<"(DMCZP) EnteringMethod: Vehiclespeedrpt400::vehicle_speed_valid";
   Byte t0(bytes + 2);
   int32_t x = t0.get_byte(0, 1);
 

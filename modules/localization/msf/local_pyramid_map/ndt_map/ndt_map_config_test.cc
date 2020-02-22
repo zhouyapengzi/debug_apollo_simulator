@@ -24,6 +24,7 @@ namespace localization {
 namespace msf {
 
 TEST(MapNdtConfigTestSuite, config) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   // init config
   NdtMapConfig config("map_ndt_v01");
   EXPECT_EQ(config.map_version_, "map_ndt_v01");

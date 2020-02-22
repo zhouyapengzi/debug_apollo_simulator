@@ -37,10 +37,12 @@ class LincolnVehicleFactoryTest : public ::testing::Test {
 };
 
 TEST_F(LincolnVehicleFactoryTest, InitVehicleController) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   EXPECT_NE(lincoln_factory_.CreateVehicleController(), nullptr);
 }
 
 TEST_F(LincolnVehicleFactoryTest, InitMessageManager) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   EXPECT_NE(lincoln_factory_.CreateMessageManager(), nullptr);
 }
 

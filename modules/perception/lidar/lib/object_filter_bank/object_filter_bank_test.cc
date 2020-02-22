@@ -21,6 +21,8 @@ DECLARE_string(work_root);
 DECLARE_string(config_manager_path);
 
 namespace apollo {
+AINFO<<"(DMCZP) EnteringMethod: DECLARE_string";
+AINFO<<"(DMCZP) EnteringMethod: DECLARE_string";
 namespace perception {
 namespace lidar {
 
@@ -44,6 +46,7 @@ class MockObjectFilter1 : public BaseObjectFilter {
 PERCEPTION_REGISTER_OBJECTFILTER(MockObjectFilter1);
 
 class MockObjectFilter2 : public BaseObjectFilter {
+AINFO<<"(DMCZP) EnteringMethod: PERCEPTION_REGISTER_OBJECTFILTER";
  public:
   MockObjectFilter2() = default;
 
@@ -63,6 +66,8 @@ class MockObjectFilter2 : public BaseObjectFilter {
 PERCEPTION_REGISTER_OBJECTFILTER(MockObjectFilter2);
 
 TEST(LidarLibObjectFilterBankTest, lidar_lib_object_filter_bank_test) {
+AINFO<<"(DMCZP) EnteringMethod: PERCEPTION_REGISTER_OBJECTFILTER";
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   // FIXME(perception): fix missing data files
   return;
 

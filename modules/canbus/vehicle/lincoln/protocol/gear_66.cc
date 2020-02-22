@@ -28,56 +28,67 @@ using ::apollo::drivers::canbus::Byte;
 const int32_t Gear66::ID = 0x66;
 
 uint32_t Gear66::GetPeriod() const {
+AINFO<<"(DMCZP) EnteringMethod: Gear66::GetPeriod";
   // on event, so value nonsense
   static const uint32_t PERIOD = 10 * 1000;
   return PERIOD;
 }
 
 void Gear66::UpdateData(uint8_t *data) {
+AINFO<<"(DMCZP) EnteringMethod: Gear66::UpdateData";
   set_gear_p(data, gear_);
   set_clear_driver_override_flag_p(data);
 }
 
 void Gear66::Reset() { gear_ = 0; }
+AINFO<<"(DMCZP) EnteringMethod: Gear66::Reset";
 
 Gear66 *Gear66::set_gear_none() {
+AINFO<<"(DMCZP) EnteringMethod: *Gear66::set_gear_none";
   gear_ = 0x00;
   return this;
 }
 
 Gear66 *Gear66::set_gear_park() {
+AINFO<<"(DMCZP) EnteringMethod: *Gear66::set_gear_park";
   gear_ = 0x01;
   return this;
 }
 
 Gear66 *Gear66::set_gear_reverse() {
+AINFO<<"(DMCZP) EnteringMethod: *Gear66::set_gear_reverse";
   gear_ = 0x02;
   return this;
 }
 
 Gear66 *Gear66::set_gear_neutral() {
+AINFO<<"(DMCZP) EnteringMethod: *Gear66::set_gear_neutral";
   gear_ = 0x03;
   return this;
 }
 
 Gear66 *Gear66::set_gear_drive() {
+AINFO<<"(DMCZP) EnteringMethod: *Gear66::set_gear_drive";
   gear_ = 0x04;
   return this;
 }
 
 Gear66 *Gear66::set_gear_low() {
+AINFO<<"(DMCZP) EnteringMethod: *Gear66::set_gear_low";
   gear_ = 0x05;
   return this;
 }
 
 // private
 void Gear66::set_gear_p(uint8_t *data, int32_t gear) {
+AINFO<<"(DMCZP) EnteringMethod: Gear66::set_gear_p";
   gear = ProtocolData::BoundedValue(0, 5, gear);
   Byte frame(data);
   frame.set_value(static_cast<uint8_t>(gear), 0, 3);
 }
 
 void Gear66::set_clear_driver_override_flag_p(uint8_t *bytes) {
+AINFO<<"(DMCZP) EnteringMethod: Gear66::set_clear_driver_override_flag_p";
   Byte frame(bytes);
   frame.set_bit_0(7);
 }

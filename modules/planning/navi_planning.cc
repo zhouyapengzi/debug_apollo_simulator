@@ -57,8 +57,10 @@ NaviPlanning::~NaviPlanning() {
 }
 
 std::string NaviPlanning::Name() const { return "navi_planning"; }
+AINFO<<"(DMCZP) EnteringMethod: NaviPlanning::Name";
 
 Status NaviPlanning::Init(const PlanningConfig& config) {
+AINFO<<"(DMCZP) EnteringMethod: NaviPlanning::Init";
   config_ = config;
   if (!CheckPlanningConfig(config_)) {
     return Status(ErrorCode::PLANNING_ERROR,
@@ -90,6 +92,7 @@ Status NaviPlanning::Init(const PlanningConfig& config) {
 Status NaviPlanning::InitFrame(const uint32_t sequence_num,
                                const TrajectoryPoint& planning_start_point,
                                const VehicleState& vehicle_state) {
+AINFO<<"(DMCZP) EnteringMethod: NaviPlanning::InitFrame";
   frame_.reset(new Frame(sequence_num, local_view_, planning_start_point,
                          vehicle_state, reference_line_provider_.get()));
 
@@ -113,6 +116,7 @@ Status NaviPlanning::InitFrame(const uint32_t sequence_num,
 
 void NaviPlanning::RunOnce(const LocalView& local_view,
                            ADCTrajectory* const trajectory_pb) {
+AINFO<<"(DMCZP) EnteringMethod: NaviPlanning::RunOnce";
   local_view_ = local_view;
   const double start_timestamp = Clock::NowInSeconds();
 
@@ -306,6 +310,7 @@ void NaviPlanning::RunOnce(const LocalView& local_view,
 }
 
 void NaviPlanning::OnPad(const PadMessage& pad) {
+AINFO<<"(DMCZP) EnteringMethod: NaviPlanning::OnPad";
   ADEBUG << "Received Planning Pad Msg:" << pad.DebugString();
   AERROR_IF(!pad.has_action()) << "pad message check failed!";
   driving_action_ = pad.action();
@@ -313,6 +318,7 @@ void NaviPlanning::OnPad(const PadMessage& pad) {
 }
 
 void NaviPlanning::ProcessPadMsg(DrivingAction drvie_action) {
+AINFO<<"(DMCZP) EnteringMethod: NaviPlanning::ProcessPadMsg";
   if (config_.has_navigation_planning_config()) {
     std::map<std::string, uint32_t> lane_id_to_priority;
     auto& ref_line_info_group = *frame_->mutable_reference_line_info();
@@ -384,6 +390,7 @@ void NaviPlanning::ProcessPadMsg(DrivingAction drvie_action) {
 }
 
 std::string NaviPlanning::GetCurrentLaneId() {
+AINFO<<"(DMCZP) EnteringMethod: NaviPlanning::GetCurrentLaneId";
   auto& ref_line_info_group = *frame_->mutable_reference_line_info();
   const auto& vehicle_state = frame_->vehicle_state();
   common::math::Vec2d adc_position(vehicle_state.x(), vehicle_state.y());
@@ -400,6 +407,8 @@ std::string NaviPlanning::GetCurrentLaneId() {
 
 void NaviPlanning::GetLeftNeighborLanesInfo(
     std::vector<std::pair<std::string, double>>* const lane_info_group) {
+AINFO<<"(DMCZP) EnteringMethod: NaviPlanning::GetLeftNeighborLanesInfo";
+AINFO<<"(DMCZP) EnteringMethod: NaviPlanning::GetRightNeighborLanesInfo";
   DCHECK_NOTNULL(lane_info_group);
   auto& ref_line_info_group = *frame_->mutable_reference_line_info();
   const auto& vehicle_state = frame_->vehicle_state();
@@ -456,6 +465,7 @@ void NaviPlanning::GetRightNeighborLanesInfo(
 }
 
 void NaviPlanning::ExportReferenceLineDebug(planning_internal::Debug* debug) {
+AINFO<<"(DMCZP) EnteringMethod: NaviPlanning::ExportReferenceLineDebug";
   if (!FLAGS_enable_record_debug) {
     return;
   }
@@ -475,6 +485,7 @@ Status NaviPlanning::Plan(
     const double current_time_stamp,
     const std::vector<TrajectoryPoint>& stitching_trajectory,
     ADCTrajectory* const trajectory_pb) {
+AINFO<<"(DMCZP) EnteringMethod: NaviPlanning::Plan";
   CHECK_NOTNULL(trajectory_pb);
   auto* ptr_debug = trajectory_pb->mutable_debug();
   if (FLAGS_enable_record_debug) {
@@ -582,6 +593,7 @@ Status NaviPlanning::Plan(
 
 NaviPlanning::VehicleConfig NaviPlanning::ComputeVehicleConfigFromLocalization(
     const localization::LocalizationEstimate& localization) const {
+AINFO<<"(DMCZP) EnteringMethod: NaviPlanning::ComputeVehicleConfigFromLocalization";
   NaviPlanning::VehicleConfig vehicle_config;
 
   if (!localization.pose().has_position()) {
@@ -605,6 +617,7 @@ NaviPlanning::VehicleConfig NaviPlanning::ComputeVehicleConfigFromLocalization(
 }
 
 bool NaviPlanning::CheckPlanningConfig(const PlanningConfig& config) {
+AINFO<<"(DMCZP) EnteringMethod: NaviPlanning::CheckPlanningConfig";
   if (!config.has_navigation_planning_config()) {
     return false;
   }

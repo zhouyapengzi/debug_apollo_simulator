@@ -77,6 +77,7 @@ class NaviPathDeciderTest : public ::testing::Test {
 };
 
 TEST_F(NaviPathDeciderTest, Init) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   NaviPathDecider navi_path_decider;
   PlanningConfig config;
   InitPlannigConfig(&config);
@@ -84,8 +85,10 @@ TEST_F(NaviPathDeciderTest, Init) {
 }
 
 TEST_F(NaviPathDeciderTest, Execute) {}
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
 
 TEST_F(NaviPathDeciderTest, MoveToDestLane) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   NaviPathDecider navi_path_decider;
   PlanningConfig config;
   InitPlannigConfig(&config);
@@ -133,6 +136,7 @@ TEST_F(NaviPathDeciderTest, MoveToDestLane) {
 }
 
 TEST_F(NaviPathDeciderTest, KeepLane) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   NaviPathDecider navi_path_decider;
   PlanningConfig config;
   InitPlannigConfig(&config);

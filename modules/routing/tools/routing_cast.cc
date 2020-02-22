@@ -26,6 +26,8 @@ DEFINE_string(routing_dump_file, "/tmp/routing.pb.txt",
 using apollo::cyber::Rate;
 
 int main(int argc, char *argv[]) {
+AINFO<<"(DMCZP) EnteringMethod: DEFINE_string";
+AINFO<<"(DMCZP) EnteringMethod: main";
   google::ParseCommandLineFlags(&argc, &argv, true);
   apollo::cyber::Init(argv[0]);
 

@@ -24,6 +24,7 @@ namespace perception {
 namespace lidar {
 
 bool ROIServiceFilter::Init(const ROIFilterInitOptions& options) {
+AINFO<<"(DMCZP) EnteringMethod: ROIServiceFilter::Init";
   roi_service_ = std::dynamic_pointer_cast<ROIService>(
       SceneManager::Instance().Service("ROIService"));
   if (roi_service_ == nullptr) {
@@ -35,6 +36,7 @@ bool ROIServiceFilter::Init(const ROIFilterInitOptions& options) {
 
 bool ROIServiceFilter::Filter(const ROIFilterOptions& options,
                               LidarFrame* frame) {
+AINFO<<"(DMCZP) EnteringMethod: ROIServiceFilter::Filter";
   if (frame == nullptr || frame->world_cloud == nullptr) {
     AERROR << "Frame is nullptr.";
     return false;

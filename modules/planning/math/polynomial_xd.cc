@@ -27,19 +27,23 @@ namespace planning {
 
 PolynomialXd::PolynomialXd(const std::uint32_t order)
     : params_(order + 1, 0.0) {
+AINFO<<"(DMCZP) EnteringMethod: PolynomialXd::PolynomialXd";
   CHECK_GE(order, 0);
 }
 
 PolynomialXd::PolynomialXd(const std::vector<double>& params)
     : params_(params) {
+AINFO<<"(DMCZP) EnteringMethod: PolynomialXd::PolynomialXd";
   CHECK(!params.empty());
 }
 
 std::uint32_t PolynomialXd::order() const {
+AINFO<<"(DMCZP) EnteringMethod: PolynomialXd::order";
   return static_cast<std::uint32_t>(params_.size()) - 1;
 }
 
 void PolynomialXd::SetParams(const std::vector<double>& params) {
+AINFO<<"(DMCZP) EnteringMethod: PolynomialXd::SetParams";
   CHECK(!params.empty());
   params_ = params;
 }
@@ -47,6 +51,7 @@ void PolynomialXd::SetParams(const std::vector<double>& params) {
 const std::vector<double>& PolynomialXd::params() const { return params_; }
 
 PolynomialXd PolynomialXd::DerivedFrom(const PolynomialXd& base) {
+AINFO<<"(DMCZP) EnteringMethod: PolynomialXd::DerivedFrom";
   std::vector<double> params;
   if (base.order() <= 0) {
     params.clear();
@@ -61,6 +66,7 @@ PolynomialXd PolynomialXd::DerivedFrom(const PolynomialXd& base) {
 
 PolynomialXd PolynomialXd::IntegratedFrom(const PolynomialXd& base,
                                           const double intercept) {
+AINFO<<"(DMCZP) EnteringMethod: PolynomialXd::IntegratedFrom";
   std::vector<double> params;
   params.resize(base.params().size() + 1);
   params[0] = intercept;
@@ -71,6 +77,7 @@ PolynomialXd PolynomialXd::IntegratedFrom(const PolynomialXd& base,
 }
 
 double PolynomialXd::operator()(const double value) const {
+AINFO<<"(DMCZP) EnteringMethod: PolynomialXd::operator";
   double result = 0.0;
   for (auto rit = params_.rbegin(); rit != params_.rend(); ++rit) {
     result *= value;

@@ -31,6 +31,7 @@ class ValidationCheckerTest : public ::testing::Test {
 };
 
 TEST_F(ValidationCheckerTest, valid_centripedal_acc) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   FLAGS_centripedal_acc_threshold = 2.0;
   std::vector<TrajectoryPoint> trajectory_points(0);
   double theta = 0.0;
@@ -49,6 +50,7 @@ TEST_F(ValidationCheckerTest, valid_centripedal_acc) {
 }
 
 TEST_F(ValidationCheckerTest, invalid_centripedal_acc) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   FLAGS_centripedal_acc_threshold = 2.0;
   std::vector<TrajectoryPoint> trajectory_points(0);
   double theta = 0.0;
@@ -67,6 +69,7 @@ TEST_F(ValidationCheckerTest, invalid_centripedal_acc) {
 }
 
 TEST_F(ValidationCheckerTest, valid_trajectory_point) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   TrajectoryPoint trajectory_point;
   trajectory_point.mutable_path_point()->set_x(0.0);
   trajectory_point.mutable_path_point()->set_y(0.0);
@@ -78,6 +81,7 @@ TEST_F(ValidationCheckerTest, valid_trajectory_point) {
 }
 
 TEST_F(ValidationCheckerTest, invalid_trajectory_point) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   TrajectoryPoint trajectory_point;
   EXPECT_FALSE(ValidationChecker::ValidTrajectoryPoint(trajectory_point));
 

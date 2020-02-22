@@ -21,6 +21,7 @@ namespace cyber {
 namespace scheduler {
 
 void ProcessorContext::Shutdown() {
+AINFO<<"(DMCZP) EnteringMethod: ProcessorContext::Shutdown";
   if (!stop_) {
     stop_ = true;
   }

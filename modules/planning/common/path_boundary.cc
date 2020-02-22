@@ -28,13 +28,17 @@ PathBoundary::PathBoundary(const double start_s, const double delta_s,
     : start_s_(start_s),
       delta_s_(delta_s),
       boundary_(std::move(path_boundary)) {}
+AINFO<<"(DMCZP) EnteringMethod: PathBoundary::PathBoundary";
 
 double PathBoundary::start_s() const { return start_s_; }
+AINFO<<"(DMCZP) EnteringMethod: PathBoundary::start_s";
 
 double PathBoundary::delta_s() const { return delta_s_; }
+AINFO<<"(DMCZP) EnteringMethod: PathBoundary::delta_s";
 
 void PathBoundary::set_boundary(
     const std::vector<std::pair<double, double>>& boundary) {
+AINFO<<"(DMCZP) EnteringMethod: PathBoundary::set_boundary";
   boundary_ = boundary;
 }
 
@@ -43,14 +47,18 @@ const std::vector<std::pair<double, double>>& PathBoundary::boundary() const {
 }
 
 void PathBoundary::set_label(const std::string& label) { label_ = label; }
+AINFO<<"(DMCZP) EnteringMethod: PathBoundary::set_label";
 
 const std::string& PathBoundary::label() const { return label_; }
+AINFO<<"(DMCZP) EnteringMethod: PathBoundary::label";
 
 void PathBoundary::set_blocking_obstacle_id(const std::string& obs_id) {
+AINFO<<"(DMCZP) EnteringMethod: PathBoundary::set_blocking_obstacle_id";
   blocking_obstacle_id_ = obs_id;
 }
 
 const std::string& PathBoundary::blocking_obstacle_id() const {
+AINFO<<"(DMCZP) EnteringMethod: PathBoundary::blocking_obstacle_id";
   return blocking_obstacle_id_;
 }
 

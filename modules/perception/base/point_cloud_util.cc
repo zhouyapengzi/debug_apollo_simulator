@@ -25,6 +25,7 @@ namespace perception {
 namespace base {
 
 void GetPointCloudCentroid(const PointFCloud& cloud, PointF* centroid) {
+AINFO<<"(DMCZP) EnteringMethod: GetPointCloudCentroid";
   for (size_t i = 0; i < cloud.size(); ++i) {
     centroid->x += cloud[i].x;
     centroid->y += cloud[i].y;
@@ -36,6 +37,7 @@ void GetPointCloudCentroid(const PointFCloud& cloud, PointF* centroid) {
 }
 
 void CloudDemean(PointFCloud* pc) {
+AINFO<<"(DMCZP) EnteringMethod: CloudDemean";
   // Demean by using centroid.
   PointF centroid;
   GetPointCloudCentroid(*pc, &centroid);
@@ -47,6 +49,7 @@ void CloudDemean(PointFCloud* pc) {
 }
 
 double OrientCloud(const PointFCloud& pc, PointFCloud* pc_out, bool demean) {
+AINFO<<"(DMCZP) EnteringMethod: OrientCloud";
   // Approach#1:
   // Find car dominant direction on XY plane.
   /*Eigen::VectorXf coeff;
@@ -71,6 +74,7 @@ double OrientCloud(const PointFCloud& pc, PointFCloud* pc_out, bool demean) {
 
 bool GetPointCloudMinareaBbox(const PointFCloud& pc, BoundingCube* box,
                               const int& min_num_points, const bool& verbose) {
+AINFO<<"(DMCZP) EnteringMethod: GetPointCloudMinareaBbox";
   if (pc.size() <= static_cast<size_t>(min_num_points)) {
     return false;
   }

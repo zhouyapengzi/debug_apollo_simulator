@@ -28,6 +28,7 @@ namespace apollo {
 namespace planning {
 
 bool FemPosDeviationOsqpInterface::Solve() {
+AINFO<<"(DMCZP) EnteringMethod: FemPosDeviationOsqpInterface::Solve";
   // Sanity Check
   if (ref_points_.empty()) {
     AERROR << "reference points empty, solver early terminates";
@@ -129,6 +130,7 @@ bool FemPosDeviationOsqpInterface::Solve() {
 void FemPosDeviationOsqpInterface::CalculateKernel(
     std::vector<c_float>* P_data, std::vector<c_int>* P_indices,
     std::vector<c_int>* P_indptr) {
+AINFO<<"(DMCZP) EnteringMethod: FemPosDeviationOsqpInterface::CalculateKernel";
   CHECK_GT(num_of_variables_, 4);
 
   // Three quadratic penalties are involved:
@@ -225,6 +227,7 @@ void FemPosDeviationOsqpInterface::CalculateKernel(
 }
 
 void FemPosDeviationOsqpInterface::CalculateOffset(std::vector<c_float>* q) {
+AINFO<<"(DMCZP) EnteringMethod: FemPosDeviationOsqpInterface::CalculateOffset";
   for (int i = 0; i < num_of_points_; ++i) {
     const auto& ref_point_xy = ref_points_[i];
     q->push_back(-2.0 * weight_ref_deviation_ * ref_point_xy.first);
@@ -236,6 +239,7 @@ void FemPosDeviationOsqpInterface::CalculateAffineConstraint(
     std::vector<c_float>* A_data, std::vector<c_int>* A_indices,
     std::vector<c_int>* A_indptr, std::vector<c_float>* lower_bounds,
     std::vector<c_float>* upper_bounds) {
+AINFO<<"(DMCZP) EnteringMethod: FemPosDeviationOsqpInterface::CalculateAffineConstraint";
   int ind_A = 0;
   for (int i = 0; i < num_of_variables_; ++i) {
     A_data->push_back(1.0);
@@ -256,6 +260,7 @@ void FemPosDeviationOsqpInterface::CalculateAffineConstraint(
 
 void FemPosDeviationOsqpInterface::SetPrimalWarmStart(
     std::vector<c_float>* primal_warm_start) {
+AINFO<<"(DMCZP) EnteringMethod: FemPosDeviationOsqpInterface::SetPrimalWarmStart";
   CHECK_EQ(ref_points_.size(), num_of_points_);
   for (const auto& ref_point_xy : ref_points_) {
     primal_warm_start->push_back(ref_point_xy.first);
@@ -271,6 +276,7 @@ bool FemPosDeviationOsqpInterface::OptimizeWithOsqp(
     std::vector<c_float>* lower_bounds, std::vector<c_float>* upper_bounds,
     std::vector<c_float>* q, std::vector<c_float>* primal_warm_start,
     OSQPData* data, OSQPWorkspace** work, OSQPSettings* settings) {
+AINFO<<"(DMCZP) EnteringMethod: FemPosDeviationOsqpInterface::OptimizeWithOsqp";
   CHECK_EQ(lower_bounds->size(), upper_bounds->size());
 
   data->n = kernel_dim;

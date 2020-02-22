@@ -26,6 +26,7 @@ class Throttlestatus510Test : public ::testing::Test {
 };
 
 TEST_F(Throttlestatus510Test, General) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   uint8_t data[8] = {0x01, 0x02, 0x03, 0x04, 0x11, 0x12, 0x13, 0x14};
   int32_t length = 8;
   ChassisDetail cd;

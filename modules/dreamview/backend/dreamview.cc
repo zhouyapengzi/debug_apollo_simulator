@@ -33,11 +33,13 @@ using cyber::common::PathExists;
 Dreamview::~Dreamview() { Stop(); }
 
 void Dreamview::TerminateProfilingMode() {
+AINFO<<"(DMCZP) EnteringMethod: Dreamview::TerminateProfilingMode";
   Stop();
   AWARN << "Profiling timer called shutdown!";
 }
 
 Status Dreamview::Init() {
+AINFO<<"(DMCZP) EnteringMethod: Dreamview::Init";
   VehicleConfigHelper::Init();
 
   if (FLAGS_dreamview_profiling_mode &&
@@ -93,6 +95,7 @@ Status Dreamview::Init() {
 }
 
 Status Dreamview::Start() {
+AINFO<<"(DMCZP) EnteringMethod: Dreamview::Start";
   sim_world_updater_->Start();
   point_cloud_updater_->Start();
   hmi_->Start();
@@ -100,6 +103,7 @@ Status Dreamview::Start() {
 }
 
 void Dreamview::Stop() {
+AINFO<<"(DMCZP) EnteringMethod: Dreamview::Stop";
   server_->close();
   sim_control_->Stop();
   point_cloud_updater_->Stop();

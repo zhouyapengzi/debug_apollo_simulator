@@ -25,6 +25,7 @@ namespace control {
 const double kDoubleEpsilon = 1e-6;
 
 bool Interpolation1D::Init(const DataType& xy) {
+AINFO<<"(DMCZP) EnteringMethod: Interpolation1D::Init";
   if (xy.empty()) {
     AERROR << "empty input.";
     return false;
@@ -53,6 +54,7 @@ bool Interpolation1D::Init(const DataType& xy) {
 }
 
 double Interpolation1D::Interpolate(double x) const {
+AINFO<<"(DMCZP) EnteringMethod: Interpolation1D::Interpolate";
   if (x < x_min_) {
     return y_start_;
   }
@@ -64,6 +66,7 @@ double Interpolation1D::Interpolate(double x) const {
 }
 
 double Interpolation1D::ScaledValue(double x) const {
+AINFO<<"(DMCZP) EnteringMethod: Interpolation1D::ScaledValue";
   if (std::fabs(x_max_ - x_min_) < kDoubleEpsilon) {
     return x_min_;
   }
@@ -72,6 +75,7 @@ double Interpolation1D::ScaledValue(double x) const {
 
 Eigen::RowVectorXd Interpolation1D::ScaledValues(
     Eigen::VectorXd const& x_vec) const {
+AINFO<<"(DMCZP) EnteringMethod: Interpolation1D::ScaledValues";
   return x_vec.unaryExpr([this](double x) { return ScaledValue(x); })
       .transpose();
 }

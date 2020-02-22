@@ -24,11 +24,13 @@ namespace localization {
 namespace msf {
 LosslessMapNode::LosslessMapNode()
     : BaseMapNode(new LosslessMapMatrix(), new ZlibStrategy()) {}
+AINFO<<"(DMCZP) EnteringMethod: LosslessMapNode::LosslessMapNode";
 
 LosslessMapNode::~LosslessMapNode() {}
 
 void LosslessMapNode::SetValue(const Eigen::Vector3d& coordinate,
                                unsigned char intensity) {
+AINFO<<"(DMCZP) EnteringMethod: LosslessMapNode::SetValue";
   Eigen::Vector2d coord2d(coordinate[0], coordinate[1]);
   unsigned int x = 0;
   unsigned int y = 0;
@@ -45,6 +47,7 @@ void LosslessMapNode::SetValue(const Eigen::Vector3d& coordinate,
 
 bool LosslessMapNode::SetValueIfInBound(const Eigen::Vector3d& coordinate,
                                         unsigned char intensity) {
+AINFO<<"(DMCZP) EnteringMethod: LosslessMapNode::SetValueIfInBound";
   Eigen::Vector2d coord2d(coordinate[0], coordinate[1]);
   unsigned int x = 0;
   unsigned int y = 0;
@@ -65,6 +68,7 @@ bool LosslessMapNode::SetValueIfInBound(const Eigen::Vector3d& coordinate,
 
 void LosslessMapNode::SetValueLayer(const Eigen::Vector3d& coordinate,
                                     unsigned char intensity) {
+AINFO<<"(DMCZP) EnteringMethod: LosslessMapNode::SetValueLayer";
   Eigen::Vector2d coord2d(coordinate[0], coordinate[1]);
   unsigned int x = 0;
   unsigned int y = 0;
@@ -80,6 +84,7 @@ void LosslessMapNode::SetValueLayer(const Eigen::Vector3d& coordinate,
 
 void LosslessMapNode::GetValue(const Eigen::Vector3d& coordinate,
                                std::vector<unsigned char>* values) const {
+AINFO<<"(DMCZP) EnteringMethod: LosslessMapNode::GetValue";
   Eigen::Vector2d coord2d(coordinate[0], coordinate[1]);
   unsigned int x = 0;
   unsigned int y = 0;
@@ -92,6 +97,7 @@ void LosslessMapNode::GetValue(const Eigen::Vector3d& coordinate,
 
 void LosslessMapNode::GetVar(const Eigen::Vector3d& coordinate,
                              std::vector<float>* vars) const {
+AINFO<<"(DMCZP) EnteringMethod: LosslessMapNode::GetVar";
   Eigen::Vector2d coord2d(coordinate[0], coordinate[1]);
   unsigned int x = 0;
   unsigned int y = 0;
@@ -104,6 +110,7 @@ void LosslessMapNode::GetVar(const Eigen::Vector3d& coordinate,
 
 void LosslessMapNode::GetAlt(const Eigen::Vector3d& coordinate,
                              std::vector<float>* alts) const {
+AINFO<<"(DMCZP) EnteringMethod: LosslessMapNode::GetAlt";
   Eigen::Vector2d coord2d(coordinate[0], coordinate[1]);
   unsigned int x = 0;
   unsigned int y = 0;
@@ -116,6 +123,7 @@ void LosslessMapNode::GetAlt(const Eigen::Vector3d& coordinate,
 
 void LosslessMapNode::GetAltVar(const Eigen::Vector3d& coordinate,
                                 std::vector<float>* alt_vars) const {
+AINFO<<"(DMCZP) EnteringMethod: LosslessMapNode::GetAltVar";
   Eigen::Vector2d coord2d(coordinate[0], coordinate[1]);
   unsigned int x = 0;
   unsigned int y = 0;
@@ -128,6 +136,7 @@ void LosslessMapNode::GetAltVar(const Eigen::Vector3d& coordinate,
 
 void LosslessMapNode::GetCount(const Eigen::Vector3d& coordinate,
                                std::vector<unsigned int>* counts) const {
+AINFO<<"(DMCZP) EnteringMethod: LosslessMapNode::GetCount";
   Eigen::Vector2d coord2d(coordinate[0], coordinate[1]);
   unsigned int x = 0;
   unsigned int y = 0;
@@ -140,9 +149,11 @@ void LosslessMapNode::GetCount(const Eigen::Vector3d& coordinate,
 
 unsigned char LosslessMapNode::GetValue(
     const Eigen::Vector3d& coordinate) const {
+AINFO<<"(DMCZP) EnteringMethod: LosslessMapNode::GetValue";
   Eigen::Vector2d coord2d(coordinate[0], coordinate[1]);
   unsigned int x = 0;
   unsigned int y = 0;
+AINFO<<"(DMCZP) EnteringMethod: LosslessMapNode::GetCount";
   bool is_success = GetCoordinate(coord2d, &x, &y);
   DCHECK(is_success);
   LosslessMapCell& map_cell =
@@ -151,6 +162,7 @@ unsigned char LosslessMapNode::GetValue(
 }
 
 float LosslessMapNode::GetVar(const Eigen::Vector3d& coordinate) const {
+AINFO<<"(DMCZP) EnteringMethod: LosslessMapNode::GetVar";
   Eigen::Vector2d coord2d(coordinate[0], coordinate[1]);
   unsigned int x = 0;
   unsigned int y = 0;
@@ -162,6 +174,7 @@ float LosslessMapNode::GetVar(const Eigen::Vector3d& coordinate) const {
 }
 
 float LosslessMapNode::GetAlt(const Eigen::Vector3d& coordinate) const {
+AINFO<<"(DMCZP) EnteringMethod: LosslessMapNode::GetAlt";
   Eigen::Vector2d coord2d(coordinate[0], coordinate[1]);
   unsigned int x = 0;
   unsigned int y = 0;
@@ -173,6 +186,7 @@ float LosslessMapNode::GetAlt(const Eigen::Vector3d& coordinate) const {
 }
 
 float LosslessMapNode::GetAltVar(const Eigen::Vector3d& coordinate) const {
+AINFO<<"(DMCZP) EnteringMethod: LosslessMapNode::GetAltVar";
   Eigen::Vector2d coord2d(coordinate[0], coordinate[1]);
   unsigned int x = 0;
   unsigned int y = 0;

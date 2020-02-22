@@ -33,6 +33,8 @@ namespace fusion {
 TODO(all): not compiling. to be fixed
 
 TEST(ProjectionCacheTest, test_projection_cache_basic_function) {
+AINFO<<"(DMCZP) EnteringMethod: TODO";
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   ProjectionCacheObject projection_cache_object;
   projection_cache_object.SetStartInd(2);
   projection_cache_object.SetEndInd(5);
@@ -43,6 +45,7 @@ TEST(ProjectionCacheTest, test_projection_cache_basic_function) {
 }
 
 TEST(ProjectionCacheFrame, test_projection_cache_query_object_1) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   ProjectionCacheObject* cache_object_ptr_1 = new ProjectionCacheObject;
   cache_object_ptr_1->SetStartInd(2);
   cache_object_ptr_1->SetEndInd(5);
@@ -62,6 +65,7 @@ TEST(ProjectionCacheFrame, test_projection_cache_query_object_1) {
 }
 
 TEST(ProjectionCache, test_projection_cache_query_object_2) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   ProjectionCache projection_cache;
   Eigen::Vector2f test_pt(2, 3);
   projection_cache.AddPoint(test_pt);
@@ -81,6 +85,7 @@ TEST(ProjectionCache, test_projection_cache_query_object_2) {
 }
 
 TEST(BoundedScalePositiveProbability, test_probability_1) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   double p = 0.2;
   double max_p = 0.4;
   double min_p = 0.3;
@@ -88,6 +93,7 @@ TEST(BoundedScalePositiveProbability, test_probability_1) {
 }
 
 TEST(ScalePositiveProbability, test_probability_2) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   double p = 0.2;
   double max_p = 0.4;
   double th_p = 0.3;
@@ -97,6 +103,7 @@ TEST(ScalePositiveProbability, test_probability_2) {
 }
 
 TEST(WelshVarLossFun, test_probability_3) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   double p = 0;
   EXPECT_EQ(WelshVarLossFun(p, 0.2, 0.5), 1 - 1e-6);
   p  = 20.0;
@@ -104,12 +111,14 @@ TEST(WelshVarLossFun, test_probability_3) {
 }
 
 TEST(FuseTwoProbabilities, test_probability_3) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   double p1 = 1.0;
   double p2 = 1.0;
   EXPECT_EQ(FuseTwoProbabilities(p1, p2), 1.0);
 }
 
 TEST(FuseMultipleProbabilities, test_probability_4) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   std::vector<double> probs;
   probs.push_back(1.0);
   probs.push_back(1.0);
@@ -118,6 +127,7 @@ TEST(FuseMultipleProbabilities, test_probability_4) {
 }
 
 TEST(ComputePtsBoxLocationSimilarity, test_compute_pts_box_location_sim) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   ProjectionCachePtr cache_ptr = new ProjectionCache;
   ProjectionCacheObject* cache_object_ptr = new ProjectionCacheObject;
   base::BBox2DF camera_bbox = base::BBox2DF(100, 100, 200, 200);
@@ -136,6 +146,7 @@ TEST(ComputePtsBoxLocationSimilarity, test_compute_pts_box_location_sim) {
 }
 
 TEST(ComputePtsBoxShapeSimilarity, test_compute_pts_box_shape_sim) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   ProjectionCachePtr cache_ptr = new ProjectionCache;
   base::BBox2DF camera_bbox = base::BBox2DF(100, 100, 200, 200);
   ProjectionCacheObject* cache_object_ptr = new ProjectionCacheObject;
@@ -155,6 +166,7 @@ TEST(ComputePtsBoxShapeSimilarity, test_compute_pts_box_shape_sim) {
 }
 
 TEST(ComputePtsBoxSimilarity, test_compute_pts_box_sim) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   ProjectionCachePtr cache_ptr = new ProjectionCache;
   ProjectionCacheObject* cache_object_ptr = new ProjectionCacheObject;
   base::BBox2DF camera_bbox = base::BBox2DF(100, 100, 200, 200);
@@ -172,6 +184,7 @@ TEST(ComputePtsBoxSimilarity, test_compute_pts_box_sim) {
 }
 
 TEST(ComputeRadarCameraXSimilarity, test_compute_radar_camera_x_sim) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   double velo_ct_x = 100;
   double camera_ct_x = 100;
   double size_x = 100;
@@ -182,6 +195,7 @@ TEST(ComputeRadarCameraXSimilarity, test_compute_radar_camera_x_sim) {
 }
 
 TEST(ComputeRadarCameraYSimilarity, test_compute_radar_camera_y_sim) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   double velo_ct_y = 110;
   double camera_ct_y = 100;
   double size_y = 100;
@@ -192,6 +206,7 @@ TEST(ComputeRadarCameraYSimilarity, test_compute_radar_camera_y_sim) {
 }
 
 TEST(ComputeRadarCameraHSimilarity, test_compute_radar_camera_h_sim) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   SensorObjectConstPtr sensor_radar_ptr;
   std::vector<Eigen::Vector2d> radar_box2d_vertices;
   radar_box2d_vertices.push_back(Eigen::Vector2d(0, 0));
@@ -218,6 +233,7 @@ TEST(ComputeRadarCameraHSimilarity, test_compute_radar_camera_h_sim) {
 }
 
 TEST(ComputeRadarCameraWSimilarity, test_compute_radar_camera_w_sim) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   std::vector<Eigen::Vector2d> radar_box2d_vertices;
   radar_box2d_vertices.push_back(Eigen::Vector2d(0, 0));
   radar_box2d_vertices.push_back(Eigen::Vector2d(100, 100));
@@ -238,6 +254,7 @@ TEST(ComputeRadarCameraWSimilarity, test_compute_radar_camera_w_sim) {
 }
 
 TEST(ComputeRadarCameraLocSimilarity, test_compute_radar_camera_loc_sim) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   base::ObjectPtr camera_object_ptr =
   std::shared_ptr<base::Object>(new base::Object);
   camera_object_ptr->center = Eigen::Vector3d(0, 0, 100);
@@ -254,6 +271,7 @@ TEST(ComputeRadarCameraLocSimilarity, test_compute_radar_camera_loc_sim) {
 }
 
 TEST(ComputeRadarCameraVelocitySimilarity, test_compute_radar_camera_vel_sim) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   base::ObjectPtr camera_object_ptr =
       std::shared_ptr<base::Object>(new base::Object);
   camera_object_ptr->velocity = Eigen::Vector3f(0, 0, 21);
@@ -275,6 +293,7 @@ camera_const_sensor_ptr), 0.8);
 }
 
 TEST(TrackObjectDistance, test) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   common::FLAGS_obs_sensor_meta_path = "./data/sensor_meta.pt";
   common::FLAGS_obs_sensor_intrinsic_path = "./params";
   TrackObjectDistance track_object_distance;

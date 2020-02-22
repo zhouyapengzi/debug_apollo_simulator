@@ -35,6 +35,7 @@ namespace planning {
 using apollo::perception::PerceptionObstacle;
 
 TEST(Obstacle, IsValidPerceptionObstacle) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   PerceptionObstacle perception_obstacle;
   EXPECT_FALSE(Obstacle::IsValidPerceptionObstacle(perception_obstacle));
 
@@ -77,6 +78,7 @@ class ObstacleTest : public ::testing::Test {
 };
 
 TEST_F(ObstacleTest, CreateObstacles) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   ASSERT_EQ(5, indexed_obstacles_.Items().size());
   EXPECT_TRUE(indexed_obstacles_.Find("2156_0"));
   EXPECT_TRUE(indexed_obstacles_.Find("2156_1"));
@@ -86,6 +88,7 @@ TEST_F(ObstacleTest, CreateObstacles) {
 }
 
 TEST_F(ObstacleTest, Id) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   const auto* obstacle = indexed_obstacles_.Find("2156_0");
   ASSERT_TRUE(obstacle);
   EXPECT_EQ("2156_0", obstacle->Id());
@@ -93,6 +96,7 @@ TEST_F(ObstacleTest, Id) {
 }
 
 TEST_F(ObstacleTest, GetPointAtTime) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   const auto* obstacle = indexed_obstacles_.Find("2156_0");
   ASSERT_TRUE(obstacle);
 
@@ -119,6 +123,7 @@ TEST_F(ObstacleTest, GetPointAtTime) {
 }
 
 TEST_F(ObstacleTest, PerceptionBoundingBox) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   const auto* obstacle = indexed_obstacles_.Find("2156_0");
   ASSERT_TRUE(obstacle);
   const auto& box = obstacle->PerceptionBoundingBox();
@@ -134,6 +139,7 @@ TEST_F(ObstacleTest, PerceptionBoundingBox) {
 }
 
 TEST_F(ObstacleTest, GetBoundingBox) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   const auto* obstacle = indexed_obstacles_.Find("2156_0");
   ASSERT_TRUE(obstacle);
   const auto& point = obstacle->Trajectory().trajectory_point(2);
@@ -149,6 +155,7 @@ TEST_F(ObstacleTest, GetBoundingBox) {
 }
 
 TEST_F(ObstacleTest, PerceptionPolygon) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   const auto* obstacle = indexed_obstacles_.Find("2156_0");
   ASSERT_TRUE(obstacle);
   const auto& polygon = obstacle->PerceptionPolygon();
@@ -164,6 +171,7 @@ TEST_F(ObstacleTest, PerceptionPolygon) {
 }
 
 TEST_F(ObstacleTest, Trajectory) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   const auto* obstacle = indexed_obstacles_.Find("2156_0");
   ASSERT_TRUE(obstacle);
   const auto& points = obstacle->Trajectory().trajectory_point();
@@ -171,6 +179,7 @@ TEST_F(ObstacleTest, Trajectory) {
 }
 
 TEST_F(ObstacleTest, Perception) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   const auto* obstacle = indexed_obstacles_.Find("2156_0");
   ASSERT_TRUE(obstacle);
   const auto& perception_obstacle = obstacle->Perception();
@@ -178,6 +187,7 @@ TEST_F(ObstacleTest, Perception) {
 }
 
 TEST(Obstacle, CreateStaticVirtualObstacle) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   common::math::Box2d box({0, 0}, 0.0, 4.0, 2.0);
   std::unique_ptr<Obstacle> obstacle =
       Obstacle::CreateStaticVirtualObstacles("abc", box);
@@ -193,6 +203,7 @@ TEST(Obstacle, CreateStaticVirtualObstacle) {
 }
 
 TEST(IsLateralDecision, AllDecisions) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   ObjectDecisionType decision_ignore;
   decision_ignore.mutable_ignore();
   EXPECT_TRUE(Obstacle::IsLateralDecision(decision_ignore));
@@ -219,6 +230,7 @@ TEST(IsLateralDecision, AllDecisions) {
 }
 
 TEST(IsLongitudinalDecision, AllDecisions) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   ObjectDecisionType decision_ignore;
   decision_ignore.mutable_ignore();
   EXPECT_TRUE(Obstacle::IsLongitudinalDecision(decision_ignore));
@@ -245,6 +257,7 @@ TEST(IsLongitudinalDecision, AllDecisions) {
 }
 
 TEST(MergeLongitudinalDecision, AllDecisions) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   ObjectDecisionType decision_ignore;
   decision_ignore.mutable_ignore();
 
@@ -372,6 +385,7 @@ TEST(MergeLongitudinalDecision, AllDecisions) {
 }
 
 TEST(MergeLateralDecision, AllDecisions) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   ObjectDecisionType decision_ignore;
   decision_ignore.mutable_ignore();
 
@@ -404,6 +418,7 @@ TEST(MergeLateralDecision, AllDecisions) {
 }
 
 TEST(ObstacleMergeTest, add_decision_test) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   // init state
   {
     Obstacle obstacle;

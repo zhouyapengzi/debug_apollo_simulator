@@ -32,6 +32,7 @@ using cyber::common::GetAbsolutePath;
 void ClassifyBySimple::Init(
     const traffic_light::recognition::ClassifyParam& model_config,
     const int gpu_id, const std::string work_root) {
+AINFO<<"(DMCZP) EnteringMethod: ClassifyBySimple::Init";
   AINFO << "Enter Classify init";
   net_inputs_.clear();
   net_outputs_.clear();
@@ -115,6 +116,7 @@ void ClassifyBySimple::Init(
 
 void ClassifyBySimple::Perform(const CameraFrame* frame,
                                std::vector<base::TrafficLightPtr>* lights) {
+AINFO<<"(DMCZP) EnteringMethod: ClassifyBySimple::Perform";
 
    AINFO<<"(pengzi) in method: ClassifyBySimple::Perform(const CameraFrame* frame,
                                std::vector<base::TrafficLightPtr>* lights)"  << ". thread:"<<std::this_thread::get_id();
@@ -161,6 +163,7 @@ AINFO<<"(pengzi) end traffic light recognition infer. from method: ClassifyBySim
 
 void ClassifyBySimple::Prob2Color(const float* out_put_data, float threshold,
                                   base::TrafficLightPtr light) {
+AINFO<<"(DMCZP) EnteringMethod: ClassifyBySimple::Prob2Color";
   int max_color_id = 0;
   std::vector<base::TLColor> status_map = {
       base::TLColor::TL_BLACK, base::TLColor::TL_RED, base::TLColor::TL_YELLOW,

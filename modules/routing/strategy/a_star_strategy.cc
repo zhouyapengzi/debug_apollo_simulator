@@ -47,10 +47,12 @@ struct SearchNode {
 };
 
 double GetCostToNeighbor(const TopoEdge* edge) {
+AINFO<<"(DMCZP) EnteringMethod: GetCostToNeighbor";
   return (edge->Cost() + edge->ToNode()->Cost());
 }
 
 const TopoNode* GetLargestNode(const std::vector<const TopoNode*>& nodes) {
+AINFO<<"(DMCZP) EnteringMethod: GetLargestNode";
   double max_range = 0.0;
   const TopoNode* largest = nullptr;
   for (const auto* node : nodes) {
@@ -65,6 +67,8 @@ const TopoNode* GetLargestNode(const std::vector<const TopoNode*>& nodes) {
 
 bool AdjustLaneChangeBackward(
     std::vector<const TopoNode*>* const result_node_vec) {
+AINFO<<"(DMCZP) EnteringMethod: AdjustLaneChangeBackward";
+AINFO<<"(DMCZP) EnteringMethod: AdjustLaneChangeForward";
   for (int i = static_cast<int>(result_node_vec->size()) - 2; i > 0; --i) {
     const auto* from_node = result_node_vec->at(i);
     const auto* to_node = result_node_vec->at(i + 1);
@@ -160,6 +164,7 @@ bool AdjustLaneChangeForward(
 }
 
 bool AdjustLaneChange(std::vector<const TopoNode*>* const result_node_vec) {
+AINFO<<"(DMCZP) EnteringMethod: AdjustLaneChange";
   if (result_node_vec->size() < 3) {
     return true;
   }
@@ -177,6 +182,7 @@ bool AdjustLaneChange(std::vector<const TopoNode*>* const result_node_vec) {
 bool Reconstruct(
     const std::unordered_map<const TopoNode*, const TopoNode*>& came_from,
     const TopoNode* dest_node, std::vector<NodeWithRange>* result_nodes) {
+AINFO<<"(DMCZP) EnteringMethod: Reconstruct";
   std::vector<const TopoNode*> result_node_vec;
   result_node_vec.push_back(dest_node);
 
@@ -202,8 +208,10 @@ bool Reconstruct(
 
 AStarStrategy::AStarStrategy(bool enable_change)
     : change_lane_enabled_(enable_change) {}
+AINFO<<"(DMCZP) EnteringMethod: AStarStrategy::AStarStrategy";
 
 void AStarStrategy::Clear() {
+AINFO<<"(DMCZP) EnteringMethod: AStarStrategy::Clear";
   closed_set_.clear();
   open_set_.clear();
   came_from_.clear();
@@ -213,6 +221,7 @@ void AStarStrategy::Clear() {
 
 double AStarStrategy::HeuristicCost(const TopoNode* src_node,
                                     const TopoNode* dest_node) {
+AINFO<<"(DMCZP) EnteringMethod: AStarStrategy::HeuristicCost";
   const auto& src_point = src_node->AnchorPoint();
   const auto& dest_point = dest_node->AnchorPoint();
   double distance = fabs(src_point.x() - dest_point.x()) +
@@ -224,6 +233,7 @@ bool AStarStrategy::Search(const TopoGraph* graph,
                            const SubTopoGraph* sub_graph,
                            const TopoNode* src_node, const TopoNode* dest_node,
                            std::vector<NodeWithRange>* const result_nodes) {
+AINFO<<"(DMCZP) EnteringMethod: AStarStrategy::Search";
   Clear();
   AINFO << "Start A* search algorithm.";
 
@@ -324,6 +334,7 @@ bool AStarStrategy::Search(const TopoGraph* graph,
 }
 
 double AStarStrategy::GetResidualS(const TopoNode* node) {
+AINFO<<"(DMCZP) EnteringMethod: AStarStrategy::GetResidualS";
   double start_s = node->StartS();
   const auto iter = enter_s_.find(node);
   if (iter != enter_s_.end()) {
@@ -351,6 +362,7 @@ double AStarStrategy::GetResidualS(const TopoNode* node) {
 
 double AStarStrategy::GetResidualS(const TopoEdge* edge,
                                    const TopoNode* to_node) {
+AINFO<<"(DMCZP) EnteringMethod: AStarStrategy::GetResidualS";
   if (edge->Type() == TopoEdgeType::TET_FORWARD) {
     return std::numeric_limits<double>::max();
   }

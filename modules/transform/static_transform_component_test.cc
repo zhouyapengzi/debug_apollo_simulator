@@ -22,6 +22,7 @@ namespace apollo {
 namespace transform {
 
 TEST(TransformComponentTest, Init) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   cyber::Init("transform_component_test");
   StaticTransformComponent component;
 }

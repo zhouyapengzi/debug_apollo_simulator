@@ -27,6 +27,8 @@ DECLARE_string(obs_sensor_meta_path);
 DECLARE_string(obs_sensor_intrinsic_path);
 }  // namespace common
 namespace camera {
+AINFO<<"(DMCZP) EnteringMethod: DECLARE_string";
+AINFO<<"(DMCZP) EnteringMethod: DECLARE_string";
 
 class TLPreprocessorTest : public ::testing::Test {
  protected:
@@ -153,6 +155,7 @@ class TLPreprocessorTest : public ::testing::Test {
 };
 
 TEST_F(TLPreprocessorTest, test_set_and_get_camera_is_working_flag) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   unsetenv("MODULE_PATH");
   unsetenv("CYBER_PATH");
   TrafficLightPreprocessorInitOptions init_options;
@@ -194,6 +197,7 @@ TEST_F(TLPreprocessorTest, test_set_and_get_camera_is_working_flag) {
 }
 
 TEST_F(TLPreprocessorTest, test_project_lights) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   unsetenv("MODULE_PATH");
   unsetenv("CYBER_PATH");
   TrafficLightPreprocessorInitOptions init_options;
@@ -314,6 +318,7 @@ TEST_F(TLPreprocessorTest, test_project_lights) {
 }
 
 TEST_F(TLPreprocessorTest, test_select_camera) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   unsetenv("MODULE_PATH");
   unsetenv("CYBER_PATH");
   TrafficLightPreprocessorInitOptions init_options;
@@ -420,6 +425,7 @@ TEST_F(TLPreprocessorTest, test_select_camera) {
 }
 
 TEST_F(TLPreprocessorTest, test_get_max_min_focal_len_camera_id) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   unsetenv("MODULE_PATH");
   unsetenv("CYBER_PATH");
   TrafficLightPreprocessorInitOptions init_options;
@@ -475,6 +481,7 @@ TEST_F(TLPreprocessorTest, test_get_max_min_focal_len_camera_id) {
 }
 
 TEST_F(TLPreprocessorTest, invalid_pose_id) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   unsetenv("MODULE_PATH");
   unsetenv("CYBER_PATH");
   CarPose pose;
@@ -492,6 +499,7 @@ TEST_F(TLPreprocessorTest, invalid_pose_id) {
 }
 
 TEST_F(TLPreprocessorTest, invalid_camera_name) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   unsetenv("MODULE_PATH");
   unsetenv("CYBER_PATH");
   CarPose pose;
@@ -521,6 +529,7 @@ TEST_F(TLPreprocessorTest, invalid_camera_name) {
 }
 
 TEST_F(TLPreprocessorTest, on_board) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   unsetenv("MODULE_PATH");
   unsetenv("CYBER_PATH");
   TrafficLightPreprocessorInitOptions init_options;
@@ -607,6 +616,7 @@ TEST_F(TLPreprocessorTest, on_board) {
 }
 
 TEST_F(TLPreprocessorTest, UpdateLightsProjectionTest) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   unsetenv("MODULE_PATH");
   unsetenv("CYBER_PATH");
   TrafficLightPreprocessorInitOptions init_options;

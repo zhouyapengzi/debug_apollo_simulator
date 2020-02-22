@@ -29,17 +29,20 @@ PiecewiseJerkSpeedProblem::PiecewiseJerkSpeedProblem(
     const size_t num_of_knots, const double delta_s,
     const std::array<double, 3>& x_init)
     : PiecewiseJerkProblem(num_of_knots, delta_s, x_init) {
+AINFO<<"(DMCZP) EnteringMethod: PiecewiseJerkSpeedProblem::PiecewiseJerkSpeedProblem";
   penalty_dx_.resize(num_of_knots_, 0.0);
 }
 
 void PiecewiseJerkSpeedProblem::set_dx_ref(const double weight_dx_ref,
                                            const double dx_ref) {
+AINFO<<"(DMCZP) EnteringMethod: PiecewiseJerkSpeedProblem::set_dx_ref";
   weight_dx_ref_ = weight_dx_ref;
   dx_ref_ = dx_ref;
   has_dx_ref_ = true;
 }
 
 void PiecewiseJerkSpeedProblem::set_penalty_dx(std::vector<double> penalty_dx) {
+AINFO<<"(DMCZP) EnteringMethod: PiecewiseJerkSpeedProblem::set_penalty_dx";
   CHECK_EQ(penalty_dx.size(), num_of_knots_);
   penalty_dx_ = std::move(penalty_dx);
 }
@@ -47,6 +50,7 @@ void PiecewiseJerkSpeedProblem::set_penalty_dx(std::vector<double> penalty_dx) {
 void PiecewiseJerkSpeedProblem::CalculateKernel(std::vector<c_float>* P_data,
                                                 std::vector<c_int>* P_indices,
                                                 std::vector<c_int>* P_indptr) {
+AINFO<<"(DMCZP) EnteringMethod: PiecewiseJerkSpeedProblem::CalculateKernel";
   const int n = static_cast<int>(num_of_knots_);
   const int kNumParam = 3 * n;
   const int kNumValue = 4 * n - 1;
@@ -121,6 +125,7 @@ void PiecewiseJerkSpeedProblem::CalculateKernel(std::vector<c_float>* P_data,
 }
 
 void PiecewiseJerkSpeedProblem::CalculateOffset(std::vector<c_float>* q) {
+AINFO<<"(DMCZP) EnteringMethod: PiecewiseJerkSpeedProblem::CalculateOffset";
   CHECK_NOTNULL(q);
   const int n = static_cast<int>(num_of_knots_);
   const int kNumParam = 3 * n;
@@ -145,6 +150,7 @@ void PiecewiseJerkSpeedProblem::CalculateOffset(std::vector<c_float>* q) {
 }
 
 OSQPSettings* PiecewiseJerkSpeedProblem::SolverDefaultSettings() {
+AINFO<<"(DMCZP) EnteringMethod: PiecewiseJerkSpeedProblem::SolverDefaultSettings";
   // Define Solver default settings
   OSQPSettings* settings =
       reinterpret_cast<OSQPSettings*>(c_malloc(sizeof(OSQPSettings)));

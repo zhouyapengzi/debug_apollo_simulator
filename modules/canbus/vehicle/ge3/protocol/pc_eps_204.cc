@@ -27,20 +27,24 @@ const int32_t Pceps204::ID = 0x204;
 
 // public
 Pceps204::Pceps204() { Reset(); }
+AINFO<<"(DMCZP) EnteringMethod: Pceps204::Pceps204";
 
 uint32_t Pceps204::GetPeriod() const {
+AINFO<<"(DMCZP) EnteringMethod: Pceps204::GetPeriod";
   // modify every protocol's period manually
   static const uint32_t PERIOD = 20 * 1000;
   return PERIOD;
 }
 
 void Pceps204::UpdateData(uint8_t* data) {
+AINFO<<"(DMCZP) EnteringMethod: Pceps204::UpdateData";
   set_p_pc_steerspdreq(data, pc_steerspdreq_);
   set_p_pc_steerenable(data, pc_steerenable_);
   set_p_pc_steerangreq(data, pc_steerangreq_);
 }
 
 void Pceps204::Reset() {
+AINFO<<"(DMCZP) EnteringMethod: Pceps204::Reset";
   // you should check this manually
   pc_steerspdreq_ = 0;
   pc_steerenable_ = Pc_eps_204::PC_STEERENABLE_DISABLE;
@@ -48,6 +52,7 @@ void Pceps204::Reset() {
 }
 
 Pceps204* Pceps204::set_pc_steerspdreq(int pc_steerspdreq) {
+AINFO<<"(DMCZP) EnteringMethod: Pceps204::set_pc_steerspdreq";
   pc_steerspdreq_ = pc_steerspdreq;
   return this;
 }
@@ -57,6 +62,7 @@ Pceps204* Pceps204::set_pc_steerspdreq(int pc_steerspdreq) {
 // False, 'physical_range': '[0|500]', 'bit': 31, 'type': 'int', 'order':
 // 'motorola', 'physical_unit': 'deg/s'}
 void Pceps204::set_p_pc_steerspdreq(uint8_t* data, int pc_steerspdreq) {
+AINFO<<"(DMCZP) EnteringMethod: Pceps204::set_p_pc_steerspdreq";
   pc_steerspdreq = ProtocolData::BoundedValue(0, 500, pc_steerspdreq);
   int x = pc_steerspdreq;
   uint8_t t = 0;
@@ -73,6 +79,7 @@ void Pceps204::set_p_pc_steerspdreq(uint8_t* data, int pc_steerspdreq) {
 
 Pceps204* Pceps204::set_pc_steerenable(
     Pc_eps_204::Pc_steerenableType pc_steerenable) {
+AINFO<<"(DMCZP) EnteringMethod: Pceps204::set_pc_steerenable";
   pc_steerenable_ = pc_steerenable;
   return this;
 }
@@ -84,6 +91,7 @@ Pceps204* Pceps204::set_pc_steerenable(
 // 'physical_unit': ''}
 void Pceps204::set_p_pc_steerenable(
     uint8_t* data, Pc_eps_204::Pc_steerenableType pc_steerenable) {
+AINFO<<"(DMCZP) EnteringMethod: Pceps204::set_p_pc_steerenable";
   int x = pc_steerenable;
 
   Byte to_set(data + 0);
@@ -91,6 +99,7 @@ void Pceps204::set_p_pc_steerenable(
 }
 
 Pceps204* Pceps204::set_pc_steerangreq(double pc_steerangreq) {
+AINFO<<"(DMCZP) EnteringMethod: Pceps204::set_pc_steerangreq";
   pc_steerangreq_ = pc_steerangreq;
   return this;
 }
@@ -100,6 +109,7 @@ Pceps204* Pceps204::set_pc_steerangreq(double pc_steerangreq) {
 // False, 'physical_range': '[-500|500]', 'bit': 15, 'type': 'double', 'order':
 // 'motorola', 'physical_unit': 'deg'}
 void Pceps204::set_p_pc_steerangreq(uint8_t* data, double pc_steerangreq) {
+AINFO<<"(DMCZP) EnteringMethod: Pceps204::set_p_pc_steerangreq";
   pc_steerangreq = ProtocolData::BoundedValue(-500.0, 500.0, pc_steerangreq);
   int x = static_cast<int>((pc_steerangreq - -500.000000) / 0.100000);
   uint8_t t = 0;

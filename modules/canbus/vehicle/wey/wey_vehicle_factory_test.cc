@@ -35,10 +35,12 @@ class WeyVehicleFactoryTest : public ::testing::Test {
 };
 
 TEST_F(WeyVehicleFactoryTest, InitVehicleController) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   EXPECT_NE(wey_factory_.CreateVehicleController(), nullptr);
 }
 
 TEST_F(WeyVehicleFactoryTest, InitMessageManager) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   EXPECT_NE(wey_factory_.CreateMessageManager(), nullptr);
 }
 

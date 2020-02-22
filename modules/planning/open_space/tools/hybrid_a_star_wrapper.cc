@@ -78,6 +78,7 @@ class HybridAResultContainer {
 
 extern "C" {
 HybridAStar* CreatePlannerPtr() {
+AINFO<<"(DMCZP) EnteringMethod: CreatePlannerPtr";
   apollo::planning::PlannerOpenSpaceConfig planner_open_space_config_;
 
   CHECK(apollo::cyber::common::GetProtoFromFile(
@@ -87,19 +88,23 @@ HybridAStar* CreatePlannerPtr() {
   return new HybridAStar(planner_open_space_config_);
 }
 HybridAObstacleContainer* CreateObstaclesPtr() {
+AINFO<<"(DMCZP) EnteringMethod: CreateObstaclesPtr";
   return new HybridAObstacleContainer();
 }
 HybridAResultContainer* CreateResultPtr() {
+AINFO<<"(DMCZP) EnteringMethod: CreateResultPtr";
   return new HybridAResultContainer();
 }
 void AddVirtualObstacle(HybridAObstacleContainer* obstacles_ptr,
                         double* obstacle_x, double* obstacle_y,
                         int vertice_num) {
+AINFO<<"(DMCZP) EnteringMethod: AddVirtualObstacle";
   obstacles_ptr->AddVirtualObstacle(obstacle_x, obstacle_y, vertice_num);
 }
 bool Plan(HybridAStar* planner_ptr, HybridAObstacleContainer* obstacles_ptr,
           HybridAResultContainer* result_ptr, double sx, double sy, double sphi,
           double ex, double ey, double ephi, double* XYbounds) {
+AINFO<<"(DMCZP) EnteringMethod: Plan";
   std::vector<double> XYbounds_(XYbounds, XYbounds + 4);
   return planner_ptr->Plan(sx, sy, sphi, ex, ey, ephi, XYbounds_,
                            obstacles_ptr->GetObstaclesVerticesVec(),
@@ -108,6 +113,7 @@ bool Plan(HybridAStar* planner_ptr, HybridAObstacleContainer* obstacles_ptr,
 void GetResult(HybridAResultContainer* result_ptr, double* x, double* y,
                double* phi, double* v, double* a, double* steer,
                size_t* output_size) {
+AINFO<<"(DMCZP) EnteringMethod: GetResult";
   result_ptr->LoadResult();
   size_t size = result_ptr->GetX()->size();
   std::cout << "return size is " << size << std::endl;
@@ -129,3 +135,4 @@ void GetResult(HybridAResultContainer* result_ptr, double* x, double* y,
 }  // namespace apollo
 
 int main(int32_t argc, char** argv) { return 0; }
+AINFO<<"(DMCZP) EnteringMethod: main";

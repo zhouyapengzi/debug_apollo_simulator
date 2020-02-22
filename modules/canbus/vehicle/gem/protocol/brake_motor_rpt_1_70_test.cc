@@ -28,6 +28,7 @@ class Brakemotorrpt170Test : public ::testing::Test {
 };
 
 TEST_F(Brakemotorrpt170Test, reset) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   Brakemotorrpt170 brakermotor1;
   int32_t length = 8;
   ChassisDetail chassis_detail;

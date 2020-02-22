@@ -24,6 +24,7 @@ namespace prediction {
 class JunctionAnalyzerTest : public KMLMapBasedTest {};
 
 TEST_F(JunctionAnalyzerTest, SingleLane) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   JunctionAnalyzer::Init("j2");
   EXPECT_NEAR(JunctionAnalyzer::ComputeJunctionRange(), 74.0306, 0.001);
   const JunctionFeature& junction_feature =
@@ -35,6 +36,7 @@ TEST_F(JunctionAnalyzerTest, SingleLane) {
 }
 
 TEST_F(JunctionAnalyzerTest, MultiLane) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   JunctionAnalyzer::Init("j2");
   const JunctionFeature& merged_junction_feature =
       JunctionAnalyzer::GetJunctionFeature(

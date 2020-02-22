@@ -78,6 +78,7 @@ namespace canbus {
 namespace lexus {
 
 LexusMessageManager::LexusMessageManager() {
+AINFO<<"(DMCZP) EnteringMethod: LexusMessageManager::LexusMessageManager";
   // Control Messages
   AddSendProtocolData<Accelcmd100, true>();
   AddSendProtocolData<Brakecmd104, true>();

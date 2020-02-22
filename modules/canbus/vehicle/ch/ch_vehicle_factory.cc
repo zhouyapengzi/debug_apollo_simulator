@@ -30,6 +30,7 @@ std::unique_ptr<VehicleController> ChVehicleFactory::CreateVehicleController() {
 
 std::unique_ptr<MessageManager<::apollo::canbus::ChassisDetail>>
 ChVehicleFactory::CreateMessageManager() {
+AINFO<<"(DMCZP) EnteringMethod: ChVehicleFactory::CreateMessageManager";
   return std::unique_ptr<MessageManager<::apollo::canbus::ChassisDetail>>(
       new ch::ChMessageManager());
 }

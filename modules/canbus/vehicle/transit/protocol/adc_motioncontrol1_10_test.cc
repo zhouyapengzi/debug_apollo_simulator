@@ -32,6 +32,7 @@ class adc_motioncontrol1_10Test : public ::testing ::Test {
 };
 
 TEST_F(adc_motioncontrol1_10Test, part1) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   Adcmotioncontrol110 motion_ctrl_110_;
   uint8_t data[8] = {0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF};
   double x = 0.0;
@@ -52,6 +53,7 @@ TEST_F(adc_motioncontrol1_10Test, part1) {
 }
 
 TEST_F(adc_motioncontrol1_10Test, part2) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   Adcmotioncontrol110 motion_ctrl_110_;
   uint8_t data[8] = {0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF};
   double x = 0.0;
@@ -72,6 +74,7 @@ TEST_F(adc_motioncontrol1_10Test, part2) {
 }
 
 TEST_F(adc_motioncontrol1_10Test, part3) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   Adcmotioncontrol110 motion_ctrl_110_;
   uint8_t data[8] = {0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF};
   int i = 0;
@@ -90,6 +93,7 @@ TEST_F(adc_motioncontrol1_10Test, part3) {
 }
 
 TEST_F(adc_motioncontrol1_10Test, part4) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   Adcmotioncontrol110 motion_ctrl_110_;
   uint8_t data = 0xFF;
   motion_ctrl_110_.set_p_adc_cmd_longitudinalcontrolmode(

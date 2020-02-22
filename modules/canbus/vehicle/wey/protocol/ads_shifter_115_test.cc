@@ -27,6 +27,7 @@ class Adsshifter115Test : public ::testing::Test {
 };
 
 TEST_F(Adsshifter115Test, reset) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   uint8_t data[8] = {0x67, 0x62, 0x63, 0x64, 0x51, 0x52, 0x53, 0x54};
   Adsshifter115 ads_shift;
   EXPECT_EQ(ads_shift.GetPeriod(), 20 * 1000);

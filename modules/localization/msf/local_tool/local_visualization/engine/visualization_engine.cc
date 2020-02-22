@@ -52,6 +52,7 @@ bool MapImageKey::operator<(const MapImageKey &key) const {
 
 // =================MapImageCache=================
 bool MapImageCache::Get(const MapImageKey &key, cv::Mat *image) {
+AINFO<<"(DMCZP) EnteringMethod: MapImageCache::Get";
   auto found_iter = _map.find(key);
   if (found_iter == _map.end()) {
     return false;
@@ -63,6 +64,7 @@ bool MapImageCache::Get(const MapImageKey &key, cv::Mat *image) {
 }
 
 void MapImageCache::Set(const MapImageKey &key, const cv::Mat &image) {
+AINFO<<"(DMCZP) EnteringMethod: MapImageCache::Set";
   auto found_iter = _map.find(key);
   if (found_iter != _map.end()) {
     // move the corresponding key to list front
@@ -87,6 +89,7 @@ VisualizationEngine::VisualizationEngine()
       image_window_(1024, 1024, CV_8UC3, cv::Scalar(0, 0, 0)),
       big_window_(3072, 3072, CV_8UC3),
       tips_window_(48, 1024, CV_8UC3, cv::Scalar(0, 0, 0)) {}
+AINFO<<"(DMCZP) EnteringMethod: VisualizationEngine::VisualizationEngine";
 
 bool VisualizationEngine::Init(const std::string &map_folder,
                                const std::string &map_visual_folder,
@@ -95,6 +98,7 @@ bool VisualizationEngine::Init(const std::string &map_folder,
                                const int zone_id,
                                const Eigen::Affine3d &extrinsic,
                                const unsigned int loc_info_num) {
+AINFO<<"(DMCZP) EnteringMethod: VisualizationEngine::Init";
   map_folder_ = map_folder;
   map_visual_folder_ = map_visual_folder;
   map_param_ = map_param;
@@ -147,6 +151,7 @@ bool VisualizationEngine::Init(const std::string &map_folder,
 void VisualizationEngine::Visualize(
     const std::vector<LocalizatonInfo> &loc_infos,
     const std::vector<Eigen::Vector3d> &cloud) {
+AINFO<<"(DMCZP) EnteringMethod: VisualizationEngine::Visualize";
   if (!is_init_) {
     AERROR << "Visualziation should be init first.";
     return;
@@ -177,11 +182,13 @@ void VisualizationEngine::Visualize(
 }
 
 void VisualizationEngine::SetAutoPlay(bool auto_play) {
+AINFO<<"(DMCZP) EnteringMethod: VisualizationEngine::SetAutoPlay";
   auto_play_ = auto_play;
 }
 
 void VisualizationEngine::Preprocess(const std::string &map_folder,
                                      const std::string &map_visual_folder) {
+AINFO<<"(DMCZP) EnteringMethod: VisualizationEngine::Preprocess";
   std::string image_path = map_folder_ + "/image";
   std::string image_visual_path = map_visual_folder;
   char buf[256];
@@ -237,6 +244,7 @@ void VisualizationEngine::Preprocess(const std::string &map_folder,
 }
 
 void VisualizationEngine::Draw() {
+AINFO<<"(DMCZP) EnteringMethod: VisualizationEngine::Draw";
   UpdateLevel();
 
   if (follow_car_) {
@@ -303,6 +311,7 @@ void VisualizationEngine::Draw() {
 }
 
 void VisualizationEngine::DrawTrajectory(const cv::Point &bias) {
+AINFO<<"(DMCZP) EnteringMethod: VisualizationEngine::DrawTrajectory";
   AINFO << "Draw trajectory.";
   if (cur_level_ == 0 && is_draw_trajectory_) {
     unsigned int i = (car_loc_id_ + 1) % loc_info_num_;
@@ -355,6 +364,7 @@ void VisualizationEngine::DrawTrajectory(const cv::Point &bias) {
 }
 
 void VisualizationEngine::DrawLoc(const cv::Point &bias) {
+AINFO<<"(DMCZP) EnteringMethod: VisualizationEngine::DrawLoc";
   AINFO << "Draw loc.";
   if (cur_level_ == 0) {
     unsigned int i = (car_loc_id_ + 1) % loc_info_num_;
@@ -420,6 +430,7 @@ void VisualizationEngine::DrawLoc(const cv::Point &bias) {
 }
 
 void VisualizationEngine::DrawStd(const cv::Point &bias) {
+AINFO<<"(DMCZP) EnteringMethod: VisualizationEngine::DrawStd";
   AINFO << "Draw std.";
   if (cur_level_ == 0 && is_draw_std_) {
     unsigned int i = (car_loc_id_ + 1) % loc_info_num_;
@@ -454,6 +465,7 @@ void VisualizationEngine::DrawStd(const cv::Point &bias) {
 }
 
 void VisualizationEngine::DrawCloud(const cv::Point &bias) {
+AINFO<<"(DMCZP) EnteringMethod: VisualizationEngine::DrawCloud";
   if (!cur_loc_infos_[car_loc_id_].is_has_attitude) {
     return;
   }
@@ -476,6 +488,7 @@ void VisualizationEngine::DrawCloud(const cv::Point &bias) {
 }
 
 void VisualizationEngine::DrawLegend() {
+AINFO<<"(DMCZP) EnteringMethod: VisualizationEngine::DrawLegend";
   AINFO << "Draw legend.";
   int fontFace = cv::FONT_HERSHEY_SIMPLEX;
   double fontScale = 0.6;
@@ -506,6 +519,7 @@ void VisualizationEngine::DrawLegend() {
 }
 
 void VisualizationEngine::DrawInfo() {
+AINFO<<"(DMCZP) EnteringMethod: VisualizationEngine::DrawInfo";
   AINFO << "Draw info.";
   LocalizatonInfo &loc_info = cur_loc_infos_[car_loc_id_];
 
@@ -536,6 +550,7 @@ void VisualizationEngine::DrawInfo() {
 }
 
 void VisualizationEngine::DrawTips() {
+AINFO<<"(DMCZP) EnteringMethod: VisualizationEngine::DrawTips";
   AINFO << "Draw tips.";
 
   tips_window_.setTo(cv::Scalar(0, 0, 0));
@@ -572,6 +587,7 @@ void VisualizationEngine::DrawTips() {
 }
 
 void VisualizationEngine::UpdateLevel() {
+AINFO<<"(DMCZP) EnteringMethod: VisualizationEngine::UpdateLevel";
   if (cur_scale_ > max_stride_ * 1.5) SetScale(max_stride_ * 1.5);
   if (cur_scale_ < 0.5) SetScale(0.5);
 
@@ -589,6 +605,7 @@ void VisualizationEngine::UpdateLevel() {
 void VisualizationEngine::GenerateMutiResolutionImages(
     const std::vector<std::string> &src_files, const int base_path_length,
     const std::string &dst_folder) {
+AINFO<<"(DMCZP) EnteringMethod: VisualizationEngine::GenerateMutiResolutionImages";
   int x_min = INT_MAX;
   int x_max = -1;
   int y_min = INT_MAX;
@@ -679,6 +696,7 @@ void VisualizationEngine::GenerateMutiResolutionImages(
 }
 
 bool VisualizationEngine::InitOtherParams(const std::string &params_file) {
+AINFO<<"(DMCZP) EnteringMethod: VisualizationEngine::InitOtherParams";
   int x_min = 0;
   int y_min = 0;
   int x_max = 0;
@@ -704,6 +722,7 @@ void VisualizationEngine::InitOtherParams(const int x_min, const int y_min,
                                           const int x_max, const int y_max,
                                           const int level,
                                           const std::string &path) {
+AINFO<<"(DMCZP) EnteringMethod: VisualizationEngine::InitOtherParams";
   lt_node_index_.x = x_min;
   lt_node_index_.y = y_min;
   lt_node_grid_index_.x = lt_node_index_.x * map_param_.map_node_size_x;
@@ -733,6 +752,7 @@ void VisualizationEngine::CloudToMat(const Eigen::Affine3d &cur_pose,
                                      const std::vector<Eigen::Vector3d> &cloud,
                                      cv::Mat *cloud_img,
                                      cv::Mat *cloud_img_mask) {
+AINFO<<"(DMCZP) EnteringMethod: VisualizationEngine::CloudToMat";
   unsigned int img_width = map_param_.map_node_size_x;
   unsigned int img_height = map_param_.map_node_size_y;
   Eigen::Vector3d cen = car_pose_.translation();
@@ -768,6 +788,7 @@ void VisualizationEngine::CloudToMat(const Eigen::Affine3d &cur_pose,
 
 void VisualizationEngine::CoordToImageKey(const Eigen::Vector2d &coord,
                                           MapImageKey *key) {
+AINFO<<"(DMCZP) EnteringMethod: VisualizationEngine::CoordToImageKey";
   key->level = cur_level_;
 
   DCHECK_LT(resolution_id_, map_param_.map_resolutions.size());
@@ -805,6 +826,7 @@ void VisualizationEngine::CoordToImageKey(const Eigen::Vector2d &coord,
 cv::Point VisualizationEngine::CoordToMapGridIndex(
     const Eigen::Vector2d &coord, const unsigned int resolution_id,
     const int stride) {
+AINFO<<"(DMCZP) EnteringMethod: VisualizationEngine::CoordToMapGridIndex";
   cv::Point p;
   p.x = static_cast<int>((coord[0] - map_param_.map_min_x) /
                          map_param_.map_resolutions[resolution_id]);
@@ -821,6 +843,7 @@ cv::Point VisualizationEngine::CoordToMapGridIndex(
 }
 
 cv::Point VisualizationEngine::MapGridIndexToNodeGridIndex(const cv::Point &p) {
+AINFO<<"(DMCZP) EnteringMethod: VisualizationEngine::MapGridIndexToNodeGridIndex";
   cv::Point pi;
   pi.x = p.x % map_param_.map_node_size_x;
   pi.x = pi.x < 0 ? pi.x + map_param_.map_node_size_x : pi.x;
@@ -831,6 +854,7 @@ cv::Point VisualizationEngine::MapGridIndexToNodeGridIndex(const cv::Point &p) {
 }
 
 bool VisualizationEngine::LoadImageToCache(const MapImageKey &key) {
+AINFO<<"(DMCZP) EnteringMethod: VisualizationEngine::LoadImageToCache";
   cv::Mat img;
 
   if (!map_image_cache_.Get(key, &img)) {
@@ -852,6 +876,7 @@ bool VisualizationEngine::LoadImageToCache(const MapImageKey &key) {
 
 void VisualizationEngine::RotateImg(const cv::Mat &in_img, cv::Mat *out_img,
                                     double angle) {
+AINFO<<"(DMCZP) EnteringMethod: VisualizationEngine::RotateImg";
   int width = (in_img.cols > in_img.rows) ? in_img.cols : in_img.rows;
   width += 4;
   cv::Mat mat_tem(width, width, CV_8UC3);
@@ -867,23 +892,28 @@ void VisualizationEngine::RotateImg(const cv::Mat &in_img, cv::Mat *out_img,
 
 void VisualizationEngine::SetViewCenter(const double center_x,
                                         const double center_y) {
+AINFO<<"(DMCZP) EnteringMethod: VisualizationEngine::SetViewCenter";
   _view_center[0] = center_x;
   _view_center[1] = center_y;
 }
 
 void VisualizationEngine::UpdateViewCenter(const double move_x,
                                            const double move_y) {
+AINFO<<"(DMCZP) EnteringMethod: VisualizationEngine::UpdateViewCenter";
   _view_center[0] += move_x;
   _view_center[1] += move_y;
 }
 
 void VisualizationEngine::SetScale(const double scale) { cur_scale_ = scale; }
+AINFO<<"(DMCZP) EnteringMethod: VisualizationEngine::SetScale";
 
 void VisualizationEngine::UpdateScale(const double factor) {
+AINFO<<"(DMCZP) EnteringMethod: VisualizationEngine::UpdateScale";
   cur_scale_ *= factor;
 }
 
 bool VisualizationEngine::UpdateCarLocId() {
+AINFO<<"(DMCZP) EnteringMethod: VisualizationEngine::UpdateCarLocId";
   for (unsigned int i = 0; i < loc_info_num_ - 1; i++) {
     unsigned int tem_car_loc_id = (car_loc_id_ + i + 1) % loc_info_num_;
     if (cur_loc_infos_[tem_car_loc_id].is_valid) {
@@ -896,6 +926,7 @@ bool VisualizationEngine::UpdateCarLocId() {
 }
 
 bool VisualizationEngine::UpdateCarLocId(const unsigned int car_loc_id) {
+AINFO<<"(DMCZP) EnteringMethod: VisualizationEngine::UpdateCarLocId";
   if (car_loc_id >= loc_info_num_) {
     return false;
   }
@@ -910,6 +941,7 @@ bool VisualizationEngine::UpdateCarLocId(const unsigned int car_loc_id) {
 }
 
 bool VisualizationEngine::UpdateTrajectoryGroups() {
+AINFO<<"(DMCZP) EnteringMethod: VisualizationEngine::UpdateTrajectoryGroups";
   for (unsigned int i = 0; i < loc_info_num_; i++) {
     if (cur_loc_infos_[i].is_valid) {
       Eigen::Vector2d loc;
@@ -925,6 +957,7 @@ bool VisualizationEngine::UpdateTrajectoryGroups() {
 }
 
 void VisualizationEngine::ProcessKey(int key) {
+AINFO<<"(DMCZP) EnteringMethod: VisualizationEngine::ProcessKey";
   const int move = 20;
   char c_key = static_cast<char>(key);
   switch (c_key) {

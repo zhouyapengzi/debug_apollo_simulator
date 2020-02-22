@@ -29,10 +29,12 @@ namespace conti_radar {
 using apollo::drivers::canbus::Byte;
 
 ClusterQualityInfo702::ClusterQualityInfo702() {}
+AINFO<<"(DMCZP) EnteringMethod: ClusterQualityInfo702::ClusterQualityInfo702";
 const uint32_t ClusterQualityInfo702::ID = 0x702;
 
 void ClusterQualityInfo702::Parse(const std::uint8_t* bytes, int32_t length,
                                   ContiRadar* conti_radar) const {
+AINFO<<"(DMCZP) EnteringMethod: ClusterQualityInfo702::Parse";
   int id = target_id(bytes, length);
   for (int i = 0; i < conti_radar->contiobs_size(); ++i) {
     if (conti_radar->contiobs(i).obstacle_id() == id) {
@@ -71,6 +73,7 @@ void ClusterQualityInfo702::Parse(const std::uint8_t* bytes, int32_t length,
 
 int ClusterQualityInfo702::target_id(const std::uint8_t* bytes,
                                      int32_t length) const {
+AINFO<<"(DMCZP) EnteringMethod: ClusterQualityInfo702::target_id";
   Byte t0(bytes);
   int32_t x = t0.get_byte(0, 8);
 
@@ -80,6 +83,7 @@ int ClusterQualityInfo702::target_id(const std::uint8_t* bytes,
 
 int ClusterQualityInfo702::longitude_dist_rms(const std::uint8_t* bytes,
                                               int32_t length) const {
+AINFO<<"(DMCZP) EnteringMethod: ClusterQualityInfo702::longitude_dist_rms";
   Byte t0(bytes + 1);
   int32_t x = t0.get_byte(3, 5);
 
@@ -89,6 +93,7 @@ int ClusterQualityInfo702::longitude_dist_rms(const std::uint8_t* bytes,
 
 int ClusterQualityInfo702::lateral_dist_rms(const std::uint8_t* bytes,
                                             int32_t length) const {
+AINFO<<"(DMCZP) EnteringMethod: ClusterQualityInfo702::lateral_dist_rms";
   Byte t0(bytes + 1);
   int32_t x = t0.get_byte(0, 3);
 
@@ -104,6 +109,7 @@ int ClusterQualityInfo702::lateral_dist_rms(const std::uint8_t* bytes,
 
 int ClusterQualityInfo702::longitude_vel_rms(const std::uint8_t* bytes,
                                              int32_t length) const {
+AINFO<<"(DMCZP) EnteringMethod: ClusterQualityInfo702::longitude_vel_rms";
   Byte t0(bytes + 2);
   int32_t x = t0.get_byte(1, 5);
 
@@ -113,6 +119,7 @@ int ClusterQualityInfo702::longitude_vel_rms(const std::uint8_t* bytes,
 
 int ClusterQualityInfo702::pdh0(const std::uint8_t* bytes,
                                 int32_t length) const {
+AINFO<<"(DMCZP) EnteringMethod: ClusterQualityInfo702::pdh0";
   Byte t0(bytes + 3);
   int32_t x = t0.get_byte(0, 3);
 
@@ -122,6 +129,7 @@ int ClusterQualityInfo702::pdh0(const std::uint8_t* bytes,
 
 int ClusterQualityInfo702::ambig_state(const std::uint8_t* bytes,
                                        int32_t length) const {
+AINFO<<"(DMCZP) EnteringMethod: ClusterQualityInfo702::ambig_state";
   Byte t0(bytes + 4);
   int32_t x = t0.get_byte(0, 3);
 
@@ -131,6 +139,7 @@ int ClusterQualityInfo702::ambig_state(const std::uint8_t* bytes,
 
 int ClusterQualityInfo702::invalid_state(const std::uint8_t* bytes,
                                          int32_t length) const {
+AINFO<<"(DMCZP) EnteringMethod: ClusterQualityInfo702::invalid_state";
   Byte t0(bytes + 4);
   int32_t x = t0.get_byte(3, 5);
 
@@ -140,6 +149,7 @@ int ClusterQualityInfo702::invalid_state(const std::uint8_t* bytes,
 
 int ClusterQualityInfo702::lateral_vel_rms(const std::uint8_t* bytes,
                                            int32_t length) const {
+AINFO<<"(DMCZP) EnteringMethod: ClusterQualityInfo702::lateral_vel_rms";
   Byte t0(bytes + 2);
   int32_t x = t0.get_byte(0, 1);
 

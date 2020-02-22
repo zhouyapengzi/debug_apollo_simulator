@@ -28,6 +28,7 @@ constexpr int INT_FLOAT_PRECISION = 6;
 constexpr int DOULBE_PRECISION = 9;
 
 int calculateStringLines(const std::string& str, int screenWidth) {
+AINFO<<"(DMCZP) EnteringMethod: calculateStringLines";
   int lineWidth = 0;
   int lineCount = 0;
   for (std::size_t i = 0; i < str.size(); ++i) {
@@ -54,6 +55,7 @@ int calculateStringLines(const std::string& str, int screenWidth) {
 
 int GeneralMessageBase::lineCount(const google::protobuf::Message& msg,
                                   int screenWidth) {
+AINFO<<"(DMCZP) EnteringMethod: GeneralMessageBase::lineCount";
   const google::protobuf::Reflection* reflection = msg.GetReflection();
   const google::protobuf::Descriptor* descriptor = msg.GetDescriptor();
   std::vector<const google::protobuf::FieldDescriptor*> fields;
@@ -77,6 +79,7 @@ int GeneralMessageBase::lineCountOfField(
     const google::protobuf::Message& msg, int screenWidth,
     const google::protobuf::FieldDescriptor* field,
     const google::protobuf::Reflection* reflection, bool is_folded) {
+AINFO<<"(DMCZP) EnteringMethod: GeneralMessageBase::lineCountOfField";
   int ret = 0;
   if (!is_folded && field->is_repeated()) {
     int size = reflection->FieldSize(msg, field);
@@ -131,6 +134,7 @@ void GeneralMessageBase::PrintMessage(GeneralMessageBase* baseMsg,
                                       const google::protobuf::Message& msg,
                                       int& jumpLines, const Screen* s,
                                       unsigned& lineNo, int indent) {
+AINFO<<"(DMCZP) EnteringMethod: GeneralMessageBase::PrintMessage";
   const google::protobuf::Reflection* reflection = msg.GetReflection();
   const google::protobuf::Descriptor* descriptor = msg.GetDescriptor();
   std::vector<const google::protobuf::FieldDescriptor*> fields;
@@ -183,6 +187,7 @@ void GeneralMessageBase::PrintField(
     int& jumpLines, const Screen* s, unsigned& lineNo, int indent,
     const google::protobuf::Reflection* ref,
     const google::protobuf::FieldDescriptor* field, int index) {
+AINFO<<"(DMCZP) EnteringMethod: GeneralMessageBase::PrintField";
   std::ostringstream outStr;
   std::ios_base::fmtflags old_flags;
 
@@ -318,6 +323,7 @@ void GeneralMessageBase::PrintField(
 }
 
 RenderableMessage* GeneralMessageBase::Child(int lineNo) const {
+AINFO<<"(DMCZP) EnteringMethod: GeneralMessageBase::Child";
   if (lineNo < 0) {
     return nullptr;
   }

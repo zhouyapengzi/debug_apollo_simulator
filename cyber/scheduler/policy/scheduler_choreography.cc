@@ -43,6 +43,7 @@ using apollo::cyber::event::PerfEventCache;
 using apollo::cyber::event::SchedPerf;
 
 SchedulerChoreography::SchedulerChoreography() {
+AINFO<<"(DMCZP) EnteringMethod: SchedulerChoreography::SchedulerChoreography";
   std::string conf("conf/");
   conf.append(GlobalData::Instance()->ProcessGroup()).append(".conf");
   auto cfg_file = GetAbsolutePath(WorkRoot(), conf);
@@ -95,6 +96,7 @@ SchedulerChoreography::SchedulerChoreography() {
 }
 
 void SchedulerChoreography::CreateProcessor() {
+AINFO<<"(DMCZP) EnteringMethod: SchedulerChoreography::CreateProcessor";
   for (uint32_t i = 0; i < proc_num_; i++) {
     auto proc = std::make_shared<Processor>();
     auto ctx = std::make_shared<ChoreographyContext>();
@@ -120,6 +122,7 @@ void SchedulerChoreography::CreateProcessor() {
 }
 
 bool SchedulerChoreography::DispatchTask(const std::shared_ptr<CRoutine>& cr) {
+AINFO<<"(DMCZP) EnteringMethod: SchedulerChoreography::DispatchTask";
   // we use multi-key mutex to prevent race condition
   // when del && add cr with same crid
   MutexWrapper* wrapper = nullptr;
@@ -179,6 +182,7 @@ bool SchedulerChoreography::DispatchTask(const std::shared_ptr<CRoutine>& cr) {
 }
 
 bool SchedulerChoreography::RemoveTask(const std::string& name) {
+AINFO<<"(DMCZP) EnteringMethod: SchedulerChoreography::RemoveTask";
   if (unlikely(stop_)) {
     return true;
   }
@@ -188,6 +192,7 @@ bool SchedulerChoreography::RemoveTask(const std::string& name) {
 }
 
 bool SchedulerChoreography::RemoveCRoutine(uint64_t crid) {
+AINFO<<"(DMCZP) EnteringMethod: SchedulerChoreography::RemoveCRoutine";
   // we use multi-key mutex to prevent race condition
   // when del && add cr with same crid
   MutexWrapper* wrapper = nullptr;
@@ -246,6 +251,7 @@ bool SchedulerChoreography::RemoveCRoutine(uint64_t crid) {
 }
 
 bool SchedulerChoreography::NotifyProcessor(uint64_t crid) {
+AINFO<<"(DMCZP) EnteringMethod: SchedulerChoreography::NotifyProcessor";
   if (unlikely(stop_)) {
     return true;
   }

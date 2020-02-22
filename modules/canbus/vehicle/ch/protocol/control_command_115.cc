@@ -27,24 +27,29 @@ const int32_t Controlcommand115::ID = 0x115;
 
 // public
 Controlcommand115::Controlcommand115() { Reset(); }
+AINFO<<"(DMCZP) EnteringMethod: Controlcommand115::Controlcommand115";
 
 uint32_t Controlcommand115::GetPeriod() const {
+AINFO<<"(DMCZP) EnteringMethod: Controlcommand115::GetPeriod";
   // modify every protocol's period manually
   static const uint32_t PERIOD = 20 * 1000;
   return PERIOD;
 }
 
 void Controlcommand115::UpdateData(uint8_t* data) {
+AINFO<<"(DMCZP) EnteringMethod: Controlcommand115::UpdateData";
   set_p_ctrl_cmd(data, ctrl_cmd_);
 }
 
 void Controlcommand115::Reset() {
+AINFO<<"(DMCZP) EnteringMethod: Controlcommand115::Reset";
   // you should check this manually
   ctrl_cmd_ = Control_command_115::CTRL_CMD_OUT_OF_CONTROL;
 }
 
 Controlcommand115* Controlcommand115::set_ctrl_cmd(
     Control_command_115::Ctrl_cmdType ctrl_cmd) {
+AINFO<<"(DMCZP) EnteringMethod: Controlcommand115::set_ctrl_cmd";
   ctrl_cmd_ = ctrl_cmd;
   return this;
 }
@@ -56,6 +61,7 @@ Controlcommand115* Controlcommand115::set_ctrl_cmd(
 // 'physical_unit': ''}
 void Controlcommand115::set_p_ctrl_cmd(
     uint8_t* data, Control_command_115::Ctrl_cmdType ctrl_cmd) {
+AINFO<<"(DMCZP) EnteringMethod: Controlcommand115::set_p_ctrl_cmd";
   int x = ctrl_cmd;
 
   Byte to_set(data + 0);

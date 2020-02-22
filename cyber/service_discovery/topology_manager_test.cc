@@ -38,6 +38,7 @@ class TopologyTest : public ::testing::Test {
 };
 
 TEST_F(TopologyTest, add_and_remove_change_listener) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   proto::RoleAttributes attr;
   attr.set_host_name("");
   attr.set_process_id(0);
@@ -57,6 +58,7 @@ TEST_F(TopologyTest, add_and_remove_change_listener) {
 }
 
 TEST_F(TopologyTest, get_manager) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   auto node_manager = topology_->node_manager();
   EXPECT_NE(node_manager, nullptr);
 

@@ -29,8 +29,10 @@ using apollo::common::time::Clock;
 
 NDTLocalizationComponent::NDTLocalizationComponent()
     : localization_(new NDTLocalization()) {}
+AINFO<<"(DMCZP) EnteringMethod: NDTLocalizationComponent::NDTLocalizationComponent";
 
 bool NDTLocalizationComponent::Init() {
+AINFO<<"(DMCZP) EnteringMethod: NDTLocalizationComponent::Init";
   Clock::SetMode(Clock::CYBER);
   tf2_broadcaster_.reset(new apollo::transform::TransformBroadcaster(node_));
   if (!InitConfig()) {
@@ -47,6 +49,7 @@ bool NDTLocalizationComponent::Init() {
 }
 
 bool NDTLocalizationComponent::InitConfig() {
+AINFO<<"(DMCZP) EnteringMethod: NDTLocalizationComponent::InitConfig";
   localization_topic_ = FLAGS_localization_topic;
   lidar_topic_ = FLAGS_lidar_topic;
   lidar_pose_topic_ = FLAGS_localization_ndt_topic;
@@ -61,6 +64,7 @@ bool NDTLocalizationComponent::InitConfig() {
 }
 
 bool NDTLocalizationComponent::InitIO() {
+AINFO<<"(DMCZP) EnteringMethod: NDTLocalizationComponent::InitIO";
   cyber::ReaderConfig reader_config;
   reader_config.channel_name = lidar_topic_;
   reader_config.pending_queue_size = 1;
@@ -94,6 +98,7 @@ bool NDTLocalizationComponent::InitIO() {
 
 bool NDTLocalizationComponent::Proc(
     const std::shared_ptr<localization::Gps>& gps_msg) {
+AINFO<<"(DMCZP) EnteringMethod: NDTLocalizationComponent::Proc";
   localization_->OdometryCallback(gps_msg);
 
   if (localization_->IsServiceStarted()) {
@@ -115,6 +120,7 @@ bool NDTLocalizationComponent::Proc(
 
 void NDTLocalizationComponent::LidarCallback(
     const std::shared_ptr<drivers::PointCloud>& lidar_msg) {
+AINFO<<"(DMCZP) EnteringMethod: NDTLocalizationComponent::LidarCallback";
   localization_->LidarCallback(lidar_msg);
   // for test to output lidar pose
   if (localization_->IsServiceStarted()) {
@@ -127,11 +133,15 @@ void NDTLocalizationComponent::LidarCallback(
 
 void NDTLocalizationComponent::OdometryStatusCallback(
     const std::shared_ptr<drivers::gnss::InsStat>& status_msg) {
+AINFO<<"(DMCZP) EnteringMethod: NDTLocalizationComponent::OdometryStatusCallback";
   localization_->OdometryStatusCallback(status_msg);
 }
 
 void NDTLocalizationComponent::PublishPoseBroadcastTF(
     const LocalizationEstimate& localization) {
+AINFO<<"(DMCZP) EnteringMethod: NDTLocalizationComponent::PublishPoseBroadcastTF";
+AINFO<<"(DMCZP) EnteringMethod: NDTLocalizationComponent::PublishPoseBroadcastTopic";
+AINFO<<"(DMCZP) EnteringMethod: NDTLocalizationComponent::PublishLidarPoseBroadcastTopic";
   // broadcast tf message
   apollo::transform::TransformStamped tf2_msg;
 
@@ -166,6 +176,7 @@ void NDTLocalizationComponent::PublishLidarPoseBroadcastTopic(
 
 void NDTLocalizationComponent::PublishLocalizationStatusTopic(
     const LocalizationStatus& localization_status) {
+AINFO<<"(DMCZP) EnteringMethod: NDTLocalizationComponent::PublishLocalizationStatusTopic";
   localization_status_talker_->Write(localization_status);
 }
 

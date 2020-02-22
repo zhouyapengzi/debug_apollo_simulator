@@ -28,10 +28,12 @@ namespace lexus {
 using ::apollo::drivers::canbus::Byte;
 
 Vinrpt414::Vinrpt414() {}
+AINFO<<"(DMCZP) EnteringMethod: Vinrpt414::Vinrpt414";
 const int32_t Vinrpt414::ID = 0x414;
 
 void Vinrpt414::Parse(const std::uint8_t* bytes, int32_t length,
                       ChassisDetail* chassis) const {
+AINFO<<"(DMCZP) EnteringMethod: Vinrpt414::Parse";
   chassis->mutable_lexus()->mutable_vin_rpt_414()->set_veh_serial(
       veh_serial(bytes, length));
   chassis->mutable_lexus()->mutable_vin_rpt_414()->set_veh_my_code(
@@ -44,6 +46,7 @@ void Vinrpt414::Parse(const std::uint8_t* bytes, int32_t length,
 // 24, 'is_signed_var': False, 'physical_range': '[0|0]', 'bit': 39, 'type':
 // 'int', 'order': 'motorola', 'physical_unit': ''}
 int Vinrpt414::veh_serial(const std::uint8_t* bytes, int32_t length) const {
+AINFO<<"(DMCZP) EnteringMethod: Vinrpt414::veh_serial";
   Byte t0(bytes + 4);
   int32_t x = t0.get_byte(0, 8);
 
@@ -65,6 +68,7 @@ int Vinrpt414::veh_serial(const std::uint8_t* bytes, int32_t length) const {
 // 'len': 8, 'is_signed_var': False, 'physical_range': '[0|0]', 'bit': 31,
 // 'type': 'int', 'order': 'motorola', 'physical_unit': ''}
 int Vinrpt414::veh_my_code(const std::uint8_t* bytes, int32_t length) const {
+AINFO<<"(DMCZP) EnteringMethod: Vinrpt414::veh_my_code";
   Byte t0(bytes + 3);
   int32_t x = t0.get_byte(0, 8);
 
@@ -76,6 +80,7 @@ int Vinrpt414::veh_my_code(const std::uint8_t* bytes, int32_t length) const {
 // 'len': 24, 'is_signed_var': False, 'physical_range': '[0|0]', 'bit': 7,
 // 'type': 'int', 'order': 'motorola', 'physical_unit': ''}
 int Vinrpt414::veh_mfg_code(const std::uint8_t* bytes, int32_t length) const {
+AINFO<<"(DMCZP) EnteringMethod: Vinrpt414::veh_mfg_code";
   Byte t0(bytes + 0);
   int32_t x = t0.get_byte(0, 8);
 

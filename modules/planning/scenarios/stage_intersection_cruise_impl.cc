@@ -37,6 +37,7 @@ bool StageIntersectionCruiseImpl::CheckDone(
     const ScenarioConfig::ScenarioType& scenario_type,
     const ScenarioConfig::StageConfig& config,
     const bool right_of_way_status) {
+AINFO<<"(DMCZP) EnteringMethod: StageIntersectionCruiseImpl::CheckDone";
   const auto& reference_line_info = frame.reference_line_info().front();
 
   const auto& pnc_junction_overlaps =

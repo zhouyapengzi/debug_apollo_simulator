@@ -21,19 +21,24 @@ namespace localization {
 namespace msf {
 
 BaseMapMatrix::BaseMapMatrix() {}
+AINFO<<"(DMCZP) EnteringMethod: BaseMapMatrix::BaseMapMatrix";
 
 BaseMapMatrix::~BaseMapMatrix() {}
 
 BaseMapMatrix::BaseMapMatrix(const BaseMapMatrix& cells) {}
+AINFO<<"(DMCZP) EnteringMethod: BaseMapMatrix::BaseMapMatrix";
 
 unsigned int BaseMapMatrix::LoadBinary(unsigned char* buf) { return 0; }
+AINFO<<"(DMCZP) EnteringMethod: BaseMapMatrix::LoadBinary";
 
 unsigned int BaseMapMatrix::CreateBinary(unsigned char* buf,
                                          unsigned int buf_size) const {
+AINFO<<"(DMCZP) EnteringMethod: BaseMapMatrix::CreateBinary";
   return 0;
 }
 
 unsigned int BaseMapMatrix::GetBinarySize() const { return 0; }
+AINFO<<"(DMCZP) EnteringMethod: BaseMapMatrix::GetBinarySize";
 
 }  // namespace msf
 }  // namespace localization

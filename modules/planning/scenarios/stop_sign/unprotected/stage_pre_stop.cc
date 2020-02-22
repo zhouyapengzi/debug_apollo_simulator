@@ -52,6 +52,7 @@ using StopSignLaneVehicles =
 
 Stage::StageStatus StopSignUnprotectedStagePreStop::Process(
     const TrajectoryPoint& planning_init_point, Frame* frame) {
+AINFO<<"(DMCZP) EnteringMethod: StopSignUnprotectedStagePreStop::Process";
   ADEBUG << "stage: PreStop";
   CHECK_NOTNULL(frame);
 
@@ -130,6 +131,7 @@ Stage::StageStatus StopSignUnprotectedStagePreStop::Process(
  */
 int StopSignUnprotectedStagePreStop::AddWatchVehicle(
     const Obstacle& obstacle, StopSignLaneVehicles* watch_vehicles) {
+AINFO<<"(DMCZP) EnteringMethod: StopSignUnprotectedStagePreStop::AddWatchVehicle";
   CHECK_NOTNULL(watch_vehicles);
 
   const PerceptionObstacle& perception_obstacle = obstacle.Perception();
@@ -222,6 +224,7 @@ int StopSignUnprotectedStagePreStop::AddWatchVehicle(
  */
 bool StopSignUnprotectedStagePreStop::CheckADCStop(
     const double adc_front_edge_s, const double stop_line_s) {
+AINFO<<"(DMCZP) EnteringMethod: StopSignUnprotectedStagePreStop::CheckADCStop";
   const double adc_speed =
       common::VehicleStateProvider::Instance()->linear_velocity();
   if (adc_speed > scenario_config_.max_adc_stop_speed()) {
@@ -247,6 +250,7 @@ bool StopSignUnprotectedStagePreStop::CheckADCStop(
 }
 
 Stage::StageStatus StopSignUnprotectedStagePreStop::FinishStage() {
+AINFO<<"(DMCZP) EnteringMethod: StopSignUnprotectedStagePreStop::FinishStage";
   GetContext()->stop_start_time = Clock::NowInSeconds();
   next_stage_ = ScenarioConfig::STOP_SIGN_UNPROTECTED_STOP;
 

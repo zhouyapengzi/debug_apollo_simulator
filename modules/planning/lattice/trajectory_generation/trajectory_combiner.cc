@@ -33,6 +33,7 @@ using apollo::common::math::PathMatcher;
 DiscretizedTrajectory TrajectoryCombiner::Combine(
     const std::vector<PathPoint>& reference_line, const Curve1d& lon_trajectory,
     const Curve1d& lat_trajectory, const double init_relative_time) {
+AINFO<<"(DMCZP) EnteringMethod: TrajectoryCombiner::Combine";
   DiscretizedTrajectory combined_trajectory;
 
   double s0 = lon_trajectory.Evaluate(0, 0.0);

@@ -32,23 +32,28 @@ PiecewiseLinearKernel::PiecewiseLinearKernel(const uint32_t dimension,
       unit_segment_(unit_segment),
       kernel_matrix_(Eigen::MatrixXd::Zero(dimension_, dimension_)),
       offset_matrix_(Eigen::MatrixXd::Zero(dimension_, 1)) {}
+AINFO<<"(DMCZP) EnteringMethod: PiecewiseLinearKernel::PiecewiseLinearKernel";
 
 void PiecewiseLinearKernel::AddRegularization(const double param) {
+AINFO<<"(DMCZP) EnteringMethod: PiecewiseLinearKernel::AddRegularization";
   Eigen::MatrixXd identity_matrix = kernel_matrix_ +=
       Eigen::MatrixXd::Identity(kernel_matrix_.rows(), kernel_matrix_.cols()) *
       param;
 }
 
 const Eigen::MatrixXd& PiecewiseLinearKernel::kernel_matrix() const {
+AINFO<<"(DMCZP) EnteringMethod: PiecewiseLinearKernel::kernel_matrix";
   return kernel_matrix_;
 }
 
 const Eigen::MatrixXd& PiecewiseLinearKernel::offset_matrix() const {
+AINFO<<"(DMCZP) EnteringMethod: PiecewiseLinearKernel::offset_matrix";
   return offset_matrix_;
 }
 
 void PiecewiseLinearKernel::AddSecondOrderDerivativeMatrix(
     const double init_derivative, const double weight) {
+AINFO<<"(DMCZP) EnteringMethod: PiecewiseLinearKernel::AddSecondOrderDerivativeMatrix";
   Eigen::MatrixXd second_derivative_matrix =
       Eigen::MatrixXd::Zero(dimension_, dimension_);
   for (size_t i = 0; i < dimension_; ++i) {
@@ -81,6 +86,7 @@ void PiecewiseLinearKernel::AddSecondOrderDerivativeMatrix(
 void PiecewiseLinearKernel::AddThirdOrderDerivativeMatrix(
     const double init_derivative, const double init_second_derivative,
     const double weight) {
+AINFO<<"(DMCZP) EnteringMethod: PiecewiseLinearKernel::AddThirdOrderDerivativeMatrix";
   Eigen::MatrixXd jerk_matrix = Eigen::MatrixXd::Zero(dimension_, dimension_);
   for (size_t i = 0; i < dimension_; ++i) {
     if (i == 0) {
@@ -141,6 +147,7 @@ void PiecewiseLinearKernel::AddThirdOrderDerivativeMatrix(
 bool PiecewiseLinearKernel::AddReferenceLineKernelMatrix(
     const std::vector<uint32_t>& index_list,
     const std::vector<double>& pos_list, const double weight) {
+AINFO<<"(DMCZP) EnteringMethod: PiecewiseLinearKernel::AddReferenceLineKernelMatrix";
   if (index_list.size() != pos_list.size()) {
     AERROR
         << "index_list and pos_list must have equal size. index_list.size() = "

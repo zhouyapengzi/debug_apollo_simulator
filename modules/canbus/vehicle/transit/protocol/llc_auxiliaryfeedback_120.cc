@@ -28,10 +28,12 @@ namespace transit {
 using ::apollo::drivers::canbus::Byte;
 
 Llcauxiliaryfeedback120::Llcauxiliaryfeedback120() {}
+AINFO<<"(DMCZP) EnteringMethod: Llcauxiliaryfeedback120::Llcauxiliaryfeedback120";
 const int32_t Llcauxiliaryfeedback120::ID = 0x120;
 
 void Llcauxiliaryfeedback120::Parse(const std::uint8_t* bytes, int32_t length,
                                     ChassisDetail* chassis) const {
+AINFO<<"(DMCZP) EnteringMethod: Llcauxiliaryfeedback120::Parse";
   chassis->mutable_transit()
       ->mutable_llc_auxiliaryfeedback_120()
       ->set_llc_fbk_inverter(llc_fbk_inverter(bytes, length));
@@ -95,6 +97,7 @@ void Llcauxiliaryfeedback120::Parse(const std::uint8_t* bytes, int32_t length,
 // 'physical_unit': 'T/F'}
 bool Llcauxiliaryfeedback120::llc_fbk_inverter(const std::uint8_t* bytes,
                                                int32_t length) const {
+AINFO<<"(DMCZP) EnteringMethod: Llcauxiliaryfeedback120::llc_fbk_inverter";
   Byte t0(bytes + 0);
   int32_t x = t0.get_byte(2, 1);
 
@@ -106,12 +109,24 @@ bool Llcauxiliaryfeedback120::llc_fbk_inverter(const std::uint8_t* bytes,
 // 'precision': 1.0, 'len': 1, 'name': 'llc_fbk_pdu_ch8', 'is_signed_var':
 // False, 'physical_range': '[0|1]', 'bit': 15, 'type': 'bool', 'order':
 // 'intel', 'physical_unit': 'T/F'}
+AINFO<<"(DMCZP) EnteringMethod: Llcauxiliaryfeedback120::llc_fbk_buzzeron";
 bool Llcauxiliaryfeedback120::llc_fbk_pdu_ch8(const std::uint8_t* bytes,
                                               int32_t length) const {
+AINFO<<"(DMCZP) EnteringMethod: Llcauxiliaryfeedback120::llc_fbk_highbeam";
+AINFO<<"(DMCZP) EnteringMethod: Llcauxiliaryfeedback120::llc_fbk_ledredon";
+AINFO<<"(DMCZP) EnteringMethod: Llcauxiliaryfeedback120::llc_fbk_pdu_ch8";
+AINFO<<"(DMCZP) EnteringMethod: Llcauxiliaryfeedback120::llc_fbk_pdu_ch7";
+AINFO<<"(DMCZP) EnteringMethod: Llcauxiliaryfeedback120::llc_fbk_pdu_ch6";
+AINFO<<"(DMCZP) EnteringMethod: Llcauxiliaryfeedback120::llc_fbk_pdu_ch5";
+AINFO<<"(DMCZP) EnteringMethod: Llcauxiliaryfeedback120::llc_fbk_pdu_ch4";
+AINFO<<"(DMCZP) EnteringMethod: Llcauxiliaryfeedback120::llc_fbk_pdu_ch3";
+AINFO<<"(DMCZP) EnteringMethod: Llcauxiliaryfeedback120::llc_fbk_pdu_ch2";
+AINFO<<"(DMCZP) EnteringMethod: Llcauxiliaryfeedback120::llc_fbk_pdu_ch1";
   Byte t0(bytes + 1);
   int32_t x = t0.get_byte(7, 1);
 
   bool ret = x;
+AINFO<<"(DMCZP) EnteringMethod: Llcauxiliaryfeedback120::llc_fbk_lowbeam";
   return ret;
 }
 
@@ -212,6 +227,7 @@ bool Llcauxiliaryfeedback120::llc_fbk_pdu_ch1(const std::uint8_t* bytes,
 // 'intel', 'physical_unit': 'T/F'}
 bool Llcauxiliaryfeedback120::llc_fbk_hazardlights(const std::uint8_t* bytes,
                                                    int32_t length) const {
+AINFO<<"(DMCZP) EnteringMethod: Llcauxiliaryfeedback120::llc_fbk_hazardlights";
   Byte t0(bytes + 3);
   int32_t x = t0.get_byte(4, 1);
 
@@ -225,6 +241,7 @@ bool Llcauxiliaryfeedback120::llc_fbk_hazardlights(const std::uint8_t* bytes,
 // 'order': 'intel', 'physical_unit': 'T/F'}
 bool Llcauxiliaryfeedback120::llc_fbk_ledgreenon(const std::uint8_t* bytes,
                                                  int32_t length) const {
+AINFO<<"(DMCZP) EnteringMethod: Llcauxiliaryfeedback120::llc_fbk_ledgreenon";
   Byte t0(bytes + 2);
   int32_t x = t0.get_byte(1, 1);
 
@@ -238,6 +255,7 @@ bool Llcauxiliaryfeedback120::llc_fbk_ledgreenon(const std::uint8_t* bytes,
 // 'physical_unit': 'T/F'}
 bool Llcauxiliaryfeedback120::llc_fbk_horn(const std::uint8_t* bytes,
                                            int32_t length) const {
+AINFO<<"(DMCZP) EnteringMethod: Llcauxiliaryfeedback120::llc_fbk_horn";
   Byte t0(bytes + 0);
   int32_t x = t0.get_byte(3, 1);
 
@@ -267,6 +285,7 @@ bool Llcauxiliaryfeedback120::llc_fbk_buzzeron(const std::uint8_t* bytes,
 Llc_auxiliaryfeedback_120::Llc_fbk_turnsignalType
 Llcauxiliaryfeedback120::llc_fbk_turnsignal(const std::uint8_t* bytes,
                                             int32_t length) const {
+AINFO<<"(DMCZP) EnteringMethod: Llcauxiliaryfeedback120::llc_fbk_turnsignal";
   Byte t0(bytes + 3);
   int32_t x = t0.get_byte(0, 2);
 
@@ -320,6 +339,7 @@ bool Llcauxiliaryfeedback120::llc_fbk_ledredon(const std::uint8_t* bytes,
 // 'order': 'intel', 'physical_unit': 'T/F'}
 bool Llcauxiliaryfeedback120::llc_fbk_autonomybuttonpressed(
     const std::uint8_t* bytes, int32_t length) const {
+AINFO<<"(DMCZP) EnteringMethod: Llcauxiliaryfeedback120::llc_fbk_autonomybuttonpressed";
   Byte t0(bytes + 2);
   int32_t x = t0.get_byte(0, 1);
 

@@ -26,6 +26,7 @@ namespace cyber {
 namespace message {
 
 TEST(ProtobufFactory, register_and_generate) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   // register
   auto factory = ProtobufFactory::Instance();
   apollo::cyber::proto::ProtoDesc proto_desc;

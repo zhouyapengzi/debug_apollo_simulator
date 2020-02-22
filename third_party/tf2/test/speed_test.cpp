@@ -40,6 +40,7 @@ using std::chrono::high_resolution_clock;
 
 int main(int argc, char** argv)
 {
+AINFO<<"(DMCZP) EnteringMethod: main";
   int num_levels = 10;
   // if (argc > 1)
   // {

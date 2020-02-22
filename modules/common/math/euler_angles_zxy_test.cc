@@ -30,6 +30,7 @@ namespace {
 Eigen::Quaterniond GoldenEulerZXYToQuaternion(const double roll,
                                               const double pitch,
                                               const double yaw) {
+AINFO<<"(DMCZP) EnteringMethod: GoldenEulerZXYToQuaternion";
   return Eigen::AngleAxisd(yaw, Eigen::Vector3d::UnitZ()) *
          Eigen::AngleAxisd(pitch, Eigen::Vector3d::UnitX()) *
          Eigen::AngleAxisd(roll, Eigen::Vector3d::UnitY());
@@ -38,6 +39,7 @@ Eigen::Quaterniond GoldenEulerZXYToQuaternion(const double roll,
 }  // namespace
 
 TEST(EulerAnglesZXYTest, SingleConstruct) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   EulerAnglesZXYd a(1.0);
   EXPECT_DOUBLE_EQ(0.0, a.roll());
   EXPECT_DOUBLE_EQ(0.0, a.pitch());
@@ -51,6 +53,7 @@ TEST(EulerAnglesZXYTest, SingleConstruct) {
 }
 
 TEST(EulerAnglesZXYTest, FullConstructDouble) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   EulerAnglesZXYd a(0.35, 0.24, -1.0);
   auto q_golden = GoldenEulerZXYToQuaternion(0.35, 0.24, -1.0);
   auto q = a.ToQuaternion();
@@ -66,6 +69,7 @@ TEST(EulerAnglesZXYTest, FullConstructDouble) {
 }
 
 TEST(EulerAnglesZXYTest, FullConstructFloat) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   Eigen::Quaternionf q(1.0f, 2.0f, -3.0f, 4.0f);
   q.normalize();
   EulerAnglesZXYf a(q);
@@ -77,6 +81,7 @@ TEST(EulerAnglesZXYTest, FullConstructFloat) {
 }
 
 TEST(EulerAnglesZXYTest, IsValid) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   EulerAnglesZXYd a(0.35, 5.0, -1.0);
   EXPECT_TRUE(a.IsValid());
 

@@ -23,6 +23,7 @@ using apollo::hdmap::Lane;
 using apollo::routing::GraphCreator;
 
 TEST(GraphCreatorTest, IsValidUTurn) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   const double min_turn_radius = 6.0;
   Lane lane;
   lane.mutable_id()->set_id("lane1");

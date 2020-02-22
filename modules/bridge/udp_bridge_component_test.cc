@@ -23,6 +23,7 @@ namespace apollo {
 namespace bridge {
 
 TEST(UDPBridgeSenderComponentTest, Simple) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   cyber::Init("udp_bridge_component_test");
   UDPBridgeSenderComponent<planning::ADCTrajectory> udp_bridge_component;
   EXPECT_EQ(udp_bridge_component.Name(), "Bridge");

@@ -36,6 +36,7 @@ class Auxiliarycontrol_110_test : public ::testing::Test {
 };
 
 TEST_F(Auxiliarycontrol_110_test, General) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   uint8_t data[8] = {0x8f, 0x9e, 0xad, 0xbc, 0xcb, 0xda, 0xe9, 0xf8};
   const int adc_auxcontrol_counter = 2;
   const int adc_auxcontrol_checksum = 127;

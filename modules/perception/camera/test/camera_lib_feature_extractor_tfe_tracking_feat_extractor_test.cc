@@ -25,6 +25,7 @@ namespace apollo {
 namespace perception {
 namespace camera {
 TEST(FeatureExtractorTest, demo_test) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   std::shared_ptr<BaseFeatureExtractor> feature_extractor_;
   FeatureExtractorInitOptions feat_options;
   feat_options.conf_file = "";

@@ -32,6 +32,7 @@ namespace camera {
 using cyber::common::GetAbsolutePath;
 
 void YoloObstacleDetector::LoadInputShape(const yolo::ModelParam &model_param) {
+AINFO<<"(DMCZP) EnteringMethod: YoloObstacleDetector::LoadInputShape";
   float offset_ratio = model_param.offset_ratio();
   float cropped_ratio = model_param.cropped_ratio();
   int resized_width = model_param.resized_width();
@@ -58,6 +59,7 @@ void YoloObstacleDetector::LoadInputShape(const yolo::ModelParam &model_param) {
 }
 
 void YoloObstacleDetector::LoadParam(const yolo::YoloParam &yolo_param) {
+AINFO<<"(DMCZP) EnteringMethod: YoloObstacleDetector::LoadParam";
   const auto &model_param = yolo_param.model_param();
   confidence_threshold_ = model_param.confidence_threshold();
   light_vis_conf_threshold_ = model_param.light_vis_conf_threshold();
@@ -81,6 +83,7 @@ void YoloObstacleDetector::LoadParam(const yolo::YoloParam &yolo_param) {
 
 bool YoloObstacleDetector::InitNet(const yolo::YoloParam &yolo_param,
                                    const std::string &model_root) {
+AINFO<<"(DMCZP) EnteringMethod: YoloObstacleDetector::InitNet";
   const auto &model_param = yolo_param.model_param();
 
   std::string proto_file =
@@ -158,6 +161,7 @@ AINFO<<"(pengzi) begin YOLO infer"<< std::this_thread::get_id();
 }
 
 void YoloObstacleDetector::InitYoloBlob(const yolo::NetworkParam &net_param) {
+AINFO<<"(DMCZP) EnteringMethod: YoloObstacleDetector::InitYoloBlob";
   auto obj_blob_scale1 = inference_->get_blob(net_param.det1_obj_blob());
   auto obj_blob_scale2 = inference_->get_blob(net_param.det2_obj_blob());
   auto obj_blob_scale3 = inference_->get_blob(net_param.det3_obj_blob());
@@ -262,6 +266,7 @@ void YoloObstacleDetector::InitYoloBlob(const yolo::NetworkParam &net_param) {
 }
 
 bool YoloObstacleDetector::Init(const ObstacleDetectorInitOptions &options) {
+AINFO<<"(DMCZP) EnteringMethod: YoloObstacleDetector::Init";
   gpu_id_ = options.gpu_id;
   BASE_CUDA_CHECK(cudaSetDevice(gpu_id_));
   BASE_CUDA_CHECK(cudaStreamCreate(&stream_));
@@ -308,6 +313,7 @@ bool YoloObstacleDetector::Init(const ObstacleDetectorInitOptions &options) {
 }
 
 bool YoloObstacleDetector::InitFeatureExtractor(const std::string &root_dir) {
+AINFO<<"(DMCZP) EnteringMethod: YoloObstacleDetector::InitFeatureExtractor";
   FeatureExtractorInitOptions feat_options;
   feat_options.conf_file = yolo_param_.model_param().feature_file();
   feat_options.root_dir = root_dir;
@@ -326,6 +332,7 @@ bool YoloObstacleDetector::InitFeatureExtractor(const std::string &root_dir) {
 
 bool YoloObstacleDetector::Detect(const ObstacleDetectorOptions &options,
                                   CameraFrame *frame) {
+AINFO<<"(DMCZP) EnteringMethod: YoloObstacleDetector::Detect";
   if (frame == nullptr) {
     return false;
   }

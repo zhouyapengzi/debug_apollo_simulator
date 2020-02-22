@@ -22,10 +22,12 @@ namespace drivers {
 namespace ultrasonic_radar {
 
 UltrasonicRadarCanbusComponent::UltrasonicRadarCanbusComponent() {
+AINFO<<"(DMCZP) EnteringMethod: UltrasonicRadarCanbusComponent::UltrasonicRadarCanbusComponent";
   writer_ = node_->CreateWriter<Ultrasonic>(FLAGS_ultrasonic_radar_topic);
 }
 
 bool UltrasonicRadarCanbusComponent::Init() {
+AINFO<<"(DMCZP) EnteringMethod: UltrasonicRadarCanbusComponent::Init";
   return utralsonic_radar_canbus_.Init(ConfigFilePath(), writer_).ok() &&
          utralsonic_radar_canbus_.Start().ok();
 }

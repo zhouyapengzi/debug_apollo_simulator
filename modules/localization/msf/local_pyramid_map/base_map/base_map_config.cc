@@ -25,6 +25,7 @@ namespace localization {
 namespace msf {
 
 BaseMapConfig::BaseMapConfig(const std::string &map_version) {
+AINFO<<"(DMCZP) EnteringMethod: BaseMapConfig::BaseMapConfig";
   map_version_ = map_version;
   coordinate_type_ = "UTM";
   map_resolutions_.push_back(0.125);
@@ -39,6 +40,7 @@ BaseMapConfig::BaseMapConfig(const std::string &map_version) {
 BaseMapConfig::~BaseMapConfig() {}
 
 bool BaseMapConfig::Save(const std::string &file_path) {
+AINFO<<"(DMCZP) EnteringMethod: BaseMapConfig::Save";
   boost::property_tree::ptree config;
   bool success = CreateXml(&config);
   if (success) {
@@ -52,6 +54,7 @@ bool BaseMapConfig::Save(const std::string &file_path) {
 }
 
 bool BaseMapConfig::Load(const std::string &file_path) {
+AINFO<<"(DMCZP) EnteringMethod: BaseMapConfig::Load";
   boost::property_tree::ptree config;
   boost::property_tree::read_xml(file_path, config);
   bool success = LoadXml(config);
@@ -66,6 +69,7 @@ bool BaseMapConfig::Load(const std::string &file_path) {
 }
 
 bool BaseMapConfig::CreateXml(boost::property_tree::ptree *config) const {
+AINFO<<"(DMCZP) EnteringMethod: BaseMapConfig::CreateXml";
   config->put("map.map_config.version", map_version_);
   config->put("map.map_config.coordnate_type", coordinate_type_);
   config->put("map.map_config.node_size.x", map_node_size_x_);
@@ -98,6 +102,7 @@ bool BaseMapConfig::CreateXml(boost::property_tree::ptree *config) const {
 }
 
 bool BaseMapConfig::LoadXml(const boost::property_tree::ptree &config) {
+AINFO<<"(DMCZP) EnteringMethod: BaseMapConfig::LoadXml";
   map_resolutions_.clear();
   map_datasets_.clear();
   node_md5_map_.clear();
@@ -195,10 +200,12 @@ bool BaseMapConfig::LoadXml(const boost::property_tree::ptree &config) {
 }
 
 void BaseMapConfig::SetMapVersion(const std::string &map_version) {
+AINFO<<"(DMCZP) EnteringMethod: BaseMapConfig::SetMapVersion";
   map_version_ = map_version;
 }
 
 void BaseMapConfig::ResizeMapRange() {
+AINFO<<"(DMCZP) EnteringMethod: BaseMapConfig::ResizeMapRange";
   double min_x = 0;
   double min_y = 0;
   double max_x = 0;
@@ -231,11 +238,13 @@ void BaseMapConfig::ResizeMapRange() {
 }
 
 void BaseMapConfig::SetSingleResolutions(float resolution) {
+AINFO<<"(DMCZP) EnteringMethod: BaseMapConfig::SetSingleResolutions";
   map_resolutions_.clear();
   map_resolutions_.push_back(resolution);
 }
 
 void BaseMapConfig::SetMultiResolutions() {
+AINFO<<"(DMCZP) EnteringMethod: BaseMapConfig::SetMultiResolutions";
   map_resolutions_.clear();
   map_resolutions_.push_back(0.03125);
   map_resolutions_.push_back(0.0625);
@@ -251,28 +260,34 @@ void BaseMapConfig::SetMultiResolutions() {
 
 void BaseMapConfig::SetNodeMd5Map(
     const std::map<std::string, std::string> &node_md5_map) {
+AINFO<<"(DMCZP) EnteringMethod: BaseMapConfig::SetNodeMd5Map";
   node_md5_map_ = node_md5_map;
 }
 
 void BaseMapConfig::AddNodeMd5(const std::string &node_path,
                                const std::string &md5) {
+AINFO<<"(DMCZP) EnteringMethod: BaseMapConfig::AddNodeMd5";
   node_md5_map_[node_path] = md5;
 }
 
 void BaseMapConfig::SetMapNodeSize(unsigned int size_x, unsigned int size_y) {
+AINFO<<"(DMCZP) EnteringMethod: BaseMapConfig::SetMapNodeSize";
   map_node_size_x_ = size_x;
   map_node_size_y_ = size_y;
 }
 
 void BaseMapConfig::SetGroundHeightOffset(float map_ground_height_offset) {
+AINFO<<"(DMCZP) EnteringMethod: BaseMapConfig::SetGroundHeightOffset";
   map_ground_height_offset_ = map_ground_height_offset;
 }
 
 void BaseMapConfig::SetIsCompression(bool map_is_compression) {
+AINFO<<"(DMCZP) EnteringMethod: BaseMapConfig::SetIsCompression";
   map_is_compression_ = map_is_compression;
 }
 
 MapVersion BaseMapConfig::GetMapVersion() const {
+AINFO<<"(DMCZP) EnteringMethod: BaseMapConfig::GetMapVersion";
   if (map_version_ == "lossy_full_alt" || map_version_ == "lossy_map") {
     return MapVersion::LOSSY_FULL_ALT_MAP;
   }

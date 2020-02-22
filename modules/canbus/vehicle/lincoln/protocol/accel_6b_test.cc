@@ -28,6 +28,7 @@ class Accel6bTest : public ::testing::Test {
 };
 
 TEST_F(Accel6bTest, Parse) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   Accel6b acc;
   int32_t length = 8;
   ChassisDetail chassis_detail;

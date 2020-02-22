@@ -26,11 +26,13 @@ namespace routing {
 namespace {
 
 NodeSRange GetSRange(double start_s, double end_s) {
+AINFO<<"(DMCZP) EnteringMethod: GetSRange";
   NodeSRange range(start_s, end_s);
   return range;
 }
 
 void GetTopoGraph(TopoGraph* topo_graph) {
+AINFO<<"(DMCZP) EnteringMethod: GetTopoGraph";
   Graph graph;
   GetGraph2ForTest(&graph);
   ASSERT_TRUE(topo_graph->LoadGraph(graph));
@@ -41,6 +43,7 @@ void GetTopoGraph(TopoGraph* topo_graph) {
 }  // namespace
 
 TEST(SubTopoGraphTestSuit, one_sub_graph_all_valid) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   TopoGraph topo_graph;
   GetTopoGraph(&topo_graph);
 
@@ -127,6 +130,7 @@ TEST(SubTopoGraphTestSuit, one_sub_graph_all_valid) {
 }
 
 TEST(SubTopoGraphTestSuit, one_sub_graph_pre_valid) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   TopoGraph topo_graph;
   GetTopoGraph(&topo_graph);
 
@@ -159,6 +163,7 @@ TEST(SubTopoGraphTestSuit, one_sub_graph_pre_valid) {
 }
 
 TEST(SubTopoGraphTestSuit, one_sub_graph_suc_valid) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   TopoGraph topo_graph;
   GetTopoGraph(&topo_graph);
 
@@ -191,6 +196,7 @@ TEST(SubTopoGraphTestSuit, one_sub_graph_suc_valid) {
 }
 
 TEST(SubTopoGraphTestSuit, two_sub_graph_nearby) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   TopoGraph topo_graph;
   GetTopoGraph(&topo_graph);
 
@@ -274,6 +280,7 @@ TEST(SubTopoGraphTestSuit, two_sub_graph_nearby) {
 }
 
 TEST(SubTopoGraphTestSuit, two_sub_graph_nearby_one_out) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   TopoGraph topo_graph;
   GetTopoGraph(&topo_graph);
 
@@ -333,6 +340,7 @@ TEST(SubTopoGraphTestSuit, two_sub_graph_nearby_one_out) {
 }
 
 TEST(SubTopoGraphTestSuit, two_sub_graph_nearby_find_start_node) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   TopoGraph topo_graph;
   GetTopoGraph(&topo_graph);
 
@@ -437,6 +445,7 @@ TEST(SubTopoGraphTestSuit, two_sub_graph_nearby_find_start_node) {
 }
 
 TEST(SubTopoGraphTestSuit, one_sub_graph_internal_connected) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   TopoGraph topo_graph;
   GetTopoGraph(&topo_graph);
 
@@ -486,6 +495,7 @@ TEST(SubTopoGraphTestSuit, one_sub_graph_internal_connected) {
 }
 
 TEST(SubTopoGraphTestSuit, one_sub_graph_whole_lane_block) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   TopoGraph topo_graph;
   GetTopoGraph(&topo_graph);
 

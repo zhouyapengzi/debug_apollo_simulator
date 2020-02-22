@@ -26,6 +26,7 @@ namespace cyber {
 namespace base {
 
 TEST(AtomicHashMapTest, int_int) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   AtomicHashMap<int, int> map;
   int value = 0;
   for (int i = 0; i < 1000; i++) {
@@ -44,6 +45,7 @@ TEST(AtomicHashMapTest, int_int) {
 }
 
 TEST(AtomicHashMapTest, int_str) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   AtomicHashMap<int, std::string> map;
   std::string value("");
   for (int i = 0; i < 1000; i++) {
@@ -61,6 +63,7 @@ TEST(AtomicHashMapTest, int_str) {
 }
 
 TEST(AtomicHashMapTest, concurrency) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   AtomicHashMap<int, std::string, 128> map;
   int thread_num = 32;
   std::thread t[32];

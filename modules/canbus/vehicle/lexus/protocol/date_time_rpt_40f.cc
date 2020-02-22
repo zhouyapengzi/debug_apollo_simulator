@@ -28,10 +28,12 @@ namespace lexus {
 using ::apollo::drivers::canbus::Byte;
 
 Datetimerpt40f::Datetimerpt40f() {}
+AINFO<<"(DMCZP) EnteringMethod: Datetimerpt40f::Datetimerpt40f";
 const int32_t Datetimerpt40f::ID = 0x40F;
 
 void Datetimerpt40f::Parse(const std::uint8_t* bytes, int32_t length,
                            ChassisDetail* chassis) const {
+AINFO<<"(DMCZP) EnteringMethod: Datetimerpt40f::Parse";
   chassis->mutable_lexus()->mutable_date_time_rpt_40f()->set_time_second(
       time_second(bytes, length));
   chassis->mutable_lexus()->mutable_date_time_rpt_40f()->set_time_minute(
@@ -51,6 +53,8 @@ void Datetimerpt40f::Parse(const std::uint8_t* bytes, int32_t length,
 // 'type': 'int', 'order': 'motorola', 'physical_unit': 'sec'}
 int Datetimerpt40f::time_second(const std::uint8_t* bytes,
                                 int32_t length) const {
+AINFO<<"(DMCZP) EnteringMethod: Datetimerpt40f::time_second";
+AINFO<<"(DMCZP) EnteringMethod: Datetimerpt40f::time_minute";
   Byte t0(bytes + 5);
   int32_t x = t0.get_byte(0, 8);
 
@@ -74,6 +78,7 @@ int Datetimerpt40f::time_minute(const std::uint8_t* bytes,
 // 8, 'is_signed_var': False, 'physical_range': '[0|23]', 'bit': 31, 'type':
 // 'int', 'order': 'motorola', 'physical_unit': 'hr'}
 int Datetimerpt40f::time_hour(const std::uint8_t* bytes, int32_t length) const {
+AINFO<<"(DMCZP) EnteringMethod: Datetimerpt40f::time_hour";
   Byte t0(bytes + 3);
   int32_t x = t0.get_byte(0, 8);
 
@@ -85,6 +90,7 @@ int Datetimerpt40f::time_hour(const std::uint8_t* bytes, int32_t length) const {
 // 8, 'is_signed_var': False, 'physical_range': '[1|31]', 'bit': 23, 'type':
 // 'int', 'order': 'motorola', 'physical_unit': 'dy'}
 int Datetimerpt40f::date_day(const std::uint8_t* bytes, int32_t length) const {
+AINFO<<"(DMCZP) EnteringMethod: Datetimerpt40f::date_day";
   Byte t0(bytes + 2);
   int32_t x = t0.get_byte(0, 8);
 
@@ -97,6 +103,7 @@ int Datetimerpt40f::date_day(const std::uint8_t* bytes, int32_t length) const {
 // 'int', 'order': 'motorola', 'physical_unit': 'mon'}
 int Datetimerpt40f::date_month(const std::uint8_t* bytes,
                                int32_t length) const {
+AINFO<<"(DMCZP) EnteringMethod: Datetimerpt40f::date_month";
   Byte t0(bytes + 1);
   int32_t x = t0.get_byte(0, 8);
 
@@ -108,6 +115,7 @@ int Datetimerpt40f::date_month(const std::uint8_t* bytes,
 // 'len': 8, 'is_signed_var': False, 'physical_range': '[2000|2255]', 'bit': 7,
 // 'type': 'int', 'order': 'motorola', 'physical_unit': 'yr'}
 int Datetimerpt40f::date_year(const std::uint8_t* bytes, int32_t length) const {
+AINFO<<"(DMCZP) EnteringMethod: Datetimerpt40f::date_year";
   Byte t0(bytes + 0);
   int32_t x = t0.get_byte(0, 8);
 

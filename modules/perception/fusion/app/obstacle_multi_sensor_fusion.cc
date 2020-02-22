@@ -21,6 +21,7 @@ namespace fusion {
 
 bool ObstacleMultiSensorFusion::Init(
     const ObstacleMultiSensorFusionParam& param) {
+AINFO<<"(DMCZP) EnteringMethod: ObstacleMultiSensorFusion::Init";
   if (fusion_ != nullptr) {
     AINFO << "Already inited";
     return true;
@@ -38,6 +39,7 @@ bool ObstacleMultiSensorFusion::Init(
 
 bool ObstacleMultiSensorFusion::Process(const base::FrameConstPtr& frame,
                                         std::vector<base::ObjectPtr>* objects) {
+AINFO<<"(DMCZP) EnteringMethod: ObstacleMultiSensorFusion::Process";
   FusionOptions options;
   return fusion_->Fuse(options, frame, objects);
 }

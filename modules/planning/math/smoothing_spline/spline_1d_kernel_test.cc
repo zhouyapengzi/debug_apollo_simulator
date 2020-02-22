@@ -25,6 +25,7 @@ namespace apollo {
 namespace planning {
 
 TEST(Spline1dKernel, add_regularization) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   std::vector<double> x_knots = {0.0, 1.0, 2.0, 3.0};
   int32_t spline_order = 3;
   Spline1dKernel kernel(x_knots, spline_order);
@@ -69,6 +70,7 @@ TEST(Spline1dKernel, add_regularization) {
 }
 
 TEST(Spline1dKernel, add_derivative_kernel_matrix_01) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   // please see the document at docs/specs/qp_spline_path_optimizer.md for
   // details.
   std::vector<double> x_knots = {0.0, 1.0};
@@ -108,6 +110,7 @@ TEST(Spline1dKernel, add_derivative_kernel_matrix_01) {
 }
 
 TEST(Spline1dKernel, add_derivative_kernel_matrix_02) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   // please see the document at docs/specs/qp_spline_path_optimizer.md for
   // details.
   std::vector<double> x_knots = {0.0, 1.0, 2.0};
@@ -154,6 +157,7 @@ TEST(Spline1dKernel, add_derivative_kernel_matrix_02) {
 }
 
 TEST(Spline1dKernel, add_derivative_kernel_matrix_03) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   // please see the document at docs/specs/qp_spline_path_optimizer.md for
   // details.
   std::vector<double> x_knots = {0.0, 0.5};
@@ -194,6 +198,7 @@ TEST(Spline1dKernel, add_derivative_kernel_matrix_03) {
 }
 
 TEST(Spline1dKernel, add_derivative_kernel_matrix_04) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   // please see the document at docs/specs/qp_spline_path_optimizer.md for
   // details.
   std::vector<double> x_knots = {0.0, 1.0};
@@ -230,6 +235,7 @@ TEST(Spline1dKernel, add_derivative_kernel_matrix_04) {
 }
 
 TEST(Spline1dKernel, add_second_derivative_kernel_matrix_01) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   // please see the document at docs/specs/qp_spline_path_optimizer.md for
   // details.
   std::vector<double> x_knots = {0.0, 0.5};
@@ -271,6 +277,7 @@ TEST(Spline1dKernel, add_second_derivative_kernel_matrix_01) {
 }
 
 TEST(Spline1dKernel, add_second_derivative_kernel_matrix_02) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   // please see the document at docs/specs/qp_spline_path_optimizer.md for
   // details.
   std::vector<double> x_knots = {0.0, 0.5, 1.0};
@@ -319,6 +326,7 @@ TEST(Spline1dKernel, add_second_derivative_kernel_matrix_02) {
 }
 
 TEST(Spline1dKernel, add_third_derivative_kernel_matrix_01) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   std::vector<double> x_knots = {0.0, 1.5};
   int32_t spline_order = 5;
   Spline1dKernel kernel(x_knots, spline_order);
@@ -359,6 +367,7 @@ TEST(Spline1dKernel, add_third_derivative_kernel_matrix_01) {
 }
 
 TEST(Spline1dKernel, add_third_derivative_kernel_matrix_02) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   std::vector<double> x_knots = {0.0, 1.5, 3.0};
   int32_t spline_order = 5;
   Spline1dKernel kernel(x_knots, spline_order);
@@ -403,6 +412,7 @@ TEST(Spline1dKernel, add_third_derivative_kernel_matrix_02) {
 }
 
 TEST(Spline1dKernel, add_reference_line_kernel_01) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   std::vector<double> x_knots = {0.0, 1.0};
   int32_t spline_order = 5;
   Spline1dKernel kernel(x_knots, spline_order);
@@ -429,6 +439,7 @@ TEST(Spline1dKernel, add_reference_line_kernel_01) {
 }
 
 TEST(Spline1dKernel, add_reference_line_kernel_02) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   std::vector<double> x_knots = {0.0, 1.0};
   int32_t spline_order = 5;
   Spline1dKernel kernel(x_knots, spline_order);
@@ -457,6 +468,7 @@ TEST(Spline1dKernel, add_reference_line_kernel_02) {
 }
 
 TEST(Spline1dKernel, add_reference_line_kernel_03) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   std::vector<double> x_knots = {0.0, 1.0};
   int32_t spline_order = 5;
   Spline1dKernel kernel(x_knots, spline_order);
@@ -490,6 +502,7 @@ TEST(Spline1dKernel, add_reference_line_kernel_03) {
 }
 
 TEST(Spline1dKernel, add_reference_line_kernel_04) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   std::vector<double> x_knots = {0.0, 1.0, 2.0};
   int32_t spline_order = 5;
   Spline1dKernel kernel(x_knots, spline_order);
@@ -531,6 +544,7 @@ TEST(Spline1dKernel, add_reference_line_kernel_04) {
 }
 
 TEST(Spline1dKernel, add_derivative_kernel_matrix_for_spline_k_01) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   // please see the document at docs/specs/qp_spline_path_optimizer.md for
   // details.
   std::vector<double> x_knots = {0.0, 1.0, 2.0};
@@ -575,6 +589,7 @@ TEST(Spline1dKernel, add_derivative_kernel_matrix_for_spline_k_01) {
 }
 
 TEST(Spline1dKernel, add_derivative_kernel_matrix_for_spline_k_02) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   // please see the document at docs/specs/qp_spline_path_optimizer.md for
   // details.
   std::vector<double> x_knots = {0.0, 1.0, 2.0};
@@ -621,6 +636,8 @@ TEST(Spline1dKernel, add_derivative_kernel_matrix_for_spline_k_02) {
 
 TEST(Spline1dKernel,
      add_second_order_derivative_kernel_matrix_for_spline_k_01) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   // please see the document at docs/specs/qp_spline_path_optimizer.md for
   // details.
   std::vector<double> x_knots = {0.0, 1.0, 2.0};

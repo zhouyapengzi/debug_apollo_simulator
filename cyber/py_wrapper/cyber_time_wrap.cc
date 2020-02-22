@@ -24,6 +24,7 @@
 
 template <typename T>
 T PyObjectToPtr(PyObject* pyobj, const std::string& type_ptr) {
+AINFO<<"(DMCZP) EnteringMethod: PyObjectToPtr";
   T obj_ptr = (T)PyCapsule_GetPointer(pyobj, type_ptr.c_str());
   if (obj_ptr == nullptr) {
     AINFO << "PyObjectToPtr failed,type->" << type_ptr << "pyobj: " << pyobj;
@@ -32,6 +33,7 @@ T PyObjectToPtr(PyObject* pyobj, const std::string& type_ptr) {
 }
 
 PyObject* cyber_new_PyTime(PyObject* self, PyObject* args) {
+AINFO<<"(DMCZP) EnteringMethod: cyber_new_PyTime";
   uint64_t nanoseconds = 0;
   if (!PyArg_ParseTuple(args, const_cast<char*>("K:cyber_new_PyTime"),
                         &nanoseconds)) {
@@ -47,6 +49,7 @@ PyObject* cyber_new_PyTime(PyObject* self, PyObject* args) {
 }
 
 PyObject* cyber_delete_PyTime(PyObject* self, PyObject* args) {
+AINFO<<"(DMCZP) EnteringMethod: cyber_delete_PyTime";
   PyObject* pyobj_time = nullptr;
   if (!PyArg_ParseTuple(args, const_cast<char*>("O:cyber_delete_PyTime"),
                         &pyobj_time)) {
@@ -67,6 +70,7 @@ PyObject* cyber_delete_PyTime(PyObject* self, PyObject* args) {
 }
 
 PyObject* cyber_PyTime_to_sec(PyObject* self, PyObject* args) {
+AINFO<<"(DMCZP) EnteringMethod: cyber_PyTime_to_sec";
   PyObject* pyobj_time = nullptr;
   if (!PyArg_ParseTuple(args, const_cast<char*>("O:cyber_PyTime_to_sec"),
                         &pyobj_time)) {
@@ -86,6 +90,7 @@ PyObject* cyber_PyTime_to_sec(PyObject* self, PyObject* args) {
 }
 
 PyObject* cyber_PyTime_to_nsec(PyObject* self, PyObject* args) {
+AINFO<<"(DMCZP) EnteringMethod: cyber_PyTime_to_nsec";
   PyObject* pyobj_time = nullptr;
   if (!PyArg_ParseTuple(args, const_cast<char*>("O:cyber_PyTime_to_nsec"),
                         &pyobj_time)) {
@@ -105,6 +110,7 @@ PyObject* cyber_PyTime_to_nsec(PyObject* self, PyObject* args) {
 }
 
 PyObject* cyber_PyTime_sleep_until(PyObject* self, PyObject* args) {
+AINFO<<"(DMCZP) EnteringMethod: cyber_PyTime_sleep_until";
   PyObject* pyobj_time = nullptr;
   uint64_t nanoseconds = 0;
   if (!PyArg_ParseTuple(args, const_cast<char*>("OK:cyber_PyTime_sleep_until"),
@@ -128,17 +134,20 @@ PyObject* cyber_PyTime_sleep_until(PyObject* self, PyObject* args) {
 }
 
 PyObject* cyber_PyTime_now(PyObject* self, PyObject* args) {
+AINFO<<"(DMCZP) EnteringMethod: cyber_PyTime_now";
   apollo::cyber::PyTime now = apollo::cyber::PyTime::now();
   return PyLong_FromUnsignedLongLong(now.to_nsec());
 }
 
 PyObject* cyber_PyTime_mono_time(PyObject* self, PyObject* args) {
+AINFO<<"(DMCZP) EnteringMethod: cyber_PyTime_mono_time";
   apollo::cyber::PyTime mono_time = apollo::cyber::PyTime::mono_time();
   return PyLong_FromUnsignedLongLong(mono_time.to_nsec());
 }
 
 // duration
 PyObject* cyber_new_PyDuration(PyObject* self, PyObject* args) {
+AINFO<<"(DMCZP) EnteringMethod: cyber_new_PyDuration";
   uint64_t nanoseconds = 0;
   if (!PyArg_ParseTuple(args, const_cast<char*>("L:cyber_new_PyDuration"),
                         &nanoseconds)) {
@@ -155,6 +164,7 @@ PyObject* cyber_new_PyDuration(PyObject* self, PyObject* args) {
 }
 
 PyObject* cyber_delete_PyDuration(PyObject* self, PyObject* args) {
+AINFO<<"(DMCZP) EnteringMethod: cyber_delete_PyDuration";
   PyObject* pyobj_duration = nullptr;
   if (!PyArg_ParseTuple(args, const_cast<char*>("O:cyber_delete_PyDuration"),
                         &pyobj_duration)) {
@@ -175,6 +185,7 @@ PyObject* cyber_delete_PyDuration(PyObject* self, PyObject* args) {
 }
 
 PyObject* cyber_PyDuration_sleep(PyObject* self, PyObject* args) {
+AINFO<<"(DMCZP) EnteringMethod: cyber_PyDuration_sleep";
   PyObject* pyobj_duration = nullptr;
   if (!PyArg_ParseTuple(args, const_cast<char*>("O:cyber_PyDuration_sleep"),
                         &pyobj_duration)) {
@@ -196,6 +207,7 @@ PyObject* cyber_PyDuration_sleep(PyObject* self, PyObject* args) {
 
 // rate
 PyObject* cyber_new_PyRate(PyObject* self, PyObject* args) {
+AINFO<<"(DMCZP) EnteringMethod: cyber_new_PyRate";
   uint64_t nanoseconds = 0;
   if (!PyArg_ParseTuple(args, const_cast<char*>("L:cyber_new_PyRate"),
                         &nanoseconds)) {
@@ -211,6 +223,7 @@ PyObject* cyber_new_PyRate(PyObject* self, PyObject* args) {
 }
 
 PyObject* cyber_delete_PyRate(PyObject* self, PyObject* args) {
+AINFO<<"(DMCZP) EnteringMethod: cyber_delete_PyRate";
   PyObject* pyobj_rate = nullptr;
   if (!PyArg_ParseTuple(args, const_cast<char*>("O:cyber_delete_PyRate"),
                         &pyobj_rate)) {
@@ -231,6 +244,7 @@ PyObject* cyber_delete_PyRate(PyObject* self, PyObject* args) {
 }
 
 PyObject* cyber_PyRate_sleep(PyObject* self, PyObject* args) {
+AINFO<<"(DMCZP) EnteringMethod: cyber_PyRate_sleep";
   PyObject* pyobj_rate = nullptr;
   if (!PyArg_ParseTuple(args, const_cast<char*>("O:cyber_PyRate_sleep"),
                         &pyobj_rate)) {
@@ -251,6 +265,7 @@ PyObject* cyber_PyRate_sleep(PyObject* self, PyObject* args) {
 }
 
 PyObject* cyber_PyRate_reset(PyObject* self, PyObject* args) {
+AINFO<<"(DMCZP) EnteringMethod: cyber_PyRate_reset";
   PyObject* pyobj_rate = nullptr;
   if (!PyArg_ParseTuple(args, const_cast<char*>("O:cyber_PyRate_reset"),
                         &pyobj_rate)) {
@@ -271,6 +286,7 @@ PyObject* cyber_PyRate_reset(PyObject* self, PyObject* args) {
 }
 
 PyObject* cyber_PyRate_get_cycle_time(PyObject* self, PyObject* args) {
+AINFO<<"(DMCZP) EnteringMethod: cyber_PyRate_get_cycle_time";
   PyObject* pyobj_rate = nullptr;
   if (!PyArg_ParseTuple(args,
                         const_cast<char*>("O:cyber_PyRate_get_cycle_time"),
@@ -289,6 +305,7 @@ PyObject* cyber_PyRate_get_cycle_time(PyObject* self, PyObject* args) {
 }
 
 PyObject* cyber_PyRate_get_expected_cycle_time(PyObject* self, PyObject* args) {
+AINFO<<"(DMCZP) EnteringMethod: cyber_PyRate_get_expected_cycle_time";
   PyObject* pyobj_rate = nullptr;
   if (!PyArg_ParseTuple(
           args, const_cast<char*>("O:cyber_PyRate_get_expected_cycle_time"),
@@ -335,6 +352,7 @@ static PyMethodDef _cyber_time_methods[] = {
 
 /// Init function of this module
 PyMODINIT_FUNC init_cyber_time(void) {
+AINFO<<"(DMCZP) EnteringMethod: init_cyber_time";
   AINFO << "init _cyber_time";
   Py_InitModule("_cyber_time", _cyber_time_methods);
 }

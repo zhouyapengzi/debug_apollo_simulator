@@ -25,6 +25,7 @@ namespace util {
 using ::testing::ElementsAre;
 
 TEST(UtilTest, StringTokenizer) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   std::string str("aa,bbb,c");
   std::string delim(",");
 
@@ -33,6 +34,7 @@ TEST(UtilTest, StringTokenizer) {
 }
 
 TEST(UtilTest, StringTokenizerNext) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   std::string str("     aa,  bbb , c   ");
   std::string delim(", ");
 
@@ -51,6 +53,7 @@ TEST(UtilTest, StringTokenizerNext) {
 }
 
 TEST(UtilTest, StringTokenizerEmptyString) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   std::string str("");
   std::string delim(", ");
 
@@ -63,6 +66,7 @@ TEST(UtilTest, StringTokenizerEmptyString) {
 }
 
 TEST(UtilTest, StringTokenizerEmptyDelim) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   std::string str("     aa,  bbb , c   ");
   std::string delim("");
 
@@ -75,6 +79,7 @@ TEST(UtilTest, StringTokenizerEmptyDelim) {
 }
 
 TEST(UtilTest, StringTokenizerBothEmpty) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   std::string str("");
   std::string delim("");
 

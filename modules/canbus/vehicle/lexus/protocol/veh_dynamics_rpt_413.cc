@@ -28,10 +28,12 @@ namespace lexus {
 using ::apollo::drivers::canbus::Byte;
 
 Vehdynamicsrpt413::Vehdynamicsrpt413() {}
+AINFO<<"(DMCZP) EnteringMethod: Vehdynamicsrpt413::Vehdynamicsrpt413";
 const int32_t Vehdynamicsrpt413::ID = 0x413;
 
 void Vehdynamicsrpt413::Parse(const std::uint8_t* bytes, int32_t length,
                               ChassisDetail* chassis) const {
+AINFO<<"(DMCZP) EnteringMethod: Vehdynamicsrpt413::Parse";
   chassis->mutable_lexus()->mutable_veh_dynamics_rpt_413()->set_veh_g_forces(
       veh_g_forces(bytes, length));
 }
@@ -41,6 +43,7 @@ void Vehdynamicsrpt413::Parse(const std::uint8_t* bytes, int32_t length,
 // 'bit': 7, 'type': 'double', 'order': 'motorola', 'physical_unit': ''}
 double Vehdynamicsrpt413::veh_g_forces(const std::uint8_t* bytes,
                                        int32_t length) const {
+AINFO<<"(DMCZP) EnteringMethod: Vehdynamicsrpt413::veh_g_forces";
   Byte t0(bytes + 0);
   int32_t x = t0.get_byte(0, 8);
 

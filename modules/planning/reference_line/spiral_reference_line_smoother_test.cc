@@ -68,6 +68,7 @@ class SpiralReferenceLineSmootherTest : public ::testing::Test {
 };
 
 TEST_F(SpiralReferenceLineSmootherTest, smooth_stand_alone) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   std::vector<double> theta;
   std::vector<double> kappa;
   std::vector<double> dkappa;

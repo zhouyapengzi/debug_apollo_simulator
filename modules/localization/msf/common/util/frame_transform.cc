@@ -24,6 +24,7 @@ namespace msf {
 
 bool FrameTransform::LatlonToUtmXY(double lon_rad, double lat_rad,
                                    UTMCoor *utm_xy) {
+AINFO<<"(DMCZP) EnteringMethod: FrameTransform::LatlonToUtmXY";
   projPJ pj_latlon;
   projPJ pj_utm;
   int zone = 0;
@@ -49,6 +50,7 @@ bool FrameTransform::LatlonToUtmXY(double lon_rad, double lat_rad,
 }
 bool FrameTransform::UtmXYToLatlon(double x, double y, int zone, bool southhemi,
                                    WGS84Corr *latlon) {
+AINFO<<"(DMCZP) EnteringMethod: FrameTransform::UtmXYToLatlon";
   projPJ pj_latlon;
   projPJ pj_utm;
   std::string latlon_src =
@@ -70,6 +72,7 @@ bool FrameTransform::UtmXYToLatlon(double x, double y, int zone, bool southhemi,
 }
 
 bool FrameTransform::XYZToBlh(const Vector3d &xyz, Vector3d *blh) {
+AINFO<<"(DMCZP) EnteringMethod: FrameTransform::XYZToBlh";
   projPJ pj_xyz;
   projPJ pj_blh;
   std::string xyz_src = "+proj=geocent +datum=WGS84";
@@ -92,6 +95,7 @@ bool FrameTransform::XYZToBlh(const Vector3d &xyz, Vector3d *blh) {
   return true;
 }
 bool FrameTransform::BlhToXYZ(const Vector3d &blh, Vector3d *xyz) {
+AINFO<<"(DMCZP) EnteringMethod: FrameTransform::BlhToXYZ";
   projPJ pj_xyz;
   projPJ pj_blh;
   std::string blh_src = "+proj=latlong +datum=WGS84";

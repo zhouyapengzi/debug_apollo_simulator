@@ -27,6 +27,7 @@ class Scuepb310Test : public ::testing::Test {
 };
 
 TEST_F(Scuepb310Test, reset) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   Scuepb310 scuepb310;
   int32_t length = 8;
   ChassisDetail chassis_detail;

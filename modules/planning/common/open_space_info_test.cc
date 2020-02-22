@@ -37,6 +37,7 @@ class OpenSpaceInfoTest : public ::testing::Test {
 };
 
 TEST_F(OpenSpaceInfoTest, Init) { EXPECT_NE(&open_space_info_, nullptr); }
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
 
 bool ComputeSLBoundaryIntersection(const SLBoundary& sl_boundary,
                                    const double s, double* ptr_l_min,

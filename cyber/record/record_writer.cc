@@ -29,12 +29,15 @@ using proto::Channel;
 using proto::SingleMessage;
 
 RecordWriter::RecordWriter() { header_ = HeaderBuilder::GetHeader(); }
+AINFO<<"(DMCZP) EnteringMethod: RecordWriter::RecordWriter";
 
 RecordWriter::RecordWriter(const proto::Header& header) { header_ = header; }
+AINFO<<"(DMCZP) EnteringMethod: RecordWriter::RecordWriter";
 
 RecordWriter::~RecordWriter() { Close(); }
 
 bool RecordWriter::Open(const std::string& file) {
+AINFO<<"(DMCZP) EnteringMethod: RecordWriter::Open";
   file_ = file;
   file_index_ = 0;
   sstream_.str(std::string());
@@ -60,6 +63,7 @@ bool RecordWriter::Open(const std::string& file) {
 }
 
 void RecordWriter::Close() {
+AINFO<<"(DMCZP) EnteringMethod: RecordWriter::Close";
   if (is_opened_) {
     file_writer_->Close();
     is_opened_ = false;
@@ -67,6 +71,7 @@ void RecordWriter::Close() {
 }
 
 bool RecordWriter::SplitOutfile() {
+AINFO<<"(DMCZP) EnteringMethod: RecordWriter::SplitOutfile";
   file_writer_.reset(new RecordFileWriter());
   if (file_index_ > 99999) {
     AWARN << "More than 99999 record files had been recored, will restart "
@@ -103,10 +108,12 @@ bool RecordWriter::SplitOutfile() {
 bool RecordWriter::WriteChannel(const std::string& channel_name,
                                 const std::string& message_type,
                                 const std::string& proto_desc) {
+AINFO<<"(DMCZP) EnteringMethod: RecordWriter::WriteChannel";
   std::lock_guard<std::mutex> lg(mutex_);
   if (IsNewChannel(channel_name)) {
     OnNewChannel(channel_name, message_type, proto_desc);
     Channel channel;
+AINFO<<"(DMCZP) EnteringMethod: RecordWriter::OnNewChannel";
     channel.set_name(channel_name);
     channel.set_message_type(message_type);
     channel.set_proto_desc(proto_desc);
@@ -122,6 +129,7 @@ bool RecordWriter::WriteChannel(const std::string& channel_name,
 }
 
 bool RecordWriter::WriteMessage(const SingleMessage& message) {
+AINFO<<"(DMCZP) EnteringMethod: RecordWriter::WriteMessage";
   std::lock_guard<std::mutex> lg(mutex_);
   OnNewMessage(message.channel_name());
   if (!file_writer_->WriteMessage(message)) {
@@ -152,6 +160,7 @@ bool RecordWriter::WriteMessage(const SingleMessage& message) {
 }
 
 bool RecordWriter::SetSizeOfFileSegmentation(uint64_t size_kilobytes) {
+AINFO<<"(DMCZP) EnteringMethod: RecordWriter::SetSizeOfFileSegmentation";
   if (is_opened_) {
     AWARN << "Please call this interface before opening file.";
     return false;
@@ -161,6 +170,7 @@ bool RecordWriter::SetSizeOfFileSegmentation(uint64_t size_kilobytes) {
 }
 
 bool RecordWriter::SetIntervalOfFileSegmentation(uint64_t time_sec) {
+AINFO<<"(DMCZP) EnteringMethod: RecordWriter::SetIntervalOfFileSegmentation";
   if (is_opened_) {
     AWARN << "Please call this interface before opening file.";
     return false;
@@ -170,6 +180,7 @@ bool RecordWriter::SetIntervalOfFileSegmentation(uint64_t time_sec) {
 }
 
 bool RecordWriter::IsNewChannel(const std::string& channel_name) const {
+AINFO<<"(DMCZP) EnteringMethod: RecordWriter::IsNewChannel";
   return channel_message_number_map_.find(channel_name) ==
          channel_message_number_map_.end();
 }
@@ -185,6 +196,7 @@ void RecordWriter::OnNewChannel(const std::string& channel_name,
 }
 
 void RecordWriter::OnNewMessage(const std::string& channel_name) {
+AINFO<<"(DMCZP) EnteringMethod: RecordWriter::OnNewMessage";
   if (channel_message_number_map_.find(channel_name) !=
       channel_message_number_map_.end()) {
     channel_message_number_map_[channel_name]++;
@@ -192,6 +204,7 @@ void RecordWriter::OnNewMessage(const std::string& channel_name) {
 }
 
 uint64_t RecordWriter::GetMessageNumber(const std::string& channel_name) const {
+AINFO<<"(DMCZP) EnteringMethod: RecordWriter::GetMessageNumber";
   auto search = channel_message_number_map_.find(channel_name);
   if (search != channel_message_number_map_.end()) {
     return search->second;
@@ -201,6 +214,8 @@ uint64_t RecordWriter::GetMessageNumber(const std::string& channel_name) const {
 
 const std::string& RecordWriter::GetMessageType(
     const std::string& channel_name) const {
+AINFO<<"(DMCZP) EnteringMethod: RecordWriter::GetMessageType";
+AINFO<<"(DMCZP) EnteringMethod: RecordWriter::GetProtoDesc";
   auto search = channel_message_type_map_.find(channel_name);
   if (search != channel_message_type_map_.end()) {
     return search->second;

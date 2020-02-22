@@ -29,6 +29,7 @@ namespace perception {
 namespace radar {
 
 TEST(HMMatcherTest, hm_matcher_init_test) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   BaseMatcher* matcher = new HMMatcher();
   EXPECT_NE(matcher, nullptr);
   FLAGS_work_root = "/apollo/modules/perception/testdata/radar/matcher";
@@ -37,12 +38,14 @@ TEST(HMMatcherTest, hm_matcher_init_test) {
 }
 
 TEST(HMMatcherTest, hm_matcher_name_test) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   BaseMatcher* matcher = new HMMatcher();
   EXPECT_EQ(matcher->Name(), "HMMatcher");
   delete matcher;
 }
 
 TEST(HMMatcherTest, hm_matcher_propterty_match_test) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   HMMatcher* matcher = new HMMatcher();
   std::vector<RadarTrackPtr> radar_tracks;
   base::Frame radar_frame;
@@ -58,6 +61,7 @@ TEST(HMMatcherTest, hm_matcher_propterty_match_test) {
 }
 
 TEST(HMMatcherTest, hm_matcher_test) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   BaseMatcher* matcher = new HMMatcher();
   EXPECT_NE(matcher, nullptr);
   FLAGS_work_root = "/apollo/modules/perception/testdata/radar/matcher";

@@ -40,8 +40,12 @@ using namespace tf2;
 
 bool StaticCache::getData(Time time, TransformStorage & data_out, std::string* error_str) //returns false if data not available
 {
+AINFO<<"(DMCZP) EnteringMethod: StaticCache::getData";
+AINFO<<"(DMCZP) EnteringMethod: StaticCache::insertData";
   data_out = storage_;
   data_out.stamp_ = time;
+AINFO<<"(DMCZP) EnteringMethod: StaticCache::getParent";
+AINFO<<"(DMCZP) EnteringMethod: StaticCache::getLatestTimeAndParent";
   (void)error_str;
   return true;
 };
@@ -56,8 +60,10 @@ bool StaticCache::insertData(const TransformStorage& new_data)
 
 
 void StaticCache::clearList() { return; };
+AINFO<<"(DMCZP) EnteringMethod: StaticCache::clearList";
 
 unsigned int StaticCache::getListLength() {   return 1; };
+AINFO<<"(DMCZP) EnteringMethod: StaticCache::getListLength";
 
 CompactFrameID StaticCache::getParent(Time time, std::string* error_str)
 {
@@ -73,6 +79,8 @@ P_TimeAndFrameID StaticCache::getLatestTimeAndParent()
 
 Time StaticCache::getLatestTimestamp() 
 {   
+AINFO<<"(DMCZP) EnteringMethod: StaticCache::getLatestTimestamp";
+AINFO<<"(DMCZP) EnteringMethod: StaticCache::getOldestTimestamp";
   return Time();
 };
 

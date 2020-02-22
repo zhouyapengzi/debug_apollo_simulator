@@ -25,6 +25,7 @@
 
 template <typename T>
 T PyObjectToPtr(PyObject* pyobj, const std::string& type_ptr) {
+AINFO<<"(DMCZP) EnteringMethod: PyObjectToPtr";
   T obj_ptr = (T)PyCapsule_GetPointer(pyobj, type_ptr.c_str());
   if (obj_ptr == nullptr) {
     AINFO << "PyObjectToPtr failed,type->" << type_ptr << "pyobj: " << pyobj;
@@ -33,6 +34,7 @@ T PyObjectToPtr(PyObject* pyobj, const std::string& type_ptr) {
 }
 
 PyObject* cyber_new_PyParameter_noparam(PyObject* self, PyObject* args) {
+AINFO<<"(DMCZP) EnteringMethod: cyber_new_PyParameter_noparam";
   apollo::cyber::PyParameter* pyparameter = new apollo::cyber::PyParameter();
   PyObject* pyobj_param =
       PyCapsule_New(pyparameter, "apollo_cybertron_pyparameter", nullptr);
@@ -40,6 +42,7 @@ PyObject* cyber_new_PyParameter_noparam(PyObject* self, PyObject* args) {
 }
 
 PyObject* cyber_delete_PyParameter(PyObject* self, PyObject* args) {
+AINFO<<"(DMCZP) EnteringMethod: cyber_delete_PyParameter";
   PyObject* pyobj_param = nullptr;
   if (!PyArg_ParseTuple(args, const_cast<char*>("O:cyber_delete_PyParameter"),
                         &pyobj_param)) {
@@ -60,6 +63,7 @@ PyObject* cyber_delete_PyParameter(PyObject* self, PyObject* args) {
 }
 
 PyObject* cyber_new_PyParameter_int(PyObject* self, PyObject* args) {
+AINFO<<"(DMCZP) EnteringMethod: cyber_new_PyParameter_int";
   char* name = nullptr;
   Py_ssize_t len = 0;
   int64_t int_value = 0;
@@ -79,6 +83,7 @@ PyObject* cyber_new_PyParameter_int(PyObject* self, PyObject* args) {
 }
 
 PyObject* cyber_new_PyParameter_double(PyObject* self, PyObject* args) {
+AINFO<<"(DMCZP) EnteringMethod: cyber_new_PyParameter_double";
   char* name = nullptr;
   Py_ssize_t len = 0;
   double double_value = 0;
@@ -98,6 +103,7 @@ PyObject* cyber_new_PyParameter_double(PyObject* self, PyObject* args) {
 }
 
 PyObject* cyber_new_PyParameter_string(PyObject* self, PyObject* args) {
+AINFO<<"(DMCZP) EnteringMethod: cyber_new_PyParameter_string";
   char* name = nullptr;
   char* string_param = nullptr;
   if (!PyArg_ParseTuple(args,
@@ -116,6 +122,7 @@ PyObject* cyber_new_PyParameter_string(PyObject* self, PyObject* args) {
 }
 
 PyObject* cyber_PyParameter_type_name(PyObject* self, PyObject* args) {
+AINFO<<"(DMCZP) EnteringMethod: cyber_PyParameter_type_name";
   PyObject* pyobj_param = nullptr;
   if (!PyArg_ParseTuple(args,
                         const_cast<char*>("O:cyber_PyParameter_type_name"),
@@ -136,6 +143,7 @@ PyObject* cyber_PyParameter_type_name(PyObject* self, PyObject* args) {
 }
 
 PyObject* cyber_PyParameter_descriptor(PyObject* self, PyObject* args) {
+AINFO<<"(DMCZP) EnteringMethod: cyber_PyParameter_descriptor";
   PyObject* pyobj_param = nullptr;
   if (!PyArg_ParseTuple(args,
                         const_cast<char*>("O:cyber_PyParameter_descriptor"),
@@ -156,6 +164,7 @@ PyObject* cyber_PyParameter_descriptor(PyObject* self, PyObject* args) {
 }
 
 PyObject* cyber_PyParameter_name(PyObject* self, PyObject* args) {
+AINFO<<"(DMCZP) EnteringMethod: cyber_PyParameter_name";
   PyObject* pyobj_param = nullptr;
   if (!PyArg_ParseTuple(args, const_cast<char*>("O:cyber_PyParameter_name"),
                         &pyobj_param)) {
@@ -175,6 +184,7 @@ PyObject* cyber_PyParameter_name(PyObject* self, PyObject* args) {
 }
 
 PyObject* cyber_PyParameter_debug_string(PyObject* self, PyObject* args) {
+AINFO<<"(DMCZP) EnteringMethod: cyber_PyParameter_debug_string";
   PyObject* pyobj_param = nullptr;
   if (!PyArg_ParseTuple(args,
                         const_cast<char*>("O:cyber_PyParameter_debug_string"),
@@ -195,6 +205,7 @@ PyObject* cyber_PyParameter_debug_string(PyObject* self, PyObject* args) {
 }
 
 PyObject* cyber_PyParameter_as_string(PyObject* self, PyObject* args) {
+AINFO<<"(DMCZP) EnteringMethod: cyber_PyParameter_as_string";
   PyObject* pyobj_param = nullptr;
   if (!PyArg_ParseTuple(args,
                         const_cast<char*>("O:cyber_PyParameter_as_string"),
@@ -215,6 +226,7 @@ PyObject* cyber_PyParameter_as_string(PyObject* self, PyObject* args) {
 }
 
 PyObject* cyber_PyParameter_as_double(PyObject* self, PyObject* args) {
+AINFO<<"(DMCZP) EnteringMethod: cyber_PyParameter_as_double";
   PyObject* pyobj_param = nullptr;
   if (!PyArg_ParseTuple(args,
                         const_cast<char*>("O:cyber_PyParameter_as_double"),
@@ -235,6 +247,7 @@ PyObject* cyber_PyParameter_as_double(PyObject* self, PyObject* args) {
 }
 
 PyObject* cyber_PyParameter_as_int64(PyObject* self, PyObject* args) {
+AINFO<<"(DMCZP) EnteringMethod: cyber_PyParameter_as_int64";
   PyObject* pyobj_param = nullptr;
   if (!PyArg_ParseTuple(args, const_cast<char*>("O:cyber_PyParameter_as_int64"),
                         &pyobj_param)) {
@@ -255,6 +268,7 @@ PyObject* cyber_PyParameter_as_int64(PyObject* self, PyObject* args) {
 
 // PyParameterClient
 PyObject* cyber_new_PyParameterClient(PyObject* self, PyObject* args) {
+AINFO<<"(DMCZP) EnteringMethod: cyber_new_PyParameterClient";
   PyObject* pyobj_node = nullptr;
   char* service_node_name = nullptr;
   Py_ssize_t len = 0;
@@ -290,6 +304,7 @@ PyObject* cyber_new_PyParameterClient(PyObject* self, PyObject* args) {
 }
 
 PyObject* cyber_delete_PyParameterClient(PyObject* self, PyObject* args) {
+AINFO<<"(DMCZP) EnteringMethod: cyber_delete_PyParameterClient";
   PyObject* pyobj_param = nullptr;
   if (!PyArg_ParseTuple(args,
                         const_cast<char*>("O:cyber_delete_PyParameterClient"),
@@ -313,6 +328,7 @@ PyObject* cyber_delete_PyParameterClient(PyObject* self, PyObject* args) {
 }
 
 PyObject* cyber_PyParameter_clt_set_parameter(PyObject* self, PyObject* args) {
+AINFO<<"(DMCZP) EnteringMethod: cyber_PyParameter_clt_set_parameter";
   PyObject* pyobj_param_clt = nullptr;
   PyObject* pyobj_param = nullptr;
   if (!PyArg_ParseTuple(args,
@@ -352,6 +368,7 @@ PyObject* cyber_PyParameter_clt_set_parameter(PyObject* self, PyObject* args) {
 }
 
 PyObject* cyber_PyParameter_clt_get_parameter(PyObject* self, PyObject* args) {
+AINFO<<"(DMCZP) EnteringMethod: cyber_PyParameter_clt_get_parameter";
   char* name = nullptr;
   Py_ssize_t len = 0;
   PyObject* pyobj_param_clt = nullptr;
@@ -389,10 +406,12 @@ PyObject* cyber_PyParameter_clt_get_parameter(PyObject* self, PyObject* args) {
 
 PyObject* cyber_PyParameter_clt_get_parameter_list(PyObject* self,
                                                    PyObject* args) {
+AINFO<<"(DMCZP) EnteringMethod: cyber_PyParameter_clt_get_parameter_list";
   PyObject* pyobj_param_clt = nullptr;
   if (!PyArg_ParseTuple(
           args, const_cast<char*>("O:cyber_PyParameter_clt_get_parameter_list"),
           &pyobj_param_clt)) {
+AINFO<<"(DMCZP) EnteringMethod: cyber_PyParameter_srv_get_parameter_list";
     AERROR
         << "cyber_PyParameter_clt_get_parameter_list:PyArg_ParseTuple failed!";
     Py_INCREF(Py_None);
@@ -427,6 +446,7 @@ PyObject* cyber_PyParameter_clt_get_parameter_list(PyObject* self,
 
 // PyParameterServer
 PyObject* cyber_new_PyParameterServer(PyObject* self, PyObject* args) {
+AINFO<<"(DMCZP) EnteringMethod: cyber_new_PyParameterServer";
   PyObject* pyobj_node = nullptr;
   if (!PyArg_ParseTuple(args,
                         const_cast<char*>("O:cyber_new_PyParameterServer"),
@@ -459,6 +479,7 @@ PyObject* cyber_new_PyParameterServer(PyObject* self, PyObject* args) {
 }
 
 PyObject* cyber_delete_PyParameterServer(PyObject* self, PyObject* args) {
+AINFO<<"(DMCZP) EnteringMethod: cyber_delete_PyParameterServer";
   PyObject* pyobj_param = nullptr;
   if (!PyArg_ParseTuple(args,
                         const_cast<char*>("O:cyber_delete_PyParameterServer"),
@@ -482,6 +503,7 @@ PyObject* cyber_delete_PyParameterServer(PyObject* self, PyObject* args) {
 }
 
 PyObject* cyber_PyParameter_srv_set_parameter(PyObject* self, PyObject* args) {
+AINFO<<"(DMCZP) EnteringMethod: cyber_PyParameter_srv_set_parameter";
   PyObject* pyobj_param_srv = nullptr;
   PyObject* pyobj_param = nullptr;
   if (!PyArg_ParseTuple(args,
@@ -523,6 +545,7 @@ PyObject* cyber_PyParameter_srv_set_parameter(PyObject* self, PyObject* args) {
 }
 
 PyObject* cyber_PyParameter_srv_get_parameter(PyObject* self, PyObject* args) {
+AINFO<<"(DMCZP) EnteringMethod: cyber_PyParameter_srv_get_parameter";
   char* name = nullptr;
   Py_ssize_t len = 0;
   PyObject* pyobj_param_srv = nullptr;
@@ -636,6 +659,7 @@ static PyMethodDef _cyber_parameter_methods[] = {
 
 /// Init function of this module
 PyMODINIT_FUNC init_cyber_parameter(void) {
+AINFO<<"(DMCZP) EnteringMethod: init_cyber_parameter";
   AINFO << "init _cyber_parameter";
   Py_InitModule("_cyber_parameter", _cyber_parameter_methods);
 }

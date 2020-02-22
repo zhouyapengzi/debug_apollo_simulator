@@ -29,10 +29,13 @@ VehicleConfig VehicleConfigHelper::vehicle_config_;
 bool VehicleConfigHelper::is_init_ = false;
 
 VehicleConfigHelper::VehicleConfigHelper() {}
+AINFO<<"(DMCZP) EnteringMethod: VehicleConfigHelper::VehicleConfigHelper";
 
 void VehicleConfigHelper::Init() { Init(FLAGS_vehicle_config_path); }
+AINFO<<"(DMCZP) EnteringMethod: VehicleConfigHelper::Init";
 
 void VehicleConfigHelper::Init(const std::string &config_file) {
+AINFO<<"(DMCZP) EnteringMethod: VehicleConfigHelper::Init";
   VehicleConfig params;
   CHECK(cyber::common::GetProtoFromFile(config_file, &params))
       << "Unable to parse vehicle config file " << config_file;
@@ -40,11 +43,13 @@ void VehicleConfigHelper::Init(const std::string &config_file) {
 }
 
 void VehicleConfigHelper::Init(const VehicleConfig &vehicle_params) {
+AINFO<<"(DMCZP) EnteringMethod: VehicleConfigHelper::Init";
   vehicle_config_ = vehicle_params;
   is_init_ = true;
 }
 
 const VehicleConfig &VehicleConfigHelper::GetConfig() {
+AINFO<<"(DMCZP) EnteringMethod: &VehicleConfigHelper::GetConfig";
   if (!is_init_) {
     Init();
   }
@@ -52,6 +57,7 @@ const VehicleConfig &VehicleConfigHelper::GetConfig() {
 }
 
 double VehicleConfigHelper::MinSafeTurnRadius() {
+AINFO<<"(DMCZP) EnteringMethod: VehicleConfigHelper::MinSafeTurnRadius";
   const auto &param = vehicle_config_.vehicle_param();
   double lat_edge_to_center =
       std::max(param.left_edge_to_center(), param.right_edge_to_center());
@@ -64,6 +70,7 @@ double VehicleConfigHelper::MinSafeTurnRadius() {
 
 common::math::Box2d VehicleConfigHelper::GetBoundingBox(
     const common::PathPoint &path_point) {
+AINFO<<"(DMCZP) EnteringMethod: VehicleConfigHelper::GetBoundingBox";
   const auto &vehicle_param = vehicle_config_.vehicle_param();
   double diff_truecenter_and_pointX = (vehicle_param.front_edge_to_center() -
                                        vehicle_param.back_edge_to_center()) /

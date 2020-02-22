@@ -28,14 +28,17 @@ const int32_t Brakecmd104::ID = 0x104;
 
 // public
 Brakecmd104::Brakecmd104() { Reset(); }
+AINFO<<"(DMCZP) EnteringMethod: Brakecmd104::Brakecmd104";
 
 uint32_t Brakecmd104::GetPeriod() const {
+AINFO<<"(DMCZP) EnteringMethod: Brakecmd104::GetPeriod";
   // TODO(QiL) modify every protocol's period manually
   static const uint32_t PERIOD = 20 * 1000;
   return PERIOD;
 }
 
 void Brakecmd104::UpdateData(uint8_t* data) {
+AINFO<<"(DMCZP) EnteringMethod: Brakecmd104::UpdateData";
   set_p_ignore_overrides(data, ignore_overrides_);
   set_p_enable(data, enable_);
   set_p_clear_override(data, clear_override_);
@@ -44,6 +47,7 @@ void Brakecmd104::UpdateData(uint8_t* data) {
 }
 
 void Brakecmd104::Reset() {
+AINFO<<"(DMCZP) EnteringMethod: Brakecmd104::Reset";
   // TODO(QiL) you should check this manually
   ignore_overrides_ = false;
   enable_ = false;
@@ -53,6 +57,7 @@ void Brakecmd104::Reset() {
 }
 
 Brakecmd104* Brakecmd104::set_ignore_overrides(bool ignore_overrides) {
+AINFO<<"(DMCZP) EnteringMethod: Brakecmd104::set_ignore_overrides";
   ignore_overrides_ = ignore_overrides;
   return this;
 }
@@ -61,6 +66,7 @@ Brakecmd104* Brakecmd104::set_ignore_overrides(bool ignore_overrides) {
 // 'len': 1, 'is_signed_var': False, 'physical_range': '[0|1]', 'bit': 1,
 // 'type': 'bool', 'order': 'motorola', 'physical_unit': ''}
 void Brakecmd104::set_p_ignore_overrides(uint8_t* data, bool ignore_overrides) {
+AINFO<<"(DMCZP) EnteringMethod: Brakecmd104::set_p_ignore_overrides";
   uint8_t x = ignore_overrides;
 
   Byte to_set(data + 0);
@@ -68,6 +74,7 @@ void Brakecmd104::set_p_ignore_overrides(uint8_t* data, bool ignore_overrides) {
 }
 
 Brakecmd104* Brakecmd104::set_enable(bool enable) {
+AINFO<<"(DMCZP) EnteringMethod: Brakecmd104::set_enable";
   enable_ = enable;
   return this;
 }
@@ -76,6 +83,7 @@ Brakecmd104* Brakecmd104::set_enable(bool enable) {
 // 'is_signed_var': False, 'physical_range': '[0|1]', 'bit': 0, 'type': 'bool',
 // 'order': 'motorola', 'physical_unit': ''}
 void Brakecmd104::set_p_enable(uint8_t* data, bool enable) {
+AINFO<<"(DMCZP) EnteringMethod: Brakecmd104::set_p_enable";
   uint8_t x = enable;
 
   Byte to_set(data + 0);
@@ -83,6 +91,7 @@ void Brakecmd104::set_p_enable(uint8_t* data, bool enable) {
 }
 
 Brakecmd104* Brakecmd104::set_clear_override(bool clear_override) {
+AINFO<<"(DMCZP) EnteringMethod: Brakecmd104::set_clear_override";
   clear_override_ = clear_override;
   return this;
 }
@@ -91,6 +100,7 @@ Brakecmd104* Brakecmd104::set_clear_override(bool clear_override) {
 // 'len': 1, 'is_signed_var': False, 'physical_range': '[0|1]', 'bit': 2,
 // 'type': 'bool', 'order': 'motorola', 'physical_unit': ''}
 void Brakecmd104::set_p_clear_override(uint8_t* data, bool clear_override) {
+AINFO<<"(DMCZP) EnteringMethod: Brakecmd104::set_p_clear_override";
   uint8_t x = clear_override;
 
   Byte to_set(data + 0);
@@ -98,6 +108,7 @@ void Brakecmd104::set_p_clear_override(uint8_t* data, bool clear_override) {
 }
 
 Brakecmd104* Brakecmd104::set_clear_faults(bool clear_faults) {
+AINFO<<"(DMCZP) EnteringMethod: Brakecmd104::set_clear_faults";
   clear_faults_ = clear_faults;
   return this;
 }
@@ -106,6 +117,7 @@ Brakecmd104* Brakecmd104::set_clear_faults(bool clear_faults) {
 // 'len': 1, 'is_signed_var': False, 'physical_range': '[0|1]', 'bit': 3,
 // 'type': 'bool', 'order': 'motorola', 'physical_unit': ''}
 void Brakecmd104::set_p_clear_faults(uint8_t* data, bool clear_faults) {
+AINFO<<"(DMCZP) EnteringMethod: Brakecmd104::set_p_clear_faults";
   uint8_t x = clear_faults;
 
   Byte to_set(data + 0);
@@ -113,6 +125,7 @@ void Brakecmd104::set_p_clear_faults(uint8_t* data, bool clear_faults) {
 }
 
 Brakecmd104* Brakecmd104::set_brake_cmd(double brake_cmd) {
+AINFO<<"(DMCZP) EnteringMethod: Brakecmd104::set_brake_cmd";
   brake_cmd_ = brake_cmd;
   return this;
 }
@@ -121,6 +134,7 @@ Brakecmd104* Brakecmd104::set_brake_cmd(double brake_cmd) {
 // 'len': 16, 'is_signed_var': False, 'physical_range': '[0|1]', 'bit': 15,
 // 'type': 'double', 'order': 'motorola', 'physical_unit': ''}
 void Brakecmd104::set_p_brake_cmd(uint8_t* data, double brake_cmd) {
+AINFO<<"(DMCZP) EnteringMethod: Brakecmd104::set_p_brake_cmd";
   brake_cmd = ProtocolData::BoundedValue(0.0, 1.0, brake_cmd);
   int x = static_cast<int>(brake_cmd / 0.001000);
   uint8_t t = 0;

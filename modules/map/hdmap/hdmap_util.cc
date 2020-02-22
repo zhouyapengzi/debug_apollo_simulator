@@ -27,6 +27,7 @@ namespace {
 
 // Find the first existing file from a list of candidates: "file_a|file_b|...".
 std::string FindFirstExist(const std::string& dir, const std::string& files) {
+AINFO<<"(DMCZP) EnteringMethod: FindFirstExist";
   const auto candidates =
       apollo::common::util::StringTokenizer::Split(files, "|");
   for (const auto& filename : candidates) {
@@ -45,6 +46,7 @@ std::string FindFirstExist(const std::string& dir, const std::string& files) {
 }  // namespace
 
 std::string BaseMapFile() {
+AINFO<<"(DMCZP) EnteringMethod: BaseMapFile";
   if (FLAGS_use_navigation_mode) {
     AWARN << "base_map file is not used when FLAGS_use_navigation_mode is true";
   }
@@ -54,6 +56,7 @@ std::string BaseMapFile() {
 }
 
 std::string SimMapFile() {
+AINFO<<"(DMCZP) EnteringMethod: SimMapFile";
   if (FLAGS_use_navigation_mode) {
     AWARN << "sim_map file is not used when FLAGS_use_navigation_mode is true";
   }
@@ -61,6 +64,7 @@ std::string SimMapFile() {
 }
 
 std::string RoutingMapFile() {
+AINFO<<"(DMCZP) EnteringMethod: RoutingMapFile";
   if (FLAGS_use_navigation_mode) {
     AWARN << "routing_map file is not used when FLAGS_use_navigation_mode is "
              "true";
@@ -96,6 +100,7 @@ std::unique_ptr<HDMap> HDMapUtil::sim_map_ = nullptr;
 std::mutex HDMapUtil::sim_map_mutex_;
 
 const HDMap* HDMapUtil::BaseMapPtr(const MapMsg& map_msg) {
+AINFO<<"(DMCZP) EnteringMethod: HDMapUtil::BaseMapPtr";
   std::lock_guard<std::mutex> lock(base_map_mutex_);
   if (base_map_ != nullptr &&
       base_map_seq_ == map_msg.header().sequence_num()) {
@@ -109,6 +114,7 @@ const HDMap* HDMapUtil::BaseMapPtr(const MapMsg& map_msg) {
 }
 
 const HDMap* HDMapUtil::BaseMapPtr() {
+AINFO<<"(DMCZP) EnteringMethod: HDMapUtil::BaseMapPtr";
   // TODO(all) Those logics should be removed to planning
   /*if (FLAGS_use_navigation_mode) {
     std::lock_guard<std::mutex> lock(base_map_mutex_);
@@ -141,8 +147,10 @@ const HDMap* HDMapUtil::BaseMapPtr() {
 }
 
 const HDMap& HDMapUtil::BaseMap() { return *CHECK_NOTNULL(BaseMapPtr()); }
+AINFO<<"(DMCZP) EnteringMethod: HDMapUtil::BaseMap";
 
 const HDMap* HDMapUtil::SimMapPtr() {
+AINFO<<"(DMCZP) EnteringMethod: HDMapUtil::SimMapPtr";
   if (FLAGS_use_navigation_mode) {
     return BaseMapPtr();
   } else if (sim_map_ == nullptr) {
@@ -155,8 +163,10 @@ const HDMap* HDMapUtil::SimMapPtr() {
 }
 
 const HDMap& HDMapUtil::SimMap() { return *CHECK_NOTNULL(SimMapPtr()); }
+AINFO<<"(DMCZP) EnteringMethod: HDMapUtil::SimMap";
 
 bool HDMapUtil::ReloadMaps() {
+AINFO<<"(DMCZP) EnteringMethod: HDMapUtil::ReloadMaps";
   {
     std::lock_guard<std::mutex> lock(base_map_mutex_);
     base_map_ = CreateMap(BaseMapFile());

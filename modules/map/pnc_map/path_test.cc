@@ -33,6 +33,7 @@ namespace hdmap {
 namespace {
 
 Point MakePoint(double x, double y, double z) {
+AINFO<<"(DMCZP) EnteringMethod: MakePoint";
   Point pt;
   pt.set_x(x);
   pt.set_y(y);
@@ -41,6 +42,7 @@ Point MakePoint(double x, double y, double z) {
 }
 
 LaneSampleAssociation MakeSample(double s, double width) {
+AINFO<<"(DMCZP) EnteringMethod: MakeSample";
   LaneSampleAssociation sample;
   sample.set_s(s);
   sample.set_width(width);
@@ -48,10 +50,12 @@ LaneSampleAssociation MakeSample(double s, double width) {
 }
 
 MapPathPoint MakeMapPathPoint(double x, double y, double heading = 0) {
+AINFO<<"(DMCZP) EnteringMethod: MakeMapPathPoint";
   return MapPathPoint({x, y}, heading);
 }
 
 int RandomInt(int s, int t) {
+AINFO<<"(DMCZP) EnteringMethod: RandomInt";
   if (s >= t) {
     return s;
   }
@@ -59,17 +63,20 @@ int RandomInt(int s, int t) {
 }
 
 double RandomDouble(double s, double t) {
+AINFO<<"(DMCZP) EnteringMethod: RandomDouble";
   return s + (t - s) / 16383.0 * (rand() & 16383);  // NOLINT
 }
 
 template <class T>
 std::string ToString(const T& val) {
+AINFO<<"(DMCZP) EnteringMethod: ToString";
   return apollo::common::util::StrCat(val);
 }
 
 }  // namespace
 
 TEST(TestSuite, LaneSegment) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   Lane lane1;
   {
     lane1.mutable_id()->set_id("lane1");
@@ -141,6 +148,7 @@ TEST(TestSuite, LaneSegment) {
 }
 
 TEST(TestSuite, hdmap_line_path) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   Lane lane;
   lane.mutable_id()->set_id("id");
   auto* line_segment =
@@ -286,6 +294,7 @@ TEST(TestSuite, hdmap_line_path) {
 }
 
 TEST(TestSuite, hdmap_curvy_path) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   std::vector<MapPathPoint> points{
       MakeMapPathPoint(2, 0), MakeMapPathPoint(2, 1), MakeMapPathPoint(1, 2),
       MakeMapPathPoint(0, 2)};
@@ -393,6 +402,7 @@ TEST(TestSuite, hdmap_curvy_path) {
 }
 
 TEST(TestSuite, hdmap_circle_path) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   const double kRadius = 50.0;
   const int kNumSegments = 100;
   std::vector<MapPathPoint> points;
@@ -507,6 +517,7 @@ TEST(TestSuite, hdmap_circle_path) {
 }
 
 TEST(TestSuite, hdmap_jerky_path) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   const int kNumPaths = 100;
   const int kCasesPerPath = 1000;
   for (int path_id = 0; path_id < kNumPaths; ++path_id) {
@@ -579,6 +590,7 @@ TEST(TestSuite, hdmap_jerky_path) {
 }
 
 TEST(TestSuite, hdmap_s_path) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   std::vector<MapPathPoint> points;
   const double kRadius = 50.0;
   const int kNumSegments = 100;
@@ -655,6 +667,7 @@ TEST(TestSuite, hdmap_s_path) {
 }
 
 TEST(TestSuite, hdmap_path_get_smooth_point) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   const double kRadius = 50.0;
   const int kNumSegments = 100;
   std::vector<MapPathPoint> points;
@@ -769,6 +782,7 @@ TEST(TestSuite, hdmap_path_get_smooth_point) {
 }
 
 TEST(TestSuite, compute_lane_segments_from_points) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   std::vector<MapPathPoint> points{
       MakeMapPathPoint(2, 0), MakeMapPathPoint(2, 1), MakeMapPathPoint(2, 2)};
   Lane lane1;
@@ -799,6 +813,7 @@ TEST(TestSuite, compute_lane_segments_from_points) {
 }
 
 TEST(TestSuite, lane_info) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   Lane lane;
   lane.mutable_id()->set_id("test-id");
   auto* curve = lane.mutable_central_curve();

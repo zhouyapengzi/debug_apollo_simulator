@@ -42,6 +42,7 @@ ErrorCode WeyController::Init(
     const VehicleParameter& params,
     CanSender<::apollo::canbus::ChassisDetail>* const can_sender,
     MessageManager<::apollo::canbus::ChassisDetail>* const message_manager) {
+AINFO<<"(DMCZP) EnteringMethod: WeyController::Init";
   if (is_initialized_) {
     AINFO << "WeyController has already been initialized.";
     return ErrorCode::CANBUS_ERROR;
@@ -117,6 +118,7 @@ ErrorCode WeyController::Init(
 WeyController::~WeyController() {}
 
 bool WeyController::Start() {
+AINFO<<"(DMCZP) EnteringMethod: WeyController::Start";
   if (!is_initialized_) {
     AERROR << "WeyController has NOT been initialized.";
     return false;
@@ -128,6 +130,7 @@ bool WeyController::Start() {
 }
 
 void WeyController::Stop() {
+AINFO<<"(DMCZP) EnteringMethod: WeyController::Stop";
   if (!is_initialized_) {
     AERROR << "WeyController stops or starts improperly!";
     return;
@@ -141,6 +144,7 @@ void WeyController::Stop() {
 }
 
 Chassis WeyController::chassis() {
+AINFO<<"(DMCZP) EnteringMethod: WeyController::chassis";
   chassis_.Clear();
 
   ChassisDetail chassis_detail;
@@ -407,11 +411,13 @@ Chassis WeyController::chassis() {
 }
 
 void WeyController::Emergency() {
+AINFO<<"(DMCZP) EnteringMethod: WeyController::Emergency";
   set_driving_mode(Chassis::EMERGENCY_MODE);
   ResetProtocol();
 }
 
 ErrorCode WeyController::EnableAutoMode() {
+AINFO<<"(DMCZP) EnteringMethod: WeyController::EnableAutoMode";
   if (driving_mode() == Chassis::COMPLETE_AUTO_DRIVE) {
     AINFO << "Already in COMPLETE_AUTO_DRIVE mode.";
     return ErrorCode::OK;
@@ -445,6 +451,7 @@ ErrorCode WeyController::EnableAutoMode() {
 }
 
 ErrorCode WeyController::DisableAutoMode() {
+AINFO<<"(DMCZP) EnteringMethod: WeyController::DisableAutoMode";
   ResetProtocol();
   can_sender_->Update();
   set_driving_mode(Chassis::COMPLETE_MANUAL);
@@ -454,6 +461,7 @@ ErrorCode WeyController::DisableAutoMode() {
 }
 
 ErrorCode WeyController::EnableSteeringOnlyMode() {
+AINFO<<"(DMCZP) EnteringMethod: WeyController::EnableSteeringOnlyMode";
   if (driving_mode() == Chassis::COMPLETE_AUTO_DRIVE ||
       driving_mode() == Chassis::AUTO_STEER_ONLY) {
     set_driving_mode(Chassis::AUTO_STEER_ONLY);
@@ -482,6 +490,7 @@ ErrorCode WeyController::EnableSteeringOnlyMode() {
 }
 
 ErrorCode WeyController::EnableSpeedOnlyMode() {
+AINFO<<"(DMCZP) EnteringMethod: WeyController::EnableSpeedOnlyMode";
   if (driving_mode() == Chassis::COMPLETE_AUTO_DRIVE ||
       driving_mode() == Chassis::AUTO_SPEED_ONLY) {
     set_driving_mode(Chassis::AUTO_SPEED_ONLY);
@@ -509,6 +518,7 @@ ErrorCode WeyController::EnableSpeedOnlyMode() {
 
 // NEUTRAL, REVERSE, DRIVE, PARK
 void WeyController::Gear(Chassis::GearPosition gear_position) {
+AINFO<<"(DMCZP) EnteringMethod: WeyController::Gear";
   if (driving_mode() != Chassis::COMPLETE_AUTO_DRIVE &&
       driving_mode() != Chassis::AUTO_SPEED_ONLY) {
     AINFO << "This drive mode no need to set gear.";
@@ -555,6 +565,7 @@ void WeyController::Gear(Chassis::GearPosition gear_position) {
 // brake with pedal
 // acceleration:-7.0 ~ 5.0, unit:m/s^2
 void WeyController::Brake(double pedal) {
+AINFO<<"(DMCZP) EnteringMethod: WeyController::Brake";
   if (driving_mode() != Chassis::COMPLETE_AUTO_DRIVE &&
       driving_mode() != Chassis::AUTO_SPEED_ONLY) {
     AINFO << "The current drive mode does not need to set acceleration.";
@@ -566,6 +577,7 @@ void WeyController::Brake(double pedal) {
 // drive with pedal
 // acceleration:-7.0 ~ 5.0, unit:m/s^2
 void WeyController::Throttle(double pedal) {
+AINFO<<"(DMCZP) EnteringMethod: WeyController::Throttle";
   if (driving_mode() != Chassis::COMPLETE_AUTO_DRIVE &&
       driving_mode() != Chassis::AUTO_SPEED_ONLY) {
     AINFO << "The current drive mode does not need to set acceleration.";
@@ -578,6 +590,7 @@ void WeyController::Throttle(double pedal) {
 // drive with acceleration/deceleration
 // acc:-7.0 ~ 5.0, unit:m/s^2
 void WeyController::Acceleration(double acc) {
+AINFO<<"(DMCZP) EnteringMethod: WeyController::Acceleration";
   if (driving_mode() != Chassis::COMPLETE_AUTO_DRIVE &&
       driving_mode() != Chassis::AUTO_SPEED_ONLY) {
     AINFO << "The current drive mode does not need to set acceleration.";
@@ -596,6 +609,7 @@ void WeyController::Acceleration(double acc) {
 // wey default, -500 ~ 500, left:+, right:-
 // angle:-99.99~0.00~99.99, unit:, left:+, right:-
 void WeyController::Steer(double angle) {
+AINFO<<"(DMCZP) EnteringMethod: WeyController::Steer";
   if (driving_mode() != Chassis::COMPLETE_AUTO_DRIVE &&
       driving_mode() != Chassis::AUTO_STEER_ONLY) {
     AINFO << "The current driving mode does not need to set steer.";
@@ -609,6 +623,7 @@ void WeyController::Steer(double angle) {
 // angle:-99.99~0.00~99.99, unit:, left:-, right:+
 // wey has no angle_spd
 void WeyController::Steer(double angle, double angle_spd) {
+AINFO<<"(DMCZP) EnteringMethod: WeyController::Steer";
   if (driving_mode() != Chassis::COMPLETE_AUTO_DRIVE &&
       driving_mode() != Chassis::AUTO_STEER_ONLY) {
     AINFO << "The current driving mode does not need to set steer.";
@@ -619,6 +634,7 @@ void WeyController::Steer(double angle, double angle_spd) {
 }
 
 void WeyController::SetEpbBreak(const ControlCommand& command) {
+AINFO<<"(DMCZP) EnteringMethod: WeyController::SetEpbBreak";
   if (command.parking_brake()) {
     // None
   } else {
@@ -627,6 +643,7 @@ void WeyController::SetEpbBreak(const ControlCommand& command) {
 }
 
 void WeyController::SetBeam(const ControlCommand& command) {
+AINFO<<"(DMCZP) EnteringMethod: WeyController::SetBeam";
   if (command.signal().high_beam()) {
     ads3_38e_->set_highbeamton(Ads3_38e::HIGHBEAMTON_TURN_ON);
   } else if (command.signal().low_beam()) {
@@ -638,6 +655,7 @@ void WeyController::SetBeam(const ControlCommand& command) {
 }
 
 void WeyController::SetHorn(const ControlCommand& command) {
+AINFO<<"(DMCZP) EnteringMethod: WeyController::SetHorn";
   if (command.signal().horn()) {
     ads3_38e_->set_hornon(Ads3_38e::HORNON_TURN_ON);
   } else {
@@ -646,6 +664,7 @@ void WeyController::SetHorn(const ControlCommand& command) {
 }
 
 void WeyController::SetTurningSignal(const ControlCommand& command) {
+AINFO<<"(DMCZP) EnteringMethod: WeyController::SetTurningSignal";
   // Set Turn Signal
   auto signal = command.signal().turn_signal();
   if (signal == common::VehicleSignal::TURN_LEFT) {
@@ -658,8 +677,10 @@ void WeyController::SetTurningSignal(const ControlCommand& command) {
 }
 
 void WeyController::ResetProtocol() { message_manager_->ResetSendMessages(); }
+AINFO<<"(DMCZP) EnteringMethod: WeyController::ResetProtocol";
 
 bool WeyController::CheckChassisError() {
+AINFO<<"(DMCZP) EnteringMethod: WeyController::CheckChassisError";
   ChassisDetail chassis_detail;
   message_manager_->GetSensorData(&chassis_detail);
   if (!chassis_detail.has_wey()) {
@@ -703,6 +724,7 @@ bool WeyController::CheckChassisError() {
 }
 
 void WeyController::SecurityDogThreadFunc() {
+AINFO<<"(DMCZP) EnteringMethod: WeyController::SecurityDogThreadFunc";
   int32_t vertical_ctrl_fail = 0;
   int32_t horizontal_ctrl_fail = 0;
 
@@ -771,6 +793,7 @@ void WeyController::SecurityDogThreadFunc() {
 }
 
 bool WeyController::CheckResponse(const int32_t flags, bool need_wait) {
+AINFO<<"(DMCZP) EnteringMethod: WeyController::CheckResponse";
   ChassisDetail chassis_detail;
   bool is_eps_online = false;
   bool is_vcu_online = false;
@@ -817,22 +840,26 @@ bool WeyController::CheckResponse(const int32_t flags, bool need_wait) {
 }
 
 void WeyController::set_chassis_error_mask(const int32_t mask) {
+AINFO<<"(DMCZP) EnteringMethod: WeyController::set_chassis_error_mask";
   std::lock_guard<std::mutex> lock(chassis_mask_mutex_);
   chassis_error_mask_ = mask;
 }
 
 int32_t WeyController::chassis_error_mask() {
+AINFO<<"(DMCZP) EnteringMethod: WeyController::chassis_error_mask";
   std::lock_guard<std::mutex> lock(chassis_mask_mutex_);
   return chassis_error_mask_;
 }
 
 Chassis::ErrorCode WeyController::chassis_error_code() {
+AINFO<<"(DMCZP) EnteringMethod: WeyController::chassis_error_code";
   std::lock_guard<std::mutex> lock(chassis_error_code_mutex_);
   return chassis_error_code_;
 }
 
 void WeyController::set_chassis_error_code(
     const Chassis::ErrorCode& error_code) {
+AINFO<<"(DMCZP) EnteringMethod: WeyController::set_chassis_error_code";
   std::lock_guard<std::mutex> lock(chassis_error_code_mutex_);
   chassis_error_code_ = error_code;
 }

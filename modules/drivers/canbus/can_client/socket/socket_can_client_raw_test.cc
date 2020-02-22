@@ -30,6 +30,7 @@ namespace can {
 using apollo::common::ErrorCode;
 
 TEST(SocketCanClientRawTest, simple_test) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   CANCardParameter param;
   param.set_brand(CANCardParameter::SOCKET_CAN_RAW);
   param.set_channel_id(CANCardParameter::CHANNEL_ID_ZERO);

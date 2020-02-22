@@ -28,10 +28,12 @@ namespace transit {
 using ::apollo::drivers::canbus::Byte;
 
 Llcdiagfault620::Llcdiagfault620() {}
+AINFO<<"(DMCZP) EnteringMethod: Llcdiagfault620::Llcdiagfault620";
 const int32_t Llcdiagfault620::ID = 0x620;
 
 void Llcdiagfault620::Parse(const std::uint8_t* bytes, int32_t length,
                             ChassisDetail* chassis) const {
+AINFO<<"(DMCZP) EnteringMethod: Llcdiagfault620::Parse";
   chassis->mutable_transit()
       ->mutable_llc_diag_fault_620()
       ->set_llc_disengagecounter_brake(
@@ -72,6 +74,8 @@ void Llcdiagfault620::Parse(const std::uint8_t* bytes, int32_t length,
 // '[0|255]', 'bit': 32, 'type': 'int', 'order': 'intel', 'physical_unit': ''}
 int Llcdiagfault620::llc_disengagecounter_brake(const std::uint8_t* bytes,
                                                 int32_t length) const {
+AINFO<<"(DMCZP) EnteringMethod: Llcdiagfault620::llc_disengagecounter_brake";
+AINFO<<"(DMCZP) EnteringMethod: Llcdiagfault620::llc_disengagecounter_steer";
   Byte t0(bytes + 4);
   int32_t x = t0.get_byte(0, 8);
 
@@ -100,6 +104,7 @@ int Llcdiagfault620::llc_disengagecounter_steer(const std::uint8_t* bytes,
 // 'int', 'order': 'intel', 'physical_unit': ''}
 int Llcdiagfault620::llc_disengagecounter_throttle(const std::uint8_t* bytes,
                                                    int32_t length) const {
+AINFO<<"(DMCZP) EnteringMethod: Llcdiagfault620::llc_disengagecounter_throttle";
   Byte t0(bytes + 3);
   int32_t x = t0.get_byte(0, 8);
 
@@ -113,9 +118,12 @@ int Llcdiagfault620::llc_disengagecounter_throttle(const std::uint8_t* bytes,
 // '[0|255]', 'bit': 0, 'type': 'int', 'order': 'intel', 'physical_unit': ''}
 int Llcdiagfault620::llc_fbk_faultcounter(const std::uint8_t* bytes,
                                           int32_t length) const {
+AINFO<<"(DMCZP) EnteringMethod: Llcdiagfault620::llc_fbk_faultcounter";
   Byte t0(bytes + 0);
+AINFO<<"(DMCZP) EnteringMethod: Llcdiagfault620::llc_fbk_version_year";
   int32_t x = t0.get_byte(0, 8);
 
+AINFO<<"(DMCZP) EnteringMethod: Llcdiagfault620::llc_fbk_version_hour";
   int ret = x;
   return ret;
 }
@@ -127,6 +135,7 @@ int Llcdiagfault620::llc_fbk_faultcounter(const std::uint8_t* bytes,
 // '[0|255]', 'bit': 8, 'type': 'int', 'order': 'intel', 'physical_unit': ''}
 int Llcdiagfault620::llc_disengagecounter_button(const std::uint8_t* bytes,
                                                  int32_t length) const {
+AINFO<<"(DMCZP) EnteringMethod: Llcdiagfault620::llc_disengagecounter_button";
   Byte t0(bytes + 1);
   int32_t x = t0.get_byte(0, 8);
 
@@ -153,6 +162,7 @@ int Llcdiagfault620::llc_fbk_version_year(const std::uint8_t* bytes,
 // 'intel', 'physical_unit': 'Month'}
 int Llcdiagfault620::llc_fbk_version_month(const std::uint8_t* bytes,
                                            int32_t length) const {
+AINFO<<"(DMCZP) EnteringMethod: Llcdiagfault620::llc_fbk_version_month";
   Byte t0(bytes + 6);
   int32_t x = t0.get_byte(0, 3);
 
@@ -171,6 +181,7 @@ int Llcdiagfault620::llc_fbk_version_month(const std::uint8_t* bytes,
 // 'intel', 'physical_unit': 'Day'}
 int Llcdiagfault620::llc_fbk_version_day(const std::uint8_t* bytes,
                                          int32_t length) const {
+AINFO<<"(DMCZP) EnteringMethod: Llcdiagfault620::llc_fbk_version_day";
   Byte t0(bytes + 6);
   int32_t x = t0.get_byte(3, 5);
 

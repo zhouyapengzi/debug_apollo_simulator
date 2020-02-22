@@ -28,6 +28,7 @@ namespace cyber {
 namespace transport {
 
 UnderlayMessageType::UnderlayMessageType() {
+AINFO<<"(DMCZP) EnteringMethod: UnderlayMessageType::UnderlayMessageType";
   setName("UnderlayMessage");
   m_typeSize = (uint32_t)UnderlayMessage::getMaxCdrSerializedSize() +
                4 /*encapsulation*/;
@@ -43,6 +44,7 @@ UnderlayMessageType::~UnderlayMessageType() {
 }
 
 bool UnderlayMessageType::serialize(void* data, SerializedPayload_t* payload) {
+AINFO<<"(DMCZP) EnteringMethod: UnderlayMessageType::serialize";
   UnderlayMessage* p_type = reinterpret_cast<UnderlayMessage*>(data);
   eprosima::fastcdr::FastBuffer fastbuffer(
       reinterpret_cast<char*>(payload->data),
@@ -63,6 +65,7 @@ bool UnderlayMessageType::serialize(void* data, SerializedPayload_t* payload) {
 
 bool UnderlayMessageType::deserialize(SerializedPayload_t* payload,
                                       void* data) {
+AINFO<<"(DMCZP) EnteringMethod: UnderlayMessageType::deserialize";
   UnderlayMessage* p_type = reinterpret_cast<UnderlayMessage*>(
       data);  // Convert DATA to pointer of your type
   eprosima::fastcdr::FastBuffer fastbuffer(
@@ -90,14 +93,17 @@ std::function<uint32_t()> UnderlayMessageType::getSerializedSizeProvider(
 }
 
 void* UnderlayMessageType::createData() {
+AINFO<<"(DMCZP) EnteringMethod: UnderlayMessageType::createData";
   return reinterpret_cast<void*>(new UnderlayMessage());
 }
 
 void UnderlayMessageType::deleteData(void* data) {
+AINFO<<"(DMCZP) EnteringMethod: UnderlayMessageType::deleteData";
   delete (reinterpret_cast<UnderlayMessage*>(data));
 }
 
 bool UnderlayMessageType::getKey(void* data, InstanceHandle_t* handle) {
+AINFO<<"(DMCZP) EnteringMethod: UnderlayMessageType::getKey";
   if (!m_isGetKeyDefined) return false;
   UnderlayMessage* p_type = reinterpret_cast<UnderlayMessage*>(data);
   eprosima::fastcdr::FastBuffer fastbuffer(

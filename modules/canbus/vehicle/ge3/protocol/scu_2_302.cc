@@ -26,10 +26,12 @@ namespace ge3 {
 using ::apollo::drivers::canbus::Byte;
 
 Scu2302::Scu2302() {}
+AINFO<<"(DMCZP) EnteringMethod: Scu2302::Scu2302";
 const int32_t Scu2302::ID = 0x302;
 
 void Scu2302::Parse(const std::uint8_t* bytes, int32_t length,
                     ChassisDetail* chassis) const {
+AINFO<<"(DMCZP) EnteringMethod: Scu2302::Parse";
   chassis->mutable_ge3()->mutable_scu_2_302()->set_vin07(vin07(bytes, length));
   chassis->mutable_ge3()->mutable_scu_2_302()->set_vin06(vin06(bytes, length));
   chassis->mutable_ge3()->mutable_scu_2_302()->set_vin05(vin05(bytes, length));
@@ -45,6 +47,7 @@ void Scu2302::Parse(const std::uint8_t* bytes, int32_t length,
 // 'physical_range': '[0|255]', 'bit': 63, 'type': 'int', 'order': 'motorola',
 // 'physical_unit': '-'}
 int Scu2302::vin07(const std::uint8_t* bytes, int32_t length) const {
+AINFO<<"(DMCZP) EnteringMethod: Scu2302::vin07";
   Byte t0(bytes + 7);
   int32_t x = t0.get_byte(0, 8);
 
@@ -57,6 +60,7 @@ int Scu2302::vin07(const std::uint8_t* bytes, int32_t length) const {
 // 'physical_range': '[0|255]', 'bit': 55, 'type': 'int', 'order': 'motorola',
 // 'physical_unit': '-'}
 int Scu2302::vin06(const std::uint8_t* bytes, int32_t length) const {
+AINFO<<"(DMCZP) EnteringMethod: Scu2302::vin06";
   Byte t0(bytes + 6);
   int32_t x = t0.get_byte(0, 8);
 
@@ -69,6 +73,7 @@ int Scu2302::vin06(const std::uint8_t* bytes, int32_t length) const {
 // 'physical_range': '[0|255]', 'bit': 47, 'type': 'int', 'order': 'motorola',
 // 'physical_unit': '-'}
 int Scu2302::vin05(const std::uint8_t* bytes, int32_t length) const {
+AINFO<<"(DMCZP) EnteringMethod: Scu2302::vin05";
   Byte t0(bytes + 5);
   int32_t x = t0.get_byte(0, 8);
 
@@ -81,6 +86,7 @@ int Scu2302::vin05(const std::uint8_t* bytes, int32_t length) const {
 // 'physical_range': '[0|255]', 'bit': 39, 'type': 'int', 'order': 'motorola',
 // 'physical_unit': '-'}
 int Scu2302::vin04(const std::uint8_t* bytes, int32_t length) const {
+AINFO<<"(DMCZP) EnteringMethod: Scu2302::vin04";
   Byte t0(bytes + 4);
   int32_t x = t0.get_byte(0, 8);
 
@@ -93,6 +99,7 @@ int Scu2302::vin04(const std::uint8_t* bytes, int32_t length) const {
 // 'physical_range': '[0|255]', 'bit': 31, 'type': 'int', 'order': 'motorola',
 // 'physical_unit': '-'}
 int Scu2302::vin03(const std::uint8_t* bytes, int32_t length) const {
+AINFO<<"(DMCZP) EnteringMethod: Scu2302::vin03";
   Byte t0(bytes + 3);
   int32_t x = t0.get_byte(0, 8);
 
@@ -105,6 +112,7 @@ int Scu2302::vin03(const std::uint8_t* bytes, int32_t length) const {
 // 'physical_range': '[0|255]', 'bit': 23, 'type': 'int', 'order': 'motorola',
 // 'physical_unit': '-'}
 int Scu2302::vin02(const std::uint8_t* bytes, int32_t length) const {
+AINFO<<"(DMCZP) EnteringMethod: Scu2302::vin02";
   Byte t0(bytes + 2);
   int32_t x = t0.get_byte(0, 8);
 
@@ -117,6 +125,7 @@ int Scu2302::vin02(const std::uint8_t* bytes, int32_t length) const {
 // 'physical_range': '[0|255]', 'bit': 15, 'type': 'int', 'order': 'motorola',
 // 'physical_unit': '-'}
 int Scu2302::vin01(const std::uint8_t* bytes, int32_t length) const {
+AINFO<<"(DMCZP) EnteringMethod: Scu2302::vin01";
   Byte t0(bytes + 1);
   int32_t x = t0.get_byte(0, 8);
 
@@ -129,6 +138,7 @@ int Scu2302::vin01(const std::uint8_t* bytes, int32_t length) const {
 // 'physical_range': '[0|255]', 'bit': 7, 'type': 'int', 'order': 'motorola',
 // 'physical_unit': '-'}
 int Scu2302::vin00(const std::uint8_t* bytes, int32_t length) const {
+AINFO<<"(DMCZP) EnteringMethod: Scu2302::vin00";
   Byte t0(bytes + 0);
   int32_t x = t0.get_byte(0, 8);
 

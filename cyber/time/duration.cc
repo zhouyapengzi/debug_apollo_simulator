@@ -25,20 +25,25 @@ namespace apollo {
 namespace cyber {
 
 Duration::Duration(int64_t nanoseconds) { nanoseconds_ = nanoseconds; }
+AINFO<<"(DMCZP) EnteringMethod: Duration::Duration";
 
 Duration::Duration(int nanoseconds) {
+AINFO<<"(DMCZP) EnteringMethod: Duration::Duration";
   nanoseconds_ = static_cast<int64_t>(nanoseconds);
 }
 
 Duration::Duration(double seconds) {
+AINFO<<"(DMCZP) EnteringMethod: Duration::Duration";
   nanoseconds_ = static_cast<int64_t>(seconds * 1000000000UL);
 }
 
 Duration::Duration(uint32_t seconds, uint32_t nanoseconds) {
+AINFO<<"(DMCZP) EnteringMethod: Duration::Duration";
   nanoseconds_ = static_cast<uint64_t>(seconds) * 1000000000UL + nanoseconds;
 }
 
 Duration::Duration(const Duration &other) { nanoseconds_ = other.nanoseconds_; }
+AINFO<<"(DMCZP) EnteringMethod: Duration::Duration";
 
 Duration &Duration::operator=(const Duration &other) {
   this->nanoseconds_ = other.nanoseconds_;
@@ -46,14 +51,18 @@ Duration &Duration::operator=(const Duration &other) {
 }
 
 double Duration::ToSecond() const {
+AINFO<<"(DMCZP) EnteringMethod: Duration::ToSecond";
   return static_cast<double>(nanoseconds_) / 1000000000UL;
 }
 
 int64_t Duration::ToNanosecond() const { return nanoseconds_; }
+AINFO<<"(DMCZP) EnteringMethod: Duration::ToNanosecond";
 
 bool Duration::IsZero() const { return nanoseconds_ == 0; }
+AINFO<<"(DMCZP) EnteringMethod: Duration::IsZero";
 
 void Duration::Sleep() const {
+AINFO<<"(DMCZP) EnteringMethod: Duration::Sleep";
   auto sleep_time = std::chrono::nanoseconds(nanoseconds_);
   std::this_thread::sleep_for(sleep_time);
 }
@@ -69,6 +78,7 @@ Duration Duration::operator-(const Duration &rhs) const {
 Duration Duration::operator-() const { return Duration(-nanoseconds_); }
 
 Duration Duration::operator*(double scale) const {
+AINFO<<"(DMCZP) EnteringMethod: Duration::operator*";
   return Duration(int64_t(static_cast<double>(nanoseconds_) * scale));
 }
 

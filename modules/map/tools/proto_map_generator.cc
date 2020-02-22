@@ -28,6 +28,8 @@ limitations under the License.
 DEFINE_string(output_dir, "/tmp", "output map directory");
 
 int main(int argc, char **argv) {
+AINFO<<"(DMCZP) EnteringMethod: DEFINE_string";
+AINFO<<"(DMCZP) EnteringMethod: main";
   google::InitGoogleLogging(argv[0]);
   FLAGS_alsologtostderr = true;
 

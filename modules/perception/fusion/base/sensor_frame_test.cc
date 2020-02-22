@@ -23,6 +23,7 @@ namespace perception {
 namespace fusion {
 
 TEST(SensorFrameTest, test) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   base::SensorInfo sensor_info;
   sensor_info.name = "test";
   sensor_info.type = base::SensorType::VELODYNE_64;

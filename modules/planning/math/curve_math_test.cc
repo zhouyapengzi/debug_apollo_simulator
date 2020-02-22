@@ -25,6 +25,7 @@ namespace apollo {
 namespace planning {
 
 TEST(TestSuite, curvature_math_test) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   // Straight line
   double curvature = CurveMath::ComputeCurvature(1.0, 0.0, 1.0, 0.0);
   EXPECT_NEAR(curvature, 0.0, 1e-6);

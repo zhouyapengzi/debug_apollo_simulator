@@ -42,11 +42,13 @@ using apollo::hdmap::LaneInfo;
 using apollo::prediction::math_util::GetSByConstantAcceleration;
 
 InteractionPredictor::InteractionPredictor() {
+AINFO<<"(DMCZP) EnteringMethod: InteractionPredictor::InteractionPredictor";
   predictor_type_ = ObstacleConf::INTERACTION_PREDICTOR;
   BuildADCTrajectory(FLAGS_collision_cost_time_resolution);
 }
 
 void InteractionPredictor::Predict(Obstacle* obstacle) {
+AINFO<<"(DMCZP) EnteringMethod: InteractionPredictor::Predict";
   Clear();
 
   CHECK_NOTNULL(obstacle);
@@ -144,8 +146,10 @@ void InteractionPredictor::Predict(Obstacle* obstacle) {
 }
 
 void InteractionPredictor::Clear() { Predictor::Clear(); }
+AINFO<<"(DMCZP) EnteringMethod: InteractionPredictor::Clear";
 
 void InteractionPredictor::BuildADCTrajectory(const double time_resolution) {
+AINFO<<"(DMCZP) EnteringMethod: InteractionPredictor::BuildADCTrajectory";
   auto adc_trajectory_container =
       ContainerManager::Instance()->GetContainer<ADCTrajectoryContainer>(
           AdapterConfig::PLANNING_TRAJECTORY);
@@ -167,6 +171,7 @@ bool InteractionPredictor::DrawTrajectory(
     const Obstacle& obstacle, const LaneSequence& lane_sequence,
     const double lon_acceleration, const double total_time, const double period,
     std::vector<TrajectoryPoint>* trajectory_points) {
+AINFO<<"(DMCZP) EnteringMethod: InteractionPredictor::DrawTrajectory";
   // Sanity check.
   CHECK_NOTNULL(trajectory_points);
   trajectory_points->clear();
@@ -239,6 +244,10 @@ bool InteractionPredictor::DrawTrajectory(
 double InteractionPredictor::ComputeTrajectoryCost(
     const Obstacle& obstacle, const LaneSequence& lane_sequence,
     const double acceleration) {
+AINFO<<"(DMCZP) EnteringMethod: InteractionPredictor::ComputeTrajectoryCost";
+AINFO<<"(DMCZP) EnteringMethod: InteractionPredictor::LongitudinalAccelerationCost";
+AINFO<<"(DMCZP) EnteringMethod: InteractionPredictor::CentripetalAccelerationCost";
+AINFO<<"(DMCZP) EnteringMethod: InteractionPredictor::CollisionWithEgoVehicleCost";
   CHECK_GT(obstacle.history_size(), 0);
   double speed = obstacle.latest_feature().speed();
   double total_cost = 0.0;
@@ -346,6 +355,7 @@ double InteractionPredictor::CollisionWithEgoVehicleCost(
 
 bool InteractionPredictor::LowerRightOfWayThanEgo(
     const Obstacle& obstacle, const LaneSequence& lane_sequence) {
+AINFO<<"(DMCZP) EnteringMethod: InteractionPredictor::LowerRightOfWayThanEgo";
   auto adc_trajectory_container =
       ContainerManager::Instance()->GetContainer<ADCTrajectoryContainer>(
           AdapterConfig::PLANNING_TRAJECTORY);
@@ -357,12 +367,14 @@ bool InteractionPredictor::LowerRightOfWayThanEgo(
 }
 
 double InteractionPredictor::ComputeLikelihood(const double cost) {
+AINFO<<"(DMCZP) EnteringMethod: InteractionPredictor::ComputeLikelihood";
   double alpha = FLAGS_likelihood_exp_coefficient;
   return std::exp(-alpha * cost);
 }
 
 double InteractionPredictor::ComputePosterior(const double prior,
                                               const double likelihood) {
+AINFO<<"(DMCZP) EnteringMethod: InteractionPredictor::ComputePosterior";
   return prior * likelihood;
 }
 

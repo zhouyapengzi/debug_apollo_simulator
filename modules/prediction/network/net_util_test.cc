@@ -23,6 +23,7 @@ namespace prediction {
 namespace network {
 
 TEST(NetworkUtil, serialize_to_function_test) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   std::function<float(float)> linear_func = serialize_to_function("linear");
   EXPECT_FLOAT_EQ(linear_func(-2.0), -2.0);
   EXPECT_FLOAT_EQ(linear_func(2.0), 2.0);
@@ -50,6 +51,7 @@ TEST(NetworkUtil, serialize_to_function_test) {
 }
 
 TEST(NetworkUtil, LoadTensor_test) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   TensorParameter tensor_pb;
   Eigen::MatrixXf mat;
   Eigen::VectorXf vec;

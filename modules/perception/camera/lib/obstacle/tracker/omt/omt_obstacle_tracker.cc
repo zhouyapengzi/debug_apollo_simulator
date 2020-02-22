@@ -33,6 +33,7 @@ namespace camera {
 using cyber::common::GetAbsolutePath;
 
 bool OMTObstacleTracker::Init(const ObstacleTrackerInitOptions &options) {
+AINFO<<"(DMCZP) EnteringMethod: OMTObstacleTracker::Init";
   std::string omt_config = GetAbsolutePath(options.root_dir, options.conf_file);
   if (!cyber::common::GetProtoFromFile(omt_config, &omt_param_)) {
     AERROR << "Read config failed: " << omt_config;
@@ -77,9 +78,11 @@ bool OMTObstacleTracker::Init(const ObstacleTrackerInitOptions &options) {
 }
 
 std::string OMTObstacleTracker::Name() const { return "OMTObstacleTracker"; }
+AINFO<<"(DMCZP) EnteringMethod: OMTObstacleTracker::Name";
 
 // @description combine targets using iou after association
 bool OMTObstacleTracker::CombineDuplicateTargets() {
+AINFO<<"(DMCZP) EnteringMethod: OMTObstacleTracker::CombineDuplicateTargets";
   std::vector<Hypothesis> score_list;
   Hypothesis hypo;
   for (size_t i = 0; i < targets_.size(); ++i) {
@@ -166,6 +169,7 @@ bool OMTObstacleTracker::CombineDuplicateTargets() {
 }
 
 void OMTObstacleTracker::GenerateHypothesis(const TrackObjectPtrs &objects) {
+AINFO<<"(DMCZP) EnteringMethod: OMTObstacleTracker::GenerateHypothesis";
   std::vector<Hypothesis> score_list;
   Hypothesis hypo;
   for (size_t i = 0; i < targets_.size(); ++i) {
@@ -222,6 +226,7 @@ void OMTObstacleTracker::GenerateHypothesis(const TrackObjectPtrs &objects) {
 
 float OMTObstacleTracker::ScoreMotion(const Target &target,
                                       TrackObjectPtr track_obj) {
+AINFO<<"(DMCZP) EnteringMethod: OMTObstacleTracker::ScoreMotion";
   Eigen::Vector4d x = target.image_center.get_state();
   float target_centerx = static_cast<float>(x[0]);
   float target_centery = static_cast<float>(x[1]);
@@ -234,6 +239,7 @@ float OMTObstacleTracker::ScoreMotion(const Target &target,
 
 float OMTObstacleTracker::ScoreShape(const Target &target,
                                      TrackObjectPtr track_obj) {
+AINFO<<"(DMCZP) EnteringMethod: OMTObstacleTracker::ScoreShape";
   Eigen::Vector2d shape = target.image_wh.get_state();
   base::RectF rect(track_obj->projected_box);
   float s = static_cast<float>((shape[1] - rect.height) *
@@ -243,6 +249,7 @@ float OMTObstacleTracker::ScoreShape(const Target &target,
 
 float OMTObstacleTracker::ScoreAppearance(const Target &target,
                                           TrackObjectPtr track_obj) {
+AINFO<<"(DMCZP) EnteringMethod: OMTObstacleTracker::ScoreAppearance";
   float energy = 0.0f;
   int count = 0;
   auto sensor_name = track_obj->indicator.sensor_name;
@@ -263,6 +270,7 @@ float OMTObstacleTracker::ScoreAppearance(const Target &target,
 // [new]
 float OMTObstacleTracker::ScoreOverlap(const Target &target,
                                        TrackObjectPtr track_obj) {
+AINFO<<"(DMCZP) EnteringMethod: OMTObstacleTracker::ScoreOverlap";
   Eigen::Vector4d center = target.image_center.get_state();
   Eigen::VectorXd wh = target.image_wh.get_state();
   base::BBox2DF box_target;
@@ -280,6 +288,7 @@ float OMTObstacleTracker::ScoreOverlap(const Target &target,
 void ProjectBox(const base::BBox2DF &box_origin,
                 const Eigen::Matrix3d &transform,
                 base::BBox2DF *box_projected) {
+AINFO<<"(DMCZP) EnteringMethod: ProjectBox";
   Eigen::Vector3d point;
   //  top left
   point << box_origin.xmin, box_origin.ymin, 1;
@@ -295,6 +304,7 @@ void ProjectBox(const base::BBox2DF &box_origin,
 
 bool OMTObstacleTracker::Predict(const ObstacleTrackerOptions &options,
                                  CameraFrame *frame) {
+AINFO<<"(DMCZP) EnteringMethod: OMTObstacleTracker::Predict";
   
   AINFO<<"(pengzi) begin camera omto obstacle tracker predict.thread:"<< std::this_thread::get_id();                                 
   for (auto &target : targets_) {
@@ -308,6 +318,7 @@ bool OMTObstacleTracker::Predict(const ObstacleTrackerOptions &options,
 }
 
 int OMTObstacleTracker::CreateNewTarget(const TrackObjectPtrs &objects) {
+AINFO<<"(DMCZP) EnteringMethod: OMTObstacleTracker::CreateNewTarget";
    AINFO<<"(pengzi) create new camera omto obstacle track target.OMTObstacleTracker::CreateNewTarget. thread:"<< std::this_thread::get_id();
   const TemplateMap &kMinTemplateHWL =
       object_template_manager_->MinTemplateHWL();
@@ -355,7 +366,9 @@ int OMTObstacleTracker::CreateNewTarget(const TrackObjectPtrs &objects) {
 }
 bool OMTObstacleTracker::Associate2D(const ObstacleTrackerOptions &options,
                                      CameraFrame *frame) {
+AINFO<<"(DMCZP) EnteringMethod: OMTObstacleTracker::Associate2D";
   AINFO<<"(pengzi) OMTObstacleTracker::Associate2D(). thread:"<< std::this_thread::get_id();                                     
+AINFO<<"(DMCZP) EnteringMethod: OMTObstacleTracker::Associate3D";
   inference::CudaUtil::set_device_id(gpu_id_);
   frame_list_.Add(frame);
   for (int t = 0; t < frame_list_.Size(); t++) {
@@ -419,6 +432,7 @@ bool OMTObstacleTracker::Associate2D(const ObstacleTrackerOptions &options,
 }
 
 void OMTObstacleTracker::ClearTargets() {
+AINFO<<"(DMCZP) EnteringMethod: OMTObstacleTracker::ClearTargets";
   int left = 0;
   int end = static_cast<int>(targets_.size() - 1);
   while (left <= end) {
@@ -489,6 +503,7 @@ AINFO<<"(pengzi) OMTObstacleTracker::Associate3D(). thread:"<< std::this_thread:
 
 bool OMTObstacleTracker::Track(const ObstacleTrackerOptions &options,
                                CameraFrame *frame) {
+AINFO<<"(DMCZP) EnteringMethod: OMTObstacleTracker::Track";
   AINFO<<"(pengzi) OMTObstacleTracker::Track(). thread:"<< std::this_thread::get_id();                                 
   return true;
 }

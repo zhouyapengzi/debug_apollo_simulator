@@ -38,6 +38,7 @@ namespace gnss {
 TcpStream::TcpStream(const char* address, uint16_t port, uint32_t timeout_usec,
                      bool auto_reconnect)
     : sockfd_(-1), errno_(0), auto_reconnect_(auto_reconnect) {
+AINFO<<"(DMCZP) EnteringMethod: TcpStream::TcpStream";
   peer_addr_ = inet_addr(address);
   peer_port_ = htons(port);
   timeout_usec_ = timeout_usec;
@@ -46,6 +47,7 @@ TcpStream::TcpStream(const char* address, uint16_t port, uint32_t timeout_usec,
 TcpStream::~TcpStream() { this->close(); }
 
 void TcpStream::open() {
+AINFO<<"(DMCZP) EnteringMethod: TcpStream::open";
   int fd = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
   if (fd < 0) {
     // error
@@ -58,6 +60,7 @@ void TcpStream::open() {
 }
 
 bool TcpStream::InitSocket() {
+AINFO<<"(DMCZP) EnteringMethod: TcpStream::InitSocket";
   if (sockfd_ < 0) {
     return false;
   }
@@ -122,6 +125,7 @@ bool TcpStream::InitSocket() {
 }
 
 void TcpStream::close() {
+AINFO<<"(DMCZP) EnteringMethod: TcpStream::close";
   if (sockfd_ > 0) {
     ::close(sockfd_);
     sockfd_ = -1;
@@ -130,6 +134,7 @@ void TcpStream::close() {
 }
 
 bool TcpStream::Reconnect() {
+AINFO<<"(DMCZP) EnteringMethod: TcpStream::Reconnect";
   if (auto_reconnect_) {
     Disconnect();
     if (Connect()) {
@@ -140,6 +145,7 @@ bool TcpStream::Reconnect() {
 }
 
 bool TcpStream::Connect() {
+AINFO<<"(DMCZP) EnteringMethod: TcpStream::Connect";
   if (sockfd_ < 0) {
     this->open();
     if (sockfd_ < 0) {
@@ -234,6 +240,7 @@ bool TcpStream::Connect() {
 }
 
 bool TcpStream::Disconnect() {
+AINFO<<"(DMCZP) EnteringMethod: TcpStream::Disconnect";
   if (sockfd_ < 0) {
     // not open
     return false;
@@ -244,6 +251,7 @@ bool TcpStream::Disconnect() {
 }
 
 size_t TcpStream::read(uint8_t* buffer, size_t max_length) {
+AINFO<<"(DMCZP) EnteringMethod: TcpStream::read";
   ssize_t ret = 0;
 
   if (status_ != Stream::Status::CONNECTED) {
@@ -285,6 +293,7 @@ size_t TcpStream::read(uint8_t* buffer, size_t max_length) {
 }
 
 size_t TcpStream::write(const uint8_t* buffer, size_t length) {
+AINFO<<"(DMCZP) EnteringMethod: TcpStream::write";
   size_t total_nsent = 0;
 
   if (status_ != Stream::Status::CONNECTED) {
@@ -321,6 +330,7 @@ size_t TcpStream::write(const uint8_t* buffer, size_t length) {
 }
 
 bool TcpStream::Readable(uint32_t timeout_us) {
+AINFO<<"(DMCZP) EnteringMethod: TcpStream::Readable";
   // Setup a select call to block for serial data or a timeout
   timespec timeout_ts;
   fd_set readfds;
@@ -344,6 +354,7 @@ bool TcpStream::Readable(uint32_t timeout_us) {
 
 Stream* Stream::create_tcp(const char* address, uint16_t port,
                            uint32_t timeout_usec) {
+AINFO<<"(DMCZP) EnteringMethod: Stream::create_tcp";
   return new TcpStream(address, port, timeout_usec);
 }
 

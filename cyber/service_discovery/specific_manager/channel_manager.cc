@@ -33,6 +33,7 @@ namespace cyber {
 namespace service_discovery {
 
 ChannelManager::ChannelManager() {
+AINFO<<"(DMCZP) EnteringMethod: ChannelManager::ChannelManager";
   allowed_role_ |= 1 << RoleType::ROLE_WRITER;
   allowed_role_ |= 1 << RoleType::ROLE_READER;
   change_type_ = ChangeType::CHANGE_CHANNEL;
@@ -44,6 +45,7 @@ ChannelManager::ChannelManager() {
 ChannelManager::~ChannelManager() {}
 
 void ChannelManager::GetChannelNames(std::vector<std::string>* channels) {
+AINFO<<"(DMCZP) EnteringMethod: ChannelManager::GetChannelNames";
   RETURN_IF_NULL(channels);
 
   std::unordered_set<std::string> local_channels;
@@ -59,6 +61,7 @@ void ChannelManager::GetChannelNames(std::vector<std::string>* channels) {
 
 void ChannelManager::GetProtoDesc(const std::string& channel_name,
                                   std::string* proto_desc) {
+AINFO<<"(DMCZP) EnteringMethod: ChannelManager::GetProtoDesc";
   RETURN_IF_NULL(proto_desc);
   uint64_t key = common::GlobalData::RegisterChannel(channel_name);
   RolePtr writer = nullptr;
@@ -73,6 +76,7 @@ void ChannelManager::GetProtoDesc(const std::string& channel_name,
 
 void ChannelManager::GetMsgType(const std::string& channel_name,
                                 std::string* msg_type) {
+AINFO<<"(DMCZP) EnteringMethod: ChannelManager::GetMsgType";
   RETURN_IF_NULL(msg_type);
   uint64_t key = common::GlobalData::RegisterChannel(channel_name);
   RolePtr writer = nullptr;
@@ -88,17 +92,20 @@ void ChannelManager::GetMsgType(const std::string& channel_name,
 }
 
 bool ChannelManager::HasWriter(const std::string& channel_name) {
+AINFO<<"(DMCZP) EnteringMethod: ChannelManager::HasWriter";
   uint64_t key = common::GlobalData::RegisterChannel(channel_name);
   return channel_writers_.Search(key);
 }
 
 void ChannelManager::GetWriters(RoleAttrVec* writers) {
+AINFO<<"(DMCZP) EnteringMethod: ChannelManager::GetWriters";
   RETURN_IF_NULL(writers);
   channel_writers_.GetAllRoles(writers);
 }
 
 void ChannelManager::GetWritersOfNode(const std::string& node_name,
                                       RoleAttrVec* writers) {
+AINFO<<"(DMCZP) EnteringMethod: ChannelManager::GetWritersOfNode";
   RETURN_IF_NULL(writers);
   uint64_t key = common::GlobalData::RegisterNode(node_name);
   node_writers_.Search(key, writers);
@@ -106,23 +113,27 @@ void ChannelManager::GetWritersOfNode(const std::string& node_name,
 
 void ChannelManager::GetWritersOfChannel(const std::string& channel_name,
                                          RoleAttrVec* writers) {
+AINFO<<"(DMCZP) EnteringMethod: ChannelManager::GetWritersOfChannel";
   RETURN_IF_NULL(writers);
   uint64_t key = common::GlobalData::RegisterChannel(channel_name);
   channel_writers_.Search(key, writers);
 }
 
 bool ChannelManager::HasReader(const std::string& channel_name) {
+AINFO<<"(DMCZP) EnteringMethod: ChannelManager::HasReader";
   uint64_t key = common::GlobalData::RegisterChannel(channel_name);
   return channel_readers_.Search(key);
 }
 
 void ChannelManager::GetReaders(RoleAttrVec* readers) {
+AINFO<<"(DMCZP) EnteringMethod: ChannelManager::GetReaders";
   RETURN_IF_NULL(readers);
   channel_readers_.GetAllRoles(readers);
 }
 
 void ChannelManager::GetReadersOfNode(const std::string& node_name,
                                       RoleAttrVec* readers) {
+AINFO<<"(DMCZP) EnteringMethod: ChannelManager::GetReadersOfNode";
   RETURN_IF_NULL(readers);
   uint64_t key = common::GlobalData::RegisterNode(node_name);
   node_readers_.Search(key, readers);
@@ -130,6 +141,7 @@ void ChannelManager::GetReadersOfNode(const std::string& node_name,
 
 void ChannelManager::GetReadersOfChannel(const std::string& channel_name,
                                          RoleAttrVec* readers) {
+AINFO<<"(DMCZP) EnteringMethod: ChannelManager::GetReadersOfChannel";
   RETURN_IF_NULL(readers);
   uint64_t key = common::GlobalData::RegisterChannel(channel_name);
   channel_readers_.Search(key, readers);
@@ -137,6 +149,7 @@ void ChannelManager::GetReadersOfChannel(const std::string& channel_name,
 
 void ChannelManager::GetUpstreamOfNode(const std::string& node_name,
                                        RoleAttrVec* upstream_nodes) {
+AINFO<<"(DMCZP) EnteringMethod: ChannelManager::GetUpstreamOfNode";
   RETURN_IF_NULL(upstream_nodes);
 
   RoleAttrVec readers;
@@ -170,6 +183,7 @@ void ChannelManager::GetUpstreamOfNode(const std::string& node_name,
 
 void ChannelManager::GetDownstreamOfNode(const std::string& node_name,
                                          RoleAttrVec* downstream_nodes) {
+AINFO<<"(DMCZP) EnteringMethod: ChannelManager::GetDownstreamOfNode";
   RETURN_IF_NULL(downstream_nodes);
 
   RoleAttrVec writers;
@@ -203,6 +217,7 @@ void ChannelManager::GetDownstreamOfNode(const std::string& node_name,
 
 FlowDirection ChannelManager::GetFlowDirection(
     const std::string& lhs_node_name, const std::string& rhs_node_name) {
+AINFO<<"(DMCZP) EnteringMethod: ChannelManager::GetFlowDirection";
   Vertice lhs(lhs_node_name);
   Vertice rhs(rhs_node_name);
   return node_graph_.GetDirectionOf(lhs, rhs);
@@ -210,6 +225,7 @@ FlowDirection ChannelManager::GetFlowDirection(
 
 bool ChannelManager::IsMessageTypeMatching(const std::string& lhs,
                                            const std::string& rhs) {
+AINFO<<"(DMCZP) EnteringMethod: ChannelManager::IsMessageTypeMatching";
   if (lhs == rhs) {
     return true;
   }
@@ -223,6 +239,7 @@ bool ChannelManager::IsMessageTypeMatching(const std::string& lhs,
 }
 
 bool ChannelManager::Check(const RoleAttributes& attr) {
+AINFO<<"(DMCZP) EnteringMethod: ChannelManager::Check";
   RETURN_VAL_IF(!attr.has_channel_name(), false);
   RETURN_VAL_IF(!attr.has_channel_id(), false);
   RETURN_VAL_IF(!attr.has_id(), false);
@@ -230,6 +247,7 @@ bool ChannelManager::Check(const RoleAttributes& attr) {
 }
 
 void ChannelManager::Dispose(const ChangeMsg& msg) {
+AINFO<<"(DMCZP) EnteringMethod: ChannelManager::Dispose";
   if (msg.operate_type() == OperateType::OPT_JOIN) {
     DisposeJoin(msg);
   } else {
@@ -240,6 +258,7 @@ void ChannelManager::Dispose(const ChangeMsg& msg) {
 
 void ChannelManager::OnTopoModuleLeave(const std::string& host_name,
                                        int process_id) {
+AINFO<<"(DMCZP) EnteringMethod: ChannelManager::OnTopoModuleLeave";
   RETURN_IF(!is_discovery_started_.load());
 
   RoleAttributes attr;
@@ -269,6 +288,7 @@ void ChannelManager::OnTopoModuleLeave(const std::string& host_name,
 }
 
 void ChannelManager::DisposeJoin(const ChangeMsg& msg) {
+AINFO<<"(DMCZP) EnteringMethod: ChannelManager::DisposeJoin";
   ScanMessageType(msg);
 
   Vertice v(msg.role_attr().node_name());
@@ -294,6 +314,7 @@ void ChannelManager::DisposeJoin(const ChangeMsg& msg) {
 }
 
 void ChannelManager::DisposeLeave(const ChangeMsg& msg) {
+AINFO<<"(DMCZP) EnteringMethod: ChannelManager::DisposeLeave";
   Vertice v(msg.role_attr().node_name());
   Edge e;
   e.set_value(msg.role_attr().channel_name());
@@ -312,6 +333,7 @@ void ChannelManager::DisposeLeave(const ChangeMsg& msg) {
 }
 
 void ChannelManager::ScanMessageType(const ChangeMsg& msg) {
+AINFO<<"(DMCZP) EnteringMethod: ChannelManager::ScanMessageType";
   uint64_t key = msg.role_attr().channel_id();
   std::string role_type("reader");
   if (msg.role_type() == RoleType::ROLE_WRITER) {

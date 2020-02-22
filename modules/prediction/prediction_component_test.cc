@@ -22,6 +22,7 @@ namespace apollo {
 namespace prediction {
 
 TEST(PredictionComponentTest, Simple) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   cyber::Init("prediction_component_test");
   PredictionComponent prediction_component;
   EXPECT_EQ(prediction_component.Name(), "prediction");

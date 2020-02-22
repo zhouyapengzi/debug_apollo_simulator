@@ -65,6 +65,7 @@ class ShmTransceiverTest : public ::testing::Test {
 };
 
 TEST_F(ShmTransceiverTest, constructor) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   RoleAttributes attr;
   TransmitterPtr transmitter =
       std::make_shared<ShmTransmitter<proto::UnitTest>>(attr);
@@ -80,6 +81,7 @@ TEST_F(ShmTransceiverTest, constructor) {
 }
 
 TEST_F(ShmTransceiverTest, enable_and_disable) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   // repeated call
   transmitter_a_->Enable();
 
@@ -154,6 +156,7 @@ TEST_F(ShmTransceiverTest, enable_and_disable) {
 }  // namespace apollo
 
 int main(int argc, char** argv) {
+AINFO<<"(DMCZP) EnteringMethod: main";
   testing::InitGoogleTest(&argc, argv);
   apollo::cyber::Init(argv[0]);
   apollo::cyber::transport::Transport::Instance();

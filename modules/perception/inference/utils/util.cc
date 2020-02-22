@@ -39,6 +39,7 @@ std::shared_ptr<float> load_binary_data(const std::string &filename) {
 
 bool write_result(const std::string &out_path,
                   const std::vector<float> &results) {
+AINFO<<"(DMCZP) EnteringMethod: write_result";
   std::ofstream outf(out_path, std::ios::binary | std::ios::out);
   if (!outf.is_open()) {
     AINFO << "Cannot open output file: " << out_path;

@@ -34,8 +34,10 @@ using apollo::perception::base::SensorOrientation;
 using apollo::perception::base::SensorType;
 
 SensorManager::SensorManager() { CHECK_EQ(this->Init(), true); }
+AINFO<<"(DMCZP) EnteringMethod: SensorManager::SensorManager";
 
 bool SensorManager::Init() {
+AINFO<<"(DMCZP) EnteringMethod: SensorManager::Init";
   std::lock_guard<std::mutex> lock(mutex_);
   if (inited_) {
     return true;
@@ -99,11 +101,13 @@ bool SensorManager::Init() {
 }
 
 bool SensorManager::IsSensorExist(const std::string& name) const {
+AINFO<<"(DMCZP) EnteringMethod: SensorManager::IsSensorExist";
   return sensor_info_map_.find(name) != sensor_info_map_.end();
 }
 
 bool SensorManager::GetSensorInfo(const std::string& name,
                                   SensorInfo* sensor_info) const {
+AINFO<<"(DMCZP) EnteringMethod: SensorManager::GetSensorInfo";
   if (sensor_info == nullptr) {
     AERROR << "Nullptr error.";
     return false;
@@ -133,6 +137,7 @@ std::shared_ptr<BaseCameraModel> SensorManager::GetUndistortCameraModel(
 }
 
 bool SensorManager::IsHdLidar(const std::string& name) const {
+AINFO<<"(DMCZP) EnteringMethod: SensorManager::IsHdLidar";
   const auto& itr = sensor_info_map_.find(name);
   if (itr == sensor_info_map_.end()) {
     return false;
@@ -143,11 +148,13 @@ bool SensorManager::IsHdLidar(const std::string& name) const {
 }
 
 bool SensorManager::IsHdLidar(const SensorType& type) const {
+AINFO<<"(DMCZP) EnteringMethod: SensorManager::IsHdLidar";
   return type == SensorType::VELODYNE_128 || type == SensorType::VELODYNE_64 ||
          type == SensorType::VELODYNE_32 || type == SensorType::VELODYNE_16;
 }
 
 bool SensorManager::IsLdLidar(const std::string& name) const {
+AINFO<<"(DMCZP) EnteringMethod: SensorManager::IsLdLidar";
   const auto& itr = sensor_info_map_.find(name);
   if (itr == sensor_info_map_.end()) {
     return false;
@@ -158,10 +165,12 @@ bool SensorManager::IsLdLidar(const std::string& name) const {
 }
 
 bool SensorManager::IsLdLidar(const SensorType& type) const {
+AINFO<<"(DMCZP) EnteringMethod: SensorManager::IsLdLidar";
   return type == SensorType::LDLIDAR_4 || type == SensorType::LDLIDAR_1;
 }
 
 bool SensorManager::IsLidar(const std::string& name) const {
+AINFO<<"(DMCZP) EnteringMethod: SensorManager::IsLidar";
   const auto& itr = sensor_info_map_.find(name);
   if (itr == sensor_info_map_.end()) {
     return false;
@@ -172,10 +181,12 @@ bool SensorManager::IsLidar(const std::string& name) const {
 }
 
 bool SensorManager::IsLidar(const SensorType& type) const {
+AINFO<<"(DMCZP) EnteringMethod: SensorManager::IsLidar";
   return this->IsHdLidar(type) || this->IsLdLidar(type);
 }
 
 bool SensorManager::IsRadar(const std::string& name) const {
+AINFO<<"(DMCZP) EnteringMethod: SensorManager::IsRadar";
   const auto& itr = sensor_info_map_.find(name);
   if (itr == sensor_info_map_.end()) {
     return false;
@@ -186,11 +197,13 @@ bool SensorManager::IsRadar(const std::string& name) const {
 }
 
 bool SensorManager::IsRadar(const SensorType& type) const {
+AINFO<<"(DMCZP) EnteringMethod: SensorManager::IsRadar";
   return type == SensorType::SHORT_RANGE_RADAR ||
          type == SensorType::LONG_RANGE_RADAR;
 }
 
 bool SensorManager::IsCamera(const std::string& name) const {
+AINFO<<"(DMCZP) EnteringMethod: SensorManager::IsCamera";
   const auto& itr = sensor_info_map_.find(name);
   if (itr == sensor_info_map_.end()) {
     return false;
@@ -201,11 +214,13 @@ bool SensorManager::IsCamera(const std::string& name) const {
 }
 
 bool SensorManager::IsCamera(const SensorType& type) const {
+AINFO<<"(DMCZP) EnteringMethod: SensorManager::IsCamera";
   return type == SensorType::MONOCULAR_CAMERA ||
          type == SensorType::STEREO_CAMERA;
 }
 
 bool SensorManager::IsUltrasonic(const std::string& name) const {
+AINFO<<"(DMCZP) EnteringMethod: SensorManager::IsUltrasonic";
   const auto& itr = sensor_info_map_.find(name);
   if (itr == sensor_info_map_.end()) {
     return false;
@@ -216,10 +231,12 @@ bool SensorManager::IsUltrasonic(const std::string& name) const {
 }
 
 bool SensorManager::IsUltrasonic(const SensorType& type) const {
+AINFO<<"(DMCZP) EnteringMethod: SensorManager::IsUltrasonic";
   return type == SensorType::ULTRASONIC;
 }
 
 std::string SensorManager::GetFrameId(const std::string& name) const {
+AINFO<<"(DMCZP) EnteringMethod: SensorManager::GetFrameId";
   const auto& itr = sensor_info_map_.find(name);
   return itr == sensor_info_map_.end() ? std::string("") : itr->second.frame_id;
 }

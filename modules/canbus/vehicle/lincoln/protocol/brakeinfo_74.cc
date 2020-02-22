@@ -28,6 +28,7 @@ const int32_t Brakeinfo74::ID = 0x74;
 
 void Brakeinfo74::Parse(const std::uint8_t *bytes, int32_t length,
                         ChassisDetail *chassis_detail) const {
+AINFO<<"(DMCZP) EnteringMethod: Brakeinfo74::Parse";
   chassis_detail->mutable_brake()->set_brake_torque_req(
       braking_torque_request(bytes, length));
   switch (hill_start_assist_status(bytes, length)) {
@@ -113,6 +114,7 @@ void Brakeinfo74::Parse(const std::uint8_t *bytes, int32_t length,
 
 double Brakeinfo74::braking_torque_request(const std::uint8_t *bytes,
                                            int32_t length) const {
+AINFO<<"(DMCZP) EnteringMethod: Brakeinfo74::braking_torque_request";
   Byte frame_high(bytes + 1);
   int32_t high = frame_high.get_byte(0, 4);
   Byte frame_low(bytes + 0);
@@ -123,6 +125,7 @@ double Brakeinfo74::braking_torque_request(const std::uint8_t *bytes,
 
 int32_t Brakeinfo74::hill_start_assist_status(const std::uint8_t *bytes,
                                               int32_t length) const {
+AINFO<<"(DMCZP) EnteringMethod: Brakeinfo74::hill_start_assist_status";
   // see table for status code
   Byte frame(bytes + 1);
   int32_t x = frame.get_byte(4, 3);
@@ -131,14 +134,20 @@ int32_t Brakeinfo74::hill_start_assist_status(const std::uint8_t *bytes,
 
 bool Brakeinfo74::is_vehicle_stationary(const std::uint8_t *bytes,
                                         int32_t length) const {
+AINFO<<"(DMCZP) EnteringMethod: Brakeinfo74::is_stability_control_active";
+AINFO<<"(DMCZP) EnteringMethod: Brakeinfo74::is_vehicle_stationary";
   // false for moving, true for stationary
+AINFO<<"(DMCZP) EnteringMethod: Brakeinfo74::is_traction_control_enabled";
   Byte frame(bytes + 1);
   return frame.is_bit_1(7);
+AINFO<<"(DMCZP) EnteringMethod: Brakeinfo74::wheel_torque_actual";
 }
 
 double Brakeinfo74::braking_torque_actual(const std::uint8_t *bytes,
                                           int32_t length) const {
+AINFO<<"(DMCZP) EnteringMethod: Brakeinfo74::braking_torque_actual";
   Byte frame_high(bytes + 3);
+AINFO<<"(DMCZP) EnteringMethod: Brakeinfo74::parking_brake_status";
   int32_t high = frame_high.get_byte(0, 4);
   Byte frame_low(bytes + 2);
   int32_t low = frame_low.get_byte(0, 8);
@@ -148,6 +157,7 @@ double Brakeinfo74::braking_torque_actual(const std::uint8_t *bytes,
 
 int32_t Brakeinfo74::hill_start_assist_mode(const std::uint8_t *bytes,
                                             int32_t length) const {
+AINFO<<"(DMCZP) EnteringMethod: Brakeinfo74::hill_start_assist_mode";
   // see table for status code
   Byte frame(bytes + 3);
   int32_t x = frame.get_byte(4, 2);
@@ -177,9 +187,11 @@ double Brakeinfo74::wheel_torque_actual(const std::uint8_t *bytes,
 
 double Brakeinfo74::acceleration_over_ground(const std::uint8_t *bytes,
                                              int32_t length) const {
+AINFO<<"(DMCZP) EnteringMethod: Brakeinfo74::acceleration_over_ground";
   // vehicle acceleration over ground estimate
   Byte frame_high(bytes + 7);
   int32_t high = frame_high.get_byte(0, 2);
+AINFO<<"(DMCZP) EnteringMethod: Brakeinfo74::is_traction_control_active";
   Byte frame_low(bytes + 6);
   int32_t low = frame_low.get_byte(0, 8);
   int32_t value = (high << 8) | low;
@@ -191,12 +203,14 @@ double Brakeinfo74::acceleration_over_ground(const std::uint8_t *bytes,
 
 bool Brakeinfo74::is_abs_active(const std::uint8_t *bytes,
                                 int32_t length) const {
+AINFO<<"(DMCZP) EnteringMethod: Brakeinfo74::is_abs_active";
   Byte frame(bytes + 7);
   return frame.is_bit_1(2);
 }
 
 bool Brakeinfo74::is_abs_enabled(const std::uint8_t *bytes,
                                  int32_t length) const {
+AINFO<<"(DMCZP) EnteringMethod: Brakeinfo74::is_abs_enabled";
   Byte frame(bytes + 7);
   return frame.is_bit_1(3);
 }
@@ -209,6 +223,7 @@ bool Brakeinfo74::is_stability_control_active(const std::uint8_t *bytes,
 
 bool Brakeinfo74::is_stability_control_enabled(const std::uint8_t *bytes,
                                                int32_t length) const {
+AINFO<<"(DMCZP) EnteringMethod: Brakeinfo74::is_stability_control_enabled";
   Byte frame(bytes + 7);
   return frame.is_bit_1(5);
 }

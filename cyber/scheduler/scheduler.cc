@@ -36,12 +36,14 @@ using apollo::cyber::common::GlobalData;
 
 bool Scheduler::CreateTask(const RoutineFactory& factory,
                            const std::string& name) {
+AINFO<<"(DMCZP) EnteringMethod: Scheduler::CreateTask";
   return CreateTask(factory.create_routine(), name, factory.GetDataVisitor());
 }
 
 bool Scheduler::CreateTask(std::function<void()>&& func,
                            const std::string& name,
                            std::shared_ptr<DataVisitorBase> visitor) {
+AINFO<<"(DMCZP) EnteringMethod: Scheduler::CreateTask";
   if (unlikely(stop_.load())) {
     ADEBUG << "scheduler is stoped, cannot create task!";
     return false;
@@ -70,6 +72,7 @@ bool Scheduler::CreateTask(std::function<void()>&& func,
 }
 
 bool Scheduler::NotifyTask(uint64_t crid) {
+AINFO<<"(DMCZP) EnteringMethod: Scheduler::NotifyTask";
   if (unlikely(stop_.load())) {
     return true;
   }
@@ -77,6 +80,7 @@ bool Scheduler::NotifyTask(uint64_t crid) {
 }
 
 void Scheduler::ParseCpuset(const std::string& str, std::vector<int>* cpuset) {
+AINFO<<"(DMCZP) EnteringMethod: Scheduler::ParseCpuset";
   std::vector<std::string> lines;
   std::stringstream ss(str);
   std::string l;
@@ -107,6 +111,7 @@ void Scheduler::ParseCpuset(const std::string& str, std::vector<int>* cpuset) {
 }
 
 void Scheduler::ProcessLevelResourceControl() {
+AINFO<<"(DMCZP) EnteringMethod: Scheduler::ProcessLevelResourceControl";
   std::vector<int> cpus;
   ParseCpuset(process_level_cpuset_, &cpus);
   cpu_set_t set;
@@ -118,6 +123,7 @@ void Scheduler::ProcessLevelResourceControl() {
 }
 
 void Scheduler::SetInnerThreadAttr(const std::string& name, std::thread* thr) {
+AINFO<<"(DMCZP) EnteringMethod: Scheduler::SetInnerThreadAttr";
   if (thr != nullptr && inner_thr_confs_.find(name) != inner_thr_confs_.end()) {
     auto th_conf = inner_thr_confs_[name];
     auto cpuset = th_conf.cpuset();
@@ -151,6 +157,7 @@ void Scheduler::SetInnerThreadAttr(const std::string& name, std::thread* thr) {
 }
 
 void Scheduler::Shutdown() {
+AINFO<<"(DMCZP) EnteringMethod: Scheduler::Shutdown";
   if (unlikely(stop_.exchange(true))) {
     return;
   }

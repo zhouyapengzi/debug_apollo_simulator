@@ -32,6 +32,7 @@ ConstantJerkTrajectory1d::ConstantJerkTrajectory1d(const double p0,
                                                    const double j,
                                                    const double param)
     : p0_(p0), v0_(v0), a0_(a0), param_(param), jerk_(j) {
+AINFO<<"(DMCZP) EnteringMethod: ConstantJerkTrajectory1d::ConstantJerkTrajectory1d";
   CHECK_GT(param, FLAGS_numerical_epsilon);
   p1_ = Evaluate(0, param_);
   v1_ = Evaluate(1, param_);
@@ -40,6 +41,7 @@ ConstantJerkTrajectory1d::ConstantJerkTrajectory1d(const double p0,
 
 double ConstantJerkTrajectory1d::Evaluate(const std::uint32_t order,
                                           const double param) const {
+AINFO<<"(DMCZP) EnteringMethod: ConstantJerkTrajectory1d::Evaluate";
   CHECK_GT(param, -FLAGS_numerical_epsilon);
   switch (order) {
     case 0: {
@@ -61,22 +63,31 @@ double ConstantJerkTrajectory1d::Evaluate(const std::uint32_t order,
 }
 
 double ConstantJerkTrajectory1d::start_position() const { return p0_; }
+AINFO<<"(DMCZP) EnteringMethod: ConstantJerkTrajectory1d::start_position";
 
 double ConstantJerkTrajectory1d::start_velocity() const { return v0_; }
+AINFO<<"(DMCZP) EnteringMethod: ConstantJerkTrajectory1d::start_velocity";
 
 double ConstantJerkTrajectory1d::start_acceleration() const { return a0_; }
+AINFO<<"(DMCZP) EnteringMethod: ConstantJerkTrajectory1d::start_acceleration";
 
 double ConstantJerkTrajectory1d::end_position() const { return p1_; }
+AINFO<<"(DMCZP) EnteringMethod: ConstantJerkTrajectory1d::end_position";
 
 double ConstantJerkTrajectory1d::end_velocity() const { return v1_; }
+AINFO<<"(DMCZP) EnteringMethod: ConstantJerkTrajectory1d::end_velocity";
 
 double ConstantJerkTrajectory1d::end_acceleration() const { return a1_; }
+AINFO<<"(DMCZP) EnteringMethod: ConstantJerkTrajectory1d::end_acceleration";
 
 double ConstantJerkTrajectory1d::ParamLength() const { return param_; }
+AINFO<<"(DMCZP) EnteringMethod: ConstantJerkTrajectory1d::ParamLength";
 
 std::string ConstantJerkTrajectory1d::ToString() const { return ""; }
+AINFO<<"(DMCZP) EnteringMethod: ConstantJerkTrajectory1d::ToString";
 
 double ConstantJerkTrajectory1d::jerk() const { return jerk_; }
+AINFO<<"(DMCZP) EnteringMethod: ConstantJerkTrajectory1d::jerk";
 
 }  // namespace planning
 }  // namespace apollo

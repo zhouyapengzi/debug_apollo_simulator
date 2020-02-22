@@ -18,7 +18,9 @@ limitations under the License.
 
 namespace {
 double ToMPS(double speed) { return speed * 1000.0 / 3600.0; }
+AINFO<<"(DMCZP) EnteringMethod: ToMPS";
 bool IsReferenceLane(int lane_id) { return lane_id == 0; }
+AINFO<<"(DMCZP) EnteringMethod: IsReferenceLane";
 };  // namespace
 
 namespace apollo {
@@ -28,6 +30,7 @@ namespace adapter {
 Status LanesXmlParser::Parse(const tinyxml2::XMLElement& xml_node,
                              const std::string& road_id,
                              std::vector<RoadSectionInternal>* sections) {
+AINFO<<"(DMCZP) EnteringMethod: LanesXmlParser::Parse";
   CHECK_NOTNULL(sections);
   const auto lanes_node = xml_node.FirstChildElement("lanes");
   CHECK_NOTNULL(lanes_node);
@@ -57,6 +60,7 @@ Status LanesXmlParser::Parse(const tinyxml2::XMLElement& xml_node,
 
 Status LanesXmlParser::ParseSectionBoundary(
     const tinyxml2::XMLElement& xml_node, PbBoundaryPolygon* boundary) {
+AINFO<<"(DMCZP) EnteringMethod: LanesXmlParser::ParseSectionBoundary";
   CHECK_NOTNULL(boundary);
 
   auto boundaries_node = xml_node.FirstChildElement("boundaries");
@@ -88,6 +92,7 @@ Status LanesXmlParser::ParseSectionBoundary(
 
 Status LanesXmlParser::ToPbBoundaryType(const std::string& type,
                                         PbBoundaryEdgeType* boundary_type) {
+AINFO<<"(DMCZP) EnteringMethod: LanesXmlParser::ToPbBoundaryType";
   CHECK_NOTNULL(boundary_type);
 
   std::string upper_type = UtilXmlParser::ToUpper(type);
@@ -105,6 +110,7 @@ Status LanesXmlParser::ToPbBoundaryType(const std::string& type,
 
 Status LanesXmlParser::ParseLaneSection(const tinyxml2::XMLElement& xml_node,
                                         std::vector<LaneInternal>* lanes) {
+AINFO<<"(DMCZP) EnteringMethod: LanesXmlParser::ParseLaneSection";
   CHECK_NOTNULL(lanes);
 
   // left
@@ -163,6 +169,7 @@ Status LanesXmlParser::ParseLaneSection(const tinyxml2::XMLElement& xml_node,
 
 Status LanesXmlParser::ParseLane(const tinyxml2::XMLElement& xml_node,
                                  LaneInternal* lane_internal) {
+AINFO<<"(DMCZP) EnteringMethod: LanesXmlParser::ParseLane";
   CHECK_NOTNULL(lane_internal);
 
   PbLane* lane = &lane_internal->lane;
@@ -299,6 +306,7 @@ Status LanesXmlParser::ParseLane(const tinyxml2::XMLElement& xml_node,
 
 Status LanesXmlParser::ParseDirection(const tinyxml2::XMLElement& xml_node,
                                       PbLane* lane) {
+AINFO<<"(DMCZP) EnteringMethod: LanesXmlParser::ParseDirection";
   CHECK_NOTNULL(lane);
   std::string direction;
   int checker =
@@ -320,6 +328,7 @@ Status LanesXmlParser::ParseDirection(const tinyxml2::XMLElement& xml_node,
 
 Status LanesXmlParser::ParseCenterCurve(const tinyxml2::XMLElement& xml_node,
                                         PbLane* lane) {
+AINFO<<"(DMCZP) EnteringMethod: LanesXmlParser::ParseCenterCurve";
   CHECK_NOTNULL(lane);
   auto sub_node = xml_node.FirstChildElement("centerLine");
   if (!sub_node) {
@@ -341,6 +350,7 @@ Status LanesXmlParser::ParseCenterCurve(const tinyxml2::XMLElement& xml_node,
 
 Status LanesXmlParser::ParseSpeed(const tinyxml2::XMLElement& xml_node,
                                   PbLane* lane) {
+AINFO<<"(DMCZP) EnteringMethod: LanesXmlParser::ParseSpeed";
   double max_speed = 0.0;
   auto sub_node = xml_node.FirstChildElement("speed");
   if (sub_node) {
@@ -357,7 +367,11 @@ Status LanesXmlParser::ParseSpeed(const tinyxml2::XMLElement& xml_node,
 
 Status LanesXmlParser::ParseSampleAssociates(
     const tinyxml2::XMLElement& xml_node, PbLane* lane) {
+AINFO<<"(DMCZP) EnteringMethod: LanesXmlParser::ParseSampleAssociates";
   CHECK_NOTNULL(lane);
+AINFO<<"(DMCZP) EnteringMethod: LanesXmlParser::ParseLeftRoadSampleAssociates";
+AINFO<<"(DMCZP) EnteringMethod: LanesXmlParser::ParseRightRoadSampleAssociates";
+AINFO<<"(DMCZP) EnteringMethod: LanesXmlParser::ParseRoadSampleAssociates";
   auto sub_node = xml_node.FirstChildElement("sampleAssociates");
   if (sub_node == nullptr) {
     std::string err_msg = "Error parse sample associates";
@@ -397,6 +411,7 @@ Status LanesXmlParser::ParseSampleAssociates(
 
 Status LanesXmlParser::ParseSingleSideRoadSampleAssociates(
     const tinyxml2::XMLElement& xml_node, bool bleft, PbLane* lane) {
+AINFO<<"(DMCZP) EnteringMethod: LanesXmlParser::ParseSingleSideRoadSampleAssociates";
   CHECK_NOTNULL(lane);
 
   auto sub_node = xml_node.FirstChildElement(
@@ -489,6 +504,7 @@ Status LanesXmlParser::ParseRoadSampleAssociates(
 Status LanesXmlParser::ParseObjectOverlapGroup(
     const tinyxml2::XMLElement& xml_node,
     std::vector<OverlapWithLane>* object_overlaps) {
+AINFO<<"(DMCZP) EnteringMethod: LanesXmlParser::ParseObjectOverlapGroup";
   CHECK_NOTNULL(object_overlaps);
 
   auto object_overlap = xml_node.FirstChildElement("objectOverlapGroup");
@@ -538,6 +554,7 @@ Status LanesXmlParser::ParseObjectOverlapGroup(
 Status LanesXmlParser::ParseSignalOverlapGroup(
     const tinyxml2::XMLElement& xml_node,
     std::vector<OverlapWithLane>* signal_overlaps) {
+AINFO<<"(DMCZP) EnteringMethod: LanesXmlParser::ParseSignalOverlapGroup";
   CHECK_NOTNULL(signal_overlaps);
 
   auto signal_overlap = xml_node.FirstChildElement("signalOverlapGroup");
@@ -579,6 +596,7 @@ Status LanesXmlParser::ParseSignalOverlapGroup(
 Status LanesXmlParser::ParseJunctionOverlapGroup(
     const tinyxml2::XMLElement& xml_node,
     std::vector<OverlapWithLane>* junction_overlaps) {
+AINFO<<"(DMCZP) EnteringMethod: LanesXmlParser::ParseJunctionOverlapGroup";
   CHECK_NOTNULL(junction_overlaps);
 
   auto overlap_group = xml_node.FirstChildElement("junctionOverlapGroup");
@@ -620,6 +638,7 @@ Status LanesXmlParser::ParseJunctionOverlapGroup(
 Status LanesXmlParser::ParseLaneOverlapGroup(
     const tinyxml2::XMLElement& xml_node,
     std::vector<OverlapWithLane>* lane_overlaps) {
+AINFO<<"(DMCZP) EnteringMethod: LanesXmlParser::ParseLaneOverlapGroup";
   CHECK_NOTNULL(lane_overlaps);
 
   auto overlap_node = xml_node.FirstChildElement("laneOverlapGroup");
@@ -661,6 +680,7 @@ Status LanesXmlParser::ParseLaneOverlapGroup(
 
 Status LanesXmlParser::ToPbLaneType(const std::string& type,
                                     PbLaneType* lane_type) {
+AINFO<<"(DMCZP) EnteringMethod: LanesXmlParser::ToPbLaneType";
   CHECK_NOTNULL(lane_type);
 
   std::string upper_str = UtilXmlParser::ToUpper(type);
@@ -687,6 +707,7 @@ Status LanesXmlParser::ToPbLaneType(const std::string& type,
 
 Status LanesXmlParser::ToPbTurnType(const std::string& type,
                                     PbTurnType* pb_turn_type) {
+AINFO<<"(DMCZP) EnteringMethod: LanesXmlParser::ToPbTurnType";
   CHECK_NOTNULL(pb_turn_type);
 
   std::string upper_str = UtilXmlParser::ToUpper(type);
@@ -709,6 +730,7 @@ Status LanesXmlParser::ToPbTurnType(const std::string& type,
 
 Status LanesXmlParser::ToPbDirection(const std::string& type,
                                      PbLaneDirection* pb_direction) {
+AINFO<<"(DMCZP) EnteringMethod: LanesXmlParser::ToPbDirection";
   CHECK_NOTNULL(pb_direction);
 
   std::string upper_str = UtilXmlParser::ToUpper(type);
@@ -729,6 +751,7 @@ Status LanesXmlParser::ToPbDirection(const std::string& type,
 
 void LanesXmlParser::ParseLaneLink(const tinyxml2::XMLElement& xml_node,
                                    PbLane* lane) {
+AINFO<<"(DMCZP) EnteringMethod: LanesXmlParser::ParseLaneLink";
   CHECK_NOTNULL(lane);
 
   const tinyxml2::XMLElement* sub_node =
@@ -799,6 +822,7 @@ void LanesXmlParser::ParseLaneLink(const tinyxml2::XMLElement& xml_node,
 Status LanesXmlParser::ParseLaneBorderMark(
     const tinyxml2::XMLElement& xml_node,
     PbLaneBoundaryTypeType* boundary_type) {
+AINFO<<"(DMCZP) EnteringMethod: LanesXmlParser::ParseLaneBorderMark";
   CHECK_NOTNULL(boundary_type);
 
   std::string type;
@@ -823,6 +847,7 @@ Status LanesXmlParser::ParseLaneBorderMark(
 Status LanesXmlParser::ToPbLaneMarkType(const std::string& type,
                                         const std::string& color,
                                         PbLaneBoundaryTypeType* boundary_type) {
+AINFO<<"(DMCZP) EnteringMethod: LanesXmlParser::ToPbLaneMarkType";
   CHECK_NOTNULL(boundary_type);
 
   std::string upper_type = UtilXmlParser::ToUpper(type);
@@ -867,6 +892,7 @@ Status LanesXmlParser::ToPbLaneMarkType(const std::string& type,
 Status LanesXmlParser::ParseRegionOverlap(
     const tinyxml2::XMLElement& xml_node,
     std::vector<PbRegionOverlap>* region_overlaps) {
+AINFO<<"(DMCZP) EnteringMethod: LanesXmlParser::ParseRegionOverlap";
   CHECK_NOTNULL(region_overlaps);
 
   auto region_overlap_node = xml_node.FirstChildElement("regionOverlap");

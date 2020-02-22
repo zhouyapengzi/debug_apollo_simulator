@@ -21,10 +21,12 @@ namespace cyber {
 namespace transport {
 
 RtpsDispatcher::RtpsDispatcher() : participant_(nullptr) {}
+AINFO<<"(DMCZP) EnteringMethod: RtpsDispatcher::RtpsDispatcher";
 
 RtpsDispatcher::~RtpsDispatcher() { Shutdown(); }
 
 void RtpsDispatcher::Shutdown() {
+AINFO<<"(DMCZP) EnteringMethod: RtpsDispatcher::Shutdown";
   if (is_shutdown_.exchange(true)) {
     return;
   }
@@ -40,6 +42,7 @@ void RtpsDispatcher::Shutdown() {
 }
 
 void RtpsDispatcher::AddSubscriber(const RoleAttributes& self_attr) {
+AINFO<<"(DMCZP) EnteringMethod: RtpsDispatcher::AddSubscriber";
   if (participant_ == nullptr) {
     AWARN << "please set participant firstly.";
     return;
@@ -71,6 +74,7 @@ void RtpsDispatcher::AddSubscriber(const RoleAttributes& self_attr) {
 void RtpsDispatcher::OnMessage(uint64_t channel_id,
                                const std::shared_ptr<std::string>& msg_str,
                                const MessageInfo& msg_info) {
+AINFO<<"(DMCZP) EnteringMethod: RtpsDispatcher::OnMessage";
   if (is_shutdown_.load()) {
     return;
   }

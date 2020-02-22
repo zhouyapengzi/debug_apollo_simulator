@@ -27,6 +27,7 @@ class Scuvcu2313Test : public ::testing::Test {
 };
 
 TEST_F(Scuvcu2313Test, reset) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   Scuvcu2313 scuvcu2313;
   int32_t length = 8;
   ChassisDetail chassis_detail;

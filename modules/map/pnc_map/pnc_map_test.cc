@@ -28,6 +28,7 @@
 DECLARE_double(min_length_for_lane_change);
 
 namespace apollo {
+AINFO<<"(DMCZP) EnteringMethod: DECLARE_double";
 namespace hdmap {
 
 DEFINE_string(test_map_file,
@@ -39,6 +40,8 @@ DEFINE_string(
     "The test map file");
 
 class PncMapTest : public ::testing::Test {
+AINFO<<"(DMCZP) EnteringMethod: DEFINE_string";
+AINFO<<"(DMCZP) EnteringMethod: DEFINE_string";
  public:
   static void SetUpTestCase() {
     AINFO << "map file: " << FLAGS_test_map_file;
@@ -72,6 +75,7 @@ hdmap::HDMap PncMapTest::hdmap_;
 routing::RoutingResponse PncMapTest::routing_;
 
 TEST_F(PncMapTest, UpdateRouting) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   pnc_map_->routing_.clear_header();
   EXPECT_TRUE(pnc_map_->IsNewRouting(routing_));
   EXPECT_TRUE(pnc_map_->UpdateRoutingResponse(routing_));
@@ -79,6 +83,7 @@ TEST_F(PncMapTest, UpdateRouting) {
 }
 
 TEST_F(PncMapTest, GetNearestPointFromRouting) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   LaneWaypoint waypoint;
   common::VehicleState state;
   state.set_x(587174.662136);
@@ -92,6 +97,7 @@ TEST_F(PncMapTest, GetNearestPointFromRouting) {
   EXPECT_FLOAT_EQ(60.757099, waypoint.s);
 }
 TEST_F(PncMapTest, UpdateWaypointIndex) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   auto lane = hdmap_.GetLaneById(hdmap::MakeMapId("9_1_-1"));
   ASSERT_TRUE(lane);
   LaneWaypoint waypoint(lane, 60.757099);
@@ -100,6 +106,7 @@ TEST_F(PncMapTest, UpdateWaypointIndex) {
 }
 
 TEST_F(PncMapTest, GetRouteSegments_NoChangeLane) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   auto lane = hdmap_.GetLaneById(hdmap::MakeMapId("9_1_-2"));
   ASSERT_TRUE(lane);
   auto point = lane->GetSmoothPoint(0);
@@ -121,6 +128,7 @@ TEST_F(PncMapTest, GetRouteSegments_NoChangeLane) {
 }
 
 TEST_F(PncMapTest, UpdateNextRoutingWaypointIndex) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   pnc_map_->next_routing_waypoint_index_ = 0;
   pnc_map_->adc_waypoint_.s = 0;
   pnc_map_->UpdateNextRoutingWaypointIndex(0);
@@ -152,6 +160,7 @@ TEST_F(PncMapTest, UpdateNextRoutingWaypointIndex) {
 }
 
 TEST_F(PncMapTest, GetRouteSegments_ChangeLane) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   auto lane = hdmap_.GetLaneById(hdmap::MakeMapId("9_1_-2"));
   ASSERT_TRUE(lane);
   common::VehicleState state;
@@ -175,6 +184,7 @@ TEST_F(PncMapTest, GetRouteSegments_ChangeLane) {
 }
 
 TEST_F(PncMapTest, NextWaypointIndex) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   EXPECT_EQ(0, pnc_map_->NextWaypointIndex(-2));
   EXPECT_EQ(0, pnc_map_->NextWaypointIndex(-1));
   EXPECT_EQ(1, pnc_map_->NextWaypointIndex(0));
@@ -185,6 +195,7 @@ TEST_F(PncMapTest, NextWaypointIndex) {
 }
 
 TEST_F(PncMapTest, SearchForwardIndex_SearchBackwardIndex) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   auto lane = hdmap_.GetLaneById(hdmap::MakeMapId("9_1_-2"));
   LaneWaypoint waypoint(lane, 3.0);
   auto result = pnc_map_->SearchForwardWaypointIndex(0, waypoint);
@@ -206,6 +217,7 @@ TEST_F(PncMapTest, SearchForwardIndex_SearchBackwardIndex) {
 }
 
 TEST_F(PncMapTest, GetNeighborPassages) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   const auto& road0 = routing_.road(0);
   {
     auto result = pnc_map_->GetNeighborPassages(road0, 0);

@@ -21,9 +21,11 @@
 DECLARE_string(flagfile);
 
 namespace apollo {
+AINFO<<"(DMCZP) EnteringMethod: DECLARE_string";
 namespace third_party_perception {
 
 bool ThirdPartyPerceptionComponent::Init() {
+AINFO<<"(DMCZP) EnteringMethod: ThirdPartyPerceptionComponent::Init";
   if (!perception_.Init().ok()) {
     return false;
   }
@@ -74,6 +76,7 @@ bool ThirdPartyPerceptionComponent::Init() {
 }
 
 bool ThirdPartyPerceptionComponent::Proc() {
+AINFO<<"(DMCZP) EnteringMethod: ThirdPartyPerceptionComponent::Proc";
   auto response = std::make_shared<apollo::perception::PerceptionObstacles>();
   if (!perception_.Process(response.get())) {
     return false;

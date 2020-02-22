@@ -33,6 +33,7 @@ class SystemUtilityTestSuite : public ::testing::Test {
 
 /**@brief Rect2DTest. */
 TEST_F(SystemUtilityTestSuite, SystemTest) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   bool flag = system::IsExists(
       "/apollo/modules/localization/msf/common/test_data/test_folder/"
       "file1.txt");

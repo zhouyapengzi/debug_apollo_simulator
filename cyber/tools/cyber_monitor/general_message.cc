@@ -31,8 +31,10 @@ GeneralMessage::GeneralMessage(GeneralMessageBase* parent,
       field_(field),
       message_ptr_(msg),
       reflection_ptr_(reflection) {}
+AINFO<<"(DMCZP) EnteringMethod: GeneralMessage::GeneralMessage";
 
 void GeneralMessage::Render(const Screen* s, int key) {
+AINFO<<"(DMCZP) EnteringMethod: GeneralMessage::Render";
   s->SetCurrentColor(Screen::WHITE_BLACK);
 
   {

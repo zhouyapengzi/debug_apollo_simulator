@@ -83,6 +83,7 @@ namespace {
 double CalculateAcceleration(
     const Point3D &acceleration, const Point3D &velocity,
     const apollo::canbus::Chassis_GearPosition &gear_location) {
+AINFO<<"(DMCZP) EnteringMethod: CalculateAcceleration";
   // Calculates the dot product of acceleration and velocity. The sign
   // of this projection indicates whether this is acceleration or
   // deceleration.
@@ -105,6 +106,7 @@ double CalculateAcceleration(
 }
 
 Object::DisengageType DeduceDisengageType(const Chassis &chassis) {
+AINFO<<"(DMCZP) EnteringMethod: DeduceDisengageType";
   if (chassis.error_code() != Chassis::NO_ERROR) {
     return Object::DISENGAGE_CHASSIS_ERROR;
   }
@@ -126,6 +128,7 @@ Object::DisengageType DeduceDisengageType(const Chassis &chassis) {
 }
 
 void SetObstacleType(const PerceptionObstacle &obstacle, Object *world_object) {
+AINFO<<"(DMCZP) EnteringMethod: SetObstacleType";
   if (world_object == nullptr) {
     return;
   }
@@ -157,6 +160,7 @@ void SetObstacleType(const PerceptionObstacle &obstacle, Object *world_object) {
 }
 
 void SetStopReason(const StopReasonCode &reason_code, Decision *decision) {
+AINFO<<"(DMCZP) EnteringMethod: SetStopReason";
   switch (reason_code) {
     case StopReasonCode::STOP_REASON_HEAD_VEHICLE:
       decision->set_stopreason(Decision::STOP_REASON_HEAD_VEHICLE);
@@ -195,6 +199,7 @@ void SetStopReason(const StopReasonCode &reason_code, Decision *decision) {
 
 void UpdateTurnSignal(const apollo::common::VehicleSignal &signal,
                       Object *auto_driving_car) {
+AINFO<<"(DMCZP) EnteringMethod: UpdateTurnSignal";
   if (signal.turn_signal() == apollo::common::VehicleSignal::TURN_LEFT) {
     auto_driving_car->set_current_signal("LEFT");
   } else if (signal.turn_signal() ==
@@ -208,6 +213,7 @@ void UpdateTurnSignal(const apollo::common::VehicleSignal &signal,
 }
 
 void DownsampleCurve(Curve *curve) {
+AINFO<<"(DMCZP) EnteringMethod: DownsampleCurve";
   if (curve->segment_size() == 0) {
     return;
   }
@@ -226,6 +232,7 @@ void DownsampleCurve(Curve *curve) {
 }
 
 inline double SecToMs(const double sec) { return sec * 1000.0; }
+AINFO<<"(DMCZP) EnteringMethod: SecToMs";
 
 }  // namespace
 
@@ -237,6 +244,7 @@ SimulationWorldService::SimulationWorldService(const MapService *map_service,
       map_service_(map_service),
       monitor_logger_buffer_(MonitorMessageItem::SIMULATOR),
       ready_to_push_(false) {
+AINFO<<"(DMCZP) EnteringMethod: SimulationWorldService::SimulationWorldService";
   InitReaders();
   InitWriters();
 
@@ -253,6 +261,7 @@ SimulationWorldService::SimulationWorldService(const MapService *map_service,
 }
 
 void SimulationWorldService::InitReaders() {
+AINFO<<"(DMCZP) EnteringMethod: SimulationWorldService::InitReaders";
   routing_request_reader_ =
       node_->CreateReader<RoutingRequest>(FLAGS_routing_request_topic);
   routing_response_reader_ =
@@ -294,6 +303,7 @@ void SimulationWorldService::InitReaders() {
 }
 
 void SimulationWorldService::InitWriters() {
+AINFO<<"(DMCZP) EnteringMethod: SimulationWorldService::InitWriters";
   navigation_writer_ =
       node_->CreateWriter<NavigationInfo>(FLAGS_navigation_topic);
 
@@ -318,6 +328,7 @@ void SimulationWorldService::InitWriters() {
 }
 
 void SimulationWorldService::Update() {
+AINFO<<"(DMCZP) EnteringMethod: SimulationWorldService::Update";
   if (to_clear_) {
     // Clears received data.
     node_->ClearData();
@@ -369,6 +380,7 @@ void SimulationWorldService::Update() {
 }
 
 void SimulationWorldService::UpdateDelays() {
+AINFO<<"(DMCZP) EnteringMethod: SimulationWorldService::UpdateDelays";
   auto *delays = world_.mutable_delay();
   delays->set_chassis(SecToMs(chassis_reader_->GetDelaySec()));
   delays->set_localization(SecToMs(localization_reader_->GetDelaySec()));
@@ -382,6 +394,7 @@ void SimulationWorldService::UpdateDelays() {
 }
 
 void SimulationWorldService::UpdateLatencies() {
+AINFO<<"(DMCZP) EnteringMethod: SimulationWorldService::UpdateLatencies";
   UpdateLatency("chassis", chassis_reader_.get());
   UpdateLatency("localization", localization_reader_.get());
   UpdateLatency("perception", perception_obstacle_reader_.get());
@@ -393,6 +406,7 @@ void SimulationWorldService::UpdateLatencies() {
 void SimulationWorldService::GetWireFormatString(
     double radius, std::string *sim_world,
     std::string *sim_world_with_planning_data) {
+AINFO<<"(DMCZP) EnteringMethod: SimulationWorldService::GetWireFormatString";
   PopulateMapInfo(radius);
 
   world_.SerializeToString(sim_world_with_planning_data);
@@ -402,6 +416,7 @@ void SimulationWorldService::GetWireFormatString(
 }
 
 Json SimulationWorldService::GetUpdateAsJson(double radius) const {
+AINFO<<"(DMCZP) EnteringMethod: SimulationWorldService::GetUpdateAsJson";
   std::string sim_world_json_string;
   MessageToJsonString(world_, &sim_world_json_string);
 
@@ -415,6 +430,7 @@ Json SimulationWorldService::GetUpdateAsJson(double radius) const {
 
 void SimulationWorldService::GetMapElementIds(double radius,
                                               MapElementIds *ids) const {
+AINFO<<"(DMCZP) EnteringMethod: SimulationWorldService::GetMapElementIds";
   // Gather required map element ids based on current location.
   apollo::common::PointENU point;
   const auto &adc = world_.auto_driving_car();
@@ -424,6 +440,7 @@ void SimulationWorldService::GetMapElementIds(double radius,
 }
 
 void SimulationWorldService::PopulateMapInfo(double radius) {
+AINFO<<"(DMCZP) EnteringMethod: SimulationWorldService::PopulateMapInfo";
   world_.clear_map_element_ids();
   GetMapElementIds(radius, world_.mutable_map_element_ids());
   world_.set_map_hash(map_service_->CalculateMapHash(world_.map_element_ids()));
@@ -431,17 +448,21 @@ void SimulationWorldService::PopulateMapInfo(double radius) {
 }
 
 const Map &SimulationWorldService::GetRelativeMap() const {
+AINFO<<"(DMCZP) EnteringMethod: &SimulationWorldService::GetRelativeMap";
   return relative_map_;
 }
 
 template <>
 void SimulationWorldService::UpdateSimulationWorld(
     const LocalizationEstimate &localization) {
+AINFO<<"(DMCZP) EnteringMethod: SimulationWorldService::UpdateSimulationWorld";
   Object *auto_driving_car = world_.mutable_auto_driving_car();
   const auto &pose = localization.pose();
 
   // Updates position with the input localization message.
   auto_driving_car->set_position_x(pose.position().x() +
+AINFO<<"(DMCZP) EnteringMethod: SimulationWorldService::UpdateSimulationWorld";
+AINFO<<"(DMCZP) EnteringMethod: SimulationWorldService::UpdateSimulationWorld";
                                    map_service_->GetXOffset());
   auto_driving_car->set_position_y(pose.position().y() +
                                    map_service_->GetYOffset());
@@ -451,16 +472,23 @@ void SimulationWorldService::UpdateSimulationWorld(
   auto_driving_car->set_speed_acceleration(CalculateAcceleration(
       pose.linear_acceleration(), pose.linear_velocity(), gear_location_));
 
+AINFO<<"(DMCZP) EnteringMethod: SimulationWorldService::UpdateSimulationWorld";
   // Updates the timestamp with the timestamp inside the localization
+AINFO<<"(DMCZP) EnteringMethod: SimulationWorldService::UpdateSimulationWorld";
+AINFO<<"(DMCZP) EnteringMethod: SimulationWorldService::UpdateSimulationWorld";
   // message header. It is done on both the SimulationWorld object
   // itself and its auto_driving_car() field.
+AINFO<<"(DMCZP) EnteringMethod: SimulationWorldService::UpdateSimulationWorld";
+AINFO<<"(DMCZP) EnteringMethod: SimulationWorldService::UpdateSimulationWorld";
   auto_driving_car->set_timestamp_sec(localization.header().timestamp_sec());
+AINFO<<"(DMCZP) EnteringMethod: SimulationWorldService::UpdateSimulationWorld";
 
   ready_to_push_.store(true);
 }
 
 template <>
 void SimulationWorldService::UpdateSimulationWorld(const Gps &gps) {
+AINFO<<"(DMCZP) EnteringMethod: SimulationWorldService::UpdateSimulationWorld";
   if (gps.header().module_name() == "ShadowLocalization") {
     Object *shadow_localization_position = world_.mutable_shadow_localization();
     const auto &pose = gps.localization();
@@ -488,6 +516,7 @@ void SimulationWorldService::UpdateSimulationWorld(const Gps &gps) {
 
 template <>
 void SimulationWorldService::UpdateSimulationWorld(const Chassis &chassis) {
+AINFO<<"(DMCZP) EnteringMethod: SimulationWorldService::UpdateSimulationWorld";
   const auto &vehicle_param = VehicleConfigHelper::GetConfig().vehicle_param();
   Object *auto_driving_car = world_.mutable_auto_driving_car();
 
@@ -522,6 +551,7 @@ void SimulationWorldService::UpdateSimulationWorld(const Chassis &chassis) {
 
 Object &SimulationWorldService::CreateWorldObjectIfAbsent(
     const PerceptionObstacle &obstacle) {
+AINFO<<"(DMCZP) EnteringMethod: &SimulationWorldService::CreateWorldObjectIfAbsent";
   const std::string id = std::to_string(obstacle.id());
   // Create a new world object and put it into object map if the id does not
   // exist in the map yet.
@@ -536,6 +566,7 @@ Object &SimulationWorldService::CreateWorldObjectIfAbsent(
 
 void SimulationWorldService::SetObstacleInfo(const PerceptionObstacle &obstacle,
                                              Object *world_object) {
+AINFO<<"(DMCZP) EnteringMethod: SimulationWorldService::SetObstacleInfo";
   if (world_object == nullptr) {
     return;
   }
@@ -560,6 +591,7 @@ void SimulationWorldService::SetObstacleInfo(const PerceptionObstacle &obstacle,
 
 void SimulationWorldService::SetObstaclePolygon(
     const PerceptionObstacle &obstacle, Object *world_object) {
+AINFO<<"(DMCZP) EnteringMethod: SimulationWorldService::SetObstaclePolygon";
   if (world_object == nullptr) {
     return;
   }
@@ -610,6 +642,7 @@ void SimulationWorldService::UpdateSimulationWorld(
 
 void SimulationWorldService::UpdatePlanningTrajectory(
     const ADCTrajectory &trajectory) {
+AINFO<<"(DMCZP) EnteringMethod: SimulationWorldService::UpdatePlanningTrajectory";
   // Collect trajectory
   world_.clear_planning_trajectory();
   const double base_time = trajectory.header().timestamp_sec();
@@ -636,12 +669,14 @@ void SimulationWorldService::UpdatePlanningTrajectory(
 }
 
 std::string formatDoubleToString(const double data) {
+AINFO<<"(DMCZP) EnteringMethod: formatDoubleToString";
   std::stringstream ss;
   ss << std::fixed << std::setprecision(2) << data;
   return ss.str();
 }
 
 void SimulationWorldService::UpdateRSSInfo(const ADCTrajectory &trajectory) {
+AINFO<<"(DMCZP) EnteringMethod: SimulationWorldService::UpdateRSSInfo";
   if (trajectory.has_rss_info()) {
     if (trajectory.rss_info().is_rss_safe()) {
       if (!world_.is_rss_safe()) {
@@ -675,6 +710,7 @@ void SimulationWorldService::UpdateRSSInfo(const ADCTrajectory &trajectory) {
 void SimulationWorldService::UpdateMainStopDecision(
     const apollo::planning::MainDecision &main_decision,
     double update_timestamp_sec, Object *world_main_decision) {
+AINFO<<"(DMCZP) EnteringMethod: SimulationWorldService::UpdateMainStopDecision";
   apollo::common::math::Vec2d stop_pt;
   double stop_heading = 0.0;
   auto decision = world_main_decision->add_decision();
@@ -713,6 +749,7 @@ void SimulationWorldService::UpdateMainStopDecision(
 bool SimulationWorldService::LocateMarker(
     const apollo::planning::ObjectDecisionType &decision,
     Decision *world_decision) {
+AINFO<<"(DMCZP) EnteringMethod: SimulationWorldService::LocateMarker";
   apollo::common::PointENU fence_point;
   double heading;
   if (decision.has_stop() && decision.stop().has_stop_point()) {
@@ -744,6 +781,7 @@ bool SimulationWorldService::LocateMarker(
 void SimulationWorldService::FindNudgeRegion(
     const apollo::planning::ObjectDecisionType &decision,
     const Object &world_obj, Decision *world_decision) {
+AINFO<<"(DMCZP) EnteringMethod: SimulationWorldService::FindNudgeRegion";
   std::vector<apollo::common::math::Vec2d> points;
   for (auto &polygon_pt : world_obj.polygon_point()) {
     points.emplace_back(polygon_pt.x(), polygon_pt.y());
@@ -763,6 +801,7 @@ void SimulationWorldService::FindNudgeRegion(
 
 void SimulationWorldService::UpdateDecision(const DecisionResult &decision_res,
                                             double header_time) {
+AINFO<<"(DMCZP) EnteringMethod: SimulationWorldService::UpdateDecision";
   // Update turn signal.
   UpdateTurnSignal(decision_res.vehicle_signal(),
                    world_.mutable_auto_driving_car());
@@ -846,6 +885,7 @@ void SimulationWorldService::UpdateDecision(const DecisionResult &decision_res,
 
 void SimulationWorldService::DownsamplePath(const common::Path &path,
                                             common::Path *downsampled_path) {
+AINFO<<"(DMCZP) EnteringMethod: SimulationWorldService::DownsamplePath";
   auto sampled_indices = DownsampleByAngle(path.path_point(), kAngleThreshold);
 
   downsampled_path->set_name(path.name());
@@ -856,6 +896,7 @@ void SimulationWorldService::DownsamplePath(const common::Path &path,
 }
 
 void SimulationWorldService::UpdatePlanningData(const PlanningData &data) {
+AINFO<<"(DMCZP) EnteringMethod: SimulationWorldService::UpdatePlanningData";
   auto *planning_data = world_.mutable_planning_data();
 
   size_t max_interval = 10;
@@ -977,6 +1018,7 @@ void SimulationWorldService::UpdateSimulationWorld(
 
 void SimulationWorldService::CreatePredictionTrajectory(
     const PredictionObstacle &obstacle, Object *world_object) {
+AINFO<<"(DMCZP) EnteringMethod: SimulationWorldService::CreatePredictionTrajectory";
   for (const auto &traj : obstacle.trajectory()) {
     Prediction *prediction = world_object->add_prediction();
     prediction->set_probability(traj.probability());
@@ -1060,6 +1102,7 @@ void SimulationWorldService::UpdateSimulationWorld(
 }
 
 Json SimulationWorldService::GetRoutePathAsJson() const {
+AINFO<<"(DMCZP) EnteringMethod: SimulationWorldService::GetRoutePathAsJson";
   Json response;
   response["routingTime"] = world_.routing_time();
   response["routePath"] = Json::array();
@@ -1080,6 +1123,7 @@ Json SimulationWorldService::GetRoutePathAsJson() const {
 
 void SimulationWorldService::ReadRoutingFromFile(
     const std::string &routing_response_file) {
+AINFO<<"(DMCZP) EnteringMethod: SimulationWorldService::ReadRoutingFromFile";
   auto routing_response = std::make_shared<RoutingResponse>();
   if (!GetProtoFromFile(routing_response_file, routing_response.get())) {
     AWARN << "Unable to read routing response from file: "
@@ -1152,6 +1196,7 @@ void SimulationWorldService::UpdateSimulationWorld(
 
 template <>
 void SimulationWorldService::UpdateSimulationWorld(const MapMsg &map_msg) {
+AINFO<<"(DMCZP) EnteringMethod: SimulationWorldService::UpdateSimulationWorld";
   if (map_msg.has_hdmap()) {
     relative_map_.CopyFrom(map_msg.hdmap());
     for (int i = 0; i < relative_map_.lane_size(); ++i) {
@@ -1190,6 +1235,7 @@ void SimulationWorldService::UpdateSimulationWorld(
 }
 
 void SimulationWorldService::UpdateMonitorMessages() {
+AINFO<<"(DMCZP) EnteringMethod: SimulationWorldService::UpdateMonitorMessages";
   std::list<std::shared_ptr<MonitorMessage>> monitor_msgs;
   {
     std::unique_lock<std::mutex> lock(monitor_msgs_mutex_);
@@ -1203,6 +1249,7 @@ void SimulationWorldService::UpdateMonitorMessages() {
 }
 
 void SimulationWorldService::DumpMessages() {
+AINFO<<"(DMCZP) EnteringMethod: SimulationWorldService::DumpMessages";
   DumpMessageFromReader(chassis_reader_.get());
   DumpMessageFromReader(prediction_obstacle_reader_.get());
   DumpMessageFromReader(routing_request_reader_.get());
@@ -1218,12 +1265,14 @@ void SimulationWorldService::DumpMessages() {
 
 void SimulationWorldService::PublishNavigationInfo(
     const std::shared_ptr<NavigationInfo> &navigation_info) {
+AINFO<<"(DMCZP) EnteringMethod: SimulationWorldService::PublishNavigationInfo";
   FillHeader(FLAGS_dreamview_module_name, navigation_info.get());
   navigation_writer_->Write(navigation_info);
 }
 
 void SimulationWorldService::PublishRoutingRequest(
     const std::shared_ptr<RoutingRequest> &routing_request) {
+AINFO<<"(DMCZP) EnteringMethod: SimulationWorldService::PublishRoutingRequest";
   FillHeader(FLAGS_dreamview_module_name, routing_request.get());
   routing_request_writer_->Write(routing_request);
 }
@@ -1231,6 +1280,7 @@ void SimulationWorldService::PublishRoutingRequest(
 void SimulationWorldService::PublishMonitorMessage(
     apollo::common::monitor::MonitorMessageItem::LogLevel log_level,
     const std::string &msg) {
+AINFO<<"(DMCZP) EnteringMethod: SimulationWorldService::PublishMonitorMessage";
   monitor_logger_buffer_.AddMonitorMsgItem(log_level, msg);
   monitor_logger_buffer_.Publish();
 }

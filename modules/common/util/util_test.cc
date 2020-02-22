@@ -25,16 +25,19 @@ namespace common {
 namespace util {
 
 TEST(Util, MaxElement) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   EXPECT_EQ(3, MaxElement(std::vector<int>{1, 2, 3}));
   EXPECT_FLOAT_EQ(3.3, MaxElement(std::vector<float>{1.1, 2.2, 3.3}));
 }
 
 TEST(Util, MinElement) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   EXPECT_EQ(1, MinElement(std::vector<int>{1, 2, 3}));
   EXPECT_FLOAT_EQ(1.1, MinElement(std::vector<float>{1.1, 2.2, 3.3}));
 }
 
 TEST(Util, IsProtoEqual) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   test::SimpleRepeatedMessage sim1;
   for (int i = 0; i < 10; ++i) {
     auto* t = sim1.add_message();
@@ -48,6 +51,7 @@ TEST(Util, IsProtoEqual) {
 }
 
 TEST(Util, DistanceXY) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   class TestPoint {
    public:
     TestPoint(double x, double y) : x_(x), y_(y) {}
@@ -65,6 +69,7 @@ TEST(Util, DistanceXY) {
 }
 
 TEST(Util, uniform_slice) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   std::vector<double> result;
   uniform_slice(0.0, 10.0, 3, &result);
   ASSERT_EQ(4, result.size());
@@ -82,6 +87,7 @@ TEST(Util, uniform_slice) {
 }
 
 TEST(Util, IsFloatEqual) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   double d1 = 0.2;
   double d2 = 1 / std::sqrt(5) / std::sqrt(5);
   EXPECT_TRUE(IsFloatEqual(d1, d2));

@@ -101,6 +101,7 @@ class LonControllerTest : public ::testing::Test, LonController {
 };
 
 TEST_F(LonControllerTest, ComputeLongitudinalErrors) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   FLAGS_enable_map_reference_unify = false;
 
   auto localization_pb =
@@ -147,6 +148,7 @@ TEST_F(LonControllerTest, ComputeLongitudinalErrors) {
 }
 
 TEST_F(LonControllerTest, Init) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   common::Status status = Init(nullptr);
   EXPECT_EQ(status.code(), common::ErrorCode::CONTROL_INIT_ERROR);
 }

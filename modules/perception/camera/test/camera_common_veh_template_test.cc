@@ -22,6 +22,7 @@ namespace perception {
 namespace camera {
 
 TEST(VehtemplateTest, GetVisualObjHwlBySearchTemplatesTest) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   ObjectTemplateManagerInitOptions options;
   options.root_dir =
       "/apollo/modules/perception/testdata/"

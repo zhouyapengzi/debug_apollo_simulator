@@ -35,6 +35,7 @@ using apollo::planning_internal::STGraphDebug;
 PlanningBase::~PlanningBase() {}
 
 Status PlanningBase::Init(const PlanningConfig& config) {
+AINFO<<"(DMCZP) EnteringMethod: PlanningBase::Init";
   PlanningContext::Instance()->Instance()->Init();
   TaskFactory::Init(config);
   return Status::OK();
@@ -42,6 +43,7 @@ Status PlanningBase::Init(const PlanningConfig& config) {
 
 void PlanningBase::FillPlanningPb(const double timestamp,
                                   ADCTrajectory* const trajectory_pb) {
+AINFO<<"(DMCZP) EnteringMethod: PlanningBase::FillPlanningPb";
   trajectory_pb->mutable_header()->set_timestamp_sec(timestamp);
   if (local_view_.prediction_obstacles->has_header()) {
     trajectory_pb->mutable_header()->set_lidar_timestamp(

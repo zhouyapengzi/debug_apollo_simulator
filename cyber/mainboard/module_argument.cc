@@ -26,6 +26,7 @@ namespace cyber {
 namespace mainboard {
 
 void ModuleArgument::DisplayUsage() {
+AINFO<<"(DMCZP) EnteringMethod: ModuleArgument::DisplayUsage";
   AINFO << "Usage: \n    " << binary_name_ << " [OPTION]...\n"
         << "Description: \n"
         << "    -h, --help : help information \n"
@@ -41,6 +42,7 @@ void ModuleArgument::DisplayUsage() {
 }
 
 void ModuleArgument::ParseArgument(const int argc, char* const argv[]) {
+AINFO<<"(DMCZP) EnteringMethod: ModuleArgument::ParseArgument";
   binary_name_ = std::string(basename(argv[0]));
   GetOptions(argc, argv);
 
@@ -62,6 +64,7 @@ void ModuleArgument::ParseArgument(const int argc, char* const argv[]) {
 }
 
 void ModuleArgument::GetOptions(const int argc, char* const argv[]) {
+AINFO<<"(DMCZP) EnteringMethod: ModuleArgument::GetOptions";
   opterr = 0;  // extern int opterr
   int long_index = 0;
   const std::string short_opts = "hd:p:s:";

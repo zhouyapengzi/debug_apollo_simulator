@@ -25,6 +25,7 @@ namespace cyber {
 namespace base {
 
 TEST(ForEachTest, base) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   std::vector<int> vec;
   FOR_EACH(i, 0, 100) { vec.push_back(i); }
   EXPECT_EQ(100, vec.size());

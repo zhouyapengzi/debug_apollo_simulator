@@ -30,8 +30,10 @@ namespace cyber {
 namespace scheduler {
 
 void func() {}
+AINFO<<"(DMCZP) EnteringMethod: func";
 
 TEST(SchedulerChoreoTest, choreo) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   auto processor = std::make_shared<Processor>();
   auto ctx = std::make_shared<ChoreographyContext>();
   processor->BindContext(ctx);
@@ -44,6 +46,7 @@ TEST(SchedulerChoreoTest, choreo) {
 }
 
 TEST(SchedulerChoreoTest, sched_choreo) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   GlobalData::Instance()->SetProcessGroup("example_sched_choreography");
   auto sched = dynamic_cast<SchedulerChoreography*>(scheduler::Instance());
   cyber::Init("SchedulerChoreoTest");

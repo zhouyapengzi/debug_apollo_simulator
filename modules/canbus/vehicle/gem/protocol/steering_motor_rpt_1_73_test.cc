@@ -28,6 +28,7 @@ class Steeringmotorrpt173Test : public ::testing::Test {
 };
 
 TEST_F(Steeringmotorrpt173Test, reset) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   Steeringmotorrpt173 steeringmotor1;
   int32_t length = 8;
   ChassisDetail chassis_detail;

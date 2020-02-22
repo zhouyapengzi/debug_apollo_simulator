@@ -34,6 +34,7 @@ namespace canbus {
 namespace transit {
 
 TransitMessageManager::TransitMessageManager() {
+AINFO<<"(DMCZP) EnteringMethod: TransitMessageManager::TransitMessageManager";
   // Control Messages
   AddSendProtocolData<Adcauxiliarycontrol110, true>();
   AddSendProtocolData<Adcmotioncontrol110, true>();

@@ -32,6 +32,7 @@ class CompressionTestSuite : public ::testing::Test {
 
 /**@brief ZlibStrategyTest. */
 TEST_F(CompressionTestSuite, ZlibStrategyTest) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   ZlibStrategy zlib;
   std::vector<unsigned char> buf_uncompressed;
   std::vector<unsigned char> buf_compressed;

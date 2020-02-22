@@ -23,6 +23,7 @@ namespace base {
 
 Eigen::Vector2f BrownCameraDistortionModel::Project(
     const Eigen::Vector3f& point3d) {
+AINFO<<"(DMCZP) EnteringMethod: BrownCameraDistortionModel::Project";
   CHECK(std::isgreater(point3d[2], 0.f))
       << "the input point should be in front of the camera";
   // radial distortion coefficients
@@ -67,6 +68,7 @@ Eigen::Vector2f BrownCameraDistortionModel::Project(
 
 std::shared_ptr<BaseCameraModel>
 BrownCameraDistortionModel::get_camera_model() {
+AINFO<<"(DMCZP) EnteringMethod: BrownCameraDistortionModel::get_camera_model";
   std::shared_ptr<PinholeCameraModel> camera_model(new PinholeCameraModel());
   camera_model->set_width(width_);
   camera_model->set_height(height_);
@@ -77,6 +79,7 @@ BrownCameraDistortionModel::get_camera_model() {
 
 bool BrownCameraDistortionModel::set_params(size_t width, size_t height,
                                             const Eigen::VectorXf& params) {
+AINFO<<"(DMCZP) EnteringMethod: BrownCameraDistortionModel::set_params";
   if (params.size() != 14) {
     return false;
   }

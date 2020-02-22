@@ -23,6 +23,7 @@ namespace canbus {
 namespace lincoln {
 
 TEST(Wheelspeed6aTest, General) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   Wheelspeed6a wheelspeed;
   uint8_t data[8] = {0x61, 0x62, 0x63, 0x64, 0x51, 0x52, 0x53, 0x54};
   int32_t length = 8;

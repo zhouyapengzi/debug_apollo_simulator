@@ -34,6 +34,7 @@ class llc_motionfeedback2_21Test : public ::testing ::Test {
 };
 
 TEST_F(llc_motionfeedback2_21Test, motion_fdk) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   const uint8_t kData[8] = {0x9A, 0xFC, 0x56, 0xF7, 0x12, 0x34, 0xFF, 0xFF};
   int32_t speed_len = 8;
   int32_t counter_len = 2;

@@ -70,6 +70,7 @@ class HybridTransceiverTest : public ::testing::Test {
 };
 
 TEST_F(HybridTransceiverTest, constructor) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   RoleAttributes attr;
   TransmitterPtr transmitter =
       std::make_shared<HybridTransmitter<proto::UnitTest>>(
@@ -86,6 +87,7 @@ TEST_F(HybridTransceiverTest, constructor) {
 }
 
 TEST_F(HybridTransceiverTest, enable_and_disable_with_param_no_relation) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   RoleAttributes attr;
   attr.set_host_name(common::GlobalData::Instance()->HostName());
   attr.set_process_id(common::GlobalData::Instance()->ProcessId());
@@ -139,6 +141,7 @@ TEST_F(HybridTransceiverTest, enable_and_disable_with_param_no_relation) {
 }
 
 TEST_F(HybridTransceiverTest, enable_and_disable_with_param_same_process) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   RoleAttributes attr;
   attr.set_host_name(common::GlobalData::Instance()->HostName());
   attr.set_process_id(common::GlobalData::Instance()->ProcessId());
@@ -210,6 +213,7 @@ TEST_F(HybridTransceiverTest, enable_and_disable_with_param_same_process) {
 
 TEST_F(HybridTransceiverTest,
        enable_and_disable_with_param_same_host_diff_proc) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   RoleAttributes attr;
   attr.set_host_name(common::GlobalData::Instance()->HostName());
   attr.set_process_id(1);
@@ -277,6 +281,7 @@ TEST_F(HybridTransceiverTest,
 }
 
 TEST_F(HybridTransceiverTest, enable_and_disable_with_param_diff_host) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   RoleAttributes attr;
   attr.set_host_name("sorac");
   attr.set_process_id(12345);
@@ -343,6 +348,7 @@ TEST_F(HybridTransceiverTest, enable_and_disable_with_param_diff_host) {
 }  // namespace apollo
 
 int main(int argc, char** argv) {
+AINFO<<"(DMCZP) EnteringMethod: main";
   testing::InitGoogleTest(&argc, argv);
   apollo::cyber::Init(argv[0]);
   apollo::cyber::transport::Transport::Instance();

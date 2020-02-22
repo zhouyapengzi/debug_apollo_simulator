@@ -38,6 +38,7 @@ class OpenSpaceTrajectoryPartitionTest : public ::testing::Test {
 };
 
 TEST_F(OpenSpaceTrajectoryPartitionTest, Init) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   OpenSpaceTrajectoryPartition open_space_trajectory_partition(config_);
   EXPECT_EQ(open_space_trajectory_partition.Name(),
             TaskConfig::TaskType_Name(config_.task_type()));

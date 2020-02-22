@@ -33,6 +33,7 @@ using apollo::common::Status;
 using apollo::common::time::Clock;
 
 void ControllerAgent::RegisterControllers(const ControlConf *control_conf) {
+AINFO<<"(DMCZP) EnteringMethod: ControllerAgent::RegisterControllers";
   AINFO << "Only support MPC controller or Lat + Lon controllers as of now";
   for (auto active_controller : control_conf->active_controllers()) {
     switch (active_controller) {
@@ -58,6 +59,7 @@ void ControllerAgent::RegisterControllers(const ControlConf *control_conf) {
 }
 
 Status ControllerAgent::InitializeConf(const ControlConf *control_conf) {
+AINFO<<"(DMCZP) EnteringMethod: ControllerAgent::InitializeConf";
   if (!control_conf) {
     AERROR << "control_conf is null";
     return Status(ErrorCode::CONTROL_INIT_ERROR, "Failed to load config");
@@ -78,6 +80,7 @@ Status ControllerAgent::InitializeConf(const ControlConf *control_conf) {
 }
 
 Status ControllerAgent::Init(const ControlConf *control_conf) {
+AINFO<<"(DMCZP) EnteringMethod: ControllerAgent::Init";
   RegisterControllers(control_conf);
   CHECK(InitializeConf(control_conf).ok()) << "Failed to initialize config.";
   for (auto &controller : controller_list_) {
@@ -98,6 +101,7 @@ Status ControllerAgent::ComputeControlCommand(
     const localization::LocalizationEstimate *localization,
     const canbus::Chassis *chassis, const planning::ADCTrajectory *trajectory,
     control::ControlCommand *cmd) {
+AINFO<<"(DMCZP) EnteringMethod: ControllerAgent::ComputeControlCommand";
   for (auto &controller : controller_list_) {
     ADEBUG << "controller:" << controller->Name() << " processing ...";
     double start_timestamp = Clock::NowInSeconds();
@@ -113,6 +117,7 @@ Status ControllerAgent::ComputeControlCommand(
 }
 
 Status ControllerAgent::Reset() {
+AINFO<<"(DMCZP) EnteringMethod: ControllerAgent::Reset";
   for (auto &controller : controller_list_) {
     ADEBUG << "controller:" << controller->Name() << " reset...";
     controller->Reset();

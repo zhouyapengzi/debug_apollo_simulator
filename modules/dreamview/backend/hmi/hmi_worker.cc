@@ -45,6 +45,12 @@ DEFINE_string(default_hmi_mode, "Mkz Standard Debug",
               "Default HMI Mode when there is no cache.");
 
 namespace apollo {
+AINFO<<"(DMCZP) EnteringMethod: DEFINE_string";
+AINFO<<"(DMCZP) EnteringMethod: DEFINE_string";
+AINFO<<"(DMCZP) EnteringMethod: DEFINE_string";
+AINFO<<"(DMCZP) EnteringMethod: DEFINE_double";
+AINFO<<"(DMCZP) EnteringMethod: DEFINE_string";
+AINFO<<"(DMCZP) EnteringMethod: DEFINE_string";
 namespace dreamview {
 namespace {
 
@@ -66,6 +72,7 @@ constexpr char kNavigationModeName[] = "Navigation";
 
 // Convert a string to be title-like. E.g.: "hello_world" -> "Hello World".
 std::string TitleCase(const std::string& origin) {
+AINFO<<"(DMCZP) EnteringMethod: TitleCase";
   static const std::string kDelimiter = "_";
   std::vector<std::string> parts =
       apollo::common::util::StringTokenizer::Split(origin, kDelimiter);
@@ -109,6 +116,7 @@ Map<std::string, std::string> ListFilesAsDict(const std::string& dir,
 template <class FlagType, class ValueType>
 void SetGlobalFlag(const std::string& flag_name, const ValueType& value,
                    FlagType* flag) {
+AINFO<<"(DMCZP) EnteringMethod: SetGlobalFlag";
   static constexpr char kGlobalFlagfile[] =
       "/apollo/modules/common/data/global_flagfile.txt";
   if (*flag != value) {
@@ -121,6 +129,7 @@ void SetGlobalFlag(const std::string& flag_name, const ValueType& value,
 }
 
 void System(const std::string& cmd) {
+AINFO<<"(DMCZP) EnteringMethod: System";
   const int ret = std::system(cmd.c_str());
   if (ret == 0) {
     AINFO << "SUCCESS: " << cmd;
@@ -133,10 +142,12 @@ void System(const std::string& cmd) {
 
 HMIWorker::HMIWorker(const std::shared_ptr<Node>& node)
     : config_(LoadConfig()), node_(node) {
+AINFO<<"(DMCZP) EnteringMethod: HMIWorker::HMIWorker";
   InitStatus();
 }
 
 void HMIWorker::Start() {
+AINFO<<"(DMCZP) EnteringMethod: HMIWorker::Start";
   InitReadersAndWriters();
   RegisterStatusUpdateHandler(
       [this](const bool status_changed, HMIStatus* status) {
@@ -148,6 +159,7 @@ void HMIWorker::Start() {
 }
 
 void HMIWorker::Stop() {
+AINFO<<"(DMCZP) EnteringMethod: HMIWorker::Stop";
   stop_ = true;
   if (thread_future_.valid()) {
     thread_future_.get();
@@ -155,6 +167,7 @@ void HMIWorker::Stop() {
 }
 
 HMIConfig HMIWorker::LoadConfig() {
+AINFO<<"(DMCZP) EnteringMethod: HMIWorker::LoadConfig";
   HMIConfig config;
   // Get available modes, maps and vehicles by listing data directory.
   *config.mutable_modes() =
@@ -169,6 +182,7 @@ HMIConfig HMIWorker::LoadConfig() {
 }
 
 HMIMode HMIWorker::LoadMode(const std::string& mode_config_path) {
+AINFO<<"(DMCZP) EnteringMethod: HMIWorker::LoadMode";
   HMIMode mode;
   CHECK(cyber::common::GetProtoFromFile(mode_config_path, &mode))
       << "Unable to parse HMIMode from file " << mode_config_path;
@@ -209,6 +223,7 @@ HMIMode HMIWorker::LoadMode(const std::string& mode_config_path) {
 }
 
 void HMIWorker::InitStatus() {
+AINFO<<"(DMCZP) EnteringMethod: HMIWorker::InitStatus";
   static const std::string kDockerImageEnv = "DOCKER_IMG";
   status_.set_docker_image(cyber::common::GetEnv(kDockerImageEnv));
   status_.set_utm_zone_id(FLAGS_local_utm_zone_id);
@@ -252,6 +267,7 @@ void HMIWorker::InitStatus() {
 }
 
 void HMIWorker::InitReadersAndWriters() {
+AINFO<<"(DMCZP) EnteringMethod: HMIWorker::InitReadersAndWriters";
   status_writer_ = node_->CreateWriter<HMIStatus>(FLAGS_hmi_status_topic);
   pad_writer_ = node_->CreateWriter<control::PadMessage>(FLAGS_pad_topic);
   drive_event_writer_ =
@@ -314,6 +330,7 @@ void HMIWorker::InitReadersAndWriters() {
 }
 
 bool HMIWorker::Trigger(const HMIAction action) {
+AINFO<<"(DMCZP) EnteringMethod: HMIWorker::Trigger";
   AINFO << "HMIAction " << HMIAction_Name(action) << " was triggered!";
   switch (action) {
     case HMIAction::NONE:
@@ -336,6 +353,7 @@ bool HMIWorker::Trigger(const HMIAction action) {
 }
 
 bool HMIWorker::Trigger(const HMIAction action, const std::string& value) {
+AINFO<<"(DMCZP) EnteringMethod: HMIWorker::Trigger";
   AINFO << "HMIAction " << HMIAction_Name(action) << "(" << value
         << ") was triggered!";
   switch (action) {
@@ -368,6 +386,7 @@ void HMIWorker::SubmitDriveEvent(const uint64_t event_time_ms,
                                  const std::string& event_msg,
                                  const std::vector<std::string>& event_types,
                                  const bool is_reportable) {
+AINFO<<"(DMCZP) EnteringMethod: HMIWorker::SubmitDriveEvent";
   std::shared_ptr<DriveEvent> drive_event = std::make_shared<DriveEvent>();
   apollo::common::util::FillHeader("HMI", drive_event.get());
   // TODO(xiaoxq): Here we reuse the header time field as the event occurring
@@ -389,6 +408,7 @@ void HMIWorker::SubmitDriveEvent(const uint64_t event_time_ms,
 }
 
 bool HMIWorker::ChangeDrivingMode(const Chassis::DrivingMode mode) {
+AINFO<<"(DMCZP) EnteringMethod: HMIWorker::ChangeDrivingMode";
   // Always reset to MANUAL mode before changing to other mode.
   const std::string mode_name = Chassis::DrivingMode_Name(mode);
   if (mode != Chassis::COMPLETE_MANUAL) {
@@ -432,6 +452,7 @@ bool HMIWorker::ChangeDrivingMode(const Chassis::DrivingMode mode) {
 }
 
 void HMIWorker::ChangeMap(const std::string& map_name) {
+AINFO<<"(DMCZP) EnteringMethod: HMIWorker::ChangeMap";
   const std::string* map_dir = FindOrNull(config_.maps(), map_name);
   if (map_dir == nullptr) {
     AERROR << "Unknown map " << map_name;
@@ -453,6 +474,7 @@ void HMIWorker::ChangeMap(const std::string& map_name) {
 }
 
 void HMIWorker::ChangeVehicle(const std::string& vehicle_name) {
+AINFO<<"(DMCZP) EnteringMethod: HMIWorker::ChangeVehicle";
   const std::string* vehicle_dir = FindOrNull(config_.vehicles(), vehicle_name);
   if (vehicle_dir == nullptr) {
     AERROR << "Unknown vehicle " << vehicle_name;
@@ -474,6 +496,7 @@ void HMIWorker::ChangeVehicle(const std::string& vehicle_name) {
 }
 
 void HMIWorker::ChangeMode(const std::string& mode_name) {
+AINFO<<"(DMCZP) EnteringMethod: HMIWorker::ChangeMode";
   if (!ContainsKey(config_.modes(), mode_name)) {
     AERROR << "Cannot change to unknown mode " << mode_name;
     return;
@@ -509,6 +532,7 @@ void HMIWorker::ChangeMode(const std::string& mode_name) {
 }
 
 void HMIWorker::StartModule(const std::string& module) const {
+AINFO<<"(DMCZP) EnteringMethod: HMIWorker::StartModule";
   const Module* module_conf = FindOrNull(current_mode_.modules(), module);
   if (module_conf != nullptr) {
     System(module_conf->start_command());
@@ -518,6 +542,7 @@ void HMIWorker::StartModule(const std::string& module) const {
 }
 
 void HMIWorker::StopModule(const std::string& module) const {
+AINFO<<"(DMCZP) EnteringMethod: HMIWorker::StopModule";
   const Module* module_conf = FindOrNull(current_mode_.modules(), module);
   if (module_conf != nullptr) {
     System(module_conf->stop_command());
@@ -527,29 +552,34 @@ void HMIWorker::StopModule(const std::string& module) const {
 }
 
 HMIStatus HMIWorker::GetStatus() const {
+AINFO<<"(DMCZP) EnteringMethod: HMIWorker::GetStatus";
   RLock rlock(status_mutex_);
   return status_;
 }
 
 void HMIWorker::SetupMode() const {
+AINFO<<"(DMCZP) EnteringMethod: HMIWorker::SetupMode";
   for (const auto& iter : current_mode_.modules()) {
     System(iter.second.start_command());
   }
 }
 
 void HMIWorker::ResetMode() const {
+AINFO<<"(DMCZP) EnteringMethod: HMIWorker::ResetMode";
   for (const auto& iter : current_mode_.modules()) {
     System(iter.second.stop_command());
   }
 }
 
 void HMIWorker::RecordAudio(const std::string& data) {
+AINFO<<"(DMCZP) EnteringMethod: HMIWorker::RecordAudio";
   AudioCapture audio;
   audio.set_wav_stream(apollo::common::util::DecodeBase64(data));
   audio_capture_writer_->Write(audio);
 }
 
 void HMIWorker::StatusUpdateThreadLoop() {
+AINFO<<"(DMCZP) EnteringMethod: HMIWorker::StatusUpdateThreadLoop";
   while (!stop_) {
     static constexpr int kLoopIntervalMs = 200;
     std::this_thread::sleep_for(std::chrono::milliseconds(kLoopIntervalMs));

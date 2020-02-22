@@ -30,6 +30,7 @@ namespace lidar {
 using cyber::common::GetAbsolutePath;
 
 bool MlfMotionRefiner::Init(const MlfMotionRefinerInitOptions& options) {
+AINFO<<"(DMCZP) EnteringMethod: MlfMotionRefiner::Init";
   auto config_manager = lib::ConfigManager::Instance();
   const lib::ModelConfig* model_config = nullptr;
   CHECK(config_manager->GetModelConfig(Name(), &model_config));
@@ -49,6 +50,7 @@ bool MlfMotionRefiner::Init(const MlfMotionRefinerInitOptions& options) {
 
 bool MlfMotionRefiner::Refine(const MlfTrackDataConstPtr& track_data,
                               TrackedObjectPtr new_object) {
+AINFO<<"(DMCZP) EnteringMethod: MlfMotionRefiner::Refine";
   auto latest_object_pair = track_data->GetLatestObject();
   const TrackedObjectConstPtr& latest_object = latest_object_pair.second;
 
@@ -95,6 +97,7 @@ bool MlfMotionRefiner::Refine(const MlfTrackDataConstPtr& track_data,
 bool MlfMotionRefiner::CheckStaticHypothesisByState(
     const TrackedObjectConstPtr& latest_object,
     const TrackedObjectConstPtr& new_object) const {
+AINFO<<"(DMCZP) EnteringMethod: MlfMotionRefiner::CheckStaticHypothesisByState";
   // Check whether track is static or not
   // evaluate speed noise level, the less the level is the
   // greater the probability of noise is
@@ -147,6 +150,7 @@ bool MlfMotionRefiner::CheckStaticHypothesisByVelocityAngleChange(
     const TrackedObjectConstPtr& latest_object,
     const TrackedObjectConstPtr& new_object,
     double reasonable_angle_change_maximum) const {
+AINFO<<"(DMCZP) EnteringMethod: MlfMotionRefiner::CheckStaticHypothesisByVelocityAngleChange";
   // note reasonable_angle_change_maximum should be within [0, M_PI]
   // believe angle change is obvious if one of estimation pair is
   // extrodinary small

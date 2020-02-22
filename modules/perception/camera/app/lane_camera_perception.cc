@@ -42,6 +42,7 @@ using apollo::cyber::common::GetAbsolutePath;
 using cyber::common::EnsureDirectory;
 
 bool LaneCameraPerception::Init(const CameraPerceptionInitOptions &options) {
+AINFO<<"(DMCZP) EnteringMethod: LaneCameraPerception::Init";
   std::string work_root = "";
   if (options.use_cyber_work_root) {
     work_root = GetCyberWorkRoot();
@@ -69,6 +70,8 @@ bool LaneCameraPerception::Init(const CameraPerceptionInitOptions &options) {
 void LaneCameraPerception::InitLane(
     const std::string &work_root, base::BaseCameraModelPtr &model,
     const app::PerceptionParam &perception_param) {
+AINFO<<"(DMCZP) EnteringMethod: LaneCameraPerception::InitLane";
+AINFO<<"(DMCZP) EnteringMethod: LaneCameraPerception::InitCalibrationService";
   // Init lane
   CHECK(perception_param.has_lane_param()) << "Failed to include lane_param";
   {
@@ -180,6 +183,7 @@ void LaneCameraPerception::SetCameraHeightAndPitch(
     const std::map<std::string, float> name_camera_ground_height_map,
     const std::map<std::string, float> name_camera_pitch_angle_diff_map,
     const float &pitch_angle_calibrator_working_sensor) {
+AINFO<<"(DMCZP) EnteringMethod: LaneCameraPerception::SetCameraHeightAndPitch";
   CHECK(calibration_service_ != nullptr);
   calibration_service_->SetCameraHeightAndPitch(
       name_camera_ground_height_map, name_camera_pitch_angle_diff_map,
@@ -190,18 +194,21 @@ AINFO <<"(pengzi))set camera height and pitch to detect lane. thread:"<< std::th
 
 void LaneCameraPerception::SetIm2CarHomography(
     Eigen::Matrix3d homography_im2car) {
+AINFO<<"(DMCZP) EnteringMethod: LaneCameraPerception::SetIm2CarHomography";
   CHECK(calibration_service_ != nullptr);
   lane_postprocessor_->SetIm2CarHomography(homography_im2car);
 }
 
 bool LaneCameraPerception::GetCalibrationService(
     BaseCalibrationService **calibration_service) {
+AINFO<<"(DMCZP) EnteringMethod: LaneCameraPerception::GetCalibrationService";
   *calibration_service = calibration_service_.get();
   return true;
 }
 
 bool LaneCameraPerception::Perception(const CameraPerceptionOptions &options,
                                       CameraFrame *frame) {
+AINFO<<"(DMCZP) EnteringMethod: LaneCameraPerception::Perception";
 
 AINFO << "(pengzi) lane camera perception begin.thread:"<< std::this_thread::get_id();
   

@@ -28,10 +28,12 @@ namespace lexus {
 using ::apollo::drivers::canbus::Byte;
 
 Latlonheadingrpt40e::Latlonheadingrpt40e() {}
+AINFO<<"(DMCZP) EnteringMethod: Latlonheadingrpt40e::Latlonheadingrpt40e";
 const int32_t Latlonheadingrpt40e::ID = 0x40E;
 
 void Latlonheadingrpt40e::Parse(const std::uint8_t* bytes, int32_t length,
                                 ChassisDetail* chassis) const {
+AINFO<<"(DMCZP) EnteringMethod: Latlonheadingrpt40e::Parse";
   chassis->mutable_lexus()->mutable_lat_lon_heading_rpt_40e()->set_heading(
       heading(bytes, length));
   chassis->mutable_lexus()
@@ -59,6 +61,7 @@ void Latlonheadingrpt40e::Parse(const std::uint8_t* bytes, int32_t length,
 // 'type': 'double', 'order': 'motorola', 'physical_unit': 'deg'}
 double Latlonheadingrpt40e::heading(const std::uint8_t* bytes,
                                     int32_t length) const {
+AINFO<<"(DMCZP) EnteringMethod: Latlonheadingrpt40e::heading";
   Byte t0(bytes + 6);
   int32_t x = t0.get_byte(0, 8);
 
@@ -79,6 +82,9 @@ double Latlonheadingrpt40e::heading(const std::uint8_t* bytes,
 // 'type': 'int', 'order': 'motorola', 'physical_unit': 'sec'}
 int Latlonheadingrpt40e::longitude_seconds(const std::uint8_t* bytes,
                                            int32_t length) const {
+AINFO<<"(DMCZP) EnteringMethod: Latlonheadingrpt40e::longitude_seconds";
+AINFO<<"(DMCZP) EnteringMethod: Latlonheadingrpt40e::longitude_minutes";
+AINFO<<"(DMCZP) EnteringMethod: Latlonheadingrpt40e::longitude_degrees";
   Byte t0(bytes + 5);
   int32_t x = t0.get_byte(0, 8);
 
@@ -124,6 +130,9 @@ int Latlonheadingrpt40e::longitude_degrees(const std::uint8_t* bytes,
 // 'type': 'int', 'order': 'motorola', 'physical_unit': 'sec'}
 int Latlonheadingrpt40e::latitude_seconds(const std::uint8_t* bytes,
                                           int32_t length) const {
+AINFO<<"(DMCZP) EnteringMethod: Latlonheadingrpt40e::latitude_seconds";
+AINFO<<"(DMCZP) EnteringMethod: Latlonheadingrpt40e::latitude_minutes";
+AINFO<<"(DMCZP) EnteringMethod: Latlonheadingrpt40e::latitude_degrees";
   Byte t0(bytes + 2);
   int32_t x = t0.get_byte(0, 8);
 

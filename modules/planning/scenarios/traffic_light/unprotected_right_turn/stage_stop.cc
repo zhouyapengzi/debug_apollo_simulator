@@ -43,6 +43,7 @@ using perception::TrafficLight;
 
 Stage::StageStatus TrafficLightUnprotectedRightTurnStageStop::Process(
     const TrajectoryPoint& planning_init_point, Frame* frame) {
+AINFO<<"(DMCZP) EnteringMethod: TrafficLightUnprotectedRightTurnStageStop::Process";
   ADEBUG << "stage: Stop";
   CHECK_NOTNULL(frame);
 
@@ -150,6 +151,7 @@ bool TrafficLightUnprotectedRightTurnStageStop::
 }
 
 Stage::StageStatus TrafficLightUnprotectedRightTurnStageStop::FinishScenario() {
+AINFO<<"(DMCZP) EnteringMethod: TrafficLightUnprotectedRightTurnStageStop::FinishScenario";
   PlanningContext::Instance()->mutable_planning_status()->clear_traffic_light();
 
   next_stage_ = ScenarioConfig::NO_STAGE;
@@ -158,6 +160,7 @@ Stage::StageStatus TrafficLightUnprotectedRightTurnStageStop::FinishScenario() {
 
 Stage::StageStatus TrafficLightUnprotectedRightTurnStageStop::FinishStage(
     const bool protected_mode) {
+AINFO<<"(DMCZP) EnteringMethod: TrafficLightUnprotectedRightTurnStageStop::FinishStage";
   if (protected_mode) {
     // intersection_cruise
     next_stage_ = ScenarioConfig ::

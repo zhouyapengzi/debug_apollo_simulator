@@ -34,11 +34,15 @@ namespace planning {
 FemPosDeviationSmoother::FemPosDeviationSmoother(
     const FemPosDeviationSmootherConfig& config)
     : config_(config) {}
+AINFO<<"(DMCZP) EnteringMethod: FemPosDeviationSmoother::FemPosDeviationSmoother";
 
 bool FemPosDeviationSmoother::Solve(
     const std::vector<std::pair<double, double>>& raw_point2d,
     const std::vector<double>& bounds, std::vector<double>* opt_x,
     std::vector<double>* opt_y) {
+AINFO<<"(DMCZP) EnteringMethod: FemPosDeviationSmoother::Solve";
+AINFO<<"(DMCZP) EnteringMethod: FemPosDeviationSmoother::SolveWithOsqp";
+AINFO<<"(DMCZP) EnteringMethod: FemPosDeviationSmoother::SolveWithIpopt";
   if (config_.apply_curvature_constraint()) {
     return SolveWithIpopt(raw_point2d, bounds, opt_x, opt_y);
   } else {

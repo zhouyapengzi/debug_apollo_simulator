@@ -51,6 +51,7 @@ using IdObstacleListMap = std::unordered_map<int, std::list<Obstacle*>>;
 namespace {
 
 bool IsTrainable(const Feature& feature) {
+AINFO<<"(DMCZP) EnteringMethod: IsTrainable";
   if (feature.id() == FLAGS_ego_vehicle_id) {
     return false;
   }
@@ -64,6 +65,7 @@ bool IsTrainable(const Feature& feature) {
 void GroupObstaclesByObstacleId(const int obstacle_id,
                                 ObstaclesContainer* const obstacles_container,
                                 IdObstacleListMap* const id_obstacle_map) {
+AINFO<<"(DMCZP) EnteringMethod: GroupObstaclesByObstacleId";
   Obstacle* obstacle_ptr = obstacles_container->GetObstacle(obstacle_id);
   if (obstacle_ptr == nullptr) {
     AERROR << "Null obstacle [" << obstacle_id << "] found";
@@ -92,8 +94,10 @@ void GroupObstaclesByObstacleId(const int obstacle_id,
 }  // namespace
 
 EvaluatorManager::EvaluatorManager() { RegisterEvaluators(); }
+AINFO<<"(DMCZP) EnteringMethod: EvaluatorManager::EvaluatorManager";
 
 void EvaluatorManager::RegisterEvaluators() {
+AINFO<<"(DMCZP) EnteringMethod: EvaluatorManager::RegisterEvaluators";
   RegisterEvaluator(ObstacleConf::MLP_EVALUATOR);
   RegisterEvaluator(ObstacleConf::RNN_EVALUATOR);
   RegisterEvaluator(ObstacleConf::COST_EVALUATOR);
@@ -107,6 +111,7 @@ void EvaluatorManager::RegisterEvaluators() {
 }
 
 void EvaluatorManager::Init(const PredictionConf& config) {
+AINFO<<"(DMCZP) EnteringMethod: EvaluatorManager::Init";
   for (const auto& obstacle_conf : config.obstacle_conf()) {
     if (!obstacle_conf.has_obstacle_type()) {
       AERROR << "Obstacle config [" << obstacle_conf.ShortDebugString()
@@ -186,11 +191,14 @@ void EvaluatorManager::Init(const PredictionConf& config) {
 
 Evaluator* EvaluatorManager::GetEvaluator(
     const ObstacleConf::EvaluatorType& type) {
+AINFO<<"(DMCZP) EnteringMethod: EvaluatorManager::GetEvaluator";
   auto it = evaluators_.find(type);
   return it != evaluators_.end() ? it->second.get() : nullptr;
 }
 
 void EvaluatorManager::Run() {
+AINFO<<"(DMCZP) EnteringMethod: EvaluatorManager::RegisterEvaluator";
+AINFO<<"(DMCZP) EnteringMethod: EvaluatorManager::Run";
   auto obstacles_container =
       ContainerManager::Instance()->GetContainer<ObstaclesContainer>(
           AdapterConfig::PERCEPTION_OBSTACLES);
@@ -243,6 +251,7 @@ void EvaluatorManager::Run() {
 
 void EvaluatorManager::EvaluateObstacle(Obstacle* obstacle,
                                         std::vector<Obstacle*> dynamic_env) {
+AINFO<<"(DMCZP) EnteringMethod: EvaluatorManager::EvaluateObstacle";
   Evaluator* evaluator = nullptr;
   // Select different evaluators depending on the obstacle's type.
   switch (obstacle->type()) {
@@ -308,11 +317,13 @@ void EvaluatorManager::EvaluateObstacle(Obstacle* obstacle,
 }
 
 void EvaluatorManager::EvaluateObstacle(Obstacle* obstacle) {
+AINFO<<"(DMCZP) EnteringMethod: EvaluatorManager::EvaluateObstacle";
   std::vector<Obstacle*> dummy_dynamic_env;
   EvaluateObstacle(obstacle, dummy_dynamic_env);
 }
 
 void EvaluatorManager::BuildObstacleIdHistoryMap() {
+AINFO<<"(DMCZP) EnteringMethod: EvaluatorManager::BuildObstacleIdHistoryMap";
   obstacle_id_history_map_.clear();
   auto obstacles_container =
       ContainerManager::Instance()->GetContainer<ObstaclesContainer>(
@@ -358,6 +369,7 @@ void EvaluatorManager::BuildObstacleIdHistoryMap() {
 }
 
 void EvaluatorManager::DumpCurrentFrameEnv() {
+AINFO<<"(DMCZP) EnteringMethod: EvaluatorManager::DumpCurrentFrameEnv";
   FrameEnv curr_frame_env;
   auto obstacles_container =
       ContainerManager::Instance()->GetContainer<ObstaclesContainer>(

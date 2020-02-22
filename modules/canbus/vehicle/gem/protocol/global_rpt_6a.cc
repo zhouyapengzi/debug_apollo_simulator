@@ -28,10 +28,12 @@ namespace gem {
 using ::apollo::drivers::canbus::Byte;
 
 Globalrpt6a::Globalrpt6a() {}
+AINFO<<"(DMCZP) EnteringMethod: Globalrpt6a::Globalrpt6a";
 const int32_t Globalrpt6a::ID = 0x6A;
 
 void Globalrpt6a::Parse(const std::uint8_t* bytes, int32_t length,
                         ChassisDetail* chassis) const {
+AINFO<<"(DMCZP) EnteringMethod: Globalrpt6a::Parse";
   chassis->mutable_gem()->mutable_global_rpt_6a()->set_pacmod_status(
       pacmod_status(bytes, length));
   chassis->mutable_gem()->mutable_global_rpt_6a()->set_override_status(
@@ -55,8 +57,11 @@ void Globalrpt6a::Parse(const std::uint8_t* bytes, int32_t length,
 // 'physical_unit': ''}
 Global_rpt_6a::Pacmod_statusType Globalrpt6a::pacmod_status(
     const std::uint8_t* bytes, int32_t length) const {
+AINFO<<"(DMCZP) EnteringMethod: Globalrpt6a::pacmod_status";
+AINFO<<"(DMCZP) EnteringMethod: Globalrpt6a::override_status";
   Byte t0(bytes + 0);
   int32_t x = t0.get_byte(0, 1);
+AINFO<<"(DMCZP) EnteringMethod: Globalrpt6a::brk_can_timeout";
 
   Global_rpt_6a::Pacmod_statusType ret =
       static_cast<Global_rpt_6a::Pacmod_statusType>(x);
@@ -83,6 +88,9 @@ Global_rpt_6a::Override_statusType Globalrpt6a::override_status(
 // 'type': 'bool', 'order': 'motorola', 'physical_unit': ''}
 bool Globalrpt6a::veh_can_timeout(const std::uint8_t* bytes,
                                   int32_t length) const {
+AINFO<<"(DMCZP) EnteringMethod: Globalrpt6a::veh_can_timeout";
+AINFO<<"(DMCZP) EnteringMethod: Globalrpt6a::str_can_timeout";
+AINFO<<"(DMCZP) EnteringMethod: Globalrpt6a::usr_can_timeout";
   Byte t0(bytes + 0);
   int32_t x = t0.get_byte(2, 1);
 
@@ -135,6 +143,7 @@ bool Globalrpt6a::usr_can_timeout(const std::uint8_t* bytes,
 // ''}
 int Globalrpt6a::usr_can_read_errors(const std::uint8_t* bytes,
                                      int32_t length) const {
+AINFO<<"(DMCZP) EnteringMethod: Globalrpt6a::usr_can_read_errors";
   Byte t0(bytes + 6);
   int32_t x = t0.get_byte(0, 8);
 

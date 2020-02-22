@@ -34,6 +34,7 @@ using hdmap::PathOverlap;
 hdmap::PathOverlap* GetOverlapOnReferenceLine(
     const ReferenceLineInfo& reference_line_info, const std::string& overlap_id,
     const ReferenceLineInfo::OverlapType& overlap_type) {
+AINFO<<"(DMCZP) EnteringMethod: GetOverlapOnReferenceLine";
   if (overlap_type == ReferenceLineInfo::SIGNAL) {
     // traffic_light_overlap
     const auto& traffic_light_overlaps =
@@ -71,6 +72,7 @@ hdmap::PathOverlap* GetOverlapOnReferenceLine(
  */
 PullOverStatus CheckADCPullOver(const ReferenceLineInfo& reference_line_info,
                                 const ScenarioPullOverConfig& scenario_config) {
+AINFO<<"(DMCZP) EnteringMethod: CheckADCPullOver";
   const auto& pull_over_status =
       PlanningContext::Instance()->planning_status().pull_over();
   if (!pull_over_status.is_feasible() || !pull_over_status.has_position() ||
@@ -128,6 +130,7 @@ PullOverStatus CheckADCPullOverPathPoint(
     const ReferenceLineInfo& reference_line_info,
     const ScenarioPullOverConfig& scenario_config,
     const common::PathPoint& path_point) {
+AINFO<<"(DMCZP) EnteringMethod: CheckADCPullOverPathPoint";
   const auto& pull_over_status =
       PlanningContext::Instance()->planning_status().pull_over();
   if (!pull_over_status.is_feasible() || !pull_over_status.has_position() ||
@@ -150,6 +153,7 @@ PullOverStatus CheckADCPullOverPathPoint(
 
 PullOverStatus CheckADCPullOverOpenSpace(
     const ScenarioPullOverConfig& scenario_config) {
+AINFO<<"(DMCZP) EnteringMethod: CheckADCPullOverOpenSpace";
   const auto& pull_over_status =
       PlanningContext::Instance()->planning_status().pull_over();
   if (!pull_over_status.is_feasible() || !pull_over_status.has_position() ||
@@ -180,6 +184,7 @@ bool CheckPullOverPositionBySL(const ReferenceLineInfo& reference_line_info,
                                const double adc_theta,
                                const common::math::Vec2d& target_position,
                                const double target_theta, const bool check_s) {
+AINFO<<"(DMCZP) EnteringMethod: CheckPullOverPositionBySL";
   const auto& reference_line = reference_line_info.reference_line();
   common::SLPoint target_sl;
   reference_line.XYToSL(target_position, &target_sl);
@@ -210,6 +215,7 @@ bool CheckPullOverPositionByDistance(
     const ScenarioPullOverConfig& scenario_config,
     const common::math::Vec2d& adc_position, const double adc_theta,
     const common::math::Vec2d& target_position, const double target_theta) {
+AINFO<<"(DMCZP) EnteringMethod: CheckPullOverPositionByDistance";
   const double distance_diff = adc_position.DistanceTo(target_position);
   const double theta_diff =
       std::fabs(common::math::NormalizeAngle(target_theta - adc_theta));

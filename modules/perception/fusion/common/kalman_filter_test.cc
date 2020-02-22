@@ -23,11 +23,13 @@ namespace perception {
 namespace fusion {
 
 TEST(FusionCommonTest, return_name_test) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   KalmanFilter kal;
   EXPECT_EQ(kal.Name(), "KalmanFilter");
 }
 
 TEST(FusionCommonTest, test_init) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   KalmanFilter kal;
   Eigen::VectorXd states;
   Eigen::MatrixXd uncertainty;
@@ -42,6 +44,7 @@ TEST(FusionCommonTest, test_init) {
 }
 
 TEST(FusionCommonTest, test_predict) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   KalmanFilter kal;
   Eigen::VectorXd states;
   Eigen::MatrixXd uncertainty;
@@ -65,6 +68,7 @@ TEST(FusionCommonTest, test_predict) {
 }
 
 TEST(FusionCommonTest, test_correct) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   KalmanFilter kal;
   Eigen::VectorXd obs_states;
   Eigen::MatrixXd obs_uncertainty;
@@ -86,6 +90,7 @@ TEST(FusionCommonTest, test_correct) {
 }
 
 TEST(FusionCommonTest, test_breakdown_setting) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   KalmanFilter kal;
   Eigen::VectorXd states;
   Eigen::MatrixXd uncertainty;
@@ -101,6 +106,7 @@ TEST(FusionCommonTest, test_breakdown_setting) {
 }
 
 TEST(FusionCommonTest, test_decorrelation) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   KalmanFilter kal;
   Eigen::VectorXd states;
   Eigen::MatrixXd uncertainty;
@@ -112,6 +118,7 @@ TEST(FusionCommonTest, test_decorrelation) {
 }
 
 TEST(FusionCommonTest, test_value) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   KalmanFilter kal;
   double time_diff = 0.05;
   Eigen::VectorXd states;
@@ -170,6 +177,7 @@ TEST(FusionCommonTest, test_value) {
 }
 
 TEST(FusionCommonTest, test_correction) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   KalmanFilter kal;
   double time_diff = 0.05;
   Eigen::VectorXd states;
@@ -214,6 +222,7 @@ TEST(FusionCommonTest, test_correction) {
 }
 
 TEST(FusionCommonTest, test_set_cmat) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   KalmanFilter kal;
   Eigen::MatrixXd c_mat;
   c_mat.setIdentity(6, 1);

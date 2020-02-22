@@ -27,6 +27,7 @@ namespace apollo {
 namespace planning {
 
 TEST(PiecewiseQuinticSpiralPath, Evaluate) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   double theta0 = 0.0;
   double kappa0 = 0.0;
   double dkappa0 = 0.0;

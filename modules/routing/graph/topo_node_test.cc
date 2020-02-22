@@ -25,6 +25,7 @@ namespace routing {
 namespace {
 
 void GetRangeVec(std::vector<NodeSRange>* range_vec) {
+AINFO<<"(DMCZP) EnteringMethod: GetRangeVec";
   double s_s_1 = 1.0;
   double e_s_1 = 12.0;
   double s_s_2 = 15.0;
@@ -54,6 +55,7 @@ void GetRangeVec(std::vector<NodeSRange>* range_vec) {
 }  // namespace
 
 TEST(TopoNodeTestSuit, static_func_test) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   FLAGS_min_length_for_lane_change = 10.0;
   std::vector<NodeSRange> range_vec;
   GetRangeVec(&range_vec);
@@ -85,6 +87,7 @@ TEST(TopoNodeTestSuit, static_func_test) {
 }
 
 TEST(TopoNodeTestSuit, basic_test) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   Node node;
   GetNodeDetailForTest(&node, TEST_L1, TEST_R1);
   TopoNode topo_node(node);
@@ -99,6 +102,7 @@ TEST(TopoNodeTestSuit, basic_test) {
 }
 
 TEST(TopoEdgeTestSuit, basic_test) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   Node node_1;
   Node node_2;
   GetNodeForTest(&node_1, TEST_L1, TEST_R1);

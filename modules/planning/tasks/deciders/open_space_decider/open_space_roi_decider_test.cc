@@ -36,6 +36,7 @@ class OpenSpaceRoiDeciderTest : public ::testing::Test {
 };
 
 TEST_F(OpenSpaceRoiDeciderTest, Init) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   OpenSpaceRoiDecider open_space_roi_decider(config_);
   EXPECT_EQ(open_space_roi_decider.Name(),
             TaskConfig::TaskType_Name(config_.task_type()));

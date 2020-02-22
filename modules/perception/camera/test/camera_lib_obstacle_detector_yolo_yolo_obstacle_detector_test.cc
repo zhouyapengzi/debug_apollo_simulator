@@ -29,6 +29,7 @@ namespace camera {
 using cyber::common::GetAbsolutePath;
 
 TEST(YoloCameraDetectorTest, demo_test) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   inference::CudaUtil::set_device_id(0);
   cv::Mat cv_img = cv::imread(
       "/apollo/modules/perception/testdata/"
@@ -116,6 +117,7 @@ TEST(YoloCameraDetectorTest, demo_test) {
   delete detector;
 }
 TEST(YoloCameraDetectorTest, config_init_test) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   ObstacleDetectorInitOptions init_options;
   init_options.root_dir =
       "/apollo/modules/perception/testdata/"
@@ -137,6 +139,7 @@ TEST(YoloCameraDetectorTest, config_init_test) {
   delete detector;
 }
 TEST(YoloCameraDetectorTest, inference_init_test) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   ObstacleDetectorInitOptions init_options;
   init_options.root_dir =
       "/apollo/modules/perception/testdata/"
@@ -179,6 +182,7 @@ TEST(YoloCameraDetectorTest, inference_init_test) {
   }
 }
 TEST(YoloCameraDetectorTest, anchor_init_test) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   ObstacleDetectorInitOptions init_options;
   init_options.root_dir =
       "/apollo/modules/perception/testdata/"
@@ -220,6 +224,7 @@ TEST(YoloCameraDetectorTest, anchor_init_test) {
   }
 }
 TEST(YoloCameraDetectorTest, type_init_test) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   ObstacleDetectorInitOptions init_options;
   init_options.root_dir =
       "/apollo/modules/perception/testdata/"
@@ -261,6 +266,7 @@ TEST(YoloCameraDetectorTest, type_init_test) {
   }
 }
 TEST(YoloCameraDetectorTest, feature_init_test) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   ObstacleDetectorInitOptions init_options;
   init_options.root_dir =
       "/apollo/modules/perception/testdata/"
@@ -304,6 +310,7 @@ TEST(YoloCameraDetectorTest, feature_init_test) {
 
 #if 0
 TEST(YoloCameraDetectorTest, cameramodel_init_test) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   ObstacleDetectorInitOptions init_options;
   init_options.root_dir = "/apollo/modules/perception/testdata/"
     "camera/lib/obstacle/detector/yolo/data/";

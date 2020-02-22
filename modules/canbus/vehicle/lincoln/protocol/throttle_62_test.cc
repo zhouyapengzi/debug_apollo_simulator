@@ -22,6 +22,7 @@ namespace canbus {
 namespace lincoln {
 
 TEST(Throttle62Test, General) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   uint8_t data[8] = {0x67, 0x62, 0x63, 0x64, 0x51, 0x52, 0x53, 0x54};
   Throttle62 throttle;
   EXPECT_EQ(throttle.GetPeriod(), 10 * 1000);

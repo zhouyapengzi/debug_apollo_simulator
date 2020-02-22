@@ -68,6 +68,7 @@ class Component_C : public Component<M0> {
 };
 
 TEST(TimerComponent, init) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   ret_proc = true;
   ret_init = true;
   apollo::cyber::proto::ComponentConfig compcfg;
@@ -103,6 +104,7 @@ TEST(TimerComponent, init) {
 }
 
 TEST(TimerComponentFail, init) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   ret_proc = false;
   ret_init = false;
   apollo::cyber::proto::ComponentConfig compcfg;
@@ -139,6 +141,7 @@ TEST(TimerComponentFail, init) {
 }  // namespace apollo
 
 int main(int argc, char **argv) {
+AINFO<<"(DMCZP) EnteringMethod: main";
   testing::InitGoogleTest(&argc, argv);
   apollo::cyber::Init(argv[0]);
   auto res = RUN_ALL_TESTS();

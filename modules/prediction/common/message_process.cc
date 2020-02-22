@@ -49,6 +49,7 @@ using cyber::record::RecordMessage;
 using cyber::record::RecordReader;
 
 bool MessageProcess::Init() {
+AINFO<<"(DMCZP) EnteringMethod: MessageProcess::Init";
   // Load prediction conf
   PredictionConf prediction_conf;
   if (!cyber::common::GetProtoFromFile(FLAGS_prediction_conf_file,
@@ -86,6 +87,7 @@ bool MessageProcess::Init() {
 void MessageProcess::OnPerception(
     const perception::PerceptionObstacles& perception_obstacles,
     PredictionObstacles* const prediction_obstacles) {
+AINFO<<"(DMCZP) EnteringMethod: MessageProcess::OnPerception";
   ADEBUG << "Received a perception message ["
          << perception_obstacles.ShortDebugString() << "].";
 
@@ -187,6 +189,7 @@ void MessageProcess::OnPerception(
 
 void MessageProcess::OnLocalization(
     const localization::LocalizationEstimate& localization) {
+AINFO<<"(DMCZP) EnteringMethod: MessageProcess::OnLocalization";
   auto ptr_ego_pose_container =
       ContainerManager::Instance()->GetContainer<PoseContainer>(
           AdapterConfig::LOCALIZATION);
@@ -198,6 +201,7 @@ void MessageProcess::OnLocalization(
 }
 
 void MessageProcess::OnPlanning(const planning::ADCTrajectory& adc_trajectory) {
+AINFO<<"(DMCZP) EnteringMethod: MessageProcess::OnPlanning";
   auto ptr_ego_trajectory_container =
       ContainerManager::Instance()->GetContainer<ADCTrajectoryContainer>(
           AdapterConfig::PLANNING_TRAJECTORY);
@@ -209,6 +213,7 @@ void MessageProcess::OnPlanning(const planning::ADCTrajectory& adc_trajectory) {
 }
 
 void MessageProcess::ProcessOfflineData(const std::string& record_filename) {
+AINFO<<"(DMCZP) EnteringMethod: MessageProcess::ProcessOfflineData";
   RecordReader reader(record_filename);
   RecordMessage message;
   while (reader.ReadMessage(&message)) {

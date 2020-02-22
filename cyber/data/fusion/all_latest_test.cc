@@ -33,6 +33,7 @@ using apollo::cyber::proto::RoleAttributes;
 std::hash<std::string> str_hash;
 
 TEST(AllLatestTest, two_channels) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   auto cache0 = new CacheBuffer<std::shared_ptr<RawMessage>>(10);
   auto cache1 = new CacheBuffer<std::shared_ptr<RawMessage>>(10);
   ChannelBuffer<RawMessage> buffer0(static_cast<uint64_t>(0), cache0);
@@ -80,6 +81,7 @@ TEST(AllLatestTest, two_channels) {
 }
 
 TEST(AllLatestTest, three_channels) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   auto cache0 = new CacheBuffer<std::shared_ptr<RawMessage>>(10);
   auto cache1 = new CacheBuffer<std::shared_ptr<RawMessage>>(10);
   auto cache2 = new CacheBuffer<std::shared_ptr<RawMessage>>(10);
@@ -111,6 +113,7 @@ TEST(AllLatestTest, three_channels) {
 }
 
 TEST(AllLatestTest, four_channels) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   auto cache0 = new CacheBuffer<std::shared_ptr<RawMessage>>(10);
   auto cache1 = new CacheBuffer<std::shared_ptr<RawMessage>>(10);
   auto cache2 = new CacheBuffer<std::shared_ptr<RawMessage>>(10);

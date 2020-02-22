@@ -51,6 +51,7 @@ class FrenetFramePathTest : public ::testing::Test {
 };
 
 TEST_F(FrenetFramePathTest, GetNearestPoint) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   SLBoundary sl_boundary;
   {
     // at the beginning

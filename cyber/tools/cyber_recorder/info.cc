@@ -21,10 +21,12 @@ namespace cyber {
 namespace record {
 
 Info::Info() {}
+AINFO<<"(DMCZP) EnteringMethod: Info::Info";
 
 Info::~Info() {}
 
 bool Info::Display(const std::string& file) {
+AINFO<<"(DMCZP) EnteringMethod: Info::Display";
   RecordFileReader file_reader;
   if (!file_reader.Open(file)) {
     AERROR << "open record file error. file: " << file;

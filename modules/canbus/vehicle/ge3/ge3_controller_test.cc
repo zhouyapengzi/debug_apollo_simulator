@@ -52,11 +52,13 @@ class Ge3ControllerTest : public ::testing::Test {
 };
 
 TEST_F(Ge3ControllerTest, Init) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   ErrorCode ret = controller_.Init(params_, &sender_, &msg_manager_);
   EXPECT_EQ(ret, ErrorCode::OK);
 }
 
 TEST_F(Ge3ControllerTest, SetDrivingMode) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   Chassis chassis;
   chassis.set_driving_mode(Chassis::COMPLETE_AUTO_DRIVE);
 
@@ -68,6 +70,7 @@ TEST_F(Ge3ControllerTest, SetDrivingMode) {
 }
 
 TEST_F(Ge3ControllerTest, Status) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   controller_.Init(params_, &sender_, &msg_manager_);
 
   controller_.set_driving_mode(Chassis::COMPLETE_AUTO_DRIVE);
@@ -80,6 +83,7 @@ TEST_F(Ge3ControllerTest, Status) {
 }
 
 TEST_F(Ge3ControllerTest, UpdateDrivingMode) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   controller_.Init(params_, &sender_, &msg_manager_);
 
   controller_.set_driving_mode(Chassis::COMPLETE_AUTO_DRIVE);

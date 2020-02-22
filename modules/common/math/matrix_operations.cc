@@ -41,6 +41,7 @@ bool ContinuousToDiscrete(const Eigen::MatrixXd &m_a,
                           const Eigen::MatrixXd &m_d, const double ts,
                           Eigen::MatrixXd *ptr_a_d, Eigen::MatrixXd *ptr_b_d,
                           Eigen::MatrixXd *ptr_c_d, Eigen::MatrixXd *ptr_d_d) {
+AINFO<<"(DMCZP) EnteringMethod: ContinuousToDiscrete";
   if (ts <= 0.0) {
     AERROR << "ContinuousToDiscrete : ts is less than or equal to zero";
     return false;

@@ -31,6 +31,9 @@ QuinticPolynomialCurve1d::QuinticPolynomialCurve1d(
     const double param)
     : QuinticPolynomialCurve1d(start[0], start[1], start[2], end[0], end[1],
                                end[2], param) {}
+AINFO<<"(DMCZP) EnteringMethod: QuinticPolynomialCurve1d::QuinticPolynomialCurve1d";
+AINFO<<"(DMCZP) EnteringMethod: QuinticPolynomialCurve1d::QuinticPolynomialCurve1d";
+AINFO<<"(DMCZP) EnteringMethod: QuinticPolynomialCurve1d::QuinticPolynomialCurve1d";
 
 QuinticPolynomialCurve1d::QuinticPolynomialCurve1d(
     const double x0, const double dx0, const double ddx0, const double x1,
@@ -54,6 +57,7 @@ QuinticPolynomialCurve1d::QuinticPolynomialCurve1d(
 
 double QuinticPolynomialCurve1d::Evaluate(const uint32_t order,
                                           const double p) const {
+AINFO<<"(DMCZP) EnteringMethod: QuinticPolynomialCurve1d::Evaluate";
   switch (order) {
     case 0: {
       return ((((coef_[5] * p + coef_[4]) * p + coef_[3]) * p + coef_[2]) * p +
@@ -90,12 +94,14 @@ void QuinticPolynomialCurve1d::SetParam(const double x0, const double dx0,
                                         const double ddx0, const double x1,
                                         const double dx1, const double ddx1,
                                         const double param) {
+AINFO<<"(DMCZP) EnteringMethod: QuinticPolynomialCurve1d::SetParam";
   ComputeCoefficients(x0, dx0, ddx0, x1, dx1, ddx1, param);
   param_ = param;
 }
 
 void QuinticPolynomialCurve1d::IntegratedFromQuarticCurve(
     const PolynomialCurve1d& other, const double init_value) {
+AINFO<<"(DMCZP) EnteringMethod: QuinticPolynomialCurve1d::IntegratedFromQuarticCurve";
   CHECK_EQ(other.Order(), 4);
   param_ = other.ParamLength();
   coef_[0] = init_value;
@@ -107,6 +113,7 @@ void QuinticPolynomialCurve1d::IntegratedFromQuarticCurve(
 void QuinticPolynomialCurve1d::ComputeCoefficients(
     const double x0, const double dx0, const double ddx0, const double x1,
     const double dx1, const double ddx1, const double p) {
+AINFO<<"(DMCZP) EnteringMethod: QuinticPolynomialCurve1d::ComputeCoefficients";
   CHECK_GT(p, 0.0);
 
   coef_[0] = x0;
@@ -128,11 +135,13 @@ void QuinticPolynomialCurve1d::ComputeCoefficients(
 }
 
 std::string QuinticPolynomialCurve1d::ToString() const {
+AINFO<<"(DMCZP) EnteringMethod: QuinticPolynomialCurve1d::ToString";
   return apollo::common::util::StrCat(
       apollo::common::util::PrintIter(coef_, "\t"), param_, "\n");
 }
 
 double QuinticPolynomialCurve1d::Coef(const size_t order) const {
+AINFO<<"(DMCZP) EnteringMethod: QuinticPolynomialCurve1d::Coef";
   CHECK_GT(6, order);
   return coef_[order];
 }

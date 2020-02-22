@@ -29,6 +29,7 @@ namespace msf {
 
 void LidarMsgTransfer::Transfer(const drivers::PointCloud &msg,
                                 LidarFrame *lidar_frame) {
+AINFO<<"(DMCZP) EnteringMethod: LidarMsgTransfer::Transfer";
   CHECK_NOTNULL(lidar_frame);
 
   if (msg.height() > 1 && msg.width() > 1) {

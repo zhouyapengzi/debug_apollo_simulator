@@ -24,6 +24,7 @@ void GetYawVelocityInfo(const float &time_diff, const double cam_coord_cur[3],
                         const double cam_coord_pre[3],
                         const double cam_coord_pre_pre[3], float *yaw_rate,
                         float *velocity) {
+AINFO<<"(DMCZP) EnteringMethod: GetYawVelocityInfo";
   assert(yaw_rate != nullptr);
   assert(velocity != nullptr);
   double time_diff_r = common::IRec(static_cast<double>(time_diff));
@@ -46,6 +47,7 @@ void GetYawVelocityInfo(const float &time_diff, const double cam_coord_cur[3],
 }
 
 void CalibratorParams::Init() {
+AINFO<<"(DMCZP) EnteringMethod: CalibratorParams::Init";
   // General
   min_nr_pts_laneline = 20;
   sampling_lane_point_rate = 0.05f;  // 0.05f
@@ -91,6 +93,7 @@ void CalibratorParams::Init() {
 
 void LaneBasedCalibrator::Init(const LocalCalibratorInitOptions &options,
                                const CalibratorParams *params) {
+AINFO<<"(DMCZP) EnteringMethod: LaneBasedCalibrator::Init";
   ClearUp();
   image_width_ = options.image_width;
   image_height_ = options.image_height;
@@ -110,6 +113,7 @@ void LaneBasedCalibrator::Init(const LocalCalibratorInitOptions &options,
 }
 
 void LaneBasedCalibrator::ClearUp() {
+AINFO<<"(DMCZP) EnteringMethod: LaneBasedCalibrator::ClearUp";
   vp_buffer_.clear();
   pitch_histogram_.Clear();
   image_width_ = 0;
@@ -124,6 +128,7 @@ void LaneBasedCalibrator::ClearUp() {
 bool LaneBasedCalibrator::Process(const EgoLane &lane, const float &velocity,
                                   const float &yaw_rate,
                                   const float &time_diff) {
+AINFO<<"(DMCZP) EnteringMethod: LaneBasedCalibrator::Process";
   float distance_traveled_in_meter = velocity * time_diff;
   float vehicle_yaw_changed = yaw_rate * time_diff;
 
@@ -188,6 +193,7 @@ bool LaneBasedCalibrator::Process(const EgoLane &lane, const float &velocity,
 }
 
 void LaneBasedCalibrator::PushVanishingPoint(const VanishingPoint &v_point) {
+AINFO<<"(DMCZP) EnteringMethod: LaneBasedCalibrator::PushVanishingPoint";
   int nr_vps = static_cast<int>(vp_buffer_.size());
   if (nr_vps < kMaxNrHistoryFrames) {
     vp_buffer_.push_back(v_point);
@@ -198,6 +204,7 @@ void LaneBasedCalibrator::PushVanishingPoint(const VanishingPoint &v_point) {
 }
 
 bool LaneBasedCalibrator::PopVanishingPoint(VanishingPoint *v_point) {
+AINFO<<"(DMCZP) EnteringMethod: LaneBasedCalibrator::PopVanishingPoint";
   float accumulated_distance = 0.0f;
   for (const auto &vp : vp_buffer_) {
     accumulated_distance += vp.distance_traveled;
@@ -212,11 +219,13 @@ bool LaneBasedCalibrator::PopVanishingPoint(VanishingPoint *v_point) {
 }
 
 bool LaneBasedCalibrator::AddPitchToHistogram(float pitch) {
+AINFO<<"(DMCZP) EnteringMethod: LaneBasedCalibrator::AddPitchToHistogram";
   return pitch_histogram_.Push(pitch);
 }
 
 bool LaneBasedCalibrator::GetPitchFromVanishingPoint(const VanishingPoint &vp,
                                                      float *pitch) const {
+AINFO<<"(DMCZP) EnteringMethod: LaneBasedCalibrator::GetPitchFromVanishingPoint";
   assert(pitch != nullptr);
   const float cx = k_mat_[2];
   const float cy = k_mat_[5];
@@ -232,6 +241,7 @@ bool LaneBasedCalibrator::GetPitchFromVanishingPoint(const VanishingPoint &vp,
 
 bool LaneBasedCalibrator::GetVanishingPoint(const EgoLane &lane,
                                             VanishingPoint *v_point) {
+AINFO<<"(DMCZP) EnteringMethod: LaneBasedCalibrator::GetVanishingPoint";
   assert(v_point != nullptr);
   float line_seg_l[4] = {0};
   float line_seg_r[4] = {0};
@@ -257,6 +267,7 @@ bool LaneBasedCalibrator::GetVanishingPoint(const EgoLane &lane,
 
 int LaneBasedCalibrator::GetCenterIndex(const Eigen::Vector2f *points,
                                         int nr_pts) const {
+AINFO<<"(DMCZP) EnteringMethod: LaneBasedCalibrator::GetCenterIndex";
   assert(points != nullptr);
   if (nr_pts <= 0) {
     return -1;
@@ -286,6 +297,7 @@ int LaneBasedCalibrator::GetCenterIndex(const Eigen::Vector2f *points,
 
 bool LaneBasedCalibrator::SelectTwoPointsFromLineForVanishingPoint(
     const LaneLine &line, float line_seg[4]) {
+AINFO<<"(DMCZP) EnteringMethod: LaneBasedCalibrator::SelectTwoPointsFromLineForVanishingPoint";
   int nr_pts = static_cast<int>(line.lane_point.size());
   if (nr_pts < params_.min_nr_pts_laneline) {
     return false;
@@ -321,6 +333,7 @@ bool LaneBasedCalibrator::SelectTwoPointsFromLineForVanishingPoint(
 bool LaneBasedCalibrator::GetIntersectionFromTwoLineSegments(
     const float line_seg_l[4], const float line_seg_r[4],
     VanishingPoint *v_point) {
+AINFO<<"(DMCZP) EnteringMethod: LaneBasedCalibrator::GetIntersectionFromTwoLineSegments";
   assert(v_point != nullptr);
   // ref: https://stackoverflow.com/questions/563198/...
   // how-do-you-detect-where-two-line-segments-intersect/1968345#1968345

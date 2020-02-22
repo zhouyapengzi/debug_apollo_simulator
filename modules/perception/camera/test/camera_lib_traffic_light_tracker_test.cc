@@ -27,6 +27,7 @@ namespace camera {
 
 void do_test(std::shared_ptr<SemanticReviser> _reviser,
              const std::vector<int> &color_list, base::TLColor color) {
+AINFO<<"(DMCZP) EnteringMethod: do_test";
   TrafficLightTrackerOptions option;
   CameraFrame frame;
   frame.timestamp = 100;
@@ -43,6 +44,7 @@ void do_test(std::shared_ptr<SemanticReviser> _reviser,
 }
 
 TEST(SemanticReviser, red_flash) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   std::shared_ptr<SemanticReviser> reviser(new SemanticReviser);
   TrafficLightTrackerInitOptions init_options;
   init_options.conf_file = "semantic.pt";
@@ -55,6 +57,7 @@ TEST(SemanticReviser, red_flash) {
 }
 
 TEST(SemanticReviser, green_flash) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   std::shared_ptr<SemanticReviser> reviser(new SemanticReviser);
   TrafficLightTrackerInitOptions init_options;
   init_options.conf_file = "semantic.pt";
@@ -68,6 +71,7 @@ TEST(SemanticReviser, green_flash) {
 }
 
 TEST(SemanticReviser, yellow_flash) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   std::shared_ptr<SemanticReviser> reviser(new SemanticReviser);
   TrafficLightTrackerInitOptions init_options;
   init_options.conf_file = "semantic.pt";
@@ -81,6 +85,7 @@ TEST(SemanticReviser, yellow_flash) {
 }
 
 TEST(SemanticReviser, mix) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   std::vector<int> color_list = {3, 3, 3, 0, 0, 0, 3, 0, 3, 1, 0, 1, 0, 1,
                                  0, 1, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 3};
   std::vector<int> gt_list = {3, 3, 3, 3, 3, 3, 3, 3, 3, 1, 1, 1, 1, 1,
@@ -109,6 +114,7 @@ TEST(SemanticReviser, mix) {
 }
 
 TEST(SemanticReviser, mix_yellow) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   std::vector<int> color_list = {3, 3, 3, 0, 0, 0, 3, 0, 3, 2, 0, 2, 0, 0,
                                  2, 1, 0, 2, 0, 2, 0, 1, 1, 3, 0, 0, 3};
   std::vector<int> gt_list = {3, 3, 3, 3, 3, 3, 3, 3, 3, 2, 2, 2, 2, 2,
@@ -136,6 +142,7 @@ TEST(SemanticReviser, mix_yellow) {
 }
 
 TEST(SemanticReviser, mix_black) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   std::vector<int> color_list = {4, 4, 4, 4, 1, 4, 4, 1, 1, 4, 4, 4, 4, 4,
                                  2, 2, 4, 4, 4, 4, 4, 1, 1, 1, 1, 1, 1};
   std::vector<int> gt_list = {4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4,
@@ -163,6 +170,7 @@ TEST(SemanticReviser, mix_black) {
 }
 
 TEST(SemanticReviser, unknown_to_black) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   std::vector<int> color_list = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                                  0, 0, 4, 4, 4, 4, 4, 4, 4, 4, 4};
   std::vector<int> gt_list = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -190,6 +198,7 @@ TEST(SemanticReviser, unknown_to_black) {
 }
 
 TEST(SemanticReviser, black_to_unknown) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   std::vector<int> color_list = {4, 4, 4, 4, 4, 4, 4, 4, 4, 0, 0, 0, 0,
                                  0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
   std::vector<int> gt_list = {4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4,
@@ -217,6 +226,7 @@ TEST(SemanticReviser, black_to_unknown) {
 }
 
 TEST(SemanticReviser, mix_yellow_red_flash) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   std::vector<double> ts_list = {
       11.784286, 11.822046, 11.860939, 11.899873, 11.938863, 11.976958,
       12.019318, 12.060082, 12.085589, 12.142431, 12.206964, 12.244730,
@@ -283,6 +293,7 @@ TEST(SemanticReviser, mix_yellow_red_flash) {
 }
 
 TEST(SemanticReviser, green_blink) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   std::vector<int> color_list = {
       3, 3, 3, 3, 3, 3, 4, 4, 4, 4, 4, 4, 3, 3, 3, 3, 3, 3, 4, 4, 4, 4, 4,
       4, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3,

@@ -73,6 +73,7 @@ const size_t FusedClassifierTest::kSequenceLength = 10;
 const size_t FusedClassifierTest::kObjectNum = 5;
 
 size_t FusedClassifierTest::IdMap(size_t i) {
+AINFO<<"(DMCZP) EnteringMethod: FusedClassifierTest::IdMap";
   if (i == 0) {
     return 0;  // UNKNOWN
   } else {
@@ -81,11 +82,13 @@ size_t FusedClassifierTest::IdMap(size_t i) {
 }
 
 float FusedClassifierTest::VecSum(const std::vector<float>& prob) {
+AINFO<<"(DMCZP) EnteringMethod: FusedClassifierTest::VecSum";
   return std::accumulate(prob.begin(), prob.end(), 0.f);
 }
 
 void FusedClassifierTest::GenerateSmoothProb(std::vector<float>* prob,
                                              std::size_t id, float seed) {
+AINFO<<"(DMCZP) EnteringMethod: FusedClassifierTest::GenerateSmoothProb";
   float p = (1.f - seed) / (VALID_OBJECT_TYPE - 1);
   for (std::size_t i = 0; i < VALID_OBJECT_TYPE; ++i) {
     prob->at(IdMap(i)) = p;
@@ -95,12 +98,14 @@ void FusedClassifierTest::GenerateSmoothProb(std::vector<float>* prob,
 
 void FusedClassifierTest::BuildBackground(base::ObjectPtr* object,
                                           int track_id) {
+AINFO<<"(DMCZP) EnteringMethod: FusedClassifierTest::BuildBackground";
   object->reset(new base::Object);
   (*object)->track_id = track_id;
   (*object)->lidar_supplement.is_background = 1;
 }
 void FusedClassifierTest::BuildOneMethod(base::ObjectPtr* object,
                                          int track_id) {
+AINFO<<"(DMCZP) EnteringMethod: FusedClassifierTest::BuildOneMethod";
   object->reset(new base::Object);
   (*object)->track_id = track_id;
   auto& ls = (*object)->lidar_supplement;
@@ -112,11 +117,13 @@ void FusedClassifierTest::BuildOneMethod(base::ObjectPtr* object,
                             0.f));
 }
 void FusedClassifierTest::BuildNoMethod(base::ObjectPtr* object, int track_id) {
+AINFO<<"(DMCZP) EnteringMethod: FusedClassifierTest::BuildNoMethod";
   object->reset(new base::Object);
   (*object)->track_id = track_id;
   (*object)->lidar_supplement.is_background = 0;
 }
 void FusedClassifierTest::BuildObjectsBadTimestamp() {
+AINFO<<"(DMCZP) EnteringMethod: FusedClassifierTest::BuildObjectsBadTimestamp";
   frames_.resize(kSequenceLength);
   timestamps_.resize(kSequenceLength);
   for (size_t i = 0; i < kSequenceLength; ++i) {
@@ -139,6 +146,7 @@ void FusedClassifierTest::BuildObjectsBadTimestamp() {
   timestamps_[kSequenceLength - 1] = 0.1;
 }
 void FusedClassifierTest::BuildObjects() {
+AINFO<<"(DMCZP) EnteringMethod: FusedClassifierTest::BuildObjects";
   frames_.resize(kSequenceLength);
   timestamps_.resize(kSequenceLength);
   for (size_t i = 0; i < kSequenceLength; ++i) {
@@ -178,12 +186,14 @@ void FusedClassifierTest::BuildObjects() {
 }
 
 TEST_F(FusedClassifierTest, test_basic) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   ASSERT_TRUE(fused_classifier_ != nullptr);
   ASSERT_TRUE(fused_classifier_->Init());
   EXPECT_STREQ("FusedClassifier", fused_classifier_->Name().c_str());
 }
 
 TEST_F(FusedClassifierTest, test_object_build) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   EXPECT_EQ(kSequenceLength, frames_.size());
   EXPECT_EQ(kSequenceLength, timestamps_.size());
   for (auto& frame : frames_) {
@@ -200,6 +210,7 @@ TEST_F(FusedClassifierTest, test_object_build) {
 }
 
 TEST_F(FusedClassifierTest, test_one_shot_fusion) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   fused_classifier_->Init();
   fused_classifier_->enable_temporal_fusion_ = false;
   std::vector<BaseOneShotTypeFusion*> instances =
@@ -221,6 +232,7 @@ TEST_F(FusedClassifierTest, test_one_shot_fusion) {
 }
 
 TEST_F(FusedClassifierTest, test_one_sequence_fusion) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   fused_classifier_->Init();
   fused_classifier_->enable_temporal_fusion_ = true;
   std::vector<BaseSequenceTypeFusion*> instances =
@@ -243,6 +255,7 @@ TEST_F(FusedClassifierTest, test_one_sequence_fusion) {
 }
 
 TEST_F(FusedClassifierTest, test_one_sequence_fusion_bad_timestamp) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   BuildObjectsBadTimestamp();
   for (auto& frame : frames_) {
     frame.tracked_objects = frame.segmented_objects;

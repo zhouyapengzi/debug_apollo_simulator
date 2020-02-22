@@ -48,9 +48,11 @@ constexpr double kMinObstacleArea = 1e-4;
 
 PathAssessmentDecider::PathAssessmentDecider(const TaskConfig& config)
     : Decider(config) {}
+AINFO<<"(DMCZP) EnteringMethod: PathAssessmentDecider::PathAssessmentDecider";
 
 Status PathAssessmentDecider::Process(
     Frame* const frame, ReferenceLineInfo* const reference_line_info) {
+AINFO<<"(DMCZP) EnteringMethod: PathAssessmentDecider::Process";
   // Sanity checks.
   CHECK_NOTNULL(frame);
   CHECK_NOTNULL(reference_line_info);
@@ -317,9 +319,13 @@ Status PathAssessmentDecider::Process(
 
 bool PathAssessmentDecider::IsValidRegularPath(
     const ReferenceLineInfo& reference_line_info, const PathData& path_data) {
+AINFO<<"(DMCZP) EnteringMethod: PathAssessmentDecider::IsValidRegularPath";
+AINFO<<"(DMCZP) EnteringMethod: PathAssessmentDecider::IsValidFallbackPath";
   // Basic sanity checks.
   if (path_data.Empty()) {
     ADEBUG << path_data.path_label() << ": path data is empty.";
+AINFO<<"(DMCZP) EnteringMethod: PathAssessmentDecider::IsGreatlyOffRoad";
+AINFO<<"(DMCZP) EnteringMethod: PathAssessmentDecider::IsCollidingWithStaticObstacles";
     return false;
   }
   // Check if the path is greatly off the reference line.
@@ -362,6 +368,7 @@ bool PathAssessmentDecider::IsValidFallbackPath(
 
 void PathAssessmentDecider::SetPathInfo(
     const ReferenceLineInfo& reference_line_info, PathData* const path_data) {
+AINFO<<"(DMCZP) EnteringMethod: PathAssessmentDecider::SetPathInfo";
   // Go through every path_point, and label its:
   //  - in-lane/out-of-lane info
   //  - distance to the closest obstacle.
@@ -377,6 +384,7 @@ void PathAssessmentDecider::SetPathInfo(
 
 void PathAssessmentDecider::TrimTailingOutLanePoints(
     PathData* const path_data) {
+AINFO<<"(DMCZP) EnteringMethod: PathAssessmentDecider::TrimTailingOutLanePoints";
   // Don't trim self-lane path or fallback path.
   if (path_data->path_label().find("fallback") != std::string::npos ||
       path_data->path_label().find("self") != std::string::npos) {
@@ -409,6 +417,7 @@ void PathAssessmentDecider::TrimTailingOutLanePoints(
 
 bool PathAssessmentDecider::IsGreatlyOffReferenceLine(
     const PathData& path_data) {
+AINFO<<"(DMCZP) EnteringMethod: PathAssessmentDecider::IsGreatlyOffReferenceLine";
   constexpr double kOffReferenceLineThreshold = 20.0;
   const auto& frenet_path = path_data.frenet_frame_path();
   for (const auto& frenet_path_point : frenet_path) {
@@ -506,6 +515,9 @@ bool PathAssessmentDecider::IsCollidingWithStaticObstacles(
 void PathAssessmentDecider::InitPathPointDecision(
     const PathData& path_data,
     std::vector<PathPointDecision>* const path_point_decision) {
+AINFO<<"(DMCZP) EnteringMethod: PathAssessmentDecider::InitPathPointDecision";
+AINFO<<"(DMCZP) EnteringMethod: PathAssessmentDecider::SetPathPointType";
+AINFO<<"(DMCZP) EnteringMethod: PathAssessmentDecider::SetObstacleDistance";
   // Sanity checks.
   CHECK_NOTNULL(path_point_decision);
   path_point_decision->clear();
@@ -648,6 +660,7 @@ void PathAssessmentDecider::SetObstacleDistance(
 void PathAssessmentDecider::RecordDebugInfo(
     const PathData& path_data, const std::string& debug_name,
     ReferenceLineInfo* const reference_line_info) {
+AINFO<<"(DMCZP) EnteringMethod: PathAssessmentDecider::RecordDebugInfo";
   const auto& path_points = path_data.discretized_path();
   auto* ptr_optimized_path =
       reference_line_info->mutable_debug()->mutable_planning_data()->add_path();
@@ -658,6 +671,8 @@ void PathAssessmentDecider::RecordDebugInfo(
 
 int ContainsOutOnReverseLane(
     const std::vector<PathPointDecision>& path_point_decision) {
+AINFO<<"(DMCZP) EnteringMethod: ContainsOutOnReverseLane";
+AINFO<<"(DMCZP) EnteringMethod: GetBackToInLaneIndex";
   int ret = 0;
   for (const auto& curr_decision : path_point_decision) {
     if (std::get<1>(curr_decision) ==

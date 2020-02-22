@@ -28,12 +28,14 @@ namespace common {
 namespace {
 int EasyCandidate(const base::PointF& p, void* vg,
                   std::vector<int>* nn_indices) {
+AINFO<<"(DMCZP) EnteringMethod: EasyCandidate";
   nn_indices->push_back(1);
   return static_cast<int>(nn_indices->size());
 }
 
 int EasyCandidateAll(const base::PointF& p, void* vg,
                      std::vector<int>* nn_indices) {
+AINFO<<"(DMCZP) EnteringMethod: EasyCandidateAll";
   for (int i = 0; i < 300; ++i) {
     nn_indices->push_back(i);
   }
@@ -42,10 +44,12 @@ int EasyCandidateAll(const base::PointF& p, void* vg,
 
 int EasyCandidateError(const base::PointF& p, void* vg,
                        std::vector<int>* nn_indices) {
+AINFO<<"(DMCZP) EnteringMethod: EasyCandidateError";
   return -1;
 }
 
 bool EasyCondition(const base::PointF& p1, const base::PointF& p2, void* vg) {
+AINFO<<"(DMCZP) EnteringMethod: EasyCondition";
   float dist = 5.0f;
   if (CalculateEuclidenDist(p1, p2) <= dist) {
     return true;
@@ -55,6 +59,7 @@ bool EasyCondition(const base::PointF& p1, const base::PointF& p2, void* vg) {
 
 bool EasyConditionFalse(const base::PointF& p1, const base::PointF& p2,
                         void* vg) {
+AINFO<<"(DMCZP) EnteringMethod: EasyConditionFalse";
   return false;
 }
 }  // namespace
@@ -64,6 +69,7 @@ using base::PointCloud;
 using base::PointF;
 
 TEST(ConditionalClusteringTest, conditional_clustering_test) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   ConditionClustering<base::PointF> condition_clustering =
       ConditionClustering<base::PointF>(false);
   std::shared_ptr<PointCloud<PointF>> polygon_in_ptr =
@@ -125,6 +131,7 @@ TEST(ConditionalClusteringTest, conditional_clustering_test) {
 }
 
 TEST(ConditionalClusteringTest, conditional_clustering_test1) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   ConditionClustering<base::PointF> condition_clustering =
       ConditionClustering<base::PointF>(true);
   std::shared_ptr<PointCloud<PointF>> polygon_in_ptr =

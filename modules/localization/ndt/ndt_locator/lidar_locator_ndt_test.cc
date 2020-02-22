@@ -37,6 +37,7 @@ class LidarLocatorNdtTestSuite : public ::testing::Test {
 };
 
 TEST_F(LidarLocatorNdtTestSuite, LidarLocatorNdt) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   const std::string map_folder =
       "/apollo/modules/localization/ndt/test_data/ndt_map";
   const std::string poses_file =

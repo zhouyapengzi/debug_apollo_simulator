@@ -41,6 +41,7 @@ namespace apollo {
 namespace planning {
 
 TEST(NaviObstacleDeciderTest, ComputeNudgeDist1) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   NaviObstacleDecider obstacle_decider;
   std::vector<const Obstacle*> vec_obstacle;
   std::vector<common::PathPoint> vec_points;
@@ -83,6 +84,7 @@ TEST(NaviObstacleDeciderTest, ComputeNudgeDist1) {
 }
 
 TEST(NaviObstacleDeciderTest, ComputeNudgeDist2) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   NaviObstacleDecider obstacle_decider;
   std::vector<const Obstacle*> vec_obstacle;
   std::vector<common::PathPoint> vec_points;
@@ -123,6 +125,7 @@ TEST(NaviObstacleDeciderTest, ComputeNudgeDist2) {
 }
 
 TEST(NaviObstacleDeciderTest, ComputeNudgeDist3) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   NaviObstacleDecider obstacle_decider;
   std::vector<const Obstacle*> vec_obstacle;
   std::vector<common::PathPoint> vec_points;
@@ -185,6 +188,7 @@ TEST(NaviObstacleDeciderTest, ComputeNudgeDist3) {
 }
 
 TEST(NaviObstacleDeciderTest, ComputeNudgeDist4) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   NaviObstacleDecider obstacle_decider;
   std::vector<const Obstacle*> vec_obstacle;
   std::vector<common::PathPoint> vec_points;
@@ -225,6 +229,7 @@ TEST(NaviObstacleDeciderTest, ComputeNudgeDist4) {
 }
 
 TEST(NaviObstacleDeciderTest, GetUnsafeObstaclesID) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   NaviObstacleDecider obstacle_decider;
   std::vector<const Obstacle*> vec_obstacle;
   std::vector<common::PathPoint> vec_points;

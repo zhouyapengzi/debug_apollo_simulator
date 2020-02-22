@@ -25,6 +25,7 @@ namespace perception {
 namespace camera {
 
 TEST(UtilTest, CoverTest) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   base::RectF rect1(1, 1, 10, 10);
   base::RectF rect2(1, 1, 6, 6);
   base::RectF rect3(100, 100, 10, 10);
@@ -40,6 +41,7 @@ TEST(UtilTest, CoverTest) {
   ASSERT_TRUE(IsCoveredHorizon(rect1, rect2, 0.5f));
 }
 TEST(UtilTest, ContainTest) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   {
     int a = 10;
     std::vector<int> array = {1, 2, 3, 4, 5, 6, 7};
@@ -65,6 +67,7 @@ TEST(UtilTest, ContainTest) {
 }
 
 TEST(UtilTest, BorderTest) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   {
     int width = 400;
     int height = 300;
@@ -106,6 +109,7 @@ TEST(UtilTest, BorderTest) {
 }
 
 TEST(UtilTest, RefineBoxTest) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   {
     base::RectI rect(-1, 2, 100, 100);
     base::RectI result_rect;
@@ -252,6 +256,7 @@ TEST(UtilTest, RefineBoxTest) {
 }
 
 TEST(UtilTest, test_load_anchors) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   std::string anchor_filepath = "non-exists";
   {
     std::vector<float> anchors;
@@ -266,6 +271,7 @@ TEST(UtilTest, test_load_anchors) {
 }
 
 TEST(UtilTest, test_load_types) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   std::string types_filepath = "non-exists";
   {
     std::vector<base::ObjectSubType> types;
@@ -280,6 +286,7 @@ TEST(UtilTest, test_load_types) {
 }
 
 TEST(UtilTest, test_resize_cpu) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   cv::Mat img = cv::imread(
       "/apollo/modules/perception/testdata/"
       "camera/common/img/test.jpg");
@@ -319,6 +326,7 @@ TEST(UtilTest, test_resize_cpu) {
 }
 
 TEST(UtilTest, GetCyberWorkRootTest) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   unsetenv("MODULE_PATH");
   unsetenv("CYBER_PATH");
 
@@ -340,6 +348,7 @@ TEST(UtilTest, GetCyberWorkRootTest) {
 }
 
 TEST(UtilTest, FillObjectPolygonFromBBox3DTest) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   const double eps = 1e-2;
 
   base::ObjectPtr object;
@@ -370,6 +379,7 @@ TEST(UtilTest, FillObjectPolygonFromBBox3DTest) {
 }
 
 TEST(UtilTest, TestCalculateMeanAndVariance) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   std::vector<double> data;
   double mean = 0.0;
   double var = 0.0;

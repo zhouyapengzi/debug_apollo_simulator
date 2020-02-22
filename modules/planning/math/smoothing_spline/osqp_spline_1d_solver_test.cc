@@ -25,6 +25,7 @@ namespace apollo {
 namespace planning {
 
 TEST(OsqpSpline1dSolver, one) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   // starting point
   std::vector<double> x_knots{0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
   OsqpSpline1dSolver pg(x_knots, 6);
@@ -70,6 +71,7 @@ TEST(OsqpSpline1dSolver, one) {
 }
 
 TEST(OsqpSpline1dSolver, two) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   // starting point
   std::vector<double> x_knots{0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
   OsqpSpline1dSolver pg(x_knots, 6);
@@ -114,6 +116,7 @@ TEST(OsqpSpline1dSolver, two) {
 }
 
 TEST(OsqpSpline1dSolver, three) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   std::vector<double> x_knots{0, 1, 2};
   OsqpSpline1dSolver pg(x_knots, 5);
   QuadraticProgrammingProblem qp_proto;

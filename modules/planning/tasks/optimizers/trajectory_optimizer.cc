@@ -27,8 +27,10 @@ using apollo::common::Status;
 
 TrajectoryOptimizer::TrajectoryOptimizer(const TaskConfig& config)
     : Task(config) {}
+AINFO<<"(DMCZP) EnteringMethod: TrajectoryOptimizer::TrajectoryOptimizer";
 
 Status TrajectoryOptimizer::Execute(Frame* frame) {
+AINFO<<"(DMCZP) EnteringMethod: TrajectoryOptimizer::Execute";
   Task::Execute(frame);
   return Process();
 }

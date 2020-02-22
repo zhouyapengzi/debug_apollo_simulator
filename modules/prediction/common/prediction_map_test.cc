@@ -28,6 +28,7 @@ using apollo::hdmap::MapPathPoint;
 class PredictionMapTest : public KMLMapBasedTest {};
 
 TEST_F(PredictionMapTest, get_lane_info) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   std::shared_ptr<const LaneInfo> lane_info = PredictionMap::LaneById("l20");
   EXPECT_NE(nullptr, lane_info);
   EXPECT_EQ("l20", lane_info->id().id());
@@ -37,6 +38,7 @@ TEST_F(PredictionMapTest, get_lane_info) {
 }
 
 TEST_F(PredictionMapTest, get_position_on_lane) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   std::shared_ptr<const LaneInfo> lane_info = PredictionMap::LaneById("l20");
 
   // on lane
@@ -53,6 +55,7 @@ TEST_F(PredictionMapTest, get_position_on_lane) {
 }
 
 TEST_F(PredictionMapTest, heading_on_lane) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   std::shared_ptr<const LaneInfo> lane_info = PredictionMap::LaneById("l20");
 
   // on lane
@@ -61,6 +64,7 @@ TEST_F(PredictionMapTest, heading_on_lane) {
 }
 
 TEST_F(PredictionMapTest, get_lane_width) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   std::shared_ptr<const LaneInfo> lane_info = PredictionMap::LaneById("l20");
 
   // on lane
@@ -75,6 +79,7 @@ TEST_F(PredictionMapTest, get_lane_width) {
 }
 
 TEST_F(PredictionMapTest, get_projection) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   std::shared_ptr<const LaneInfo> lane_info = PredictionMap::LaneById("l20");
 
   // on lane
@@ -93,6 +98,7 @@ TEST_F(PredictionMapTest, get_projection) {
 }
 
 TEST_F(PredictionMapTest, get_map_pathpoint) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   std::shared_ptr<const LaneInfo> lane_info = PredictionMap::LaneById("l20");
   double s = 10.0;
 
@@ -110,6 +116,7 @@ TEST_F(PredictionMapTest, get_map_pathpoint) {
 }
 
 TEST_F(PredictionMapTest, on_lane) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   std::vector<std::shared_ptr<const LaneInfo>> prev_lanes(0);
   Eigen::Vector2d point(124.85931, 347.52733);
   double heading = 0.0;
@@ -143,6 +150,7 @@ TEST_F(PredictionMapTest, on_lane) {
 }
 
 TEST_F(PredictionMapTest, get_path_heading) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   std::shared_ptr<const LaneInfo> lane_info = PredictionMap::LaneById("l20");
   common::PointENU point;
   point.set_x(124.85931);
@@ -152,6 +160,7 @@ TEST_F(PredictionMapTest, get_path_heading) {
 }
 
 TEST_F(PredictionMapTest, get_smooth_point_from_lane) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   const std::string id = "l20";
   double s = 10.0;
   double l = 0.0;
@@ -165,6 +174,7 @@ TEST_F(PredictionMapTest, get_smooth_point_from_lane) {
 }
 
 TEST_F(PredictionMapTest, get_nearby_lanes_by_current_lanes) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   std::vector<std::shared_ptr<const LaneInfo>> curr_lanes(0);
   curr_lanes.emplace_back(PredictionMap::LaneById("l20"));
   std::vector<std::shared_ptr<const LaneInfo>> nearby_lanes(0);
@@ -200,6 +210,7 @@ TEST_F(PredictionMapTest, get_nearby_lanes_by_current_lanes) {
 }
 
 TEST_F(PredictionMapTest, neighbor_lane_detection) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   std::vector<std::shared_ptr<const LaneInfo>> curr_lanes(0);
 
   // empty current lanes
@@ -263,6 +274,7 @@ TEST_F(PredictionMapTest, neighbor_lane_detection) {
 }
 
 TEST_F(PredictionMapTest, lane_turn_type) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   // Valid lane
   EXPECT_EQ(1, PredictionMap::LaneTurnType("l20"));
 

@@ -60,6 +60,7 @@ ReferenceLineProvider::~ReferenceLineProvider() {}
 ReferenceLineProvider::ReferenceLineProvider(
     const hdmap::HDMap *base_map,
     const std::shared_ptr<relative_map::MapMsg> &relative_map) {
+AINFO<<"(DMCZP) EnteringMethod: ReferenceLineProvider::ReferenceLineProvider";
   if (!FLAGS_use_navigation_mode) {
     pnc_map_ = std::make_unique<hdmap::PncMap>(base_map);
     relative_map_ = nullptr;
@@ -87,6 +88,7 @@ ReferenceLineProvider::ReferenceLineProvider(
 
 bool ReferenceLineProvider::UpdateRoutingResponse(
     const routing::RoutingResponse &routing) {
+AINFO<<"(DMCZP) EnteringMethod: ReferenceLineProvider::UpdateRoutingResponse";
   std::lock_guard<std::mutex> routing_lock(routing_mutex_);
   routing_ = routing;
   has_routing_ = true;
@@ -95,6 +97,7 @@ bool ReferenceLineProvider::UpdateRoutingResponse(
 
 std::vector<routing::LaneWaypoint>
 ReferenceLineProvider::FutureRouteWaypoints() {
+AINFO<<"(DMCZP) EnteringMethod: ReferenceLineProvider::FutureRouteWaypoints";
   if (!FLAGS_use_navigation_mode) {
     std::lock_guard<std::mutex> lock(pnc_map_mutex_);
     return pnc_map_->FutureRouteWaypoints();
@@ -106,11 +109,13 @@ ReferenceLineProvider::FutureRouteWaypoints() {
 
 void ReferenceLineProvider::UpdateVehicleState(
     const VehicleState &vehicle_state) {
+AINFO<<"(DMCZP) EnteringMethod: ReferenceLineProvider::UpdateVehicleState";
   std::lock_guard<std::mutex> lock(vehicle_state_mutex_);
   vehicle_state_ = vehicle_state;
 }
 
 bool ReferenceLineProvider::Start() {
+AINFO<<"(DMCZP) EnteringMethod: ReferenceLineProvider::Start";
   if (FLAGS_use_navigation_mode) {
     return true;
   }
@@ -126,6 +131,7 @@ bool ReferenceLineProvider::Start() {
 }
 
 void ReferenceLineProvider::Stop() {
+AINFO<<"(DMCZP) EnteringMethod: ReferenceLineProvider::Stop";
   is_stop_ = true;
   if (FLAGS_enable_reference_line_provider_thread) {
     task_future_.get();
@@ -135,6 +141,7 @@ void ReferenceLineProvider::Stop() {
 void ReferenceLineProvider::UpdateReferenceLine(
     const std::list<ReferenceLine> &reference_lines,
     const std::list<hdmap::RouteSegments> &route_segments) {
+AINFO<<"(DMCZP) EnteringMethod: ReferenceLineProvider::UpdateReferenceLine";
   if (reference_lines.size() != route_segments.size()) {
     AERROR << "The calculated reference line size(" << reference_lines.size()
            << ") and route_segments size(" << route_segments.size()
@@ -185,6 +192,7 @@ void ReferenceLineProvider::UpdateReferenceLine(
 }
 
 void ReferenceLineProvider::GenerateThread() {
+AINFO<<"(DMCZP) EnteringMethod: ReferenceLineProvider::GenerateThread";
   while (!is_stop_) {
     constexpr int32_t kSleepTime = 50;  // milliseconds
     cyber::SleepFor(std::chrono::milliseconds(kSleepTime));
@@ -207,6 +215,7 @@ void ReferenceLineProvider::GenerateThread() {
 }
 
 double ReferenceLineProvider::LastTimeDelay() {
+AINFO<<"(DMCZP) EnteringMethod: ReferenceLineProvider::LastTimeDelay";
   if (FLAGS_enable_reference_line_provider_thread &&
       !FLAGS_use_navigation_mode) {
     std::lock_guard<std::mutex> lock(reference_lines_mutex_);
@@ -219,8 +228,12 @@ double ReferenceLineProvider::LastTimeDelay() {
 bool ReferenceLineProvider::GetReferenceLines(
     std::list<ReferenceLine> *reference_lines,
     std::list<hdmap::RouteSegments> *segments) {
+AINFO<<"(DMCZP) EnteringMethod: ReferenceLineProvider::GetReferenceLines";
   CHECK_NOTNULL(reference_lines);
+AINFO<<"(DMCZP) EnteringMethod: ReferenceLineProvider::GetReferenceLinesFromRelativeMap";
   CHECK_NOTNULL(segments);
+AINFO<<"(DMCZP) EnteringMethod: ReferenceLineProvider::CreateRouteSegments";
+AINFO<<"(DMCZP) EnteringMethod: ReferenceLineProvider::CreateReferenceLine";
 
   if (FLAGS_use_navigation_mode) {
     double start_time = Clock::NowInSeconds();
@@ -266,6 +279,7 @@ bool ReferenceLineProvider::GetReferenceLines(
 
 void ReferenceLineProvider::PrioritzeChangeLane(
     std::list<hdmap::RouteSegments> *route_segments) {
+AINFO<<"(DMCZP) EnteringMethod: ReferenceLineProvider::PrioritzeChangeLane";
   CHECK_NOTNULL(route_segments);
   auto iter = route_segments->begin();
   while (iter != route_segments->end()) {
@@ -452,6 +466,7 @@ bool ReferenceLineProvider::GetNearestWayPointFromNavigationPath(
     const common::VehicleState &state,
     const std::unordered_set<std::string> &navigation_lane_ids,
     hdmap::LaneWaypoint *waypoint) {
+AINFO<<"(DMCZP) EnteringMethod: ReferenceLineProvider::GetNearestWayPointFromNavigationPath";
   const double kMaxDistance = 10.0;
   waypoint->lane = nullptr;
   std::vector<hdmap::LaneInfoConstPtr> lanes;
@@ -614,6 +629,7 @@ bool ReferenceLineProvider::CreateReferenceLine(
 bool ReferenceLineProvider::ExtendReferenceLine(const VehicleState &state,
                                                 RouteSegments *segments,
                                                 ReferenceLine *reference_line) {
+AINFO<<"(DMCZP) EnteringMethod: ReferenceLineProvider::ExtendReferenceLine";
   RouteSegments segment_properties;
   segment_properties.SetProperties(*segments);
   auto prev_segment = route_segments_.begin();
@@ -701,6 +717,7 @@ bool ReferenceLineProvider::ExtendReferenceLine(const VehicleState &state,
 bool ReferenceLineProvider::Shrink(const common::SLPoint &sl,
                                    ReferenceLine *reference_line,
                                    RouteSegments *segments) {
+AINFO<<"(DMCZP) EnteringMethod: ReferenceLineProvider::Shrink";
   constexpr double kMaxHeadingDiff = M_PI * 5.0 / 6.0;
   // shrink reference line
   double new_backward_distance = sl.s();
@@ -747,6 +764,7 @@ bool ReferenceLineProvider::Shrink(const common::SLPoint &sl,
 
 bool ReferenceLineProvider::IsReferenceLineSmoothValid(
     const ReferenceLine &raw, const ReferenceLine &smoothed) const {
+AINFO<<"(DMCZP) EnteringMethod: ReferenceLineProvider::IsReferenceLineSmoothValid";
   constexpr double kReferenceLineDiffCheckStep = 10.0;
   for (double s = 0.0; s < smoothed.Length();
        s += kReferenceLineDiffCheckStep) {
@@ -772,6 +790,7 @@ bool ReferenceLineProvider::IsReferenceLineSmoothValid(
 
 AnchorPoint ReferenceLineProvider::GetAnchorPoint(
     const ReferenceLine &reference_line, double s) const {
+AINFO<<"(DMCZP) EnteringMethod: ReferenceLineProvider::GetAnchorPoint";
   AnchorPoint anchor;
   anchor.longitudinal_bound = smoother_config_.longitudinal_boundary_bound();
   auto ref_point = reference_line.GetReferencePoint(s);
@@ -848,6 +867,7 @@ AnchorPoint ReferenceLineProvider::GetAnchorPoint(
 void ReferenceLineProvider::GetAnchorPoints(
     const ReferenceLine &reference_line,
     std::vector<AnchorPoint> *anchor_points) const {
+AINFO<<"(DMCZP) EnteringMethod: ReferenceLineProvider::GetAnchorPoints";
   CHECK_NOTNULL(anchor_points);
   const double interval = smoother_config_.max_constraint_interval();
   int num_of_anchors =
@@ -869,6 +889,7 @@ void ReferenceLineProvider::GetAnchorPoints(
 
 bool ReferenceLineProvider::SmoothRouteSegment(const RouteSegments &segments,
                                                ReferenceLine *reference_line) {
+AINFO<<"(DMCZP) EnteringMethod: ReferenceLineProvider::SmoothRouteSegment";
   hdmap::Path path(segments);
   return SmoothReferenceLine(ReferenceLine(path), reference_line);
 }
@@ -876,6 +897,7 @@ bool ReferenceLineProvider::SmoothRouteSegment(const RouteSegments &segments,
 bool ReferenceLineProvider::SmoothPrefixedReferenceLine(
     const ReferenceLine &prefix_ref, const ReferenceLine &raw_ref,
     ReferenceLine *reference_line) {
+AINFO<<"(DMCZP) EnteringMethod: ReferenceLineProvider::SmoothPrefixedReferenceLine";
   if (!FLAGS_enable_smooth_reference_line) {
     *reference_line = raw_ref;
     return true;
@@ -918,6 +940,7 @@ bool ReferenceLineProvider::SmoothPrefixedReferenceLine(
 
 bool ReferenceLineProvider::SmoothReferenceLine(
     const ReferenceLine &raw_reference_line, ReferenceLine *reference_line) {
+AINFO<<"(DMCZP) EnteringMethod: ReferenceLineProvider::SmoothReferenceLine";
   if (!FLAGS_enable_smooth_reference_line) {
     *reference_line = raw_reference_line;
     return true;

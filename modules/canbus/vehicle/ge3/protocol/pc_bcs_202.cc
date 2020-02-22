@@ -27,25 +27,30 @@ const int32_t Pcbcs202::ID = 0x202;
 
 // public
 Pcbcs202::Pcbcs202() { Reset(); }
+AINFO<<"(DMCZP) EnteringMethod: Pcbcs202::Pcbcs202";
 
 uint32_t Pcbcs202::GetPeriod() const {
+AINFO<<"(DMCZP) EnteringMethod: Pcbcs202::GetPeriod";
   // modify every protocol's period manually
   static const uint32_t PERIOD = 20 * 1000;
   return PERIOD;
 }
 
 void Pcbcs202::UpdateData(uint8_t* data) {
+AINFO<<"(DMCZP) EnteringMethod: Pcbcs202::UpdateData";
   set_p_pc_brkpedreq(data, pc_brkpedreq_);
   set_p_pc_brkpedenable(data, pc_brkpedenable_);
 }
 
 void Pcbcs202::Reset() {
+AINFO<<"(DMCZP) EnteringMethod: Pcbcs202::Reset";
   // you should check this manually
   pc_brkpedreq_ = 0.0;
   pc_brkpedenable_ = Pc_bcs_202::PC_BRKPEDENABLE_DISABLE;
 }
 
 Pcbcs202* Pcbcs202::set_pc_brkpedreq(double pc_brkpedreq) {
+AINFO<<"(DMCZP) EnteringMethod: Pcbcs202::set_pc_brkpedreq";
   pc_brkpedreq_ = pc_brkpedreq;
   return this;
 }
@@ -55,6 +60,7 @@ Pcbcs202* Pcbcs202::set_pc_brkpedreq(double pc_brkpedreq) {
 // 'physical_range': '[0|100]', 'bit': 1, 'type': 'double', 'order': 'motorola',
 // 'physical_unit': '%'}
 void Pcbcs202::set_p_pc_brkpedreq(uint8_t* data, double pc_brkpedreq) {
+AINFO<<"(DMCZP) EnteringMethod: Pcbcs202::set_p_pc_brkpedreq";
   pc_brkpedreq = ProtocolData::BoundedValue(0.0, 100.0, pc_brkpedreq);
   int x = static_cast<int>(pc_brkpedreq / 0.100000);
   uint8_t t = 0;
@@ -71,6 +77,7 @@ void Pcbcs202::set_p_pc_brkpedreq(uint8_t* data, double pc_brkpedreq) {
 
 Pcbcs202* Pcbcs202::set_pc_brkpedenable(
     Pc_bcs_202::Pc_brkpedenableType pc_brkpedenable) {
+AINFO<<"(DMCZP) EnteringMethod: Pcbcs202::set_pc_brkpedenable";
   pc_brkpedenable_ = pc_brkpedenable;
   return this;
 }
@@ -82,6 +89,7 @@ Pcbcs202* Pcbcs202::set_pc_brkpedenable(
 // 'physical_unit': ''}
 void Pcbcs202::set_p_pc_brkpedenable(
     uint8_t* data, Pc_bcs_202::Pc_brkpedenableType pc_brkpedenable) {
+AINFO<<"(DMCZP) EnteringMethod: Pcbcs202::set_p_pc_brkpedenable";
   int x = pc_brkpedenable;
 
   Byte to_set(data + 0);

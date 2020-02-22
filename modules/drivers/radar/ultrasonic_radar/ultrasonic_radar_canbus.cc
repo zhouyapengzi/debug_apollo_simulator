@@ -32,6 +32,7 @@ namespace ultrasonic_radar {
 UltrasonicRadarCanbus::UltrasonicRadarCanbus()
     : monitor_logger_buffer_(
           common::monitor::MonitorMessageItem::ULTRASONIC_RADAR) {}
+AINFO<<"(DMCZP) EnteringMethod: UltrasonicRadarCanbus::UltrasonicRadarCanbus";
 
 UltrasonicRadarCanbus::~UltrasonicRadarCanbus() {
   can_receiver_.Stop();
@@ -39,10 +40,12 @@ UltrasonicRadarCanbus::~UltrasonicRadarCanbus() {
 }
 
 std::string UltrasonicRadarCanbus::Name() const { return "ultrasonic_radar"; }
+AINFO<<"(DMCZP) EnteringMethod: UltrasonicRadarCanbus::Name";
 
 apollo::common::Status UltrasonicRadarCanbus::Init(
     const std::string& config_path,
     const std::shared_ptr<::apollo::cyber::Writer<Ultrasonic>>& writer) {
+AINFO<<"(DMCZP) EnteringMethod: UltrasonicRadarCanbus::Init";
   if (!cyber::common::GetProtoFromFile(config_path, &ultrasonic_radar_conf_)) {
     return OnError("Unable to load canbus conf file: " + config_path);
   }
@@ -81,6 +84,7 @@ apollo::common::Status UltrasonicRadarCanbus::Init(
 }
 
 apollo::common::Status UltrasonicRadarCanbus::Start() {
+AINFO<<"(DMCZP) EnteringMethod: UltrasonicRadarCanbus::Start";
   // 1. init and start the can card hardware
   if (can_client_->Start() != ErrorCode::OK) {
     return OnError("Failed to start can client");
@@ -101,6 +105,7 @@ apollo::common::Status UltrasonicRadarCanbus::Start() {
 
 // Send the error to monitor and return it
 Status UltrasonicRadarCanbus::OnError(const std::string& error_msg) {
+AINFO<<"(DMCZP) EnteringMethod: UltrasonicRadarCanbus::OnError";
   monitor_logger_buffer_.ERROR(error_msg);
   return Status(ErrorCode::CANBUS_ERROR, error_msg);
 }

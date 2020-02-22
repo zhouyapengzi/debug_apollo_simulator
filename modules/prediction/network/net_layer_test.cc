@@ -23,6 +23,7 @@ namespace prediction {
 namespace network {
 
 TEST(LayerTest, dense_test) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   LayerParameter layer_pb;
   Dense dense;
 
@@ -54,6 +55,7 @@ TEST(LayerTest, dense_test) {
 }
 
 TEST(LayerTest, activation_test) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   LayerParameter layer_pb;
   Activation act;
 
@@ -73,6 +75,7 @@ TEST(LayerTest, activation_test) {
 }
 
 TEST(LayerTest, bn_test) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   LayerParameter layer_pb;
   BatchNormalization bn;
 
@@ -103,6 +106,7 @@ TEST(LayerTest, bn_test) {
 }
 
 TEST(LayerTest, lstm_test) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   LayerParameter layer_pb;
   LSTM lstm;
 
@@ -164,6 +168,7 @@ TEST(LayerTest, lstm_test) {
 }
 
 TEST(LayerTest, flatten_test) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   LayerParameter layer_pb;
   Flatten flat;
 
@@ -185,6 +190,7 @@ TEST(LayerTest, flatten_test) {
 }
 
 TEST(LayerTest, input_test) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   LayerParameter layer_pb;
   Input input;
 
@@ -194,6 +200,7 @@ TEST(LayerTest, input_test) {
 }
 
 TEST(LayerTest, concat_test) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   LayerParameter layer_pb;
   Concatenate concat;
 

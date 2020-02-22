@@ -23,6 +23,7 @@ namespace prediction {
 namespace math_util {
 
 TEST(PredictionUtilTest, normalize) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   double value = 3.0;
   double mean = 2.0;
   double std_dev = 0.01;
@@ -30,6 +31,7 @@ TEST(PredictionUtilTest, normalize) {
 }
 
 TEST(PredictionUtilTest, relu) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   double value = 2.0;
   EXPECT_DOUBLE_EQ(Relu(value), 2.0);
 
@@ -38,11 +40,13 @@ TEST(PredictionUtilTest, relu) {
 }
 
 TEST(PredictionUtilTest, sigmoid) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   double value = 2.0;
   EXPECT_DOUBLE_EQ(Sigmoid(value), 0.88079707797788231);
 }
 
 TEST(PredictionUtilTest, softmax) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   std::vector<double> value = {0.0, 10.0, 100.0};
   std::vector<double> result = Softmax(value);
   EXPECT_NEAR(result[0], 0.0, 0.001);
@@ -51,6 +55,7 @@ TEST(PredictionUtilTest, softmax) {
 }
 
 TEST(PredictionUtilTest, softmax_balanced) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   std::vector<double> value = {10.0, 10.0, 10.0};
   std::vector<double> result = Softmax(value);
   EXPECT_NEAR(result[0], 0.3333, 0.001);
@@ -59,6 +64,7 @@ TEST(PredictionUtilTest, softmax_balanced) {
 }
 
 TEST(PredictionUtilTest, solvable_quadratic_equation) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   std::vector<double> coefficients = {5.0, 6.0, 1.0};
   std::pair<double, double> roots;
   EXPECT_EQ(SolveQuadraticEquation(coefficients, &roots), 0);
@@ -67,12 +73,14 @@ TEST(PredictionUtilTest, solvable_quadratic_equation) {
 }
 
 TEST(PredictionUtilTest, non_solvable_quadratic_equation) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   std::vector<double> coefficients = {5.0, 2.0, 1.0};
   std::pair<double, double> roots;
   EXPECT_EQ(SolveQuadraticEquation(coefficients, &roots), -1);
 }
 
 TEST(PredictionUtilTest, solve_cubic_polynomial_and_evaluate) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   std::array<double, 2> start = {2.0, 3.0};
   std::array<double, 2> end = {8.0, 1.0};
   double param = 5.0;
@@ -96,6 +104,7 @@ namespace predictor_util {
 using ::apollo::common::TrajectoryPoint;
 
 TEST(PredictionUtilTest, translate_point) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   double x = 1.0;
   double y = 2.0;
   TrajectoryPoint trajectory_point;

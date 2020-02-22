@@ -19,6 +19,7 @@
 #include "modules/localization/msf/local_map/pyramid_map/pyramid_map_config.h"
 
 int main(int argc, char** argv) {
+AINFO<<"(DMCZP) EnteringMethod: main";
   testing::InitGoogleTest(&argc, argv);
   return RUN_ALL_TESTS();
 }
@@ -36,6 +37,7 @@ class PyramidMapMatrixTestSuite : public ::testing::Test {
 };
 
 TEST_F(PyramidMapMatrixTestSuite, constructor_and_init) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   // map config
   std::unique_ptr<PyramidMapConfig> config(
       new PyramidMapConfig("lossy_full_alt"));
@@ -75,6 +77,7 @@ TEST_F(PyramidMapMatrixTestSuite, constructor_and_init) {
 }
 
 TEST_F(PyramidMapMatrixTestSuite, get_and_set_intensity) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   // map config
   std::unique_ptr<PyramidMapConfig> config(
       new PyramidMapConfig("lossy_full_alt"));
@@ -128,6 +131,7 @@ TEST_F(PyramidMapMatrixTestSuite, get_and_set_intensity) {
 }
 
 TEST_F(PyramidMapMatrixTestSuite, get_and_set_intensity_var) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   // map config
   std::unique_ptr<PyramidMapConfig> config(
       new PyramidMapConfig("lossy_full_alt"));
@@ -174,6 +178,7 @@ TEST_F(PyramidMapMatrixTestSuite, get_and_set_intensity_var) {
 }
 
 TEST_F(PyramidMapMatrixTestSuite, get_and_set_altitude) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   // map config
   std::unique_ptr<PyramidMapConfig> config(
       new PyramidMapConfig("lossy_full_alt"));
@@ -240,6 +245,7 @@ TEST_F(PyramidMapMatrixTestSuite, get_and_set_altitude) {
 }
 
 TEST_F(PyramidMapMatrixTestSuite, get_and_set_altitude_var) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   // map config
   std::unique_ptr<PyramidMapConfig> config(
       new PyramidMapConfig("lossy_full_alt"));
@@ -286,6 +292,7 @@ TEST_F(PyramidMapMatrixTestSuite, get_and_set_altitude_var) {
 }
 
 TEST_F(PyramidMapMatrixTestSuite, get_and_set_ground_altitude) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   // map config
   std::unique_ptr<PyramidMapConfig> config(
       new PyramidMapConfig("lossy_full_alt"));
@@ -333,6 +340,7 @@ TEST_F(PyramidMapMatrixTestSuite, get_and_set_ground_altitude) {
 }
 
 TEST_F(PyramidMapMatrixTestSuite, get_and_set_count) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   // map config
   std::unique_ptr<PyramidMapConfig> config(
       new PyramidMapConfig("lossy_full_alt"));
@@ -378,6 +386,7 @@ TEST_F(PyramidMapMatrixTestSuite, get_and_set_count) {
 }
 
 TEST_F(PyramidMapMatrixTestSuite, get_and_set_ground_count) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   // map config
   std::unique_ptr<PyramidMapConfig> config(
       new PyramidMapConfig("lossy_full_alt"));
@@ -424,6 +433,7 @@ TEST_F(PyramidMapMatrixTestSuite, get_and_set_ground_count) {
 }
 
 TEST_F(PyramidMapMatrixTestSuite, set_and_reset_and_roi) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   // map config
   std::unique_ptr<PyramidMapConfig> config(
       new PyramidMapConfig("lossy_full_alt"));
@@ -529,6 +539,7 @@ TEST_F(PyramidMapMatrixTestSuite, set_and_reset_and_roi) {
 }
 
 TEST_F(PyramidMapMatrixTestSuite, merge_and_add_and_reduce) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   // map config
   std::unique_ptr<PyramidMapConfig> config(
       new PyramidMapConfig("lossy_full_alt"));
@@ -636,6 +647,7 @@ TEST_F(PyramidMapMatrixTestSuite, merge_and_add_and_reduce) {
 }
 
 TEST_F(PyramidMapMatrixTestSuite, add_merge_get_base) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   // map config
   std::unique_ptr<PyramidMapConfig> config(
       new PyramidMapConfig("lossy_full_alt"));
@@ -679,6 +691,7 @@ TEST_F(PyramidMapMatrixTestSuite, add_merge_get_base) {
 }
 
 TEST_F(PyramidMapMatrixTestSuite, BottomUp) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   // map config
   std::unique_ptr<PyramidMapConfig> config(
       new PyramidMapConfig("lossy_full_alt"));
@@ -731,6 +744,7 @@ TEST_F(PyramidMapMatrixTestSuite, BottomUp) {
 }
 
 TEST_F(PyramidMapMatrixTestSuite, flags_are_false_and_resolution_are_two) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   // map config
   std::unique_ptr<PyramidMapConfig> config(
       new PyramidMapConfig("lossy_full_alt"));
@@ -755,6 +769,7 @@ TEST_F(PyramidMapMatrixTestSuite, flags_are_false_and_resolution_are_two) {
 }
 
 TEST_F(PyramidMapMatrixTestSuite, check_const_matrix) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   // normal case
   std::unique_ptr<PyramidMapConfig> config(
       new PyramidMapConfig("lossy_full_alt"));

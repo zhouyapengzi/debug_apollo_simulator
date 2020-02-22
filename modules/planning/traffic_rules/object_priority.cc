@@ -27,9 +27,11 @@ using apollo::common::Status;
 
 ObjectPriority::ObjectPriority(const TrafficRuleConfig& config)
     : TrafficRule(config) {}
+AINFO<<"(DMCZP) EnteringMethod: ObjectPriority::ObjectPriority";
 
 Status ObjectPriority::ApplyRule(Frame* const frame,
                                  ReferenceLineInfo* const reference_line_info) {
+AINFO<<"(DMCZP) EnteringMethod: ObjectPriority::ApplyRule";
   return Status::OK();
 }
 

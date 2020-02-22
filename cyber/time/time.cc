@@ -37,20 +37,25 @@ const Time Time::MAX = Time(std::numeric_limits<uint64_t>::max());
 const Time Time::MIN = Time(1);
 
 Time::Time(uint64_t nanoseconds) { nanoseconds_ = nanoseconds; }
+AINFO<<"(DMCZP) EnteringMethod: Time::Time";
 
 Time::Time(int nanoseconds) {
+AINFO<<"(DMCZP) EnteringMethod: Time::Time";
   nanoseconds_ = static_cast<uint64_t>(nanoseconds);
 }
 
 Time::Time(double seconds) {
+AINFO<<"(DMCZP) EnteringMethod: Time::Time";
   nanoseconds_ = static_cast<uint64_t>(seconds * 1000000000UL);
 }
 
 Time::Time(uint32_t seconds, uint32_t nanoseconds) {
+AINFO<<"(DMCZP) EnteringMethod: Time::Time";
   nanoseconds_ = static_cast<uint64_t>(seconds) * 1000000000UL + nanoseconds;
 }
 
 Time::Time(const Time& other) { nanoseconds_ = other.nanoseconds_; }
+AINFO<<"(DMCZP) EnteringMethod: Time::Time";
 
 Time& Time::operator=(const Time& other) {
   this->nanoseconds_ = other.nanoseconds_;
@@ -58,6 +63,7 @@ Time& Time::operator=(const Time& other) {
 }
 
 Time Time::Now() {
+AINFO<<"(DMCZP) EnteringMethod: Time::Now";
   auto now = high_resolution_clock::now();
   auto nano_time_point =
       std::chrono::time_point_cast<std::chrono::nanoseconds>(now);
@@ -68,6 +74,7 @@ Time Time::Now() {
 }
 
 Time Time::MonoTime() {
+AINFO<<"(DMCZP) EnteringMethod: Time::MonoTime";
   auto now = steady_clock::now();
   auto nano_time_point =
       std::chrono::time_point_cast<std::chrono::nanoseconds>(now);
@@ -78,14 +85,18 @@ Time Time::MonoTime() {
 }
 
 double Time::ToSecond() const {
+AINFO<<"(DMCZP) EnteringMethod: Time::ToSecond";
   return static_cast<double>(nanoseconds_) / 1000000000UL;
 }
 
 bool Time::IsZero() const { return nanoseconds_ == 0; }
+AINFO<<"(DMCZP) EnteringMethod: Time::IsZero";
 
 uint64_t Time::ToNanosecond() const { return nanoseconds_; }
+AINFO<<"(DMCZP) EnteringMethod: Time::ToNanosecond";
 
 std::string Time::ToString() const {
+AINFO<<"(DMCZP) EnteringMethod: Time::ToString";
   auto nano = std::chrono::nanoseconds(nanoseconds_);
   system_clock::time_point tp(nano);
   auto time = system_clock::to_time_t(tp);
@@ -107,6 +118,7 @@ std::string Time::ToString() const {
 }
 
 void Time::SleepUntil(const Time& time) {
+AINFO<<"(DMCZP) EnteringMethod: Time::SleepUntil";
   auto nano = std::chrono::nanoseconds(time.ToNanosecond());
   system_clock::time_point tp(nano);
   std::this_thread::sleep_until(tp);

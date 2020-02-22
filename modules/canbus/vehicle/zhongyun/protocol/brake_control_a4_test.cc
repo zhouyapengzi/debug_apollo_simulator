@@ -27,6 +27,7 @@ class Brakecontrola4Test : public ::testing::Test {
 };
 
 TEST_F(Brakecontrola4Test, reset) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   uint8_t data[8] = {0x67, 0x62, 0x63, 0x64, 0x51, 0x52, 0x53, 0x54};
   Brakecontrola4 brk4;
   EXPECT_EQ(brk4.GetPeriod(), 20 * 1000);

@@ -29,11 +29,13 @@ using apollo::cyber::message::PyMessageWrap;
 apollo::cyber::PyReader *pr = nullptr;
 
 int cbfun(const char *channel_name) {
+AINFO<<"(DMCZP) EnteringMethod: cbfun";
   AINFO << "recv->[ " << channel_name << " ]";
   if (pr) AINFO << "read->[ " << pr->read() << " ]";
 }
 
 TEST(CyberNodeTest, create_reader) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   EXPECT_TRUE(apollo::cyber::OK());
   apollo::cyber::proto::Chatter chat;
   apollo::cyber::PyNode node("listener");
@@ -46,6 +48,7 @@ TEST(CyberNodeTest, create_reader) {
 }
 
 TEST(CyberNodeTest, create_writer) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   EXPECT_TRUE(apollo::cyber::OK());
   auto msgChat = std::make_shared<apollo::cyber::proto::Chatter>();
   apollo::cyber::PyNode node("talker");
@@ -69,6 +72,7 @@ TEST(CyberNodeTest, create_writer) {
 }
 
 int main(int argc, char **argv) {
+AINFO<<"(DMCZP) EnteringMethod: main";
   apollo::cyber::Init(argv[0]);
   testing::InitGoogleTest(&argc, argv);
   return RUN_ALL_TESTS();

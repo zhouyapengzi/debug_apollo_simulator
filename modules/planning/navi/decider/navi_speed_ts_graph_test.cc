@@ -31,6 +31,7 @@ namespace planning {
 using apollo::common::Status;
 
 TEST(NaviSpeedTsGraph, Solve1) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   NaviSpeedTsGraph graph;
   graph.Reset(1.0, 100.0, 0.0, 0.0, 0.0);
 
@@ -56,6 +57,7 @@ TEST(NaviSpeedTsGraph, Solve1) {
 }
 
 TEST(NaviSpeedTsGraph, Solve2) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   NaviSpeedTsGraph graph;
   graph.Reset(1.0, 100.0, 0.0, 0.0, 0.0);
   auto get_safe_distance = [](double v) { return 1.0 * v + 2.0; };
@@ -82,6 +84,7 @@ TEST(NaviSpeedTsGraph, Solve2) {
 }
 
 TEST(NaviSpeedTsGraph, Solve3) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   NaviSpeedTsGraph graph;
   graph.Reset(1.0, 100.0, 5.0, 0.0, 0.0);
   auto get_safe_distance = [](double v) { return 1.0 * v + 2.0; };
@@ -112,6 +115,7 @@ TEST(NaviSpeedTsGraph, Solve3) {
 }
 
 TEST(NaviSpeedTsGraph, ErrorTest) {}
+AINFO<<"(DMCZP) EnteringMethod: TEST";
 
 }  // namespace planning
 }  // namespace apollo

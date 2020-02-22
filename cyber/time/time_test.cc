@@ -25,6 +25,7 @@ namespace apollo {
 namespace cyber {
 
 TEST(TimeTest, constructor) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   Time time(100UL);
   EXPECT_EQ(100UL, time.ToNanosecond());
 
@@ -41,6 +42,7 @@ TEST(TimeTest, constructor) {
 }
 
 TEST(TimeTest, operators) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   Time t1(100);
   Duration d(200);
   Time t2(300);
@@ -58,13 +60,16 @@ TEST(TimeTest, operators) {
 }
 
 TEST(TimeTest, to_string) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   Time t1(1531225311123456789UL);
   std::cout << t1.ToString().c_str() << std::endl;
 }
 
 TEST(TimeTest, now) { std::cout << "Time Now: " << Time::Now() << std::endl; }
+AINFO<<"(DMCZP) EnteringMethod: TEST";
 
 TEST(TimeTest, is_zero) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   Time time;
   EXPECT_TRUE(time.IsZero());
   EXPECT_FALSE(Time::MAX.IsZero());

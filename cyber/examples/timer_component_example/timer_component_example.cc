@@ -21,11 +21,13 @@
 #include "cyber/examples/proto/examples.pb.h"
 
 bool TimerComponentSample::Init() {
+AINFO<<"(DMCZP) EnteringMethod: TimerComponentSample::Init";
   driver_writer_ = node_->CreateWriter<Driver>("/carstatus/channel");
   return true;
 }
 
 bool TimerComponentSample::Proc() {
+AINFO<<"(DMCZP) EnteringMethod: TimerComponentSample::Proc";
   static int i = 0;
   auto out_msg = std::make_shared<Driver>();
   out_msg->set_msg_id(i++);

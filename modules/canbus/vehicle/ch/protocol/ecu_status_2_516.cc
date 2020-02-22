@@ -26,10 +26,12 @@ namespace ch {
 using ::apollo::drivers::canbus::Byte;
 
 Ecustatus2516::Ecustatus2516() {}
+AINFO<<"(DMCZP) EnteringMethod: Ecustatus2516::Ecustatus2516";
 const int32_t Ecustatus2516::ID = 0x516;
 
 void Ecustatus2516::Parse(const std::uint8_t* bytes, int32_t length,
                           ChassisDetail* chassis) const {
+AINFO<<"(DMCZP) EnteringMethod: Ecustatus2516::Parse";
   chassis->mutable_ch()
       ->mutable_ecu_status_2_516()
       ->set_battery_remaining_capacity(
@@ -48,6 +50,7 @@ void Ecustatus2516::Parse(const std::uint8_t* bytes, int32_t length,
 // '[0|0]', 'bit': 0, 'type': 'int', 'order': 'intel', 'physical_unit': '%'}
 int Ecustatus2516::battery_remaining_capacity(const std::uint8_t* bytes,
                                               int32_t length) const {
+AINFO<<"(DMCZP) EnteringMethod: Ecustatus2516::battery_remaining_capacity";
   Byte t0(bytes + 1);
   int32_t x = t0.get_byte(0, 8);
 
@@ -66,6 +69,8 @@ int Ecustatus2516::battery_remaining_capacity(const std::uint8_t* bytes,
 // 'double', 'order': 'intel', 'physical_unit': 'V'}
 double Ecustatus2516::battery_voltage(const std::uint8_t* bytes,
                                       int32_t length) const {
+AINFO<<"(DMCZP) EnteringMethod: Ecustatus2516::battery_voltage";
+AINFO<<"(DMCZP) EnteringMethod: Ecustatus2516::battery_current";
   Byte t0(bytes + 3);
   int32_t x = t0.get_byte(0, 8);
 
@@ -105,6 +110,7 @@ double Ecustatus2516::battery_current(const std::uint8_t* bytes,
 // 'order': 'intel', 'physical_unit': '?'}
 int Ecustatus2516::battery_temperature(const std::uint8_t* bytes,
                                        int32_t length) const {
+AINFO<<"(DMCZP) EnteringMethod: Ecustatus2516::battery_temperature";
   Byte t0(bytes + 7);
   int32_t x = t0.get_byte(0, 8);
 

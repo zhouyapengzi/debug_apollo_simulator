@@ -43,6 +43,7 @@ class LidarLibGroundServiceDetectorTest : public testing::Test {
 };
 
 void LoadPlanes(std::string path, GroundNode* node_ptr) {
+AINFO<<"(DMCZP) EnteringMethod: LoadPlanes";
   int index = 0;
   std::ifstream file(path.c_str(), std::ifstream::in);
   while (file.good()) {
@@ -62,6 +63,7 @@ void LoadPlanes(std::string path, GroundNode* node_ptr) {
 
 void LoadPoints(const std::string path, std::vector<std::vector<double>>* pts,
                 std::vector<float>* height_gts) {
+AINFO<<"(DMCZP) EnteringMethod: LoadPoints";
   std::vector<double> pt;
   std::ifstream file(path.c_str(), std::ifstream::in);
   double temp;
@@ -87,6 +89,7 @@ void LoadPoints(const std::string path, std::vector<std::vector<double>>* pts,
 
 TEST_F(LidarLibGroundServiceDetectorTest,
        lidar_lib_scene_manager_ground_service_test) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   GroundServiceDetector ground_service_detector;
   EXPECT_EQ(ground_service_detector.Name(), "GroundServiceDetector");
   EXPECT_FALSE(ground_service_detector.Init(GroundDetectorInitOptions()));

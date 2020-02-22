@@ -21,6 +21,7 @@ namespace perception {
 namespace camera {
 
 bool DataProvider::Init(const DataProvider::InitOptions &options) {
+AINFO<<"(DMCZP) EnteringMethod: DataProvider::Init";
   src_height_ = options.image_height;
   src_width_ = options.image_width;
   sensor_name_ = options.sensor_name;
@@ -110,6 +111,7 @@ bool DataProvider::Init(const DataProvider::InitOptions &options) {
 
 bool DataProvider::FillImageData(int rows, int cols, const uint8_t *data,
                                  const std::string &encoding) {
+AINFO<<"(DMCZP) EnteringMethod: DataProvider::FillImageData";
   if (cudaSetDevice(device_id_) != cudaSuccess) {
     AERROR << "Failed to set device to: " << device_id_;
     return false;
@@ -190,6 +192,8 @@ bool DataProvider::FillImageData(int rows, int cols, const uint8_t *data,
 #if 0
 bool DataProvider::GetImageBlob(const DataProvider::ImageOptions &options,
                                 base::Blob<float> *blob) {
+AINFO<<"(DMCZP) EnteringMethod: DataProvider::GetImageBlob";
+AINFO<<"(DMCZP) EnteringMethod: DataProvider::GetImageBlob";
   bool ret = GetImageBlob(options, &temp_uint8_);
   if (!ret) {
     return false;
@@ -238,6 +242,7 @@ bool DataProvider::GetImageBlob(const DataProvider::ImageOptions &options,
 
 bool DataProvider::GetImage(const DataProvider::ImageOptions &options,
                             base::Image8U *image) {
+AINFO<<"(DMCZP) EnteringMethod: DataProvider::GetImage";
   AINFO << "GetImage ...";
   if (image == nullptr) {
     return false;
@@ -273,6 +278,7 @@ bool DataProvider::GetImage(const DataProvider::ImageOptions &options,
 }
 
 bool DataProvider::to_gray_image() {
+AINFO<<"(DMCZP) EnteringMethod: DataProvider::to_gray_image";
   if (!gray_ready_) {
     NppiSize roi;
     roi.height = src_height_;
@@ -298,6 +304,7 @@ bool DataProvider::to_gray_image() {
 }
 
 bool DataProvider::to_rgb_image() {
+AINFO<<"(DMCZP) EnteringMethod: DataProvider::to_rgb_image";
   if (!rgb_ready_) {
     NppiSize roi;
     roi.height = src_height_;
@@ -322,6 +329,7 @@ bool DataProvider::to_rgb_image() {
 }
 
 bool DataProvider::to_bgr_image() {
+AINFO<<"(DMCZP) EnteringMethod: DataProvider::to_bgr_image";
   if (!bgr_ready_) {
     NppiSize roi;
     roi.height = src_height_;

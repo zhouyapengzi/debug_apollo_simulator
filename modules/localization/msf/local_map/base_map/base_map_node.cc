@@ -29,6 +29,7 @@ using cyber::common::EnsureDirectory;
 
 BaseMapNode::BaseMapNode(BaseMapMatrix* matrix, CompressionStrategy* strategy)
     : map_matrix_(matrix), compression_strategy_(strategy) {}
+AINFO<<"(DMCZP) EnteringMethod: BaseMapNode::BaseMapNode";
 
 BaseMapNode::~BaseMapNode() {
   if (map_matrix_ != nullptr) {
@@ -41,6 +42,7 @@ BaseMapNode::~BaseMapNode() {
 
 void BaseMapNode::Init(const BaseMapConfig* map_config,
                        const MapNodeIndex& index, bool create_map_cells) {
+AINFO<<"(DMCZP) EnteringMethod: BaseMapNode::Init";
   map_config_ = map_config;
   index_ = index;
   left_top_corner_ = GetLeftTopCorner(*map_config_, index_);
@@ -54,11 +56,13 @@ void BaseMapNode::Init(const BaseMapConfig* map_config,
 }
 
 void BaseMapNode::InitMapMatrix(const BaseMapConfig* map_config) {
+AINFO<<"(DMCZP) EnteringMethod: BaseMapNode::InitMapMatrix";
   map_config_ = map_config;
   map_matrix_->Init(map_config);
 }
 
 void BaseMapNode::Finalize() {
+AINFO<<"(DMCZP) EnteringMethod: BaseMapNode::Finalize";
   if (is_changed_) {
     Save();
     AERROR << "Save Map Node to disk: " << index_ << ".";
@@ -66,6 +70,7 @@ void BaseMapNode::Finalize() {
 }
 
 void BaseMapNode::ResetMapNode() {
+AINFO<<"(DMCZP) EnteringMethod: BaseMapNode::ResetMapNode";
   is_changed_ = false;
   data_is_ready_ = false;
   is_reserved_ = false;
@@ -79,6 +84,7 @@ void BaseMapNode::ResetMapNode() {
 // }
 
 bool BaseMapNode::Save() {
+AINFO<<"(DMCZP) EnteringMethod: BaseMapNode::Save";
   SaveIntensityImage();
   char buf[1024];
   std::string path = map_config_->map_folder_path_;
@@ -130,6 +136,7 @@ bool BaseMapNode::Save() {
 }
 
 bool BaseMapNode::Load() {
+AINFO<<"(DMCZP) EnteringMethod: BaseMapNode::Load";
   char buf[1024];
   std::string path = map_config_->map_folder_path_;
   if (!DirectoryExists(path)) {
@@ -169,6 +176,7 @@ bool BaseMapNode::Load() {
 }
 
 bool BaseMapNode::Load(const char* filename) {
+AINFO<<"(DMCZP) EnteringMethod: BaseMapNode::Load";
   data_is_ready_ = false;
   // char buf[1024];
 
@@ -186,6 +194,7 @@ bool BaseMapNode::Load(const char* filename) {
 }
 
 unsigned int BaseMapNode::LoadBinary(FILE* file) {
+AINFO<<"(DMCZP) EnteringMethod: BaseMapNode::LoadBinary";
   // Load the header
   unsigned int header_size = GetHeaderBinarySize();
   std::vector<unsigned char> buf(header_size);
@@ -203,6 +212,7 @@ unsigned int BaseMapNode::LoadBinary(FILE* file) {
 }
 
 unsigned int BaseMapNode::CreateBinary(FILE* file) const {
+AINFO<<"(DMCZP) EnteringMethod: BaseMapNode::CreateBinary";
   unsigned int buf_size = GetBinarySize();
   std::vector<unsigned char> buffer;
   buffer.resize(buf_size);
@@ -229,11 +239,13 @@ unsigned int BaseMapNode::CreateBinary(FILE* file) const {
 }
 
 unsigned int BaseMapNode::GetBinarySize() const {
+AINFO<<"(DMCZP) EnteringMethod: BaseMapNode::GetBinarySize";
   // It is uncompressed binary size.
   return GetBodyBinarySize() + GetHeaderBinarySize();
 }
 
 unsigned int BaseMapNode::LoadHeaderBinary(unsigned char* buf) {
+AINFO<<"(DMCZP) EnteringMethod: BaseMapNode::LoadHeaderBinary";
   unsigned int target_size = GetHeaderBinarySize();
   unsigned int* p = reinterpret_cast<unsigned int*>(buf);
   index_.resolution_id_ = *p;
@@ -254,6 +266,7 @@ unsigned int BaseMapNode::LoadHeaderBinary(unsigned char* buf) {
 
 unsigned int BaseMapNode::CreateHeaderBinary(unsigned char* buf,
                                              unsigned int buf_size) const {
+AINFO<<"(DMCZP) EnteringMethod: BaseMapNode::CreateHeaderBinary";
   unsigned int target_size = GetHeaderBinarySize();
   if (buf_size >= target_size) {
     unsigned int* p = reinterpret_cast<unsigned int*>(buf);
@@ -273,6 +286,7 @@ unsigned int BaseMapNode::CreateHeaderBinary(unsigned char* buf,
 }
 
 unsigned int BaseMapNode::GetHeaderBinarySize() const {
+AINFO<<"(DMCZP) EnteringMethod: BaseMapNode::GetHeaderBinarySize";
   return static_cast<int>(sizeof(unsigned int)      // index_.resolution_id_
                           + sizeof(int)             // index_.zone_id_
                           + sizeof(unsigned int)    // index_.m_
@@ -293,6 +307,7 @@ unsigned int BaseMapNode::GetHeaderBinarySize() const {
 // }
 
 unsigned int BaseMapNode::LoadBodyBinary(std::vector<unsigned char>* buf) {
+AINFO<<"(DMCZP) EnteringMethod: BaseMapNode::LoadBodyBinary";
   if (compression_strategy_ == nullptr) {
     return map_matrix_->LoadBinary(&((*buf)[0]));
   }
@@ -306,6 +321,7 @@ unsigned int BaseMapNode::LoadBodyBinary(std::vector<unsigned char>* buf) {
 
 unsigned int BaseMapNode::CreateBodyBinary(
     std::vector<unsigned char>* buf) const {
+AINFO<<"(DMCZP) EnteringMethod: BaseMapNode::CreateBodyBinary";
   if (compression_strategy_ == nullptr) {
     unsigned int body_size = GetBodyBinarySize();
     buf->resize(body_size);
@@ -324,6 +340,7 @@ unsigned int BaseMapNode::CreateBodyBinary(
 }
 
 unsigned int BaseMapNode::GetBodyBinarySize() const {
+AINFO<<"(DMCZP) EnteringMethod: BaseMapNode::GetBodyBinarySize";
   return map_matrix_->GetBinarySize();
 }
 
@@ -348,6 +365,8 @@ unsigned int BaseMapNode::GetBodyBinarySize() const {
 
 bool BaseMapNode::GetCoordinate(const Eigen::Vector2d& coordinate,
                                 unsigned int* x, unsigned int* y) const {
+AINFO<<"(DMCZP) EnteringMethod: BaseMapNode::GetCoordinate";
+AINFO<<"(DMCZP) EnteringMethod: BaseMapNode::GetCoordinate";
   const Eigen::Vector2d& left_top_corner = GetLeftTopCorner();
   int off_x = static_cast<int>((coordinate[0] - left_top_corner[0]) /
                                GetMapResolution());
@@ -390,6 +409,7 @@ bool BaseMapNode::GetCoordinate(const Eigen::Vector3d& coordinate,
 
 Eigen::Vector2d BaseMapNode::GetCoordinate(unsigned int x,
                                            unsigned int y) const {
+AINFO<<"(DMCZP) EnteringMethod: BaseMapNode::GetCoordinate";
   const Eigen::Vector2d& left_top_corner = GetLeftTopCorner();
   Eigen::Vector2d coord(
       left_top_corner[0] + static_cast<float>(x) * GetMapResolution(),
@@ -411,6 +431,7 @@ Eigen::Vector2d BaseMapNode::GetCoordinate(unsigned int x,
 
 Eigen::Vector2d BaseMapNode::GetLeftTopCorner(const BaseMapConfig& config,
                                               const MapNodeIndex& index) {
+AINFO<<"(DMCZP) EnteringMethod: BaseMapNode::GetLeftTopCorner";
   Eigen::Vector2d coord;
   coord[0] = config.map_range_.GetMinX() +
              static_cast<float>(config.map_node_size_x_) *
@@ -426,6 +447,7 @@ Eigen::Vector2d BaseMapNode::GetLeftTopCorner(const BaseMapConfig& config,
 }
 
 bool BaseMapNode::SaveIntensityImage() const {
+AINFO<<"(DMCZP) EnteringMethod: BaseMapNode::SaveIntensityImage";
   char buf[1024];
   std::string path = map_config_->map_folder_path_;
   if (!EnsureDirectory(path)) {
@@ -465,6 +487,7 @@ bool BaseMapNode::SaveIntensityImage() const {
 }
 
 bool BaseMapNode::SaveIntensityImage(const std::string& path) const {
+AINFO<<"(DMCZP) EnteringMethod: BaseMapNode::SaveIntensityImage";
   cv::Mat image;
   map_matrix_->GetIntensityImg(&image);
   bool success = cv::imwrite(path, image);

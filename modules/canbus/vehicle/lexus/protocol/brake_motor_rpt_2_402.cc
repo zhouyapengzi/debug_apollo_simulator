@@ -28,10 +28,12 @@ namespace lexus {
 using ::apollo::drivers::canbus::Byte;
 
 Brakemotorrpt2402::Brakemotorrpt2402() {}
+AINFO<<"(DMCZP) EnteringMethod: Brakemotorrpt2402::Brakemotorrpt2402";
 const int32_t Brakemotorrpt2402::ID = 0x402;
 
 void Brakemotorrpt2402::Parse(const std::uint8_t* bytes, int32_t length,
                               ChassisDetail* chassis) const {
+AINFO<<"(DMCZP) EnteringMethod: Brakemotorrpt2402::Parse";
   chassis->mutable_lexus()
       ->mutable_brake_motor_rpt_2_402()
       ->set_encoder_temperature(encoder_temperature(bytes, length));
@@ -48,6 +50,7 @@ void Brakemotorrpt2402::Parse(const std::uint8_t* bytes, int32_t length,
 // 'physical_unit': 'deg C'}
 int Brakemotorrpt2402::encoder_temperature(const std::uint8_t* bytes,
                                            int32_t length) const {
+AINFO<<"(DMCZP) EnteringMethod: Brakemotorrpt2402::encoder_temperature";
   Byte t0(bytes + 0);
   int32_t x = t0.get_byte(0, 8);
 
@@ -69,6 +72,7 @@ int Brakemotorrpt2402::encoder_temperature(const std::uint8_t* bytes,
 // 'physical_unit': 'deg C'}
 int Brakemotorrpt2402::motor_temperature(const std::uint8_t* bytes,
                                          int32_t length) const {
+AINFO<<"(DMCZP) EnteringMethod: Brakemotorrpt2402::motor_temperature";
   Byte t0(bytes + 2);
   int32_t x = t0.get_byte(0, 8);
 
@@ -89,6 +93,7 @@ int Brakemotorrpt2402::motor_temperature(const std::uint8_t* bytes,
 // 'bit': 39, 'type': 'double', 'order': 'motorola', 'physical_unit': 'rev/s'}
 double Brakemotorrpt2402::angular_speed(const std::uint8_t* bytes,
                                         int32_t length) const {
+AINFO<<"(DMCZP) EnteringMethod: Brakemotorrpt2402::angular_speed";
   Byte t0(bytes + 4);
   int32_t x = t0.get_byte(0, 8);
 

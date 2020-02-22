@@ -27,25 +27,30 @@ const int32_t Pcepb203::ID = 0x203;
 
 // public
 Pcepb203::Pcepb203() { Reset(); }
+AINFO<<"(DMCZP) EnteringMethod: Pcepb203::Pcepb203";
 
 uint32_t Pcepb203::GetPeriod() const {
+AINFO<<"(DMCZP) EnteringMethod: Pcepb203::GetPeriod";
   // modify every protocol's period manually
   static const uint32_t PERIOD = 20 * 1000;
   return PERIOD;
 }
 
 void Pcepb203::UpdateData(uint8_t* data) {
+AINFO<<"(DMCZP) EnteringMethod: Pcepb203::UpdateData";
   set_p_pc_epbreq(data, pc_epbreq_);
   set_p_pc_epbenable(data, pc_epbenable_);
 }
 
 void Pcepb203::Reset() {
+AINFO<<"(DMCZP) EnteringMethod: Pcepb203::Reset";
   // you should check this manually
   pc_epbreq_ = Pc_epb_203::PC_EPBREQ_INVALID;
   pc_epbenable_ = Pc_epb_203::PC_EPBENABLE_DISABLE;
 }
 
 Pcepb203* Pcepb203::set_pc_epbreq(Pc_epb_203::Pc_epbreqType pc_epbreq) {
+AINFO<<"(DMCZP) EnteringMethod: Pcepb203::set_pc_epbreq";
   pc_epbreq_ = pc_epbreq;
   return this;
 }
@@ -57,6 +62,7 @@ Pcepb203* Pcepb203::set_pc_epbreq(Pc_epb_203::Pc_epbreqType pc_epbreq) {
 // 'motorola', 'physical_unit': ''}
 void Pcepb203::set_p_pc_epbreq(uint8_t* data,
                                Pc_epb_203::Pc_epbreqType pc_epbreq) {
+AINFO<<"(DMCZP) EnteringMethod: Pcepb203::set_p_pc_epbreq";
   int x = pc_epbreq;
 
   Byte to_set(data + 0);
@@ -65,6 +71,7 @@ void Pcepb203::set_p_pc_epbreq(uint8_t* data,
 
 Pcepb203* Pcepb203::set_pc_epbenable(
     Pc_epb_203::Pc_epbenableType pc_epbenable) {
+AINFO<<"(DMCZP) EnteringMethod: Pcepb203::set_pc_epbenable";
   pc_epbenable_ = pc_epbenable;
   return this;
 }
@@ -76,6 +83,7 @@ Pcepb203* Pcepb203::set_pc_epbenable(
 // 'physical_unit': ''}
 void Pcepb203::set_p_pc_epbenable(uint8_t* data,
                                   Pc_epb_203::Pc_epbenableType pc_epbenable) {
+AINFO<<"(DMCZP) EnteringMethod: Pcepb203::set_p_pc_epbenable";
   int x = pc_epbenable;
 
   Byte to_set(data + 0);

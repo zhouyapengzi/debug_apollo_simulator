@@ -26,10 +26,12 @@ namespace ge3 {
 using ::apollo::drivers::canbus::Byte;
 
 Scuepb310::Scuepb310() {}
+AINFO<<"(DMCZP) EnteringMethod: Scuepb310::Scuepb310";
 const int32_t Scuepb310::ID = 0x310;
 
 void Scuepb310::Parse(const std::uint8_t* bytes, int32_t length,
                       ChassisDetail* chassis) const {
+AINFO<<"(DMCZP) EnteringMethod: Scuepb310::Parse";
   chassis->mutable_ge3()->mutable_scu_epb_310()->set_epb_intidx(
       epb_intidx(bytes, length));
   chassis->mutable_ge3()->mutable_scu_epb_310()->set_epb_drvmode(
@@ -47,6 +49,7 @@ void Scuepb310::Parse(const std::uint8_t* bytes, int32_t length,
 // 'motorola', 'physical_unit': ''}
 Scu_epb_310::Epb_intidxType Scuepb310::epb_intidx(const std::uint8_t* bytes,
                                                   int32_t length) const {
+AINFO<<"(DMCZP) EnteringMethod: Scuepb310::epb_intidx";
   Byte t0(bytes + 1);
   int32_t x = t0.get_byte(0, 3);
 
@@ -61,7 +64,9 @@ Scu_epb_310::Epb_intidxType Scuepb310::epb_intidx(const std::uint8_t* bytes,
 // 'type': 'enum', 'order': 'motorola', 'physical_unit': ''}
 Scu_epb_310::Epb_drvmodeType Scuepb310::epb_drvmode(const std::uint8_t* bytes,
                                                     int32_t length) const {
+AINFO<<"(DMCZP) EnteringMethod: Scuepb310::epb_drvmode";
   Byte t0(bytes + 0);
+AINFO<<"(DMCZP) EnteringMethod: Scuepb310::epb_faultst";
   int32_t x = t0.get_byte(5, 2);
 
   Scu_epb_310::Epb_drvmodeType ret =
@@ -77,6 +82,7 @@ Scu_epb_310::Epb_drvmodeType Scuepb310::epb_drvmode(const std::uint8_t* bytes,
 // 'motorola', 'physical_unit': ''}
 Scu_epb_310::Epb_sysstType Scuepb310::epb_sysst(const std::uint8_t* bytes,
                                                 int32_t length) const {
+AINFO<<"(DMCZP) EnteringMethod: Scuepb310::epb_sysst";
   Byte t0(bytes + 0);
   int32_t x = t0.get_byte(0, 3);
 

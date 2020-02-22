@@ -24,6 +24,7 @@ namespace apollo {
 namespace control {
 
 double LeadlagController::Control(const double error, const double dt) {
+AINFO<<"(DMCZP) EnteringMethod: LeadlagController::Control";
   // check if the c2d transform passed during the initilization
   if (!transfromc2d_enabled_) {
     TransformC2d(dt);
@@ -60,6 +61,7 @@ double LeadlagController::Control(const double error, const double dt) {
 }
 
 void LeadlagController::Reset() {
+AINFO<<"(DMCZP) EnteringMethod: LeadlagController::Reset";
   previous_output_ = 0.0;
   previous_innerstate_ = 0.0;
   innerstate_ = 0.0;
@@ -67,6 +69,7 @@ void LeadlagController::Reset() {
 }
 
 void LeadlagController::Init(const LeadlagConf &leadlag_conf, const double dt) {
+AINFO<<"(DMCZP) EnteringMethod: LeadlagController::Init";
   previous_output_ = 0.0;
   previous_innerstate_ = 0.0;
   innerstate_ = 0.0;
@@ -80,12 +83,14 @@ void LeadlagController::Init(const LeadlagConf &leadlag_conf, const double dt) {
 }
 
 void LeadlagController::SetLeadlag(const LeadlagConf &leadlag_conf) {
+AINFO<<"(DMCZP) EnteringMethod: LeadlagController::SetLeadlag";
   alpha_ = leadlag_conf.alpha();
   beta_ = leadlag_conf.beta();
   tau_ = leadlag_conf.tau();
 }
 
 void LeadlagController::TransformC2d(const double dt) {
+AINFO<<"(DMCZP) EnteringMethod: LeadlagController::TransformC2d";
   if (dt <= 0.0) {
     AWARN << "dt <= 0, continuous-discrete transformation failed, dt: " << dt;
     transfromc2d_enabled_ = false;
@@ -110,6 +115,7 @@ void LeadlagController::TransformC2d(const double dt) {
 }
 
 int LeadlagController::InnerstateSaturationStatus() const {
+AINFO<<"(DMCZP) EnteringMethod: LeadlagController::InnerstateSaturationStatus";
   return innerstate_saturation_status_;
 }
 

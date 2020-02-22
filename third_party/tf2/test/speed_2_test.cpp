@@ -42,6 +42,7 @@ using std::chrono::steady_clock;
 using std::chrono::high_resolution_clock;
 
 uint64_t now_time() {
+AINFO<<"(DMCZP) EnteringMethod: now_time";
   high_resolution_clock::time_point now = high_resolution_clock::now();
   auto nano_now = std::chrono::time_point_cast<std::chrono::nanoseconds>(now);
   auto epoch = nano_now.time_since_epoch();
@@ -54,6 +55,7 @@ tf2::BufferCore bc;
 std::atomic<bool> is_stop(false);
 
 void set_trans_form_1000() {
+AINFO<<"(DMCZP) EnteringMethod: set_trans_form_1000";
   for (uint64_t i = 0; i < 1000; ++i) {
     geometry_msgs::TransformStamped t;
     t.header.stamp = i;
@@ -71,6 +73,7 @@ std::atomic<uint64_t> total_cost_time(0);
 std::atomic<uint64_t> total_exec_cnt(0);
 
 void look_transform(int count, int look_idx = 0) {
+AINFO<<"(DMCZP) EnteringMethod: look_transform";
   std::string frame_target = "world";
   std::string frame_source = "velodyne64";
   if (look_idx >= 1000) {
@@ -91,6 +94,7 @@ std::atomic<uint64_t> can_total_cost(0);
 std::atomic<uint64_t> can_exec_cnt(0);
 
 void can_transform(int count, int look_idx = 0) {
+AINFO<<"(DMCZP) EnteringMethod: can_transform";
   std::string frame_target = "world";
   std::string frame_source = "velodyne64";
   if (look_idx >= 1000) {
@@ -107,6 +111,7 @@ void can_transform(int count, int look_idx = 0) {
 }
 
 int main(int argc, char **argv) {
+AINFO<<"(DMCZP) EnteringMethod: main";
   set_trans_form_1000();
   geometry_msgs::TransformStamped t;
   t.header.stamp = 0;

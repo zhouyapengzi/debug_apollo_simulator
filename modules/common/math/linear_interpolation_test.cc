@@ -23,6 +23,7 @@ namespace common {
 namespace math {
 
 TEST(LinearInterpolationTest, LerpOneDim) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   double t0 = 0.0;
   double t1 = 1.0;
   double x0 = 2.0;
@@ -35,6 +36,7 @@ TEST(LinearInterpolationTest, LerpOneDim) {
 }
 
 TEST(LinearInterpolationTest, LerpTwoDim) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   double t0 = 0.0;
   double t1 = 1.0;
 
@@ -55,6 +57,7 @@ TEST(LinearInterpolationTest, LerpTwoDim) {
 }
 
 TEST(LinearInterpolationTest, SlerpCaseOne) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   double t0 = 0.0;
   double t1 = 1.0;
   double a0 = -2.0;
@@ -64,6 +67,7 @@ TEST(LinearInterpolationTest, SlerpCaseOne) {
 }
 
 TEST(LinearInterpolationTest, SlerpCaseTwo) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   double t0 = 0.0;
   double t1 = 1.0;
   double a0 = 3.00;

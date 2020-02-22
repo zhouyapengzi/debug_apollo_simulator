@@ -46,6 +46,11 @@ using apollo::hdmap::Map;
 using apollo::hdmap::adapter::OpendriveAdapter;
 
 static void DownsampleCurve(Curve* curve) {
+AINFO<<"(DMCZP) EnteringMethod: DEFINE_string";
+AINFO<<"(DMCZP) EnteringMethod: DEFINE_double";
+AINFO<<"(DMCZP) EnteringMethod: DEFINE_int32";
+AINFO<<"(DMCZP) EnteringMethod: DEFINE_int32";
+AINFO<<"(DMCZP) EnteringMethod: DownsampleCurve";
   auto* line_segment = curve->mutable_segment(0)->mutable_line_segment();
   std::vector<PointENU> points(line_segment->point().begin(),
                                line_segment->point().end());
@@ -76,6 +81,7 @@ static void DownsampleCurve(Curve* curve) {
 }
 
 static void DownsampleMap(Map* map_pb) {
+AINFO<<"(DMCZP) EnteringMethod: DownsampleMap";
   for (int i = 0; i < map_pb->lane_size(); ++i) {
     auto* lane = map_pb->mutable_lane(i);
     lane->clear_left_sample();
@@ -91,6 +97,7 @@ static void DownsampleMap(Map* map_pb) {
 }
 
 static void OutputMap(const Map& map_pb) {
+AINFO<<"(DMCZP) EnteringMethod: OutputMap";
   std::ofstream map_txt_file(FLAGS_output_dir + "/sim_map.txt");
   map_txt_file << map_pb.DebugString();
   map_txt_file.close();
@@ -103,6 +110,7 @@ static void OutputMap(const Map& map_pb) {
 }
 
 int main(int32_t argc, char** argv) {
+AINFO<<"(DMCZP) EnteringMethod: main";
   google::InitGoogleLogging(argv[0]);
   FLAGS_alsologtostderr = true;
   FLAGS_v = 3;

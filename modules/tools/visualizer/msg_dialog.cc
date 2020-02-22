@@ -19,11 +19,13 @@
 
 MessageDialog::MessageDialog(QWidget *parent)
     : QDialog(parent), ui_(new Ui::MessageDialog) {
+AINFO<<"(DMCZP) EnteringMethod: MessageDialog::MessageDialog";
   ui_->setupUi(this);
 }
 
 MessageDialog::~MessageDialog() { delete ui_; }
 
 void MessageDialog::setMessage(const QString &msg) {
+AINFO<<"(DMCZP) EnteringMethod: MessageDialog::setMessage";
   ui_->msgLabel->setText(msg);
 }

@@ -41,11 +41,13 @@ using apollo::perception::PerceptionObstacles;
 
 PedestrianInteractionEvaluator::PedestrianInteractionEvaluator()
     : device_(torch::kCPU) {
+AINFO<<"(DMCZP) EnteringMethod: PedestrianInteractionEvaluator::PedestrianInteractionEvaluator";
   evaluator_type_ = ObstacleConf::PEDESTRIAN_INTERACTION_EVALUATOR;
   LoadModel();
 }
 
 void PedestrianInteractionEvaluator::Clear() {
+AINFO<<"(DMCZP) EnteringMethod: PedestrianInteractionEvaluator::Clear";
   auto ptr_obstacles_container =
       ContainerManager::Instance()->GetContainer<ObstaclesContainer>(
           AdapterConfig::PERCEPTION_OBSTACLES);
@@ -63,6 +65,7 @@ void PedestrianInteractionEvaluator::Clear() {
 }
 
 void PedestrianInteractionEvaluator::LoadModel() {
+AINFO<<"(DMCZP) EnteringMethod: PedestrianInteractionEvaluator::LoadModel";
   torch::set_num_threads(1);
   // TODO(all) uncomment the following when cuda issue is resolved
   // if (torch::cuda::is_available()) {
@@ -97,11 +100,13 @@ AINFO<< "(pengzi)(pedestrian)load single lstm modelname:" << FLAGS_torch_pedestr
 }
 
 torch::Tensor PedestrianInteractionEvaluator::GetSocialPooling() {
+AINFO<<"(DMCZP) EnteringMethod: PedestrianInteractionEvaluator::GetSocialPooling";
   // TODO(kechxu) implement more sophisticated logics
   return torch::zeros({1, kGridSize * kGridSize * kHiddenSize});
 }
 
 bool PedestrianInteractionEvaluator::Evaluate(Obstacle* obstacle_ptr) {
+AINFO<<"(DMCZP) EnteringMethod: PedestrianInteractionEvaluator::Evaluate";
   // Sanity checks.
   CHECK_NOTNULL(obstacle_ptr);
 
@@ -275,6 +280,7 @@ bool PedestrianInteractionEvaluator::Evaluate(Obstacle* obstacle_ptr) {
 
 bool PedestrianInteractionEvaluator::ExtractFeatures(
     const Obstacle* obstacle_ptr, std::vector<double>* feature_values) {
+AINFO<<"(DMCZP) EnteringMethod: PedestrianInteractionEvaluator::ExtractFeatures";
   // Sanity checks.
   CHECK_NOTNULL(obstacle_ptr);
   CHECK_NOTNULL(feature_values);

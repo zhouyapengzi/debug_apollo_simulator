@@ -42,6 +42,7 @@ void WaypointSampler::Init(
     const ReferenceLineInfo *reference_line_info,
     const common::SLPoint &init_sl_point,
     const common::FrenetFramePoint &init_frenet_frame_point) {
+AINFO<<"(DMCZP) EnteringMethod: WaypointSampler::Init";
   reference_line_info_ = reference_line_info;
   init_sl_point_ = init_sl_point;
   init_frenet_frame_point_ = init_frenet_frame_point;
@@ -50,6 +51,7 @@ void WaypointSampler::Init(
 bool WaypointSampler::SamplePathWaypoints(
     const common::TrajectoryPoint &init_point,
     std::vector<std::vector<common::SLPoint>> *const points) {
+AINFO<<"(DMCZP) EnteringMethod: WaypointSampler::SamplePathWaypoints";
   CHECK_NOTNULL(points);
   points->clear();
   points->insert(points->begin(), std::vector<common::SLPoint>{init_sl_point_});

@@ -39,11 +39,13 @@ using apollo::perception::PerceptionObstacle;
 using apollo::perception::PerceptionObstacles;
 
 LaneAggregatingEvaluator::LaneAggregatingEvaluator() : device_(torch::kCPU) {
+AINFO<<"(DMCZP) EnteringMethod: LaneAggregatingEvaluator::LaneAggregatingEvaluator";
   evaluator_type_ = ObstacleConf::LANE_AGGREGATING_EVALUATOR;
   LoadModel();
 }
 
 void LaneAggregatingEvaluator::LoadModel() {
+AINFO<<"(DMCZP) EnteringMethod: LaneAggregatingEvaluator::LoadModel";
   torch::set_num_threads(1);
   torch_obstacle_encoding_ptr_ = torch::jit::load(
       FLAGS_torch_lane_aggregating_obstacle_encoding_file, device_);
@@ -54,6 +56,7 @@ void LaneAggregatingEvaluator::LoadModel() {
 }
 
 bool LaneAggregatingEvaluator::Evaluate(Obstacle* obstacle_ptr) {
+AINFO<<"(DMCZP) EnteringMethod: LaneAggregatingEvaluator::Evaluate";
   // Sanity checks.
   CHECK_NOTNULL(obstacle_ptr);
 
@@ -191,6 +194,7 @@ bool LaneAggregatingEvaluator::Evaluate(Obstacle* obstacle_ptr) {
 
 bool LaneAggregatingEvaluator::ExtractObstacleFeatures(
     const Obstacle* obstacle_ptr, std::vector<double>* feature_values) {
+AINFO<<"(DMCZP) EnteringMethod: LaneAggregatingEvaluator::ExtractObstacleFeatures";
   // Sanity checks.
   CHECK_NOTNULL(obstacle_ptr);
   feature_values->clear();
@@ -302,6 +306,7 @@ bool LaneAggregatingEvaluator::ExtractStaticEnvFeatures(
     const Obstacle* obstacle_ptr, const LaneGraph* lane_graph_ptr,
     std::vector<std::vector<double>>* feature_values,
     std::vector<int>* lane_sequence_idx_to_remove) {
+AINFO<<"(DMCZP) EnteringMethod: LaneAggregatingEvaluator::ExtractStaticEnvFeatures";
   // Sanity checks.
   CHECK_NOTNULL(lane_graph_ptr);
   feature_values->clear();
@@ -433,6 +438,9 @@ bool LaneAggregatingEvaluator::ExtractStaticEnvFeatures(
 
 torch::Tensor LaneAggregatingEvaluator::AggregateLaneEncodings(
     const std::vector<torch::Tensor>& lane_encoding_list) {
+AINFO<<"(DMCZP) EnteringMethod: LaneAggregatingEvaluator::AggregateLaneEncodings";
+AINFO<<"(DMCZP) EnteringMethod: LaneAggregatingEvaluator::LaneEncodingMaxPooling";
+AINFO<<"(DMCZP) EnteringMethod: LaneAggregatingEvaluator::LaneEncodingAvgPooling";
   torch::Tensor output_tensor =
       torch::zeros({1, SINGLE_LANE_ENCODING_SIZE * 2});
   torch::Tensor max_pooling_tensor = LaneEncodingMaxPooling(lane_encoding_list);

@@ -26,6 +26,7 @@ using apollo::common::adapter::AdapterConfig;
 class FeatureExtractorTest : public KMLMapBasedTest {};
 
 TEST_F(FeatureExtractorTest, junction) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   ContainerManager::Instance()->RegisterContainers();
   std::unique_ptr<Container> adc_traj_container =
       ContainerManager::Instance()->CreateContainer(

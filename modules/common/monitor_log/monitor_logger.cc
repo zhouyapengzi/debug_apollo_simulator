@@ -22,6 +22,7 @@ namespace common {
 namespace monitor {
 
 MonitorLogger::MonitorLogger() {
+AINFO<<"(DMCZP) EnteringMethod: MonitorLogger::MonitorLogger";
   auto node_name =
       "monitor_logger" + std::to_string(cyber::Time::Now().ToNanosecond());
   node_ = cyber::CreateNode(node_name);
@@ -33,6 +34,7 @@ MonitorLogger::MonitorLogger() {
 
 void MonitorLogger::Publish(const MonitorMessageItem::MessageSource &source,
                             const std::vector<MessageItem> &messages) const {
+AINFO<<"(DMCZP) EnteringMethod: MonitorLogger::Publish";
   // compose a monitor message
   if (messages.empty()) {
     return;
@@ -51,6 +53,7 @@ void MonitorLogger::Publish(const MonitorMessageItem::MessageSource &source,
 }
 
 void MonitorLogger::DoPublish(MonitorMessage *message) const {
+AINFO<<"(DMCZP) EnteringMethod: MonitorLogger::DoPublish";
   RETURN_IF_NULL(monitor_msg_writer_);
   common::util::FillHeader("monitor", message);
   monitor_msg_writer_->Write(std::make_shared<MonitorMessage>(*message));

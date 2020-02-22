@@ -26,6 +26,7 @@ using common::TrajectoryPoint;
 
 double ValidationChecker::ProbabilityByCentripetalAcceleration(
     const LaneSequence& lane_sequence, const double speed) {
+AINFO<<"(DMCZP) EnteringMethod: ValidationChecker::ProbabilityByCentripetalAcceleration";
   double centripetal_acc_cost_sum = 0.0;
   double centripetal_acc_cost_sqr_sum = 0.0;
   for (int i = 0; i < lane_sequence.path_point_size(); ++i) {
@@ -43,6 +44,7 @@ double ValidationChecker::ProbabilityByCentripetalAcceleration(
 
 bool ValidationChecker::ValidCentripetalAcceleration(
     const std::vector<TrajectoryPoint>& trajectory_points) {
+AINFO<<"(DMCZP) EnteringMethod: ValidationChecker::ValidCentripetalAcceleration";
   for (size_t i = 0; i + 1 < trajectory_points.size(); ++i) {
     const auto& p0 = trajectory_points[i];
     const auto& p1 = trajectory_points[i + 1];
@@ -64,6 +66,7 @@ bool ValidationChecker::ValidCentripetalAcceleration(
 
 bool ValidationChecker::ValidTrajectoryPoint(
     const TrajectoryPoint& trajectory_point) {
+AINFO<<"(DMCZP) EnteringMethod: ValidationChecker::ValidTrajectoryPoint";
   return trajectory_point.has_path_point() &&
          (!std::isnan(trajectory_point.path_point().x())) &&
          (!std::isnan(trajectory_point.path_point().y())) &&

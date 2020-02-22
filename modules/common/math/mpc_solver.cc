@@ -38,6 +38,7 @@ bool SolveLinearMPC(const Matrix &matrix_a, const Matrix &matrix_b,
                     const int max_iter, std::vector<Matrix> *control,
                     std::vector<Matrix> *control_gain,
                     std::vector<Matrix> *addition_gain) {
+AINFO<<"(DMCZP) EnteringMethod: SolveLinearMPC";
   if (matrix_a.rows() != matrix_a.cols() ||
       matrix_b.rows() != matrix_a.rows() ||
       matrix_lower.rows() != matrix_upper.rows()) {

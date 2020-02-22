@@ -26,6 +26,7 @@ namespace cyber {
 namespace record {
 
 int64_t RecordFileBase::CurrentPosition() {
+AINFO<<"(DMCZP) EnteringMethod: RecordFileBase::CurrentPosition";
   off_t pos = lseek(fd_, 0, SEEK_CUR);
   if (pos < 0) {
     AERROR << "lseek failed, file: " << path_ << ", fd: " << fd_
@@ -36,6 +37,7 @@ int64_t RecordFileBase::CurrentPosition() {
 }
 
 bool RecordFileBase::SetPosition(int64_t position) {
+AINFO<<"(DMCZP) EnteringMethod: RecordFileBase::SetPosition";
   off_t pos = lseek(fd_, position, SEEK_SET);
   if (pos < 0) {
     AERROR << "lseek failed, file: " << path_ << ", fd: " << fd_

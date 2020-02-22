@@ -32,6 +32,7 @@ class Rect2DTestSuite : public ::testing::Test {
 
 /**@brief Rect2DTest. */
 TEST_F(Rect2DTestSuite, Rect2DTest) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   Rect2D<double> rect_a(0.5, 0.5, 1.0, 1.0);
   double min_x = rect_a.GetMinX();
   double min_y = rect_a.GetMinY();

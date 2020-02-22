@@ -28,10 +28,12 @@ namespace gem {
 using ::apollo::drivers::canbus::Byte;
 
 Hornrpt79::Hornrpt79() {}
+AINFO<<"(DMCZP) EnteringMethod: Hornrpt79::Hornrpt79";
 const int32_t Hornrpt79::ID = 0x79;
 
 void Hornrpt79::Parse(const std::uint8_t* bytes, int32_t length,
                       ChassisDetail* chassis) const {
+AINFO<<"(DMCZP) EnteringMethod: Hornrpt79::Parse";
   chassis->mutable_gem()->mutable_horn_rpt_79()->set_output_value(
       output_value(bytes, length));
   chassis->mutable_gem()->mutable_horn_rpt_79()->set_commanded_value(
@@ -46,7 +48,9 @@ void Hornrpt79::Parse(const std::uint8_t* bytes, int32_t length,
 // 'motorola', 'physical_unit': ''}
 Horn_rpt_79::Output_valueType Hornrpt79::output_value(const std::uint8_t* bytes,
                                                       int32_t length) const {
+AINFO<<"(DMCZP) EnteringMethod: Hornrpt79::output_value";
   Byte t0(bytes + 2);
+AINFO<<"(DMCZP) EnteringMethod: Hornrpt79::manual_input";
   int32_t x = t0.get_byte(0, 8);
 
   Horn_rpt_79::Output_valueType ret =
@@ -60,6 +64,7 @@ Horn_rpt_79::Output_valueType Hornrpt79::output_value(const std::uint8_t* bytes,
 // 'motorola', 'physical_unit': ''}
 Horn_rpt_79::Commanded_valueType Hornrpt79::commanded_value(
     const std::uint8_t* bytes, int32_t length) const {
+AINFO<<"(DMCZP) EnteringMethod: Hornrpt79::commanded_value";
   Byte t0(bytes + 1);
   int32_t x = t0.get_byte(0, 8);
 

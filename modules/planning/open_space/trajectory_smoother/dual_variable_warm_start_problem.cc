@@ -31,6 +31,7 @@ namespace planning {
 
 DualVariableWarmStartProblem::DualVariableWarmStartProblem(
     const PlannerOpenSpaceConfig& planner_open_space_config) {
+AINFO<<"(DMCZP) EnteringMethod: DualVariableWarmStartProblem::DualVariableWarmStartProblem";
   planner_open_space_config_ = planner_open_space_config;
 }
 
@@ -40,6 +41,7 @@ bool DualVariableWarmStartProblem::Solve(
     const Eigen::MatrixXd& obstacles_A, const Eigen::MatrixXd& obstacles_b,
     const Eigen::MatrixXd& xWS, Eigen::MatrixXd* l_warm_up,
     Eigen::MatrixXd* n_warm_up) {
+AINFO<<"(DMCZP) EnteringMethod: DualVariableWarmStartProblem::Solve";
   auto t_start = cyber::Time::Now().ToSecond();
   bool solver_flag = false;
 

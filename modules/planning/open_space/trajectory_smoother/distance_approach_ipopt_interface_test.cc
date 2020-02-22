@@ -70,6 +70,7 @@ class DistanceApproachIPOPTInterfaceTest : public ::testing::Test {
 };
 
 void DistanceApproachIPOPTInterfaceTest::ProblemSetup() {
+AINFO<<"(DMCZP) EnteringMethod: DistanceApproachIPOPTInterfaceTest::ProblemSetup";
   // obstacles_edges_num_ = 4 * Eigen::MatrixXi::Ones(obstacles_num_, 1);
   obstacles_edges_num_ = Eigen::MatrixXi(obstacles_num_, 1);
   obstacles_edges_num_ << 2, 1, 2, 1;
@@ -85,10 +86,12 @@ void DistanceApproachIPOPTInterfaceTest::ProblemSetup() {
 }
 
 TEST_F(DistanceApproachIPOPTInterfaceTest, initilization) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   EXPECT_NE(ptop_, nullptr);
 }
 
 TEST_F(DistanceApproachIPOPTInterfaceTest, get_bounds_info) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   int n = 1274;
   int m = 2194;
   double x_l[1274];
@@ -100,6 +103,7 @@ TEST_F(DistanceApproachIPOPTInterfaceTest, get_bounds_info) {
 }
 
 TEST_F(DistanceApproachIPOPTInterfaceTest, get_starting_point) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   int n = 1274;
   int m = 2194;
   bool init_x = true;
@@ -115,6 +119,7 @@ TEST_F(DistanceApproachIPOPTInterfaceTest, get_starting_point) {
 }
 
 TEST_F(DistanceApproachIPOPTInterfaceTest, eval_f) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   int n = 1274;
   double obj_value = 0.0;
   double x[1274];

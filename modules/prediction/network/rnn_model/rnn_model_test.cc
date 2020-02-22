@@ -29,6 +29,7 @@ class NetModelTest : public ::testing::Test {
 };
 
 TEST(NetModelTest, verification_test) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   const std::string rnn_filename =
       "modules/prediction/data/rnn_vehicle_model.bin";
   NetParameter net_parameter = NetParameter();

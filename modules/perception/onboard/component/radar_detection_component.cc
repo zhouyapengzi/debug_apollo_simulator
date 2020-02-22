@@ -23,6 +23,7 @@ namespace perception {
 namespace onboard {
 
 bool RadarDetectionComponent::Init() {
+AINFO<<"(DMCZP) EnteringMethod: RadarDetectionComponent::Init";
   AINFO<<"(pengzi) Radar RadarDetectionComponent::Init()";
   RadarComponentConfig comp_config;
   if (!GetProtoConfig(&comp_config)) {
@@ -59,6 +60,7 @@ bool RadarDetectionComponent::Init() {
 }
 
 bool RadarDetectionComponent::Proc(const std::shared_ptr<ContiRadar>& message) {
+AINFO<<"(DMCZP) EnteringMethod: RadarDetectionComponent::Proc";
   AINFO << "Enter radar preprocess, message timestamp: "
         << std::to_string(message->header().timestamp_sec())
         << " current timestamp " << lib::TimeUtil::GetCurrentTime();
@@ -73,6 +75,7 @@ bool RadarDetectionComponent::Proc(const std::shared_ptr<ContiRadar>& message) {
 }
 
 bool RadarDetectionComponent::InitAlgorithmPlugin() {
+AINFO<<"(DMCZP) EnteringMethod: RadarDetectionComponent::InitAlgorithmPlugin";
   AINFO << "onboard radar_preprocessor: " << preprocessor_method_;
   if (FLAGS_obs_enable_hdmap_input) {
     hdmap_input_ = map::HDMapInput::Instance();
@@ -99,6 +102,7 @@ bool RadarDetectionComponent::InitAlgorithmPlugin() {
 bool RadarDetectionComponent::InternalProc(
     const std::shared_ptr<ContiRadar>& in_message,
     std::shared_ptr<SensorFrameMessage> out_message) {
+AINFO<<"(DMCZP) EnteringMethod: RadarDetectionComponent::InternalProc";
   PERCEPTION_PERF_FUNCTION_WITH_INDICATOR(radar_info_.name);
   ContiRadar raw_obstacles = *in_message;
   {
@@ -202,6 +206,7 @@ bool RadarDetectionComponent::InternalProc(
 bool RadarDetectionComponent::GetCarLocalizationSpeed(
     double timestamp, Eigen::Vector3f* car_linear_speed,
     Eigen::Vector3f* car_angular_speed) {
+AINFO<<"(DMCZP) EnteringMethod: RadarDetectionComponent::GetCarLocalizationSpeed";
   CHECK_NOTNULL(car_linear_speed);
   (*car_linear_speed) = Eigen::Vector3f::Zero();
   CHECK_NOTNULL(car_angular_speed);

@@ -24,6 +24,7 @@ namespace apollo {
 namespace bridge {
 
 TEST(BridgeBufferTest, bridge_buf_test) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   BridgeBuffer<char> buf;
   char *p = buf;
   EXPECT_EQ(0, buf.capacity());

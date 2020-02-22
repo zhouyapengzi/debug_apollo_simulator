@@ -33,6 +33,7 @@ namespace transport {
 using apollo::cyber::message::RawMessage;
 
 TEST(MessageInfoTest, message_info_test) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   Identity sender_id;
   sender_id.set_data("sender");
   Identity spare_id;
@@ -76,6 +77,7 @@ TEST(MessageInfoTest, message_info_test) {
 }
 
 TEST(HistoryTest, history_test) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   Identity sender_id;
   sender_id.set_data("sender");
   Identity spare_id;
@@ -119,6 +121,7 @@ TEST(HistoryTest, history_test) {
 }
 
 TEST(ListenerHandlerTest, listener_handler_test) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   Identity sender_id;
   sender_id.set_data("sender");
   Identity spare_id;

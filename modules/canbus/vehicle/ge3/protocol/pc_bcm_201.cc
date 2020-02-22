@@ -27,14 +27,17 @@ const int32_t Pcbcm201::ID = 0x201;
 
 // public
 Pcbcm201::Pcbcm201() { Reset(); }
+AINFO<<"(DMCZP) EnteringMethod: Pcbcm201::Pcbcm201";
 
 uint32_t Pcbcm201::GetPeriod() const {
+AINFO<<"(DMCZP) EnteringMethod: Pcbcm201::GetPeriod";
   // modify every protocol's period manually
   static const uint32_t PERIOD = 20 * 1000;
   return PERIOD;
 }
 
 void Pcbcm201::UpdateData(uint8_t* data) {
+AINFO<<"(DMCZP) EnteringMethod: Pcbcm201::UpdateData";
   set_p_pc_reverselampreq(data, pc_reverselampreq_);
   set_p_pc_lowbeamreq(data, pc_lowbeamreq_);
   set_p_pc_highbeamreq(data, pc_highbeamreq_);
@@ -45,6 +48,7 @@ void Pcbcm201::UpdateData(uint8_t* data) {
 }
 
 void Pcbcm201::Reset() {
+AINFO<<"(DMCZP) EnteringMethod: Pcbcm201::Reset";
   // you should check this manually
   pc_reverselampreq_ = Pc_bcm_201::PC_REVERSELAMPREQ_NOREQ;
   pc_lowbeamreq_ = Pc_bcm_201::PC_LOWBEAMREQ_NOREQ;
@@ -57,6 +61,7 @@ void Pcbcm201::Reset() {
 
 Pcbcm201* Pcbcm201::set_pc_reverselampreq(
     Pc_bcm_201::Pc_reverselampreqType pc_reverselampreq) {
+AINFO<<"(DMCZP) EnteringMethod: Pcbcm201::set_pc_reverselampreq";
   pc_reverselampreq_ = pc_reverselampreq;
   return this;
 }
@@ -68,6 +73,7 @@ Pcbcm201* Pcbcm201::set_pc_reverselampreq(
 // 'physical_unit': ''}
 void Pcbcm201::set_p_pc_reverselampreq(
     uint8_t* data, Pc_bcm_201::Pc_reverselampreqType pc_reverselampreq) {
+AINFO<<"(DMCZP) EnteringMethod: Pcbcm201::set_p_pc_reverselampreq";
   int x = pc_reverselampreq;
 
   Byte to_set(data + 0);
@@ -76,6 +82,7 @@ void Pcbcm201::set_p_pc_reverselampreq(
 
 Pcbcm201* Pcbcm201::set_pc_lowbeamreq(
     Pc_bcm_201::Pc_lowbeamreqType pc_lowbeamreq) {
+AINFO<<"(DMCZP) EnteringMethod: Pcbcm201::set_pc_lowbeamreq";
   pc_lowbeamreq_ = pc_lowbeamreq;
   return this;
 }
@@ -87,6 +94,7 @@ Pcbcm201* Pcbcm201::set_pc_lowbeamreq(
 // 'physical_unit': ''}
 void Pcbcm201::set_p_pc_lowbeamreq(
     uint8_t* data, Pc_bcm_201::Pc_lowbeamreqType pc_lowbeamreq) {
+AINFO<<"(DMCZP) EnteringMethod: Pcbcm201::set_p_pc_lowbeamreq";
   int x = pc_lowbeamreq;
 
   Byte to_set(data + 0);
@@ -95,6 +103,7 @@ void Pcbcm201::set_p_pc_lowbeamreq(
 
 Pcbcm201* Pcbcm201::set_pc_highbeamreq(
     Pc_bcm_201::Pc_highbeamreqType pc_highbeamreq) {
+AINFO<<"(DMCZP) EnteringMethod: Pcbcm201::set_pc_highbeamreq";
   pc_highbeamreq_ = pc_highbeamreq;
   return this;
 }
@@ -106,6 +115,7 @@ Pcbcm201* Pcbcm201::set_pc_highbeamreq(
 // 'physical_unit': ''}
 void Pcbcm201::set_p_pc_highbeamreq(
     uint8_t* data, Pc_bcm_201::Pc_highbeamreqType pc_highbeamreq) {
+AINFO<<"(DMCZP) EnteringMethod: Pcbcm201::set_p_pc_highbeamreq";
   int x = pc_highbeamreq;
 
   Byte to_set(data + 0);
@@ -114,6 +124,7 @@ void Pcbcm201::set_p_pc_highbeamreq(
 
 Pcbcm201* Pcbcm201::set_pc_rightturnlampreq(
     Pc_bcm_201::Pc_rightturnlampreqType pc_rightturnlampreq) {
+AINFO<<"(DMCZP) EnteringMethod: Pcbcm201::set_pc_rightturnlampreq";
   pc_rightturnlampreq_ = pc_rightturnlampreq;
   return this;
 }
@@ -125,6 +136,7 @@ Pcbcm201* Pcbcm201::set_pc_rightturnlampreq(
 // 'motorola', 'physical_unit': ''}
 void Pcbcm201::set_p_pc_rightturnlampreq(
     uint8_t* data, Pc_bcm_201::Pc_rightturnlampreqType pc_rightturnlampreq) {
+AINFO<<"(DMCZP) EnteringMethod: Pcbcm201::set_p_pc_rightturnlampreq";
   int x = pc_rightturnlampreq;
 
   Byte to_set(data + 0);
@@ -133,6 +145,7 @@ void Pcbcm201::set_p_pc_rightturnlampreq(
 
 Pcbcm201* Pcbcm201::set_pc_leftturnlampreq(
     Pc_bcm_201::Pc_leftturnlampreqType pc_leftturnlampreq) {
+AINFO<<"(DMCZP) EnteringMethod: Pcbcm201::set_pc_leftturnlampreq";
   pc_leftturnlampreq_ = pc_leftturnlampreq;
   return this;
 }
@@ -144,6 +157,7 @@ Pcbcm201* Pcbcm201::set_pc_leftturnlampreq(
 // 'motorola', 'physical_unit': ''}
 void Pcbcm201::set_p_pc_leftturnlampreq(
     uint8_t* data, Pc_bcm_201::Pc_leftturnlampreqType pc_leftturnlampreq) {
+AINFO<<"(DMCZP) EnteringMethod: Pcbcm201::set_p_pc_leftturnlampreq";
   int x = pc_leftturnlampreq;
 
   Byte to_set(data + 0);
@@ -151,6 +165,7 @@ void Pcbcm201::set_p_pc_leftturnlampreq(
 }
 
 Pcbcm201* Pcbcm201::set_pc_hornreq(Pc_bcm_201::Pc_hornreqType pc_hornreq) {
+AINFO<<"(DMCZP) EnteringMethod: Pcbcm201::set_pc_hornreq";
   pc_hornreq_ = pc_hornreq;
   return this;
 }
@@ -161,6 +176,7 @@ Pcbcm201* Pcbcm201::set_pc_hornreq(Pc_bcm_201::Pc_hornreqType pc_hornreq) {
 // '[0|1]', 'bit': 6, 'type': 'enum', 'order': 'motorola', 'physical_unit': ''}
 void Pcbcm201::set_p_pc_hornreq(uint8_t* data,
                                 Pc_bcm_201::Pc_hornreqType pc_hornreq) {
+AINFO<<"(DMCZP) EnteringMethod: Pcbcm201::set_p_pc_hornreq";
   int x = pc_hornreq;
 
   Byte to_set(data + 0);
@@ -169,6 +185,7 @@ void Pcbcm201::set_p_pc_hornreq(uint8_t* data,
 
 Pcbcm201* Pcbcm201::set_pc_hazardlampreq(
     Pc_bcm_201::Pc_hazardlampreqType pc_hazardlampreq) {
+AINFO<<"(DMCZP) EnteringMethod: Pcbcm201::set_pc_hazardlampreq";
   pc_hazardlampreq_ = pc_hazardlampreq;
   return this;
 }
@@ -180,6 +197,7 @@ Pcbcm201* Pcbcm201::set_pc_hazardlampreq(
 // 'physical_unit': ''}
 void Pcbcm201::set_p_pc_hazardlampreq(
     uint8_t* data, Pc_bcm_201::Pc_hazardlampreqType pc_hazardlampreq) {
+AINFO<<"(DMCZP) EnteringMethod: Pcbcm201::set_p_pc_hazardlampreq";
   int x = pc_hazardlampreq;
 
   Byte to_set(data + 0);

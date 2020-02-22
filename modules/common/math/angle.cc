@@ -23,6 +23,7 @@ namespace common {
 namespace math {
 
 float sin(Angle16 a) {
+AINFO<<"(DMCZP) EnteringMethod: sin";
   int16_t idx = a.raw();
 
   if (idx < -Angle16::RAW_PI_2) {
@@ -40,23 +41,28 @@ float sin(Angle16 a) {
 }
 
 float cos(Angle16 a) {
+AINFO<<"(DMCZP) EnteringMethod: cos";
   Angle16 b(static_cast<int16_t>(Angle16::RAW_PI_2 - a.raw()));
   return sin(b);
 }
 
 float tan(Angle16 a) { return sin(a) / cos(a); }
+AINFO<<"(DMCZP) EnteringMethod: tan";
 
 float sin(Angle8 a) {
+AINFO<<"(DMCZP) EnteringMethod: sin";
   Angle16 b(static_cast<int16_t>(a.raw() << 8));
   return sin(b);
 }
 
 float cos(Angle8 a) {
+AINFO<<"(DMCZP) EnteringMethod: cos";
   Angle16 b(static_cast<int16_t>(a.raw() << 8));
   return cos(b);
 }
 
 float tan(Angle8 a) {
+AINFO<<"(DMCZP) EnteringMethod: tan";
   Angle16 b(static_cast<int16_t>(a.raw() << 8));
   return tan(b);
 }

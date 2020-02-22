@@ -22,6 +22,7 @@ namespace perception {
 namespace camera {
 
 bool Select::Init(int rows, int cols) {
+AINFO<<"(DMCZP) EnteringMethod: Select::Init";
   if (rows < 0 || cols < 0) {
     return false;
   }
@@ -33,6 +34,7 @@ bool Select::Init(int rows, int cols) {
 
 double Select::Calc2dGaussianScore(base::Point2DI p1, base::Point2DI p2,
                                    float sigma1, float sigma2) {
+AINFO<<"(DMCZP) EnteringMethod: Select::Calc2dGaussianScore";
   return std::exp(-0.5 * (static_cast<float>((p1.x - p2.x) * (p1.x - p2.x)) /
                               (sigma1 * sigma1) +
                           (static_cast<float>((p1.y - p2.y) * (p1.y - p2.y)) /
@@ -42,6 +44,7 @@ double Select::Calc2dGaussianScore(base::Point2DI p1, base::Point2DI p2,
 void Select::SelectTrafficLights(
     const std::vector<base::TrafficLightPtr> &refined_bboxes,
     std::vector<base::TrafficLightPtr> *hdmap_bboxes) {
+AINFO<<"(DMCZP) EnteringMethod: Select::SelectTrafficLights";
   std::vector<std::pair<size_t, size_t> > assignments;
   munkres_.costs()->Resize(hdmap_bboxes->size(), refined_bboxes.size());
 

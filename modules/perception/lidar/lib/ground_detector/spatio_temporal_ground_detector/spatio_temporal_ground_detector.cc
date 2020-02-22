@@ -31,6 +31,7 @@ using apollo::cyber::common::GetProtoFromFile;
 
 bool SpatioTemporalGroundDetector::Init(
     const GroundDetectorInitOptions& options) {
+AINFO<<"(DMCZP) EnteringMethod: SpatioTemporalGroundDetector::Init";
   const lib::ModelConfig* model_config = nullptr;
   auto config_manager = lib::ConfigManager::Instance();
   CHECK(config_manager->GetModelConfig("SpatioTemporalGroundDetector",
@@ -76,6 +77,7 @@ bool SpatioTemporalGroundDetector::Init(
 
 bool SpatioTemporalGroundDetector::Detect(const GroundDetectorOptions& options,
                                           LidarFrame* frame) {
+AINFO<<"(DMCZP) EnteringMethod: SpatioTemporalGroundDetector::Detect";
   // check input
   if (frame == nullptr) {
     AERROR << "Input null frame ptr.";

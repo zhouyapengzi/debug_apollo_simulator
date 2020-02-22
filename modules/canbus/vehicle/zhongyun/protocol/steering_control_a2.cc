@@ -28,19 +28,23 @@ const int32_t Steeringcontrola2::ID = 0xA2;
 
 // public
 Steeringcontrola2::Steeringcontrola2() { Reset(); }
+AINFO<<"(DMCZP) EnteringMethod: Steeringcontrola2::Steeringcontrola2";
 
 uint32_t Steeringcontrola2::GetPeriod() const {
+AINFO<<"(DMCZP) EnteringMethod: Steeringcontrola2::GetPeriod";
   // TODO(ChaoM) :  modify every protocol's period manually
   static const uint32_t PERIOD = 20 * 1000;
   return PERIOD;
 }
 
 void Steeringcontrola2::UpdateData(uint8_t* data) {
+AINFO<<"(DMCZP) EnteringMethod: Steeringcontrola2::UpdateData";
   set_p_steering_target(data, steering_target_);
   set_p_steering_enable_control(data, steering_enable_control_);
 }
 
 void Steeringcontrola2::Reset() {
+AINFO<<"(DMCZP) EnteringMethod: Steeringcontrola2::Reset";
   // TODO(ChaoM) :  you should check this manually
   steering_target_ = 0.0;
   steering_enable_control_ =
@@ -49,6 +53,7 @@ void Steeringcontrola2::Reset() {
 
 Steeringcontrola2* Steeringcontrola2::set_steering_target(
     double steering_target) {
+AINFO<<"(DMCZP) EnteringMethod: Steeringcontrola2::set_steering_target";
   steering_target_ = steering_target;
   return this;
 }
@@ -58,6 +63,7 @@ Steeringcontrola2* Steeringcontrola2::set_steering_target(
 // 8, 'type': 'double', 'order': 'intel', 'physical_unit': 'deg'}
 void Steeringcontrola2::set_p_steering_target(uint8_t* data,
                                               double steering_target) {
+AINFO<<"(DMCZP) EnteringMethod: Steeringcontrola2::set_p_steering_target";
   steering_target = ProtocolData::BoundedValue(-32.0, 32.0, steering_target);
   int x = static_cast<int>((steering_target - -1638.350000) / 0.050000);
   uint8_t t = 0;
@@ -74,6 +80,8 @@ void Steeringcontrola2::set_p_steering_target(uint8_t* data,
 
 Steeringcontrola2* Steeringcontrola2::set_steering_enable_control(
     Steering_control_a2::Steering_enable_controlType steering_enable_control) {
+AINFO<<"(DMCZP) EnteringMethod: Steeringcontrola2::set_steering_enable_control";
+AINFO<<"(DMCZP) EnteringMethod: Steeringcontrola2::set_p_steering_enable_control";
   steering_enable_control_ = steering_enable_control;
   return this;
 }

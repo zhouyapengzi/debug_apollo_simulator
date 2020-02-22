@@ -28,6 +28,7 @@ class Latlonheadingrpt82Test : public ::testing::Test {
 };
 
 TEST_F(Latlonheadingrpt82Test, reset) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   Latlonheadingrpt82 Latlonheading;
   int32_t length = 8;
   ChassisDetail chassis_detail;

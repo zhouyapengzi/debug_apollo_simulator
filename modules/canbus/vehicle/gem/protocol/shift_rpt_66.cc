@@ -28,10 +28,12 @@ namespace gem {
 using ::apollo::drivers::canbus::Byte;
 
 Shiftrpt66::Shiftrpt66() {}
+AINFO<<"(DMCZP) EnteringMethod: Shiftrpt66::Shiftrpt66";
 const int32_t Shiftrpt66::ID = 0x66;
 
 void Shiftrpt66::Parse(const std::uint8_t* bytes, int32_t length,
                        ChassisDetail* chassis) const {
+AINFO<<"(DMCZP) EnteringMethod: Shiftrpt66::Parse";
   chassis->mutable_gem()->mutable_shift_rpt_66()->set_manual_input(
       manual_input(bytes, length));
   chassis->mutable_gem()->mutable_shift_rpt_66()->set_commanded_value(
@@ -47,6 +49,9 @@ void Shiftrpt66::Parse(const std::uint8_t* bytes, int32_t length,
 // 'motorola', 'physical_unit': ''}
 Shift_rpt_66::Manual_inputType Shiftrpt66::manual_input(
     const std::uint8_t* bytes, int32_t length) const {
+AINFO<<"(DMCZP) EnteringMethod: Shiftrpt66::manual_input";
+AINFO<<"(DMCZP) EnteringMethod: Shiftrpt66::commanded_value";
+AINFO<<"(DMCZP) EnteringMethod: Shiftrpt66::output_value";
   Byte t0(bytes + 0);
   int32_t x = t0.get_byte(0, 8);
 

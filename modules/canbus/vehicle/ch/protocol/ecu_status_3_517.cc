@@ -26,10 +26,12 @@ namespace ch {
 using ::apollo::drivers::canbus::Byte;
 
 Ecustatus3517::Ecustatus3517() {}
+AINFO<<"(DMCZP) EnteringMethod: Ecustatus3517::Ecustatus3517";
 const int32_t Ecustatus3517::ID = 0x517;
 
 void Ecustatus3517::Parse(const std::uint8_t* bytes, int32_t length,
                           ChassisDetail* chassis) const {
+AINFO<<"(DMCZP) EnteringMethod: Ecustatus3517::Parse";
   chassis->mutable_ch()->mutable_ecu_status_3_517()->set_ultrasound_dist_1(
       ultrasound_dist_1(bytes, length));
   chassis->mutable_ch()->mutable_ecu_status_3_517()->set_ultrasound_dist_2(
@@ -54,6 +56,14 @@ void Ecustatus3517::Parse(const std::uint8_t* bytes, int32_t length,
 // 'bit': 0, 'type': 'int', 'order': 'intel', 'physical_unit': 'cm'}
 int Ecustatus3517::ultrasound_dist_1(const std::uint8_t* bytes,
                                      int32_t length) const {
+AINFO<<"(DMCZP) EnteringMethod: Ecustatus3517::ultrasound_dist_1";
+AINFO<<"(DMCZP) EnteringMethod: Ecustatus3517::ultrasound_dist_2";
+AINFO<<"(DMCZP) EnteringMethod: Ecustatus3517::ultrasound_dist_3";
+AINFO<<"(DMCZP) EnteringMethod: Ecustatus3517::ultrasound_dist_4";
+AINFO<<"(DMCZP) EnteringMethod: Ecustatus3517::ultrasound_dist_5";
+AINFO<<"(DMCZP) EnteringMethod: Ecustatus3517::ultrasound_dist_6";
+AINFO<<"(DMCZP) EnteringMethod: Ecustatus3517::ultrasound_dist_7";
+AINFO<<"(DMCZP) EnteringMethod: Ecustatus3517::ultrasound_dist_8";
   Byte t0(bytes + 0);
   int32_t x = t0.get_byte(0, 8);
 

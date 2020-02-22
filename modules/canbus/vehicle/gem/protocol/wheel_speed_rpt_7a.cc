@@ -28,10 +28,12 @@ namespace gem {
 using ::apollo::drivers::canbus::Byte;
 
 Wheelspeedrpt7a::Wheelspeedrpt7a() {}
+AINFO<<"(DMCZP) EnteringMethod: Wheelspeedrpt7a::Wheelspeedrpt7a";
 const int32_t Wheelspeedrpt7a::ID = 0x7A;
 
 void Wheelspeedrpt7a::Parse(const std::uint8_t* bytes, int32_t length,
                             ChassisDetail* chassis) const {
+AINFO<<"(DMCZP) EnteringMethod: Wheelspeedrpt7a::Parse";
   chassis->mutable_gem()
       ->mutable_wheel_speed_rpt_7a()
       ->set_wheel_spd_rear_right(wheel_spd_rear_right(bytes, length));
@@ -51,8 +53,10 @@ void Wheelspeedrpt7a::Parse(const std::uint8_t* bytes, int32_t length,
 // 'physical_unit': 'rad/s'}
 int Wheelspeedrpt7a::wheel_spd_rear_right(const std::uint8_t* bytes,
                                           int32_t length) const {
+AINFO<<"(DMCZP) EnteringMethod: Wheelspeedrpt7a::wheel_spd_rear_right";
   Byte t0(bytes + 6);
   int32_t x = t0.get_byte(0, 8);
+AINFO<<"(DMCZP) EnteringMethod: Wheelspeedrpt7a::wheel_spd_front_left";
 
   Byte t1(bytes + 7);
   int32_t t = t1.get_byte(0, 8);
@@ -72,6 +76,7 @@ int Wheelspeedrpt7a::wheel_spd_rear_right(const std::uint8_t* bytes,
 // 'physical_unit': 'rad/s'}
 int Wheelspeedrpt7a::wheel_spd_rear_left(const std::uint8_t* bytes,
                                          int32_t length) const {
+AINFO<<"(DMCZP) EnteringMethod: Wheelspeedrpt7a::wheel_spd_rear_left";
   Byte t0(bytes + 4);
   int32_t x = t0.get_byte(0, 8);
 
@@ -93,6 +98,7 @@ int Wheelspeedrpt7a::wheel_spd_rear_left(const std::uint8_t* bytes,
 // 'physical_unit': 'rad/s'}
 int Wheelspeedrpt7a::wheel_spd_front_right(const std::uint8_t* bytes,
                                            int32_t length) const {
+AINFO<<"(DMCZP) EnteringMethod: Wheelspeedrpt7a::wheel_spd_front_right";
   Byte t0(bytes + 2);
   int32_t x = t0.get_byte(0, 8);
 

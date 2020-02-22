@@ -22,16 +22,19 @@ namespace apollo {
 namespace hdmap {
 
 EightRoute::EightRoute(std::shared_ptr<JSonConf> sp_conf) : Alignment(sp_conf) {
+AINFO<<"(DMCZP) EnteringMethod: EightRoute::EightRoute";
   Reset();
 }
 
 void EightRoute::Reset() {
+AINFO<<"(DMCZP) EnteringMethod: EightRoute::Reset";
   progress_ = 0.0;
   last_progress_ = 0;
 }
 
 bool EightRoute::IsEightRoutePose(const std::vector<FramePose>& poses,
                                   int pose_index) {
+AINFO<<"(DMCZP) EnteringMethod: EightRoute::IsEightRoutePose";
   if (poses.size() == 0 || pose_index <= 0 ||
       pose_index >= static_cast<int>(poses.size())) {
     AINFO << "params error, poses size: " << poses.size()
@@ -66,6 +69,7 @@ bool EightRoute::IsEightRoutePose(const std::vector<FramePose>& poses,
 }
 
 double EightRoute::GetGoodPoseDuring() {
+AINFO<<"(DMCZP) EnteringMethod: EightRoute::GetGoodPoseDuring";
   if (sp_good_pose_info_ == nullptr || sp_good_pose_info_->start_time < 0 ||
       sp_good_pose_info_->end_time < 0) {
     return 0.0;
@@ -74,6 +78,7 @@ double EightRoute::GetGoodPoseDuring() {
 }
 
 double EightRoute::GetEightRouteProgress(const std::vector<FramePose>& poses) {
+AINFO<<"(DMCZP) EnteringMethod: EightRoute::GetEightRouteProgress";
   int size = static_cast<int>(poses.size());
   int start_index = TimeToIndex(poses, start_time_);
   // select first good pose
@@ -136,6 +141,7 @@ double EightRoute::GetEightRouteProgress(const std::vector<FramePose>& poses) {
 }
 
 ErrorCode EightRoute::Process(const std::vector<FramePose>& poses) {
+AINFO<<"(DMCZP) EnteringMethod: EightRoute::Process";
   AINFO << "[EightRoute::process] begin";
   size_t size = poses.size();
   if (size <= 1) {
@@ -159,6 +165,7 @@ ErrorCode EightRoute::Process(const std::vector<FramePose>& poses) {
 }
 
 double EightRoute::GetProgress() const { return progress_; }
+AINFO<<"(DMCZP) EnteringMethod: EightRoute::GetProgress";
 
 }  // namespace hdmap
 }  // namespace apollo

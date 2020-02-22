@@ -30,6 +30,7 @@ using apollo::perception::PerceptionObstacles;
 using grpc::ServerBuilder;
 
 ObuInterFaceGrpcImpl::ObuInterFaceGrpcImpl() {
+AINFO<<"(DMCZP) EnteringMethod: ObuInterFaceGrpcImpl::ObuInterFaceGrpcImpl";
   AINFO << "ObuInterFaceGrpcImpl Start Construct.";
   grpc_client_ = std::make_shared<GrpcClientImpl>(
       grpc::CreateChannel(FLAGS_grpc_client_host + ":" + FLAGS_grpc_client_port,
@@ -62,8 +63,10 @@ ObuInterFaceGrpcImpl::~ObuInterFaceGrpcImpl() {
 }
 
 bool ObuInterFaceGrpcImpl::InitialClient() { return grpc_client_init_flag_; }
+AINFO<<"(DMCZP) EnteringMethod: ObuInterFaceGrpcImpl::InitialClient";
 
 bool ObuInterFaceGrpcImpl::InitialServer() {
+AINFO<<"(DMCZP) EnteringMethod: ObuInterFaceGrpcImpl::InitialServer";
   if (!grpc_server_init_flag_) {
     return false;
   }
@@ -74,6 +77,7 @@ bool ObuInterFaceGrpcImpl::InitialServer() {
 }
 
 void ObuInterFaceGrpcImpl::ThreadRunServer() {
+AINFO<<"(DMCZP) EnteringMethod: ObuInterFaceGrpcImpl::ThreadRunServer";
   std::unique_lock<std::mutex> lck(mutex_);
   auto start = std::chrono::steady_clock::now();
   std::string server_address(FLAGS_grpc_server_host + ":" +
@@ -98,15 +102,19 @@ void ObuInterFaceGrpcImpl::ThreadRunServer() {
 
 void ObuInterFaceGrpcImpl::GetV2xObstaclesFromObu(
     const std::shared_ptr<PerceptionObstacles> &msg) {
+AINFO<<"(DMCZP) EnteringMethod: ObuInterFaceGrpcImpl::GetV2xObstaclesFromObu";
   grpc_server_->GetMsgFromGrpc(msg);
 }
+AINFO<<"(DMCZP) EnteringMethod: ObuInterFaceGrpcImpl::SendObstaclesToObu";
 
 void ObuInterFaceGrpcImpl::GetV2xTrafficLightFromObu(
     const std::shared_ptr<IntersectionTrafficLightData> &msg) {
+AINFO<<"(DMCZP) EnteringMethod: ObuInterFaceGrpcImpl::GetV2xTrafficLightFromObu";
   grpc_server_->GetMsgFromGrpc(msg);
 }
 void ObuInterFaceGrpcImpl::SendCarStatusToObu(
     const std::shared_ptr<CarStatus> &msg) {
+AINFO<<"(DMCZP) EnteringMethod: ObuInterFaceGrpcImpl::SendCarStatusToObu";
   grpc_client_->SendMsgToGrpc(msg);
 }
 void ObuInterFaceGrpcImpl::SendObstaclesToObu(

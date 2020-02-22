@@ -31,6 +31,7 @@ class HDMapUtilTestSuite : public ::testing::Test {
 };
 
 void HDMapUtilTestSuite::InitMapProto(Map* map_proto) {
+AINFO<<"(DMCZP) EnteringMethod: HDMapUtilTestSuite::InitMapProto";
   auto* lane = map_proto->add_lane();
   lane->mutable_id()->set_id("lane_1");
   CurveSegment* curve_segment = lane->mutable_central_curve()->add_segment();

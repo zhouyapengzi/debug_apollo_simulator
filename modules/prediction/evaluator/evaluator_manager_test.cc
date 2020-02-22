@@ -41,6 +41,7 @@ class EvaluatorManagerTest : public KMLMapBasedTest {
 };
 
 TEST_F(EvaluatorManagerTest, General) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   std::string conf_file = "modules/prediction/testdata/adapter_conf.pb.txt";
   bool ret_load_conf =
       cyber::common::GetProtoFromFile(conf_file, &adapter_conf_);

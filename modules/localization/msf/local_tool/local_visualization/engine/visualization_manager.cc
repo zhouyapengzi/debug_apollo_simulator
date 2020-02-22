@@ -281,6 +281,7 @@ VisualizationManager::VisualizationManager()
       gnss_loc_info_buffer_(20),
       lidar_loc_info_buffer_(40),
       fusion_loc_info_buffer_(400) {}
+AINFO<<"(DMCZP) EnteringMethod: VisualizationManager::VisualizationManager";
 
 VisualizationManager::~VisualizationManager() {
   if (!(stop_visualization_.load())) {
@@ -293,6 +294,7 @@ bool VisualizationManager::Init(const std::string &map_folder,
                                 const std::string &map_visual_folder,
                                 const Eigen::Affine3d &velodyne_extrinsic,
                                 const VisualMapParam &map_param) {
+AINFO<<"(DMCZP) EnteringMethod: VisualizationManager::Init";
   AINFO << "Get zone id.";
   unsigned int resolution_id = 0;
   int zone_id = 0;
@@ -320,6 +322,7 @@ bool VisualizationManager::Init(const std::string &map_folder,
 }
 
 bool VisualizationManager::Init(const VisualizationManagerParams &params) {
+AINFO<<"(DMCZP) EnteringMethod: VisualizationManager::Init";
   lidar_frame_buffer_.SetCapacity(params.lidar_frame_buffer_capacity);
   gnss_loc_info_buffer_.SetCapacity(params.gnss_loc_info_buffer_capacity);
   lidar_loc_info_buffer_.SetCapacity(params.lidar_loc_info_buffer_capacity);
@@ -330,6 +333,7 @@ bool VisualizationManager::Init(const VisualizationManagerParams &params) {
 }
 
 void VisualizationManager::AddLidarFrame(const LidarVisFrame &lidar_frame) {
+AINFO<<"(DMCZP) EnteringMethod: VisualizationManager::AddLidarFrame";
   AINFO << "AddLidarFrame.";
   static int id = 0;
   AINFO << "id." << id;
@@ -339,33 +343,39 @@ void VisualizationManager::AddLidarFrame(const LidarVisFrame &lidar_frame) {
 
 void VisualizationManager::AddGNSSLocMessage(
     const LocalizationMsg &gnss_loc_msg) {
+AINFO<<"(DMCZP) EnteringMethod: VisualizationManager::AddGNSSLocMessage";
   AINFO << "AddGNSSLocMessage.";
   gnss_loc_info_buffer_.PushNewMessage(gnss_loc_msg.timestamp, gnss_loc_msg);
 }
 
 void VisualizationManager::AddLidarLocMessage(
     const LocalizationMsg &lidar_loc_msg) {
+AINFO<<"(DMCZP) EnteringMethod: VisualizationManager::AddLidarLocMessage";
   AINFO << "AddLidarLocMessage.";
   lidar_loc_info_buffer_.PushNewMessage(lidar_loc_msg.timestamp, lidar_loc_msg);
 }
 
 void VisualizationManager::AddFusionLocMessage(
     const LocalizationMsg &fusion_loc_msg) {
+AINFO<<"(DMCZP) EnteringMethod: VisualizationManager::AddFusionLocMessage";
   AINFO << "AddFusionLocMessage.";
   fusion_loc_info_buffer_.PushNewMessage(fusion_loc_msg.timestamp,
                                          fusion_loc_msg);
 }
 
 void VisualizationManager::StartVisualization() {
+AINFO<<"(DMCZP) EnteringMethod: VisualizationManager::StartVisualization";
   visual_thread_ = std::thread(&VisualizationManager::DoVisualize, this);
 }
 
 void VisualizationManager::StopVisualization() {
+AINFO<<"(DMCZP) EnteringMethod: VisualizationManager::StopVisualization";
   stop_visualization_ = true;
   visual_thread_.join();
 }
 
 void VisualizationManager::DoVisualize() {
+AINFO<<"(DMCZP) EnteringMethod: VisualizationManager::DoVisualize";
   while (!(stop_visualization_.load())) {
     usleep(10000);
     // if (!lidar_frame_buffer_.IsEmpty()) {
@@ -446,6 +456,7 @@ void VisualizationManager::DoVisualize() {
 bool VisualizationManager::GetZoneIdFromMapFolder(
     const std::string &map_folder, const unsigned int resolution_id,
     int *zone_id) {
+AINFO<<"(DMCZP) EnteringMethod: VisualizationManager::GetZoneIdFromMapFolder";
   char buf[256];
   snprintf(buf, sizeof(buf), "/%03u", resolution_id);
   std::string folder_north = map_folder + "/map" + buf + "/north";

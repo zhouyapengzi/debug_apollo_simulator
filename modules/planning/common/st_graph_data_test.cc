@@ -25,6 +25,7 @@ namespace apollo {
 namespace planning {
 
 TEST(StGraphDataTest, basic_test) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   std::vector<const STBoundary*> boundary_vec;
   auto boundary = STBoundary();
   boundary_vec.push_back(&boundary);

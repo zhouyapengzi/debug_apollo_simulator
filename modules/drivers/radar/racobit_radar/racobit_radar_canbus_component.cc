@@ -36,8 +36,10 @@ namespace racobit_radar {
 RacobitRadarCanbusComponent::RacobitRadarCanbusComponent()
     : monitor_logger_buffer_(
           common::monitor::MonitorMessageItem::RACOBIT_RADAR) {}
+AINFO<<"(DMCZP) EnteringMethod: RacobitRadarCanbusComponent::RacobitRadarCanbusComponent";
 
 bool RacobitRadarCanbusComponent::Init() {
+AINFO<<"(DMCZP) EnteringMethod: RacobitRadarCanbusComponent::Init";
   if (!GetProtoConfig(&racobit_radar_conf_)) {
     return OnError("Unable to load canbus conf file: " + ConfigFilePath()).ok();
   }
@@ -100,6 +102,7 @@ bool RacobitRadarCanbusComponent::Init() {
 }
 
 apollo::common::ErrorCode RacobitRadarCanbusComponent::ConfigureRadar() {
+AINFO<<"(DMCZP) EnteringMethod: RacobitRadarCanbusComponent::ConfigureRadar";
   RadarConfig200 radar_config;
   radar_config.set_radar_conf(racobit_radar_conf_.radar_conf());
   SenderMessage<RacobitRadar> sender_message(RadarConfig200::ID, &radar_config);
@@ -115,6 +118,7 @@ RacobitRadarCanbusComponent::~RacobitRadarCanbusComponent() {
 }
 
 Status RacobitRadarCanbusComponent::OnError(const std::string &error_msg) {
+AINFO<<"(DMCZP) EnteringMethod: RacobitRadarCanbusComponent::OnError";
   monitor_logger_buffer_.ERROR(error_msg);
   return Status(ErrorCode::CANBUS_ERROR, error_msg);
 }

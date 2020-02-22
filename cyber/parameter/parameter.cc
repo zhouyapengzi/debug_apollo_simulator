@@ -23,20 +23,24 @@ namespace cyber {
 using apollo::cyber::message::ProtobufFactory;
 
 Parameter::Parameter() {
+AINFO<<"(DMCZP) EnteringMethod: Parameter::Parameter";
   param_.set_name("");
   param_.set_type(ParamType::NOT_SET);
 }
 
 Parameter::Parameter(const std::string& name) {
+AINFO<<"(DMCZP) EnteringMethod: Parameter::Parameter";
   param_.set_name(name);
   param_.set_type(proto::ParamType::NOT_SET);
 }
 
 Parameter::Parameter(const Parameter& parameter) {
+AINFO<<"(DMCZP) EnteringMethod: Parameter::Parameter";
   param_.CopyFrom(parameter.param_);
 }
 
 Parameter::Parameter(const std::string& name, const bool bool_value) {
+AINFO<<"(DMCZP) EnteringMethod: Parameter::Parameter";
   param_.set_name(name);
   param_.set_bool_value(bool_value);
   param_.set_type(ParamType::BOOL);
@@ -44,6 +48,7 @@ Parameter::Parameter(const std::string& name, const bool bool_value) {
 }
 
 Parameter::Parameter(const std::string& name, const int int_value) {
+AINFO<<"(DMCZP) EnteringMethod: Parameter::Parameter";
   param_.set_name(name);
   param_.set_int_value(int_value);
   param_.set_type(ParamType::INT);
@@ -51,6 +56,7 @@ Parameter::Parameter(const std::string& name, const int int_value) {
 }
 
 Parameter::Parameter(const std::string& name, const int64_t int_value) {
+AINFO<<"(DMCZP) EnteringMethod: Parameter::Parameter";
   param_.set_name(name);
   param_.set_int_value(int_value);
   param_.set_type(ParamType::INT);
@@ -58,6 +64,7 @@ Parameter::Parameter(const std::string& name, const int64_t int_value) {
 }
 
 Parameter::Parameter(const std::string& name, const float double_value) {
+AINFO<<"(DMCZP) EnteringMethod: Parameter::Parameter";
   param_.set_name(name);
   param_.set_double_value(double_value);
   param_.set_type(ParamType::DOUBLE);
@@ -65,6 +72,7 @@ Parameter::Parameter(const std::string& name, const float double_value) {
 }
 
 Parameter::Parameter(const std::string& name, const double double_value) {
+AINFO<<"(DMCZP) EnteringMethod: Parameter::Parameter";
   param_.set_name(name);
   param_.set_double_value(double_value);
   param_.set_type(ParamType::DOUBLE);
@@ -72,6 +80,7 @@ Parameter::Parameter(const std::string& name, const double double_value) {
 }
 
 Parameter::Parameter(const std::string& name, const std::string& string_value) {
+AINFO<<"(DMCZP) EnteringMethod: Parameter::Parameter";
   param_.set_name(name);
   param_.set_string_value(string_value);
   param_.set_type(ParamType::STRING);
@@ -79,6 +88,7 @@ Parameter::Parameter(const std::string& name, const std::string& string_value) {
 }
 
 Parameter::Parameter(const std::string& name, const char* string_value) {
+AINFO<<"(DMCZP) EnteringMethod: Parameter::Parameter";
   param_.set_name(name);
   param_.set_string_value(string_value);
   param_.set_type(ParamType::STRING);
@@ -88,6 +98,7 @@ Parameter::Parameter(const std::string& name, const char* string_value) {
 Parameter::Parameter(const std::string& name, const std::string& msg_str,
                      const std::string& full_name,
                      const std::string& proto_desc) {
+AINFO<<"(DMCZP) EnteringMethod: Parameter::Parameter";
   param_.set_name(name);
   param_.set_string_value(msg_str);
   param_.set_type(ParamType::PROTOBUF);
@@ -97,6 +108,7 @@ Parameter::Parameter(const std::string& name, const std::string& msg_str,
 
 Parameter::Parameter(const std::string& name,
                      const google::protobuf::Message& msg) {
+AINFO<<"(DMCZP) EnteringMethod: Parameter::Parameter";
   param_.set_name(name);
   std::string str;
   msg.SerializeToString(&str);
@@ -109,10 +121,13 @@ Parameter::Parameter(const std::string& name,
 }
 
 void Parameter::FromProtoParam(const Param& param) { param_.CopyFrom(param); }
+AINFO<<"(DMCZP) EnteringMethod: Parameter::FromProtoParam";
 
 Param Parameter::ToProtoParam() const { return param_; }
+AINFO<<"(DMCZP) EnteringMethod: Parameter::ToProtoParam";
 
 std::string Parameter::DebugString() const {
+AINFO<<"(DMCZP) EnteringMethod: Parameter::DebugString";
   std::stringstream ss;
   ss << "{name: \"" << param_.name() << "\", ";
   ss << "type: \"" << TypeName() << "\", ";

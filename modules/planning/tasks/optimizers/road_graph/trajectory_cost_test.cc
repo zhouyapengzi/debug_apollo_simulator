@@ -22,6 +22,7 @@ namespace apollo {
 namespace planning {
 
 TEST(AllTrajectoryTests, GetCostFromObsSL) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   // left nudge
   TrajectoryCost tc;
   SLBoundary obs_sl_boundary;

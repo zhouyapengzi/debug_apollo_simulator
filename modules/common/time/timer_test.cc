@@ -26,6 +26,7 @@ namespace common {
 namespace time {
 
 TEST(TimeTest, test_timer) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   Timer timer;
   timer.Start();
   usleep(100000);
@@ -35,16 +36,19 @@ TEST(TimeTest, test_timer) {
 }
 
 TEST(TimerWrapperTest, test) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   TimerWrapper wrapper("TimerWrapperTest");
   usleep(200000);
 }
 
 TEST(PerfFunctionTest, test) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   PERF_FUNCTION("FunctionTest");
   usleep(100000);
 }
 
 TEST(PerfBlockTest, test) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   PERF_BLOCK_START();
   // do somethings.
   usleep(100000);

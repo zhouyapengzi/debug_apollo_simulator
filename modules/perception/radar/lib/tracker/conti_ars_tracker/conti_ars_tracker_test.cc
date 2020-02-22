@@ -27,6 +27,7 @@ namespace perception {
 namespace radar {
 
 TEST(ContiArsTrackerTest, conti_ars_tracker_init_test) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   std::unique_ptr<BaseTracker> tracker(new ContiArsTracker());
   FLAGS_work_root =
       "/apollo/modules/perception/testdata/"
@@ -36,6 +37,7 @@ TEST(ContiArsTrackerTest, conti_ars_tracker_init_test) {
 }
 
 TEST(ContiArsTrackerTest, conti_ars_tracker_track_test) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   std::unique_ptr<BaseTracker> tracker(new ContiArsTracker());
   FLAGS_work_root = "./radar_test_data/conti_ars_tracker";
   tracker->Init();
@@ -57,6 +59,7 @@ TEST(ContiArsTrackerTest, conti_ars_tracker_track_test) {
 }
 
 TEST(ContiArsTrackerTest, conti_ars_tracker_collect_test) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   base::ObjectPtr object(new base::Object);
   object->track_id = 100;
   object->center << 10.0, 20.0, 0.0;
@@ -78,6 +81,7 @@ TEST(ContiArsTrackerTest, conti_ars_tracker_collect_test) {
 }
 
 TEST(ContiArsTrackerTest, conti_ars_tracker_unassigned_test) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   base::ObjectPtr object(new base::Object);
   object->track_id = 100;
   object->center << 10.0, 20.0, 0.0;

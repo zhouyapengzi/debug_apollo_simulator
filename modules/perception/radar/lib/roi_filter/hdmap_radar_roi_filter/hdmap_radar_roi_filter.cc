@@ -23,12 +23,14 @@ namespace radar {
 
 bool HdmapRadarRoiFilter::RoiFilter(const RoiFilterOptions& options,
                                     base::FramePtr radar_frame) {
+AINFO<<"(DMCZP) EnteringMethod: HdmapRadarRoiFilter::RoiFilter";
   std::vector<base::ObjectPtr> origin_objects = radar_frame->objects;
   return common::ObjectInRoiCheck(options.roi, origin_objects,
                                   &radar_frame->objects);
 }
 
 std::string HdmapRadarRoiFilter::Name() const { return "HdmapRadarRoiFilter"; }
+AINFO<<"(DMCZP) EnteringMethod: HdmapRadarRoiFilter::Name";
 
 PERCEPTION_REGISTER_ROI_FILTER(HdmapRadarRoiFilter);
 

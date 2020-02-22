@@ -27,12 +27,14 @@ namespace routing {
 using apollo::common::util::ContainsKey;
 
 bool IsCloseEnough(double value_1, double value_2) {
+AINFO<<"(DMCZP) EnteringMethod: IsCloseEnough";
   constexpr double kEpsilon = 1e-6;
   return std::fabs(value_1 - value_2) < kEpsilon;
 }
 
 const NodeWithRange& GetLargestRange(
     const std::vector<NodeWithRange>& node_vec) {
+AINFO<<"(DMCZP) EnteringMethod: GetLargestRange";
   CHECK(!node_vec.empty());
   size_t result_idx = 0;
   double result_range_length = 0.0;
@@ -48,6 +50,7 @@ const NodeWithRange& GetLargestRange(
 bool ResultGenerator::ExtractBasicPassages(
     const std::vector<NodeWithRange>& nodes,
     std::vector<PassageInfo>* const passages) {
+AINFO<<"(DMCZP) EnteringMethod: ResultGenerator::ExtractBasicPassages";
   CHECK(!nodes.empty());
   passages->clear();
   std::vector<NodeWithRange> nodes_of_passage;
@@ -77,6 +80,8 @@ bool ResultGenerator::ExtractBasicPassages(
 bool ResultGenerator::IsReachableFromWithChangeLane(
     const TopoNode* from_node, const PassageInfo& to_nodes,
     NodeWithRange* reachable_node) {
+AINFO<<"(DMCZP) EnteringMethod: ResultGenerator::IsReachableFromWithChangeLane";
+AINFO<<"(DMCZP) EnteringMethod: ResultGenerator::IsReachableToWithChangeLane";
   for (const auto& to_node : to_nodes.nodes) {
     auto edge = to_node.GetTopoNode()->GetInEdgeFrom(from_node);
     if (edge != nullptr &&
@@ -105,6 +110,7 @@ bool ResultGenerator::IsReachableToWithChangeLane(
 void ResultGenerator::ExtendBackward(const TopoRangeManager& range_manager,
                                      const PassageInfo& prev_passage,
                                      PassageInfo* const curr_passage) {
+AINFO<<"(DMCZP) EnteringMethod: ResultGenerator::ExtendBackward";
   std::unordered_set<const TopoNode*> node_set_of_curr_passage;
   for (const auto& node : curr_passage->nodes) {
     node_set_of_curr_passage.insert(node.GetTopoNode());
@@ -166,6 +172,7 @@ void ResultGenerator::ExtendBackward(const TopoRangeManager& range_manager,
 void ResultGenerator::ExtendForward(const TopoRangeManager& range_manager,
                                     const PassageInfo& next_passage,
                                     PassageInfo* const curr_passage) {
+AINFO<<"(DMCZP) EnteringMethod: ResultGenerator::ExtendForward";
   std::unordered_set<const TopoNode*> node_set_of_curr_passage;
   for (const auto& node : curr_passage->nodes) {
     node_set_of_curr_passage.insert(node.GetTopoNode());
@@ -233,6 +240,7 @@ void ResultGenerator::ExtendForward(const TopoRangeManager& range_manager,
 
 void ResultGenerator::ExtendPassages(const TopoRangeManager& range_manager,
                                      std::vector<PassageInfo>* const passages) {
+AINFO<<"(DMCZP) EnteringMethod: ResultGenerator::ExtendPassages";
   int passage_num = static_cast<int>(passages->size());
   for (int i = 0; i < passage_num; ++i) {
     if (i < passage_num - 1) {
@@ -256,6 +264,7 @@ void LaneNodesToPassageRegion(
     const std::vector<NodeWithRange>::const_iterator first,
     const std::vector<NodeWithRange>::const_iterator last,
     Passage* const passage) {
+AINFO<<"(DMCZP) EnteringMethod: LaneNodesToPassageRegion";
   for (auto it = first; it != last; ++it) {
     LaneSegment* seg = passage->add_segment();
     seg->set_id(it->LaneId());
@@ -266,10 +275,12 @@ void LaneNodesToPassageRegion(
 
 void LaneNodesToPassageRegion(const std::vector<NodeWithRange>& nodes,
                               Passage* const passage) {
+AINFO<<"(DMCZP) EnteringMethod: LaneNodesToPassageRegion";
   return LaneNodesToPassageRegion(nodes.begin(), nodes.end(), passage);
 }
 
 double CalculateDistance(const std::vector<NodeWithRange>& nodes) {
+AINFO<<"(DMCZP) EnteringMethod: CalculateDistance";
   double distance = nodes.at(0).EndS() - nodes.at(0).StartS();
   for (size_t i = 1; i < nodes.size(); ++i) {
     auto edge =
@@ -284,6 +295,7 @@ double CalculateDistance(const std::vector<NodeWithRange>& nodes) {
 
 void PrintDebugInfo(const std::string& road_id,
                     const std::vector<std::vector<NodeWithRange>>& nodes) {
+AINFO<<"(DMCZP) EnteringMethod: PrintDebugInfo";
   AINFO << "road id: " << road_id;
   for (size_t j = 0; j < nodes.size(); ++j) {
     AINFO << "\tPassage " << j;
@@ -298,6 +310,8 @@ bool ResultGenerator::GeneratePassageRegion(
     const std::string& map_version, const RoutingRequest& request,
     const std::vector<NodeWithRange>& nodes,
     const TopoRangeManager& range_manager, RoutingResponse* const result) {
+AINFO<<"(DMCZP) EnteringMethod: ResultGenerator::GeneratePassageRegion";
+AINFO<<"(DMCZP) EnteringMethod: ResultGenerator::GeneratePassageRegion";
   if (!GeneratePassageRegion(nodes, range_manager, result)) {
     return false;
   }
@@ -326,6 +340,7 @@ void ResultGenerator::AddRoadSegment(
     const std::vector<PassageInfo>& passages,
     const std::pair<std::size_t, std::size_t>& start,
     const std::pair<std::size_t, std::size_t>& end, RoutingResponse* result) {
+AINFO<<"(DMCZP) EnteringMethod: ResultGenerator::AddRoadSegment";
   auto* road = result->add_road();
   road->set_id(passages[start.first].nodes[start.second].RoadId());
   for (std::size_t i = start.first; i <= end.first && i < passages.size();
@@ -348,6 +363,7 @@ void ResultGenerator::AddRoadSegment(
 
 void ResultGenerator::CreateRoadSegments(
     const std::vector<PassageInfo>& passages, RoutingResponse* result) {
+AINFO<<"(DMCZP) EnteringMethod: ResultGenerator::CreateRoadSegments";
   CHECK(!passages.empty()) << "passages empty";
   NodeWithRange fake_node_range(passages.front().nodes.front());
   bool in_change_lane = false;

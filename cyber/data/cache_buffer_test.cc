@@ -26,6 +26,7 @@ namespace cyber {
 namespace data {
 
 TEST(CacheBufferTest, cache_buffer_test) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   CacheBuffer<int> buffer(32);
   EXPECT_TRUE(buffer.Empty());
   for (int i = 0; i < 32 - 1; i++) {

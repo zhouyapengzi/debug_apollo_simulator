@@ -42,6 +42,7 @@ class TrafficLightUnprotectedRightTurnScenarioTest : public ::testing::Test {
 };
 
 TEST_F(TrafficLightUnprotectedRightTurnScenarioTest, VerifyConf) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   FLAGS_scenario_traffic_light_unprotected_right_turn_config_file =
       "/apollo/modules/planning/conf/"
       "scenario/traffic_light_unprotected_right_turn_config.pb.txt";
@@ -53,6 +54,7 @@ TEST_F(TrafficLightUnprotectedRightTurnScenarioTest, VerifyConf) {
 }
 
 TEST_F(TrafficLightUnprotectedRightTurnScenarioTest, Init) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   FLAGS_scenario_traffic_light_unprotected_right_turn_config_file =
       "/apollo/modules/planning/testdata/conf/"
       "scenario/traffic_light_unprotected_right_turn_config.pb.txt";

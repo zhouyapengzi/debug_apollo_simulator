@@ -27,6 +27,7 @@ namespace lidar {
 
 bool LidarObstacleTracking::Init(
     const LidarObstacleTrackingInitOptions& options) {
+AINFO<<"(DMCZP) EnteringMethod: LidarObstacleTracking::Init";
   auto& sensor_name = options.sensor_name;
   auto config_manager = lib::ConfigManager::Instance();
   const lib::ModelConfig* model_config = nullptr;
@@ -63,6 +64,7 @@ bool LidarObstacleTracking::Init(
 
 LidarProcessResult LidarObstacleTracking::Process(
     const LidarObstacleTrackingOptions& options, LidarFrame* frame) {
+AINFO<<"(DMCZP) EnteringMethod: LidarObstacleTracking::Process";
   const auto& sensor_name = options.sensor_name;
 
   PERCEPTION_PERF_FUNCTION_WITH_INDICATOR(sensor_name);

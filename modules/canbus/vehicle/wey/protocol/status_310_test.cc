@@ -27,6 +27,7 @@ class Status310Test : public ::testing::Test {
 };
 
 TEST_F(Status310Test, reset) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   Status310 status;
   int32_t length = 8;
   ChassisDetail chassis_detail;

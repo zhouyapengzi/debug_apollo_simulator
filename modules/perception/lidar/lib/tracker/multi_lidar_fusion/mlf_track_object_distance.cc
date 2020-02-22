@@ -38,6 +38,7 @@ const std::vector<float> MlfTrackObjectDistance::kBackgroundDefaultWeight = {
 
 bool MlfTrackObjectDistance::Init(
     const MlfTrackObjectDistanceInitOptions& options) {
+AINFO<<"(DMCZP) EnteringMethod: MlfTrackObjectDistance::Init";
   auto config_manager = lib::ConfigManager::Instance();
   const lib::ModelConfig* model_config = nullptr;
   CHECK(config_manager->GetModelConfig(Name(), &model_config));
@@ -86,6 +87,7 @@ bool MlfTrackObjectDistance::Init(
 float MlfTrackObjectDistance::ComputeDistance(
     const TrackedObjectConstPtr& object,
     const MlfTrackDataConstPtr& track) const {
+AINFO<<"(DMCZP) EnteringMethod: MlfTrackObjectDistance::ComputeDistance";
   bool is_background = object->is_background;
   const TrackedObjectConstPtr latest_object = track->GetLatestObject().second;
   std::string key = latest_object->sensor_info.name + object->sensor_info.name;

@@ -45,6 +45,7 @@ using perception::TrafficLight;
 
 Stage::StageStatus TrafficLightUnprotectedLeftTurnStageCreep::Process(
     const TrajectoryPoint& planning_init_point, Frame* frame) {
+AINFO<<"(DMCZP) EnteringMethod: TrafficLightUnprotectedLeftTurnStageCreep::Process";
   ADEBUG << "stage: Creep";
   CHECK_NOTNULL(frame);
 
@@ -69,6 +70,7 @@ Stage::StageStatus TrafficLightUnprotectedLeftTurnStageCreep::Process(
 }
 
 Stage::StageStatus TrafficLightUnprotectedLeftTurnStageCreep::FinishStage() {
+AINFO<<"(DMCZP) EnteringMethod: TrafficLightUnprotectedLeftTurnStageCreep::FinishStage";
   next_stage_ =
       ScenarioConfig::TRAFFIC_LIGHT_UNPROTECTED_LEFT_TURN_INTERSECTION_CRUISE;
   return Stage::FINISHED;

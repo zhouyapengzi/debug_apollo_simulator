@@ -35,6 +35,7 @@ namespace hdmap {
 
 apollo::common::PointENU SLToXYZ(const std::string& lane_id, const double s,
                                  const double l) {
+AINFO<<"(DMCZP) EnteringMethod: SLToXYZ";
   const auto lane_info = HDMapUtil::BaseMap().GetLaneById(MakeMapId(lane_id));
   CHECK(lane_info);
   return lane_info->GetSmoothPoint(s);
@@ -42,6 +43,7 @@ apollo::common::PointENU SLToXYZ(const std::string& lane_id, const double s,
 
 void XYZToSL(const apollo::common::PointENU& point, std::string* lane_id,
              double* s, double* l) {
+AINFO<<"(DMCZP) EnteringMethod: XYZToSL";
   CHECK(lane_id);
   CHECK(s);
   CHECK(l);
@@ -53,6 +55,7 @@ void XYZToSL(const apollo::common::PointENU& point, std::string* lane_id,
 
 double XYZDistance(const apollo::common::PointENU& p1,
                    const apollo::common::PointENU& p2) {
+AINFO<<"(DMCZP) EnteringMethod: XYZDistance";
   const double x_diff = p1.x() - p2.x();
   const double y_diff = p1.y() - p2.y();
   const double z_diff = p1.z() - p2.z();
@@ -60,6 +63,7 @@ double XYZDistance(const apollo::common::PointENU& p1,
 }
 
 void RefreshDefaultEndPoint() {
+AINFO<<"(DMCZP) EnteringMethod: RefreshDefaultEndPoint";
   apollo::routing::POI old_poi;
   CHECK(cyber::common::GetProtoFromASCIIFile(EndWayPointFile(), &old_poi));
 
@@ -108,6 +112,7 @@ void RefreshDefaultEndPoint() {
 }  // namespace apollo
 
 int main(int argc, char* argv[]) {
+AINFO<<"(DMCZP) EnteringMethod: main";
   google::InitGoogleLogging(argv[0]);
   google::ParseCommandLineFlags(&argc, &argv, true);
   FLAGS_logtostderr = true;

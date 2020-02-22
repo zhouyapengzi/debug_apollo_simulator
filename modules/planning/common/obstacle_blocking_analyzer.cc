@@ -36,6 +36,7 @@ constexpr double kObstaclesDistanceThreshold = 15.0;
 
 bool IsNonmovableObstacle(const ReferenceLineInfo& reference_line_info,
                           const Obstacle& obstacle) {
+AINFO<<"(DMCZP) EnteringMethod: IsNonmovableObstacle";
   // Obstacle is far away.
   const SLBoundary& adc_sl_boundary = reference_line_info.AdcSlBoundary();
   if (obstacle.PerceptionSLBoundary().start_s() >
@@ -88,6 +89,7 @@ bool IsBlockingObstacleToSidePass(const Frame& frame, const Obstacle* obstacle,
                                   double block_obstacle_min_speed,
                                   double min_front_sidepass_distance,
                                   bool enable_obstacle_blocked_check) {
+AINFO<<"(DMCZP) EnteringMethod: IsBlockingObstacleToSidePass";
   // Get the necessary info.
   const auto& reference_line_info = frame.reference_line_info().front();
   const auto& reference_line = reference_line_info.reference_line();
@@ -170,6 +172,7 @@ bool IsBlockingObstacleToSidePass(const Frame& frame, const Obstacle* obstacle,
 
 double GetDistanceBetweenADCAndObstacle(const Frame& frame,
                                         const Obstacle* obstacle) {
+AINFO<<"(DMCZP) EnteringMethod: GetDistanceBetweenADCAndObstacle";
   const auto& reference_line_info = frame.reference_line_info().front();
   const SLBoundary& adc_sl_boundary = reference_line_info.AdcSlBoundary();
   double distance_between_adc_and_obstacle =
@@ -179,6 +182,7 @@ double GetDistanceBetweenADCAndObstacle(const Frame& frame,
 
 bool IsBlockingDrivingPathObstacle(const ReferenceLine& reference_line,
                                    const Obstacle* obstacle) {
+AINFO<<"(DMCZP) EnteringMethod: IsBlockingDrivingPathObstacle";
   const double driving_width =
       reference_line.GetDrivingWidth(obstacle->PerceptionSLBoundary());
   const double adc_width =
@@ -199,6 +203,7 @@ bool IsBlockingDrivingPathObstacle(const ReferenceLine& reference_line,
 
 bool IsParkedVehicle(const ReferenceLine& reference_line,
                      const Obstacle* obstacle) {
+AINFO<<"(DMCZP) EnteringMethod: IsParkedVehicle";
   if (!FLAGS_enable_scenario_side_pass_multiple_parked_obstacles) {
     return false;
   }

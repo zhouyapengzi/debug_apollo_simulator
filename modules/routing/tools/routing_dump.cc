@@ -23,6 +23,8 @@ DEFINE_string(routing_dump_file, "/tmp/routing.pb.txt",
 
 void MessageCallback(
     const std::shared_ptr<apollo::planning::ADCTrajectory>& trajectory) {
+AINFO<<"(DMCZP) EnteringMethod: DEFINE_string";
+AINFO<<"(DMCZP) EnteringMethod: MessageCallback";
   if (trajectory->debug().planning_data().has_routing()) {
     std::ofstream dump_file(FLAGS_routing_dump_file);
     dump_file << trajectory->debug().planning_data().routing().DebugString();
@@ -32,6 +34,7 @@ void MessageCallback(
 }
 
 int main(int argc, char* argv[]) {
+AINFO<<"(DMCZP) EnteringMethod: main";
   google::ParseCommandLineFlags(&argc, &argv, true);
 
   apollo::cyber::Init(argv[0]);

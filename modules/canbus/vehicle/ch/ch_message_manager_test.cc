@@ -43,6 +43,7 @@ class ChMessageManagerTest : public ::testing::Test {
 };
 
 TEST_F(ChMessageManagerTest, Brakecommand111) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   ChMessageManager manager;
   ProtocolData<ChassisDetail> *pd =
       manager.GetMutableProtocolDataById(Brakecommand111::ID);
@@ -51,6 +52,7 @@ TEST_F(ChMessageManagerTest, Brakecommand111) {
 }
 
 TEST_F(ChMessageManagerTest, Brakestatus511) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   ChMessageManager manager;
   ProtocolData<ChassisDetail> *pd =
       manager.GetMutableProtocolDataById(Brakestatus511::ID);
@@ -59,6 +61,7 @@ TEST_F(ChMessageManagerTest, Brakestatus511) {
 }
 
 TEST_F(ChMessageManagerTest, Controlcommand115) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   ChMessageManager manager;
   ProtocolData<ChassisDetail> *pd =
       manager.GetMutableProtocolDataById(Controlcommand115::ID);
@@ -67,6 +70,7 @@ TEST_F(ChMessageManagerTest, Controlcommand115) {
 }
 
 TEST_F(ChMessageManagerTest, Ecustatus1515) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   ChMessageManager manager;
   ProtocolData<ChassisDetail> *pd =
       manager.GetMutableProtocolDataById(Ecustatus1515::ID);
@@ -75,6 +79,7 @@ TEST_F(ChMessageManagerTest, Ecustatus1515) {
 }
 
 TEST_F(ChMessageManagerTest, Ecustatus2516) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   ChMessageManager manager;
   ProtocolData<ChassisDetail> *pd =
       manager.GetMutableProtocolDataById(Ecustatus2516::ID);
@@ -83,6 +88,7 @@ TEST_F(ChMessageManagerTest, Ecustatus2516) {
 }
 
 TEST_F(ChMessageManagerTest, Ecustatus3517) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   ChMessageManager manager;
   ProtocolData<ChassisDetail> *pd =
       manager.GetMutableProtocolDataById(Ecustatus3517::ID);
@@ -91,6 +97,7 @@ TEST_F(ChMessageManagerTest, Ecustatus3517) {
 }
 
 TEST_F(ChMessageManagerTest, Gearcommand114) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   ChMessageManager manager;
   ProtocolData<ChassisDetail> *pd =
       manager.GetMutableProtocolDataById(Gearcommand114::ID);
@@ -99,6 +106,7 @@ TEST_F(ChMessageManagerTest, Gearcommand114) {
 }
 
 TEST_F(ChMessageManagerTest, Gearstatus514) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   ChMessageManager manager;
   ProtocolData<ChassisDetail> *pd =
       manager.GetMutableProtocolDataById(Gearstatus514::ID);
@@ -107,6 +115,7 @@ TEST_F(ChMessageManagerTest, Gearstatus514) {
 }
 
 TEST_F(ChMessageManagerTest, Steercommand112) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   ChMessageManager manager;
   ProtocolData<ChassisDetail> *pd =
       manager.GetMutableProtocolDataById(Steercommand112::ID);
@@ -115,6 +124,7 @@ TEST_F(ChMessageManagerTest, Steercommand112) {
 }
 
 TEST_F(ChMessageManagerTest, Steerstatus512) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   ChMessageManager manager;
   ProtocolData<ChassisDetail> *pd =
       manager.GetMutableProtocolDataById(Steerstatus512::ID);
@@ -123,6 +133,7 @@ TEST_F(ChMessageManagerTest, Steerstatus512) {
 }
 
 TEST_F(ChMessageManagerTest, Throttlecommand110) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   ChMessageManager manager;
   ProtocolData<ChassisDetail> *pd =
       manager.GetMutableProtocolDataById(Throttlecommand110::ID);
@@ -131,6 +142,7 @@ TEST_F(ChMessageManagerTest, Throttlecommand110) {
 }
 
 TEST_F(ChMessageManagerTest, Throttlestatus510) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   ChMessageManager manager;
   ProtocolData<ChassisDetail> *pd =
       manager.GetMutableProtocolDataById(Throttlestatus510::ID);
@@ -139,6 +151,7 @@ TEST_F(ChMessageManagerTest, Throttlestatus510) {
 }
 
 TEST_F(ChMessageManagerTest, Turnsignalcommand113) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   ChMessageManager manager;
   ProtocolData<ChassisDetail> *pd =
       manager.GetMutableProtocolDataById(Turnsignalcommand113::ID);
@@ -148,6 +161,7 @@ TEST_F(ChMessageManagerTest, Turnsignalcommand113) {
 }
 
 TEST_F(ChMessageManagerTest, Turnsignalstatus513) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   ChMessageManager manager;
   ProtocolData<ChassisDetail> *pd =
       manager.GetMutableProtocolDataById(Turnsignalstatus513::ID);

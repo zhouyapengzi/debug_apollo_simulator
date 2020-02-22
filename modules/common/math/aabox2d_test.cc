@@ -25,6 +25,7 @@ namespace common {
 namespace math {
 
 TEST(AABox2dTest, GetAllCorners) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   AABox2d box1({0, 0}, 4, 2);
   std::vector<Vec2d> corners1;
   box1.GetAllCorners(&corners1);
@@ -57,6 +58,7 @@ TEST(AABox2dTest, GetAllCorners) {
 }
 
 TEST(AABox2dTest, CenterAndLengths) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   AABox2d box1({0, 0}, 10, 10);
   EXPECT_NEAR(box1.center_x(), 0.0, 1e-5);
   EXPECT_NEAR(box1.center_y(), 0.0, 1e-5);
@@ -75,6 +77,7 @@ TEST(AABox2dTest, CenterAndLengths) {
 }
 
 TEST(AABox2dTest, HasOverlap) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   AABox2d box1({0, 0}, 4, 2);
   AABox2d box2({3, 1}, {7, 3});
   AABox2d box3({0, 0}, 10, 10);
@@ -84,6 +87,7 @@ TEST(AABox2dTest, HasOverlap) {
 }
 
 TEST(AABox2dTest, DistanceTo) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   AABox2d box({0, 0}, 4, 2);
   EXPECT_NEAR(box.DistanceTo({3, 0}), 1.0, 1e-5);
   EXPECT_NEAR(box.DistanceTo({-3, 0}), 1.0, 1e-5);
@@ -97,6 +101,7 @@ TEST(AABox2dTest, DistanceTo) {
 }
 
 TEST(AABox2dTest, IsPointIn) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   AABox2d box({0, 0}, 4, 2);
   EXPECT_TRUE(box.IsPointIn({0, 0}));
   EXPECT_TRUE(box.IsPointIn({1, 0.5}));
@@ -108,6 +113,7 @@ TEST(AABox2dTest, IsPointIn) {
 }
 
 TEST(AABox2dTest, IsPointOnBoundary) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   AABox2d box({0, 0}, 4, 2);
   EXPECT_FALSE(box.IsPointOnBoundary({0, 0}));
   EXPECT_FALSE(box.IsPointOnBoundary({1, 0.5}));
@@ -120,6 +126,7 @@ TEST(AABox2dTest, IsPointOnBoundary) {
 }
 
 TEST(AABox2dTest, MinMax) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   AABox2d box1({0, 0}, 4, 2);
   EXPECT_NEAR(box1.min_x(), -2, 1e-5);
   EXPECT_NEAR(box1.max_x(), 2, 1e-5);
@@ -134,6 +141,7 @@ TEST(AABox2dTest, MinMax) {
 }
 
 TEST(AABox2dTest, Shift) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   AABox2d box({0, 0}, 4, 2);
   box.Shift({30, 40});
   std::vector<Vec2d> corners;
@@ -149,6 +157,7 @@ TEST(AABox2dTest, Shift) {
 }
 
 TEST(AABox2dTest, MergeFrom) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   AABox2d box({3, 1}, {7, 3});
   box.MergeFrom(AABox2d({5, -1}, {10, 7}));
   EXPECT_NEAR(box.center_x(), 6.5, 1e-5);

@@ -28,6 +28,7 @@ namespace lidar {
 using cyber::common::GetAbsolutePath;
 
 bool MapManager::Init(const MapManagerInitOptions& options) {
+AINFO<<"(DMCZP) EnteringMethod: MapManager::Init";
   auto config_manager = lib::ConfigManager::Instance();
   const lib::ModelConfig* model_config = nullptr;
   CHECK(config_manager->GetModelConfig(Name(), &model_config));
@@ -50,6 +51,7 @@ bool MapManager::Init(const MapManagerInitOptions& options) {
 }
 
 bool MapManager::Update(const MapManagerOptions& options, LidarFrame* frame) {
+AINFO<<"(DMCZP) EnteringMethod: MapManager::Update";
   if (!frame) {
     AINFO << "Frame is nullptr.";
     return false;
@@ -81,6 +83,7 @@ bool MapManager::Update(const MapManagerOptions& options, LidarFrame* frame) {
   return true;
 }
 bool MapManager::QueryPose(Eigen::Affine3d* sensor2world_pose) const {
+AINFO<<"(DMCZP) EnteringMethod: MapManager::QueryPose";
   // TODO(...): map-based alignment to refine pose
   return false;
 }

@@ -21,6 +21,7 @@
 #include "modules/localization/msf/local_map/pyramid_map/pyramid_map_node_config.h"
 
 int main(int argc, char** argv) {
+AINFO<<"(DMCZP) EnteringMethod: main";
   testing::InitGoogleTest(&argc, argv);
   return RUN_ALL_TESTS();
 }
@@ -38,6 +39,7 @@ class PyramidMapNodeTestSuite : public ::testing::Test {
 };
 
 TEST_F(PyramidMapNodeTestSuite, init) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   // create index
   MapNodeIndex index;
   index.resolution_id_ = 0;
@@ -71,6 +73,7 @@ TEST_F(PyramidMapNodeTestSuite, init) {
 }
 
 TEST_F(PyramidMapNodeTestSuite, pyramid_map_node_function) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   // create index
   MapNodeIndex index;
   index.resolution_id_ = 0;
@@ -175,6 +178,7 @@ TEST_F(PyramidMapNodeTestSuite, pyramid_map_node_function) {
 }
 
 TEST_F(PyramidMapNodeTestSuite, test_get_set_bad_case) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   // create index
   MapNodeIndex index;
   index.resolution_id_ = 0;
@@ -212,6 +216,7 @@ TEST_F(PyramidMapNodeTestSuite, test_get_set_bad_case) {
 }
 
 TEST_F(PyramidMapNodeTestSuite, test_base_map_node_save_load) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   // create index
   MapNodeIndex index;
   index.resolution_id_ = 0;
@@ -247,6 +252,7 @@ TEST_F(PyramidMapNodeTestSuite, test_base_map_node_save_load) {
 }
 
 TEST_F(PyramidMapNodeTestSuite, test_base_map_node) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   // create index
   MapNodeIndex index;
   index.resolution_id_ = 0;

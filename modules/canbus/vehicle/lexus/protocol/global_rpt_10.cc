@@ -28,10 +28,12 @@ namespace lexus {
 using ::apollo::drivers::canbus::Byte;
 
 Globalrpt10::Globalrpt10() {}
+AINFO<<"(DMCZP) EnteringMethod: Globalrpt10::Globalrpt10";
 const int32_t Globalrpt10::ID = 0x10;
 
 void Globalrpt10::Parse(const std::uint8_t* bytes, int32_t length,
                         ChassisDetail* chassis) const {
+AINFO<<"(DMCZP) EnteringMethod: Globalrpt10::Parse";
   chassis->mutable_lexus()->mutable_global_rpt_10()->set_config_fault_active(
       config_fault_active(bytes, length));
   chassis->mutable_lexus()
@@ -64,6 +66,7 @@ void Globalrpt10::Parse(const std::uint8_t* bytes, int32_t length,
 // '[0|1]', 'bit': 15, 'type': 'bool', 'order': 'motorola', 'physical_unit': ''}
 bool Globalrpt10::config_fault_active(const std::uint8_t* bytes,
                                       int32_t length) const {
+AINFO<<"(DMCZP) EnteringMethod: Globalrpt10::config_fault_active";
   Byte t0(bytes + 1);
   int32_t x = t0.get_byte(7, 1);
 
@@ -76,7 +79,9 @@ bool Globalrpt10::config_fault_active(const std::uint8_t* bytes,
 // '[0|1]', 'bit': 5, 'type': 'bool', 'order': 'motorola', 'physical_unit': ''}
 bool Globalrpt10::pacmod_subsystem_timeout(const std::uint8_t* bytes,
                                            int32_t length) const {
+AINFO<<"(DMCZP) EnteringMethod: Globalrpt10::pacmod_subsystem_timeout";
   Byte t0(bytes + 0);
+AINFO<<"(DMCZP) EnteringMethod: Globalrpt10::pacmod_system_override_active";
   int32_t x = t0.get_byte(5, 1);
 
   bool ret = x;
@@ -90,9 +95,11 @@ bool Globalrpt10::pacmod_subsystem_timeout(const std::uint8_t* bytes,
 // 'type': 'enum', 'order': 'motorola', 'physical_unit': ''}
 Global_rpt_10::Pacmod_system_enabledType Globalrpt10::pacmod_system_enabled(
     const std::uint8_t* bytes, int32_t length) const {
+AINFO<<"(DMCZP) EnteringMethod: Globalrpt10::pacmod_system_enabled";
   Byte t0(bytes + 0);
   int32_t x = t0.get_byte(0, 1);
 
+AINFO<<"(DMCZP) EnteringMethod: Globalrpt10::brk_can_timeout";
   Global_rpt_10::Pacmod_system_enabledType ret =
       static_cast<Global_rpt_10::Pacmod_system_enabledType>(x);
   return ret;
@@ -119,6 +126,7 @@ Globalrpt10::pacmod_system_override_active(const std::uint8_t* bytes,
 // '[0|1]', 'bit': 7, 'type': 'bool', 'order': 'motorola', 'physical_unit': ''}
 bool Globalrpt10::pacmod_system_fault_active(const std::uint8_t* bytes,
                                              int32_t length) const {
+AINFO<<"(DMCZP) EnteringMethod: Globalrpt10::pacmod_system_fault_active";
   Byte t0(bytes + 0);
   int32_t x = t0.get_byte(7, 1);
 
@@ -131,6 +139,9 @@ bool Globalrpt10::pacmod_system_fault_active(const std::uint8_t* bytes,
 // 'type': 'bool', 'order': 'motorola', 'physical_unit': ''}
 bool Globalrpt10::veh_can_timeout(const std::uint8_t* bytes,
                                   int32_t length) const {
+AINFO<<"(DMCZP) EnteringMethod: Globalrpt10::veh_can_timeout";
+AINFO<<"(DMCZP) EnteringMethod: Globalrpt10::str_can_timeout";
+AINFO<<"(DMCZP) EnteringMethod: Globalrpt10::usr_can_timeout";
   Byte t0(bytes + 0);
   int32_t x = t0.get_byte(6, 1);
 
@@ -183,6 +194,7 @@ bool Globalrpt10::usr_can_timeout(const std::uint8_t* bytes,
 // ''}
 int Globalrpt10::usr_can_read_errors(const std::uint8_t* bytes,
                                      int32_t length) const {
+AINFO<<"(DMCZP) EnteringMethod: Globalrpt10::usr_can_read_errors";
   Byte t0(bytes + 6);
   int32_t x = t0.get_byte(0, 8);
 

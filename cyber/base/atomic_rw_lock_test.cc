@@ -26,6 +26,7 @@ namespace cyber {
 namespace base {
 
 TEST(ReentrantRWLockTest, read_lock) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   int count = 0;
   int thread_init = 0;
   bool flag = true;
@@ -60,6 +61,7 @@ TEST(ReentrantRWLockTest, read_lock) {
 }
 
 TEST(ReentrantRWLockTest, write_lock) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   int count = 0;
   int thread_run = 0;
   bool flag = true;

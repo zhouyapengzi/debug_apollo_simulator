@@ -24,6 +24,7 @@ namespace perception {
 namespace lidar {
 
 TEST(SppClusterTest, spp_cluster_test) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   SppLabelImage image;
   SppLabelImage& const_image = image;
   image.Init(5, 5);

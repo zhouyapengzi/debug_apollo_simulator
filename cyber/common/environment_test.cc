@@ -25,6 +25,7 @@ namespace cyber {
 namespace common {
 
 TEST(EnvironmentTest, get_env) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   unsetenv("EnvironmentTest_get_env");
   std::string env_value = GetEnv("EnvironmentTest_get_env");
   EXPECT_EQ(env_value, "");
@@ -38,6 +39,7 @@ TEST(EnvironmentTest, get_env) {
 }
 
 TEST(EnvironmentTest, work_root) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   std::string before = WorkRoot();
   unsetenv("CYBER_PATH");
   std::string after = GetEnv("CYBER_PATH");

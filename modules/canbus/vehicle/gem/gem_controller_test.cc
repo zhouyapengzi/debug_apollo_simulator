@@ -53,11 +53,13 @@ class GemControllerTest : public ::testing::Test {
 };
 
 TEST_F(GemControllerTest, Init) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   ErrorCode ret = controller_.Init(params_, &sender_, &msg_manager_);
   EXPECT_EQ(ret, ErrorCode::OK);
 }
 
 TEST_F(GemControllerTest, SetDrivingMode) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   Chassis chassis;
   chassis.set_driving_mode(Chassis::COMPLETE_AUTO_DRIVE);
 
@@ -69,6 +71,7 @@ TEST_F(GemControllerTest, SetDrivingMode) {
 }
 
 TEST_F(GemControllerTest, Status) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   controller_.Init(params_, &sender_, &msg_manager_);
 
   controller_.set_driving_mode(Chassis::COMPLETE_AUTO_DRIVE);
@@ -81,6 +84,7 @@ TEST_F(GemControllerTest, Status) {
 }
 
 TEST_F(GemControllerTest, UpdateDrivingMode) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   controller_.Init(params_, &sender_, &msg_manager_);
 
   controller_.set_driving_mode(Chassis::COMPLETE_AUTO_DRIVE);

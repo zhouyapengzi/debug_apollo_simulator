@@ -22,6 +22,7 @@ namespace perception {
 namespace base {
 
 TEST(CommonTest, GPUAssertTest) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
 #ifndef PERCEPTION_CPU_ONLY
   GPUAssert(cudaSetDevice(-1), __FILE__, __LINE__, false);
 #endif

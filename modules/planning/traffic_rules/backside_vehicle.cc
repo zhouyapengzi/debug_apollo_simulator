@@ -27,9 +27,11 @@ using apollo::common::Status;
 
 BacksideVehicle::BacksideVehicle(const TrafficRuleConfig& config)
     : TrafficRule(config) {}
+AINFO<<"(DMCZP) EnteringMethod: BacksideVehicle::BacksideVehicle";
 
 void BacksideVehicle::MakeLaneKeepingObstacleDecision(
     const SLBoundary& adc_sl_boundary, PathDecision* path_decision) {
+AINFO<<"(DMCZP) EnteringMethod: BacksideVehicle::MakeLaneKeepingObstacleDecision";
   ObjectDecisionType ignore;
   ignore.mutable_ignore();
   const double adc_length_s =
@@ -75,6 +77,7 @@ void BacksideVehicle::MakeLaneKeepingObstacleDecision(
 
 Status BacksideVehicle::ApplyRule(
     Frame* const, ReferenceLineInfo* const reference_line_info) {
+AINFO<<"(DMCZP) EnteringMethod: BacksideVehicle::ApplyRule";
   auto* path_decision = reference_line_info->path_decision();
   const auto& adc_sl_boundary = reference_line_info->AdcSlBoundary();
   // The lane keeping reference line.

@@ -33,6 +33,7 @@ class Derived : public Base {
 };
 
 TEST(FactoryTest, Register) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   Factory<std::string, Base> factory;
   EXPECT_TRUE(factory.Register("derived_class",
                                []() -> Base* { return new Derived(); }));
@@ -44,6 +45,7 @@ TEST(FactoryTest, Register) {
 }
 
 TEST(FactoryTest, Unregister) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   Factory<std::string, Base> factory;
   EXPECT_TRUE(factory.Register("derived_class",
                                []() -> Base* { return new Derived(); }));
@@ -69,6 +71,7 @@ class ArgConstructor {
 };
 
 TEST(FactoryTest, OneArgConstructor) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   Factory<std::string, ArgConstructor, ArgConstructor* (*)(const std::string&)>
       factory;
   EXPECT_TRUE(factory.Register(
@@ -80,6 +83,7 @@ TEST(FactoryTest, OneArgConstructor) {
 }
 
 TEST(FactoryTest, TwoArgConstructor) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   Factory<std::string, ArgConstructor,
           ArgConstructor* (*)(const std::string&, int)>
       factory;

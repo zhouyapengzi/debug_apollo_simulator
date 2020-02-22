@@ -28,6 +28,7 @@ const int32_t Gps6f::ID = 0x6F;
 
 void Gps6f::Parse(const std::uint8_t *bytes, int32_t length,
                   ChassisDetail *chassis_detail) const {
+AINFO<<"(DMCZP) EnteringMethod: Gps6f::Parse";
   chassis_detail->mutable_basic()->set_altitude(altitude(bytes, length));
   chassis_detail->mutable_basic()->set_heading(heading(bytes, length));
   // speed mph -> mps
@@ -54,6 +55,7 @@ void Gps6f::Parse(const std::uint8_t *bytes, int32_t length,
 }
 
 double Gps6f::altitude(const std::uint8_t *bytes, int32_t length) const {
+AINFO<<"(DMCZP) EnteringMethod: Gps6f::altitude";
   Byte high_frame(bytes + 1);
   int32_t high = high_frame.get_byte(0, 8);
   Byte low_frame(bytes + 0);
@@ -66,6 +68,7 @@ double Gps6f::altitude(const std::uint8_t *bytes, int32_t length) const {
 }
 
 double Gps6f::heading(const std::uint8_t *bytes, int32_t length) const {
+AINFO<<"(DMCZP) EnteringMethod: Gps6f::heading";
   Byte high_frame(bytes + 3);
   int32_t high = high_frame.get_byte(0, 8);
   Byte low_frame(bytes + 2);
@@ -75,30 +78,35 @@ double Gps6f::heading(const std::uint8_t *bytes, int32_t length) const {
 }
 
 int32_t Gps6f::speed(const std::uint8_t *bytes, int32_t length) const {
+AINFO<<"(DMCZP) EnteringMethod: Gps6f::speed";
   Byte frame(bytes + 4);
   int32_t x = frame.get_byte(0, 8);
   return x;
 }
 
 double Gps6f::hdop(const std::uint8_t *bytes, int32_t length) const {
+AINFO<<"(DMCZP) EnteringMethod: Gps6f::hdop";
   Byte frame(bytes + 5);
   int32_t x = frame.get_byte(0, 5);
   return x * 0.200000;
 }
 
 double Gps6f::vdop(const std::uint8_t *bytes, int32_t length) const {
+AINFO<<"(DMCZP) EnteringMethod: Gps6f::vdop";
   Byte frame(bytes + 6);
   int32_t x = frame.get_byte(0, 5);
   return x * 0.200000;
 }
 
 int32_t Gps6f::fix_quality(const std::uint8_t *bytes, int32_t length) const {
+AINFO<<"(DMCZP) EnteringMethod: Gps6f::fix_quality";
   Byte frame(bytes + 7);
   int32_t x = frame.get_byte(0, 3);
   return x;
 }
 
 int32_t Gps6f::num_satellites(const std::uint8_t *bytes, int32_t length) const {
+AINFO<<"(DMCZP) EnteringMethod: Gps6f::num_satellites";
   Byte frame(bytes + 7);
   int32_t x = frame.get_byte(3, 5);
   return x;

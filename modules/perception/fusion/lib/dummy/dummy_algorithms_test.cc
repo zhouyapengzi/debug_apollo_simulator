@@ -28,6 +28,7 @@ namespace perception {
 namespace fusion {
 
 TEST(DummyFusionSystemTest, test) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   FusionInitOptions init_options;
   init_options.main_sensor = "velodyne64";
   DummyFusionSystem system;
@@ -45,8 +46,10 @@ TEST(DummyFusionSystemTest, test) {
 }
 
 TEST(DummyDataAssociationTest, test) {}
+AINFO<<"(DMCZP) EnteringMethod: TEST";
 
 TEST(DummyTrackerTest, test) {}
+AINFO<<"(DMCZP) EnteringMethod: TEST";
 
 }  // namespace fusion
 }  // namespace perception

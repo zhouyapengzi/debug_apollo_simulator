@@ -28,6 +28,7 @@ namespace {
 void merge_block_range(const TopoNode* topo_node,
                        const std::vector<NodeSRange>& origin_range,
                        std::vector<NodeSRange>* block_range) {
+AINFO<<"(DMCZP) EnteringMethod: merge_block_range";
   std::vector<NodeSRange> sorted_origin_range(origin_range);
   std::sort(sorted_origin_range.begin(), sorted_origin_range.end());
   size_t cur_index = 0;
@@ -53,6 +54,7 @@ void merge_block_range(const TopoNode* topo_node,
 
 const std::unordered_map<const TopoNode*, std::vector<NodeSRange>>&
 TopoRangeManager::RangeMap() const {
+AINFO<<"(DMCZP) EnteringMethod: TopoRangeManager::RangeMap";
   return range_map_;
 }
 const std::vector<NodeSRange>* TopoRangeManager::Find(
@@ -66,6 +68,7 @@ const std::vector<NodeSRange>* TopoRangeManager::Find(
 }
 
 void TopoRangeManager::PrintDebugInfo() const {
+AINFO<<"(DMCZP) EnteringMethod: TopoRangeManager::PrintDebugInfo";
   for (const auto& map : range_map_) {
     for (const auto& range : map.second) {
       AINFO << "black lane id: " << map.first->LaneId()
@@ -75,13 +78,16 @@ void TopoRangeManager::PrintDebugInfo() const {
 }
 
 void TopoRangeManager::Clear() { range_map_.clear(); }
+AINFO<<"(DMCZP) EnteringMethod: TopoRangeManager::Clear";
 
 void TopoRangeManager::Add(const TopoNode* node, double start_s, double end_s) {
+AINFO<<"(DMCZP) EnteringMethod: TopoRangeManager::Add";
   NodeSRange range(start_s, end_s);
   range_map_[node].push_back(range);
 }
 
 void TopoRangeManager::SortAndMerge() {
+AINFO<<"(DMCZP) EnteringMethod: TopoRangeManager::SortAndMerge";
   for (auto& iter : range_map_) {
     std::vector<NodeSRange> merged_range_vec;
     merge_block_range(iter.first, iter.second, &merged_range_vec);

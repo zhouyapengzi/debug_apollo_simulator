@@ -111,12 +111,14 @@ std::shared_ptr<Curve1d> PiecewiseBrakingTrajectoryGenerator::Generate(
 
 double PiecewiseBrakingTrajectoryGenerator::ComputeStopDistance(
     const double v, const double dec) {
+AINFO<<"(DMCZP) EnteringMethod: PiecewiseBrakingTrajectoryGenerator::ComputeStopDistance";
   CHECK(dec > 0.0);
   return v * v / dec * 0.5;
 }
 
 double PiecewiseBrakingTrajectoryGenerator::ComputeStopDeceleration(
     const double dist, const double v) {
+AINFO<<"(DMCZP) EnteringMethod: PiecewiseBrakingTrajectoryGenerator::ComputeStopDeceleration";
   return v * v / dist * 0.5;
 }
 

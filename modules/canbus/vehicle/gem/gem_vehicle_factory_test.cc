@@ -37,10 +37,12 @@ class GemVehicleFactoryTest : public ::testing::Test {
 };
 
 TEST_F(GemVehicleFactoryTest, InitVehicleController) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   EXPECT_NE(gem_factory_.CreateVehicleController(), nullptr);
 }
 
 TEST_F(GemVehicleFactoryTest, InitMessageManager) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   EXPECT_NE(gem_factory_.CreateMessageManager(), nullptr);
 }
 

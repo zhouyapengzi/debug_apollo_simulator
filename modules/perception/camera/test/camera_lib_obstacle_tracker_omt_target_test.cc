@@ -29,6 +29,7 @@ namespace perception {
 namespace camera {
 
 TEST(TargetTest, target_test) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   // Init object template
   ObjectTemplateManagerInitOptions object_template_init_options;
   object_template_init_options.root_dir =
@@ -196,6 +197,7 @@ TEST(TargetTest, target_test) {
 }
 
 TEST(TargetTest, clapping_velocity_test) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   // Init object template
   ObjectTemplateManagerInitOptions object_template_init_options;
   object_template_init_options.root_dir =

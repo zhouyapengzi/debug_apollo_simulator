@@ -23,6 +23,7 @@ namespace canbus {
 namespace gem {
 
 TEST(Brake61Test, General) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   int32_t length = 8;
   ChassisDetail chassis_detail;
   uint8_t bytes[8] = {0x01, 0x02, 0x03, 0x04, 0x11, 0x12, 0x13, 0x14};

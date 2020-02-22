@@ -22,6 +22,7 @@ namespace apollo {
 namespace planning {
 
 PiecewiseJerkTrajectory1d LateralQPOptimizer::GetOptimalTrajectory() const {
+AINFO<<"(DMCZP) EnteringMethod: LateralQPOptimizer::GetOptimalTrajectory";
   CHECK(!opt_d_.empty() && !opt_d_prime_.empty() && !opt_d_pprime_.empty());
 
   PiecewiseJerkTrajectory1d optimal_trajectory(

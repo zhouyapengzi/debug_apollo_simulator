@@ -60,6 +60,7 @@ UsbCam::UsbCam()
       device_wait_sec_(2),
       last_nsec_(0),
       frame_drop_interval_(0.0) {}
+AINFO<<"(DMCZP) EnteringMethod: UsbCam::UsbCam";
 
 UsbCam::~UsbCam() {
   stop_capturing();
@@ -68,6 +69,7 @@ UsbCam::~UsbCam() {
 }
 
 bool UsbCam::init(const std::shared_ptr<Config>& cameraconfig) {
+AINFO<<"(DMCZP) EnteringMethod: UsbCam::init";
   config_ = cameraconfig;
 
   if (config_->pixel_format() == "yuyv") {
@@ -100,6 +102,7 @@ bool UsbCam::init(const std::shared_ptr<Config>& cameraconfig) {
 }
 
 int UsbCam::init_mjpeg_decoder(int image_width, int image_height) {
+AINFO<<"(DMCZP) EnteringMethod: UsbCam::init_mjpeg_decoder";
   avcodec_register_all();
 
   avcodec_ = avcodec_find_decoder(AV_CODEC_ID_MJPEG);
@@ -159,6 +162,7 @@ int UsbCam::init_mjpeg_decoder(int image_width, int image_height) {
 
 void UsbCam::mjpeg2rgb(char* mjpeg_buffer, int len, char* rgb_buffer,
                        int NumPixels) {
+AINFO<<"(DMCZP) EnteringMethod: UsbCam::mjpeg2rgb";
   (void)NumPixels;
   int got_picture = 0;
 
@@ -228,6 +232,7 @@ void UsbCam::mjpeg2rgb(char* mjpeg_buffer, int len, char* rgb_buffer,
 }
 
 bool UsbCam::poll(const CameraImagePtr& raw_image) {
+AINFO<<"(DMCZP) EnteringMethod: UsbCam::poll";
   raw_image->is_new = 0;
   // free memory in this struct desturctor
   memset(raw_image->image, 0, raw_image->image_size * sizeof(char));
@@ -270,6 +275,7 @@ bool UsbCam::poll(const CameraImagePtr& raw_image) {
 }
 
 bool UsbCam::open_device(void) {
+AINFO<<"(DMCZP) EnteringMethod: UsbCam::open_device";
   struct stat st;
 
   if (-1 == stat(config_->camera_dev().c_str(), &st)) {
@@ -296,6 +302,7 @@ bool UsbCam::open_device(void) {
 }
 
 bool UsbCam::init_device(void) {
+AINFO<<"(DMCZP) EnteringMethod: UsbCam::init_device";
   struct v4l2_capability cap;
   struct v4l2_cropcap cropcap;
   struct v4l2_crop crop;
@@ -433,6 +440,7 @@ bool UsbCam::init_device(void) {
 
 #ifndef __aarch64__
 bool UsbCam::set_adv_trigger() {
+AINFO<<"(DMCZP) EnteringMethod: UsbCam::set_adv_trigger";
   AINFO << "Trigger enable, dev:" << config_->camera_dev()
         << ", fps:" << config_->trigger_fps()
         << ", internal:" << config_->trigger_internal();
@@ -449,6 +457,7 @@ bool UsbCam::set_adv_trigger() {
 #endif
 
 int UsbCam::xioctl(int fd, int request, void* arg) {
+AINFO<<"(DMCZP) EnteringMethod: UsbCam::xioctl";
   int r = 0;
   do {
     r = ioctl(fd, request, arg);
@@ -458,6 +467,7 @@ int UsbCam::xioctl(int fd, int request, void* arg) {
 }
 
 bool UsbCam::init_read(unsigned int buffer_size) {
+AINFO<<"(DMCZP) EnteringMethod: UsbCam::init_read";
   buffers_ = reinterpret_cast<buffer*>(calloc(1, sizeof(*buffers_)));
 
   if (!buffers_) {
@@ -479,6 +489,7 @@ bool UsbCam::init_read(unsigned int buffer_size) {
 }
 
 bool UsbCam::init_mmap(void) {
+AINFO<<"(DMCZP) EnteringMethod: UsbCam::init_mmap";
   struct v4l2_requestbuffers req;
   CLEAR(req);
 
@@ -528,6 +539,7 @@ bool UsbCam::init_mmap(void) {
 }
 
 bool UsbCam::init_userp(unsigned int buffer_size) {
+AINFO<<"(DMCZP) EnteringMethod: UsbCam::init_userp";
   struct v4l2_requestbuffers req;
   unsigned int page_size = 0;
 
@@ -573,6 +585,7 @@ bool UsbCam::init_userp(unsigned int buffer_size) {
 }
 
 bool UsbCam::start_capturing(void) {
+AINFO<<"(DMCZP) EnteringMethod: UsbCam::start_capturing";
   if (is_capturing_) {
     return true;
   }
@@ -646,6 +659,7 @@ bool UsbCam::start_capturing(void) {
 }
 
 void UsbCam::set_device_config() {
+AINFO<<"(DMCZP) EnteringMethod: UsbCam::set_device_config";
   if (config_->brightness() >= 0) {
     set_v4l_parameter("brightness", config_->brightness());
   }
@@ -695,6 +709,7 @@ void UsbCam::set_device_config() {
 }
 
 bool UsbCam::uninit_device(void) {
+AINFO<<"(DMCZP) EnteringMethod: UsbCam::uninit_device";
   unsigned int i = 0;
 
   switch (config_->io_method()) {
@@ -728,6 +743,7 @@ bool UsbCam::uninit_device(void) {
 }
 
 bool UsbCam::close_device(void) {
+AINFO<<"(DMCZP) EnteringMethod: UsbCam::close_device";
   if (-1 == close(fd_)) {
     AERROR << "close";
     return false;
@@ -738,6 +754,7 @@ bool UsbCam::close_device(void) {
 }
 
 bool UsbCam::stop_capturing(void) {
+AINFO<<"(DMCZP) EnteringMethod: UsbCam::stop_capturing";
   if (!is_capturing_) {
     return true;
   }
@@ -770,6 +787,7 @@ bool UsbCam::stop_capturing(void) {
 }
 
 bool UsbCam::read_frame(CameraImagePtr raw_image) {
+AINFO<<"(DMCZP) EnteringMethod: UsbCam::read_frame";
   struct v4l2_buffer buf;
   unsigned int i = 0;
   int len = 0;
@@ -929,6 +947,7 @@ bool UsbCam::read_frame(CameraImagePtr raw_image) {
 }
 
 bool UsbCam::process_image(const void* src, int len, CameraImagePtr dest) {
+AINFO<<"(DMCZP) EnteringMethod: UsbCam::process_image";
   if (src == nullptr || dest == nullptr) {
     AERROR << "process image error. src or dest is null";
     return false;
@@ -957,9 +976,11 @@ bool UsbCam::process_image(const void* src, int len, CameraImagePtr dest) {
 }
 
 bool UsbCam::is_capturing() { return is_capturing_; }
+AINFO<<"(DMCZP) EnteringMethod: UsbCam::is_capturing";
 
 // enables/disables auto focus
 void UsbCam::set_auto_focus(int value) {
+AINFO<<"(DMCZP) EnteringMethod: UsbCam::set_auto_focus";
   struct v4l2_queryctrl queryctrl;
   struct v4l2_ext_control control;
 
@@ -996,6 +1017,7 @@ void UsbCam::set_auto_focus(int value) {
  * @param param The value to assign
  */
 void UsbCam::set_v4l_parameter(const std::string& param, int value) {
+AINFO<<"(DMCZP) EnteringMethod: UsbCam::set_v4l_parameter";
   set_v4l_parameter(param, std::to_string(value));
 }
 /**
@@ -1006,6 +1028,7 @@ void UsbCam::set_v4l_parameter(const std::string& param, int value) {
  */
 void UsbCam::set_v4l_parameter(const std::string& param,
                                const std::string& value) {
+AINFO<<"(DMCZP) EnteringMethod: UsbCam::set_v4l_parameter";
   // build the command
   std::stringstream ss;
   ss << "v4l2-ctl --device=" << config_->camera_dev() << " -c " << param << "="
@@ -1034,6 +1057,7 @@ void UsbCam::set_v4l_parameter(const std::string& param,
 }
 
 bool UsbCam::wait_for_device() {
+AINFO<<"(DMCZP) EnteringMethod: UsbCam::wait_for_device";
   if (is_capturing_) {
     ADEBUG << "is capturing";
     return true;
@@ -1058,6 +1082,7 @@ bool UsbCam::wait_for_device() {
 }
 
 void UsbCam::reconnect() {
+AINFO<<"(DMCZP) EnteringMethod: UsbCam::reconnect";
   stop_capturing();
   uninit_device();
   close_device();
@@ -1065,6 +1090,7 @@ void UsbCam::reconnect() {
 
 #ifdef __aarch64__
 int UsbCam::convert_yuv_to_rgb_pixel(int y, int u, int v) {
+AINFO<<"(DMCZP) EnteringMethod: UsbCam::convert_yuv_to_rgb_pixel";
     unsigned int pixel32 = 0;
     unsigned char *pixel = (unsigned char *)&pixel32;
     int r, g, b;
@@ -1085,6 +1111,7 @@ int UsbCam::convert_yuv_to_rgb_pixel(int y, int u, int v) {
 
 
 int UsbCam::convert_yuv_to_rgb_buffer(unsigned char *yuv, unsigned char *rgb, unsigned int width, unsigned int height) {
+AINFO<<"(DMCZP) EnteringMethod: UsbCam::convert_yuv_to_rgb_buffer";
     unsigned int in, out = 0;
     unsigned int pixel_16;
     unsigned char pixel_24[3];

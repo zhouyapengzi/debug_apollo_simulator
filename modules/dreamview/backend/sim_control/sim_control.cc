@@ -48,6 +48,7 @@ namespace {
 
 void TransformToVRF(const Point3D& point_mrf, const Quaternion& orientation,
                     Point3D* point_vrf) {
+AINFO<<"(DMCZP) EnteringMethod: TransformToVRF";
   Eigen::Vector3d v_mrf(point_mrf.x(), point_mrf.y(), point_mrf.z());
   auto v_vrf = InverseQuaternionRotate(orientation, v_mrf);
   point_vrf->set_x(v_vrf.x());
@@ -56,6 +57,7 @@ void TransformToVRF(const Point3D& point_mrf, const Quaternion& orientation,
 }
 
 bool IsSameHeader(const Header& lhs, const Header& rhs) {
+AINFO<<"(DMCZP) EnteringMethod: IsSameHeader";
   return lhs.sequence_num() == rhs.sequence_num() &&
          lhs.timestamp_sec() == rhs.timestamp_sec();
 }
@@ -66,10 +68,12 @@ SimControl::SimControl(const MapService* map_service)
     : map_service_(map_service),
       node_(cyber::CreateNode("sim_control")),
       current_trajectory_(std::make_shared<ADCTrajectory>()) {
+AINFO<<"(DMCZP) EnteringMethod: SimControl::SimControl";
   InitTimerAndIO();
 }
 
 void SimControl::InitTimerAndIO() {
+AINFO<<"(DMCZP) EnteringMethod: SimControl::InitTimerAndIO";
   localization_reader_ =
       node_->CreateReader<LocalizationEstimate>(FLAGS_localization_topic);
   planning_reader_ = node_->CreateReader<ADCTrajectory>(
@@ -109,6 +113,7 @@ void SimControl::InitTimerAndIO() {
 
 void SimControl::Init(bool set_start_point, double start_velocity,
                       double start_acceleration) {
+AINFO<<"(DMCZP) EnteringMethod: SimControl::Init";
   if (set_start_point && !FLAGS_use_navigation_mode) {
     InitStartPoint(start_velocity, start_acceleration);
   }
@@ -116,6 +121,7 @@ void SimControl::Init(bool set_start_point, double start_velocity,
 
 void SimControl::InitStartPoint(double start_velocity,
                                 double start_acceleration) {
+AINFO<<"(DMCZP) EnteringMethod: SimControl::InitStartPoint";
   TrajectoryPoint point;
   // Use the latest localization position as start point,
   // fall back to a dummy point from map
@@ -164,17 +170,20 @@ void SimControl::InitStartPoint(double start_velocity,
 }
 
 void SimControl::SetStartPoint(const TrajectoryPoint& start_point) {
+AINFO<<"(DMCZP) EnteringMethod: SimControl::SetStartPoint";
   next_point_ = start_point;
   prev_point_index_ = next_point_index_ = 0;
   received_planning_ = false;
 }
 
 void SimControl::Reset() {
+AINFO<<"(DMCZP) EnteringMethod: SimControl::Reset";
   std::lock_guard<std::mutex> lock(mutex_);
   InternalReset();
 }
 
 void SimControl::InternalReset() {
+AINFO<<"(DMCZP) EnteringMethod: SimControl::InternalReset";
   current_routing_header_.Clear();
   re_routing_triggered_ = false;
   send_dummy_prediction_ = true;
@@ -182,12 +191,14 @@ void SimControl::InternalReset() {
 }
 
 void SimControl::ClearPlanning() {
+AINFO<<"(DMCZP) EnteringMethod: SimControl::ClearPlanning";
   current_trajectory_->Clear();
   received_planning_ = false;
 }
 
 void SimControl::OnReceiveNavigationInfo(
     const std::shared_ptr<NavigationInfo>& navigation_info) {
+AINFO<<"(DMCZP) EnteringMethod: SimControl::OnReceiveNavigationInfo";
   std::lock_guard<std::mutex> lock(mutex_);
 
   if (navigation_info->navigation_path_size() > 0) {
@@ -200,6 +211,7 @@ void SimControl::OnReceiveNavigationInfo(
 
 void SimControl::OnRoutingResponse(
     const std::shared_ptr<RoutingResponse>& routing) {
+AINFO<<"(DMCZP) EnteringMethod: SimControl::OnRoutingResponse";
   std::lock_guard<std::mutex> lock(mutex_);
   if (!enabled_) {
     return;
@@ -234,6 +246,7 @@ void SimControl::OnRoutingResponse(
 
 void SimControl::OnPredictionObstacles(
     const std::shared_ptr<PredictionObstacles>& obstacles) {
+AINFO<<"(DMCZP) EnteringMethod: SimControl::OnPredictionObstacles";
   std::lock_guard<std::mutex> lock(mutex_);
 
   if (!enabled_) {
@@ -244,6 +257,7 @@ void SimControl::OnPredictionObstacles(
 }
 
 void SimControl::Start() {
+AINFO<<"(DMCZP) EnteringMethod: SimControl::Start";
   std::lock_guard<std::mutex> lock(mutex_);
 
   if (!enabled_) {
@@ -264,6 +278,7 @@ void SimControl::Start() {
 }
 
 void SimControl::Stop() {
+AINFO<<"(DMCZP) EnteringMethod: SimControl::Stop";
   std::lock_guard<std::mutex> lock(mutex_);
 
   if (enabled_) {
@@ -274,6 +289,7 @@ void SimControl::Stop() {
 }
 
 void SimControl::OnPlanning(const std::shared_ptr<ADCTrajectory>& trajectory) {
+AINFO<<"(DMCZP) EnteringMethod: SimControl::OnPlanning";
   std::lock_guard<std::mutex> lock(mutex_);
 
   if (!enabled_) {
@@ -294,12 +310,14 @@ void SimControl::OnPlanning(const std::shared_ptr<ADCTrajectory>& trajectory) {
 }
 
 void SimControl::Freeze() {
+AINFO<<"(DMCZP) EnteringMethod: SimControl::Freeze";
   next_point_.set_v(0.0);
   next_point_.set_a(0.0);
   prev_point_ = next_point_;
 }
 
 void SimControl::RunOnce() {
+AINFO<<"(DMCZP) EnteringMethod: SimControl::RunOnce";
   std::lock_guard<std::mutex> lock(mutex_);
 
   TrajectoryPoint trajectory_point;
@@ -315,6 +333,7 @@ void SimControl::RunOnce() {
 
 bool SimControl::PerfectControlModel(TrajectoryPoint* point,
                                      Chassis::GearPosition* gear_position) {
+AINFO<<"(DMCZP) EnteringMethod: SimControl::PerfectControlModel";
   // Result of the interpolation.
   auto current_time = Clock::NowInSeconds();
   const auto& trajectory = current_trajectory_->trajectory_point();
@@ -366,6 +385,7 @@ bool SimControl::PerfectControlModel(TrajectoryPoint* point,
 
 void SimControl::PublishChassis(double cur_speed,
                                 Chassis::GearPosition gear_position) {
+AINFO<<"(DMCZP) EnteringMethod: SimControl::PublishChassis";
   auto chassis = std::make_shared<Chassis>();
   FillHeader("SimControl", chassis.get());
 
@@ -385,6 +405,7 @@ void SimControl::PublishChassis(double cur_speed,
 }
 
 void SimControl::PublishLocalization(const TrajectoryPoint& point) {
+AINFO<<"(DMCZP) EnteringMethod: SimControl::PublishLocalization";
   auto localization = std::make_shared<LocalizationEstimate>();
   FillHeader("SimControl", localization.get());
 
@@ -453,6 +474,7 @@ void SimControl::PublishLocalization(const TrajectoryPoint& point) {
 }
 
 void SimControl::PublishDummyPrediction() {
+AINFO<<"(DMCZP) EnteringMethod: SimControl::PublishDummyPrediction";
   auto prediction = std::make_shared<PredictionObstacles>();
   {
     std::lock_guard<std::mutex> lock(mutex_);

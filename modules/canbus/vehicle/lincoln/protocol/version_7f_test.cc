@@ -23,6 +23,7 @@ namespace canbus {
 namespace lincoln {
 
 TEST(Version7fTest, General) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   int32_t length = 8;
   ChassisDetail cd;
   Version7f version;

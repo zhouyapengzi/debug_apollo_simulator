@@ -26,6 +26,7 @@ namespace apollo {
 namespace planning {
 
 TEST(AutotuningSpeedMLPModel, test_case_one) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   AutotuningSpeedMLPModel speed_model;
   EXPECT_TRUE(speed_model.SetParams().ok());
 }

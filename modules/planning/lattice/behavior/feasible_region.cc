@@ -27,6 +27,7 @@ namespace apollo {
 namespace planning {
 
 FeasibleRegion::FeasibleRegion(const std::array<double, 3>& init_s) {
+AINFO<<"(DMCZP) EnteringMethod: FeasibleRegion::FeasibleRegion";
   init_s_ = init_s;
 
   double v = init_s[1];
@@ -38,12 +39,14 @@ FeasibleRegion::FeasibleRegion(const std::array<double, 3>& init_s) {
 }
 
 double FeasibleRegion::SUpper(const double t) const {
+AINFO<<"(DMCZP) EnteringMethod: FeasibleRegion::SUpper";
   CHECK(t >= 0.0);
   return init_s_[0] + init_s_[1] * t +
          0.5 * FLAGS_longitudinal_acceleration_upper_bound * t * t;
 }
 
 double FeasibleRegion::SLower(const double t) const {
+AINFO<<"(DMCZP) EnteringMethod: FeasibleRegion::SLower";
   if (t < t_at_zero_speed_) {
     return init_s_[0] + init_s_[1] * t +
            0.5 * FLAGS_longitudinal_acceleration_lower_bound * t * t;
@@ -52,16 +55,19 @@ double FeasibleRegion::SLower(const double t) const {
 }
 
 double FeasibleRegion::VUpper(const double t) const {
+AINFO<<"(DMCZP) EnteringMethod: FeasibleRegion::VUpper";
   return init_s_[1] + FLAGS_longitudinal_acceleration_upper_bound * t;
 }
 
 double FeasibleRegion::VLower(const double t) const {
+AINFO<<"(DMCZP) EnteringMethod: FeasibleRegion::VLower";
   return t < t_at_zero_speed_
              ? init_s_[1] + FLAGS_longitudinal_acceleration_lower_bound * t
              : 0.0;
 }
 
 double FeasibleRegion::TLower(const double s) const {
+AINFO<<"(DMCZP) EnteringMethod: FeasibleRegion::TLower";
   CHECK(s >= init_s_[0]);
 
   double delta_s = s - init_s_[0];

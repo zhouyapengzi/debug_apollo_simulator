@@ -35,6 +35,7 @@ class OnLanePlannerDispatcherTest : public ::testing::Test {
 };
 
 TEST_F(OnLanePlannerDispatcherTest, Simple) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   pd_.reset(new OnLanePlannerDispatcher());
   pd_->Init();
   auto planner = pd_->DispatchPlanner();

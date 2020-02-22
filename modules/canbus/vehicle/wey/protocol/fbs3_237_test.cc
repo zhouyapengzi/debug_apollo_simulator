@@ -27,6 +27,7 @@ class Fbs3237Test : public ::testing::Test {
 };
 
 TEST_F(Fbs3237Test, reset) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   Fbs3237 fbs3;
   int32_t length = 8;
   ChassisDetail chassis_detail;

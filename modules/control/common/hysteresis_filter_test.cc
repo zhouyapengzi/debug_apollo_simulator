@@ -25,6 +25,7 @@ namespace apollo {
 namespace control {
 
 TEST(HysteresisFilter, TriangleHysteresis) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   HysteresisFilter hysteresis_filter;
   std::vector<double> triangle_input(20, 0.0);
   std::vector<double> filter_output(20, 0.0);

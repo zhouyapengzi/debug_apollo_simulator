@@ -46,6 +46,7 @@ using apollo::hdmap::PathOverlap;
 
 bool ScenarioManager::Init(
     const std::set<ScenarioConfig::ScenarioType>& supported_scenarios) {
+AINFO<<"(DMCZP) EnteringMethod: ScenarioManager::Init";
   RegisterScenarios();
   default_scenario_type_ = ScenarioConfig::LANE_FOLLOW;
   supported_scenarios_ = supported_scenarios;
@@ -104,6 +105,7 @@ std::unique_ptr<Scenario> ScenarioManager::CreateScenario(
 }
 
 void ScenarioManager::RegisterScenarios() {
+AINFO<<"(DMCZP) EnteringMethod: ScenarioManager::RegisterScenarios";
   // lane_follow
   CHECK(Scenario::LoadConfig(FLAGS_scenario_lane_follow_config_file,
                              &config_map_[ScenarioConfig::LANE_FOLLOW]));
@@ -140,11 +142,15 @@ void ScenarioManager::RegisterScenarios() {
 
 ScenarioConfig::ScenarioType ScenarioManager::SelectChangeLaneScenario(
     const Frame& frame) {
+AINFO<<"(DMCZP) EnteringMethod: ScenarioManager::SelectChangeLaneScenario";
+AINFO<<"(DMCZP) EnteringMethod: ScenarioManager::SelectPullOverScenario";
   if (frame.reference_line_info().size() > 1) {
     // TODO(all): to be implemented
     return default_scenario_type_;
   }
+AINFO<<"(DMCZP) EnteringMethod: ScenarioManager::SelectValetParkingScenario";
 
+AINFO<<"(DMCZP) EnteringMethod: ScenarioManager::SelectScenario";
   return default_scenario_type_;
 }
 
@@ -280,6 +286,7 @@ ScenarioConfig::ScenarioType ScenarioManager::SelectPullOverScenario(
 
 ScenarioConfig::ScenarioType ScenarioManager::SelectStopSignScenario(
     const Frame& frame, const hdmap::PathOverlap& stop_sign_overlap) {
+AINFO<<"(DMCZP) EnteringMethod: ScenarioManager::SelectStopSignScenario";
   const auto& scenario_config =
       config_map_[ScenarioConfig::STOP_SIGN_UNPROTECTED]
           .stop_sign_unprotected_config();
@@ -329,6 +336,7 @@ ScenarioConfig::ScenarioType ScenarioManager::SelectStopSignScenario(
 
 ScenarioConfig::ScenarioType ScenarioManager::SelectTrafficLightScenario(
     const Frame& frame, const hdmap::PathOverlap& traffic_light_overlap) {
+AINFO<<"(DMCZP) EnteringMethod: ScenarioManager::SelectTrafficLightScenario";
   const auto& scenario_config =
       config_map_[ScenarioConfig::TRAFFIC_LIGHT_PROTECTED]
           .traffic_light_unprotected_right_turn_config();
@@ -437,12 +445,14 @@ ScenarioConfig::ScenarioType ScenarioManager::SelectTrafficLightScenario(
 
 ScenarioConfig::ScenarioType ScenarioManager::SelectYieldSignScenario(
     const Frame& frame, const hdmap::PathOverlap& yield_sign_overlap) {
+AINFO<<"(DMCZP) EnteringMethod: ScenarioManager::SelectYieldSignScenario";
   // TODO(all)
   return current_scenario_->scenario_type();
 }
 
 ScenarioConfig::ScenarioType ScenarioManager::SelectBareIntersectionScenario(
     const Frame& frame, const hdmap::PathOverlap& pnc_junction_overlap) {
+AINFO<<"(DMCZP) EnteringMethod: ScenarioManager::SelectBareIntersectionScenario";
   const auto& reference_line_info = frame.reference_line_info().front();
   if (reference_line_info.GetIntersectionRightofWayStatus(
           pnc_junction_overlap)) {
@@ -518,6 +528,7 @@ ScenarioConfig::ScenarioType ScenarioManager::SelectValetParkingScenario(
 /*
 bool ScenarioManager::ReuseCurrentScenario(
    const common::TrajectoryPoint& ego_point, const Frame& frame) {
+AINFO<<"(DMCZP) EnteringMethod: ScenarioManager::ReuseCurrentScenario";
  return current_scenario_->IsTransferable(*current_scenario_, frame);
 }
 */
@@ -547,6 +558,7 @@ bool ScenarioManager::SelectScenario(
 */
 
 void ScenarioManager::Observe(const Frame& frame) {
+AINFO<<"(DMCZP) EnteringMethod: ScenarioManager::Observe";
   // init first_encountered_overlap_map_
   first_encountered_overlap_map_.clear();
   const auto& reference_line_info = frame.reference_line_info().front();
@@ -564,6 +576,7 @@ void ScenarioManager::Observe(const Frame& frame) {
 
 void ScenarioManager::Update(const common::TrajectoryPoint& ego_point,
                              const Frame& frame) {
+AINFO<<"(DMCZP) EnteringMethod: ScenarioManager::Update";
   CHECK(!frame.reference_line_info().empty());
 
   Observe(frame);
@@ -573,6 +586,8 @@ void ScenarioManager::Update(const common::TrajectoryPoint& ego_point,
 
 void ScenarioManager::ScenarioDispatch(const common::TrajectoryPoint& ego_point,
                                        const Frame& frame) {
+AINFO<<"(DMCZP) EnteringMethod: ScenarioManager::ScenarioDispatch";
+AINFO<<"(DMCZP) EnteringMethod: ScenarioManager::ScenarioSelfVote";
   CHECK(!frame.reference_line_info().empty());
 
   ////////////////////////////////////////
@@ -803,6 +818,9 @@ void ScenarioManager::ScenarioSelfVote(const common::TrajectoryPoint& ego_point,
 
 bool ScenarioManager::IsBareIntersectionScenario(
     const ScenarioConfig::ScenarioType& scenario_type) {
+AINFO<<"(DMCZP) EnteringMethod: ScenarioManager::IsBareIntersectionScenario";
+AINFO<<"(DMCZP) EnteringMethod: ScenarioManager::IsStopSignScenario";
+AINFO<<"(DMCZP) EnteringMethod: ScenarioManager::IsTrafficLightScenario";
   return (scenario_type == ScenarioConfig::BARE_INTERSECTION_UNPROTECTED);
 }
 
@@ -822,6 +840,11 @@ bool ScenarioManager::IsTrafficLightScenario(
 
 void ScenarioManager::UpdatePlanningContext(
     const Frame& frame, const ScenarioConfig::ScenarioType& scenario_type) {
+AINFO<<"(DMCZP) EnteringMethod: ScenarioManager::UpdatePlanningContext";
+AINFO<<"(DMCZP) EnteringMethod: ScenarioManager::UpdatePlanningContextBareIntersectionScenario";
+AINFO<<"(DMCZP) EnteringMethod: ScenarioManager::UpdatePlanningContextStopSignScenario";
+AINFO<<"(DMCZP) EnteringMethod: ScenarioManager::UpdatePlanningContextTrafficLightScenario";
+AINFO<<"(DMCZP) EnteringMethod: ScenarioManager::UpdatePlanningContextPullOverScenario";
   // BareIntersection scenario
   UpdatePlanningContextBareIntersectionScenario(frame, scenario_type);
 

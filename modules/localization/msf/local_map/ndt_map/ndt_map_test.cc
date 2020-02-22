@@ -33,6 +33,7 @@ namespace localization {
 namespace msf {
 
 TEST(MapNdtTestSuite, matrix) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   const std::string pcd_folder =
       "/apollo/modules/localization/msf/local_map/test_data/ndt_map/pcds";
   EXPECT_TRUE(apollo::cyber::common::EnsureDirectory(pcd_folder));

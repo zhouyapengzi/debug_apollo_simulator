@@ -28,6 +28,7 @@ const int32_t Throttleinfo75::ID = 0x75;
 
 void Throttleinfo75::Parse(const std::uint8_t *bytes, int32_t length,
                            ChassisDetail *chassis_detail) const {
+AINFO<<"(DMCZP) EnteringMethod: Throttleinfo75::Parse";
   chassis_detail->mutable_ems()->set_engine_rpm(engine_rpm(bytes, length));
   chassis_detail->mutable_gas()->set_accelerator_pedal(
       acc_pedal_percent(bytes, length));
@@ -37,6 +38,7 @@ void Throttleinfo75::Parse(const std::uint8_t *bytes, int32_t length,
 
 double Throttleinfo75::engine_rpm(const std::uint8_t *bytes,
                                   int32_t length) const {
+AINFO<<"(DMCZP) EnteringMethod: Throttleinfo75::engine_rpm";
   Byte frame_high(bytes + 1);
   int32_t high = frame_high.get_byte(0, 8);
   Byte frame_low(bytes + 0);
@@ -47,6 +49,7 @@ double Throttleinfo75::engine_rpm(const std::uint8_t *bytes,
 
 double Throttleinfo75::acc_pedal_percent(const std::uint8_t *bytes,
                                          int32_t length) const {
+AINFO<<"(DMCZP) EnteringMethod: Throttleinfo75::acc_pedal_percent";
   Byte frame_high(bytes + 3);
   int32_t high = frame_high.get_byte(0, 2);
   Byte frame_low(bytes + 2);
@@ -57,6 +60,7 @@ double Throttleinfo75::acc_pedal_percent(const std::uint8_t *bytes,
 
 double Throttleinfo75::acc_pedal_rate(const std::uint8_t *bytes,
                                       int32_t length) const {
+AINFO<<"(DMCZP) EnteringMethod: Throttleinfo75::acc_pedal_rate";
   Byte frame(bytes + 4);
   int32_t x = frame.get_byte(0, 8);
   if (x > 0x3F) {

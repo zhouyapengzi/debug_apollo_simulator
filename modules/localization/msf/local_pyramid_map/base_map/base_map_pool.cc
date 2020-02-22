@@ -27,11 +27,13 @@ namespace msf {
 BaseMapNodePool::BaseMapNodePool(unsigned int pool_size,
                                  unsigned int thread_size)
     : pool_size_(pool_size) {}
+AINFO<<"(DMCZP) EnteringMethod: BaseMapNodePool::BaseMapNodePool";
 
 BaseMapNodePool::~BaseMapNodePool() { Release(); }
 
 void BaseMapNodePool::Initial(const BaseMapConfig* map_config,
                               bool is_fixed_size) {
+AINFO<<"(DMCZP) EnteringMethod: BaseMapNodePool::Initial";
   is_fixed_size_ = is_fixed_size;
   map_config_ = map_config;
   for (unsigned int i = 0; i < pool_size_; ++i) {
@@ -42,6 +44,7 @@ void BaseMapNodePool::Initial(const BaseMapConfig* map_config,
 }
 
 void BaseMapNodePool::Release() {
+AINFO<<"(DMCZP) EnteringMethod: BaseMapNodePool::Release";
   if (node_reset_workers_.valid()) {
     node_reset_workers_.get();
   }
@@ -63,6 +66,7 @@ void BaseMapNodePool::Release() {
 }
 
 BaseMapNode* BaseMapNodePool::AllocMapNode() {
+AINFO<<"(DMCZP) EnteringMethod: BaseMapNodePool::AllocMapNode";
   if (free_list_.empty()) {
     if (node_reset_workers_.valid()) {
       node_reset_workers_.wait();
@@ -87,11 +91,13 @@ BaseMapNode* BaseMapNodePool::AllocMapNode() {
 }
 
 void BaseMapNodePool::FreeMapNode(BaseMapNode* map_node) {
+AINFO<<"(DMCZP) EnteringMethod: BaseMapNodePool::FreeMapNode";
   node_reset_workers_ =
       cyber::Async(&BaseMapNodePool::FreeMapNodeTask, this, map_node);
 }
 
 void BaseMapNodePool::FreeMapNodeTask(BaseMapNode* map_node) {
+AINFO<<"(DMCZP) EnteringMethod: BaseMapNodePool::FreeMapNodeTask";
   FinalizeMapNode(map_node);
   ResetMapNode(map_node);
   {
@@ -106,23 +112,27 @@ void BaseMapNodePool::FreeMapNodeTask(BaseMapNode* map_node) {
 }
 
 void BaseMapNodePool::InitNewMapNode(BaseMapNode* node) {
+AINFO<<"(DMCZP) EnteringMethod: BaseMapNodePool::InitNewMapNode";
   node->Init(map_config_);
   return;
 }
 
 void BaseMapNodePool::FinalizeMapNode(BaseMapNode* node) {
+AINFO<<"(DMCZP) EnteringMethod: BaseMapNodePool::FinalizeMapNode";
   if (node != nullptr) {
     node->Finalize();
   }
 }
 
 void BaseMapNodePool::DellocMapNode(BaseMapNode* node) {
+AINFO<<"(DMCZP) EnteringMethod: BaseMapNodePool::DellocMapNode";
   if (node != nullptr) {
     delete node;
   }
 }
 
 void BaseMapNodePool::ResetMapNode(BaseMapNode* node) {
+AINFO<<"(DMCZP) EnteringMethod: BaseMapNodePool::ResetMapNode";
   if (node != nullptr) {
     node->ResetMapNode();
   }

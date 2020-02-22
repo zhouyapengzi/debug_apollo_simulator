@@ -25,12 +25,15 @@ using common::ErrorCode;
 using control::ControlCommand;
 
 Chassis::DrivingMode VehicleController::driving_mode() {
+AINFO<<"(DMCZP) EnteringMethod: VehicleController::driving_mode";
   std::lock_guard<std::mutex> lock(mode_mutex_);
   return driving_mode_;
 }
 
 void VehicleController::set_driving_mode(
     const Chassis::DrivingMode &driving_mode) {
+AINFO<<"(DMCZP) EnteringMethod: VehicleController::set_driving_mode";
+AINFO<<"(DMCZP) EnteringMethod: VehicleController::SetDrivingMode";
   std::lock_guard<std::mutex> lock(mode_mutex_);
   driving_mode_ = driving_mode;
 }
@@ -92,6 +95,7 @@ ErrorCode VehicleController::SetDrivingMode(
 }
 
 ErrorCode VehicleController::Update(const ControlCommand &command) {
+AINFO<<"(DMCZP) EnteringMethod: VehicleController::Update";
   if (!is_initialized_) {
     AERROR << "Controller is not initialized.";
     return ErrorCode::CANBUS_ERROR;

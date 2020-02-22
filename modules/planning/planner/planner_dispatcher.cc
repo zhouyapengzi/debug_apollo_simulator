@@ -27,6 +27,7 @@ namespace apollo {
 namespace planning {
 
 void PlannerDispatcher::RegisterPlanners() {
+AINFO<<"(DMCZP) EnteringMethod: PlannerDispatcher::RegisterPlanners";
   planner_factory_.Register(
       PlannerType::RTK, []() -> Planner* { return new RTKReplayPlanner(); });
   planner_factory_.Register(PlannerType::PUBLIC_ROAD, []() -> Planner* {

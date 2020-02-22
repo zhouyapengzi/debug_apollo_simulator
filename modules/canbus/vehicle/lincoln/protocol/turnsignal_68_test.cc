@@ -23,6 +23,7 @@ namespace canbus {
 namespace lincoln {
 
 TEST(Turnsignal68Test, General) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   uint8_t data[8] = {0x67, 0x62, 0x63, 0x64, 0x51, 0x52, 0x53, 0x54};
   Turnsignal68 turn_signal;
   EXPECT_EQ(turn_signal.GetPeriod(), 50 * 1000);

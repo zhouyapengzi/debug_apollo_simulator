@@ -28,6 +28,7 @@ std::string RadarTrack::s_chosen_filter_ =  // NOLINT
     "AdaptiveKalmanFilter";
 
 RadarTrack::RadarTrack(const base::ObjectPtr& obs, const double timestamp) {
+AINFO<<"(DMCZP) EnteringMethod: RadarTrack::RadarTrack";
   s_current_idx_ %= MAX_RADAR_IDX;
   obs_id_ = s_current_idx_++;
   obs_radar_ = base::ObjectPool::Instance().Get();
@@ -52,6 +53,7 @@ RadarTrack::RadarTrack(const base::ObjectPtr& obs, const double timestamp) {
 
 void RadarTrack::UpdataObsRadar(const base::ObjectPtr& obs_radar,
                                 const double timestamp) {
+AINFO<<"(DMCZP) EnteringMethod: RadarTrack::UpdataObsRadar";
   *obs_radar_ = *obs_radar;
   *obs_ = *obs_radar;
   double time_diff = timestamp - timestamp_;
@@ -74,19 +76,25 @@ void RadarTrack::UpdataObsRadar(const base::ObjectPtr& obs_radar,
 }
 
 void RadarTrack::SetObsRadarNullptr() {
+AINFO<<"(DMCZP) EnteringMethod: RadarTrack::SetObsRadarNullptr";
   obs_radar_ = nullptr;
   obs_ = nullptr;
 }
 
 base::ObjectPtr RadarTrack::GetObsRadar() { return obs_radar_; }
+AINFO<<"(DMCZP) EnteringMethod: RadarTrack::GetObsRadar";
 
 base::ObjectPtr RadarTrack::GetObs() { return obs_; }
+AINFO<<"(DMCZP) EnteringMethod: RadarTrack::GetObs";
 
 int RadarTrack::GetObsId() const { return obs_id_; }
+AINFO<<"(DMCZP) EnteringMethod: RadarTrack::GetObsId";
 
 double RadarTrack::GetTimestamp() { return timestamp_; }
+AINFO<<"(DMCZP) EnteringMethod: RadarTrack::GetTimestamp";
 
 double RadarTrack::GetTrackingTime() { return tracking_time_; }
+AINFO<<"(DMCZP) EnteringMethod: RadarTrack::GetTrackingTime";
 }  // namespace radar
 }  // namespace perception
 }  // namespace apollo

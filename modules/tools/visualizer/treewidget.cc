@@ -19,8 +19,10 @@
 #include <QResizeEvent>
 
 TreeWidget::TreeWidget(QWidget *parent) : QTreeWidget(parent) {}
+AINFO<<"(DMCZP) EnteringMethod: TreeWidget::TreeWidget";
 
 void TreeWidget::resizeEvent(QResizeEvent *event) {
+AINFO<<"(DMCZP) EnteringMethod: TreeWidget::resizeEvent";
   QTreeWidget::resizeEvent(event);
   int cw = width() / columnCount();
   for (int i = 0; i < columnCount(); ++i) {
@@ -29,6 +31,7 @@ void TreeWidget::resizeEvent(QResizeEvent *event) {
 }
 
 bool TreeWidget::event(QEvent *e) {
+AINFO<<"(DMCZP) EnteringMethod: TreeWidget::event";
   bool b = QTreeWidget::event(e);
   if (e->type() == QEvent::Hide) emit visibilityChanged(false);
   if (e->type() == QEvent::Show) emit visibilityChanged(true);

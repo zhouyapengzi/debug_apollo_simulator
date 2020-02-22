@@ -44,11 +44,13 @@ using common::time::Clock;
 using perception::PerceptionObstacle;
 
 SpeedDecider::SpeedDecider(const TaskConfig& config) : Task(config) {
+AINFO<<"(DMCZP) EnteringMethod: SpeedDecider::SpeedDecider";
   SetName("SpeedDecider");
 }
 
 common::Status SpeedDecider::Execute(Frame* frame,
                                      ReferenceLineInfo* reference_line_info) {
+AINFO<<"(DMCZP) EnteringMethod: SpeedDecider::Execute";
   Task::Execute(frame, reference_line_info);
   init_point_ = frame_->PlanningStartPoint();
   adc_sl_boundary_ = reference_line_info_->AdcSlBoundary();
@@ -66,6 +68,7 @@ common::Status SpeedDecider::Execute(Frame* frame,
 SpeedDecider::STLocation SpeedDecider::GetSTLocation(
     const PathDecision* const path_decision, const SpeedData& speed_profile,
     const STBoundary& st_boundary) const {
+AINFO<<"(DMCZP) EnteringMethod: SpeedDecider::GetSTLocation";
   if (st_boundary.IsEmpty()) {
     return BELOW;
   }
@@ -115,6 +118,7 @@ SpeedDecider::STLocation SpeedDecider::GetSTLocation(
 bool SpeedDecider::CheckKeepClearCrossable(
     const PathDecision* const path_decision, const SpeedData& speed_profile,
     const STBoundary& keep_clear_st_boundary) const {
+AINFO<<"(DMCZP) EnteringMethod: SpeedDecider::CheckKeepClearCrossable";
   bool keep_clear_crossable = true;
 
   const auto& last_speed_point = speed_profile.back();
@@ -143,6 +147,7 @@ bool SpeedDecider::CheckKeepClearCrossable(
 bool SpeedDecider::CheckKeepClearBlocked(
     const PathDecision* const path_decision,
     const Obstacle& keep_clear_obstacle) const {
+AINFO<<"(DMCZP) EnteringMethod: SpeedDecider::CheckKeepClearBlocked";
   bool keep_clear_blocked = false;
 
   // check if overlap with other stop wall
@@ -166,6 +171,7 @@ bool SpeedDecider::CheckKeepClearBlocked(
 }
 
 bool SpeedDecider::IsFollowTooClose(const Obstacle& obstacle) const {
+AINFO<<"(DMCZP) EnteringMethod: SpeedDecider::IsFollowTooClose";
   if (!obstacle.IsBlockingObstacle()) {
     return false;
   }
@@ -186,6 +192,7 @@ bool SpeedDecider::IsFollowTooClose(const Obstacle& obstacle) const {
 
 Status SpeedDecider::MakeObjectDecision(
     const SpeedData& speed_profile, PathDecision* const path_decision) const {
+AINFO<<"(DMCZP) EnteringMethod: SpeedDecider::MakeObjectDecision";
   if (speed_profile.size() < 2) {
     const std::string msg = "dp_st_graph failed to get speed profile.";
     AERROR << msg;
@@ -326,6 +333,7 @@ Status SpeedDecider::MakeObjectDecision(
 }
 
 void SpeedDecider::AppendIgnoreDecision(Obstacle* obstacle) const {
+AINFO<<"(DMCZP) EnteringMethod: SpeedDecider::AppendIgnoreDecision";
   ObjectDecisionType ignore_decision;
   ignore_decision.mutable_ignore();
   if (!obstacle->HasLongitudinalDecision()) {
@@ -339,6 +347,7 @@ void SpeedDecider::AppendIgnoreDecision(Obstacle* obstacle) const {
 bool SpeedDecider::CreateStopDecision(const Obstacle& obstacle,
                                       ObjectDecisionType* const stop_decision,
                                       double stop_distance) const {
+AINFO<<"(DMCZP) EnteringMethod: SpeedDecider::CreateStopDecision";
   DCHECK_NOTNULL(stop_decision);
 
   const auto& boundary = obstacle.path_st_boundary();
@@ -381,6 +390,7 @@ bool SpeedDecider::CreateStopDecision(const Obstacle& obstacle,
 
 bool SpeedDecider::CreateFollowDecision(
     const Obstacle& obstacle, ObjectDecisionType* const follow_decision) const {
+AINFO<<"(DMCZP) EnteringMethod: SpeedDecider::CreateFollowDecision";
   DCHECK_NOTNULL(follow_decision);
 
   const double follow_speed = init_point_.v();
@@ -417,6 +427,7 @@ bool SpeedDecider::CreateFollowDecision(
 
 bool SpeedDecider::CreateYieldDecision(
     const Obstacle& obstacle, ObjectDecisionType* const yield_decision) const {
+AINFO<<"(DMCZP) EnteringMethod: SpeedDecider::CreateYieldDecision";
   DCHECK_NOTNULL(yield_decision);
 
   PerceptionObstacle::Type obstacle_type = obstacle.Perception().type();
@@ -454,6 +465,7 @@ bool SpeedDecider::CreateYieldDecision(
 bool SpeedDecider::CreateOvertakeDecision(
     const Obstacle& obstacle,
     ObjectDecisionType* const overtake_decision) const {
+AINFO<<"(DMCZP) EnteringMethod: SpeedDecider::CreateOvertakeDecision";
   DCHECK_NOTNULL(overtake_decision);
 
   constexpr double kOvertakeTimeBuffer = 3.0;    // in seconds
@@ -496,6 +508,7 @@ bool SpeedDecider::CreateOvertakeDecision(
 }
 
 bool SpeedDecider::CheckIsFollowByT(const STBoundary& boundary) const {
+AINFO<<"(DMCZP) EnteringMethod: SpeedDecider::CheckIsFollowByT";
   if (boundary.bottom_left_point().s() > boundary.bottom_right_point().s()) {
     return false;
   }
@@ -511,6 +524,7 @@ bool SpeedDecider::CheckIsFollowByT(const STBoundary& boundary) const {
 bool SpeedDecider::CheckStopForPedestrian(
     const Obstacle& obstacle,
     std::unordered_map<std::string, double>* pedestrian_stop_times) const {
+AINFO<<"(DMCZP) EnteringMethod: SpeedDecider::CheckStopForPedestrian";
   CHECK_NOTNULL(pedestrian_stop_times);
 
   if (!FLAGS_enable_alwasy_stop_for_pedestrian) {

@@ -33,6 +33,7 @@ using apollo::common::util::StrCat;
 FrameProcessor::FrameProcessor(const std::string& input_video_file,
                                const std::string& output_jpg_dir)
     : output_jpg_dir_(output_jpg_dir) {
+AINFO<<"(DMCZP) EnteringMethod: FrameProcessor::FrameProcessor";
   std::ifstream video_file(input_video_file, std::ios::binary);
   std::istreambuf_iterator<char> buf_begin(video_file), buf_end;
   while (buf_begin != buf_end) {
@@ -41,6 +42,7 @@ FrameProcessor::FrameProcessor(const std::string& input_video_file,
 }
 
 bool FrameProcessor::ProcessStream() const {
+AINFO<<"(DMCZP) EnteringMethod: FrameProcessor::ProcessStream";
   if (input_video_buffer_.empty()) {
     AERROR << "error: failed to read from input video file";
     return false;
@@ -101,6 +103,7 @@ bool FrameProcessor::ProcessStream() const {
 }
 
 std::string FrameProcessor::GetOutputFile(const int frame_num) const {
+AINFO<<"(DMCZP) EnteringMethod: FrameProcessor::GetOutputFile";
   constexpr int kSuffixLen = 5;
   std::stringstream jpg_suffix;
   jpg_suffix.fill('0');
@@ -112,6 +115,7 @@ std::string FrameProcessor::GetOutputFile(const int frame_num) const {
 void FrameProcessor::WriteOutputJpgFile(
     const std::vector<uint8_t>& jpeg_buffer,
     const std::string& output_jpg_file) const {
+AINFO<<"(DMCZP) EnteringMethod: FrameProcessor::WriteOutputJpgFile";
   std::ofstream out(output_jpg_file, std::ios::binary);
   for (const uint8_t current : jpeg_buffer) {
     out << static_cast<char>(current);

@@ -26,8 +26,11 @@ DECLARE_string(obs_sensor_intrinsic_path);
 }  // namespace common
 
 namespace camera {
+AINFO<<"(DMCZP) EnteringMethod: DECLARE_string";
+AINFO<<"(DMCZP) EnteringMethod: DECLARE_string";
 
 TEST(DataProvider, test_image_options) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   unsetenv("MODULE_PATH");
   unsetenv("CYBER_PATH");
   DataProvider::ImageOptions image_options;
@@ -37,6 +40,7 @@ TEST(DataProvider, test_image_options) {
 }
 
 TEST(DataProvider, test_nodistortion) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   unsetenv("MODULE_PATH");
   unsetenv("CYBER_PATH");
   cv::Mat img = cv::imread(
@@ -110,6 +114,7 @@ TEST(DataProvider, test_nodistortion) {
 }
 
 TEST(DataProvider, test_fill_image_data) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   unsetenv("MODULE_PATH");
   unsetenv("CYBER_PATH");
   FLAGS_obs_sensor_meta_path =
@@ -164,6 +169,7 @@ TEST(DataProvider, test_fill_image_data) {
 }
 
 TEST(DataProvider, test_convert_color) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   unsetenv("MODULE_PATH");
   unsetenv("CYBER_PATH");
   FLAGS_obs_sensor_meta_path =
@@ -274,6 +280,7 @@ TEST(DataProvider, test_convert_color) {
 }
 
 TEST(DataProvider, test_undistortion) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   unsetenv("MODULE_PATH");
   unsetenv("CYBER_PATH");
   FLAGS_obs_sensor_meta_path =

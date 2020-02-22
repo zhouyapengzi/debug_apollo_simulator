@@ -32,6 +32,7 @@ class BaseMapNodeIndexTestSuite : public ::testing::Test {
 
 /**@brief Test the get method. */
 TEST_F(BaseMapNodeIndexTestSuite, GetMethodTest) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   MapNodeIndex node_index;
   ASSERT_EQ(node_index.resolution_id_, 0);
   ASSERT_EQ(node_index.zone_id_, 50);
@@ -54,6 +55,7 @@ TEST_F(BaseMapNodeIndexTestSuite, GetMethodTest) {
 
 /**@brief Test the operators. */
 TEST_F(BaseMapNodeIndexTestSuite, OperatorTest) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   MapNodeIndex node_index1;
   ASSERT_EQ(node_index1.resolution_id_, 0);
   ASSERT_EQ(node_index1.zone_id_, 50);

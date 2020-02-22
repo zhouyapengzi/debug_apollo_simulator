@@ -47,6 +47,7 @@ std::mutex g_mutex;
 logger::AsyncLogger* async_logger = nullptr;
 
 void InitLogger(const char* binary_name) {
+AINFO<<"(DMCZP) EnteringMethod: InitLogger";
   const char* slash = strrchr(binary_name, '/');
   if (slash) {
     ::apollo::cyber::Binary::SetName(slash + 1);
@@ -69,6 +70,7 @@ void InitLogger(const char* binary_name) {
 }
 
 void StopLogger() {
+AINFO<<"(DMCZP) EnteringMethod: StopLogger";
   if (async_logger != nullptr) {
     async_logger->Stop();
   }
@@ -77,6 +79,7 @@ void StopLogger() {
 }  // namespace
 
 void OnShutdown(int sig) {
+AINFO<<"(DMCZP) EnteringMethod: OnShutdown";
   (void)sig;
   if (GetState() != STATE_SHUTDOWN) {
     SetState(STATE_SHUTTING_DOWN);
@@ -84,8 +87,10 @@ void OnShutdown(int sig) {
 }
 
 void ExitHandle() { Clear(); }
+AINFO<<"(DMCZP) EnteringMethod: ExitHandle";
 
 bool Init(const char* binary_name) {
+AINFO<<"(DMCZP) EnteringMethod: Init";
   std::lock_guard<std::mutex> lg(g_mutex);
   if (GetState() != STATE_UNINITIALIZED) {
     return false;
@@ -109,6 +114,7 @@ bool Init(const char* binary_name) {
 }
 
 void Clear() {
+AINFO<<"(DMCZP) EnteringMethod: Clear";
   std::lock_guard<std::mutex> lg(g_mutex);
   if (GetState() == STATE_SHUTDOWN || GetState() == STATE_UNINITIALIZED) {
     return;

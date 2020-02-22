@@ -44,6 +44,7 @@ using apollo::prediction::math_util::EvaluateCubicPolynomial;
 namespace {
 
 double ComputeMean(const std::vector<double>& nums, size_t start, size_t end) {
+AINFO<<"(DMCZP) EnteringMethod: ComputeMean";
   int count = 0;
   double sum = 0.0;
   for (size_t i = start; i <= end && i < nums.size(); i++) {
@@ -56,13 +57,16 @@ double ComputeMean(const std::vector<double>& nums, size_t start, size_t end) {
 }  // namespace
 
 JunctionMLPEvaluator::JunctionMLPEvaluator() : device_(torch::kCPU) {
+AINFO<<"(DMCZP) EnteringMethod: JunctionMLPEvaluator::JunctionMLPEvaluator";
   evaluator_type_ = ObstacleConf::JUNCTION_MLP_EVALUATOR;
   LoadModel();
 }
 
 void JunctionMLPEvaluator::Clear() {}
+AINFO<<"(DMCZP) EnteringMethod: JunctionMLPEvaluator::Clear";
 
 bool JunctionMLPEvaluator::Evaluate(Obstacle* obstacle_ptr) {
+AINFO<<"(DMCZP) EnteringMethod: JunctionMLPEvaluator::Evaluate";
   // Sanity checks.
   omp_set_num_threads(1);
   Clear();
@@ -167,7 +171,10 @@ bool JunctionMLPEvaluator::Evaluate(Obstacle* obstacle_ptr) {
 
 void JunctionMLPEvaluator::ExtractFeatureValues(
     Obstacle* obstacle_ptr, std::vector<double>* feature_values) {
+AINFO<<"(DMCZP) EnteringMethod: JunctionMLPEvaluator::ExtractFeatureValues";
+AINFO<<"(DMCZP) EnteringMethod: JunctionMLPEvaluator::SetObstacleFeatureValues";
   CHECK_NOTNULL(obstacle_ptr);
+AINFO<<"(DMCZP) EnteringMethod: JunctionMLPEvaluator::SetJunctionFeatureValues";
   int id = obstacle_ptr->id();
 
   std::vector<double> obstacle_feature_values;
@@ -255,6 +262,7 @@ void JunctionMLPEvaluator::SetObstacleFeatureValues(
 
 void JunctionMLPEvaluator::SetEgoVehicleFeatureValues(
     Obstacle* obstacle_ptr, std::vector<double>* const feature_values) {
+AINFO<<"(DMCZP) EnteringMethod: JunctionMLPEvaluator::SetEgoVehicleFeatureValues";
   feature_values->clear();
   *feature_values = std::vector<double>(4, 0.0);
   auto ego_pose_container_ptr =
@@ -363,6 +371,7 @@ void JunctionMLPEvaluator::SetJunctionFeatureValues(
 }
 
 void JunctionMLPEvaluator::LoadModel() {
+AINFO<<"(DMCZP) EnteringMethod: JunctionMLPEvaluator::LoadModel";
   // TODO(all) uncomment the following when cuda issue is resolved
   // if (torch::cuda::is_available()) {
   //   ADEBUG << "CUDA is available for JunctionMLPEvaluator!";

@@ -27,12 +27,14 @@ PiecewiseQuinticSpiralPath::PiecewiseQuinticSpiralPath(const double theta,
                                                        const double kappa,
                                                        const double dkappa)
     : last_theta_(theta), last_kappa_(kappa), last_dkappa_(dkappa) {
+AINFO<<"(DMCZP) EnteringMethod: PiecewiseQuinticSpiralPath::PiecewiseQuinticSpiralPath";
   accumulated_s_.push_back(0.0);
 }
 
 void PiecewiseQuinticSpiralPath::Append(const double theta, const double kappa,
                                         const double dkappa,
                                         const double delta_s) {
+AINFO<<"(DMCZP) EnteringMethod: PiecewiseQuinticSpiralPath::Append";
   double s = delta_s + accumulated_s_.back();
   accumulated_s_.push_back(s);
 
@@ -46,11 +48,13 @@ void PiecewiseQuinticSpiralPath::Append(const double theta, const double kappa,
 
 double PiecewiseQuinticSpiralPath::Evaluate(const std::uint32_t order,
                                             const double s) const {
+AINFO<<"(DMCZP) EnteringMethod: PiecewiseQuinticSpiralPath::Evaluate";
   auto index = LocatePiece(s);
   return pieces_[index].Evaluate(order, s - accumulated_s_[index]);
 }
 
 double PiecewiseQuinticSpiralPath::DeriveKappaS(const double s) const {
+AINFO<<"(DMCZP) EnteringMethod: PiecewiseQuinticSpiralPath::DeriveKappaS";
   auto index = LocatePiece(s);
   const auto& piece = pieces_[index];
   double ratio = (s - accumulated_s_[index]) / piece.ParamLength();
@@ -58,10 +62,12 @@ double PiecewiseQuinticSpiralPath::DeriveKappaS(const double s) const {
 }
 
 double PiecewiseQuinticSpiralPath::ParamLength() const {
+AINFO<<"(DMCZP) EnteringMethod: PiecewiseQuinticSpiralPath::ParamLength";
   return accumulated_s_.back();
 }
 
 size_t PiecewiseQuinticSpiralPath::LocatePiece(const double s) const {
+AINFO<<"(DMCZP) EnteringMethod: PiecewiseQuinticSpiralPath::LocatePiece";
   CHECK(s >= accumulated_s_.front() && s <= accumulated_s_.back());
 
   auto it_lower =

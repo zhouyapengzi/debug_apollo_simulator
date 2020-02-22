@@ -88,6 +88,7 @@ class RssCheckSameDirectionTests : public testing::Test {
 };
 
 TEST_F(RssCheckSameDirectionTests, OtherLeading_FixDistance) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   ::ad_rss::world::WorldModel worldModel;
 
   worldModel.egoVehicle = ad_rss::objectAsEgo(followingObject);

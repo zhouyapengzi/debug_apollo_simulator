@@ -31,6 +31,7 @@ using apollo::hdmap::LaneBoundary;
 using apollo::hdmap::LaneBoundaryType;
 
 bool IsAllowedOut(const LaneBoundaryType& type) {
+AINFO<<"(DMCZP) EnteringMethod: IsAllowedOut";
   if (type.types(0) == LaneBoundaryType::DOTTED_YELLOW ||
       type.types(0) == LaneBoundaryType::DOTTED_WHITE) {
     return true;
@@ -40,11 +41,13 @@ bool IsAllowedOut(const LaneBoundaryType& type) {
 
 double GetLengthbyRate(double cur_s, double cur_total_length,
                        double target_length) {
+AINFO<<"(DMCZP) EnteringMethod: GetLengthbyRate";
   double new_length = cur_s / cur_total_length * target_length;
   return std::min(new_length, target_length);
 }
 
 double GetLaneLength(const Lane& lane) {
+AINFO<<"(DMCZP) EnteringMethod: GetLaneLength";
   double length = 0.0;
   for (const auto& segment : lane.central_curve().segment()) {
     length += segment.length();
@@ -54,6 +57,7 @@ double GetLaneLength(const Lane& lane) {
 
 void AddOutBoundary(const LaneBoundary& bound, double lane_length,
                     RepeatedPtrField<CurveRange>* const out_range) {
+AINFO<<"(DMCZP) EnteringMethod: AddOutBoundary";
   for (int i = 0; i < bound.boundary_type_size(); ++i) {
     if (!IsAllowedOut(bound.boundary_type(i))) {
       continue;
@@ -72,6 +76,8 @@ void AddOutBoundary(const LaneBoundary& bound, double lane_length,
 
 void InitNodeInfo(const Lane& lane, const std::string& road_id,
                   Node* const node) {
+AINFO<<"(DMCZP) EnteringMethod: InitNodeInfo";
+AINFO<<"(DMCZP) EnteringMethod: InitNodeCost";
   double lane_length = GetLaneLength(lane);
   node->set_lane_id(lane.id().id());
   node->set_road_id(road_id);
@@ -112,6 +118,7 @@ void InitNodeCost(const Lane& lane, const RoutingConfig& routing_config,
 
 void GetPbNode(const hdmap::Lane& lane, const std::string& road_id,
                const RoutingConfig& routingconfig, Node* const node) {
+AINFO<<"(DMCZP) EnteringMethod: GetPbNode";
   InitNodeInfo(lane, road_id, node);
   InitNodeCost(lane, routingconfig, node);
 }
