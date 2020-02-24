@@ -1,4 +1,3 @@
-#include "cyber/common/log.h"
 /******************************************************************************
  * Copyright 2018 The Apollo Authors. All Rights Reserved.
  *
@@ -32,12 +31,10 @@ Spliter::Spliter(const std::string& input_file, const std::string& output_file,
       begin_time_(begin_time),
       end_time_(end_time) {}
 AINFO<<"(DMCZP) EnteringMethod: Spliter::Spliter";
-AINFO<<"(DMCZP) EnteringMethod: Spliter::Spliter";
 
 Spliter::~Spliter() {}
 
 bool Spliter::Proc() {
-AINFO<<"(DMCZP) EnteringMethod: Spliter::Proc";
 AINFO<<"(DMCZP) EnteringMethod: Spliter::Proc";
   // check params
   if (begin_time_ >= end_time_) {

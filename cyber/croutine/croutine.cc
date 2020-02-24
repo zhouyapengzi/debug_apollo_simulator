@@ -40,7 +40,6 @@ std::once_flag pool_init_flag;
 
 void CRoutineEntry(void *arg) {
 AINFO<<"(DMCZP) EnteringMethod: CRoutineEntry";
-AINFO<<"(DMCZP) EnteringMethod: CRoutineEntry";
   CRoutine *r = static_cast<CRoutine *>(arg);
   r->Run();
   CRoutine::Yield(RoutineState::FINISHED);
@@ -48,7 +47,6 @@ AINFO<<"(DMCZP) EnteringMethod: CRoutineEntry";
 }  // namespace
 
 CRoutine::CRoutine(const std::function<void()> &func) : func_(func) {
-AINFO<<"(DMCZP) EnteringMethod: CRoutine::CRoutine";
 AINFO<<"(DMCZP) EnteringMethod: CRoutine::CRoutine";
   std::call_once(pool_init_flag, [&]() {
     auto routine_num = 100;
@@ -76,7 +74,6 @@ CRoutine::~CRoutine() { context_ = nullptr; }
 
 RoutineState CRoutine::Resume() {
 AINFO<<"(DMCZP) EnteringMethod: CRoutine::Resume";
-AINFO<<"(DMCZP) EnteringMethod: CRoutine::Resume";
   if (unlikely(force_stop_)) {
     state_ = RoutineState::FINISHED;
     return state_;
@@ -98,7 +95,6 @@ AINFO<<"(DMCZP) EnteringMethod: CRoutine::Resume";
 }
 
 void CRoutine::Stop() { force_stop_ = true; }
-AINFO<<"(DMCZP) EnteringMethod: CRoutine::Stop";
 AINFO<<"(DMCZP) EnteringMethod: CRoutine::Stop";
 
 }  // namespace croutine

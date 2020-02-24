@@ -1,4 +1,3 @@
-#include "cyber/common/log.h"
 /******************************************************************************
  * Copyright 2018 The Apollo Authors. All Rights Reserved.
  *
@@ -30,7 +29,6 @@ namespace cyber {
 namespace transport {
 
 TEST(IntraDispatcherTest, on_message) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
 AINFO<<"(DMCZP) EnteringMethod: TEST";
   auto dispatcher = IntraDispatcher::Instance();
 

@@ -1,4 +1,3 @@
-#include "cyber/common/log.h"
 /******************************************************************************
  * Copyright 2018 The Apollo Authors. All Rights Reserved.
  *
@@ -26,7 +25,6 @@ namespace camera {
 
 void print_m256(__m256i a) {
 AINFO<<"(DMCZP) EnteringMethod: print_m256";
-AINFO<<"(DMCZP) EnteringMethod: print_m256";
   unsigned char snoop[32];
   bool dst_align = Aligned(reinterpret_cast<void*>(snoop));
   if (dst_align)
@@ -38,7 +36,6 @@ AINFO<<"(DMCZP) EnteringMethod: print_m256";
   }
 }
 void print_m256_i32(const __m256i a) {
-AINFO<<"(DMCZP) EnteringMethod: print_m256_i32";
 AINFO<<"(DMCZP) EnteringMethod: print_m256_i32";
   unsigned int snoop[8];
   bool dst_align = Aligned(reinterpret_cast<void*>(snoop));
@@ -52,7 +49,6 @@ AINFO<<"(DMCZP) EnteringMethod: print_m256_i32";
 }
 
 void print_m256_i16(const __m256i a) {
-AINFO<<"(DMCZP) EnteringMethod: print_m256_i16";
 AINFO<<"(DMCZP) EnteringMethod: print_m256_i16";
   uint16_t snoop[16];
   bool dst_align = Aligned(reinterpret_cast<void*>(snoop));
@@ -68,7 +64,6 @@ AINFO<<"(DMCZP) EnteringMethod: print_m256_i16";
 template <bool align>
 SIMD_INLINE void yuv_separate_avx2(uint8_t* y, __m256i* y0, __m256i* y1,
                                    __m256i* u0, __m256i* v0) {
-AINFO<<"(DMCZP) EnteringMethod: yuv_separate_avx2";
 AINFO<<"(DMCZP) EnteringMethod: yuv_separate_avx2";
   __m256i yuv_m256[4];
 
@@ -114,7 +109,6 @@ AINFO<<"(DMCZP) EnteringMethod: yuv_separate_avx2";
 template <bool align>
 void yuv2rgb_avx2(__m256i y0, __m256i u0, __m256i v0, uint8_t* rgb) {
 AINFO<<"(DMCZP) EnteringMethod: yuv2rgb_avx2";
-AINFO<<"(DMCZP) EnteringMethod: yuv2rgb_avx2";
   __m256i r0 = YuvToRed(y0, v0);
   __m256i g0 = YuvToGreen(y0, u0, v0);
   __m256i b0 = YuvToBlue(y0, u0);
@@ -130,7 +124,6 @@ AINFO<<"(DMCZP) EnteringMethod: yuv2rgb_avx2";
 template <bool align>
 void yuv2rgb_avx2(uint8_t* yuv, uint8_t* rgb) {
 AINFO<<"(DMCZP) EnteringMethod: yuv2rgb_avx2";
-AINFO<<"(DMCZP) EnteringMethod: yuv2rgb_avx2";
   __m256i y0, y1, u0, v0;
 
   yuv_separate_avx2<align>(yuv, &y0, &y1, &u0, &v0);
@@ -144,7 +137,6 @@ AINFO<<"(DMCZP) EnteringMethod: yuv2rgb_avx2";
 }
 
 void yuyv2rgb_avx(unsigned char* YUV, unsigned char* RGB, int NumPixels) {
-AINFO<<"(DMCZP) EnteringMethod: yuyv2rgb_avx";
 AINFO<<"(DMCZP) EnteringMethod: yuyv2rgb_avx";
   assert(NumPixels == (1920 * 1080));
   bool align = Aligned(YUV) & Aligned(RGB);

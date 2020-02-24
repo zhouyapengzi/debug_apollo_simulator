@@ -1,4 +1,3 @@
-#include "cyber/common/log.h"
 /******************************************************************************
  * Copyright 2018 The Apollo Authors. All Rights Reserved.
  *
@@ -58,11 +57,6 @@ AINFO<<"(DMCZP) EnteringMethod: DisplayUsage";
 AINFO<<"(DMCZP) EnteringMethod: DisplayUsage";
 AINFO<<"(DMCZP) EnteringMethod: DisplayUsage";
 AINFO<<"(DMCZP) EnteringMethod: DisplayUsage";
-AINFO<<"(DMCZP) EnteringMethod: DisplayUsage";
-AINFO<<"(DMCZP) EnteringMethod: DisplayUsage";
-AINFO<<"(DMCZP) EnteringMethod: DisplayUsage";
-AINFO<<"(DMCZP) EnteringMethod: DisplayUsage";
-AINFO<<"(DMCZP) EnteringMethod: DisplayUsage";
   std::cout << "usage: " << binary << " <command> [<args>]\n"
 AINFO<<"(DMCZP) EnteringMethod: DisplayUsage";
             << "The " << binary << " commands are:\n"
@@ -75,7 +69,6 @@ AINFO<<"(DMCZP) EnteringMethod: DisplayUsage";
 }
 
 void DisplayUsage(const std::string& binary, const std::string& command) {
-AINFO<<"(DMCZP) EnteringMethod: DisplayUsage";
 AINFO<<"(DMCZP) EnteringMethod: DisplayUsage";
   if (command == "info") {
     std::cout << "usage: cyber_recorder info file" << std::endl;
@@ -171,7 +164,6 @@ void DisplayUsage(const std::string& binary, const std::string& command,
 }
 
 int main(int argc, char** argv) {
-AINFO<<"(DMCZP) EnteringMethod: main";
 AINFO<<"(DMCZP) EnteringMethod: main";
   std::string binary = GetFileName(std::string(argv[0]));
   if (argc < 2) {

@@ -1,4 +1,3 @@
-#include "cyber/common/log.h"
 /******************************************************************************
  * Copyright 2017 The Apollo Authors. All Rights Reserved.
  *
@@ -47,7 +46,6 @@ ContiRadarMessageManager::ContiRadarMessageManager(
     const std::shared_ptr<Writer<ContiRadar>> &writer)
     : conti_radar_writer_(writer) {
 AINFO<<"(DMCZP) EnteringMethod: ContiRadarMessageManager::ContiRadarMessageManager";
-AINFO<<"(DMCZP) EnteringMethod: ContiRadarMessageManager::ContiRadarMessageManager";
   AddRecvProtocolData<RadarState201, true>();
   AddRecvProtocolData<ClusterListStatus600, true>();
   AddRecvProtocolData<ClusterGeneralInfo701, true>();
@@ -60,13 +58,11 @@ AINFO<<"(DMCZP) EnteringMethod: ContiRadarMessageManager::ContiRadarMessageManag
 
 void ContiRadarMessageManager::set_radar_conf(RadarConf radar_conf) {
 AINFO<<"(DMCZP) EnteringMethod: ContiRadarMessageManager::set_radar_conf";
-AINFO<<"(DMCZP) EnteringMethod: ContiRadarMessageManager::set_radar_conf";
   radar_config_.set_radar_conf(radar_conf);
 }
 
 void ContiRadarMessageManager::set_can_client(
     std::shared_ptr<CanClient> can_client) {
-AINFO<<"(DMCZP) EnteringMethod: ContiRadarMessageManager::set_can_client";
 AINFO<<"(DMCZP) EnteringMethod: ContiRadarMessageManager::set_can_client";
   can_client_ = can_client;
 }
@@ -85,7 +81,6 @@ ProtocolData<ContiRadar> *ContiRadarMessageManager::GetMutableProtocolDataById(
 
 void ContiRadarMessageManager::Parse(const uint32_t message_id,
                                      const uint8_t *data, int32_t length) {
-AINFO<<"(DMCZP) EnteringMethod: ContiRadarMessageManager::Parse";
 AINFO<<"(DMCZP) EnteringMethod: ContiRadarMessageManager::Parse";
   ProtocolData<ContiRadar> *sensor_protocol_data =
       GetMutableProtocolDataById(message_id);

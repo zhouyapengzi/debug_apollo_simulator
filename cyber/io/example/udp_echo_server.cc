@@ -1,4 +1,3 @@
-#include "cyber/common/log.h"
 /******************************************************************************
  * Copyright 2018 The Apollo Authors. All Rights Reserved.
  *
@@ -35,7 +34,6 @@ using apollo::cyber::io::Session;
 
 void Echo(const std::shared_ptr<Session>& session) {
 AINFO<<"(DMCZP) EnteringMethod: Echo";
-AINFO<<"(DMCZP) EnteringMethod: Echo";
   struct sockaddr_in client_addr;
   std::vector<char> recv_buffer(2049);
   int nbytes = 0;
@@ -55,7 +53,6 @@ AINFO<<"(DMCZP) EnteringMethod: Echo";
 }
 
 int main(int argc, char* argv[]) {
-AINFO<<"(DMCZP) EnteringMethod: main";
 AINFO<<"(DMCZP) EnteringMethod: main";
   if (argc != 2) {
     std::cout << "Usage: " << argv[0] << " <server port>" << std::endl;

@@ -1,4 +1,3 @@
-#include "cyber/common/log.h"
 /******************************************************************************
  * Copyright 2018 The Apollo Authors. All Rights Reserved.
  *
@@ -31,7 +30,6 @@ namespace transport {
 
 TEST(IdentityTest, identity_test) {
 AINFO<<"(DMCZP) EnteringMethod: TEST";
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   Identity id1;
   Identity id2;
   Identity id3;
@@ -52,7 +50,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST";
 }
 
 TEST(EndpointTest, endpoint_test) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
 AINFO<<"(DMCZP) EnteringMethod: TEST";
   // empty attr
   RoleAttributes attr;

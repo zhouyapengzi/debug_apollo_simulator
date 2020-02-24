@@ -33,13 +33,11 @@ using apollo::cyber::common::GlobalData;
 
 Processor::Processor() { running_.exchange(true); }
 AINFO<<"(DMCZP) EnteringMethod: Processor::Processor";
-AINFO<<"(DMCZP) EnteringMethod: Processor::Processor";
 
 Processor::~Processor() { Stop(); }
 
 void Processor::SetSchedAffinity(const std::vector<int> &cpus,
                                  const std::string &affinity, int p) {
-AINFO<<"(DMCZP) EnteringMethod: Processor::SetSchedAffinity";
 AINFO<<"(DMCZP) EnteringMethod: Processor::SetSchedAffinity";
   cpu_set_t set;
   CPU_ZERO(&set);
@@ -58,7 +56,6 @@ AINFO<<"(DMCZP) EnteringMethod: Processor::SetSchedAffinity";
 }
 
 void Processor::SetSchedPolicy(std::string spolicy, int sched_priority) {
-AINFO<<"(DMCZP) EnteringMethod: Processor::SetSchedPolicy";
 AINFO<<"(DMCZP) EnteringMethod: Processor::SetSchedPolicy";
   struct sched_param sp;
   int policy;
@@ -83,7 +80,6 @@ AINFO<<"(DMCZP) EnteringMethod: Processor::SetSchedPolicy";
 
 void Processor::Run() {
 AINFO<<"(DMCZP) EnteringMethod: Processor::Run";
-AINFO<<"(DMCZP) EnteringMethod: Processor::Run";
   tid_.store(static_cast<int>(syscall(SYS_gettid)));
   AINFO << "processor_tid: " << tid_;
 
@@ -105,7 +101,6 @@ AINFO<<"(DMCZP) EnteringMethod: Processor::Run";
 
 void Processor::Stop() {
 AINFO<<"(DMCZP) EnteringMethod: Processor::Stop";
-AINFO<<"(DMCZP) EnteringMethod: Processor::Stop";
   if (!running_.exchange(false)) {
     return;
   }
@@ -121,7 +116,6 @@ AINFO<<"(DMCZP) EnteringMethod: Processor::Stop";
 }
 
 void Processor::BindContext(const std::shared_ptr<ProcessorContext> &context) {
-AINFO<<"(DMCZP) EnteringMethod: Processor::BindContext";
 AINFO<<"(DMCZP) EnteringMethod: Processor::BindContext";
   context_ = context;
   std::call_once(thread_flag_,

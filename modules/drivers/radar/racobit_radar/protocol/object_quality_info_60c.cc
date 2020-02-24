@@ -1,4 +1,3 @@
-#include "cyber/common/log.h"
 /******************************************************************************
  * Copyright 2018 The Apollo Authors. All Rights Reserved.
  *
@@ -31,12 +30,10 @@ using apollo::drivers::canbus::Byte;
 
 ObjectQualityInfo60C::ObjectQualityInfo60C() {}
 AINFO<<"(DMCZP) EnteringMethod: ObjectQualityInfo60C::ObjectQualityInfo60C";
-AINFO<<"(DMCZP) EnteringMethod: ObjectQualityInfo60C::ObjectQualityInfo60C";
 const uint32_t ObjectQualityInfo60C::ID = 0x60C;
 
 void ObjectQualityInfo60C::Parse(const std::uint8_t* bytes, int32_t length,
                                  RacobitRadar* racobit_radar) const {
-AINFO<<"(DMCZP) EnteringMethod: ObjectQualityInfo60C::Parse";
 AINFO<<"(DMCZP) EnteringMethod: ObjectQualityInfo60C::Parse";
   int obj_id = object_id(bytes, length);
 
@@ -63,19 +60,16 @@ AINFO<<"(DMCZP) EnteringMethod: ObjectQualityInfo60C::Parse";
 int ObjectQualityInfo60C::object_id(const std::uint8_t* bytes,
                                     int32_t length) const {
 AINFO<<"(DMCZP) EnteringMethod: ObjectQualityInfo60C::object_id";
-AINFO<<"(DMCZP) EnteringMethod: ObjectQualityInfo60C::object_id";
   Byte t0(bytes);
   int32_t x = t0.get_byte(0, 8);
 
   int ret = x;
   return ret;
 }
-AINFO<<"(DMCZP) EnteringMethod: ObjectQualityInfo60C::probexist";
 
 AINFO<<"(DMCZP) EnteringMethod: ObjectQualityInfo60C::probexist";
 int ObjectQualityInfo60C::longitude_dist_rms(const std::uint8_t* bytes,
                                              int32_t length) const {
-AINFO<<"(DMCZP) EnteringMethod: ObjectQualityInfo60C::longitude_dist_rms";
 AINFO<<"(DMCZP) EnteringMethod: ObjectQualityInfo60C::longitude_dist_rms";
   Byte t0(bytes + 1);
   int32_t x = t0.get_byte(3, 5);
@@ -86,7 +80,6 @@ AINFO<<"(DMCZP) EnteringMethod: ObjectQualityInfo60C::longitude_dist_rms";
 
 int ObjectQualityInfo60C::lateral_dist_rms(const std::uint8_t* bytes,
                                            int32_t length) const {
-AINFO<<"(DMCZP) EnteringMethod: ObjectQualityInfo60C::lateral_dist_rms";
 AINFO<<"(DMCZP) EnteringMethod: ObjectQualityInfo60C::lateral_dist_rms";
   Byte t0(bytes + 1);
   int32_t x = t0.get_byte(0, 3);
@@ -104,9 +97,7 @@ AINFO<<"(DMCZP) EnteringMethod: ObjectQualityInfo60C::lateral_dist_rms";
 int ObjectQualityInfo60C::longitude_vel_rms(const std::uint8_t* bytes,
                                             int32_t length) const {
 AINFO<<"(DMCZP) EnteringMethod: ObjectQualityInfo60C::longitude_vel_rms";
-AINFO<<"(DMCZP) EnteringMethod: ObjectQualityInfo60C::longitude_vel_rms";
   Byte t0(bytes + 2);
-AINFO<<"(DMCZP) EnteringMethod: ObjectQualityInfo60C::lateral_accel_rms";
   int32_t x = t0.get_byte(1, 5);
 AINFO<<"(DMCZP) EnteringMethod: ObjectQualityInfo60C::lateral_accel_rms";
 
@@ -116,7 +107,6 @@ AINFO<<"(DMCZP) EnteringMethod: ObjectQualityInfo60C::lateral_accel_rms";
 
 int ObjectQualityInfo60C::lateral_vel_rms(const std::uint8_t* bytes,
                                           int32_t length) const {
-AINFO<<"(DMCZP) EnteringMethod: ObjectQualityInfo60C::lateral_vel_rms";
 AINFO<<"(DMCZP) EnteringMethod: ObjectQualityInfo60C::lateral_vel_rms";
   Byte t0(bytes + 2);
   int32_t x = t0.get_byte(0, 1);
@@ -133,8 +123,6 @@ AINFO<<"(DMCZP) EnteringMethod: ObjectQualityInfo60C::lateral_vel_rms";
 
 int ObjectQualityInfo60C::longitude_accel_rms(const std::uint8_t* bytes,
                                               int32_t length) const {
-AINFO<<"(DMCZP) EnteringMethod: ObjectQualityInfo60C::longitude_accel_rms";
-AINFO<<"(DMCZP) EnteringMethod: ObjectQualityInfo60C::oritation_angle_rms";
 AINFO<<"(DMCZP) EnteringMethod: ObjectQualityInfo60C::longitude_accel_rms";
 AINFO<<"(DMCZP) EnteringMethod: ObjectQualityInfo60C::oritation_angle_rms";
   Byte t0(bytes + 3);
@@ -185,7 +173,6 @@ int ObjectQualityInfo60C::probexist(const std::uint8_t* bytes,
 
 int ObjectQualityInfo60C::meas_state(const std::uint8_t* bytes,
                                      int32_t length) const {
-AINFO<<"(DMCZP) EnteringMethod: ObjectQualityInfo60C::meas_state";
 AINFO<<"(DMCZP) EnteringMethod: ObjectQualityInfo60C::meas_state";
   Byte t0(bytes + 6);
   int32_t x = t0.get_byte(2, 3);

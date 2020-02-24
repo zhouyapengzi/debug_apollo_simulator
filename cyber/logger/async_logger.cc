@@ -1,4 +1,3 @@
-#include "cyber/common/log.h"
 /******************************************************************************
  * Copyright 2018 The Apollo Authors. All Rights Reserved.
  *
@@ -38,7 +37,6 @@ AsyncLogger::AsyncLogger(google::base::Logger* wrapped, int max_buffer_bytes)
       active_buf_(new Buffer()),
       flushing_buf_(new Buffer()) {
 AINFO<<"(DMCZP) EnteringMethod: AsyncLogger::AsyncLogger";
-AINFO<<"(DMCZP) EnteringMethod: AsyncLogger::AsyncLogger";
   if (max_buffer_bytes_ <= 0) {
     max_buffer_bytes_ = 2 * 1024 * 1024;
   }
@@ -54,7 +52,6 @@ AsyncLogger::~AsyncLogger() {
 
 void AsyncLogger::Start() {
 AINFO<<"(DMCZP) EnteringMethod: AsyncLogger::Start";
-AINFO<<"(DMCZP) EnteringMethod: AsyncLogger::Start";
   CHECK_EQ(state_, INITTED);
   state_ = RUNNING;
   thread_ = std::thread(&AsyncLogger::RunThread, this);
@@ -62,7 +59,6 @@ AINFO<<"(DMCZP) EnteringMethod: AsyncLogger::Start";
 }
 
 void AsyncLogger::Stop() {
-AINFO<<"(DMCZP) EnteringMethod: AsyncLogger::Stop";
 AINFO<<"(DMCZP) EnteringMethod: AsyncLogger::Stop";
   {
     std::unique_lock<std::mutex> lock(mutex_);
@@ -78,7 +74,6 @@ AINFO<<"(DMCZP) EnteringMethod: AsyncLogger::Stop";
 
 void AsyncLogger::Write(bool force_flush, time_t timestamp, const char* message,
                         int message_len) {
-AINFO<<"(DMCZP) EnteringMethod: AsyncLogger::Write";
 AINFO<<"(DMCZP) EnteringMethod: AsyncLogger::Write";
   // drop message when active buffer full
   if (unlikely(BufferFull(*active_buf_))) {
@@ -123,7 +118,6 @@ AINFO<<"(DMCZP) EnteringMethod: AsyncLogger::Write";
 
 void AsyncLogger::Flush() {
 AINFO<<"(DMCZP) EnteringMethod: AsyncLogger::Flush";
-AINFO<<"(DMCZP) EnteringMethod: AsyncLogger::Flush";
   std::unique_lock<std::mutex> lock(mutex_);
   if (state_ != RUNNING) {
     // std::cout << "Async Logger not running!" << std::endl;
@@ -142,10 +136,8 @@ AINFO<<"(DMCZP) EnteringMethod: AsyncLogger::Flush";
 
 uint32_t AsyncLogger::LogSize() { return wrapped_->LogSize(); }
 AINFO<<"(DMCZP) EnteringMethod: AsyncLogger::LogSize";
-AINFO<<"(DMCZP) EnteringMethod: AsyncLogger::LogSize";
 
 void AsyncLogger::RunThread() {
-AINFO<<"(DMCZP) EnteringMethod: AsyncLogger::RunThread";
 AINFO<<"(DMCZP) EnteringMethod: AsyncLogger::RunThread";
   std::unique_lock<std::mutex> lock(mutex_);
   while (state_ == RUNNING || active_buf_->needs_flush_or_write()) {
@@ -192,7 +184,6 @@ AINFO<<"(DMCZP) EnteringMethod: AsyncLogger::RunThread";
 }
 
 bool AsyncLogger::BufferFull(const Buffer& buf) const {
-AINFO<<"(DMCZP) EnteringMethod: AsyncLogger::BufferFull";
 AINFO<<"(DMCZP) EnteringMethod: AsyncLogger::BufferFull";
   // We evenly divide our total buffer space into two buffers.
   return buf.size > (max_buffer_bytes_ / 2);

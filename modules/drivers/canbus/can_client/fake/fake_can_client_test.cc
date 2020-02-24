@@ -73,7 +73,6 @@ class FakeCanClientTest : public ::testing::Test {
 
 TEST_F(FakeCanClientTest, SendMessage) {
 AINFO<<"(DMCZP) EnteringMethod: TEST_F";
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   std::vector<CanFrame> frames;
   frames.resize(FRAME_LEN);
   for (int32_t i = 0; i < FRAME_LEN; ++i) {
@@ -93,7 +92,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST_F";
 }
 
 TEST_F(FakeCanClientTest, ReceiveMessage) {
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
 AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   std::vector<CanFrame> buf;
   int32_t frame_num = FRAME_LEN;

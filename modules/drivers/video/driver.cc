@@ -1,4 +1,3 @@
-#include "cyber/common/log.h"
 /******************************************************************************
  * Copyright 2019 The Apollo Authors. All Rights Reserved.
  *
@@ -26,18 +25,15 @@ using apollo::drivers::video::config::CameraH265Config;
 
 CameraDriver::CameraDriver(const CameraH265Config *h265_cfg) {
 AINFO<<"(DMCZP) EnteringMethod: CameraDriver::CameraDriver";
-AINFO<<"(DMCZP) EnteringMethod: CameraDriver::CameraDriver";
   config_ = *h265_cfg;
 }
 
 bool CameraDriver::Poll(std::shared_ptr<CompressedImage> h265) {
 AINFO<<"(DMCZP) EnteringMethod: CameraDriver::Poll";
-AINFO<<"(DMCZP) EnteringMethod: CameraDriver::Poll";
   return PollByFrame(h265);
 }
 
 bool CameraDriver::PollByFrame(std::shared_ptr<CompressedImage> h265Pb) {
-AINFO<<"(DMCZP) EnteringMethod: CameraDriver::PollByFrame";
 AINFO<<"(DMCZP) EnteringMethod: CameraDriver::PollByFrame";
   int ret = input_->GetFramePacket(h265Pb);
   if (ret < 0) {
@@ -56,7 +52,6 @@ AINFO<<"(DMCZP) EnteringMethod: CameraDriver::PollByFrame";
 }
 
 void CameraDriver::Init() {
-AINFO<<"(DMCZP) EnteringMethod: CameraDriver::Init";
 AINFO<<"(DMCZP) EnteringMethod: CameraDriver::Init";
   input_.reset(new SocketInput());
   input_->Init(config_.udp_port());

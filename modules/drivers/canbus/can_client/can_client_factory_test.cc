@@ -1,4 +1,3 @@
-#include "cyber/common/log.h"
 /******************************************************************************
  * Copyright 2017 The Apollo Authors. All Rights Reserved.
  *
@@ -26,7 +25,6 @@ namespace drivers {
 namespace canbus {
 
 TEST(CanClientFactoryTest, CreateCanClient) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
 AINFO<<"(DMCZP) EnteringMethod: TEST";
   auto can_factory = CanClientFactory::Instance();
   EXPECT_NE(can_factory, nullptr);

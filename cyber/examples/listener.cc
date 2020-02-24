@@ -1,4 +1,3 @@
-#include "cyber/common/log.h"
 /******************************************************************************
  * Copyright 2018 The Apollo Authors. All Rights Reserved.
  *
@@ -21,13 +20,11 @@
 void MessageCallback(
     const std::shared_ptr<apollo::cyber::examples::proto::Chatter>& msg) {
 AINFO<<"(DMCZP) EnteringMethod: MessageCallback";
-AINFO<<"(DMCZP) EnteringMethod: MessageCallback";
   AINFO << "Received message seq-> " << msg->seq();
   AINFO << "msgcontent->" << msg->content();
 }
 
 int main(int argc, char* argv[]) {
-AINFO<<"(DMCZP) EnteringMethod: main";
 AINFO<<"(DMCZP) EnteringMethod: main";
   // init cyber framework
   apollo::cyber::Init(argv[0]);

@@ -1,4 +1,3 @@
-#include "cyber/common/log.h"
 /******************************************************************************
  * Copyright 2017 The Apollo Authors. All Rights Reserved.
  *
@@ -28,19 +27,15 @@ using apollo::common::ErrorCode;
 
 bool FakeCanClient::Init(const CANCardParameter &param) { return true; }
 AINFO<<"(DMCZP) EnteringMethod: FakeCanClient::Init";
-AINFO<<"(DMCZP) EnteringMethod: FakeCanClient::Init";
 
 ErrorCode FakeCanClient::Start() { return ErrorCode::OK; }
-AINFO<<"(DMCZP) EnteringMethod: FakeCanClient::Start";
 AINFO<<"(DMCZP) EnteringMethod: FakeCanClient::Start";
 
 void FakeCanClient::Stop() {}
 AINFO<<"(DMCZP) EnteringMethod: FakeCanClient::Stop";
-AINFO<<"(DMCZP) EnteringMethod: FakeCanClient::Stop";
 
 ErrorCode FakeCanClient::Send(const std::vector<CanFrame> &frames,
                               int32_t *const frame_num) {
-AINFO<<"(DMCZP) EnteringMethod: FakeCanClient::Send";
 AINFO<<"(DMCZP) EnteringMethod: FakeCanClient::Send";
   if (frame_num == nullptr) {
     AERROR << "frame_num pointer is null";
@@ -63,7 +58,6 @@ AINFO<<"(DMCZP) EnteringMethod: FakeCanClient::Send";
 ErrorCode FakeCanClient::Receive(std::vector<CanFrame> *const frames,
                                  int32_t *const frame_num) {
 AINFO<<"(DMCZP) EnteringMethod: FakeCanClient::Receive";
-AINFO<<"(DMCZP) EnteringMethod: FakeCanClient::Receive";
   if (frame_num == nullptr || frames == nullptr) {
     AERROR << "frames or frame_num pointer is null";
     return ErrorCode::CAN_CLIENT_ERROR_BASE;
@@ -84,7 +78,6 @@ AINFO<<"(DMCZP) EnteringMethod: FakeCanClient::Receive";
 }
 
 std::string FakeCanClient::GetErrorString(const int32_t /*status*/) {
-AINFO<<"(DMCZP) EnteringMethod: FakeCanClient::GetErrorString";
 AINFO<<"(DMCZP) EnteringMethod: FakeCanClient::GetErrorString";
   return "";
 }

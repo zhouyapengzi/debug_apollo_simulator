@@ -1,4 +1,3 @@
-#include "cyber/common/log.h"
 /******************************************************************************
  * Copyright 2018 The Apollo Authors. All Rights Reserved.
  *
@@ -29,12 +28,10 @@ using common::GlobalData;
 
 ShmDispatcher::ShmDispatcher() : host_id_(0) { Init(); }
 AINFO<<"(DMCZP) EnteringMethod: ShmDispatcher::ShmDispatcher";
-AINFO<<"(DMCZP) EnteringMethod: ShmDispatcher::ShmDispatcher";
 
 ShmDispatcher::~ShmDispatcher() { Shutdown(); }
 
 void ShmDispatcher::Shutdown() {
-AINFO<<"(DMCZP) EnteringMethod: ShmDispatcher::Shutdown";
 AINFO<<"(DMCZP) EnteringMethod: ShmDispatcher::Shutdown";
   if (is_shutdown_.exchange(true)) {
     return;
@@ -52,7 +49,6 @@ AINFO<<"(DMCZP) EnteringMethod: ShmDispatcher::Shutdown";
 
 void ShmDispatcher::AddSegment(const RoleAttributes& self_attr) {
 AINFO<<"(DMCZP) EnteringMethod: ShmDispatcher::AddSegment";
-AINFO<<"(DMCZP) EnteringMethod: ShmDispatcher::AddSegment";
   uint64_t channel_id = self_attr.channel_id();
   WriteLockGuard<AtomicRWLock> lock(segments_lock_);
   if (segments_.count(channel_id) > 0) {
@@ -64,7 +60,6 @@ AINFO<<"(DMCZP) EnteringMethod: ShmDispatcher::AddSegment";
 }
 
 void ShmDispatcher::ReadMessage(uint64_t channel_id, uint32_t block_index) {
-AINFO<<"(DMCZP) EnteringMethod: ShmDispatcher::ReadMessage";
 AINFO<<"(DMCZP) EnteringMethod: ShmDispatcher::ReadMessage";
   ADEBUG << "Reading sharedmem message: "
          << GlobalData::GetChannelById(channel_id)
@@ -95,7 +90,6 @@ void ShmDispatcher::OnMessage(uint64_t channel_id,
                               const std::shared_ptr<ReadableBlock>& rb,
                               const MessageInfo& msg_info) {
 AINFO<<"(DMCZP) EnteringMethod: ShmDispatcher::OnMessage";
-AINFO<<"(DMCZP) EnteringMethod: ShmDispatcher::OnMessage";
   if (is_shutdown_.load()) {
     return;
   }
@@ -111,7 +105,6 @@ AINFO<<"(DMCZP) EnteringMethod: ShmDispatcher::OnMessage";
 }
 
 void ShmDispatcher::ThreadFunc() {
-AINFO<<"(DMCZP) EnteringMethod: ShmDispatcher::ThreadFunc";
 AINFO<<"(DMCZP) EnteringMethod: ShmDispatcher::ThreadFunc";
   ReadableInfo readable_info;
   while (!is_shutdown_.load()) {
@@ -158,7 +151,6 @@ AINFO<<"(DMCZP) EnteringMethod: ShmDispatcher::ThreadFunc";
 }
 
 bool ShmDispatcher::Init() {
-AINFO<<"(DMCZP) EnteringMethod: ShmDispatcher::Init";
 AINFO<<"(DMCZP) EnteringMethod: ShmDispatcher::Init";
   host_id_ = common::Hash(GlobalData::Instance()->HostIp());
   notifier_ = NotifierFactory::CreateNotifier();

@@ -1,4 +1,3 @@
-#include "cyber/common/log.h"
 /******************************************************************************
  * Copyright 2018 The Apollo Authors. All Rights Reserved.
  *
@@ -42,7 +41,6 @@ class NodeManagerTest : public ::testing::Test {
 
 TEST_F(NodeManagerTest, node_change) {
 AINFO<<"(DMCZP) EnteringMethod: TEST_F";
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   EXPECT_FALSE(node_manager_->HasNode("node"));
 
   // node join
@@ -70,7 +68,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST_F";
 
 TEST_F(NodeManagerTest, topo_module_leave) {
 AINFO<<"(DMCZP) EnteringMethod: TEST_F";
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   RoleAttributes role_attr;
   role_attr.set_host_name(common::GlobalData::Instance()->HostName());
   role_attr.set_process_id(common::GlobalData::Instance()->ProcessId());
@@ -83,7 +80,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST_F";
 }
 
 TEST_F(NodeManagerTest, add_and_remove_change_listener) {
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
 AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   bool recv_flag = false;
   auto conn = node_manager_->AddChangeListener(
@@ -108,7 +104,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST_F";
 
 TEST_F(NodeManagerTest, has_node) {
 AINFO<<"(DMCZP) EnteringMethod: TEST_F";
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   RoleAttributes role_attr;
   role_attr.set_host_name("caros");
   role_attr.set_process_id(1024);
@@ -123,7 +118,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST_F";
 }
 
 TEST_F(NodeManagerTest, get_nodes) {
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
 AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   RoleAttributes role_attr;
   role_attr.set_host_name("caros");

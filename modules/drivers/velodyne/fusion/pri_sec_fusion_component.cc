@@ -1,4 +1,3 @@
-#include "cyber/common/log.h"
 /******************************************************************************
  * Copyright 2017 The Apollo Authors. All Rights Reserved.
  *
@@ -27,7 +26,6 @@ using apollo::cyber::Time;
 
 bool PriSecFusionComponent::Init() {
 AINFO<<"(DMCZP) EnteringMethod: PriSecFusionComponent::Init";
-AINFO<<"(DMCZP) EnteringMethod: PriSecFusionComponent::Init";
   if (!GetProtoConfig(&conf_)) {
     AWARN << "Load config failed, config file" << ConfigFilePath();
     return false;
@@ -45,7 +43,6 @@ AINFO<<"(DMCZP) EnteringMethod: PriSecFusionComponent::Init";
 
 bool PriSecFusionComponent::Proc(
     const std::shared_ptr<PointCloud>& point_cloud) {
-AINFO<<"(DMCZP) EnteringMethod: PriSecFusionComponent::Proc";
 AINFO<<"(DMCZP) EnteringMethod: PriSecFusionComponent::Proc";
   auto target = point_cloud;
   auto fusion_readers = readers_;
@@ -77,7 +74,6 @@ bool PriSecFusionComponent::IsExpired(
     const std::shared_ptr<PointCloud>& target,
     const std::shared_ptr<PointCloud>& source) {
 AINFO<<"(DMCZP) EnteringMethod: PriSecFusionComponent::IsExpired";
-AINFO<<"(DMCZP) EnteringMethod: PriSecFusionComponent::IsExpired";
   auto diff = target->measurement_time() - source->measurement_time();
   return diff * 1000 > conf_.max_interval_ms();
 }
@@ -85,7 +81,6 @@ AINFO<<"(DMCZP) EnteringMethod: PriSecFusionComponent::IsExpired";
 bool PriSecFusionComponent::QueryPoseAffine(const std::string& target_frame_id,
                                             const std::string& source_frame_id,
                                             Eigen::Affine3d* pose) {
-AINFO<<"(DMCZP) EnteringMethod: PriSecFusionComponent::QueryPoseAffine";
 AINFO<<"(DMCZP) EnteringMethod: PriSecFusionComponent::QueryPoseAffine";
   std::string err_string;
   if (!buffer_ptr_->canTransform(target_frame_id, source_frame_id,
@@ -117,7 +112,6 @@ AINFO<<"(DMCZP) EnteringMethod: PriSecFusionComponent::QueryPoseAffine";
 void PriSecFusionComponent::AppendPointCloud(
     std::shared_ptr<PointCloud> point_cloud,
     std::shared_ptr<PointCloud> point_cloud_add, const Eigen::Affine3d& pose) {
-AINFO<<"(DMCZP) EnteringMethod: PriSecFusionComponent::AppendPointCloud";
 AINFO<<"(DMCZP) EnteringMethod: PriSecFusionComponent::AppendPointCloud";
   if (std::isnan(pose(0, 0))) {
     for (auto& point : point_cloud_add->point()) {
@@ -161,7 +155,6 @@ AINFO<<"(DMCZP) EnteringMethod: PriSecFusionComponent::AppendPointCloud";
 
 bool PriSecFusionComponent::Fusion(std::shared_ptr<PointCloud> target,
                                    std::shared_ptr<PointCloud> source) {
-AINFO<<"(DMCZP) EnteringMethod: PriSecFusionComponent::Fusion";
 AINFO<<"(DMCZP) EnteringMethod: PriSecFusionComponent::Fusion";
   Eigen::Affine3d pose;
   if (QueryPoseAffine(target->header().frame_id(), source->header().frame_id(),

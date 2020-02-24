@@ -1,4 +1,3 @@
-#include "cyber/common/log.h"
 /******************************************************************************
  * Copyright 2018 The Apollo Authors. All Rights Reserved.
  *
@@ -41,20 +40,13 @@ AINFO<<"(DMCZP) EnteringMethod: alignas";
 AINFO<<"(DMCZP) EnteringMethod: alignas";
 AINFO<<"(DMCZP) EnteringMethod: alignas";
 AINFO<<"(DMCZP) EnteringMethod: ClassicContext::ClassicContext";
-AINFO<<"(DMCZP) EnteringMethod: alignas";
-AINFO<<"(DMCZP) EnteringMethod: alignas";
-AINFO<<"(DMCZP) EnteringMethod: alignas";
-AINFO<<"(DMCZP) EnteringMethod: alignas";
-AINFO<<"(DMCZP) EnteringMethod: ClassicContext::ClassicContext";
 
 ClassicContext::ClassicContext(const std::string& group_name) {
-AINFO<<"(DMCZP) EnteringMethod: ClassicContext::ClassicContext";
 AINFO<<"(DMCZP) EnteringMethod: ClassicContext::ClassicContext";
   InitGroup(group_name);
 }
 
 void ClassicContext::InitGroup(const std::string& group_name) {
-AINFO<<"(DMCZP) EnteringMethod: ClassicContext::InitGroup";
 AINFO<<"(DMCZP) EnteringMethod: ClassicContext::InitGroup";
   multi_pri_rq_ = &cr_group_[group_name];
   lq_ = &rq_locks_[group_name];
@@ -96,7 +88,6 @@ std::shared_ptr<CRoutine> ClassicContext::NextRoutine() {
 
 void ClassicContext::Wait() {
 AINFO<<"(DMCZP) EnteringMethod: ClassicContext::Wait";
-AINFO<<"(DMCZP) EnteringMethod: ClassicContext::Wait";
   std::unique_lock<std::mutex> lk(mtx_wrapper_->Mutex());
   if (stop_) {
     return;
@@ -113,7 +104,6 @@ AINFO<<"(DMCZP) EnteringMethod: ClassicContext::Wait";
 
 void ClassicContext::Shutdown() {
 AINFO<<"(DMCZP) EnteringMethod: ClassicContext::Shutdown";
-AINFO<<"(DMCZP) EnteringMethod: ClassicContext::Shutdown";
   {
     std::lock_guard<std::mutex> lg(mtx_wrapper_->Mutex());
     if (!stop_) {
@@ -124,7 +114,6 @@ AINFO<<"(DMCZP) EnteringMethod: ClassicContext::Shutdown";
 }
 
 void ClassicContext::Notify(const std::string& group_name) {
-AINFO<<"(DMCZP) EnteringMethod: ClassicContext::Notify";
 AINFO<<"(DMCZP) EnteringMethod: ClassicContext::Notify";
   cv_wq_[group_name].Cv().notify_one();
 }

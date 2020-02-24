@@ -1,4 +1,3 @@
-#include "cyber/common/log.h"
 /******************************************************************************
  * Copyright 2018 The Apollo Authors. All Rights Reserved.
  *
@@ -20,7 +19,6 @@
 const QVector3D AbstractCamera::UP{0.0f, 1.0f, 0.0f};
 
 QMatrix4x4 AbstractCamera::YawPitchRoll(float yaw, float pitch, float roll) {
-AINFO<<"(DMCZP) EnteringMethod: AbstractCamera::YawPitchRoll";
 AINFO<<"(DMCZP) EnteringMethod: AbstractCamera::YawPitchRoll";
   yaw = Radians(yaw);
   pitch = Radians(pitch);
@@ -67,5 +65,4 @@ AbstractCamera::AbstractCamera()
       right_(1.0f, 0.0f, 0.0f),
       projection_mat_(),
       model_view_mat_() {}
-AINFO<<"(DMCZP) EnteringMethod: AbstractCamera::AbstractCamera";
 AINFO<<"(DMCZP) EnteringMethod: AbstractCamera::AbstractCamera";

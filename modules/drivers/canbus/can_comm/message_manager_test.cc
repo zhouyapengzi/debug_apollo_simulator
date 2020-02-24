@@ -1,4 +1,3 @@
-#include "cyber/common/log.h"
 /******************************************************************************
  * Copyright 2017 The Apollo Authors. All Rights Reserved.
  *
@@ -47,7 +46,6 @@ class MockMessageManager
 };
 
 TEST(MessageManagerTest, GetMutableProtocolDataById) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
 AINFO<<"(DMCZP) EnteringMethod: TEST";
   uint8_t mock_data = 1;
   MockMessageManager manager;

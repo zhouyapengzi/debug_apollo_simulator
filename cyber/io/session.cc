@@ -23,16 +23,13 @@ namespace io {
 
 Session::Session() : Session(-1) {}
 AINFO<<"(DMCZP) EnteringMethod: Session::Session";
-AINFO<<"(DMCZP) EnteringMethod: Session::Session";
 
 Session::Session(int fd) : fd_(fd), poll_handler_(nullptr) {
-AINFO<<"(DMCZP) EnteringMethod: Session::Session";
 AINFO<<"(DMCZP) EnteringMethod: Session::Session";
   poll_handler_.reset(new PollHandler(fd_));
 }
 
 int Session::Socket(int domain, int type, int protocol) {
-AINFO<<"(DMCZP) EnteringMethod: Session::Socket";
 AINFO<<"(DMCZP) EnteringMethod: Session::Socket";
   if (fd_ != -1) {
     AINFO << "session has hold a valid fd[" << fd_ << "]";
@@ -47,13 +44,11 @@ AINFO<<"(DMCZP) EnteringMethod: Session::Socket";
 
 int Session::Listen(int backlog) {
 AINFO<<"(DMCZP) EnteringMethod: Session::Listen";
-AINFO<<"(DMCZP) EnteringMethod: Session::Listen";
   ACHECK(fd_ != -1);
   return listen(fd_, backlog);
 }
 
 int Session::Bind(const struct sockaddr *addr, socklen_t addrlen) {
-AINFO<<"(DMCZP) EnteringMethod: Session::Bind";
 AINFO<<"(DMCZP) EnteringMethod: Session::Bind";
   ACHECK(fd_ != -1);
   ACHECK(addr != nullptr);
@@ -61,7 +56,6 @@ AINFO<<"(DMCZP) EnteringMethod: Session::Bind";
 }
 
 auto Session::Accept(struct sockaddr *addr, socklen_t *addrlen) -> SessionPtr {
-AINFO<<"(DMCZP) EnteringMethod: Session::Accept";
 AINFO<<"(DMCZP) EnteringMethod: Session::Accept";
   ACHECK(fd_ != -1);
 
@@ -79,7 +73,6 @@ AINFO<<"(DMCZP) EnteringMethod: Session::Accept";
 }
 
 int Session::Connect(const struct sockaddr *addr, socklen_t addrlen) {
-AINFO<<"(DMCZP) EnteringMethod: Session::Connect";
 AINFO<<"(DMCZP) EnteringMethod: Session::Connect";
   ACHECK(fd_ != -1);
 
@@ -101,7 +94,6 @@ AINFO<<"(DMCZP) EnteringMethod: Session::Connect";
 
 int Session::Close() {
 AINFO<<"(DMCZP) EnteringMethod: Session::Close";
-AINFO<<"(DMCZP) EnteringMethod: Session::Close";
   ACHECK(fd_ != -1);
 
   poll_handler_->Unblock();
@@ -111,7 +103,6 @@ AINFO<<"(DMCZP) EnteringMethod: Session::Close";
 }
 
 ssize_t Session::Recv(void *buf, size_t len, int flags, int timeout_ms) {
-AINFO<<"(DMCZP) EnteringMethod: Session::Recv";
 AINFO<<"(DMCZP) EnteringMethod: Session::Recv";
   ACHECK(buf != nullptr);
   ACHECK(fd_ != -1);
@@ -136,7 +127,6 @@ ssize_t Session::RecvFrom(void *buf, size_t len, int flags,
                           struct sockaddr *src_addr, socklen_t *addrlen,
                           int timeout_ms) {
 AINFO<<"(DMCZP) EnteringMethod: Session::RecvFrom";
-AINFO<<"(DMCZP) EnteringMethod: Session::RecvFrom";
   ACHECK(buf != nullptr);
   ACHECK(fd_ != -1);
 
@@ -157,7 +147,6 @@ AINFO<<"(DMCZP) EnteringMethod: Session::RecvFrom";
 }
 
 ssize_t Session::Send(const void *buf, size_t len, int flags, int timeout_ms) {
-AINFO<<"(DMCZP) EnteringMethod: Session::Send";
 AINFO<<"(DMCZP) EnteringMethod: Session::Send";
   ACHECK(buf != nullptr);
   ACHECK(fd_ != -1);
@@ -182,7 +171,6 @@ ssize_t Session::SendTo(const void *buf, size_t len, int flags,
                         const struct sockaddr *dest_addr, socklen_t addrlen,
                         int timeout_ms) {
 AINFO<<"(DMCZP) EnteringMethod: Session::SendTo";
-AINFO<<"(DMCZP) EnteringMethod: Session::SendTo";
   ACHECK(buf != nullptr);
   ACHECK(dest_addr != nullptr);
   ACHECK(fd_ != -1);
@@ -205,7 +193,6 @@ AINFO<<"(DMCZP) EnteringMethod: Session::SendTo";
 
 ssize_t Session::Read(void *buf, size_t count, int timeout_ms) {
 AINFO<<"(DMCZP) EnteringMethod: Session::Read";
-AINFO<<"(DMCZP) EnteringMethod: Session::Read";
   ACHECK(buf != nullptr);
   ACHECK(fd_ != -1);
 
@@ -226,7 +213,6 @@ AINFO<<"(DMCZP) EnteringMethod: Session::Read";
 }
 
 ssize_t Session::Write(const void *buf, size_t count, int timeout_ms) {
-AINFO<<"(DMCZP) EnteringMethod: Session::Write";
 AINFO<<"(DMCZP) EnteringMethod: Session::Write";
   ACHECK(buf != nullptr);
   ACHECK(fd_ != -1);

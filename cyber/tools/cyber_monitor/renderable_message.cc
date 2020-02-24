@@ -1,4 +1,3 @@
-#include "cyber/common/log.h"
 /******************************************************************************
  * Copyright 2018 The Apollo Authors. All Rights Reserved.
  *
@@ -21,7 +20,6 @@
 #include <ncurses.h>
 
 void RenderableMessage::SplitPages(int key) {
-AINFO<<"(DMCZP) EnteringMethod: RenderableMessage::SplitPages";
 AINFO<<"(DMCZP) EnteringMethod: RenderableMessage::SplitPages";
   switch (key) {
     case CTRL('d'):

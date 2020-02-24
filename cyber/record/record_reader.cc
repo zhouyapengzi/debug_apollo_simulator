@@ -1,4 +1,3 @@
-#include "cyber/common/log.h"
 /******************************************************************************
  * Copyright 2018 The Apollo Authors. All Rights Reserved.
  *
@@ -29,7 +28,6 @@ RecordReader::~RecordReader() {}
 
 RecordReader::RecordReader(const std::string& file) {
 AINFO<<"(DMCZP) EnteringMethod: RecordReader::RecordReader";
-AINFO<<"(DMCZP) EnteringMethod: RecordReader::RecordReader";
   file_reader_.reset(new RecordFileReader());
   if (!file_reader_->Open(file)) {
     AERROR << "Failed to open record file: " << file;
@@ -59,7 +57,6 @@ AINFO<<"(DMCZP) EnteringMethod: RecordReader::RecordReader";
 
 void RecordReader::Reset() {
 AINFO<<"(DMCZP) EnteringMethod: RecordReader::Reset";
-AINFO<<"(DMCZP) EnteringMethod: RecordReader::Reset";
   file_reader_->Reset();
   reach_end_ = false;
   message_index_ = 0;
@@ -76,7 +73,6 @@ std::set<std::string> RecordReader::GetChannelList() const {
 
 bool RecordReader::ReadMessage(RecordMessage* message, uint64_t begin_time,
                                uint64_t end_time) {
-AINFO<<"(DMCZP) EnteringMethod: RecordReader::ReadMessage";
 AINFO<<"(DMCZP) EnteringMethod: RecordReader::ReadMessage";
   if (!is_valid_) {
     return false;
@@ -114,7 +110,6 @@ AINFO<<"(DMCZP) EnteringMethod: RecordReader::ReadMessage";
 }
 
 bool RecordReader::ReadNextChunk(uint64_t begin_time, uint64_t end_time) {
-AINFO<<"(DMCZP) EnteringMethod: RecordReader::ReadNextChunk";
 AINFO<<"(DMCZP) EnteringMethod: RecordReader::ReadNextChunk";
   bool skip_next_chunk_body = false;
   while (!reach_end_) {
@@ -179,7 +174,6 @@ AINFO<<"(DMCZP) EnteringMethod: RecordReader::ReadNextChunk";
 
 uint64_t RecordReader::GetMessageNumber(const std::string& channel_name) const {
 AINFO<<"(DMCZP) EnteringMethod: RecordReader::GetMessageNumber";
-AINFO<<"(DMCZP) EnteringMethod: RecordReader::GetMessageNumber";
   auto search = channel_info_.find(channel_name);
   if (search == channel_info_.end()) {
     return 0;
@@ -189,8 +183,6 @@ AINFO<<"(DMCZP) EnteringMethod: RecordReader::GetMessageNumber";
 
 const std::string& RecordReader::GetMessageType(
     const std::string& channel_name) const {
-AINFO<<"(DMCZP) EnteringMethod: RecordReader::GetMessageType";
-AINFO<<"(DMCZP) EnteringMethod: RecordReader::GetProtoDesc";
 AINFO<<"(DMCZP) EnteringMethod: RecordReader::GetMessageType";
 AINFO<<"(DMCZP) EnteringMethod: RecordReader::GetProtoDesc";
   auto search = channel_info_.find(channel_name);

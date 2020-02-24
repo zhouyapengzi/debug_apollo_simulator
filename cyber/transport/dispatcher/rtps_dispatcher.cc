@@ -1,4 +1,3 @@
-#include "cyber/common/log.h"
 /******************************************************************************
  * Copyright 2018 The Apollo Authors. All Rights Reserved.
  *
@@ -23,12 +22,10 @@ namespace transport {
 
 RtpsDispatcher::RtpsDispatcher() : participant_(nullptr) {}
 AINFO<<"(DMCZP) EnteringMethod: RtpsDispatcher::RtpsDispatcher";
-AINFO<<"(DMCZP) EnteringMethod: RtpsDispatcher::RtpsDispatcher";
 
 RtpsDispatcher::~RtpsDispatcher() { Shutdown(); }
 
 void RtpsDispatcher::Shutdown() {
-AINFO<<"(DMCZP) EnteringMethod: RtpsDispatcher::Shutdown";
 AINFO<<"(DMCZP) EnteringMethod: RtpsDispatcher::Shutdown";
   if (is_shutdown_.exchange(true)) {
     return;
@@ -45,7 +42,6 @@ AINFO<<"(DMCZP) EnteringMethod: RtpsDispatcher::Shutdown";
 }
 
 void RtpsDispatcher::AddSubscriber(const RoleAttributes& self_attr) {
-AINFO<<"(DMCZP) EnteringMethod: RtpsDispatcher::AddSubscriber";
 AINFO<<"(DMCZP) EnteringMethod: RtpsDispatcher::AddSubscriber";
   if (participant_ == nullptr) {
     AWARN << "please set participant firstly.";
@@ -78,7 +74,6 @@ AINFO<<"(DMCZP) EnteringMethod: RtpsDispatcher::AddSubscriber";
 void RtpsDispatcher::OnMessage(uint64_t channel_id,
                                const std::shared_ptr<std::string>& msg_str,
                                const MessageInfo& msg_info) {
-AINFO<<"(DMCZP) EnteringMethod: RtpsDispatcher::OnMessage";
 AINFO<<"(DMCZP) EnteringMethod: RtpsDispatcher::OnMessage";
   if (is_shutdown_.load()) {
     return;

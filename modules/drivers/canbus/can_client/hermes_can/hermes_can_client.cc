@@ -1,4 +1,3 @@
-#include "cyber/common/log.h"
 /******************************************************************************
  * Copyright 2017 The Apollo Authors. All Rights Reserved.
  *
@@ -38,7 +37,6 @@ HermesCanClient::~HermesCanClient() {
 
 bool HermesCanClient::Init(const CANCardParameter &parameter) {
 AINFO<<"(DMCZP) EnteringMethod: HermesCanClient::Init";
-AINFO<<"(DMCZP) EnteringMethod: HermesCanClient::Init";
   if (!parameter.has_channel_id()) {
     AERROR << "Init CAN failed: parameter does not have channel id. The "
               "parameter is "
@@ -51,7 +49,6 @@ AINFO<<"(DMCZP) EnteringMethod: HermesCanClient::Init";
 }
 
 ErrorCode HermesCanClient::Start() {
-AINFO<<"(DMCZP) EnteringMethod: HermesCanClient::Start";
 AINFO<<"(DMCZP) EnteringMethod: HermesCanClient::Start";
   if (_is_init) {
     return ErrorCode::OK;
@@ -95,7 +92,6 @@ AINFO<<"(DMCZP) EnteringMethod: HermesCanClient::Start";
 
 void HermesCanClient::Stop() {
 AINFO<<"(DMCZP) EnteringMethod: HermesCanClient::Stop";
-AINFO<<"(DMCZP) EnteringMethod: HermesCanClient::Stop";
   if (_is_init) {
     _is_init = false;
     int32_t ret = bcan_close(_dev_handler);
@@ -108,7 +104,6 @@ AINFO<<"(DMCZP) EnteringMethod: HermesCanClient::Stop";
 // Synchronous transmission of CAN messages
 apollo::common::ErrorCode HermesCanClient::Send(
     const std::vector<CanFrame> &frames, int32_t *const frame_num) {
-AINFO<<"(DMCZP) EnteringMethod: HermesCanClient::Send";
 AINFO<<"(DMCZP) EnteringMethod: HermesCanClient::Send";
   /*
   typedef struct bcan_msg {
@@ -155,7 +150,6 @@ const int RX_TIMEOUT = -7;
 apollo::common::ErrorCode HermesCanClient::Receive(
     std::vector<CanFrame> *const frames, int32_t *const frame_num) {
 AINFO<<"(DMCZP) EnteringMethod: HermesCanClient::Receive";
-AINFO<<"(DMCZP) EnteringMethod: HermesCanClient::Receive";
   if (!_is_init) {
     AERROR << "Hermes can client is not init! Please init first!";
     return ErrorCode::CAN_CLIENT_ERROR_RECV_FAILED;
@@ -196,10 +190,8 @@ AINFO<<"(DMCZP) EnteringMethod: HermesCanClient::Receive";
 
 std::string HermesCanClient::GetErrorString(int32_t ntstatus) { return ""; }
 AINFO<<"(DMCZP) EnteringMethod: HermesCanClient::GetErrorString";
-AINFO<<"(DMCZP) EnteringMethod: HermesCanClient::GetErrorString";
 
 void HermesCanClient::SetInited(bool init) { _is_init = init; }
-AINFO<<"(DMCZP) EnteringMethod: HermesCanClient::SetInited";
 AINFO<<"(DMCZP) EnteringMethod: HermesCanClient::SetInited";
 
 }  // namespace can

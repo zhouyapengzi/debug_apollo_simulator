@@ -1,4 +1,3 @@
-#include "cyber/common/log.h"
 /******************************************************************************
  * Copyright 2018 The Apollo Authors. All Rights Reserved.
  *
@@ -22,7 +21,6 @@ namespace cyber {
 namespace scheduler {
 
 void ProcessorContext::Shutdown() {
-AINFO<<"(DMCZP) EnteringMethod: ProcessorContext::Shutdown";
 AINFO<<"(DMCZP) EnteringMethod: ProcessorContext::Shutdown";
   if (!stop_) {
     stop_ = true;

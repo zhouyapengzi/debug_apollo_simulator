@@ -1,4 +1,3 @@
-#include "cyber/common/log.h"
 /******************************************************************************
  * Copyright 2018 The Apollo Authors. All Rights Reserved.
  *
@@ -28,7 +27,6 @@ namespace cyber {
 namespace logger {
 
 TEST(LoggerTest, init_and_write) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
 AINFO<<"(DMCZP) EnteringMethod: TEST";
   Logger logger(google::base::GetLogger(google::INFO));
   time_t timep;

@@ -1,4 +1,3 @@
-#include "cyber/common/log.h"
 /******************************************************************************
  * Copyright 2018 The Apollo Authors. All Rights Reserved.
  *
@@ -22,7 +21,6 @@ namespace cyber {
 namespace transport {
 
 IntraDispatcher::IntraDispatcher() {}
-AINFO<<"(DMCZP) EnteringMethod: IntraDispatcher::IntraDispatcher";
 AINFO<<"(DMCZP) EnteringMethod: IntraDispatcher::IntraDispatcher";
 
 IntraDispatcher::~IntraDispatcher() {}

@@ -1,4 +1,3 @@
-#include "cyber/common/log.h"
 /******************************************************************************
  * Copyright 2018 The Apollo Authors. All Rights Reserved.
  *
@@ -29,7 +28,6 @@ namespace cyber {
 namespace io {
 
 TEST(PollerTest, operation) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
 AINFO<<"(DMCZP) EnteringMethod: TEST";
   auto poller = Poller::Instance();
   ASSERT_NE(poller, nullptr);
@@ -107,7 +105,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST";
 }  // namespace apollo
 
 int main(int argc, char** argv) {
-AINFO<<"(DMCZP) EnteringMethod: main";
 AINFO<<"(DMCZP) EnteringMethod: main";
   testing::InitGoogleTest(&argc, argv);
   apollo::cyber::Init(argv[0]);

@@ -25,7 +25,6 @@ namespace common {
 
 TEST(LogTest, TestAll) { AINFO << "11111"; }
 AINFO<<"(DMCZP) EnteringMethod: TEST";
-AINFO<<"(DMCZP) EnteringMethod: TEST";
 
 }  // namespace common
 }  // namespace cyber

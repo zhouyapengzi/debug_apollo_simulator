@@ -1,4 +1,3 @@
-#include "cyber/common/log.h"
 /******************************************************************************
  * Copyright 2018 The Apollo Authors. All Rights Reserved.
  *
@@ -31,7 +30,6 @@ const char STR_10B[] = "1234567890";
 const char TEST_FILE[] = "test.record";
 
 TEST(CyberRecordTest, record_readerwriter) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
 AINFO<<"(DMCZP) EnteringMethod: TEST";
   apollo::cyber::record::PyRecordWriter rec_writer;
 
@@ -73,7 +71,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST";
 }
 
 int main(int argc, char** argv) {
-AINFO<<"(DMCZP) EnteringMethod: main";
 AINFO<<"(DMCZP) EnteringMethod: main";
   apollo::cyber::Init(argv[0]);
   testing::InitGoogleTest(&argc, argv);

@@ -36,7 +36,6 @@ using base::WriteLockGuard;
 
 Poller::Poller() {
 AINFO<<"(DMCZP) EnteringMethod: Poller::Poller";
-AINFO<<"(DMCZP) EnteringMethod: Poller::Poller";
   if (!Init()) {
     AERROR << "Poller init failed!";
     Clear();
@@ -47,7 +46,6 @@ Poller::~Poller() { Shutdown(); }
 
 void Poller::Shutdown() {
 AINFO<<"(DMCZP) EnteringMethod: Poller::Shutdown";
-AINFO<<"(DMCZP) EnteringMethod: Poller::Shutdown";
   if (is_shutdown_.exchange(true)) {
     return;
   }
@@ -55,7 +53,6 @@ AINFO<<"(DMCZP) EnteringMethod: Poller::Shutdown";
 }
 
 bool Poller::Register(const PollRequest& req) {
-AINFO<<"(DMCZP) EnteringMethod: Poller::Register";
 AINFO<<"(DMCZP) EnteringMethod: Poller::Register";
   if (is_shutdown_.load()) {
     return false;
@@ -89,7 +86,6 @@ AINFO<<"(DMCZP) EnteringMethod: Poller::Register";
 
 bool Poller::Unregister(const PollRequest& req) {
 AINFO<<"(DMCZP) EnteringMethod: Poller::Unregister";
-AINFO<<"(DMCZP) EnteringMethod: Poller::Unregister";
   if (is_shutdown_.load()) {
     return false;
   }
@@ -118,7 +114,6 @@ AINFO<<"(DMCZP) EnteringMethod: Poller::Unregister";
 }
 
 bool Poller::Init() {
-AINFO<<"(DMCZP) EnteringMethod: Poller::Init";
 AINFO<<"(DMCZP) EnteringMethod: Poller::Init";
   epoll_fd_ = epoll_create(kPollSize);
   if (epoll_fd_ < 0) {
@@ -167,7 +162,6 @@ AINFO<<"(DMCZP) EnteringMethod: Poller::Init";
 
 void Poller::Clear() {
 AINFO<<"(DMCZP) EnteringMethod: Poller::Clear";
-AINFO<<"(DMCZP) EnteringMethod: Poller::Clear";
   if (thread_.joinable()) {
     thread_.join();
   }
@@ -195,7 +189,6 @@ AINFO<<"(DMCZP) EnteringMethod: Poller::Clear";
 }
 
 void Poller::Poll(int timeout_ms) {
-AINFO<<"(DMCZP) EnteringMethod: Poller::Poll";
 AINFO<<"(DMCZP) EnteringMethod: Poller::Poll";
   epoll_event evt[kPollSize];
   auto before_time_ns = Time::Now().ToNanosecond();
@@ -259,7 +252,6 @@ AINFO<<"(DMCZP) EnteringMethod: Poller::Poll";
 
 void Poller::ThreadFunc() {
 AINFO<<"(DMCZP) EnteringMethod: Poller::ThreadFunc";
-AINFO<<"(DMCZP) EnteringMethod: Poller::ThreadFunc";
   // block all signals in this thread
   sigset_t signal_set;
   sigfillset(&signal_set);
@@ -274,7 +266,6 @@ AINFO<<"(DMCZP) EnteringMethod: Poller::ThreadFunc";
 }
 
 void Poller::HandleChanges() {
-AINFO<<"(DMCZP) EnteringMethod: Poller::HandleChanges";
 AINFO<<"(DMCZP) EnteringMethod: Poller::HandleChanges";
   CtrlParamMap local_params;
   {
@@ -299,7 +290,6 @@ AINFO<<"(DMCZP) EnteringMethod: Poller::HandleChanges";
 // min heap can be used to optimize
 int Poller::GetTimeoutMs() {
 AINFO<<"(DMCZP) EnteringMethod: Poller::GetTimeoutMs";
-AINFO<<"(DMCZP) EnteringMethod: Poller::GetTimeoutMs";
   int timeout_ms = kPollTimeoutMs;
   ReadLockGuard<AtomicRWLock> lck(poll_data_lock_);
   for (auto& item : requests_) {
@@ -312,7 +302,6 @@ AINFO<<"(DMCZP) EnteringMethod: Poller::GetTimeoutMs";
 }
 
 void Poller::Notify() {
-AINFO<<"(DMCZP) EnteringMethod: Poller::Notify";
 AINFO<<"(DMCZP) EnteringMethod: Poller::Notify";
   std::unique_lock<std::mutex> lock(pipe_mutex_, std::try_to_lock);
   if (!lock.owns_lock()) {

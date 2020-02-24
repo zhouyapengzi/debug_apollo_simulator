@@ -1,4 +1,3 @@
-#include "cyber/common/log.h"
 /******************************************************************************
  * Copyright 2018 The Apollo Authors. All Rights Reserved.
  *
@@ -29,7 +28,6 @@ VideoImgViewer::VideoImgViewer(QWidget* parent)
       default_image_(nullptr),
       video_image_shader_prog_(nullptr) {}
 AINFO<<"(DMCZP) EnteringMethod: VideoImgViewer::VideoImgViewer";
-AINFO<<"(DMCZP) EnteringMethod: VideoImgViewer::VideoImgViewer";
 
 VideoImgViewer::~VideoImgViewer() {
   if (is_init_) {
@@ -47,7 +45,6 @@ VideoImgViewer::~VideoImgViewer() {
 }
 
 void VideoImgViewer::initializeGL() {
-AINFO<<"(DMCZP) EnteringMethod: VideoImgViewer::initializeGL";
 AINFO<<"(DMCZP) EnteringMethod: VideoImgViewer::initializeGL";
   initializeOpenGLFunctions();
 
@@ -102,7 +99,6 @@ AINFO<<"(DMCZP) EnteringMethod: VideoImgViewer::initializeGL";
 
 void VideoImgViewer::resizeGL(int width, int height) {
 AINFO<<"(DMCZP) EnteringMethod: VideoImgViewer::resizeGL";
-AINFO<<"(DMCZP) EnteringMethod: VideoImgViewer::resizeGL";
   glViewport(0, 0, (GLsizei)width, (GLsizei)height);
 
   if (is_init_) {
@@ -121,7 +117,6 @@ AINFO<<"(DMCZP) EnteringMethod: VideoImgViewer::resizeGL";
 }
 
 void VideoImgViewer::paintGL() {
-AINFO<<"(DMCZP) EnteringMethod: VideoImgViewer::paintGL";
 AINFO<<"(DMCZP) EnteringMethod: VideoImgViewer::paintGL";
   if (is_init_) {
     plane_.Render();

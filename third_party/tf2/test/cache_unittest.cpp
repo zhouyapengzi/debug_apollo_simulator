@@ -1,4 +1,3 @@
-#include "cyber/common/log.h"
 /*
  * Copyright (c) 2008, Willow Garage, Inc.
  * All rights reserved.
@@ -45,17 +44,6 @@ unsigned int step = 0;
 void seed_rand()
 {
 AINFO<<"(DMCZP) EnteringMethod: seed_rand";
-AINFO<<"(DMCZP) EnteringMethod: seed_rand";
-AINFO<<"(DMCZP) EnteringMethod: setIdentity";
-AINFO<<"(DMCZP) EnteringMethod: TEST";
-AINFO<<"(DMCZP) EnteringMethod: TEST";
-AINFO<<"(DMCZP) EnteringMethod: TEST";
-AINFO<<"(DMCZP) EnteringMethod: TEST";
-AINFO<<"(DMCZP) EnteringMethod: TEST";
-AINFO<<"(DMCZP) EnteringMethod: TEST";
-AINFO<<"(DMCZP) EnteringMethod: TEST";
-AINFO<<"(DMCZP) EnteringMethod: TEST";
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   values.clear();
 AINFO<<"(DMCZP) EnteringMethod: setIdentity";
 AINFO<<"(DMCZP) EnteringMethod: TEST";
@@ -78,7 +66,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST";
 
 double get_rand() 
 { 
-AINFO<<"(DMCZP) EnteringMethod: get_rand";
 AINFO<<"(DMCZP) EnteringMethod: get_rand";
   if (values.size() == 0) throw std::runtime_error("you need to call seed_rand first");
   if (step >= values.size()) 
@@ -429,7 +416,6 @@ TEST(TimeCache, DuplicateEntries)
 }
 
 int main(int argc, char **argv){
-AINFO<<"(DMCZP) EnteringMethod: main";
 AINFO<<"(DMCZP) EnteringMethod: main";
   testing::InitGoogleTest(&argc, argv);
   return RUN_ALL_TESTS();

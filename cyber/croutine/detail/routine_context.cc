@@ -1,4 +1,3 @@
-#include "cyber/common/log.h"
 /******************************************************************************
  * Copyright 2018 The Apollo Authors. All Rights Reserved.
  *
@@ -39,7 +38,6 @@ namespace croutine {
 // ctx->sp  =>  |        RBP       |
 //              +------------------+
 void MakeContext(const func &f1, const void *arg, RoutineContext *ctx) {
-AINFO<<"(DMCZP) EnteringMethod: MakeContext";
 AINFO<<"(DMCZP) EnteringMethod: MakeContext";
   ctx->sp = ctx->stack + STACK_SIZE - 2 * sizeof(void *) - REGISTERS_SIZE;
   std::memset(ctx->sp, 0, REGISTERS_SIZE);

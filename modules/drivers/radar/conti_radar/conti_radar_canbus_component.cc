@@ -1,4 +1,3 @@
-#include "cyber/common/log.h"
 /******************************************************************************
  * Copyright 2017 The Apollo Authors. All Rights Reserved.
  *
@@ -47,11 +46,9 @@ ContiRadarCanbusComponent::ContiRadarCanbusComponent()
     : monitor_logger_buffer_(
           apollo::common::monitor::MonitorMessageItem::CONTI_RADAR) {}
 AINFO<<"(DMCZP) EnteringMethod: ContiRadarCanbusComponent::ContiRadarCanbusComponent";
-AINFO<<"(DMCZP) EnteringMethod: ContiRadarCanbusComponent::ContiRadarCanbusComponent";
 ContiRadarCanbusComponent::~ContiRadarCanbusComponent() { Stop(); }
 
 bool ContiRadarCanbusComponent::Init() {
-AINFO<<"(DMCZP) EnteringMethod: ContiRadarCanbusComponent::Init";
 AINFO<<"(DMCZP) EnteringMethod: ContiRadarCanbusComponent::Init";
   if (!GetProtoConfig(&conti_radar_conf_)) {
     return OnError("Unable to load canbus conf file: " + ConfigFilePath());
@@ -99,7 +96,6 @@ AINFO<<"(DMCZP) EnteringMethod: ContiRadarCanbusComponent::Init";
 
 apollo::common::ErrorCode ContiRadarCanbusComponent::ConfigureRadar() {
 AINFO<<"(DMCZP) EnteringMethod: ContiRadarCanbusComponent::ConfigureRadar";
-AINFO<<"(DMCZP) EnteringMethod: ContiRadarCanbusComponent::ConfigureRadar";
   RadarConfig200 radar_config;
   radar_config.set_radar_conf(conti_radar_conf_.radar_conf());
   SenderMessage<ContiRadar> sender_message(RadarConfig200::ID, &radar_config);
@@ -108,7 +104,6 @@ AINFO<<"(DMCZP) EnteringMethod: ContiRadarCanbusComponent::ConfigureRadar";
 }
 
 bool ContiRadarCanbusComponent::Start() {
-AINFO<<"(DMCZP) EnteringMethod: ContiRadarCanbusComponent::Start";
 AINFO<<"(DMCZP) EnteringMethod: ContiRadarCanbusComponent::Start";
   // 1. init and start the can card hardware
   if (can_client_->Start() != ErrorCode::OK) {
@@ -133,7 +128,6 @@ AINFO<<"(DMCZP) EnteringMethod: ContiRadarCanbusComponent::Start";
 
 void ContiRadarCanbusComponent::Stop() {
 AINFO<<"(DMCZP) EnteringMethod: ContiRadarCanbusComponent::Stop";
-AINFO<<"(DMCZP) EnteringMethod: ContiRadarCanbusComponent::Stop";
   if (start_success_) {
     can_receiver_.Stop();
     can_client_->Stop();
@@ -143,7 +137,6 @@ AINFO<<"(DMCZP) EnteringMethod: ContiRadarCanbusComponent::Stop";
 // Send the error to monitor and return it
 bool ContiRadarCanbusComponent::OnError(const std::string& error_msg) {
 AINFO<<"(DMCZP) EnteringMethod: ContiRadarCanbusComponent::OnError";
-AINFO<<"(DMCZP) EnteringMethod: ContiRadarCanbusComponent::OnError";
   monitor_logger_buffer_.ERROR(error_msg);
   AERROR << error_msg;
   return false;
@@ -151,7 +144,6 @@ AINFO<<"(DMCZP) EnteringMethod: ContiRadarCanbusComponent::OnError";
 
 void ContiRadarCanbusComponent::PoseCallback(
     const std::shared_ptr<LocalizationEstimate>& pose_msg) {
-AINFO<<"(DMCZP) EnteringMethod: ContiRadarCanbusComponent::PoseCallback";
 AINFO<<"(DMCZP) EnteringMethod: ContiRadarCanbusComponent::PoseCallback";
   auto send_interval = conti_radar_conf_.radar_conf().input_send_interval();
   uint64_t now_nsec = cyber::Time().Now().ToNanosecond();

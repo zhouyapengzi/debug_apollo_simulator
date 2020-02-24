@@ -1,4 +1,3 @@
-#include "cyber/common/log.h"
 /******************************************************************************
  * Copyright 2018 The Apollo Authors. All Rights Reserved.
  *
@@ -81,7 +80,6 @@ class ChannelManagerTest : public ::testing::Test {
 
 TEST_F(ChannelManagerTest, get_channel_names) {
 AINFO<<"(DMCZP) EnteringMethod: TEST_F";
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   std::vector<std::string> channels;
   EXPECT_TRUE(channels.empty());
 
@@ -90,7 +88,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST_F";
 }
 
 TEST_F(ChannelManagerTest, get_proto_desc) {
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
 AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   const std::string guard = "guard";
   std::string proto_desc(guard);
@@ -148,14 +145,12 @@ AINFO<<"(DMCZP) EnteringMethod: TEST_F";
 
 TEST_F(ChannelManagerTest, has_writer) {
 AINFO<<"(DMCZP) EnteringMethod: TEST_F";
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   for (int i = 0; i < channel_num_; ++i) {
     EXPECT_TRUE(channel_manager_.HasWriter("channel_" + std::to_string(i)));
   }
 }
 
 TEST_F(ChannelManagerTest, get_writers_attr) {
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
 AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   std::vector<proto::RoleAttributes> writers;
   EXPECT_TRUE(writers.empty());
@@ -199,14 +194,12 @@ AINFO<<"(DMCZP) EnteringMethod: TEST_F";
 
 TEST_F(ChannelManagerTest, has_reader) {
 AINFO<<"(DMCZP) EnteringMethod: TEST_F";
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   for (int i = 0; i < channel_num_; ++i) {
     EXPECT_TRUE(channel_manager_.HasReader("channel_" + std::to_string(i)));
   }
 }
 
 TEST_F(ChannelManagerTest, get_readers_attr) {
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
 AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   std::vector<proto::RoleAttributes> readers;
   EXPECT_TRUE(readers.empty());
@@ -264,7 +257,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST_F";
 
 TEST_F(ChannelManagerTest, change) {
 AINFO<<"(DMCZP) EnteringMethod: TEST_F";
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   RoleAttributes role_attr;
   EXPECT_FALSE(channel_manager_.Join(role_attr, RoleType::ROLE_NODE));
   EXPECT_FALSE(channel_manager_.Join(role_attr, RoleType::ROLE_WRITER));
@@ -287,7 +279,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST_F";
 }
 
 TEST_F(ChannelManagerTest, get_upstream_downstream) {
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
 AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   std::vector<proto::RoleAttributes> nodes;
   for (int i = 0; i < channel_num_; ++i) {
@@ -429,7 +420,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST_F";
 }
 
 TEST_F(ChannelManagerTest, is_message_type_matching) {
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
 AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   const std::string raw_msg_type_1 =
       message::MessageType<message::RawMessage>();

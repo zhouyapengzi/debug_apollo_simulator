@@ -1,4 +1,3 @@
-#include "cyber/common/log.h"
 /******************************************************************************
  * Copyright 2018 The Apollo Authors. All Rights Reserved.
  *
@@ -24,7 +23,6 @@ using apollo::cyber::ParameterClient;
 using apollo::cyber::ParameterServer;
 
 int main(int argc, char** argv) {
-AINFO<<"(DMCZP) EnteringMethod: main";
 AINFO<<"(DMCZP) EnteringMethod: main";
   apollo::cyber::Init(*argv);
   std::shared_ptr<apollo::cyber::Node> node =

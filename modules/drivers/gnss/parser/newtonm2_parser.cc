@@ -1,4 +1,3 @@
-#include "cyber/common/log.h"
 /******************************************************************************
  * Copyright 2019 The Apollo Authors. All Rights Reserved.
  *
@@ -46,12 +45,10 @@ namespace gnss {
 
 Parser* Parser::CreateNewtonM2(const config::Config& config) {
 AINFO<<"(DMCZP) EnteringMethod: Parser::CreateNewtonM2";
-AINFO<<"(DMCZP) EnteringMethod: Parser::CreateNewtonM2";
   return new NewtonM2Parser(config);
 }
 
 NewtonM2Parser::NewtonM2Parser() {
-AINFO<<"(DMCZP) EnteringMethod: NewtonM2Parser::NewtonM2Parser";
 AINFO<<"(DMCZP) EnteringMethod: NewtonM2Parser::NewtonM2Parser";
   buffer_.reserve(newtonm2::BUFFER_SIZE);
   ins_.mutable_position_covariance()->Resize(9, newtonm2::FLOAT_NAN);
@@ -64,7 +61,6 @@ AINFO<<"(DMCZP) EnteringMethod: NewtonM2Parser::NewtonM2Parser";
 }
 
 NewtonM2Parser::NewtonM2Parser(const config::Config& config) {
-AINFO<<"(DMCZP) EnteringMethod: NewtonM2Parser::NewtonM2Parser";
 AINFO<<"(DMCZP) EnteringMethod: NewtonM2Parser::NewtonM2Parser";
   buffer_.reserve(newtonm2::BUFFER_SIZE);
   ins_.mutable_position_covariance()->Resize(9, newtonm2::FLOAT_NAN);
@@ -81,7 +77,6 @@ AINFO<<"(DMCZP) EnteringMethod: NewtonM2Parser::NewtonM2Parser";
 }
 
 Parser::MessageType NewtonM2Parser::GetMessage(MessagePtr* message_ptr) {
-AINFO<<"(DMCZP) EnteringMethod: NewtonM2Parser::GetMessage";
 AINFO<<"(DMCZP) EnteringMethod: NewtonM2Parser::GetMessage";
   if (data_ == nullptr) {
     return MessageType::NONE;
@@ -149,14 +144,12 @@ AINFO<<"(DMCZP) EnteringMethod: NewtonM2Parser::GetMessage";
 
 bool NewtonM2Parser::check_crc() {
 AINFO<<"(DMCZP) EnteringMethod: NewtonM2Parser::check_crc";
-AINFO<<"(DMCZP) EnteringMethod: NewtonM2Parser::check_crc";
   size_t l = buffer_.size() - novatel::CRC_LENGTH;
   return newtonm2::crc32_block(buffer_.data(), l) ==
          *reinterpret_cast<uint32_t*>(buffer_.data() + l);
 }
 
 Parser::MessageType NewtonM2Parser::PrepareMessage(MessagePtr* message_ptr) {
-AINFO<<"(DMCZP) EnteringMethod: NewtonM2Parser::PrepareMessage";
 AINFO<<"(DMCZP) EnteringMethod: NewtonM2Parser::PrepareMessage";
   if (!check_crc()) {
     AERROR << "CRC check failed.";
@@ -364,7 +357,6 @@ bool NewtonM2Parser::HandleGnssBestpos(const novatel::BestPos* pos,
                                        uint16_t gps_week,
                                        uint32_t gps_millisecs) {
 AINFO<<"(DMCZP) EnteringMethod: NewtonM2Parser::HandleGnssBestpos";
-AINFO<<"(DMCZP) EnteringMethod: NewtonM2Parser::HandleGnssBestpos";
   bestpos_.set_sol_status(
       static_cast<apollo::drivers::gnss::SolutionStatus>(pos->solution_status));
   bestpos_.set_sol_type(
@@ -398,16 +390,12 @@ bool NewtonM2Parser::HandleBestPos(const novatel::BestPos* pos,
                                    uint16_t gps_week, uint32_t gps_millisecs) {
 AINFO<<"(DMCZP) EnteringMethod: NewtonM2Parser::HandleBestPos";
 AINFO<<"(DMCZP) EnteringMethod: NewtonM2Parser::HandleBestVel";
-AINFO<<"(DMCZP) EnteringMethod: NewtonM2Parser::HandleBestPos";
-AINFO<<"(DMCZP) EnteringMethod: NewtonM2Parser::HandleBestVel";
   gnss_.mutable_position()->set_lon(pos->longitude);
-AINFO<<"(DMCZP) EnteringMethod: NewtonM2Parser::HandleInsPvax";
   gnss_.mutable_position()->set_lat(pos->latitude);
   gnss_.mutable_position()->set_height(pos->height_msl + pos->undulation);
 AINFO<<"(DMCZP) EnteringMethod: NewtonM2Parser::HandleInsPvax";
   gnss_.mutable_position_std_dev()->set_x(pos->longitude_std_dev);
   gnss_.mutable_position_std_dev()->set_y(pos->latitude_std_dev);
-AINFO<<"(DMCZP) EnteringMethod: NewtonM2Parser::HandleHeading";
   gnss_.mutable_position_std_dev()->set_z(pos->height_std_dev);
   gnss_.set_num_sats(pos->num_sats_in_solution);
   if (solution_status_ != pos->solution_status) {
@@ -509,7 +497,6 @@ bool NewtonM2Parser::HandleBestVel(const novatel::BestVel* vel,
 
 bool NewtonM2Parser::HandleCorrImuData(const novatel::CorrImuData* imu) {
 AINFO<<"(DMCZP) EnteringMethod: NewtonM2Parser::HandleCorrImuData";
-AINFO<<"(DMCZP) EnteringMethod: NewtonM2Parser::HandleCorrImuData";
   newtonm2::rfu_to_flu(imu->x_velocity_change * imu_measurement_hz_,
                        imu->y_velocity_change * imu_measurement_hz_,
                        imu->z_velocity_change * imu_measurement_hz_,
@@ -532,7 +519,6 @@ AINFO<<"(DMCZP) EnteringMethod: NewtonM2Parser::HandleCorrImuData";
 
 bool NewtonM2Parser::HandleInsCov(const novatel::InsCov* cov) {
 AINFO<<"(DMCZP) EnteringMethod: NewtonM2Parser::HandleInsCov";
-AINFO<<"(DMCZP) EnteringMethod: NewtonM2Parser::HandleInsCov";
   for (int i = 0; i < 9; ++i) {
     ins_.set_position_covariance(
         i, static_cast<float>(cov->position_covariance[i]));
@@ -547,7 +533,6 @@ AINFO<<"(DMCZP) EnteringMethod: NewtonM2Parser::HandleInsCov";
 }
 
 bool NewtonM2Parser::HandleInsPva(const novatel::InsPva* pva) {
-AINFO<<"(DMCZP) EnteringMethod: NewtonM2Parser::HandleInsPva";
 AINFO<<"(DMCZP) EnteringMethod: NewtonM2Parser::HandleInsPva";
   if (ins_status_ != pva->status) {
     ins_status_ = pva->status;
@@ -600,7 +585,6 @@ bool NewtonM2Parser::HandleInsPvax(const novatel::InsPvaX* pvax,
 }
 
 bool NewtonM2Parser::HandleRawImuX(const novatel::RawImuX* imu) {
-AINFO<<"(DMCZP) EnteringMethod: NewtonM2Parser::HandleRawImuX";
 AINFO<<"(DMCZP) EnteringMethod: NewtonM2Parser::HandleRawImuX";
   if (imu->imu_error != 0) {
     AWARN << "IMU error. Status: " << std::hex << std::showbase
@@ -665,7 +649,6 @@ AINFO<<"(DMCZP) EnteringMethod: NewtonM2Parser::HandleRawImuX";
 
 bool NewtonM2Parser::HandleRawImu(const novatel::RawImu* imu) {
 AINFO<<"(DMCZP) EnteringMethod: NewtonM2Parser::HandleRawImu";
-AINFO<<"(DMCZP) EnteringMethod: NewtonM2Parser::HandleRawImu";
   double gyro_scale = 0.0;
   double accel_scale = 0.0;
   float imu_measurement_span = 1.0f / 200.0f;
@@ -728,7 +711,6 @@ AINFO<<"(DMCZP) EnteringMethod: NewtonM2Parser::HandleRawImu";
 
 bool NewtonM2Parser::HandleGpsEph(const novatel::GPS_Ephemeris* gps_emph) {
 AINFO<<"(DMCZP) EnteringMethod: NewtonM2Parser::HandleGpsEph";
-AINFO<<"(DMCZP) EnteringMethod: NewtonM2Parser::HandleGpsEph";
   gnss_ephemeris_.set_gnss_type(apollo::drivers::gnss::GnssType::GPS_SYS);
 
   apollo::drivers::gnss::KepplerOrbit* keppler_orbit =
@@ -770,7 +752,6 @@ AINFO<<"(DMCZP) EnteringMethod: NewtonM2Parser::HandleGpsEph";
 
 bool NewtonM2Parser::HandleBdsEph(const novatel::BDS_Ephemeris* bds_emph) {
 AINFO<<"(DMCZP) EnteringMethod: NewtonM2Parser::HandleBdsEph";
-AINFO<<"(DMCZP) EnteringMethod: NewtonM2Parser::HandleBdsEph";
   gnss_ephemeris_.set_gnss_type(apollo::drivers::gnss::GnssType::BDS_SYS);
 
   apollo::drivers::gnss::KepplerOrbit* keppler_orbit =
@@ -811,7 +792,6 @@ AINFO<<"(DMCZP) EnteringMethod: NewtonM2Parser::HandleBdsEph";
 }
 
 bool NewtonM2Parser::HandleGloEph(const novatel::GLO_Ephemeris* glo_emph) {
-AINFO<<"(DMCZP) EnteringMethod: NewtonM2Parser::HandleGloEph";
 AINFO<<"(DMCZP) EnteringMethod: NewtonM2Parser::HandleGloEph";
   gnss_ephemeris_.set_gnss_type(apollo::drivers::gnss::GnssType::GLO_SYS);
 
@@ -877,7 +857,6 @@ bool NewtonM2Parser::HandleHeading(const novatel::Heading* heading,
 
 void NewtonM2Parser::SetObservationTime() {
 AINFO<<"(DMCZP) EnteringMethod: NewtonM2Parser::SetObservationTime";
-AINFO<<"(DMCZP) EnteringMethod: NewtonM2Parser::SetObservationTime";
   int week = 0;
   double second = time2gpst(raw_.time, &week);
   gnss_observation_.set_gnss_time_type(apollo::drivers::gnss::GPS_TIME);
@@ -887,7 +866,6 @@ AINFO<<"(DMCZP) EnteringMethod: NewtonM2Parser::SetObservationTime";
 
 bool NewtonM2Parser::DecodeGnssObservation(const uint8_t* obs_data,
                                            const uint8_t* obs_data_end) {
-AINFO<<"(DMCZP) EnteringMethod: NewtonM2Parser::DecodeGnssObservation";
 AINFO<<"(DMCZP) EnteringMethod: NewtonM2Parser::DecodeGnssObservation";
   while (obs_data < obs_data_end) {
     const int status = input_oem4(&raw_, *obs_data++);

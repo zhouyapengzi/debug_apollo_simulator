@@ -1,4 +1,3 @@
-#include "cyber/common/log.h"
 /******************************************************************************
  * Copyright 2018 The Apollo Authors. All Rights Reserved.
  *
@@ -29,7 +28,6 @@ namespace cyber {
 namespace logger {
 
 TEST(LogFileObjectTest, init_and_write) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
 AINFO<<"(DMCZP) EnteringMethod: TEST";
   std::string basename = "logfile";
   LogFileObject logfileobject(google::INFO, basename.c_str());

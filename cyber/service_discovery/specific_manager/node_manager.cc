@@ -26,7 +26,6 @@ namespace service_discovery {
 
 NodeManager::NodeManager() {
 AINFO<<"(DMCZP) EnteringMethod: NodeManager::NodeManager";
-AINFO<<"(DMCZP) EnteringMethod: NodeManager::NodeManager";
   allowed_role_ |= 1 << RoleType::ROLE_NODE;
   change_type_ = ChangeType::CHANGE_NODE;
   channel_name_ = "node_change_broadcast";
@@ -36,13 +35,11 @@ NodeManager::~NodeManager() {}
 
 bool NodeManager::HasNode(const std::string& node_name) {
 AINFO<<"(DMCZP) EnteringMethod: NodeManager::HasNode";
-AINFO<<"(DMCZP) EnteringMethod: NodeManager::HasNode";
   uint64_t key = common::GlobalData::RegisterNode(node_name);
   return nodes_.Search(key);
 }
 
 void NodeManager::GetNodes(RoleAttrVec* nodes) {
-AINFO<<"(DMCZP) EnteringMethod: NodeManager::GetNodes";
 AINFO<<"(DMCZP) EnteringMethod: NodeManager::GetNodes";
   RETURN_IF_NULL(nodes);
   nodes_.GetAllRoles(nodes);
@@ -50,14 +47,12 @@ AINFO<<"(DMCZP) EnteringMethod: NodeManager::GetNodes";
 
 bool NodeManager::Check(const RoleAttributes& attr) {
 AINFO<<"(DMCZP) EnteringMethod: NodeManager::Check";
-AINFO<<"(DMCZP) EnteringMethod: NodeManager::Check";
   RETURN_VAL_IF(!attr.has_node_name(), false);
   RETURN_VAL_IF(!attr.has_node_id(), false);
   return true;
 }
 
 void NodeManager::Dispose(const ChangeMsg& msg) {
-AINFO<<"(DMCZP) EnteringMethod: NodeManager::Dispose";
 AINFO<<"(DMCZP) EnteringMethod: NodeManager::Dispose";
   if (msg.operate_type() == OperateType::OPT_JOIN) {
     DisposeJoin(msg);
@@ -69,7 +64,6 @@ AINFO<<"(DMCZP) EnteringMethod: NodeManager::Dispose";
 
 void NodeManager::OnTopoModuleLeave(const std::string& host_name,
                                     int process_id) {
-AINFO<<"(DMCZP) EnteringMethod: NodeManager::OnTopoModuleLeave";
 AINFO<<"(DMCZP) EnteringMethod: NodeManager::OnTopoModuleLeave";
   RETURN_IF(!is_discovery_started_.load());
 
@@ -91,7 +85,6 @@ AINFO<<"(DMCZP) EnteringMethod: NodeManager::OnTopoModuleLeave";
 }
 
 void NodeManager::DisposeJoin(const ChangeMsg& msg) {
-AINFO<<"(DMCZP) EnteringMethod: NodeManager::DisposeJoin";
 AINFO<<"(DMCZP) EnteringMethod: NodeManager::DisposeJoin";
   auto node = std::make_shared<RoleNode>(msg.role_attr(), msg.timestamp());
   uint64_t key = node->attributes().node_id();
@@ -121,7 +114,6 @@ AINFO<<"(DMCZP) EnteringMethod: NodeManager::DisposeJoin";
 }
 
 void NodeManager::DisposeLeave(const ChangeMsg& msg) {
-AINFO<<"(DMCZP) EnteringMethod: NodeManager::DisposeLeave";
 AINFO<<"(DMCZP) EnteringMethod: NodeManager::DisposeLeave";
   auto node = std::make_shared<RoleNode>(msg.role_attr(), msg.timestamp());
   nodes_.Remove(node->attributes().node_id());

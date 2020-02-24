@@ -1,4 +1,3 @@
-#include "cyber/common/log.h"
 /******************************************************************************
  * Copyright 2017 The Apollo Authors. All Rights Reserved.
  *
@@ -30,7 +29,6 @@ namespace velodyne {
 
 bool VelodyneDriverComponent::Init() {
 AINFO<<"(DMCZP) EnteringMethod: VelodyneDriverComponent::Init";
-AINFO<<"(DMCZP) EnteringMethod: VelodyneDriverComponent::Init";
   AINFO << "Velodyne driver component init";
   Config velodyne_config;
   if (!GetProtoConfig(&velodyne_config)) {
@@ -56,7 +54,6 @@ AINFO<<"(DMCZP) EnteringMethod: VelodyneDriverComponent::Init";
 
 /** @brief Device poll thread main loop. */
 void VelodyneDriverComponent::device_poll() {
-AINFO<<"(DMCZP) EnteringMethod: VelodyneDriverComponent::device_poll";
 AINFO<<"(DMCZP) EnteringMethod: VelodyneDriverComponent::device_poll";
   while (!apollo::cyber::IsShutdown()) {
     // poll device until end of file

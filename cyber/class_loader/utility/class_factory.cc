@@ -1,4 +1,3 @@
-#include "cyber/common/log.h"
 /******************************************************************************
  * Copyright 2018 The Apollo Authors. All Rights Reserved.
  *
@@ -29,19 +28,16 @@ AbstractClassFactoryBase::AbstractClassFactoryBase(
       base_class_name_(base_class_name),
       class_name_(class_name) {}
 AINFO<<"(DMCZP) EnteringMethod: AbstractClassFactoryBase::AbstractClassFactoryBase";
-AINFO<<"(DMCZP) EnteringMethod: AbstractClassFactoryBase::AbstractClassFactoryBase";
 
 AbstractClassFactoryBase::~AbstractClassFactoryBase() {}
 
 void AbstractClassFactoryBase::SetRelativeLibraryPath(
     const std::string& library_path) {
 AINFO<<"(DMCZP) EnteringMethod: AbstractClassFactoryBase::SetRelativeLibraryPath";
-AINFO<<"(DMCZP) EnteringMethod: AbstractClassFactoryBase::SetRelativeLibraryPath";
   relative_library_path_ = library_path;
 }
 
 void AbstractClassFactoryBase::AddOwnedClassLoader(ClassLoader* loader) {
-AINFO<<"(DMCZP) EnteringMethod: AbstractClassFactoryBase::AddOwnedClassLoader";
 AINFO<<"(DMCZP) EnteringMethod: AbstractClassFactoryBase::AddOwnedClassLoader";
   if (std::find(relative_class_loaders_.begin(), relative_class_loaders_.end(),
                 loader) == relative_class_loaders_.end()) {
@@ -52,7 +48,6 @@ AINFO<<"(DMCZP) EnteringMethod: AbstractClassFactoryBase::AddOwnedClassLoader";
 void AbstractClassFactoryBase::RemoveOwnedClassLoader(
     const ClassLoader* loader) {
 AINFO<<"(DMCZP) EnteringMethod: AbstractClassFactoryBase::RemoveOwnedClassLoader";
-AINFO<<"(DMCZP) EnteringMethod: AbstractClassFactoryBase::RemoveOwnedClassLoader";
   std::vector<ClassLoader*>::iterator itr = std::find(
       relative_class_loaders_.begin(), relative_class_loaders_.end(), loader);
   if (itr != relative_class_loaders_.end()) {
@@ -62,14 +57,12 @@ AINFO<<"(DMCZP) EnteringMethod: AbstractClassFactoryBase::RemoveOwnedClassLoader
 
 bool AbstractClassFactoryBase::IsOwnedBy(const ClassLoader* loader) {
 AINFO<<"(DMCZP) EnteringMethod: AbstractClassFactoryBase::IsOwnedBy";
-AINFO<<"(DMCZP) EnteringMethod: AbstractClassFactoryBase::IsOwnedBy";
   std::vector<ClassLoader*>::iterator itr = std::find(
       relative_class_loaders_.begin(), relative_class_loaders_.end(), loader);
   return itr != relative_class_loaders_.end();
 }
 
 bool AbstractClassFactoryBase::IsOwnedByAnybody() {
-AINFO<<"(DMCZP) EnteringMethod: AbstractClassFactoryBase::IsOwnedByAnybody";
 AINFO<<"(DMCZP) EnteringMethod: AbstractClassFactoryBase::IsOwnedByAnybody";
   return !relative_class_loaders_.empty();
 }
@@ -80,18 +73,15 @@ std::vector<ClassLoader*> AbstractClassFactoryBase::GetRelativeClassLoaders() {
 
 const std::string AbstractClassFactoryBase::GetRelativeLibraryPath() const {
 AINFO<<"(DMCZP) EnteringMethod: AbstractClassFactoryBase::GetRelativeLibraryPath";
-AINFO<<"(DMCZP) EnteringMethod: AbstractClassFactoryBase::GetRelativeLibraryPath";
   return relative_library_path_;
 }
 
 const std::string AbstractClassFactoryBase::GetBaseClassName() const {
 AINFO<<"(DMCZP) EnteringMethod: AbstractClassFactoryBase::GetBaseClassName";
-AINFO<<"(DMCZP) EnteringMethod: AbstractClassFactoryBase::GetBaseClassName";
   return base_class_name_;
 }
 
 const std::string AbstractClassFactoryBase::GetClassName() const {
-AINFO<<"(DMCZP) EnteringMethod: AbstractClassFactoryBase::GetClassName";
 AINFO<<"(DMCZP) EnteringMethod: AbstractClassFactoryBase::GetClassName";
   return class_name_;
 }

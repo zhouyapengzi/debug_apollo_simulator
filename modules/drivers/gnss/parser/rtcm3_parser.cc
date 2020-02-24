@@ -1,4 +1,3 @@
-#include "cyber/common/log.h"
 /******************************************************************************
  * Copyright 2017 The Apollo Authors. All Rights Reserved.
  *
@@ -29,7 +28,6 @@ namespace {
 template <typename T>
 constexpr bool is_zero(T value) {
 AINFO<<"(DMCZP) EnteringMethod: is_zero";
-AINFO<<"(DMCZP) EnteringMethod: is_zero";
   return value == static_cast<T>(0);
 }
 
@@ -37,12 +35,10 @@ AINFO<<"(DMCZP) EnteringMethod: is_zero";
 
 Parser *Parser::CreateRtcmV3(bool is_base_station) {
 AINFO<<"(DMCZP) EnteringMethod: *Parser::CreateRtcmV3";
-AINFO<<"(DMCZP) EnteringMethod: *Parser::CreateRtcmV3";
   return new Rtcm3Parser(is_base_station);
 }
 
 Rtcm3Parser::Rtcm3Parser(bool is_base_station) {
-AINFO<<"(DMCZP) EnteringMethod: Rtcm3Parser::Rtcm3Parser";
 AINFO<<"(DMCZP) EnteringMethod: Rtcm3Parser::Rtcm3Parser";
   if (1 != init_rtcm(&rtcm_)) {
     init_flag_ = true;
@@ -56,7 +52,6 @@ AINFO<<"(DMCZP) EnteringMethod: Rtcm3Parser::Rtcm3Parser";
 }
 
 bool Rtcm3Parser::SetStationPosition() {
-AINFO<<"(DMCZP) EnteringMethod: Rtcm3Parser::SetStationPosition";
 AINFO<<"(DMCZP) EnteringMethod: Rtcm3Parser::SetStationPosition";
   auto iter = station_location_.find(rtcm_.staid);
   if (iter == station_location_.end()) {
@@ -72,7 +67,6 @@ AINFO<<"(DMCZP) EnteringMethod: Rtcm3Parser::SetStationPosition";
 
 void Rtcm3Parser::FillKepplerOrbit(
     const eph_t &eph, apollo::drivers::gnss::KepplerOrbit *keppler_orbit) {
-AINFO<<"(DMCZP) EnteringMethod: Rtcm3Parser::FillKepplerOrbit";
 AINFO<<"(DMCZP) EnteringMethod: Rtcm3Parser::FillKepplerOrbit";
   keppler_orbit->set_week_num(eph.week);
 
@@ -118,7 +112,6 @@ AINFO<<"(DMCZP) EnteringMethod: Rtcm3Parser::FillKepplerOrbit";
 void Rtcm3Parser::FillGlonassOrbit(const geph_t &eph,
                                    apollo::drivers::gnss::GlonassOrbit *orbit) {
 AINFO<<"(DMCZP) EnteringMethod: Rtcm3Parser::FillGlonassOrbit";
-AINFO<<"(DMCZP) EnteringMethod: Rtcm3Parser::FillGlonassOrbit";
   orbit->set_position_x(eph.pos[0]);
   orbit->set_position_y(eph.pos[1]);
   orbit->set_position_z(eph.pos[2]);
@@ -159,7 +152,6 @@ AINFO<<"(DMCZP) EnteringMethod: Rtcm3Parser::FillGlonassOrbit";
 
 void Rtcm3Parser::SetObservationTime() {
 AINFO<<"(DMCZP) EnteringMethod: Rtcm3Parser::SetObservationTime";
-AINFO<<"(DMCZP) EnteringMethod: Rtcm3Parser::SetObservationTime";
   int week = 0;
   double second = time2gpst(rtcm_.time, &week);
   observation_.set_gnss_time_type(apollo::drivers::gnss::GPS_TIME);
@@ -168,7 +160,6 @@ AINFO<<"(DMCZP) EnteringMethod: Rtcm3Parser::SetObservationTime";
 }
 
 Parser::MessageType Rtcm3Parser::GetMessage(MessagePtr *message_ptr) {
-AINFO<<"(DMCZP) EnteringMethod: Rtcm3Parser::GetMessage";
 AINFO<<"(DMCZP) EnteringMethod: Rtcm3Parser::GetMessage";
   if (data_ == nullptr) {
     return MessageType::NONE;
@@ -206,7 +197,6 @@ AINFO<<"(DMCZP) EnteringMethod: Rtcm3Parser::GetMessage";
 }
 
 bool Rtcm3Parser::ProcessObservation() {
-AINFO<<"(DMCZP) EnteringMethod: Rtcm3Parser::ProcessObservation";
 AINFO<<"(DMCZP) EnteringMethod: Rtcm3Parser::ProcessObservation";
   if (rtcm_.obs.n == 0) {
     AWARN << "Obs is zero.";
@@ -282,7 +272,6 @@ AINFO<<"(DMCZP) EnteringMethod: Rtcm3Parser::ProcessObservation";
 
 bool Rtcm3Parser::ProcessEphemerides() {
 AINFO<<"(DMCZP) EnteringMethod: Rtcm3Parser::ProcessEphemerides";
-AINFO<<"(DMCZP) EnteringMethod: Rtcm3Parser::ProcessEphemerides";
   apollo::drivers::gnss::GnssType gnss_type;
 
   if (!gnss_sys(rtcm_.message_type, &gnss_type)) {
@@ -314,7 +303,6 @@ AINFO<<"(DMCZP) EnteringMethod: Rtcm3Parser::ProcessEphemerides";
 }
 
 bool Rtcm3Parser::ProcessStationParameters() {
-AINFO<<"(DMCZP) EnteringMethod: Rtcm3Parser::ProcessStationParameters";
 AINFO<<"(DMCZP) EnteringMethod: Rtcm3Parser::ProcessStationParameters";
   // station pose/ant parameters, set pose.
 

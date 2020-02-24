@@ -1,4 +1,3 @@
-#include "cyber/common/log.h"
 /******************************************************************************
  * Copyright 2018 The Apollo Authors. All Rights Reserved.
  *
@@ -26,7 +25,6 @@
 template <typename T>
 T PyObjectToPtr(PyObject *pyobj, const std::string &type_ptr) {
 AINFO<<"(DMCZP) EnteringMethod: PyObjectToPtr";
-AINFO<<"(DMCZP) EnteringMethod: PyObjectToPtr";
   T obj_ptr = (T)PyCapsule_GetPointer(pyobj, type_ptr.c_str());
   if (obj_ptr == nullptr) {
     AERROR << "PyObjectToPtr failed,type->" << type_ptr << "pyobj: " << pyobj;
@@ -35,7 +33,6 @@ AINFO<<"(DMCZP) EnteringMethod: PyObjectToPtr";
 }
 
 PyObject *cyber_new_PyWriter(PyObject *self, PyObject *args) {
-AINFO<<"(DMCZP) EnteringMethod: *cyber_new_PyWriter";
 AINFO<<"(DMCZP) EnteringMethod: *cyber_new_PyWriter";
   char *channel_name = nullptr;
   char *data_type = nullptr;
@@ -67,7 +64,6 @@ AINFO<<"(DMCZP) EnteringMethod: *cyber_new_PyWriter";
 
 PyObject *cyber_delete_PyWriter(PyObject *self, PyObject *args) {
 AINFO<<"(DMCZP) EnteringMethod: *cyber_delete_PyWriter";
-AINFO<<"(DMCZP) EnteringMethod: *cyber_delete_PyWriter";
   apollo::cyber::PyWriter *writer = nullptr;
 
   PyObject *writer_py = nullptr;
@@ -85,7 +81,6 @@ AINFO<<"(DMCZP) EnteringMethod: *cyber_delete_PyWriter";
 }
 
 PyObject *cyber_PyWriter_write(PyObject *self, PyObject *args) {
-AINFO<<"(DMCZP) EnteringMethod: *cyber_PyWriter_write";
 AINFO<<"(DMCZP) EnteringMethod: *cyber_PyWriter_write";
   PyObject *pyobj_writer = nullptr;
   char *data = nullptr;
@@ -110,7 +105,6 @@ AINFO<<"(DMCZP) EnteringMethod: *cyber_PyWriter_write";
 }
 
 PyObject *cyber_new_PyReader(PyObject *self, PyObject *args) {
-AINFO<<"(DMCZP) EnteringMethod: *cyber_new_PyReader";
 AINFO<<"(DMCZP) EnteringMethod: *cyber_new_PyReader";
   char *channel_name = nullptr;
   char *data_type = nullptr;
@@ -141,7 +135,6 @@ AINFO<<"(DMCZP) EnteringMethod: *cyber_new_PyReader";
 
 PyObject *cyber_delete_PyReader(PyObject *self, PyObject *args) {
 AINFO<<"(DMCZP) EnteringMethod: *cyber_delete_PyReader";
-AINFO<<"(DMCZP) EnteringMethod: *cyber_delete_PyReader";
   PyObject *reader_py = 0;
   if (!PyArg_ParseTuple(args, const_cast<char *>("O:delete_PyReader"),
                         &reader_py)) {
@@ -158,7 +151,6 @@ AINFO<<"(DMCZP) EnteringMethod: *cyber_delete_PyReader";
 }
 
 PyObject *cyber_PyReader_read(PyObject *self, PyObject *args) {
-AINFO<<"(DMCZP) EnteringMethod: *cyber_PyReader_read";
 AINFO<<"(DMCZP) EnteringMethod: *cyber_PyReader_read";
   PyObject *pyobj_reader = nullptr;
   PyObject *pyobj_iswait = nullptr;
@@ -193,7 +185,6 @@ AINFO<<"(DMCZP) EnteringMethod: *cyber_PyReader_read";
 
 PyObject *cyber_PyReader_register_func(PyObject *self, PyObject *args) {
 AINFO<<"(DMCZP) EnteringMethod: *cyber_PyReader_register_func";
-AINFO<<"(DMCZP) EnteringMethod: *cyber_PyReader_register_func";
   PyObject *pyobj_regist_fun = 0;
   PyObject *pyobj_reader = 0;
 
@@ -218,7 +209,6 @@ AINFO<<"(DMCZP) EnteringMethod: *cyber_PyReader_register_func";
 }
 
 PyObject *cyber_new_PyClient(PyObject *self, PyObject *args) {
-AINFO<<"(DMCZP) EnteringMethod: *cyber_new_PyClient";
 AINFO<<"(DMCZP) EnteringMethod: *cyber_new_PyClient";
   char *channel_name = 0;
   char *data_type = 0;
@@ -249,7 +239,6 @@ AINFO<<"(DMCZP) EnteringMethod: *cyber_new_PyClient";
 
 PyObject *cyber_delete_PyClient(PyObject *self, PyObject *args) {
 AINFO<<"(DMCZP) EnteringMethod: *cyber_delete_PyClient";
-AINFO<<"(DMCZP) EnteringMethod: *cyber_delete_PyClient";
   PyObject *client_py = 0;
   if (!PyArg_ParseTuple(args, const_cast<char *>("O:delete_PyClient"),
                         &client_py)) {
@@ -266,7 +255,6 @@ AINFO<<"(DMCZP) EnteringMethod: *cyber_delete_PyClient";
 }
 
 PyObject *cyber_PyClient_send_request(PyObject *self, PyObject *args) {
-AINFO<<"(DMCZP) EnteringMethod: *cyber_PyClient_send_request";
 AINFO<<"(DMCZP) EnteringMethod: *cyber_PyClient_send_request";
   PyObject *pyobj_client = nullptr;
   char *data = nullptr;
@@ -294,7 +282,6 @@ AINFO<<"(DMCZP) EnteringMethod: *cyber_PyClient_send_request";
 }
 
 PyObject *cyber_new_PyService(PyObject *self, PyObject *args) {
-AINFO<<"(DMCZP) EnteringMethod: *cyber_new_PyService";
 AINFO<<"(DMCZP) EnteringMethod: *cyber_new_PyService";
   char *channel_name = 0;
   char *data_type = 0;
@@ -325,7 +312,6 @@ AINFO<<"(DMCZP) EnteringMethod: *cyber_new_PyService";
 
 PyObject *cyber_delete_PyService(PyObject *self, PyObject *args) {
 AINFO<<"(DMCZP) EnteringMethod: *cyber_delete_PyService";
-AINFO<<"(DMCZP) EnteringMethod: *cyber_delete_PyService";
   PyObject *pyobj_service = 0;
   if (!PyArg_ParseTuple(args, const_cast<char *>("O:delete_PyService"),
                         &pyobj_service)) {
@@ -342,7 +328,6 @@ AINFO<<"(DMCZP) EnteringMethod: *cyber_delete_PyService";
 }
 
 PyObject *cyber_PyService_register_func(PyObject *self, PyObject *args) {
-AINFO<<"(DMCZP) EnteringMethod: *cyber_PyService_register_func";
 AINFO<<"(DMCZP) EnteringMethod: *cyber_PyService_register_func";
   PyObject *pyobj_regist_fun = nullptr;
   PyObject *pyobj_service = nullptr;
@@ -369,7 +354,6 @@ AINFO<<"(DMCZP) EnteringMethod: *cyber_PyService_register_func";
 
 PyObject *cyber_PyService_read(PyObject *self, PyObject *args) {
 AINFO<<"(DMCZP) EnteringMethod: *cyber_PyService_read";
-AINFO<<"(DMCZP) EnteringMethod: *cyber_PyService_read";
   PyObject *pyobj_service = nullptr;
   if (!PyArg_ParseTuple(args, const_cast<char *>("O:cyber_PyService_read"),
                         &pyobj_service)) {
@@ -389,7 +373,6 @@ AINFO<<"(DMCZP) EnteringMethod: *cyber_PyService_read";
 }
 
 PyObject *cyber_PyService_write(PyObject *self, PyObject *args) {
-AINFO<<"(DMCZP) EnteringMethod: *cyber_PyService_write";
 AINFO<<"(DMCZP) EnteringMethod: *cyber_PyService_write";
   PyObject *pyobj_service = nullptr;
   char *data = nullptr;
@@ -416,7 +399,6 @@ AINFO<<"(DMCZP) EnteringMethod: *cyber_PyService_write";
 
 PyObject *cyber_new_PyNode(PyObject *self, PyObject *args) {
 AINFO<<"(DMCZP) EnteringMethod: *cyber_new_PyNode";
-AINFO<<"(DMCZP) EnteringMethod: *cyber_new_PyNode";
   char *node_name = nullptr;
   if (!PyArg_ParseTuple(args, const_cast<char *>("s:new_PyNode"), &node_name)) {
     Py_INCREF(Py_None);
@@ -430,7 +412,6 @@ AINFO<<"(DMCZP) EnteringMethod: *cyber_new_PyNode";
 }
 
 PyObject *cyber_delete_PyNode(PyObject *self, PyObject *args) {
-AINFO<<"(DMCZP) EnteringMethod: *cyber_delete_PyNode";
 AINFO<<"(DMCZP) EnteringMethod: *cyber_delete_PyNode";
   PyObject *pyobj_node = nullptr;
   if (!PyArg_ParseTuple(args, const_cast<char *>("O:delete_PyNode"),
@@ -447,7 +428,6 @@ AINFO<<"(DMCZP) EnteringMethod: *cyber_delete_PyNode";
 }
 
 PyObject *cyber_PyNode_create_writer(PyObject *self, PyObject *args) {
-AINFO<<"(DMCZP) EnteringMethod: *cyber_PyNode_create_writer";
 AINFO<<"(DMCZP) EnteringMethod: *cyber_PyNode_create_writer";
   PyObject *pyobj_node = nullptr;
   char *channel_name = nullptr;
@@ -486,7 +466,6 @@ AINFO<<"(DMCZP) EnteringMethod: *cyber_PyNode_create_writer";
 
 PyObject *cyber_PyNode_create_reader(PyObject *self, PyObject *args) {
 AINFO<<"(DMCZP) EnteringMethod: *cyber_PyNode_create_reader";
-AINFO<<"(DMCZP) EnteringMethod: *cyber_PyNode_create_reader";
   char *channel_name = nullptr;
   char *type_name = nullptr;
   PyObject *pyobj_node = nullptr;
@@ -516,7 +495,6 @@ AINFO<<"(DMCZP) EnteringMethod: *cyber_PyNode_create_reader";
 }
 
 PyObject *cyber_PyNode_create_client(PyObject *self, PyObject *args) {
-AINFO<<"(DMCZP) EnteringMethod: *cyber_PyNode_create_client";
 AINFO<<"(DMCZP) EnteringMethod: *cyber_PyNode_create_client";
   char *channel_name = nullptr;
   char *type_name = nullptr;
@@ -548,7 +526,6 @@ AINFO<<"(DMCZP) EnteringMethod: *cyber_PyNode_create_client";
 
 PyObject *cyber_PyNode_create_service(PyObject *self, PyObject *args) {
 AINFO<<"(DMCZP) EnteringMethod: *cyber_PyNode_create_service";
-AINFO<<"(DMCZP) EnteringMethod: *cyber_PyNode_create_service";
   char *channel_name = nullptr;
   char *type_name = nullptr;
   PyObject *pyobj_node = nullptr;
@@ -579,7 +556,6 @@ AINFO<<"(DMCZP) EnteringMethod: *cyber_PyNode_create_service";
 
 PyObject *cyber_PyNode_shutdown(PyObject *self, PyObject *args) {
 AINFO<<"(DMCZP) EnteringMethod: *cyber_PyNode_shutdown";
-AINFO<<"(DMCZP) EnteringMethod: *cyber_PyNode_shutdown";
   PyObject *pyobj_node = nullptr;
 
   if (!PyArg_ParseTuple(args, const_cast<char *>("O:PyNode_shutdown"),
@@ -602,7 +578,6 @@ AINFO<<"(DMCZP) EnteringMethod: *cyber_PyNode_shutdown";
 }
 
 PyObject *cyber_PyNode_register_message(PyObject *self, PyObject *args) {
-AINFO<<"(DMCZP) EnteringMethod: *cyber_PyNode_register_message";
 AINFO<<"(DMCZP) EnteringMethod: *cyber_PyNode_register_message";
   PyObject *pyobj_node = nullptr;
   char *desc = nullptr;
@@ -629,7 +604,6 @@ AINFO<<"(DMCZP) EnteringMethod: *cyber_PyNode_register_message";
 
 PyObject *cyber_PyChannelUtils_get_msg_type(PyObject *self, PyObject *args) {
 AINFO<<"(DMCZP) EnteringMethod: *cyber_PyChannelUtils_get_msg_type";
-AINFO<<"(DMCZP) EnteringMethod: *cyber_PyChannelUtils_get_msg_type";
   char *channel_name = nullptr;
   Py_ssize_t len = 0;
   unsigned char sleep_s = 0;
@@ -648,7 +622,6 @@ AINFO<<"(DMCZP) EnteringMethod: *cyber_PyChannelUtils_get_msg_type";
 
 PyObject *cyber_PyChannelUtils_get_debugstring_by_msgtype_rawmsgdata(
     PyObject *self, PyObject *args) {
-AINFO<<"(DMCZP) EnteringMethod: *cyber_PyChannelUtils_get_debugstring_by_msgtype_rawmsgdata";
 AINFO<<"(DMCZP) EnteringMethod: *cyber_PyChannelUtils_get_debugstring_by_msgtype_rawmsgdata";
   char *msgtype = nullptr;
   char *rawdata = nullptr;
@@ -671,7 +644,6 @@ AINFO<<"(DMCZP) EnteringMethod: *cyber_PyChannelUtils_get_debugstring_by_msgtype
 
 static PyObject *cyber_PyChannelUtils_get_active_channels(PyObject *self,
                                                           PyObject *args) {
-AINFO<<"(DMCZP) EnteringMethod: *cyber_PyChannelUtils_get_active_channels";
 AINFO<<"(DMCZP) EnteringMethod: *cyber_PyChannelUtils_get_active_channels";
   unsigned char sleep_s = 0;
   if (!PyArg_ParseTuple(
@@ -702,7 +674,6 @@ AINFO<<"(DMCZP) EnteringMethod: *cyber_PyChannelUtils_get_active_channels";
 static PyObject *cyber_PyChannelUtils_get_channels_info(PyObject *self,
                                                         PyObject *args) {
 AINFO<<"(DMCZP) EnteringMethod: *cyber_PyChannelUtils_get_channels_info";
-AINFO<<"(DMCZP) EnteringMethod: *cyber_PyChannelUtils_get_channels_info";
   auto channelsinfo = apollo::cyber::PyChannelUtils::get_channels_info();
   PyObject *pyobj_channelinfo_dict = PyDict_New();
   for (auto &channelinfo : channelsinfo) {
@@ -724,7 +695,6 @@ AINFO<<"(DMCZP) EnteringMethod: *cyber_PyChannelUtils_get_channels_info";
 }
 
 PyObject *cyber_PyNodeUtils_get_active_nodes(PyObject *self, PyObject *args) {
-AINFO<<"(DMCZP) EnteringMethod: *cyber_PyNodeUtils_get_active_nodes";
 AINFO<<"(DMCZP) EnteringMethod: *cyber_PyNodeUtils_get_active_nodes";
   unsigned char sleep_s = 0;
   if (!PyArg_ParseTuple(
@@ -749,7 +719,6 @@ AINFO<<"(DMCZP) EnteringMethod: *cyber_PyNodeUtils_get_active_nodes";
 
 PyObject *cyber_PyNodeUtils_get_node_attr(PyObject *self, PyObject *args) {
 AINFO<<"(DMCZP) EnteringMethod: *cyber_PyNodeUtils_get_node_attr";
-AINFO<<"(DMCZP) EnteringMethod: *cyber_PyNodeUtils_get_node_attr";
   char *node_name = nullptr;
   Py_ssize_t len = 0;
   unsigned char sleep_s = 0;
@@ -767,7 +736,6 @@ AINFO<<"(DMCZP) EnteringMethod: *cyber_PyNodeUtils_get_node_attr";
 }
 
 PyObject *cyber_PyNodeUtils_get_readersofnode(PyObject *self, PyObject *args) {
-AINFO<<"(DMCZP) EnteringMethod: *cyber_PyNodeUtils_get_readersofnode";
 AINFO<<"(DMCZP) EnteringMethod: *cyber_PyNodeUtils_get_readersofnode";
   char *node_name = nullptr;
   Py_ssize_t len = 0;
@@ -793,7 +761,6 @@ AINFO<<"(DMCZP) EnteringMethod: *cyber_PyNodeUtils_get_readersofnode";
 }
 
 PyObject *cyber_PyNodeUtils_get_writersofnode(PyObject *self, PyObject *args) {
-AINFO<<"(DMCZP) EnteringMethod: *cyber_PyNodeUtils_get_writersofnode";
 AINFO<<"(DMCZP) EnteringMethod: *cyber_PyNodeUtils_get_writersofnode";
   char *node_name = nullptr;
   Py_ssize_t len = 0;
@@ -821,7 +788,6 @@ AINFO<<"(DMCZP) EnteringMethod: *cyber_PyNodeUtils_get_writersofnode";
 PyObject *cyber_PyServiceUtils_get_active_services(PyObject *self,
                                                    PyObject *args) {
 AINFO<<"(DMCZP) EnteringMethod: *cyber_PyServiceUtils_get_active_services";
-AINFO<<"(DMCZP) EnteringMethod: *cyber_PyServiceUtils_get_active_services";
   unsigned char sleep_s = 0;
   if (!PyArg_ParseTuple(
           args,
@@ -847,7 +813,6 @@ AINFO<<"(DMCZP) EnteringMethod: *cyber_PyServiceUtils_get_active_services";
 PyObject *cyber_PyServiceUtils_get_service_attr(PyObject *self,
                                                 PyObject *args) {
 AINFO<<"(DMCZP) EnteringMethod: *cyber_PyServiceUtils_get_service_attr";
-AINFO<<"(DMCZP) EnteringMethod: *cyber_PyServiceUtils_get_service_attr";
   char *srv_name = nullptr;
   Py_ssize_t len = 0;
   unsigned char sleep_s = 0;
@@ -869,7 +834,6 @@ AINFO<<"(DMCZP) EnteringMethod: *cyber_PyServiceUtils_get_service_attr";
 
 PyObject *cyber_test0(PyObject *self, PyObject *args) {
 AINFO<<"(DMCZP) EnteringMethod: *cyber_test0";
-AINFO<<"(DMCZP) EnteringMethod: *cyber_test0";
   int channel = 0;
   int data_type = 0;
   AINFO << "+++++++++++++++++++++begin";
@@ -890,7 +854,6 @@ struct student {
 
 student *cyber_student() {
 AINFO<<"(DMCZP) EnteringMethod: *cyber_student";
-AINFO<<"(DMCZP) EnteringMethod: *cyber_student";
   student *stu1 = new student();
   stu1->name = "ywf";
   stu1->age = 22;
@@ -898,7 +861,6 @@ AINFO<<"(DMCZP) EnteringMethod: *cyber_student";
 }
 
 PyObject *cyber_test1(PyObject *self, PyObject *args) {
-AINFO<<"(DMCZP) EnteringMethod: *cyber_test1";
 AINFO<<"(DMCZP) EnteringMethod: *cyber_test1";
   char *channel = nullptr;
   char *data_type = nullptr;
@@ -1007,7 +969,6 @@ static PyMethodDef _cyber_node_methods[] = {
 
 /// Init function of this module
 PyMODINIT_FUNC init_cyber_node(void) {
-AINFO<<"(DMCZP) EnteringMethod: init_cyber_node";
 AINFO<<"(DMCZP) EnteringMethod: init_cyber_node";
   Py_InitModule("_cyber_node", _cyber_node_methods);
 }

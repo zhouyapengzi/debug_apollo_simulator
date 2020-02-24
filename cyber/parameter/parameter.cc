@@ -1,4 +1,3 @@
-#include "cyber/common/log.h"
 /******************************************************************************
  * Copyright 2018 The Apollo Authors. All Rights Reserved.
  *
@@ -25,13 +24,11 @@ using apollo::cyber::message::ProtobufFactory;
 
 Parameter::Parameter() {
 AINFO<<"(DMCZP) EnteringMethod: Parameter::Parameter";
-AINFO<<"(DMCZP) EnteringMethod: Parameter::Parameter";
   param_.set_name("");
   param_.set_type(ParamType::NOT_SET);
 }
 
 Parameter::Parameter(const std::string& name) {
-AINFO<<"(DMCZP) EnteringMethod: Parameter::Parameter";
 AINFO<<"(DMCZP) EnteringMethod: Parameter::Parameter";
   param_.set_name(name);
   param_.set_type(proto::ParamType::NOT_SET);
@@ -39,12 +36,10 @@ AINFO<<"(DMCZP) EnteringMethod: Parameter::Parameter";
 
 Parameter::Parameter(const Parameter& parameter) {
 AINFO<<"(DMCZP) EnteringMethod: Parameter::Parameter";
-AINFO<<"(DMCZP) EnteringMethod: Parameter::Parameter";
   param_.CopyFrom(parameter.param_);
 }
 
 Parameter::Parameter(const std::string& name, const bool bool_value) {
-AINFO<<"(DMCZP) EnteringMethod: Parameter::Parameter";
 AINFO<<"(DMCZP) EnteringMethod: Parameter::Parameter";
   param_.set_name(name);
   param_.set_bool_value(bool_value);
@@ -54,7 +49,6 @@ AINFO<<"(DMCZP) EnteringMethod: Parameter::Parameter";
 
 Parameter::Parameter(const std::string& name, const int int_value) {
 AINFO<<"(DMCZP) EnteringMethod: Parameter::Parameter";
-AINFO<<"(DMCZP) EnteringMethod: Parameter::Parameter";
   param_.set_name(name);
   param_.set_int_value(int_value);
   param_.set_type(ParamType::INT);
@@ -62,7 +56,6 @@ AINFO<<"(DMCZP) EnteringMethod: Parameter::Parameter";
 }
 
 Parameter::Parameter(const std::string& name, const int64_t int_value) {
-AINFO<<"(DMCZP) EnteringMethod: Parameter::Parameter";
 AINFO<<"(DMCZP) EnteringMethod: Parameter::Parameter";
   param_.set_name(name);
   param_.set_int_value(int_value);
@@ -72,7 +65,6 @@ AINFO<<"(DMCZP) EnteringMethod: Parameter::Parameter";
 
 Parameter::Parameter(const std::string& name, const float double_value) {
 AINFO<<"(DMCZP) EnteringMethod: Parameter::Parameter";
-AINFO<<"(DMCZP) EnteringMethod: Parameter::Parameter";
   param_.set_name(name);
   param_.set_double_value(double_value);
   param_.set_type(ParamType::DOUBLE);
@@ -80,7 +72,6 @@ AINFO<<"(DMCZP) EnteringMethod: Parameter::Parameter";
 }
 
 Parameter::Parameter(const std::string& name, const double double_value) {
-AINFO<<"(DMCZP) EnteringMethod: Parameter::Parameter";
 AINFO<<"(DMCZP) EnteringMethod: Parameter::Parameter";
   param_.set_name(name);
   param_.set_double_value(double_value);
@@ -90,7 +81,6 @@ AINFO<<"(DMCZP) EnteringMethod: Parameter::Parameter";
 
 Parameter::Parameter(const std::string& name, const std::string& string_value) {
 AINFO<<"(DMCZP) EnteringMethod: Parameter::Parameter";
-AINFO<<"(DMCZP) EnteringMethod: Parameter::Parameter";
   param_.set_name(name);
   param_.set_string_value(string_value);
   param_.set_type(ParamType::STRING);
@@ -98,7 +88,6 @@ AINFO<<"(DMCZP) EnteringMethod: Parameter::Parameter";
 }
 
 Parameter::Parameter(const std::string& name, const char* string_value) {
-AINFO<<"(DMCZP) EnteringMethod: Parameter::Parameter";
 AINFO<<"(DMCZP) EnteringMethod: Parameter::Parameter";
   param_.set_name(name);
   param_.set_string_value(string_value);
@@ -110,7 +99,6 @@ Parameter::Parameter(const std::string& name, const std::string& msg_str,
                      const std::string& full_name,
                      const std::string& proto_desc) {
 AINFO<<"(DMCZP) EnteringMethod: Parameter::Parameter";
-AINFO<<"(DMCZP) EnteringMethod: Parameter::Parameter";
   param_.set_name(name);
   param_.set_string_value(msg_str);
   param_.set_type(ParamType::PROTOBUF);
@@ -120,7 +108,6 @@ AINFO<<"(DMCZP) EnteringMethod: Parameter::Parameter";
 
 Parameter::Parameter(const std::string& name,
                      const google::protobuf::Message& msg) {
-AINFO<<"(DMCZP) EnteringMethod: Parameter::Parameter";
 AINFO<<"(DMCZP) EnteringMethod: Parameter::Parameter";
   param_.set_name(name);
   std::string str;
@@ -135,14 +122,11 @@ AINFO<<"(DMCZP) EnteringMethod: Parameter::Parameter";
 
 void Parameter::FromProtoParam(const Param& param) { param_.CopyFrom(param); }
 AINFO<<"(DMCZP) EnteringMethod: Parameter::FromProtoParam";
-AINFO<<"(DMCZP) EnteringMethod: Parameter::FromProtoParam";
 
 Param Parameter::ToProtoParam() const { return param_; }
 AINFO<<"(DMCZP) EnteringMethod: Parameter::ToProtoParam";
-AINFO<<"(DMCZP) EnteringMethod: Parameter::ToProtoParam";
 
 std::string Parameter::DebugString() const {
-AINFO<<"(DMCZP) EnteringMethod: Parameter::DebugString";
 AINFO<<"(DMCZP) EnteringMethod: Parameter::DebugString";
   std::stringstream ss;
   ss << "{name: \"" << param_.name() << "\", ";

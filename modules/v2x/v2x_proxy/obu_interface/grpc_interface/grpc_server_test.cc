@@ -1,4 +1,3 @@
-#include "cyber/common/log.h"
 /******************************************************************************
  * Copyright 2018 The Apollo Authors. All Rights Reserved.
  *
@@ -28,7 +27,6 @@ namespace apollo {
 namespace v2x {
 
 TEST(GrpcServerImplTest, Construct) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
 AINFO<<"(DMCZP) EnteringMethod: TEST";
   apollo::cyber::Init("grpc_server_test");
   bool init_succ = false;

@@ -1,4 +1,3 @@
-#include "cyber/common/log.h"
 /******************************************************************************
  * Copyright 2018 The Apollo Authors. All Rights Reserved.
  *
@@ -30,7 +29,6 @@ constexpr int ReaderWriterOffset = 4;
 
 const char* GeneralChannelMessage::errCode2Str(
     GeneralChannelMessage::ErrorCode errCode) {
-AINFO<<"(DMCZP) EnteringMethod: GeneralChannelMessage::errCode2Str";
 AINFO<<"(DMCZP) EnteringMethod: GeneralChannelMessage::errCode2Str";
   const char* ret;
   switch (errCode) {
@@ -66,7 +64,6 @@ AINFO<<"(DMCZP) EnteringMethod: GeneralChannelMessage::errCode2Str";
 
 bool GeneralChannelMessage::isErrorCode(void* ptr) {
 AINFO<<"(DMCZP) EnteringMethod: GeneralChannelMessage::isErrorCode";
-AINFO<<"(DMCZP) EnteringMethod: GeneralChannelMessage::isErrorCode";
   GeneralChannelMessage::ErrorCode err =
       (GeneralChannelMessage::ErrorCode)(reinterpret_cast<intptr_t>(ptr));
   switch (err) {
@@ -84,7 +81,6 @@ AINFO<<"(DMCZP) EnteringMethod: GeneralChannelMessage::isErrorCode";
 }
 
 double GeneralChannelMessage::frame_ratio(void) {
-AINFO<<"(DMCZP) EnteringMethod: GeneralChannelMessage::frame_ratio";
 AINFO<<"(DMCZP) EnteringMethod: GeneralChannelMessage::frame_ratio";
   if (!is_enabled() || !has_message_come()) return 0.0;
   auto time_now = apollo::cyber::Time::MonoTime();
@@ -107,7 +103,6 @@ AINFO<<"(DMCZP) EnteringMethod: GeneralChannelMessage::frame_ratio";
 
 GeneralChannelMessage* GeneralChannelMessage::OpenChannel(
     const std::string& channelName) {
-AINFO<<"(DMCZP) EnteringMethod: GeneralChannelMessage::OpenChannel";
 AINFO<<"(DMCZP) EnteringMethod: GeneralChannelMessage::OpenChannel";
   if (channelName.empty() || node_name_.empty()) {
     return castErrorCode2Ptr(ErrorCode::ChannelNameOrNodeNameIsEmpty);
@@ -138,7 +133,6 @@ AINFO<<"(DMCZP) EnteringMethod: GeneralChannelMessage::OpenChannel";
 }
 
 void GeneralChannelMessage::Render(const Screen* s, int key) {
-AINFO<<"(DMCZP) EnteringMethod: GeneralChannelMessage::Render";
 AINFO<<"(DMCZP) EnteringMethod: GeneralChannelMessage::Render";
   switch (key) {
     case 'b':
@@ -182,7 +176,6 @@ AINFO<<"(DMCZP) EnteringMethod: GeneralChannelMessage::Render";
 
 void GeneralChannelMessage::RenderInfo(const Screen* s, int key,
                                        unsigned lineNo) {
-AINFO<<"(DMCZP) EnteringMethod: GeneralChannelMessage::RenderInfo";
 AINFO<<"(DMCZP) EnteringMethod: GeneralChannelMessage::RenderInfo";
   page_item_count_ = s->Height() - lineNo;
   pages_ = static_cast<int>(readers_.size() + writers_.size() + lineNo) /
@@ -230,7 +223,6 @@ AINFO<<"(DMCZP) EnteringMethod: GeneralChannelMessage::RenderInfo";
 
 void GeneralChannelMessage::RenderDebugString(const Screen* s, int key,
                                               unsigned lineNo) {
-AINFO<<"(DMCZP) EnteringMethod: GeneralChannelMessage::RenderDebugString";
 AINFO<<"(DMCZP) EnteringMethod: GeneralChannelMessage::RenderDebugString";
   if (has_message_come()) {
     if (raw_msg_class_ == nullptr) {

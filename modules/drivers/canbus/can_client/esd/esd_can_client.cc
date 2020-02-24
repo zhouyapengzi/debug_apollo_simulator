@@ -1,4 +1,3 @@
-#include "cyber/common/log.h"
 /******************************************************************************
  * Copyright 2017 The Apollo Authors. All Rights Reserved.
  *
@@ -34,7 +33,6 @@ using apollo::common::ErrorCode;
 
 bool EsdCanClient::Init(const CANCardParameter &parameter) {
 AINFO<<"(DMCZP) EnteringMethod: EsdCanClient::Init";
-AINFO<<"(DMCZP) EnteringMethod: EsdCanClient::Init";
   if (!parameter.has_channel_id()) {
     AERROR << "Init CAN failed: parameter does not have channel id. The "
               "parameter is "
@@ -52,7 +50,6 @@ EsdCanClient::~EsdCanClient() {
 }
 
 ErrorCode EsdCanClient::Start() {
-AINFO<<"(DMCZP) EnteringMethod: EsdCanClient::Start";
 AINFO<<"(DMCZP) EnteringMethod: EsdCanClient::Start";
   if (is_started_) {
     return ErrorCode::OK;
@@ -121,7 +118,6 @@ AINFO<<"(DMCZP) EnteringMethod: EsdCanClient::Start";
 
 void EsdCanClient::Stop() {
 AINFO<<"(DMCZP) EnteringMethod: EsdCanClient::Stop";
-AINFO<<"(DMCZP) EnteringMethod: EsdCanClient::Stop";
   if (is_started_) {
     is_started_ = false;
     int32_t ret = canClose(dev_handler_);
@@ -136,7 +132,6 @@ AINFO<<"(DMCZP) EnteringMethod: EsdCanClient::Stop";
 // Synchronous transmission of CAN messages
 ErrorCode EsdCanClient::Send(const std::vector<CanFrame> &frames,
                              int32_t *const frame_num) {
-AINFO<<"(DMCZP) EnteringMethod: EsdCanClient::Send";
 AINFO<<"(DMCZP) EnteringMethod: EsdCanClient::Send";
   CHECK_NOTNULL(frame_num);
   CHECK_EQ(frames.size(), static_cast<size_t>(*frame_num));
@@ -164,7 +159,6 @@ AINFO<<"(DMCZP) EnteringMethod: EsdCanClient::Send";
 // buf size must be 8 bytes, every time, we receive only one frame
 ErrorCode EsdCanClient::Receive(std::vector<CanFrame> *const frames,
                                 int32_t *const frame_num) {
-AINFO<<"(DMCZP) EnteringMethod: EsdCanClient::Receive";
 AINFO<<"(DMCZP) EnteringMethod: EsdCanClient::Receive";
   if (!is_started_) {
     AERROR << "Esd can client is not init! Please init first!";
@@ -208,7 +202,6 @@ AINFO<<"(DMCZP) EnteringMethod: EsdCanClient::Receive";
 /************************************************************************/
 const int32_t ERROR_BUF_SIZE = 200;
 std::string EsdCanClient::GetErrorString(const NTCAN_RESULT ntstatus) {
-AINFO<<"(DMCZP) EnteringMethod: EsdCanClient::GetErrorString";
 AINFO<<"(DMCZP) EnteringMethod: EsdCanClient::GetErrorString";
   struct ERR2STR {
     NTCAN_RESULT ntstatus;

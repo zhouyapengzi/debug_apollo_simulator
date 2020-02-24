@@ -1,4 +1,3 @@
-#include "cyber/common/log.h"
 /******************************************************************************
  * Copyright 2018 The Apollo Authors. All Rights Reserved.
  *
@@ -31,7 +30,6 @@ using apollo::perception::PerceptionObstacles;
 using grpc::ServerBuilder;
 
 ObuInterFaceGrpcImpl::ObuInterFaceGrpcImpl() {
-AINFO<<"(DMCZP) EnteringMethod: ObuInterFaceGrpcImpl::ObuInterFaceGrpcImpl";
 AINFO<<"(DMCZP) EnteringMethod: ObuInterFaceGrpcImpl::ObuInterFaceGrpcImpl";
   AINFO << "ObuInterFaceGrpcImpl Start Construct.";
   grpc_client_ = std::make_shared<GrpcClientImpl>(
@@ -66,10 +64,8 @@ ObuInterFaceGrpcImpl::~ObuInterFaceGrpcImpl() {
 
 bool ObuInterFaceGrpcImpl::InitialClient() { return grpc_client_init_flag_; }
 AINFO<<"(DMCZP) EnteringMethod: ObuInterFaceGrpcImpl::InitialClient";
-AINFO<<"(DMCZP) EnteringMethod: ObuInterFaceGrpcImpl::InitialClient";
 
 bool ObuInterFaceGrpcImpl::InitialServer() {
-AINFO<<"(DMCZP) EnteringMethod: ObuInterFaceGrpcImpl::InitialServer";
 AINFO<<"(DMCZP) EnteringMethod: ObuInterFaceGrpcImpl::InitialServer";
   if (!grpc_server_init_flag_) {
     return false;
@@ -81,7 +77,6 @@ AINFO<<"(DMCZP) EnteringMethod: ObuInterFaceGrpcImpl::InitialServer";
 }
 
 void ObuInterFaceGrpcImpl::ThreadRunServer() {
-AINFO<<"(DMCZP) EnteringMethod: ObuInterFaceGrpcImpl::ThreadRunServer";
 AINFO<<"(DMCZP) EnteringMethod: ObuInterFaceGrpcImpl::ThreadRunServer";
   std::unique_lock<std::mutex> lck(mutex_);
   auto start = std::chrono::steady_clock::now();
@@ -108,21 +103,17 @@ AINFO<<"(DMCZP) EnteringMethod: ObuInterFaceGrpcImpl::ThreadRunServer";
 void ObuInterFaceGrpcImpl::GetV2xObstaclesFromObu(
     const std::shared_ptr<PerceptionObstacles> &msg) {
 AINFO<<"(DMCZP) EnteringMethod: ObuInterFaceGrpcImpl::GetV2xObstaclesFromObu";
-AINFO<<"(DMCZP) EnteringMethod: ObuInterFaceGrpcImpl::GetV2xObstaclesFromObu";
   grpc_server_->GetMsgFromGrpc(msg);
-AINFO<<"(DMCZP) EnteringMethod: ObuInterFaceGrpcImpl::SendObstaclesToObu";
 }
 AINFO<<"(DMCZP) EnteringMethod: ObuInterFaceGrpcImpl::SendObstaclesToObu";
 
 void ObuInterFaceGrpcImpl::GetV2xTrafficLightFromObu(
     const std::shared_ptr<IntersectionTrafficLightData> &msg) {
 AINFO<<"(DMCZP) EnteringMethod: ObuInterFaceGrpcImpl::GetV2xTrafficLightFromObu";
-AINFO<<"(DMCZP) EnteringMethod: ObuInterFaceGrpcImpl::GetV2xTrafficLightFromObu";
   grpc_server_->GetMsgFromGrpc(msg);
 }
 void ObuInterFaceGrpcImpl::SendCarStatusToObu(
     const std::shared_ptr<CarStatus> &msg) {
-AINFO<<"(DMCZP) EnteringMethod: ObuInterFaceGrpcImpl::SendCarStatusToObu";
 AINFO<<"(DMCZP) EnteringMethod: ObuInterFaceGrpcImpl::SendCarStatusToObu";
   grpc_client_->SendMsgToGrpc(msg);
 }

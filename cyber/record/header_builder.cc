@@ -1,4 +1,3 @@
-#include "cyber/common/log.h"
 /******************************************************************************
  * Copyright 2018 The Apollo Authors. All Rights Reserved.
  *
@@ -25,7 +24,6 @@ using ::apollo::cyber::proto::CompressType;
 
 proto::Header HeaderBuilder::GetHeader() {
 AINFO<<"(DMCZP) EnteringMethod: HeaderBuilder::GetHeader";
-AINFO<<"(DMCZP) EnteringMethod: HeaderBuilder::GetHeader";
   proto::Header header;
   header.set_major_version(MAJOR_VERSION_);
   header.set_minor_version(MINOR_VERSION_);
@@ -48,7 +46,6 @@ AINFO<<"(DMCZP) EnteringMethod: HeaderBuilder::GetHeader";
 proto::Header HeaderBuilder::GetHeaderWithSegmentParams(
     const uint64_t segment_interval, const uint64_t segment_raw_size) {
 AINFO<<"(DMCZP) EnteringMethod: HeaderBuilder::GetHeaderWithSegmentParams";
-AINFO<<"(DMCZP) EnteringMethod: HeaderBuilder::GetHeaderWithSegmentParams";
   proto::Header header;
   header.set_major_version(MAJOR_VERSION_);
   header.set_minor_version(MINOR_VERSION_);
@@ -70,7 +67,6 @@ AINFO<<"(DMCZP) EnteringMethod: HeaderBuilder::GetHeaderWithSegmentParams";
 
 proto::Header HeaderBuilder::GetHeaderWithChunkParams(
     const uint64_t chunk_interval, const uint64_t chunk_raw_size) {
-AINFO<<"(DMCZP) EnteringMethod: HeaderBuilder::GetHeaderWithChunkParams";
 AINFO<<"(DMCZP) EnteringMethod: HeaderBuilder::GetHeaderWithChunkParams";
   proto::Header header;
   header.set_major_version(MAJOR_VERSION_);

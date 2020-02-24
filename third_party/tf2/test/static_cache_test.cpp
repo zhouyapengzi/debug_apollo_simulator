@@ -1,4 +1,3 @@
-#include "cyber/common/log.h"
 /*
  * Copyright (c) 2008, Willow Garage, Inc.
  * All rights reserved.
@@ -42,9 +41,6 @@ using namespace tf2;
 
 void setIdentity(TransformStorage& stor)
 {
-AINFO<<"(DMCZP) EnteringMethod: setIdentity";
-AINFO<<"(DMCZP) EnteringMethod: TEST";
-AINFO<<"(DMCZP) EnteringMethod: TEST";
 AINFO<<"(DMCZP) EnteringMethod: setIdentity";
 AINFO<<"(DMCZP) EnteringMethod: TEST";
 AINFO<<"(DMCZP) EnteringMethod: TEST";
@@ -104,7 +100,6 @@ TEST(StaticCache, DuplicateEntries)
 }
 
 int main(int argc, char **argv){
-AINFO<<"(DMCZP) EnteringMethod: main";
 AINFO<<"(DMCZP) EnteringMethod: main";
   testing::InitGoogleTest(&argc, argv);
   return RUN_ALL_TESTS();

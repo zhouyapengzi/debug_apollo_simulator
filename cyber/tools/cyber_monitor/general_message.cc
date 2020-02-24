@@ -1,4 +1,3 @@
-#include "cyber/common/log.h"
 /******************************************************************************
  * Copyright 2018 The Apollo Authors. All Rights Reserved.
  *
@@ -33,10 +32,8 @@ GeneralMessage::GeneralMessage(GeneralMessageBase* parent,
       message_ptr_(msg),
       reflection_ptr_(reflection) {}
 AINFO<<"(DMCZP) EnteringMethod: GeneralMessage::GeneralMessage";
-AINFO<<"(DMCZP) EnteringMethod: GeneralMessage::GeneralMessage";
 
 void GeneralMessage::Render(const Screen* s, int key) {
-AINFO<<"(DMCZP) EnteringMethod: GeneralMessage::Render";
 AINFO<<"(DMCZP) EnteringMethod: GeneralMessage::Render";
   s->SetCurrentColor(Screen::WHITE_BLACK);
 

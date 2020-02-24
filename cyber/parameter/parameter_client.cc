@@ -1,4 +1,3 @@
-#include "cyber/common/log.h"
 /******************************************************************************
  * Copyright 2018 The Apollo Authors. All Rights Reserved.
  *
@@ -26,7 +25,6 @@ ParameterClient::ParameterClient(const std::shared_ptr<Node>& node,
                                  const std::string& service_node_name)
     : node_(node) {
 AINFO<<"(DMCZP) EnteringMethod: ParameterClient::ParameterClient";
-AINFO<<"(DMCZP) EnteringMethod: ParameterClient::ParameterClient";
   get_parameter_client_ = node_->CreateClient<ParamName, Param>(
       FixParameterServiceName(service_node_name, GET_PARAMETER_SERVICE_NAME));
 
@@ -39,7 +37,6 @@ AINFO<<"(DMCZP) EnteringMethod: ParameterClient::ParameterClient";
 
 bool ParameterClient::GetParameter(const std::string& param_name,
                                    Parameter* parameter) {
-AINFO<<"(DMCZP) EnteringMethod: ParameterClient::GetParameter";
 AINFO<<"(DMCZP) EnteringMethod: ParameterClient::GetParameter";
   auto request = std::make_shared<ParamName>();
   request->set_value(param_name);
@@ -58,7 +55,6 @@ AINFO<<"(DMCZP) EnteringMethod: ParameterClient::GetParameter";
 
 bool ParameterClient::SetParameter(const Parameter& parameter) {
 AINFO<<"(DMCZP) EnteringMethod: ParameterClient::SetParameter";
-AINFO<<"(DMCZP) EnteringMethod: ParameterClient::SetParameter";
   auto request = std::make_shared<Param>(parameter.ToProtoParam());
   auto response = set_parameter_client_->SendRequest(request);
   if (response == nullptr) {
@@ -69,7 +65,6 @@ AINFO<<"(DMCZP) EnteringMethod: ParameterClient::SetParameter";
 }
 
 bool ParameterClient::ListParameters(std::vector<Parameter>* parameters) {
-AINFO<<"(DMCZP) EnteringMethod: ParameterClient::ListParameters";
 AINFO<<"(DMCZP) EnteringMethod: ParameterClient::ListParameters";
   auto request = std::make_shared<NodeName>();
   request->set_value(node_->Name());

@@ -1,4 +1,3 @@
-#include "cyber/common/log.h"
 /******************************************************************************
  * Copyright 2017 The Apollo Authors. All Rights Reserved.
  *
@@ -31,12 +30,10 @@ using apollo::drivers::canbus::Byte;
 
 ObjectListStatus60A::ObjectListStatus60A() {}
 AINFO<<"(DMCZP) EnteringMethod: ObjectListStatus60A::ObjectListStatus60A";
-AINFO<<"(DMCZP) EnteringMethod: ObjectListStatus60A::ObjectListStatus60A";
 const uint32_t ObjectListStatus60A::ID = 0x60A;
 
 void ObjectListStatus60A::Parse(const std::uint8_t* bytes, int32_t length,
                                 ContiRadar* conti_radar) const {
-AINFO<<"(DMCZP) EnteringMethod: ObjectListStatus60A::Parse";
 AINFO<<"(DMCZP) EnteringMethod: ObjectListStatus60A::Parse";
   auto status = conti_radar->mutable_object_list_status();
   auto num_of_obj = num_of_objects(bytes, length);
@@ -49,7 +46,6 @@ AINFO<<"(DMCZP) EnteringMethod: ObjectListStatus60A::Parse";
 int ObjectListStatus60A::num_of_objects(const std::uint8_t* bytes,
                                         int32_t length) const {
 AINFO<<"(DMCZP) EnteringMethod: ObjectListStatus60A::num_of_objects";
-AINFO<<"(DMCZP) EnteringMethod: ObjectListStatus60A::num_of_objects";
   Byte t0(bytes);
   int32_t x = t0.get_byte(0, 8);
 
@@ -59,7 +55,6 @@ AINFO<<"(DMCZP) EnteringMethod: ObjectListStatus60A::num_of_objects";
 
 int ObjectListStatus60A::meas_counter(const std::uint8_t* bytes,
                                       int32_t length) const {
-AINFO<<"(DMCZP) EnteringMethod: ObjectListStatus60A::meas_counter";
 AINFO<<"(DMCZP) EnteringMethod: ObjectListStatus60A::meas_counter";
   Byte t0(bytes + 2);
   uint32_t x = t0.get_byte(0, 8);
@@ -75,7 +70,6 @@ AINFO<<"(DMCZP) EnteringMethod: ObjectListStatus60A::meas_counter";
 
 int ObjectListStatus60A::interface_version(const std::uint8_t* bytes,
                                            int32_t length) const {
-AINFO<<"(DMCZP) EnteringMethod: ObjectListStatus60A::interface_version";
 AINFO<<"(DMCZP) EnteringMethod: ObjectListStatus60A::interface_version";
   Byte t0(bytes + 4);
   int32_t x = t0.get_byte(4, 4);

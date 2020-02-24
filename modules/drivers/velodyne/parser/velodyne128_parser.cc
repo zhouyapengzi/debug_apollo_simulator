@@ -1,4 +1,3 @@
-#include "cyber/common/log.h"
 /******************************************************************************
  * Copyright 2017 The Apollo Authors. All Rights Reserved.
  *
@@ -24,7 +23,6 @@ namespace velodyne {
 Velodyne128Parser::Velodyne128Parser(const Config& config)
     : VelodyneParser(config), previous_packet_stamp_(0), gps_base_usec_(0) {
 AINFO<<"(DMCZP) EnteringMethod: Velodyne128Parser::Velodyne128Parser";
-AINFO<<"(DMCZP) EnteringMethod: Velodyne128Parser::Velodyne128Parser";
   inner_time_ = &velodyne::INNER_TIME_128;
   need_two_pt_correction_ = false;
 }
@@ -32,7 +30,6 @@ AINFO<<"(DMCZP) EnteringMethod: Velodyne128Parser::Velodyne128Parser";
 void Velodyne128Parser::GeneratePointcloud(
     const std::shared_ptr<VelodyneScan>& scan_msg,
     std::shared_ptr<PointCloud> out_msg) {
-AINFO<<"(DMCZP) EnteringMethod: Velodyne128Parser::GeneratePointcloud";
 AINFO<<"(DMCZP) EnteringMethod: Velodyne128Parser::GeneratePointcloud";
   // allocate a point cloud with same time and frame ID as raw data
   out_msg->mutable_header()->set_frame_id(scan_msg->header().frame_id());
@@ -64,7 +61,6 @@ AINFO<<"(DMCZP) EnteringMethod: Velodyne128Parser::GeneratePointcloud";
 uint64_t Velodyne128Parser::GetTimestamp(double base_time, float time_offset,
                                          uint16_t block_id) {
 AINFO<<"(DMCZP) EnteringMethod: Velodyne128Parser::GetTimestamp";
-AINFO<<"(DMCZP) EnteringMethod: Velodyne128Parser::GetTimestamp";
   (void)block_id;
   double t = base_time + time_offset;
   uint64_t timestamp = GetGpsStamp(t, &previous_packet_stamp_, &gps_base_usec_);
@@ -73,13 +69,11 @@ AINFO<<"(DMCZP) EnteringMethod: Velodyne128Parser::GetTimestamp";
 
 void Velodyne128Parser::Order(std::shared_ptr<PointCloud> cloud) {
 AINFO<<"(DMCZP) EnteringMethod: Velodyne128Parser::Order";
-AINFO<<"(DMCZP) EnteringMethod: Velodyne128Parser::Order";
   (void)cloud;
 }
 
 void Velodyne128Parser::Unpack(const VelodynePacket& pkt,
                                std::shared_ptr<PointCloud> pc) {
-AINFO<<"(DMCZP) EnteringMethod: Velodyne128Parser::Unpack";
 AINFO<<"(DMCZP) EnteringMethod: Velodyne128Parser::Unpack";
   float azimuth_diff, azimuth_corrected_f;
   float last_azimuth_diff = 0.0f;
@@ -167,7 +161,6 @@ AINFO<<"(DMCZP) EnteringMethod: Velodyne128Parser::Unpack";
 int Velodyne128Parser::IntensityCompensate(const LaserCorrection& corrections,
                                            const uint16_t raw_distance,
                                            int intensity) {
-AINFO<<"(DMCZP) EnteringMethod: Velodyne128Parser::IntensityCompensate";
 AINFO<<"(DMCZP) EnteringMethod: Velodyne128Parser::IntensityCompensate";
   float focal_offset = 256 * (1 - corrections.focal_distance / 13100) *
                        (1 - corrections.focal_distance / 13100);

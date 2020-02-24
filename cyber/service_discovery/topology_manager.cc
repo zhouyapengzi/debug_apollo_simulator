@@ -32,14 +32,12 @@ TopologyManager::TopologyManager()
       participant_(nullptr),
       participant_listener_(nullptr) {
 AINFO<<"(DMCZP) EnteringMethod: TopologyManager::TopologyManager";
-AINFO<<"(DMCZP) EnteringMethod: TopologyManager::TopologyManager";
   Init();
 }
 
 TopologyManager::~TopologyManager() { Shutdown(); }
 
 void TopologyManager::Shutdown() {
-AINFO<<"(DMCZP) EnteringMethod: TopologyManager::Shutdown";
 AINFO<<"(DMCZP) EnteringMethod: TopologyManager::Shutdown";
   ADEBUG << "topology shutdown.";
   // avoid shutdown twice
@@ -61,19 +59,16 @@ AINFO<<"(DMCZP) EnteringMethod: TopologyManager::Shutdown";
 TopologyManager::ChangeConnection TopologyManager::AddChangeListener(
     const ChangeFunc& func) {
 AINFO<<"(DMCZP) EnteringMethod: TopologyManager::AddChangeListener";
-AINFO<<"(DMCZP) EnteringMethod: TopologyManager::AddChangeListener";
   return change_signal_.Connect(func);
 }
 
 void TopologyManager::RemoveChangeListener(const ChangeConnection& conn) {
-AINFO<<"(DMCZP) EnteringMethod: TopologyManager::RemoveChangeListener";
 AINFO<<"(DMCZP) EnteringMethod: TopologyManager::RemoveChangeListener";
   auto local_conn = conn;
   local_conn.Disconnect();
 }
 
 bool TopologyManager::Init() {
-AINFO<<"(DMCZP) EnteringMethod: TopologyManager::Init";
 AINFO<<"(DMCZP) EnteringMethod: TopologyManager::Init";
   if (init_.exchange(true)) {
     return true;
@@ -104,24 +99,20 @@ AINFO<<"(DMCZP) EnteringMethod: TopologyManager::Init";
 
 bool TopologyManager::InitNodeManager() {
 AINFO<<"(DMCZP) EnteringMethod: TopologyManager::InitNodeManager";
-AINFO<<"(DMCZP) EnteringMethod: TopologyManager::InitNodeManager";
   return node_manager_->StartDiscovery(participant_->fastrtps_participant());
 }
 
 bool TopologyManager::InitChannelManager() {
-AINFO<<"(DMCZP) EnteringMethod: TopologyManager::InitChannelManager";
 AINFO<<"(DMCZP) EnteringMethod: TopologyManager::InitChannelManager";
   return channel_manager_->StartDiscovery(participant_->fastrtps_participant());
 }
 
 bool TopologyManager::InitServiceManager() {
 AINFO<<"(DMCZP) EnteringMethod: TopologyManager::InitServiceManager";
-AINFO<<"(DMCZP) EnteringMethod: TopologyManager::InitServiceManager";
   return service_manager_->StartDiscovery(participant_->fastrtps_participant());
 }
 
 bool TopologyManager::CreateParticipant() {
-AINFO<<"(DMCZP) EnteringMethod: TopologyManager::CreateParticipant";
 AINFO<<"(DMCZP) EnteringMethod: TopologyManager::CreateParticipant";
   std::string participant_name =
       common::GlobalData::Instance()->HostName() + '+' +
@@ -134,7 +125,6 @@ AINFO<<"(DMCZP) EnteringMethod: TopologyManager::CreateParticipant";
 }
 
 void TopologyManager::OnParticipantChange(const PartInfo& info) {
-AINFO<<"(DMCZP) EnteringMethod: TopologyManager::OnParticipantChange";
 AINFO<<"(DMCZP) EnteringMethod: TopologyManager::OnParticipantChange";
   ChangeMsg msg;
   if (!Convert(info, &msg)) {
@@ -156,7 +146,6 @@ AINFO<<"(DMCZP) EnteringMethod: TopologyManager::OnParticipantChange";
 }
 
 bool TopologyManager::Convert(const PartInfo& info, ChangeMsg* msg) {
-AINFO<<"(DMCZP) EnteringMethod: TopologyManager::Convert";
 AINFO<<"(DMCZP) EnteringMethod: TopologyManager::Convert";
   auto guid = info.rtps.m_guid;
   auto status = info.rtps.m_status;
@@ -202,7 +191,6 @@ AINFO<<"(DMCZP) EnteringMethod: TopologyManager::Convert";
 bool TopologyManager::ParseParticipantName(const std::string& participant_name,
                                            std::string* host_name,
                                            int* process_id) {
-AINFO<<"(DMCZP) EnteringMethod: TopologyManager::ParseParticipantName";
 AINFO<<"(DMCZP) EnteringMethod: TopologyManager::ParseParticipantName";
   // participant_name format: host_name+process_id
   auto pos = participant_name.find('+');

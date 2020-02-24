@@ -1,4 +1,3 @@
-#include "cyber/common/log.h"
 /******************************************************************************
  * Copyright 2018 The Apollo Authors. All Rights Reserved.
  *
@@ -28,7 +27,6 @@ namespace mainboard {
 
 void ModuleArgument::DisplayUsage() {
 AINFO<<"(DMCZP) EnteringMethod: ModuleArgument::DisplayUsage";
-AINFO<<"(DMCZP) EnteringMethod: ModuleArgument::DisplayUsage";
   AINFO << "Usage: \n    " << binary_name_ << " [OPTION]...\n"
         << "Description: \n"
         << "    -h, --help : help information \n"
@@ -44,7 +42,6 @@ AINFO<<"(DMCZP) EnteringMethod: ModuleArgument::DisplayUsage";
 }
 
 void ModuleArgument::ParseArgument(const int argc, char* const argv[]) {
-AINFO<<"(DMCZP) EnteringMethod: ModuleArgument::ParseArgument";
 AINFO<<"(DMCZP) EnteringMethod: ModuleArgument::ParseArgument";
   binary_name_ = std::string(basename(argv[0]));
   GetOptions(argc, argv);
@@ -67,7 +64,6 @@ AINFO<<"(DMCZP) EnteringMethod: ModuleArgument::ParseArgument";
 }
 
 void ModuleArgument::GetOptions(const int argc, char* const argv[]) {
-AINFO<<"(DMCZP) EnteringMethod: ModuleArgument::GetOptions";
 AINFO<<"(DMCZP) EnteringMethod: ModuleArgument::GetOptions";
   opterr = 0;  // extern int opterr
   int long_index = 0;

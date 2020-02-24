@@ -1,4 +1,3 @@
-#include "cyber/common/log.h"
 /******************************************************************************
  * Copyright 2018 The Apollo Authors. All Rights Reserved.
  *
@@ -20,10 +19,8 @@
 TargetCamera::TargetCamera()
     : AbstractCamera(), target_pos_(0.0, 0.0, 0.0), distance_(10.0) {}
 AINFO<<"(DMCZP) EnteringMethod: TargetCamera::TargetCamera";
-AINFO<<"(DMCZP) EnteringMethod: TargetCamera::TargetCamera";
 
 void TargetCamera::UpdateWorld() {
-AINFO<<"(DMCZP) EnteringMethod: TargetCamera::UpdateWorld";
 AINFO<<"(DMCZP) EnteringMethod: TargetCamera::UpdateWorld";
   QMatrix4x4 R = YawPitchRoll(yaw(), pitch(), roll());
   QVector3D T{0, 0, distance_};

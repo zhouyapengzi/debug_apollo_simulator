@@ -1,4 +1,3 @@
-#include "cyber/common/log.h"
 /******************************************************************************
  * Copyright 2018 The Apollo Authors. All Rights Reserved.
  *
@@ -39,28 +38,23 @@ const Time Time::MIN = Time(1);
 
 Time::Time(uint64_t nanoseconds) { nanoseconds_ = nanoseconds; }
 AINFO<<"(DMCZP) EnteringMethod: Time::Time";
-AINFO<<"(DMCZP) EnteringMethod: Time::Time";
 
 Time::Time(int nanoseconds) {
-AINFO<<"(DMCZP) EnteringMethod: Time::Time";
 AINFO<<"(DMCZP) EnteringMethod: Time::Time";
   nanoseconds_ = static_cast<uint64_t>(nanoseconds);
 }
 
 Time::Time(double seconds) {
 AINFO<<"(DMCZP) EnteringMethod: Time::Time";
-AINFO<<"(DMCZP) EnteringMethod: Time::Time";
   nanoseconds_ = static_cast<uint64_t>(seconds * 1000000000UL);
 }
 
 Time::Time(uint32_t seconds, uint32_t nanoseconds) {
 AINFO<<"(DMCZP) EnteringMethod: Time::Time";
-AINFO<<"(DMCZP) EnteringMethod: Time::Time";
   nanoseconds_ = static_cast<uint64_t>(seconds) * 1000000000UL + nanoseconds;
 }
 
 Time::Time(const Time& other) { nanoseconds_ = other.nanoseconds_; }
-AINFO<<"(DMCZP) EnteringMethod: Time::Time";
 AINFO<<"(DMCZP) EnteringMethod: Time::Time";
 
 Time& Time::operator=(const Time& other) {
@@ -69,7 +63,6 @@ Time& Time::operator=(const Time& other) {
 }
 
 Time Time::Now() {
-AINFO<<"(DMCZP) EnteringMethod: Time::Now";
 AINFO<<"(DMCZP) EnteringMethod: Time::Now";
   auto now = high_resolution_clock::now();
   auto nano_time_point =
@@ -82,7 +75,6 @@ AINFO<<"(DMCZP) EnteringMethod: Time::Now";
 
 Time Time::MonoTime() {
 AINFO<<"(DMCZP) EnteringMethod: Time::MonoTime";
-AINFO<<"(DMCZP) EnteringMethod: Time::MonoTime";
   auto now = steady_clock::now();
   auto nano_time_point =
       std::chrono::time_point_cast<std::chrono::nanoseconds>(now);
@@ -94,20 +86,16 @@ AINFO<<"(DMCZP) EnteringMethod: Time::MonoTime";
 
 double Time::ToSecond() const {
 AINFO<<"(DMCZP) EnteringMethod: Time::ToSecond";
-AINFO<<"(DMCZP) EnteringMethod: Time::ToSecond";
   return static_cast<double>(nanoseconds_) / 1000000000UL;
 }
 
 bool Time::IsZero() const { return nanoseconds_ == 0; }
 AINFO<<"(DMCZP) EnteringMethod: Time::IsZero";
-AINFO<<"(DMCZP) EnteringMethod: Time::IsZero";
 
 uint64_t Time::ToNanosecond() const { return nanoseconds_; }
 AINFO<<"(DMCZP) EnteringMethod: Time::ToNanosecond";
-AINFO<<"(DMCZP) EnteringMethod: Time::ToNanosecond";
 
 std::string Time::ToString() const {
-AINFO<<"(DMCZP) EnteringMethod: Time::ToString";
 AINFO<<"(DMCZP) EnteringMethod: Time::ToString";
   auto nano = std::chrono::nanoseconds(nanoseconds_);
   system_clock::time_point tp(nano);
@@ -130,7 +118,6 @@ AINFO<<"(DMCZP) EnteringMethod: Time::ToString";
 }
 
 void Time::SleepUntil(const Time& time) {
-AINFO<<"(DMCZP) EnteringMethod: Time::SleepUntil";
 AINFO<<"(DMCZP) EnteringMethod: Time::SleepUntil";
   auto nano = std::chrono::nanoseconds(time.ToNanosecond());
   system_clock::time_point tp(nano);

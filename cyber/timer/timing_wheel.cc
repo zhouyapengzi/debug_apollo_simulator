@@ -1,4 +1,3 @@
-#include "cyber/common/log.h"
 /******************************************************************************
  * Copyright 2019 The Apollo Authors. All Rights Reserved.
  *
@@ -23,7 +22,6 @@ namespace cyber {
 
 void TimingWheel::Start() {
 AINFO<<"(DMCZP) EnteringMethod: TimingWheel::Start";
-AINFO<<"(DMCZP) EnteringMethod: TimingWheel::Start";
   std::lock_guard<std::mutex> lock(running_mutex_);
   if (!running_) {
     ADEBUG << "TimeWheel start ok";
@@ -35,7 +33,6 @@ AINFO<<"(DMCZP) EnteringMethod: TimingWheel::Start";
 
 void TimingWheel::Shutdown() {
 AINFO<<"(DMCZP) EnteringMethod: TimingWheel::Shutdown";
-AINFO<<"(DMCZP) EnteringMethod: TimingWheel::Shutdown";
   std::lock_guard<std::mutex> lock(running_mutex_);
   if (running_) {
     running_ = false;
@@ -46,7 +43,6 @@ AINFO<<"(DMCZP) EnteringMethod: TimingWheel::Shutdown";
 }
 
 void TimingWheel::Tick() {
-AINFO<<"(DMCZP) EnteringMethod: TimingWheel::Tick";
 AINFO<<"(DMCZP) EnteringMethod: TimingWheel::Tick";
   auto& bucket = work_wheel_[current_work_wheel_index_];
   {
@@ -71,13 +67,11 @@ AINFO<<"(DMCZP) EnteringMethod: TimingWheel::Tick";
 
 void TimingWheel::AddTask(const std::shared_ptr<TimerTask>& task) {
 AINFO<<"(DMCZP) EnteringMethod: TimingWheel::AddTask";
-AINFO<<"(DMCZP) EnteringMethod: TimingWheel::AddTask";
   AddTask(task, current_work_wheel_index_);
 }
 
 void TimingWheel::AddTask(const std::shared_ptr<TimerTask>& task,
                           const uint64_t current_work_wheel_index) {
-AINFO<<"(DMCZP) EnteringMethod: TimingWheel::AddTask";
 AINFO<<"(DMCZP) EnteringMethod: TimingWheel::AddTask";
   if (!running_) {
     Start();
@@ -108,7 +102,6 @@ AINFO<<"(DMCZP) EnteringMethod: TimingWheel::AddTask";
 
 void TimingWheel::Cascade(const uint64_t assistant_wheel_index) {
 AINFO<<"(DMCZP) EnteringMethod: TimingWheel::Cascade";
-AINFO<<"(DMCZP) EnteringMethod: TimingWheel::Cascade";
   auto& bucket = assistant_wheel_[assistant_wheel_index];
   std::lock_guard<std::mutex> lock(bucket.mutex());
   auto ite = bucket.task_list().begin();
@@ -122,7 +115,6 @@ AINFO<<"(DMCZP) EnteringMethod: TimingWheel::Cascade";
 }
 
 void TimingWheel::TickFunc() {
-AINFO<<"(DMCZP) EnteringMethod: TimingWheel::TickFunc";
 AINFO<<"(DMCZP) EnteringMethod: TimingWheel::TickFunc";
   Rate rate(TIMER_RESOLUTION_MS * 1000000);  // ms to ns
   while (running_) {
@@ -139,7 +131,6 @@ AINFO<<"(DMCZP) EnteringMethod: TimingWheel::TickFunc";
 }
 
 TimingWheel::TimingWheel() {}
-AINFO<<"(DMCZP) EnteringMethod: TimingWheel::TimingWheel";
 AINFO<<"(DMCZP) EnteringMethod: TimingWheel::TimingWheel";
 
 }  // namespace cyber

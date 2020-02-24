@@ -1,4 +1,3 @@
-#include "cyber/common/log.h"
 /******************************************************************************
  * Copyright 2018 The Apollo Authors. All Rights Reserved.
  *
@@ -30,7 +29,6 @@ const char TEST_FILE[] = "test.record";
 
 void test_write(const std::string &writefile) {
 AINFO<<"(DMCZP) EnteringMethod: test_write";
-AINFO<<"(DMCZP) EnteringMethod: test_write";
   apollo::cyber::record::PyRecordWriter rec_writer;
   AINFO << "++++ begin writer";
   rec_writer.Open(writefile);
@@ -42,7 +40,6 @@ AINFO<<"(DMCZP) EnteringMethod: test_write";
 }
 
 void test_read(const std::string &readfile) {
-AINFO<<"(DMCZP) EnteringMethod: test_read";
 AINFO<<"(DMCZP) EnteringMethod: test_read";
   apollo::cyber::record::PyRecordReader rec_reader(readfile);
   AINFO << "++++ begin reading";
@@ -70,7 +67,6 @@ AINFO<<"(DMCZP) EnteringMethod: test_read";
 // ./py_record readfile1. only read readfile1
 // other write & read
 int main(int argc, char *argv[]) {
-AINFO<<"(DMCZP) EnteringMethod: main";
 AINFO<<"(DMCZP) EnteringMethod: main";
   apollo::cyber::Init("cyber_python");
   if (argc == 2) {

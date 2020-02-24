@@ -33,7 +33,6 @@ using proto::RoleAttributes;
 bool MultiValueWarehouse::Add(uint64_t key, const RolePtr& role,
                               bool ignore_if_exist) {
 AINFO<<"(DMCZP) EnteringMethod: MultiValueWarehouse::Add";
-AINFO<<"(DMCZP) EnteringMethod: MultiValueWarehouse::Add";
   WriteLockGuard<AtomicRWLock> lock(rw_lock_);
   if (!ignore_if_exist) {
     if (roles_.find(key) != roles_.end()) {
@@ -47,13 +46,11 @@ AINFO<<"(DMCZP) EnteringMethod: MultiValueWarehouse::Add";
 
 void MultiValueWarehouse::Clear() {
 AINFO<<"(DMCZP) EnteringMethod: MultiValueWarehouse::Clear";
-AINFO<<"(DMCZP) EnteringMethod: MultiValueWarehouse::Clear";
   WriteLockGuard<AtomicRWLock> lock(rw_lock_);
   roles_.clear();
 }
 
 std::size_t MultiValueWarehouse::Size() {
-AINFO<<"(DMCZP) EnteringMethod: MultiValueWarehouse::Size";
 AINFO<<"(DMCZP) EnteringMethod: MultiValueWarehouse::Size";
   ReadLockGuard<AtomicRWLock> lock(rw_lock_);
   return roles_.size();
@@ -61,13 +58,11 @@ AINFO<<"(DMCZP) EnteringMethod: MultiValueWarehouse::Size";
 
 void MultiValueWarehouse::Remove(uint64_t key) {
 AINFO<<"(DMCZP) EnteringMethod: MultiValueWarehouse::Remove";
-AINFO<<"(DMCZP) EnteringMethod: MultiValueWarehouse::Remove";
   WriteLockGuard<AtomicRWLock> lock(rw_lock_);
   roles_.erase(key);
 }
 
 void MultiValueWarehouse::Remove(uint64_t key, const RolePtr& role) {
-AINFO<<"(DMCZP) EnteringMethod: MultiValueWarehouse::Remove";
 AINFO<<"(DMCZP) EnteringMethod: MultiValueWarehouse::Remove";
   WriteLockGuard<AtomicRWLock> lock(rw_lock_);
   auto range = roles_.equal_range(key);
@@ -82,7 +77,6 @@ AINFO<<"(DMCZP) EnteringMethod: MultiValueWarehouse::Remove";
 
 void MultiValueWarehouse::Remove(const RoleAttributes& target_attr) {
 AINFO<<"(DMCZP) EnteringMethod: MultiValueWarehouse::Remove";
-AINFO<<"(DMCZP) EnteringMethod: MultiValueWarehouse::Remove";
   WriteLockGuard<AtomicRWLock> lock(rw_lock_);
   for (auto it = roles_.begin(); it != roles_.end();) {
     auto curr_role = it->second;
@@ -96,13 +90,11 @@ AINFO<<"(DMCZP) EnteringMethod: MultiValueWarehouse::Remove";
 
 bool MultiValueWarehouse::Search(uint64_t key) {
 AINFO<<"(DMCZP) EnteringMethod: MultiValueWarehouse::Search";
-AINFO<<"(DMCZP) EnteringMethod: MultiValueWarehouse::Search";
   RolePtr role;
   return Search(key, &role);
 }
 
 bool MultiValueWarehouse::Search(uint64_t key, RolePtr* first_matched_role) {
-AINFO<<"(DMCZP) EnteringMethod: MultiValueWarehouse::Search";
 AINFO<<"(DMCZP) EnteringMethod: MultiValueWarehouse::Search";
   RETURN_VAL_IF_NULL(first_matched_role, false);
   ReadLockGuard<AtomicRWLock> lock(rw_lock_);
@@ -116,8 +108,6 @@ AINFO<<"(DMCZP) EnteringMethod: MultiValueWarehouse::Search";
 
 bool MultiValueWarehouse::Search(uint64_t key,
                                  RoleAttributes* first_matched_role_attr) {
-AINFO<<"(DMCZP) EnteringMethod: MultiValueWarehouse::Search";
-AINFO<<"(DMCZP) EnteringMethod: MultiValueWarehouse::Search";
 AINFO<<"(DMCZP) EnteringMethod: MultiValueWarehouse::Search";
 AINFO<<"(DMCZP) EnteringMethod: MultiValueWarehouse::Search";
   RETURN_VAL_IF_NULL(first_matched_role_attr, false);
@@ -146,11 +136,9 @@ bool MultiValueWarehouse::Search(uint64_t key,
 bool MultiValueWarehouse::Search(
     uint64_t key, std::vector<RoleAttributes>* matched_roles_attr) {
 AINFO<<"(DMCZP) EnteringMethod: MultiValueWarehouse::Search";
-AINFO<<"(DMCZP) EnteringMethod: MultiValueWarehouse::Search";
   RETURN_VAL_IF_NULL(matched_roles_attr, false);
   bool find = false;
   ReadLockGuard<AtomicRWLock> lock(rw_lock_);
-AINFO<<"(DMCZP) EnteringMethod: MultiValueWarehouse::Search";
   auto range = roles_.equal_range(key);
 AINFO<<"(DMCZP) EnteringMethod: MultiValueWarehouse::Search";
   for_each(range.first, range.second,
@@ -163,16 +151,12 @@ AINFO<<"(DMCZP) EnteringMethod: MultiValueWarehouse::Search";
 
 bool MultiValueWarehouse::Search(const RoleAttributes& target_attr) {
 AINFO<<"(DMCZP) EnteringMethod: MultiValueWarehouse::Search";
-AINFO<<"(DMCZP) EnteringMethod: MultiValueWarehouse::Search";
   RolePtr role;
   return Search(target_attr, &role);
 }
 
 bool MultiValueWarehouse::Search(const RoleAttributes& target_attr,
                                  RolePtr* first_matched_role) {
-AINFO<<"(DMCZP) EnteringMethod: MultiValueWarehouse::Search";
-AINFO<<"(DMCZP) EnteringMethod: MultiValueWarehouse::Search";
-AINFO<<"(DMCZP) EnteringMethod: MultiValueWarehouse::Search";
 AINFO<<"(DMCZP) EnteringMethod: MultiValueWarehouse::Search";
 AINFO<<"(DMCZP) EnteringMethod: MultiValueWarehouse::Search";
 AINFO<<"(DMCZP) EnteringMethod: MultiValueWarehouse::Search";
@@ -229,7 +213,6 @@ bool MultiValueWarehouse::Search(
 
 void MultiValueWarehouse::GetAllRoles(std::vector<RolePtr>* roles) {
 AINFO<<"(DMCZP) EnteringMethod: MultiValueWarehouse::GetAllRoles";
-AINFO<<"(DMCZP) EnteringMethod: MultiValueWarehouse::GetAllRoles";
   RETURN_IF_NULL(roles);
   ReadLockGuard<AtomicRWLock> lock(rw_lock_);
   for (auto& item : roles_) {
@@ -238,7 +221,6 @@ AINFO<<"(DMCZP) EnteringMethod: MultiValueWarehouse::GetAllRoles";
 }
 
 void MultiValueWarehouse::GetAllRoles(std::vector<RoleAttributes>* roles_attr) {
-AINFO<<"(DMCZP) EnteringMethod: MultiValueWarehouse::GetAllRoles";
 AINFO<<"(DMCZP) EnteringMethod: MultiValueWarehouse::GetAllRoles";
   RETURN_IF_NULL(roles_attr);
   ReadLockGuard<AtomicRWLock> lock(rw_lock_);

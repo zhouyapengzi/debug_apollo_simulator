@@ -1,4 +1,3 @@
-#include "cyber/common/log.h"
 /******************************************************************************
  * Copyright 2018 The Apollo Authors. All Rights Reserved.
  *
@@ -81,10 +80,8 @@ class DispatcherTest : public ::testing::Test {
 
 TEST_F(DispatcherTest, shutdown) { dispatcher_.Shutdown(); }
 AINFO<<"(DMCZP) EnteringMethod: TEST_F";
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
 
 TEST_F(DispatcherTest, add_and_remove_listener) {
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
 AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   RoleAttributes self_attr;
   self_attr.set_channel_name("add_listener");
@@ -128,7 +125,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST_F";
 }
 
 TEST_F(DispatcherTest, has_channel) {
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
 AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   for (int i = 0; i < attr_num_; ++i) {
     auto channel_name = "channel_" + std::to_string(i);

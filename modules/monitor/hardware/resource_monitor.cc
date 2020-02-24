@@ -37,8 +37,6 @@ DEFINE_double(resource_monitor_interval, 5,
 namespace apollo {
 AINFO<<"(DMCZP) EnteringMethod: DEFINE_string";
 AINFO<<"(DMCZP) EnteringMethod: DEFINE_double";
-AINFO<<"(DMCZP) EnteringMethod: DEFINE_string";
-AINFO<<"(DMCZP) EnteringMethod: DEFINE_double";
 namespace monitor {
 
 using apollo::common::util::StrCat;
@@ -47,10 +45,8 @@ ResourceMonitor::ResourceMonitor()
     : RecurrentRunner(FLAGS_resource_monitor_name,
                       FLAGS_resource_monitor_interval) {}
 AINFO<<"(DMCZP) EnteringMethod: ResourceMonitor::ResourceMonitor";
-AINFO<<"(DMCZP) EnteringMethod: ResourceMonitor::ResourceMonitor";
 
 void ResourceMonitor::RunOnce(const double current_time) {
-AINFO<<"(DMCZP) EnteringMethod: ResourceMonitor::RunOnce";
 AINFO<<"(DMCZP) EnteringMethod: ResourceMonitor::RunOnce";
   auto manager = MonitorManager::Instance();
   const auto& mode = manager->GetHMIMode();
@@ -68,7 +64,6 @@ AINFO<<"(DMCZP) EnteringMethod: ResourceMonitor::RunOnce";
 void ResourceMonitor::UpdateStatus(
     const apollo::dreamview::ResourceMonitorConfig& config,
     ComponentStatus* status) {
-AINFO<<"(DMCZP) EnteringMethod: ResourceMonitor::UpdateStatus";
 AINFO<<"(DMCZP) EnteringMethod: ResourceMonitor::UpdateStatus";
   status->clear_status();
   // Monitor available disk space.

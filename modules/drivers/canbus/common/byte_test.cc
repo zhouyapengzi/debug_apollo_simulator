@@ -1,4 +1,3 @@
-#include "cyber/common/log.h"
 /******************************************************************************
  * Copyright 2017 The Apollo Authors. All Rights Reserved.
  *
@@ -27,7 +26,6 @@ namespace canbus {
 
 TEST(ByteTest, CopyConstructor) {
 AINFO<<"(DMCZP) EnteringMethod: TEST";
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   unsigned char byte_value = 0xFF;
   Byte value(&byte_value);
   Byte another_value(value);
@@ -36,7 +34,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST";
 }
 
 TEST(ByteTest, SetBit) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
 AINFO<<"(DMCZP) EnteringMethod: TEST";
   unsigned char byte_value = 0xFF;
   Byte value(&byte_value);
@@ -58,7 +55,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST";
 }
 
 TEST(ByteTest, SetValue) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
 AINFO<<"(DMCZP) EnteringMethod: TEST";
   unsigned char byte_value = 0x1A;
   Byte value(&byte_value);
@@ -83,7 +79,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST";
 
 TEST(ByteTest, GetValue) {
 AINFO<<"(DMCZP) EnteringMethod: TEST";
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   unsigned char byte_value = 0x1A;
   Byte value(&byte_value);
   EXPECT_EQ(0x05, value.get_byte(1, 3));
@@ -94,7 +89,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST";
 }
 
 TEST(ByteTest, SetGetHighLowBit) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
 AINFO<<"(DMCZP) EnteringMethod: TEST";
   unsigned char byte_value = 0x37;
   Byte value(&byte_value);
@@ -107,7 +101,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST";
 }
 
 TEST(ByteTest, ByteToString) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
 AINFO<<"(DMCZP) EnteringMethod: TEST";
   unsigned char value = 0x34;
   EXPECT_EQ("34", Byte::byte_to_hex(value));

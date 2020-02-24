@@ -1,4 +1,3 @@
-#include "cyber/common/log.h"
 /******************************************************************************
  * Copyright 2018 The Apollo Authors. All Rights Reserved.
  *
@@ -23,7 +22,6 @@ namespace transport {
 
 QosProfileConf::QosProfileConf() {}
 AINFO<<"(DMCZP) EnteringMethod: QosProfileConf::QosProfileConf";
-AINFO<<"(DMCZP) EnteringMethod: QosProfileConf::QosProfileConf";
 
 QosProfileConf::~QosProfileConf() {}
 
@@ -31,7 +29,6 @@ QosProfile QosProfileConf::CreateQosProfile(
     const QosHistoryPolicy& history, uint32_t depth, uint32_t mps,
     const QosReliabilityPolicy& reliability,
     const QosDurabilityPolicy& durability) {
-AINFO<<"(DMCZP) EnteringMethod: QosProfileConf::CreateQosProfile";
 AINFO<<"(DMCZP) EnteringMethod: QosProfileConf::CreateQosProfile";
   QosProfile qos_profile;
   qos_profile.set_history(history);

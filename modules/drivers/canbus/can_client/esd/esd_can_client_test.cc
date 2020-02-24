@@ -1,4 +1,3 @@
-#include "cyber/common/log.h"
 /******************************************************************************
  * Copyright 2017 The Apollo Authors. All Rights Reserved.
  *
@@ -31,7 +30,6 @@ namespace can {
 using apollo::common::ErrorCode;
 
 TEST(EsdCanClientTest, simple_test) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
 AINFO<<"(DMCZP) EnteringMethod: TEST";
   CANCardParameter param;
   param.set_brand(CANCardParameter::ESD_CAN);

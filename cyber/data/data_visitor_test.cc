@@ -40,7 +40,6 @@ auto channel3 = str_hash("/channel3");
 
 void DispatchMessage(uint64_t channel_id, int num) {
 AINFO<<"(DMCZP) EnteringMethod: DispatchMessage";
-AINFO<<"(DMCZP) EnteringMethod: DispatchMessage";
   for (int i = 0; i < num; ++i) {
     auto raw_msg = std::make_shared<RawMessage>();
     DataDispatcher<RawMessage>::Instance()->Dispatch(channel_id, raw_msg);
@@ -59,7 +58,6 @@ std::vector<VisitorConfig> InitConfigs(int num) {
 
 TEST(DataVisitorTest, one_channel) {
 AINFO<<"(DMCZP) EnteringMethod: TEST";
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   auto channel0 = str_hash("/channel");
   auto dv = std::make_shared<DataVisitor<RawMessage>>(channel0, 10);
 
@@ -75,7 +73,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST";
 }
 
 TEST(DataVisitorTest, two_channel) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
 AINFO<<"(DMCZP) EnteringMethod: TEST";
   auto dv =
       std::make_shared<DataVisitor<RawMessage, RawMessage>>(InitConfigs(2));
@@ -96,7 +93,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST";
 }
 
 TEST(DataVisitorTest, three_channel) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
 AINFO<<"(DMCZP) EnteringMethod: TEST";
   auto dv = std::make_shared<DataVisitor<RawMessage, RawMessage, RawMessage>>(
       InitConfigs(3));
@@ -120,7 +116,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST";
 }
 
 TEST(DataVisitorTest, four_channel) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
 AINFO<<"(DMCZP) EnteringMethod: TEST";
   auto dv = std::make_shared<
       DataVisitor<RawMessage, RawMessage, RawMessage, RawMessage>>(

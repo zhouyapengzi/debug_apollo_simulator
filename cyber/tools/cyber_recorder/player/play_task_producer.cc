@@ -44,12 +44,10 @@ PlayTaskProducer::PlayTaskProducer(const TaskBufferPtr& task_buffer,
       latest_end_time_(0),
       total_msg_num_(0) {}
 AINFO<<"(DMCZP) EnteringMethod: PlayTaskProducer::PlayTaskProducer";
-AINFO<<"(DMCZP) EnteringMethod: PlayTaskProducer::PlayTaskProducer";
 
 PlayTaskProducer::~PlayTaskProducer() { Stop(); }
 
 bool PlayTaskProducer::Init() {
-AINFO<<"(DMCZP) EnteringMethod: PlayTaskProducer::Init";
 AINFO<<"(DMCZP) EnteringMethod: PlayTaskProducer::Init";
   if (is_initialized_.exchange(true)) {
     AERROR << "producer has been initialized.";
@@ -66,7 +64,6 @@ AINFO<<"(DMCZP) EnteringMethod: PlayTaskProducer::Init";
 
 void PlayTaskProducer::Start() {
 AINFO<<"(DMCZP) EnteringMethod: PlayTaskProducer::Start";
-AINFO<<"(DMCZP) EnteringMethod: PlayTaskProducer::Start";
   if (!is_initialized_.load()) {
     AERROR << "please call Init firstly.";
     return;
@@ -82,7 +79,6 @@ AINFO<<"(DMCZP) EnteringMethod: PlayTaskProducer::Start";
 
 void PlayTaskProducer::Stop() {
 AINFO<<"(DMCZP) EnteringMethod: PlayTaskProducer::Stop";
-AINFO<<"(DMCZP) EnteringMethod: PlayTaskProducer::Stop";
   if (!is_stopped_.exchange(true)) {
     return;
   }
@@ -93,7 +89,6 @@ AINFO<<"(DMCZP) EnteringMethod: PlayTaskProducer::Stop";
 }
 
 bool PlayTaskProducer::ReadRecordInfo() {
-AINFO<<"(DMCZP) EnteringMethod: PlayTaskProducer::ReadRecordInfo";
 AINFO<<"(DMCZP) EnteringMethod: PlayTaskProducer::ReadRecordInfo";
   if (play_param_.files_to_play.empty()) {
     AINFO << "no file to play.";
@@ -173,7 +168,6 @@ AINFO<<"(DMCZP) EnteringMethod: PlayTaskProducer::ReadRecordInfo";
 
 bool PlayTaskProducer::UpdatePlayParam() {
 AINFO<<"(DMCZP) EnteringMethod: PlayTaskProducer::UpdatePlayParam";
-AINFO<<"(DMCZP) EnteringMethod: PlayTaskProducer::UpdatePlayParam";
   if (play_param_.begin_time_ns < earliest_begin_time_) {
     play_param_.begin_time_ns = earliest_begin_time_;
   }
@@ -199,7 +193,6 @@ AINFO<<"(DMCZP) EnteringMethod: PlayTaskProducer::UpdatePlayParam";
 }
 
 bool PlayTaskProducer::CreateWriters() {
-AINFO<<"(DMCZP) EnteringMethod: PlayTaskProducer::CreateWriters";
 AINFO<<"(DMCZP) EnteringMethod: PlayTaskProducer::CreateWriters";
   std::string node_name = "cyber_recorder_play_" + std::to_string(getpid());
   node_ = apollo::cyber::CreateNode(node_name);
@@ -235,7 +228,6 @@ AINFO<<"(DMCZP) EnteringMethod: PlayTaskProducer::CreateWriters";
 }
 
 void PlayTaskProducer::ThreadFunc() {
-AINFO<<"(DMCZP) EnteringMethod: PlayTaskProducer::ThreadFunc";
 AINFO<<"(DMCZP) EnteringMethod: PlayTaskProducer::ThreadFunc";
   const uint64_t loop_time_ns =
       play_param_.end_time_ns - play_param_.begin_time_ns;

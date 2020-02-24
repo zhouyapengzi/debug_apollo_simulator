@@ -1,4 +1,3 @@
-#include "cyber/common/log.h"
 /******************************************************************************
  * Copyright 2018 The Apollo Authors. All Rights Reserved.
  *
@@ -28,13 +27,10 @@
 namespace {
 void SigResizeHandle(int) { Screen::Instance()->Resize(); }
 AINFO<<"(DMCZP) EnteringMethod: SigResizeHandle";
-AINFO<<"(DMCZP) EnteringMethod: SigResizeHandle";
 void SigCtrlCHandle(int) { Screen::Instance()->Stop(); }
-AINFO<<"(DMCZP) EnteringMethod: SigCtrlCHandle";
 AINFO<<"(DMCZP) EnteringMethod: SigCtrlCHandle";
 
 void printHelp(const char *cmdName) {
-AINFO<<"(DMCZP) EnteringMethod: printHelp";
 AINFO<<"(DMCZP) EnteringMethod: printHelp";
   std::cout << "Usage:\n"
             << cmdName << "  [option]\nOption:\n"
@@ -52,7 +48,6 @@ enum COMMAND {
 };
 
 COMMAND parseOption(int argc, char *const argv[], std::string &commandVal) {
-AINFO<<"(DMCZP) EnteringMethod: parseOption";
 AINFO<<"(DMCZP) EnteringMethod: parseOption";
   if (argc > 4) return TOO_MANY_PARAMETER;
   int index = 1;
@@ -76,7 +71,6 @@ AINFO<<"(DMCZP) EnteringMethod: parseOption";
 }  // namespace
 
 int main(int argc, char *argv[]) {
-AINFO<<"(DMCZP) EnteringMethod: main";
 AINFO<<"(DMCZP) EnteringMethod: main";
   std::string val;
 

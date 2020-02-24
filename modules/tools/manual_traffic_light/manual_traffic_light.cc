@@ -1,4 +1,3 @@
-#include "cyber/common/log.h"
 /******************************************************************************
  * Copyright 2017 The Apollo Authors. All Rights Reserved.
  *
@@ -42,8 +41,6 @@ DEFINE_double(traffic_light_distance, 1000.0,
               "only retrieves traffic lights within this distance");
 
 class ManualTrafficLight final : public apollo::cyber::TimerComponent {
-AINFO<<"(DMCZP) EnteringMethod: DEFINE_bool";
-AINFO<<"(DMCZP) EnteringMethod: DEFINE_double";
 AINFO<<"(DMCZP) EnteringMethod: DEFINE_bool";
 AINFO<<"(DMCZP) EnteringMethod: DEFINE_double";
  public:

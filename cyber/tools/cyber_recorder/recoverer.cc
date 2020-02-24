@@ -1,4 +1,3 @@
-#include "cyber/common/log.h"
 /******************************************************************************
  * Copyright 2018 The Apollo Authors. All Rights Reserved.
  *
@@ -28,12 +27,10 @@ Recoverer::Recoverer(const std::string& input_file,
                      const std::string& output_file)
     : input_file_(input_file), output_file_(output_file) {}
 AINFO<<"(DMCZP) EnteringMethod: Recoverer::Recoverer";
-AINFO<<"(DMCZP) EnteringMethod: Recoverer::Recoverer";
 
 Recoverer::~Recoverer() {}
 
 bool Recoverer::Proc() {
-AINFO<<"(DMCZP) EnteringMethod: Recoverer::Proc";
 AINFO<<"(DMCZP) EnteringMethod: Recoverer::Proc";
   if (!reader_.Open(input_file_)) {
     AERROR << "open input file failed, file: " << input_file_;

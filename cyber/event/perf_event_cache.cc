@@ -33,7 +33,6 @@ using common::GetEnv;
 
 PerfEventCache::PerfEventCache() {
 AINFO<<"(DMCZP) EnteringMethod: PerfEventCache::PerfEventCache";
-AINFO<<"(DMCZP) EnteringMethod: PerfEventCache::PerfEventCache";
   auto trans_perf = GetEnv("cyber_trans_perf");
   if (trans_perf != "" && std::stoi(trans_perf)) {
     enable_trans_perf_ = true;
@@ -75,7 +74,6 @@ void PerfEventCache::AddSchedEvent(const SchedPerf event_id,
                                    const uint64_t cr_id, const int proc_id,
                                    const int cr_state) {
 AINFO<<"(DMCZP) EnteringMethod: PerfEventCache::AddSchedEvent";
-AINFO<<"(DMCZP) EnteringMethod: PerfEventCache::AddSchedEvent";
   if (likely(!enable_sched_perf_)) {
     return;
   }
@@ -94,7 +92,6 @@ void PerfEventCache::AddTransportEvent(const TransPerf event_id,
                                        const uint64_t channel_id,
                                        const uint64_t msg_seq) {
 AINFO<<"(DMCZP) EnteringMethod: PerfEventCache::AddTransportEvent";
-AINFO<<"(DMCZP) EnteringMethod: PerfEventCache::AddTransportEvent";
   if (likely(!enable_trans_perf_)) {
     return;
   }
@@ -109,7 +106,6 @@ AINFO<<"(DMCZP) EnteringMethod: PerfEventCache::AddTransportEvent";
 }
 
 void PerfEventCache::Run() {
-AINFO<<"(DMCZP) EnteringMethod: PerfEventCache::Run";
 AINFO<<"(DMCZP) EnteringMethod: PerfEventCache::Run";
   EventBasePtr event;
   int buf_size = 0;
@@ -126,7 +122,6 @@ AINFO<<"(DMCZP) EnteringMethod: PerfEventCache::Run";
 }
 
 void PerfEventCache::Start() {
-AINFO<<"(DMCZP) EnteringMethod: PerfEventCache::Start";
 AINFO<<"(DMCZP) EnteringMethod: PerfEventCache::Start";
   auto now = Time::Now();
   std::string perf_file = "cyber_perf_" + now.ToString() + ".data";

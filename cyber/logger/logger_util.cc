@@ -1,4 +1,3 @@
-#include "cyber/common/log.h"
 /******************************************************************************
  * Copyright 2018 The Apollo Authors. All Rights Reserved.
  *
@@ -39,10 +38,8 @@ static int32_t g_main_thread_pid = getpid();
 
 int32_t GetMainThreadPid() { return g_main_thread_pid; }
 AINFO<<"(DMCZP) EnteringMethod: GetMainThreadPid";
-AINFO<<"(DMCZP) EnteringMethod: GetMainThreadPid";
 
 bool PidHasChanged() {
-AINFO<<"(DMCZP) EnteringMethod: PidHasChanged";
 AINFO<<"(DMCZP) EnteringMethod: PidHasChanged";
   int32_t pid = getpid();
   if (g_main_thread_pid == pid) {

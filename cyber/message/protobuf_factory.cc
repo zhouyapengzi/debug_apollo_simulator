@@ -25,7 +25,6 @@ using google::protobuf::MessageFactory;
 
 ProtobufFactory::ProtobufFactory() {
 AINFO<<"(DMCZP) EnteringMethod: ProtobufFactory::ProtobufFactory";
-AINFO<<"(DMCZP) EnteringMethod: ProtobufFactory::ProtobufFactory";
   pool_.reset(new DescriptorPool());
   factory_.reset(new DynamicMessageFactory(pool_.get()));
 }
@@ -38,15 +37,12 @@ ProtobufFactory::~ProtobufFactory() {
 bool ProtobufFactory::RegisterMessage(
     const google::protobuf::Message& message) {
 AINFO<<"(DMCZP) EnteringMethod: ProtobufFactory::RegisterMessage";
-AINFO<<"(DMCZP) EnteringMethod: ProtobufFactory::RegisterMessage";
   const Descriptor* descriptor = message.GetDescriptor();
   return RegisterMessage(*descriptor);
 }
-AINFO<<"(DMCZP) EnteringMethod: ProtobufFactory::RegisterMessage";
 
 AINFO<<"(DMCZP) EnteringMethod: ProtobufFactory::RegisterMessage";
 bool ProtobufFactory::RegisterMessage(const Descriptor& desc) {
-AINFO<<"(DMCZP) EnteringMethod: ProtobufFactory::RegisterMessage";
 AINFO<<"(DMCZP) EnteringMethod: ProtobufFactory::RegisterMessage";
   FileDescriptorProto file_desc_proto;
   desc.file()->CopyTo(&file_desc_proto);
@@ -54,7 +50,6 @@ AINFO<<"(DMCZP) EnteringMethod: ProtobufFactory::RegisterMessage";
 }
 
 bool ProtobufFactory::RegisterMessage(const ProtoDesc& proto_desc) {
-AINFO<<"(DMCZP) EnteringMethod: ProtobufFactory::RegisterMessage";
 AINFO<<"(DMCZP) EnteringMethod: ProtobufFactory::RegisterMessage";
   for (int i = 0; i < proto_desc.dependencies_size(); ++i) {
     auto dep = proto_desc.dependencies(i);
@@ -70,14 +65,12 @@ AINFO<<"(DMCZP) EnteringMethod: ProtobufFactory::RegisterMessage";
 
 bool ProtobufFactory::RegisterPythonMessage(const std::string& proto_str) {
 AINFO<<"(DMCZP) EnteringMethod: ProtobufFactory::RegisterPythonMessage";
-AINFO<<"(DMCZP) EnteringMethod: ProtobufFactory::RegisterPythonMessage";
   FileDescriptorProto file_desc_proto;
   file_desc_proto.ParseFromString(proto_str);
   return RegisterMessage(file_desc_proto);
 }
 
 bool ProtobufFactory::RegisterMessage(const std::string& proto_desc_str) {
-AINFO<<"(DMCZP) EnteringMethod: ProtobufFactory::RegisterMessage";
 AINFO<<"(DMCZP) EnteringMethod: ProtobufFactory::RegisterMessage";
   ProtoDesc proto_desc;
   proto_desc.ParseFromString(proto_desc_str);
@@ -104,7 +97,6 @@ bool ProtobufFactory::RegisterMessage(
 bool ProtobufFactory::GetProtoDesc(const FileDescriptor* file_desc,
                                    ProtoDesc* proto_desc) {
 AINFO<<"(DMCZP) EnteringMethod: ProtobufFactory::GetProtoDesc";
-AINFO<<"(DMCZP) EnteringMethod: ProtobufFactory::GetProtoDesc";
   FileDescriptorProto file_desc_proto;
   file_desc->CopyTo(&file_desc_proto);
   std::string str("");
@@ -127,9 +119,7 @@ AINFO<<"(DMCZP) EnteringMethod: ProtobufFactory::GetProtoDesc";
 void ProtobufFactory::GetDescriptorString(const Descriptor* desc,
                                           std::string* desc_str) {
 AINFO<<"(DMCZP) EnteringMethod: ProtobufFactory::GetDescriptorString";
-AINFO<<"(DMCZP) EnteringMethod: ProtobufFactory::GetDescriptorString";
   ProtoDesc proto_desc;
-AINFO<<"(DMCZP) EnteringMethod: ProtobufFactory::GetDescriptorString";
   if (!GetProtoDesc(desc->file(), &proto_desc)) {
 AINFO<<"(DMCZP) EnteringMethod: ProtobufFactory::GetDescriptorString";
     AERROR << "Failed to get descriptor from message";
@@ -144,14 +134,12 @@ AINFO<<"(DMCZP) EnteringMethod: ProtobufFactory::GetDescriptorString";
 void ProtobufFactory::GetDescriptorString(
     const google::protobuf::Message& message, std::string* desc_str) {
 AINFO<<"(DMCZP) EnteringMethod: ProtobufFactory::GetDescriptorString";
-AINFO<<"(DMCZP) EnteringMethod: ProtobufFactory::GetDescriptorString";
   const Descriptor* desc = message.GetDescriptor();
   return GetDescriptorString(desc, desc_str);
 }
 
 void ProtobufFactory::GetPythonDesc(const std::string& type,
                                     std::string* desc_str) {
-AINFO<<"(DMCZP) EnteringMethod: ProtobufFactory::GetPythonDesc";
 AINFO<<"(DMCZP) EnteringMethod: ProtobufFactory::GetPythonDesc";
   auto desc = pool_->FindMessageTypeByName(type);
   if (desc == nullptr) {
@@ -179,8 +167,6 @@ void ProtobufFactory::GetDescriptorString(const std::string& type,
 // Internal method
 google::protobuf::Message* ProtobufFactory::GenerateMessageByType(
     const std::string& type) const {
-AINFO<<"(DMCZP) EnteringMethod: ProtobufFactory::GenerateMessageByType";
-AINFO<<"(DMCZP) EnteringMethod: ProtobufFactory::GetMessageByGeneratedType";
 AINFO<<"(DMCZP) EnteringMethod: ProtobufFactory::GenerateMessageByType";
 AINFO<<"(DMCZP) EnteringMethod: ProtobufFactory::GetMessageByGeneratedType";
   google::protobuf::Message* message = GetMessageByGeneratedType(type);
@@ -228,8 +214,6 @@ const Descriptor* ProtobufFactory::FindMessageTypeByName(
     const std::string& name) const {
 AINFO<<"(DMCZP) EnteringMethod: ProtobufFactory::FindMessageTypeByName";
 AINFO<<"(DMCZP) EnteringMethod: ProtobufFactory::FindServiceByName";
-AINFO<<"(DMCZP) EnteringMethod: ProtobufFactory::FindMessageTypeByName";
-AINFO<<"(DMCZP) EnteringMethod: ProtobufFactory::FindServiceByName";
   return pool_->FindMessageTypeByName(name);
 }
 
@@ -244,7 +228,6 @@ void ErrorCollector::AddError(const std::string& filename,
                               ErrorLocation location,
                               const std::string& message) {
 AINFO<<"(DMCZP) EnteringMethod: ErrorCollector::AddError";
-AINFO<<"(DMCZP) EnteringMethod: ErrorCollector::AddError";
   AWARN << "[" << filename << "] " << message;
 }
 
@@ -253,7 +236,6 @@ void ErrorCollector::AddWarning(const std::string& filename,
                                 const google::protobuf::Message* descriptor,
                                 ErrorLocation location,
                                 const std::string& message) {
-AINFO<<"(DMCZP) EnteringMethod: ErrorCollector::AddWarning";
 AINFO<<"(DMCZP) EnteringMethod: ErrorCollector::AddWarning";
   AWARN << "[" << filename << "] " << message;
 }

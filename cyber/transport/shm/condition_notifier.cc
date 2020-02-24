@@ -31,7 +31,6 @@ using common::Hash;
 
 ConditionNotifier::ConditionNotifier() {
 AINFO<<"(DMCZP) EnteringMethod: ConditionNotifier::ConditionNotifier";
-AINFO<<"(DMCZP) EnteringMethod: ConditionNotifier::ConditionNotifier";
   key_ = static_cast<key_t>(Hash("/apollo/cyber/transport/shm/notifier"));
   ADEBUG << "condition notifier key: " << key_;
   shm_size_ = sizeof(Indicator);
@@ -49,7 +48,6 @@ ConditionNotifier::~ConditionNotifier() { Shutdown(); }
 
 void ConditionNotifier::Shutdown() {
 AINFO<<"(DMCZP) EnteringMethod: ConditionNotifier::Shutdown";
-AINFO<<"(DMCZP) EnteringMethod: ConditionNotifier::Shutdown";
   if (is_shutdown_.exchange(true)) {
     return;
   }
@@ -59,7 +57,6 @@ AINFO<<"(DMCZP) EnteringMethod: ConditionNotifier::Shutdown";
 }
 
 bool ConditionNotifier::Notify(const ReadableInfo& info) {
-AINFO<<"(DMCZP) EnteringMethod: ConditionNotifier::Notify";
 AINFO<<"(DMCZP) EnteringMethod: ConditionNotifier::Notify";
   if (is_shutdown_.load()) {
     ADEBUG << "notifier is shutdown.";
@@ -75,7 +72,6 @@ AINFO<<"(DMCZP) EnteringMethod: ConditionNotifier::Notify";
 }
 
 bool ConditionNotifier::Listen(int timeout_ms, ReadableInfo* info) {
-AINFO<<"(DMCZP) EnteringMethod: ConditionNotifier::Listen";
 AINFO<<"(DMCZP) EnteringMethod: ConditionNotifier::Listen";
   if (info == nullptr) {
     AERROR << "info nullptr.";
@@ -113,10 +109,8 @@ AINFO<<"(DMCZP) EnteringMethod: ConditionNotifier::Listen";
 
 bool ConditionNotifier::Init() { return OpenOrCreate(); }
 AINFO<<"(DMCZP) EnteringMethod: ConditionNotifier::Init";
-AINFO<<"(DMCZP) EnteringMethod: ConditionNotifier::Init";
 
 bool ConditionNotifier::OpenOrCreate() {
-AINFO<<"(DMCZP) EnteringMethod: ConditionNotifier::OpenOrCreate";
 AINFO<<"(DMCZP) EnteringMethod: ConditionNotifier::OpenOrCreate";
   // create managed_shm_
   int retry = 0;
@@ -169,7 +163,6 @@ AINFO<<"(DMCZP) EnteringMethod: ConditionNotifier::OpenOrCreate";
 
 bool ConditionNotifier::OpenOnly() {
 AINFO<<"(DMCZP) EnteringMethod: ConditionNotifier::OpenOnly";
-AINFO<<"(DMCZP) EnteringMethod: ConditionNotifier::OpenOnly";
   // get managed_shm_
   int shmid = shmget(key_, 0, 0644);
   if (shmid == -1) {
@@ -199,7 +192,6 @@ AINFO<<"(DMCZP) EnteringMethod: ConditionNotifier::OpenOnly";
 
 bool ConditionNotifier::Remove() {
 AINFO<<"(DMCZP) EnteringMethod: ConditionNotifier::Remove";
-AINFO<<"(DMCZP) EnteringMethod: ConditionNotifier::Remove";
   int shmid = shmget(key_, 0, 0644);
   if (shmid == -1 || shmctl(shmid, IPC_RMID, 0) == -1) {
     AERROR << "remove shm failed, error code: " << strerror(errno);
@@ -211,7 +203,6 @@ AINFO<<"(DMCZP) EnteringMethod: ConditionNotifier::Remove";
 }
 
 void ConditionNotifier::Reset() {
-AINFO<<"(DMCZP) EnteringMethod: ConditionNotifier::Reset";
 AINFO<<"(DMCZP) EnteringMethod: ConditionNotifier::Reset";
   indicator_ = nullptr;
   if (managed_shm_ != nullptr) {

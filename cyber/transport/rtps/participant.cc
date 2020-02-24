@@ -32,12 +32,10 @@ Participant::Participant(const std::string& name, int send_port,
       listener_(listener),
       fastrtps_participant_(nullptr) {}
 AINFO<<"(DMCZP) EnteringMethod: Participant::Participant";
-AINFO<<"(DMCZP) EnteringMethod: Participant::Participant";
 
 Participant::~Participant() {}
 
 void Participant::Shutdown() {
-AINFO<<"(DMCZP) EnteringMethod: Participant::Shutdown";
 AINFO<<"(DMCZP) EnteringMethod: Participant::Shutdown";
   if (shutdown_.exchange(true)) {
     return;
@@ -52,7 +50,6 @@ AINFO<<"(DMCZP) EnteringMethod: Participant::Shutdown";
 }
 
 eprosima::fastrtps::Participant* Participant::fastrtps_participant() {
-AINFO<<"(DMCZP) EnteringMethod: Participant::fastrtps_participant";
 AINFO<<"(DMCZP) EnteringMethod: Participant::fastrtps_participant";
   if (shutdown_.load()) {
     return nullptr;
@@ -70,7 +67,6 @@ AINFO<<"(DMCZP) EnteringMethod: Participant::fastrtps_participant";
 void Participant::CreateFastRtpsParticipant(
     const std::string& name, int send_port,
     eprosima::fastrtps::ParticipantListener* listener) {
-AINFO<<"(DMCZP) EnteringMethod: Participant::CreateFastRtpsParticipant";
 AINFO<<"(DMCZP) EnteringMethod: Participant::CreateFastRtpsParticipant";
   uint32_t domain_id = 80;
 

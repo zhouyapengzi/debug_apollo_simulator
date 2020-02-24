@@ -1,4 +1,3 @@
-#include "cyber/common/log.h"
 /******************************************************************************
  * Copyright 2019 The Apollo Authors. All Rights Reserved.
  *
@@ -24,7 +23,6 @@ namespace apollo {
 namespace bridge {
 
 TEST(UDPBridgeSenderComponentTest, Simple) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
 AINFO<<"(DMCZP) EnteringMethod: TEST";
   cyber::Init("udp_bridge_component_test");
   UDPBridgeSenderComponent<planning::ADCTrajectory> udp_bridge_component;

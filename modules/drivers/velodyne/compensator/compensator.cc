@@ -1,4 +1,3 @@
-#include "cyber/common/log.h"
 /******************************************************************************
  * Copyright 2017 The Apollo Authors. All Rights Reserved.
  *
@@ -27,7 +26,6 @@ namespace velodyne {
 
 bool Compensator::QueryPoseAffineFromTF2(const uint64_t& timestamp, void* pose,
                                          const std::string& child_frame_id) {
-AINFO<<"(DMCZP) EnteringMethod: Compensator::QueryPoseAffineFromTF2";
 AINFO<<"(DMCZP) EnteringMethod: Compensator::QueryPoseAffineFromTF2";
   cyber::Time query_time(timestamp);
   std::string err_string;
@@ -64,7 +62,6 @@ AINFO<<"(DMCZP) EnteringMethod: Compensator::QueryPoseAffineFromTF2";
 bool Compensator::MotionCompensation(
     const std::shared_ptr<const PointCloud>& msg,
     std::shared_ptr<PointCloud> msg_compensated) {
-AINFO<<"(DMCZP) EnteringMethod: Compensator::MotionCompensation";
 AINFO<<"(DMCZP) EnteringMethod: Compensator::MotionCompensation";
   if (msg->height() == 0 || msg->width() == 0) {
     AERROR << "PointCloud width & height should not be 0";
@@ -114,7 +111,6 @@ inline void Compensator::GetTimestampInterval(
     const std::shared_ptr<const PointCloud>& msg, uint64_t* timestamp_min,
     uint64_t* timestamp_max) {
 AINFO<<"(DMCZP) EnteringMethod: Compensator::GetTimestampInterval";
-AINFO<<"(DMCZP) EnteringMethod: Compensator::GetTimestampInterval";
   *timestamp_max = 0;
   *timestamp_min = std::numeric_limits<uint64_t>::max();
 
@@ -135,7 +131,6 @@ void Compensator::MotionCompensation(
     std::shared_ptr<PointCloud> msg_compensated, const uint64_t timestamp_min,
     const uint64_t timestamp_max, const Eigen::Affine3d& pose_min_time,
     const Eigen::Affine3d& pose_max_time) {
-AINFO<<"(DMCZP) EnteringMethod: Compensator::MotionCompensation";
 AINFO<<"(DMCZP) EnteringMethod: Compensator::MotionCompensation";
   using std::abs;
   using std::acos;

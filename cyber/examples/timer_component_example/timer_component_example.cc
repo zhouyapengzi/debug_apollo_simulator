@@ -1,4 +1,3 @@
-#include "cyber/common/log.h"
 /******************************************************************************
  * Copyright 2018 The Apollo Authors. All Rights Reserved.
  *
@@ -23,13 +22,11 @@
 
 bool TimerComponentSample::Init() {
 AINFO<<"(DMCZP) EnteringMethod: TimerComponentSample::Init";
-AINFO<<"(DMCZP) EnteringMethod: TimerComponentSample::Init";
   driver_writer_ = node_->CreateWriter<Driver>("/carstatus/channel");
   return true;
 }
 
 bool TimerComponentSample::Proc() {
-AINFO<<"(DMCZP) EnteringMethod: TimerComponentSample::Proc";
 AINFO<<"(DMCZP) EnteringMethod: TimerComponentSample::Proc";
   static int i = 0;
   auto out_msg = std::make_shared<Driver>();

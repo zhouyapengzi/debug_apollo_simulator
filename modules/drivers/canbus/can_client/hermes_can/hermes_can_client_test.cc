@@ -1,4 +1,3 @@
-#include "cyber/common/log.h"
 /******************************************************************************
  * Copyright 2017 The Apollo Authors. All Rights Reserved.
  *
@@ -28,7 +27,6 @@ using apollo::common::ErrorCode;
 
 TEST(HermesCanClient, init) {
 AINFO<<"(DMCZP) EnteringMethod: TEST";
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   CANCardParameter param;
   param.set_brand(CANCardParameter::HERMES_CAN);
   param.set_channel_id(CANCardParameter::CHANNEL_ID_ZERO);
@@ -40,7 +38,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST";
 
 /*
 TEST(HermesCanClient, send) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
 AINFO<<"(DMCZP) EnteringMethod: TEST";
   CANCardParameter param;
   param.set_brand(CANCardParameter::HERMES_CAN);
@@ -68,7 +65,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST";
 
 TEST(HermesCanClient, receiver) {
 AINFO<<"(DMCZP) EnteringMethod: TEST";
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   CANCardParameter param;
   param.set_brand(CANCardParameter::HERMES_CAN);
   param.set_channel_id(CANCardParameter::CHANNEL_ID_ZERO);
@@ -93,7 +89,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST";
 }  // namespace apollo
 
 int main(int argc, char **argv) {
-AINFO<<"(DMCZP) EnteringMethod: main";
 AINFO<<"(DMCZP) EnteringMethod: main";
   ::testing::InitGoogleTest(&argc, argv);
   int ret = RUN_ALL_TESTS();

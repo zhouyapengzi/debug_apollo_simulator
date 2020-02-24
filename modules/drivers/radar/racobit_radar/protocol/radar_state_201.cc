@@ -1,4 +1,3 @@
-#include "cyber/common/log.h"
 /******************************************************************************
  * Copyright 2018 The Apollo Authors. All Rights Reserved.
  *
@@ -30,12 +29,10 @@ using apollo::drivers::canbus::Byte;
 
 RadarState201::RadarState201() {}
 AINFO<<"(DMCZP) EnteringMethod: RadarState201::RadarState201";
-AINFO<<"(DMCZP) EnteringMethod: RadarState201::RadarState201";
 const uint32_t RadarState201::ID = 0x201;
 
 void RadarState201::Parse(const std::uint8_t* bytes, int32_t length,
                           RacobitRadar* racobit_radar) const {
-AINFO<<"(DMCZP) EnteringMethod: RadarState201::Parse";
 AINFO<<"(DMCZP) EnteringMethod: RadarState201::Parse";
   auto state = racobit_radar->mutable_radar_state();
   state->set_max_distance(max_dist(bytes, length));
@@ -47,7 +44,6 @@ AINFO<<"(DMCZP) EnteringMethod: RadarState201::Parse";
 }
 
 int RadarState201::max_dist(const std::uint8_t* bytes, int32_t length) const {
-AINFO<<"(DMCZP) EnteringMethod: RadarState201::max_dist";
 AINFO<<"(DMCZP) EnteringMethod: RadarState201::max_dist";
   Byte t0(bytes + 1);
   uint32_t x = t0.get_byte(0, 8);
@@ -64,7 +60,6 @@ AINFO<<"(DMCZP) EnteringMethod: RadarState201::max_dist";
 int RadarState201::radar_power(const std::uint8_t* bytes,
                                int32_t length) const {
 AINFO<<"(DMCZP) EnteringMethod: RadarState201::radar_power";
-AINFO<<"(DMCZP) EnteringMethod: RadarState201::radar_power";
   Byte t0(bytes + 3);
   uint32_t x = t0.get_byte(0, 2);
 
@@ -79,7 +74,6 @@ AINFO<<"(DMCZP) EnteringMethod: RadarState201::radar_power";
 
 OutputType RadarState201::output_type(const std::uint8_t* bytes,
                                       int32_t length) const {
-AINFO<<"(DMCZP) EnteringMethod: RadarState201::output_type";
 AINFO<<"(DMCZP) EnteringMethod: RadarState201::output_type";
   Byte t0(bytes + 5);
   uint32_t x = t0.get_byte(2, 2);
@@ -99,7 +93,6 @@ AINFO<<"(DMCZP) EnteringMethod: RadarState201::output_type";
 RcsThreshold RadarState201::rcs_threshold(const std::uint8_t* bytes,
                                           int32_t length) const {
 AINFO<<"(DMCZP) EnteringMethod: RadarState201::rcs_threshold";
-AINFO<<"(DMCZP) EnteringMethod: RadarState201::rcs_threshold";
   Byte t0(bytes + 7);
   uint32_t x = t0.get_byte(2, 3);
 
@@ -116,7 +109,6 @@ AINFO<<"(DMCZP) EnteringMethod: RadarState201::rcs_threshold";
 bool RadarState201::send_quality(const std::uint8_t* bytes,
                                  int32_t length) const {
 AINFO<<"(DMCZP) EnteringMethod: RadarState201::send_quality";
-AINFO<<"(DMCZP) EnteringMethod: RadarState201::send_quality";
   Byte t0(bytes + 5);
   uint32_t x = t0.get_byte(4, 1);
 
@@ -126,7 +118,6 @@ AINFO<<"(DMCZP) EnteringMethod: RadarState201::send_quality";
 
 bool RadarState201::send_ext_info(const std::uint8_t* bytes,
                                   int32_t length) const {
-AINFO<<"(DMCZP) EnteringMethod: RadarState201::send_ext_info";
 AINFO<<"(DMCZP) EnteringMethod: RadarState201::send_ext_info";
   Byte t0(bytes + 5);
   uint32_t x = t0.get_byte(5, 1);

@@ -1,4 +1,3 @@
-#include "cyber/common/log.h"
 /******************************************************************************
  * Copyright 2017 The Apollo Authors. All Rights Reserved.
  *
@@ -25,7 +24,6 @@ using apollo::drivers::velodyne::VelodynePacket;
 using apollo::drivers::velodyne::VelodyneScan;
 
 int OnlineCalibration::decode(const std::shared_ptr<VelodyneScan>& scan_msgs) {
-AINFO<<"(DMCZP) EnteringMethod: OnlineCalibration::decode";
 AINFO<<"(DMCZP) EnteringMethod: OnlineCalibration::decode";
   if (inited_) {
     return 0;
@@ -124,7 +122,6 @@ AINFO<<"(DMCZP) EnteringMethod: OnlineCalibration::decode";
 
 void OnlineCalibration::get_unit_index() {
 AINFO<<"(DMCZP) EnteringMethod: OnlineCalibration::get_unit_index";
-AINFO<<"(DMCZP) EnteringMethod: OnlineCalibration::get_unit_index";
   int size = static_cast<int>(status_values_.size());
   // simple check only for value, maybe need more check fro status type
   int start_index = 0;
@@ -143,7 +140,6 @@ AINFO<<"(DMCZP) EnteringMethod: OnlineCalibration::get_unit_index";
 }
 
 void OnlineCalibration::dump(const std::string& file_path) {
-AINFO<<"(DMCZP) EnteringMethod: OnlineCalibration::dump";
 AINFO<<"(DMCZP) EnteringMethod: OnlineCalibration::dump";
   if (!inited_) {
     AERROR << "Please decode calibraion info first";

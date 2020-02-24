@@ -1,4 +1,3 @@
-#include "cyber/common/log.h"
 /******************************************************************************
  * Copyright 2018 The Apollo Authors. All Rights Reserved.
  *
@@ -26,11 +25,9 @@ namespace {
 static std::atomic<uint64_t> global_timer_id = {0};
 static uint64_t GenerateTimerId() { return global_timer_id.fetch_add(1); }
 AINFO<<"(DMCZP) EnteringMethod: GenerateTimerId";
-AINFO<<"(DMCZP) EnteringMethod: GenerateTimerId";
 }  // namespace
 
 Timer::Timer() {
-AINFO<<"(DMCZP) EnteringMethod: Timer::Timer";
 AINFO<<"(DMCZP) EnteringMethod: Timer::Timer";
   timing_wheel_ = TimingWheel::Instance();
   timer_id_ = GenerateTimerId();
@@ -38,13 +35,11 @@ AINFO<<"(DMCZP) EnteringMethod: Timer::Timer";
 
 Timer::Timer(TimerOption opt) : timer_opt_(opt) {
 AINFO<<"(DMCZP) EnteringMethod: Timer::Timer";
-AINFO<<"(DMCZP) EnteringMethod: Timer::Timer";
   timing_wheel_ = TimingWheel::Instance();
   timer_id_ = GenerateTimerId();
 }
 
 Timer::Timer(uint32_t period, std::function<void()> callback, bool oneshot) {
-AINFO<<"(DMCZP) EnteringMethod: Timer::Timer";
 AINFO<<"(DMCZP) EnteringMethod: Timer::Timer";
   timing_wheel_ = TimingWheel::Instance();
   timer_id_ = GenerateTimerId();
@@ -55,10 +50,8 @@ AINFO<<"(DMCZP) EnteringMethod: Timer::Timer";
 
 void Timer::SetTimerOption(TimerOption opt) { timer_opt_ = opt; }
 AINFO<<"(DMCZP) EnteringMethod: Timer::SetTimerOption";
-AINFO<<"(DMCZP) EnteringMethod: Timer::SetTimerOption";
 
 bool Timer::InitTimerTask() {
-AINFO<<"(DMCZP) EnteringMethod: Timer::InitTimerTask";
 AINFO<<"(DMCZP) EnteringMethod: Timer::InitTimerTask";
   if (timer_opt_.period == 0) {
     AERROR << "Max interval must great than 0";
@@ -131,7 +124,6 @@ AINFO<<"(DMCZP) EnteringMethod: Timer::InitTimerTask";
 
 void Timer::Start() {
 AINFO<<"(DMCZP) EnteringMethod: Timer::Start";
-AINFO<<"(DMCZP) EnteringMethod: Timer::Start";
   if (!common::GlobalData::Instance()->IsRealityMode()) {
     return;
   }
@@ -144,7 +136,6 @@ AINFO<<"(DMCZP) EnteringMethod: Timer::Start";
 }
 
 void Timer::Stop() {
-AINFO<<"(DMCZP) EnteringMethod: Timer::Stop";
 AINFO<<"(DMCZP) EnteringMethod: Timer::Stop";
   if (started_.exchange(false)) {
     ADEBUG << "stop timer ";

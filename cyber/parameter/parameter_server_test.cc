@@ -1,4 +1,3 @@
-#include "cyber/common/log.h"
 /******************************************************************************
  * Copyright 2018 The Apollo Authors. All Rights Reserved.
  *
@@ -52,12 +51,10 @@ class ParameterServerTest : public ::testing::Test {
 
 TEST_F(ParameterServerTest, set_parameter) {
 AINFO<<"(DMCZP) EnteringMethod: TEST_F";
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   ps_->SetParameter(Parameter("int", 1));
 }
 
 TEST_F(ParameterServerTest, get_parameter) {
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
 AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   ps_->SetParameter(Parameter("int", 1));
   Parameter parameter;
@@ -67,7 +64,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST_F";
 }
 
 TEST_F(ParameterServerTest, list_parameter) {
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
 AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   ps_->SetParameter(Parameter("int", 1));
   std::vector<Parameter> parameters;

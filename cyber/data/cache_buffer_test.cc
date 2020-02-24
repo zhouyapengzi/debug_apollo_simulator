@@ -1,4 +1,3 @@
-#include "cyber/common/log.h"
 /******************************************************************************
  * Copyright 2018 The Apollo Authors. All Rights Reserved.
  *
@@ -27,7 +26,6 @@ namespace cyber {
 namespace data {
 
 TEST(CacheBufferTest, cache_buffer_test) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
 AINFO<<"(DMCZP) EnteringMethod: TEST";
   CacheBuffer<int> buffer(32);
   EXPECT_TRUE(buffer.Empty());

@@ -44,10 +44,8 @@ struct Message {
 
 void Task1() { ADEBUG << "Task1 running"; }
 AINFO<<"(DMCZP) EnteringMethod: Task1";
-AINFO<<"(DMCZP) EnteringMethod: Task1";
 
 void Task2(const Message& input) {
-AINFO<<"(DMCZP) EnteringMethod: Task2";
 AINFO<<"(DMCZP) EnteringMethod: Task2";
   usleep(10000);
   ADEBUG << "Task2 running";
@@ -55,13 +53,11 @@ AINFO<<"(DMCZP) EnteringMethod: Task2";
 
 uint64_t Task3(const std::shared_ptr<Message>& input) {
 AINFO<<"(DMCZP) EnteringMethod: Task3";
-AINFO<<"(DMCZP) EnteringMethod: Task3";
   ADEBUG << "Task3 running";
   return input->id;
 }
 
 TEST(AsyncTest, create_task) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
 AINFO<<"(DMCZP) EnteringMethod: TEST";
   auto task_1 = Async(&Task1);
   task_1.get();
@@ -77,7 +73,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST";
 }
 
 TEST(AsyncTest, batch_run) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
 AINFO<<"(DMCZP) EnteringMethod: TEST";
   std::vector<std::future<void>> void_results;
   for (int i = 0; i < 10; i++) {
@@ -103,7 +98,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST";
 
 TEST(AsyncTest, run_member_function) {
 AINFO<<"(DMCZP) EnteringMethod: TEST";
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   Foo foo;
   foo.RunOnce();
 }
@@ -113,7 +107,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST";
 }  // namespace apollo
 
 int main(int argc, char** argv) {
-AINFO<<"(DMCZP) EnteringMethod: main";
 AINFO<<"(DMCZP) EnteringMethod: main";
   testing::InitGoogleTest(&argc, argv);
   apollo::cyber::Init(argv[0]);

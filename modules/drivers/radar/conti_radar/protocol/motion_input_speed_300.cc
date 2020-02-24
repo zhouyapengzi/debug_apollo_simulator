@@ -1,4 +1,3 @@
-#include "cyber/common/log.h"
 /******************************************************************************
  * Copyright 2018 The Apollo Authors. All Rights Reserved.
  *
@@ -30,11 +29,9 @@ const uint32_t MotionInputSpeed300::ID = 0x300;
 
 MotionInputSpeed300::MotionInputSpeed300() {}
 AINFO<<"(DMCZP) EnteringMethod: MotionInputSpeed300::MotionInputSpeed300";
-AINFO<<"(DMCZP) EnteringMethod: MotionInputSpeed300::MotionInputSpeed300";
 MotionInputSpeed300::~MotionInputSpeed300() {}
 
 uint32_t MotionInputSpeed300::GetPeriod() const {
-AINFO<<"(DMCZP) EnteringMethod: MotionInputSpeed300::GetPeriod";
 AINFO<<"(DMCZP) EnteringMethod: MotionInputSpeed300::GetPeriod";
   static const uint32_t PERIOD = 20 * 1000;
   return PERIOD;
@@ -45,7 +42,6 @@ AINFO<<"(DMCZP) EnteringMethod: MotionInputSpeed300::GetPeriod";
  * @param data a pointer to the data to be updated
  */
 void MotionInputSpeed300::UpdateData(uint8_t* data) {
-AINFO<<"(DMCZP) EnteringMethod: MotionInputSpeed300::UpdateData";
 AINFO<<"(DMCZP) EnteringMethod: MotionInputSpeed300::UpdateData";
   if (std::isnan(speed_)) {
     AWARN << "speed is nan";
@@ -74,10 +70,8 @@ AINFO<<"(DMCZP) EnteringMethod: MotionInputSpeed300::UpdateData";
  */
 void MotionInputSpeed300::Reset() { speed_ = NAN; }
 AINFO<<"(DMCZP) EnteringMethod: MotionInputSpeed300::Reset";
-AINFO<<"(DMCZP) EnteringMethod: MotionInputSpeed300::Reset";
 
 void MotionInputSpeed300::SetSpeed(const float& speed) { speed_ = speed; }
-AINFO<<"(DMCZP) EnteringMethod: MotionInputSpeed300::SetSpeed";
 AINFO<<"(DMCZP) EnteringMethod: MotionInputSpeed300::SetSpeed";
 
 }  // namespace conti_radar

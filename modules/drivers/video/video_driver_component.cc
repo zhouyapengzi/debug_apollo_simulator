@@ -1,4 +1,3 @@
-#include "cyber/common/log.h"
 /******************************************************************************
  * Copyright 2019 The Apollo Authors. All Rights Reserved.
  *
@@ -26,7 +25,6 @@ namespace video {
 using cyber::common::EnsureDirectory;
 
 bool CompCameraH265Compressed::Init() {
-AINFO<<"(DMCZP) EnteringMethod: CompCameraH265Compressed::Init";
 AINFO<<"(DMCZP) EnteringMethod: CompCameraH265Compressed::Init";
   AINFO << "Initialize video driver component.";
 
@@ -67,7 +65,6 @@ AINFO<<"(DMCZP) EnteringMethod: CompCameraH265Compressed::Init";
 }
 
 void CompCameraH265Compressed::VideoPoll() {
-AINFO<<"(DMCZP) EnteringMethod: CompCameraH265Compressed::VideoPoll";
 AINFO<<"(DMCZP) EnteringMethod: CompCameraH265Compressed::VideoPoll";
   std::ofstream fout;
   if (camera_deivce_->Record()) {

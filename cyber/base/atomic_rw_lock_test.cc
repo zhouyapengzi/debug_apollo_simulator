@@ -1,4 +1,3 @@
-#include "cyber/common/log.h"
 /******************************************************************************
  * Copyright 2018 The Apollo Authors. All Rights Reserved.
  *
@@ -27,7 +26,6 @@ namespace cyber {
 namespace base {
 
 TEST(ReentrantRWLockTest, read_lock) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
 AINFO<<"(DMCZP) EnteringMethod: TEST";
   int count = 0;
   int thread_init = 0;
@@ -63,7 +61,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST";
 }
 
 TEST(ReentrantRWLockTest, write_lock) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
 AINFO<<"(DMCZP) EnteringMethod: TEST";
   int count = 0;
   int thread_run = 0;

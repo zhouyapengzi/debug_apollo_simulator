@@ -1,4 +1,3 @@
-#include "cyber/common/log.h"
 /******************************************************************************
  * Copyright 2018 The Apollo Authors. All Rights Reserved.
  *
@@ -39,7 +38,6 @@ constexpr size_t BUFFER_SIZE = 128;
 
 void ParseBin(const char* filename, DataParser* parser) {
 AINFO<<"(DMCZP) EnteringMethod: ParseBin";
-AINFO<<"(DMCZP) EnteringMethod: ParseBin";
   std::ios::sync_with_stdio(false);
   std::ifstream f(filename, std::ifstream::binary);
   char b[BUFFER_SIZE];
@@ -51,7 +49,6 @@ AINFO<<"(DMCZP) EnteringMethod: ParseBin";
 }
 
 void ParseRecord(const char* filename, DataParser* parser) {
-AINFO<<"(DMCZP) EnteringMethod: ParseRecord";
 AINFO<<"(DMCZP) EnteringMethod: ParseRecord";
   cyber::record::RecordReader reader(filename);
   cyber::record::RecordMessage message;
@@ -67,7 +64,6 @@ AINFO<<"(DMCZP) EnteringMethod: ParseRecord";
 
 void Parse(const char* filename, const char* file_type,
            const std::shared_ptr<::apollo::cyber::Node>& node) {
-AINFO<<"(DMCZP) EnteringMethod: Parse";
 AINFO<<"(DMCZP) EnteringMethod: Parse";
   std::string type = std::string(file_type);
   config::Config config;
@@ -93,7 +89,6 @@ AINFO<<"(DMCZP) EnteringMethod: Parse";
 }  // namespace apollo
 
 int main(int argc, char** argv) {
-AINFO<<"(DMCZP) EnteringMethod: main";
 AINFO<<"(DMCZP) EnteringMethod: main";
   if (argc < 3) {
     std::cout << "Usage: " << argv[0] << " filename [record|bin]" << std::endl;

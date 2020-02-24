@@ -1,4 +1,3 @@
-#include "cyber/common/log.h"
 /******************************************************************************
  * Copyright 2017 The Apollo Authors. All Rights Reserved.
  *
@@ -29,7 +28,6 @@ namespace drivers {
 namespace canbus {
 
 TEST(CanReceiverTest, ReceiveOne) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
 AINFO<<"(DMCZP) EnteringMethod: TEST";
   cyber::Init("can_receiver_test");
   can::FakeCanClient can_client;

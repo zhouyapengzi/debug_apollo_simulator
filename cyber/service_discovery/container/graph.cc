@@ -1,4 +1,3 @@
-#include "cyber/common/log.h"
 /******************************************************************************
  * Copyright 2018 The Apollo Authors. All Rights Reserved.
  *
@@ -29,10 +28,8 @@ using base::WriteLockGuard;
 
 Vertice::Vertice(const std::string& val) : value_(val) {}
 AINFO<<"(DMCZP) EnteringMethod: Vertice::Vertice";
-AINFO<<"(DMCZP) EnteringMethod: Vertice::Vertice";
 
 Vertice::Vertice(const Vertice& other) { this->value_ = other.value_; }
-AINFO<<"(DMCZP) EnteringMethod: Vertice::Vertice";
 AINFO<<"(DMCZP) EnteringMethod: Vertice::Vertice";
 
 Vertice::~Vertice() {}
@@ -54,18 +51,14 @@ bool Vertice::operator!=(const Vertice& rhs) const {
 
 bool Vertice::IsDummy() const { return value_.empty(); }
 AINFO<<"(DMCZP) EnteringMethod: Vertice::IsDummy";
-AINFO<<"(DMCZP) EnteringMethod: Vertice::IsDummy";
 
 const std::string& Vertice::GetKey() const { return value_; }
-AINFO<<"(DMCZP) EnteringMethod: Vertice::GetKey";
 AINFO<<"(DMCZP) EnteringMethod: Vertice::GetKey";
 
 Edge::Edge() {}
 AINFO<<"(DMCZP) EnteringMethod: Edge::Edge";
-AINFO<<"(DMCZP) EnteringMethod: Edge::Edge";
 
 Edge::Edge(const Edge& other) {
-AINFO<<"(DMCZP) EnteringMethod: Edge::Edge";
 AINFO<<"(DMCZP) EnteringMethod: Edge::Edge";
   this->src_ = other.src_;
   this->dst_ = other.dst_;
@@ -74,7 +67,6 @@ AINFO<<"(DMCZP) EnteringMethod: Edge::Edge";
 
 Edge::Edge(const Vertice& src, const Vertice& dst, const std::string& val)
     : src_(src), dst_(dst), value_(val) {}
-AINFO<<"(DMCZP) EnteringMethod: Edge::Edge";
 AINFO<<"(DMCZP) EnteringMethod: Edge::Edge";
 
 Edge::~Edge() {}
@@ -95,7 +87,6 @@ bool Edge::operator==(const Edge& rhs) const {
 
 bool Edge::IsValid() const {
 AINFO<<"(DMCZP) EnteringMethod: Edge::IsValid";
-AINFO<<"(DMCZP) EnteringMethod: Edge::IsValid";
   if (value_.empty()) {
     return false;
   }
@@ -107,10 +98,8 @@ AINFO<<"(DMCZP) EnteringMethod: Edge::IsValid";
 
 std::string Edge::GetKey() const { return value_ + "_" + dst_.GetKey(); }
 AINFO<<"(DMCZP) EnteringMethod: Edge::GetKey";
-AINFO<<"(DMCZP) EnteringMethod: Edge::GetKey";
 
 Graph::Graph() {}
-AINFO<<"(DMCZP) EnteringMethod: Graph::Graph";
 AINFO<<"(DMCZP) EnteringMethod: Graph::Graph";
 
 Graph::~Graph() {
@@ -119,7 +108,6 @@ Graph::~Graph() {
 }
 
 void Graph::Insert(const Edge& e) {
-AINFO<<"(DMCZP) EnteringMethod: Graph::Insert";
 AINFO<<"(DMCZP) EnteringMethod: Graph::Insert";
   if (!e.IsValid()) {
     return;
@@ -140,7 +128,6 @@ AINFO<<"(DMCZP) EnteringMethod: Graph::Insert";
 
 void Graph::Delete(const Edge& e) {
 AINFO<<"(DMCZP) EnteringMethod: Graph::Delete";
-AINFO<<"(DMCZP) EnteringMethod: Graph::Delete";
   if (!e.IsValid()) {
     return;
   }
@@ -160,7 +147,6 @@ AINFO<<"(DMCZP) EnteringMethod: Graph::Delete";
 
 uint32_t Graph::GetNumOfEdge() {
 AINFO<<"(DMCZP) EnteringMethod: Graph::GetNumOfEdge";
-AINFO<<"(DMCZP) EnteringMethod: Graph::GetNumOfEdge";
   ReadLockGuard<AtomicRWLock> lock(rw_lock_);
   uint32_t num = 0;
   for (auto& item : list_) {
@@ -170,7 +156,6 @@ AINFO<<"(DMCZP) EnteringMethod: Graph::GetNumOfEdge";
 }
 
 FlowDirection Graph::GetDirectionOf(const Vertice& lhs, const Vertice& rhs) {
-AINFO<<"(DMCZP) EnteringMethod: Graph::GetDirectionOf";
 AINFO<<"(DMCZP) EnteringMethod: Graph::GetDirectionOf";
   if (lhs.IsDummy() || rhs.IsDummy()) {
     return UNREACHABLE;
@@ -189,7 +174,6 @@ AINFO<<"(DMCZP) EnteringMethod: Graph::GetDirectionOf";
 }
 
 void Graph::InsertOutgoingEdge(const Edge& e) {
-AINFO<<"(DMCZP) EnteringMethod: Graph::InsertOutgoingEdge";
 AINFO<<"(DMCZP) EnteringMethod: Graph::InsertOutgoingEdge";
   auto& e_v = e.value();
   auto& src_v_set = edges_[e_v].src;
@@ -212,7 +196,6 @@ AINFO<<"(DMCZP) EnteringMethod: Graph::InsertOutgoingEdge";
 
 void Graph::InsertIncomingEdge(const Edge& e) {
 AINFO<<"(DMCZP) EnteringMethod: Graph::InsertIncomingEdge";
-AINFO<<"(DMCZP) EnteringMethod: Graph::InsertIncomingEdge";
   auto& e_v = e.value();
   auto& dst_v_set = edges_[e_v].dst;
   auto& dst_v = e.dst();
@@ -234,7 +217,6 @@ AINFO<<"(DMCZP) EnteringMethod: Graph::InsertIncomingEdge";
 
 void Graph::InsertCompleteEdge(const Edge& e) {
 AINFO<<"(DMCZP) EnteringMethod: Graph::InsertCompleteEdge";
-AINFO<<"(DMCZP) EnteringMethod: Graph::InsertCompleteEdge";
   auto& src_v_k = e.src().GetKey();
   if (list_.find(src_v_k) == list_.end()) {
     list_[src_v_k] = VerticeSet();
@@ -247,7 +229,6 @@ AINFO<<"(DMCZP) EnteringMethod: Graph::InsertCompleteEdge";
 }
 
 void Graph::DeleteOutgoingEdge(const Edge& e) {
-AINFO<<"(DMCZP) EnteringMethod: Graph::DeleteOutgoingEdge";
 AINFO<<"(DMCZP) EnteringMethod: Graph::DeleteOutgoingEdge";
   auto& e_v = e.value();
   auto& src_v_set = edges_[e_v].src;
@@ -270,7 +251,6 @@ AINFO<<"(DMCZP) EnteringMethod: Graph::DeleteOutgoingEdge";
 
 void Graph::DeleteIncomingEdge(const Edge& e) {
 AINFO<<"(DMCZP) EnteringMethod: Graph::DeleteIncomingEdge";
-AINFO<<"(DMCZP) EnteringMethod: Graph::DeleteIncomingEdge";
   auto& e_v = e.value();
   auto& dst_v_set = edges_[e_v].dst;
   auto& dst_v = e.dst();
@@ -292,13 +272,11 @@ AINFO<<"(DMCZP) EnteringMethod: Graph::DeleteIncomingEdge";
 
 void Graph::DeleteCompleteEdge(const Edge& e) {
 AINFO<<"(DMCZP) EnteringMethod: Graph::DeleteCompleteEdge";
-AINFO<<"(DMCZP) EnteringMethod: Graph::DeleteCompleteEdge";
   auto& src_v_k = e.src().GetKey();
   list_[src_v_k].erase(e.GetKey());
 }
 
 bool Graph::LevelTraverse(const Vertice& start, const Vertice& end) {
-AINFO<<"(DMCZP) EnteringMethod: Graph::LevelTraverse";
 AINFO<<"(DMCZP) EnteringMethod: Graph::LevelTraverse";
   std::unordered_map<std::string, bool> visited;
   visited[end.GetKey()] = false;

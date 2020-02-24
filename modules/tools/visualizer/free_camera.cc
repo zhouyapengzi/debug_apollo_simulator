@@ -1,4 +1,3 @@
-#include "cyber/common/log.h"
 /******************************************************************************
  * Copyright 2018 The Apollo Authors. All Rights Reserved.
  *
@@ -20,10 +19,8 @@
 FreeCamera::FreeCamera(void)
     : AbstractCamera(), translation_(0.0, 0.0f, 0.0f) {}
 AINFO<<"(DMCZP) EnteringMethod: FreeCamera::FreeCamera";
-AINFO<<"(DMCZP) EnteringMethod: FreeCamera::FreeCamera";
 
 void FreeCamera::UpdateWorld(void) {
-AINFO<<"(DMCZP) EnteringMethod: FreeCamera::UpdateWorld";
 AINFO<<"(DMCZP) EnteringMethod: FreeCamera::UpdateWorld";
   QMatrix4x4 R = YawPitchRoll(attitude_[0], attitude_[1], attitude_[2]);
 
