@@ -22,7 +22,6 @@ namespace lidar {
 
 // @brief call pool instance once to initialize memory
 __attribute__((constructor)) void TrackPoolInitialize() {
-AINFO<<"(DMCZP) EnteringMethod: __attribute__";
   TrackedObjectPool::Instance();
   TrackDataPool::Instance();
   MlfTrackDataPool::Instance();

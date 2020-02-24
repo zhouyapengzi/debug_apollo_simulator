@@ -32,7 +32,6 @@ void StGraphData::LoadData(const std::vector<const STBoundary*>& st_boundaries,
                            const double path_data_length,
                            const double total_time_by_conf,
                            planning_internal::STGraphDebug* st_graph_debug) {
-AINFO<<"(DMCZP) EnteringMethod: StGraphData::LoadData";
   init_ = true;
   st_boundaries_ = st_boundaries;
   min_s_on_st_boundaries_ = min_s_on_st_boundaries;
@@ -48,24 +47,18 @@ const std::vector<const STBoundary*>& StGraphData::st_boundaries() const {
 }
 
 double StGraphData::min_s_on_st_boundaries() const {
-AINFO<<"(DMCZP) EnteringMethod: StGraphData::min_s_on_st_boundaries";
   return min_s_on_st_boundaries_;
 }
 
 const TrajectoryPoint& StGraphData::init_point() const { return init_point_; }
-AINFO<<"(DMCZP) EnteringMethod: StGraphData::init_point";
 
 const SpeedLimit& StGraphData::speed_limit() const { return speed_limit_; }
-AINFO<<"(DMCZP) EnteringMethod: StGraphData::speed_limit";
 
 double StGraphData::path_length() const { return path_data_length_; }
-AINFO<<"(DMCZP) EnteringMethod: StGraphData::path_length";
 
 double StGraphData::total_time_by_conf() const { return total_time_by_conf_; }
-AINFO<<"(DMCZP) EnteringMethod: StGraphData::total_time_by_conf";
 
 planning_internal::STGraphDebug* StGraphData::mutable_st_graph_debug() {
-AINFO<<"(DMCZP) EnteringMethod: StGraphData::mutable_st_graph_debug";
   return st_graph_debug_;
 }
 

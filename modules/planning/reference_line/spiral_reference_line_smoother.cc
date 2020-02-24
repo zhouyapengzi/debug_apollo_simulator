@@ -39,12 +39,10 @@ using apollo::common::time::Clock;
 SpiralReferenceLineSmoother::SpiralReferenceLineSmoother(
     const ReferenceLineSmootherConfig& config)
     : ReferenceLineSmoother(config) {}
-AINFO<<"(DMCZP) EnteringMethod: SpiralReferenceLineSmoother::SpiralReferenceLineSmoother";
 
 bool SpiralReferenceLineSmoother::Smooth(
     const ReferenceLine& raw_reference_line,
     ReferenceLine* const smoothed_reference_line) {
-AINFO<<"(DMCZP) EnteringMethod: SpiralReferenceLineSmoother::Smooth";
   const double start_timestamp = Clock::NowInSeconds();
   std::vector<double> opt_x;
   std::vector<double> opt_y;
@@ -191,7 +189,6 @@ int SpiralReferenceLineSmoother::SmoothStandAlone(
     std::vector<double>* ptr_kappa, std::vector<double>* ptr_dkappa,
     std::vector<double>* ptr_s, std::vector<double>* ptr_x,
     std::vector<double>* ptr_y) const {
-AINFO<<"(DMCZP) EnteringMethod: SpiralReferenceLineSmoother::SmoothStandAlone";
   CHECK_GT(point2d.size(), 1);
 
   SpiralProblemInterface* ptop = new SpiralProblemInterface(point2d);
@@ -250,7 +247,6 @@ bool SpiralReferenceLineSmoother::Smooth(std::vector<Eigen::Vector2d> point2d,
                                          std::vector<double>* ptr_s,
                                          std::vector<double>* ptr_x,
                                          std::vector<double>* ptr_y) const {
-AINFO<<"(DMCZP) EnteringMethod: SpiralReferenceLineSmoother::Smooth";
   CHECK_GT(point2d.size(), 1);
 
   SpiralProblemInterface* ptop = new SpiralProblemInterface(point2d);
@@ -370,7 +366,6 @@ std::vector<common::PathPoint> SpiralReferenceLineSmoother::Interpolate(
 common::PathPoint SpiralReferenceLineSmoother::to_path_point(
     const double x, const double y, const double s, const double theta,
     const double kappa, const double dkappa) const {
-AINFO<<"(DMCZP) EnteringMethod: SpiralReferenceLineSmoother::to_path_point";
   common::PathPoint point;
   point.set_x(x);
   point.set_y(y);
@@ -383,7 +378,6 @@ AINFO<<"(DMCZP) EnteringMethod: SpiralReferenceLineSmoother::to_path_point";
 
 void SpiralReferenceLineSmoother::SetAnchorPoints(
     const std::vector<AnchorPoint>& anchor_points) {
-AINFO<<"(DMCZP) EnteringMethod: SpiralReferenceLineSmoother::SetAnchorPoints";
   anchor_points_ = std::move(anchor_points);
 
   CHECK_GT(anchor_points_.size(), 1);

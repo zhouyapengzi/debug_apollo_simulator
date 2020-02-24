@@ -24,13 +24,11 @@ namespace apollo {
 namespace localization {
 namespace msf {
 PosesInterpolation::PosesInterpolation() {}
-AINFO<<"(DMCZP) EnteringMethod: PosesInterpolation::PosesInterpolation";
 
 bool PosesInterpolation::Init(const std::string &input_poses_path,
                               const std::string &ref_timestamps_path,
                               const std::string &out_poses_path,
                               const std::string &extrinsic_path) {
-AINFO<<"(DMCZP) EnteringMethod: PosesInterpolation::Init";
   this->input_poses_path_ = input_poses_path;
   this->ref_timestamps_path_ = ref_timestamps_path;
   this->out_poses_path_ = out_poses_path;
@@ -46,7 +44,6 @@ AINFO<<"(DMCZP) EnteringMethod: PosesInterpolation::Init";
 }
 
 void PosesInterpolation::DoInterpolation() {
-AINFO<<"(DMCZP) EnteringMethod: PosesInterpolation::DoInterpolation";
   // Load input poses
   std::vector<Eigen::Vector3d> input_stds;
   velodyne::LoadPosesAndStds(input_poses_path_, &input_poses_, &input_stds,
@@ -65,7 +62,6 @@ AINFO<<"(DMCZP) EnteringMethod: PosesInterpolation::DoInterpolation";
 }
 
 void PosesInterpolation::LoadPCDTimestamp() {
-AINFO<<"(DMCZP) EnteringMethod: PosesInterpolation::LoadPCDTimestamp";
   FILE *file = fopen(ref_timestamps_path_.c_str(), "r");
   if (file) {
     unsigned int index;
@@ -82,7 +78,6 @@ AINFO<<"(DMCZP) EnteringMethod: PosesInterpolation::LoadPCDTimestamp";
 }
 
 void PosesInterpolation::WritePCDPoses() {
-AINFO<<"(DMCZP) EnteringMethod: PosesInterpolation::WritePCDPoses";
   std::ofstream fout;
   fout.open(out_poses_path_.c_str(), std::ofstream::out);
 
@@ -118,7 +113,6 @@ void PosesInterpolation::PoseInterpolationByTime(
     const std::vector<unsigned int> &ref_indexes,
     std::vector<unsigned int> *out_indexes, std::vector<double> *out_timestamps,
     std::vector<Eigen::Affine3d> *out_poses) {
-AINFO<<"(DMCZP) EnteringMethod: PosesInterpolation::PoseInterpolationByTime";
   out_indexes->clear();
   out_timestamps->clear();
   out_poses->clear();

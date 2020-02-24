@@ -26,7 +26,6 @@ namespace localization {
 namespace msf {
 OfflineLocalVisualizer::OfflineLocalVisualizer()
     : map_config_(), resolution_id_(0), zone_id_(0), visual_engine_() {}
-AINFO<<"(DMCZP) EnteringMethod: OfflineLocalVisualizer::OfflineLocalVisualizer";
 
 OfflineLocalVisualizer::~OfflineLocalVisualizer() {}
 
@@ -35,7 +34,6 @@ bool OfflineLocalVisualizer::Init(
     const std::string &pcd_folder, const std::string &pcd_timestamp_file,
     const std::string &gnss_loc_file, const std::string &lidar_loc_file,
     const std::string &fusion_loc_file, const std::string &extrinsic_file) {
-AINFO<<"(DMCZP) EnteringMethod: OfflineLocalVisualizer::Init";
   map_folder_ = map_folder;
   map_visual_folder_ = map_visual_folder;
   pcd_folder_ = pcd_folder;
@@ -124,7 +122,6 @@ AINFO<<"(DMCZP) EnteringMethod: OfflineLocalVisualizer::Init";
 }
 
 void OfflineLocalVisualizer::Visualize() {
-AINFO<<"(DMCZP) EnteringMethod: OfflineLocalVisualizer::Visualize";
   for (unsigned int idx = 0; idx < pcd_timestamps_.size(); ++idx) {
     LocalizatonInfo lidar_loc_info;
     LocalizatonInfo gnss_loc_info;
@@ -185,7 +182,6 @@ AINFO<<"(DMCZP) EnteringMethod: OfflineLocalVisualizer::Visualize";
 }
 
 bool OfflineLocalVisualizer::PCDTimestampFileHandler() {
-AINFO<<"(DMCZP) EnteringMethod: OfflineLocalVisualizer::PCDTimestampFileHandler";
   pcd_timestamps_.clear();
 
   FILE *file = fopen(pcd_timestamp_file_.c_str(), "r");
@@ -206,9 +202,6 @@ AINFO<<"(DMCZP) EnteringMethod: OfflineLocalVisualizer::PCDTimestampFileHandler"
 
 bool OfflineLocalVisualizer::LidarLocFileHandler(
     const std::vector<double> &pcd_timestamps) {
-AINFO<<"(DMCZP) EnteringMethod: OfflineLocalVisualizer::LidarLocFileHandler";
-AINFO<<"(DMCZP) EnteringMethod: OfflineLocalVisualizer::GnssLocFileHandler";
-AINFO<<"(DMCZP) EnteringMethod: OfflineLocalVisualizer::FusionLocFileHandler";
   std::vector<Eigen::Affine3d> poses;
   std::vector<Eigen::Vector3d> stds;
   std::vector<double> timestamps;
@@ -252,7 +245,6 @@ void OfflineLocalVisualizer::PoseAndStdInterpolationByTime(
     const std::vector<double> &ref_timestamps,
     std::map<unsigned int, Eigen::Affine3d> *out_poses,
     std::map<unsigned int, Eigen::Vector3d> *out_stds) {
-AINFO<<"(DMCZP) EnteringMethod: OfflineLocalVisualizer::PoseAndStdInterpolationByTime";
   unsigned int index = 0;
   for (size_t i = 0; i < ref_timestamps.size(); ++i) {
     double ref_timestamp = ref_timestamps[i];
@@ -304,7 +296,6 @@ AINFO<<"(DMCZP) EnteringMethod: OfflineLocalVisualizer::PoseAndStdInterpolationB
 bool OfflineLocalVisualizer::GetZoneIdFromMapFolder(
     const std::string &map_folder, const unsigned int resolution_id,
     int *zone_id) {
-AINFO<<"(DMCZP) EnteringMethod: OfflineLocalVisualizer::GetZoneIdFromMapFolder";
   char buf[256];
   snprintf(buf, sizeof(buf), "/%03u", resolution_id);
   std::string folder_north = map_folder + "/map" + buf + "/north";

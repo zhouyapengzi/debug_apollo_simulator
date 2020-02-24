@@ -27,7 +27,6 @@ namespace planning {
 
 DistanceApproachProblem::DistanceApproachProblem(
     const PlannerOpenSpaceConfig& planner_open_space_config) {
-AINFO<<"(DMCZP) EnteringMethod: DistanceApproachProblem::DistanceApproachProblem";
   planner_open_space_config_ = planner_open_space_config;
 }
 
@@ -42,7 +41,6 @@ bool DistanceApproachProblem::Solve(
     Eigen::MatrixXd* state_result, Eigen::MatrixXd* control_result,
     Eigen::MatrixXd* time_result, Eigen::MatrixXd* dual_l_result,
     Eigen::MatrixXd* dual_n_result) {
-AINFO<<"(DMCZP) EnteringMethod: DistanceApproachProblem::Solve";
   // TODO(QiL) : evaluate whether need to new it everytime
   auto t_start = cyber::Time::Now().ToSecond();
 

@@ -42,7 +42,6 @@ class ValetParkingScenarioTest : public ::testing::Test {
 };
 
 TEST_F(ValetParkingScenarioTest, VerifyConf) {
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   FLAGS_scenario_valet_parking_config_file =
       "/apollo/modules/planning/conf/scenario/valet_parking_config.pb.txt";
 
@@ -52,7 +51,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST_F";
 }
 
 TEST_F(ValetParkingScenarioTest, Init) {
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   FLAGS_scenario_valet_parking_config_file =
       "/apollo/modules/planning/testdata/conf/"
       "scenario/valet_parking_config.pb.txt";

@@ -19,11 +19,9 @@
 
 VideoImagesDialog::VideoImagesDialog(QWidget *parent)
     : QDialog(parent), ui(new Ui::VideoImagesDialog) {
-AINFO<<"(DMCZP) EnteringMethod: VideoImagesDialog::VideoImagesDialog";
   ui->setupUi(this);
 }
 
 VideoImagesDialog::~VideoImagesDialog() { delete ui; }
 
 int VideoImagesDialog::count(void) const { return ui->spinBox->value(); }
-AINFO<<"(DMCZP) EnteringMethod: VideoImagesDialog::count";

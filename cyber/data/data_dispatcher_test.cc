@@ -34,7 +34,6 @@ auto channel0 = common::Hash("/channel0");
 auto channel1 = common::Hash("/channel1");
 
 TEST(DataDispatcher, AddBuffer) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   auto cache_buffer1 = new CacheBuffer<std::shared_ptr<int>>(2);
   auto buffer0 = ChannelBuffer<int>(channel0, cache_buffer1);
   auto cache_buffer2 = new CacheBuffer<std::shared_ptr<int>>(2);
@@ -45,7 +44,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST";
 }
 
 TEST(DataDispatcher, Dispatch) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   auto cache_buffer = new CacheBuffer<std::shared_ptr<int>>(10);
   auto buffer = ChannelBuffer<int>(channel0, cache_buffer);
   auto dispatcher = DataDispatcher<int>::Instance();

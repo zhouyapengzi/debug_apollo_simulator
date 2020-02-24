@@ -28,12 +28,10 @@ namespace wey {
 using ::apollo::drivers::canbus::Byte;
 
 Status310::Status310() {}
-AINFO<<"(DMCZP) EnteringMethod: Status310::Status310";
 const int32_t Status310::ID = 0x310;
 
 void Status310::Parse(const std::uint8_t* bytes, int32_t length,
                       ChassisDetail* chassis) const {
-AINFO<<"(DMCZP) EnteringMethod: Status310::Parse";
   chassis->mutable_wey()->mutable_status_310()->set_longitudeaccvalid(
       longitudeaccvalid(bytes, length));
   chassis->mutable_wey()->mutable_status_310()->set_lateralaccevalid(
@@ -116,38 +114,12 @@ AINFO<<"(DMCZP) EnteringMethod: Status310::Parse";
 // 'order': 'motorola', 'physical_unit': ''}
 Status_310::LongitudeaccvalidType Status310::longitudeaccvalid(
     const std::uint8_t* bytes, int32_t length) const {
-AINFO<<"(DMCZP) EnteringMethod: Status310::longitudeaccvalid";
-AINFO<<"(DMCZP) EnteringMethod: Status310::lateralaccevalid";
-AINFO<<"(DMCZP) EnteringMethod: Status310::vehdynyawratevalid";
-AINFO<<"(DMCZP) EnteringMethod: Status310::flwheelspdvalid";
-AINFO<<"(DMCZP) EnteringMethod: Status310::frwheelspdvalid";
-AINFO<<"(DMCZP) EnteringMethod: Status310::rlwheelspdvalid";
-AINFO<<"(DMCZP) EnteringMethod: Status310::rrwheelspdvalid";
-AINFO<<"(DMCZP) EnteringMethod: Status310::vehiclespdvalid";
-AINFO<<"(DMCZP) EnteringMethod: Status310::longitudedrivingmode";
   Byte t0(bytes + 1);
-AINFO<<"(DMCZP) EnteringMethod: Status310::accepedaloverride";
-AINFO<<"(DMCZP) EnteringMethod: Status310::brakepedalstatus";
-AINFO<<"(DMCZP) EnteringMethod: Status310::espbrakelightsts";
-AINFO<<"(DMCZP) EnteringMethod: Status310::epbswtpositionvalid";
   int32_t x = t0.get_byte(7, 1);
-AINFO<<"(DMCZP) EnteringMethod: Status310::currentgearvalid";
-AINFO<<"(DMCZP) EnteringMethod: Status310::epstrqsnsrsts";
-AINFO<<"(DMCZP) EnteringMethod: Status310::eps_interferdetdvalid";
-AINFO<<"(DMCZP) EnteringMethod: Status310::epshandsdetnsts";
-AINFO<<"(DMCZP) EnteringMethod: Status310::eps_handsdetnstsvalid";
-AINFO<<"(DMCZP) EnteringMethod: Status310::steerwheelanglesign";
-AINFO<<"(DMCZP) EnteringMethod: Status310::steerwheelspdsign";
-AINFO<<"(DMCZP) EnteringMethod: Status310::driverdoorsts";
 
-AINFO<<"(DMCZP) EnteringMethod: Status310::passengerdoorsts";
   Status_310::LongitudeaccvalidType ret =
-AINFO<<"(DMCZP) EnteringMethod: Status310::frontfoglmpsts";
-AINFO<<"(DMCZP) EnteringMethod: Status310::rearfoglmpsts";
       static_cast<Status_310::LongitudeaccvalidType>(x);
   return ret;
-AINFO<<"(DMCZP) EnteringMethod: Status310::leftturnlampsts";
-AINFO<<"(DMCZP) EnteringMethod: Status310::rightturnlampsts";
 }
 
 // config detail: {'description': 'Indicates Lateral Signal State',
@@ -281,14 +253,11 @@ Status_310::LongitudedrivingmodeType Status310::longitudedrivingmode(
 // 'type': 'enum', 'order': 'motorola', 'physical_unit': ''}
 Status_310::EngspdvalidType Status310::engspdvalid(const std::uint8_t* bytes,
                                                    int32_t length) const {
-AINFO<<"(DMCZP) EnteringMethod: Status310::engspdvalid";
   Byte t0(bytes + 1);
   int32_t x = t0.get_byte(3, 2);
 
   Status_310::EngspdvalidType ret = static_cast<Status_310::EngspdvalidType>(x);
-AINFO<<"(DMCZP) EnteringMethod: Status310::highbeamsts";
   return ret;
-AINFO<<"(DMCZP) EnteringMethod: Status310::brakelmpsts";
 }
 
 // config detail: {'description': 'Detect Acceleration Pedal Override', 'enum':
@@ -360,7 +329,6 @@ Status_310::EpbswtpositionvalidType Status310::epbswtpositionvalid(
 // 'order': 'motorola', 'physical_unit': ''}
 Status_310::EpbstsType Status310::epbsts(const std::uint8_t* bytes,
                                          int32_t length) const {
-AINFO<<"(DMCZP) EnteringMethod: Status310::epbsts";
   Byte t0(bytes + 2);
   int32_t x = t0.get_byte(1, 2);
 
@@ -499,8 +467,6 @@ Status_310::DriverdoorstsType Status310::driverdoorsts(
 // 'physical_unit': ''}
 Status_310::RldoorstsType Status310::rldoorsts(const std::uint8_t* bytes,
                                                int32_t length) const {
-AINFO<<"(DMCZP) EnteringMethod: Status310::rldoorsts";
-AINFO<<"(DMCZP) EnteringMethod: Status310::rrdoorsts";
   Byte t0(bytes + 6);
   int32_t x = t0.get_byte(6, 1);
 
@@ -573,7 +539,6 @@ Status_310::RearfoglmpstsType Status310::rearfoglmpsts(
 // 'physical_unit': ''}
 Status_310::LowbeamstsType Status310::lowbeamsts(const std::uint8_t* bytes,
                                                  int32_t length) const {
-AINFO<<"(DMCZP) EnteringMethod: Status310::lowbeamsts";
   Byte t0(bytes + 6);
   int32_t x = t0.get_byte(1, 1);
 
@@ -633,7 +598,6 @@ Status_310::RightturnlampstsType Status310::rightturnlampsts(
 // 'physical_unit': ''}
 Status_310::Bcm_availstsType Status310::bcm_availsts(const std::uint8_t* bytes,
                                                      int32_t length) const {
-AINFO<<"(DMCZP) EnteringMethod: Status310::bcm_availsts";
   Byte t0(bytes + 7);
   int32_t x = t0.get_byte(1, 2);
 

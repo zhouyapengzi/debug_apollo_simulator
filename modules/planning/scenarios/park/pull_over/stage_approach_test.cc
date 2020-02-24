@@ -40,7 +40,6 @@ class StageApproachTest : public ::testing::Test {
 };
 
 TEST_F(StageApproachTest, VerifyConf) {
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   FLAGS_scenario_pull_over_config_file =
       "/apollo/modules/planning/conf/scenario/pull_over_config.pb.txt";
 
@@ -50,7 +49,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST_F";
 }
 
 TEST_F(StageApproachTest, Init) {
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   PullOverStageApproach pull_over_stage_approach(config_);
   EXPECT_EQ(pull_over_stage_approach.Name(),
             ScenarioConfig::StageType_Name(config_.stage_type()));

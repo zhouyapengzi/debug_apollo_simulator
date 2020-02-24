@@ -41,7 +41,6 @@ class LaneFollowScenarioTest : public ::testing::Test {
 };
 
 TEST_F(LaneFollowScenarioTest, VerifyConf) {
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   FLAGS_scenario_lane_follow_config_file =
       "/apollo/modules/planning/conf/scenario/lane_follow_config.pb.txt";
 
@@ -51,7 +50,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST_F";
 }
 
 TEST_F(LaneFollowScenarioTest, Init) {
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   FLAGS_scenario_lane_follow_config_file =
       "/apollo/modules/planning/testdata/conf/"
       "scenario/lane_follow_config.pb.txt";

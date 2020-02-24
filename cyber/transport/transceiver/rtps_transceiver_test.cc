@@ -65,7 +65,6 @@ class RtpsTransceiverTest : public ::testing::Test {
 };
 
 TEST_F(RtpsTransceiverTest, constructor) {
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   RoleAttributes attr;
   TransmitterPtr transmitter =
       std::make_shared<RtpsTransmitter<proto::UnitTest>>(
@@ -82,7 +81,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST_F";
 }
 
 TEST_F(RtpsTransceiverTest, enable_and_disable) {
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   // repeated call
   transmitter_a_->Enable();
 
@@ -157,7 +155,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST_F";
 }  // namespace apollo
 
 int main(int argc, char** argv) {
-AINFO<<"(DMCZP) EnteringMethod: main";
   testing::InitGoogleTest(&argc, argv);
   apollo::cyber::Init(argv[0]);
   apollo::cyber::transport::Transport::Instance();

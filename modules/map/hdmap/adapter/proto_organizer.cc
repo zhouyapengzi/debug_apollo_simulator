@@ -24,7 +24,6 @@ limitations under the License.
 namespace {
 
 std::string CreateOverlapId() {
-AINFO<<"(DMCZP) EnteringMethod: CreateOverlapId";
   static int count = 0;
   ++count;
   return "overlap_" + std::to_string(count);
@@ -39,7 +38,6 @@ namespace adapter {
 using apollo::common::util::PairHash;
 
 void ProtoOrganizer::GetRoadElements(std::vector<RoadInternal>* roads) {
-AINFO<<"(DMCZP) EnteringMethod: ProtoOrganizer::GetRoadElements";
   for (auto& road_internal : *roads) {
     // lanes
     for (auto& section_internal : road_internal.sections) {
@@ -110,21 +108,15 @@ AINFO<<"(DMCZP) EnteringMethod: ProtoOrganizer::GetRoadElements";
 
 void ProtoOrganizer::GetJunctionElements(
     const std::vector<JunctionInternal>& junctions) {
-AINFO<<"(DMCZP) EnteringMethod: ProtoOrganizer::GetJunctionElements";
   for (auto& junction_internal : junctions) {
     std::string junction_id = junction_internal.junction.id().id();
     proto_data_.pb_junctions[junction_id] = junction_internal.junction;
   }
-AINFO<<"(DMCZP) EnteringMethod: ProtoOrganizer::GetJunctionObjectOverlapElements";
-AINFO<<"(DMCZP) EnteringMethod: ProtoOrganizer::GetOverlapElements";
 }
 
 void ProtoOrganizer::GetLaneObjectOverlapElements(
     const std::string& lane_id,
     const std::vector<OverlapWithLane>& overlap_with_lanes) {
-AINFO<<"(DMCZP) EnteringMethod: ProtoOrganizer::GetLaneObjectOverlapElements";
-AINFO<<"(DMCZP) EnteringMethod: ProtoOrganizer::GetLaneSignalOverlapElements";
-AINFO<<"(DMCZP) EnteringMethod: ProtoOrganizer::GetLaneJunctionOverlapElements";
   for (auto& overlap_object : overlap_with_lanes) {
     std::string object_id = overlap_object.object_id;
     if (proto_data_.pb_crosswalks.count(object_id) <= 0 &&
@@ -267,7 +259,6 @@ void ProtoOrganizer::GetLaneJunctionOverlapElements(
 void ProtoOrganizer::GetLaneLaneOverlapElements(
     const std::unordered_map<std::pair<std::string, std::string>,
                              OverlapWithLane, PairHash>& lane_lane_overlaps) {
-AINFO<<"(DMCZP) EnteringMethod: ProtoOrganizer::GetLaneLaneOverlapElements";
   std::unordered_set<std::string> close_set;
   for (auto& overlap_lane_pair : lane_lane_overlaps) {
     auto& lane_id = overlap_lane_pair.first.first;
@@ -385,7 +376,6 @@ void ProtoOrganizer::GetOverlapElements(
 }
 
 void ProtoOrganizer::OutputData(apollo::hdmap::Map* pb_map) {
-AINFO<<"(DMCZP) EnteringMethod: ProtoOrganizer::OutputData";
   for (auto& road_pair : proto_data_.pb_roads) {
     *(pb_map->add_road()) = road_pair.second;
   }

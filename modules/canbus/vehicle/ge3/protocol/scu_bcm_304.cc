@@ -26,12 +26,10 @@ namespace ge3 {
 using ::apollo::drivers::canbus::Byte;
 
 Scubcm304::Scubcm304() {}
-AINFO<<"(DMCZP) EnteringMethod: Scubcm304::Scubcm304";
 const int32_t Scubcm304::ID = 0x304;
 
 void Scubcm304::Parse(const std::uint8_t* bytes, int32_t length,
                       ChassisDetail* chassis) const {
-AINFO<<"(DMCZP) EnteringMethod: Scubcm304::Parse";
   chassis->mutable_ge3()->mutable_scu_bcm_304()->set_bcm_vehreversest(
       bcm_vehreversest(bytes, length));
   chassis->mutable_ge3()->mutable_scu_bcm_304()->set_bcm_rightturnlampst(
@@ -65,18 +63,8 @@ AINFO<<"(DMCZP) EnteringMethod: Scubcm304::Parse";
 // 'physical_unit': '-'}
 Scu_bcm_304::Bcm_vehreversestType Scubcm304::bcm_vehreversest(
     const std::uint8_t* bytes, int32_t length) const {
-AINFO<<"(DMCZP) EnteringMethod: Scubcm304::bcm_vehreversest";
-AINFO<<"(DMCZP) EnteringMethod: Scubcm304::bcm_rightturnlampst";
-AINFO<<"(DMCZP) EnteringMethod: Scubcm304::bcm_rearfoglampst";
-AINFO<<"(DMCZP) EnteringMethod: Scubcm304::bcm_parkinglampst";
-AINFO<<"(DMCZP) EnteringMethod: Scubcm304::bcm_lowbeamst";
-AINFO<<"(DMCZP) EnteringMethod: Scubcm304::bcm_leftturnlampst";
   Byte t0(bytes + 1);
   int32_t x = t0.get_byte(3, 1);
-AINFO<<"(DMCZP) EnteringMethod: Scubcm304::bcm_highbeamst";
-AINFO<<"(DMCZP) EnteringMethod: Scubcm304::bcm_hazardlampst";
-AINFO<<"(DMCZP) EnteringMethod: Scubcm304::bcm_frontfoglampst";
-AINFO<<"(DMCZP) EnteringMethod: Scubcm304::bcm_brakelightswitchst";
 
   Scu_bcm_304::Bcm_vehreversestType ret =
       static_cast<Scu_bcm_304::Bcm_vehreversestType>(x);
@@ -165,7 +153,6 @@ Scu_bcm_304::Bcm_leftturnlampstType Scubcm304::bcm_leftturnlampst(
 // 'physical_unit': '-'}
 Scu_bcm_304::Bcm_keystType Scubcm304::bcm_keyst(const std::uint8_t* bytes,
                                                 int32_t length) const {
-AINFO<<"(DMCZP) EnteringMethod: Scubcm304::bcm_keyst";
   Byte t0(bytes + 0);
   int32_t x = t0.get_byte(6, 2);
 
@@ -180,7 +167,6 @@ AINFO<<"(DMCZP) EnteringMethod: Scubcm304::bcm_keyst";
 // 'physical_unit': '-'}
 Scu_bcm_304::Bcm_hornstType Scubcm304::bcm_hornst(const std::uint8_t* bytes,
                                                   int32_t length) const {
-AINFO<<"(DMCZP) EnteringMethod: Scubcm304::bcm_hornst";
   Byte t0(bytes + 1);
   int32_t x = t0.get_byte(7, 1);
 

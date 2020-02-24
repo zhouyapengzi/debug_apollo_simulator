@@ -33,7 +33,6 @@ using apollo::cyber::common::GetAbsolutePath;
 using apollo::cyber::common::GetProtoFromFile;
 
 bool DarkSCNNLaneDetector::Init(const LaneDetectorInitOptions &options) {
-AINFO<<"(DMCZP) EnteringMethod: DarkSCNNLaneDetector::Init";
   std::string proto_path = GetAbsolutePath(options.root_dir, options.conf_file);
   if (!GetProtoFromFile(proto_path, &darkscnn_param_)) {
     AINFO << "load proto param failed, root dir: " << options.root_dir;
@@ -169,7 +168,6 @@ AINFO<<"(DMCZP) EnteringMethod: DarkSCNNLaneDetector::Init";
 
 bool DarkSCNNLaneDetector::Detect(const LaneDetectorOptions &options,
                                   CameraFrame *frame) {
-AINFO<<"(DMCZP) EnteringMethod: DarkSCNNLaneDetector::Detect";
 
 
   AINFO << "(pengzi) Begin Lane detector by darkscnn model" <<std::this_thread::get_id();
@@ -300,7 +298,6 @@ AINFO<<"(DMCZP) EnteringMethod: DarkSCNNLaneDetector::Detect";
 }
 
 std::string DarkSCNNLaneDetector::Name() const {
-AINFO<<"(DMCZP) EnteringMethod: DarkSCNNLaneDetector::Name";
   return "DarkSCNNLaneDetector";
 }
 

@@ -25,7 +25,6 @@ namespace prediction {
 class ObstacleClustersTest : public KMLMapBasedTest {};
 
 TEST_F(ObstacleClustersTest, ObstacleClusters) {
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   auto lane = PredictionMap::LaneById("l9");
   double start_s = 99.0;
   double length = 100.0;

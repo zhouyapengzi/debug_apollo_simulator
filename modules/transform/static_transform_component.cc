@@ -24,7 +24,6 @@ namespace apollo {
 namespace transform {
 
 bool StaticTransformComponent::Init() {
-AINFO<<"(DMCZP) EnteringMethod: StaticTransformComponent::Init";
   if (!GetProtoConfig(&conf_)) {
     AERROR << "Parse conf file failed, " << ConfigFilePath();
     return false;
@@ -39,7 +38,6 @@ AINFO<<"(DMCZP) EnteringMethod: StaticTransformComponent::Init";
 }
 
 void StaticTransformComponent::SendTransforms() {
-AINFO<<"(DMCZP) EnteringMethod: StaticTransformComponent::SendTransforms";
   std::vector<TransformStamped> tranform_stamped_vec;
   for (auto& extrinsic_file : conf_.extrinsic_file()) {
     if (extrinsic_file.enable()) {
@@ -57,7 +55,6 @@ AINFO<<"(DMCZP) EnteringMethod: StaticTransformComponent::SendTransforms";
 
 bool StaticTransformComponent::ParseFromYaml(
     const std::string& file_path, TransformStamped* transform_stamped) {
-AINFO<<"(DMCZP) EnteringMethod: StaticTransformComponent::ParseFromYaml";
   if (!cyber::common::PathExists(file_path)) {
     AERROR << "Extrinsic yaml file is noe exists: " << file_path;
     return false;
@@ -89,7 +86,6 @@ AINFO<<"(DMCZP) EnteringMethod: StaticTransformComponent::ParseFromYaml";
 
 void StaticTransformComponent::SendTransform(
     const std::vector<TransformStamped>& msgtf) {
-AINFO<<"(DMCZP) EnteringMethod: StaticTransformComponent::SendTransform";
   for (auto it_in = msgtf.begin(); it_in != msgtf.end(); ++it_in) {
     bool match_found = false;
     for (auto& it_msg : *transform_stampeds_.mutable_transforms()) {

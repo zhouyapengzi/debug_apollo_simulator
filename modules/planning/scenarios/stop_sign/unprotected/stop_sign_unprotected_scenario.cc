@@ -51,7 +51,6 @@ apollo::common::util::Factory<
     StopSignUnprotectedScenario::s_stage_factory_;
 
 void StopSignUnprotectedScenario::Init() {
-AINFO<<"(DMCZP) EnteringMethod: StopSignUnprotectedScenario::Init";
   if (init_) {
     return;
   }
@@ -87,7 +86,6 @@ AINFO<<"(DMCZP) EnteringMethod: StopSignUnprotectedScenario::Init";
 }
 
 void StopSignUnprotectedScenario::RegisterStages() {
-AINFO<<"(DMCZP) EnteringMethod: StopSignUnprotectedScenario::RegisterStages";
   if (!s_stage_factory_.Empty()) {
     s_stage_factory_.Clear();
   }
@@ -130,7 +128,6 @@ std::unique_ptr<Stage> StopSignUnprotectedScenario::CreateStage(
  * read scenario specific configs and set in context_ for stages to read
  */
 bool StopSignUnprotectedScenario::GetScenarioConfig() {
-AINFO<<"(DMCZP) EnteringMethod: StopSignUnprotectedScenario::GetScenarioConfig";
   if (!config_.has_stop_sign_unprotected_config()) {
     AERROR << "miss scenario specific config";
     return false;
@@ -144,7 +141,6 @@ AINFO<<"(DMCZP) EnteringMethod: StopSignUnprotectedScenario::GetScenarioConfig";
  */
 int StopSignUnprotectedScenario::GetAssociatedLanes(
     const StopSignInfo& stop_sign_info) {
-AINFO<<"(DMCZP) EnteringMethod: StopSignUnprotectedScenario::GetAssociatedLanes";
   context_.associated_lanes.clear();
 
   std::vector<StopSignInfoConstPtr> associated_stop_signs;

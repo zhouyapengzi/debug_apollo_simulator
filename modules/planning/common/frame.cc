@@ -51,14 +51,10 @@ using apollo::prediction::PredictionObstacles;
 
 FrameHistory::FrameHistory()
     : IndexedQueue<uint32_t, Frame>(FLAGS_max_history_frame_num) {}
-AINFO<<"(DMCZP) EnteringMethod: FrameHistory::FrameHistory";
 
 Frame::Frame(uint32_t sequence_num)
     : sequence_num_(sequence_num),
       monitor_logger_buffer_(common::monitor::MonitorMessageItem::PLANNING) {}
-AINFO<<"(DMCZP) EnteringMethod: Frame::Frame";
-AINFO<<"(DMCZP) EnteringMethod: Frame::Frame";
-AINFO<<"(DMCZP) EnteringMethod: Frame::Frame";
 
 Frame::Frame(uint32_t sequence_num, const LocalView &local_view,
              const common::TrajectoryPoint &planning_start_point,
@@ -78,17 +74,14 @@ Frame::Frame(uint32_t sequence_num, const LocalView &local_view,
             nullptr) {}
 
 const common::TrajectoryPoint &Frame::PlanningStartPoint() const {
-AINFO<<"(DMCZP) EnteringMethod: &Frame::PlanningStartPoint";
   return planning_start_point_;
 }
 
 const common::VehicleState &Frame::vehicle_state() const {
-AINFO<<"(DMCZP) EnteringMethod: &Frame::vehicle_state";
   return vehicle_state_;
 }
 
 bool Frame::Rerouting() {
-AINFO<<"(DMCZP) EnteringMethod: Frame::Rerouting";
   if (FLAGS_use_navigation_mode) {
     AERROR << "Rerouting not supported in navigation mode";
     return false;
@@ -149,7 +142,6 @@ std::list<ReferenceLineInfo> *Frame::mutable_reference_line_info() {
 
 void Frame::UpdateReferenceLinePriority(
     const std::map<std::string, uint32_t> &id_to_priority) {
-AINFO<<"(DMCZP) EnteringMethod: Frame::UpdateReferenceLinePriority";
   for (const auto &pair : id_to_priority) {
     const auto id = pair.first;
     const auto priority = pair.second;
@@ -167,7 +159,6 @@ AINFO<<"(DMCZP) EnteringMethod: Frame::UpdateReferenceLinePriority";
 bool Frame::CreateReferenceLineInfo(
     const std::list<ReferenceLine> &reference_lines,
     const std::list<hdmap::RouteSegments> &segments) {
-AINFO<<"(DMCZP) EnteringMethod: Frame::CreateReferenceLineInfo";
   reference_line_info_.clear();
   auto ref_line_iter = reference_lines.begin();
   auto segments_iter = segments.begin();
@@ -217,7 +208,6 @@ AINFO<<"(DMCZP) EnteringMethod: Frame::CreateReferenceLineInfo";
 const Obstacle *Frame::CreateStopObstacle(
     ReferenceLineInfo *const reference_line_info,
     const std::string &obstacle_id, const double obstacle_s) {
-AINFO<<"(DMCZP) EnteringMethod: *Frame::CreateStopObstacle";
   if (reference_line_info == nullptr) {
     AERROR << "reference_line_info nullptr";
     return nullptr;
@@ -241,7 +231,6 @@ AINFO<<"(DMCZP) EnteringMethod: *Frame::CreateStopObstacle";
 const Obstacle *Frame::CreateStopObstacle(const std::string &obstacle_id,
                                           const std::string &lane_id,
                                           const double lane_s) {
-AINFO<<"(DMCZP) EnteringMethod: *Frame::CreateStopObstacle";
   if (!hdmap_) {
     AERROR << "Invalid HD Map.";
     return nullptr;
@@ -274,7 +263,6 @@ const Obstacle *Frame::CreateStaticObstacle(
     ReferenceLineInfo *const reference_line_info,
     const std::string &obstacle_id, const double obstacle_start_s,
     const double obstacle_end_s) {
-AINFO<<"(DMCZP) EnteringMethod: *Frame::CreateStaticObstacle";
   if (reference_line_info == nullptr) {
     AERROR << "reference_line_info nullptr";
     return nullptr;
@@ -318,7 +306,6 @@ AINFO<<"(DMCZP) EnteringMethod: *Frame::CreateStaticObstacle";
 
 const Obstacle *Frame::CreateStaticVirtualObstacle(const std::string &id,
                                                    const Box2d &box) {
-AINFO<<"(DMCZP) EnteringMethod: *Frame::CreateStaticVirtualObstacle";
   const auto *object = obstacles_.Find(id);
   if (object) {
     AWARN << "obstacle " << id << " already exist.";
@@ -336,7 +323,6 @@ Status Frame::Init(
     const std::list<ReferenceLine> &reference_lines,
     const std::list<hdmap::RouteSegments> &segments,
     const std::vector<routing::LaneWaypoint> &future_route_waypoints) {
-AINFO<<"(DMCZP) EnteringMethod: Frame::Init";
   // TODO(QiL): refactor this to avoid redundant nullptr checks in scenarios.
   auto status = InitFrameData();
   if (!status.ok()) {
@@ -353,10 +339,8 @@ AINFO<<"(DMCZP) EnteringMethod: Frame::Init";
 }
 
 Status Frame::InitForOpenSpace() { return InitFrameData(); }
-AINFO<<"(DMCZP) EnteringMethod: Frame::InitForOpenSpace";
 
 Status Frame::InitFrameData() {
-AINFO<<"(DMCZP) EnteringMethod: Frame::InitFrameData";
   hdmap_ = hdmap::HDMapUtil::BaseMapPtr();
   CHECK_NOTNULL(hdmap_);
   vehicle_state_ = common::VehicleStateProvider::Instance()->vehicle_state();
@@ -393,7 +377,6 @@ AINFO<<"(DMCZP) EnteringMethod: Frame::InitFrameData";
 }
 
 const Obstacle *Frame::FindCollisionObstacle() const {
-AINFO<<"(DMCZP) EnteringMethod: *Frame::FindCollisionObstacle";
   if (obstacles_.Items().empty()) {
     return nullptr;
   }
@@ -413,15 +396,12 @@ AINFO<<"(DMCZP) EnteringMethod: *Frame::FindCollisionObstacle";
 }
 
 uint32_t Frame::SequenceNum() const { return sequence_num_; }
-AINFO<<"(DMCZP) EnteringMethod: Frame::SequenceNum";
 
 std::string Frame::DebugString() const {
-AINFO<<"(DMCZP) EnteringMethod: Frame::DebugString";
   return "Frame: " + std::to_string(sequence_num_);
 }
 
 void Frame::RecordInputDebug(planning_internal::Debug *debug) {
-AINFO<<"(DMCZP) EnteringMethod: Frame::RecordInputDebug";
   if (!debug) {
     ADEBUG << "Skip record input into debug";
     return;
@@ -451,7 +431,6 @@ AINFO<<"(DMCZP) EnteringMethod: Frame::RecordInputDebug";
 
 void Frame::AlignPredictionTime(const double planning_start_time,
                                 PredictionObstacles *prediction_obstacles) {
-AINFO<<"(DMCZP) EnteringMethod: Frame::AlignPredictionTime";
   if (!prediction_obstacles || !prediction_obstacles->has_header() ||
       !prediction_obstacles->header().has_timestamp_sec()) {
     return;
@@ -479,15 +458,12 @@ AINFO<<"(DMCZP) EnteringMethod: Frame::AlignPredictionTime";
 }
 
 Obstacle *Frame::Find(const std::string &id) { return obstacles_.Find(id); }
-AINFO<<"(DMCZP) EnteringMethod: *Frame::Find";
 
 void Frame::AddObstacle(const Obstacle &obstacle) {
-AINFO<<"(DMCZP) EnteringMethod: Frame::AddObstacle";
   obstacles_.Add(obstacle.Id(), obstacle);
 }
 
 void Frame::ReadTrafficLights() {
-AINFO<<"(DMCZP) EnteringMethod: Frame::ReadTrafficLights";
   traffic_lights_.clear();
 
   const auto traffic_light_detection = local_view_.traffic_light;
@@ -508,7 +484,6 @@ AINFO<<"(DMCZP) EnteringMethod: Frame::ReadTrafficLights";
 
 perception::TrafficLight Frame::GetSignal(
     const std::string &traffic_light_id) const {
-AINFO<<"(DMCZP) EnteringMethod: Frame::GetSignal";
   const auto *result =
       apollo::common::util::FindPtrOrNull(traffic_lights_, traffic_light_id);
   if (result == nullptr) {
@@ -523,7 +498,6 @@ AINFO<<"(DMCZP) EnteringMethod: Frame::GetSignal";
 }
 
 const ReferenceLineInfo *Frame::FindDriveReferenceLineInfo() {
-AINFO<<"(DMCZP) EnteringMethod: *Frame::FindDriveReferenceLineInfo";
   double min_cost = std::numeric_limits<double>::infinity();
   drive_reference_line_info_ = nullptr;
   for (const auto &reference_line_info : reference_line_info_) {
@@ -537,7 +511,6 @@ AINFO<<"(DMCZP) EnteringMethod: *Frame::FindDriveReferenceLineInfo";
 }
 
 const ReferenceLineInfo *Frame::DriveReferenceLineInfo() const {
-AINFO<<"(DMCZP) EnteringMethod: *Frame::DriveReferenceLineInfo";
   return drive_reference_line_info_;
 }
 

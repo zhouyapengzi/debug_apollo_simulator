@@ -25,8 +25,6 @@ namespace record {
 Recorder::Recorder(const std::string& output, bool all_channels,
                    const std::vector<std::string>& channel_vec)
     : output_(output), all_channels_(all_channels), channel_vec_(channel_vec) {
-AINFO<<"(DMCZP) EnteringMethod: Recorder::Recorder";
-AINFO<<"(DMCZP) EnteringMethod: Recorder::Recorder";
   header_ = HeaderBuilder::GetHeader();
 }
 
@@ -41,7 +39,6 @@ Recorder::Recorder(const std::string& output, bool all_channels,
 Recorder::~Recorder() { Stop(); }
 
 bool Recorder::Start() {
-AINFO<<"(DMCZP) EnteringMethod: Recorder::Start";
   writer_.reset(new RecordWriter(header_));
   if (!writer_->Open(output_)) {
     AERROR << "Datafile open file error.";
@@ -70,7 +67,6 @@ AINFO<<"(DMCZP) EnteringMethod: Recorder::Start";
 }
 
 bool Recorder::Stop() {
-AINFO<<"(DMCZP) EnteringMethod: Recorder::Stop";
   if (!is_started_ || is_stopping_) {
     return false;
   }
@@ -91,7 +87,6 @@ AINFO<<"(DMCZP) EnteringMethod: Recorder::Stop";
 }
 
 void Recorder::TopologyCallback(const ChangeMsg& change_message) {
-AINFO<<"(DMCZP) EnteringMethod: Recorder::TopologyCallback";
   ADEBUG << "ChangeMsg in Topology Callback:" << std::endl
          << change_message.ShortDebugString();
   if (change_message.role_type() != apollo::cyber::proto::ROLE_WRITER) {
@@ -102,7 +97,6 @@ AINFO<<"(DMCZP) EnteringMethod: Recorder::TopologyCallback";
 }
 
 void Recorder::FindNewChannel(const RoleAttributes& role_attr) {
-AINFO<<"(DMCZP) EnteringMethod: Recorder::FindNewChannel";
   if (!role_attr.has_channel_name() || role_attr.channel_name().empty()) {
     AWARN << "change message not has a channel name or has an empty one.";
     return;
@@ -133,7 +127,6 @@ AINFO<<"(DMCZP) EnteringMethod: Recorder::FindNewChannel";
 }
 
 bool Recorder::InitReadersImpl() {
-AINFO<<"(DMCZP) EnteringMethod: Recorder::InitReadersImpl";
   std::shared_ptr<ChannelManager> channel_manager =
       TopologyManager::Instance()->channel_manager();
 
@@ -155,7 +148,6 @@ AINFO<<"(DMCZP) EnteringMethod: Recorder::InitReadersImpl";
 }
 
 bool Recorder::FreeReadersImpl() {
-AINFO<<"(DMCZP) EnteringMethod: Recorder::FreeReadersImpl";
   std::shared_ptr<ChannelManager> channel_manager =
       TopologyManager::Instance()->channel_manager();
 
@@ -166,7 +158,6 @@ AINFO<<"(DMCZP) EnteringMethod: Recorder::FreeReadersImpl";
 
 bool Recorder::InitReaderImpl(const std::string& channel_name,
                               const std::string& message_type) {
-AINFO<<"(DMCZP) EnteringMethod: Recorder::InitReaderImpl";
   try {
     std::weak_ptr<Recorder> weak_this = shared_from_this();
     std::shared_ptr<ReaderBase> reader = nullptr;
@@ -197,7 +188,6 @@ AINFO<<"(DMCZP) EnteringMethod: Recorder::InitReaderImpl";
 
 void Recorder::ReaderCallback(const std::shared_ptr<RawMessage>& message,
                               const std::string& channel_name) {
-AINFO<<"(DMCZP) EnteringMethod: Recorder::ReaderCallback";
   if (!is_started_ || is_stopping_) {
     AERROR << "record procedure is not started or stopping.";
     return;
@@ -218,7 +208,6 @@ AINFO<<"(DMCZP) EnteringMethod: Recorder::ReaderCallback";
 }
 
 void Recorder::ShowProgress() {
-AINFO<<"(DMCZP) EnteringMethod: Recorder::ShowProgress";
   while (is_started_ && !is_stopping_) {
     std::cout << "\r[RUNNING]  Record Time: " << std::setprecision(3)
               << message_time_ / 1000000000

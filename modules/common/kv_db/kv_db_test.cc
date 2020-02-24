@@ -23,7 +23,6 @@ namespace apollo {
 namespace common {
 
 TEST(KVDBTest, CRUD) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   EXPECT_TRUE(KVDB::Delete("test_key"));
   EXPECT_FALSE(KVDB::Has("test_key"));
 
@@ -43,13 +42,11 @@ AINFO<<"(DMCZP) EnteringMethod: TEST";
 }
 
 TEST(KVDBTest, GetDefault) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   EXPECT_EQ("", KVDB::Get("test_key"));
   EXPECT_EQ("default", KVDB::Get("test_key", "default"));
 }
 
 TEST(KVDBTest, MultiThreads) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   static const int N_THREADS = 10;
 
   std::vector<std::unique_ptr<std::thread>> threads(N_THREADS);

@@ -51,13 +51,11 @@ ReferenceLine::ReferenceLine(
     : reference_points_(reference_points),
       map_path_(std::move(std::vector<hdmap::MapPathPoint>(
           reference_points.begin(), reference_points.end()))) {
-AINFO<<"(DMCZP) EnteringMethod: ReferenceLine::ReferenceLine";
   CHECK_EQ(map_path_.num_points(), reference_points_.size());
 }
 
 ReferenceLine::ReferenceLine(const MapPath& hdmap_path)
     : map_path_(hdmap_path) {
-AINFO<<"(DMCZP) EnteringMethod: ReferenceLine::ReferenceLine";
   for (const auto& point : hdmap_path.path_points()) {
     DCHECK(!point.lane_waypoints().empty());
     const auto& lane_waypoint = point.lane_waypoints()[0];
@@ -68,7 +66,6 @@ AINFO<<"(DMCZP) EnteringMethod: ReferenceLine::ReferenceLine";
 }
 
 bool ReferenceLine::Stitch(const ReferenceLine& other) {
-AINFO<<"(DMCZP) EnteringMethod: ReferenceLine::Stitch";
   if (other.reference_points().empty()) {
     AWARN << "The other reference line is empty.";
     return true;
@@ -128,7 +125,6 @@ AINFO<<"(DMCZP) EnteringMethod: ReferenceLine::Stitch";
 
 ReferencePoint ReferenceLine::GetNearestReferencePoint(
     const common::math::Vec2d& xy) const {
-AINFO<<"(DMCZP) EnteringMethod: ReferenceLine::GetNearestReferencePoint";
   double min_dist = std::numeric_limits<double>::max();
   size_t min_index = 0;
   for (size_t i = 0; i < reference_points_.size(); ++i) {
@@ -143,7 +139,6 @@ AINFO<<"(DMCZP) EnteringMethod: ReferenceLine::GetNearestReferencePoint";
 
 bool ReferenceLine::Shrink(const common::math::Vec2d& point,
                            double look_backward, double look_forward) {
-AINFO<<"(DMCZP) EnteringMethod: ReferenceLine::Shrink";
   common::SLPoint sl;
   if (!XYToSL(point, &sl)) {
     AERROR << "Failed to project point: " << point.DebugString();
@@ -154,7 +149,6 @@ AINFO<<"(DMCZP) EnteringMethod: ReferenceLine::Shrink";
 
 bool ReferenceLine::Shrink(const double s, double look_backward,
                            double look_forward) {
-AINFO<<"(DMCZP) EnteringMethod: ReferenceLine::Shrink";
   const auto& accumulated_s = map_path_.accumulated_s();
   size_t start_index = 0;
   if (s > look_backward) {
@@ -185,7 +179,6 @@ AINFO<<"(DMCZP) EnteringMethod: ReferenceLine::Shrink";
 
 common::FrenetFramePoint ReferenceLine::GetFrenetPoint(
     const common::PathPoint& path_point) const {
-AINFO<<"(DMCZP) EnteringMethod: ReferenceLine::GetFrenetPoint";
   if (reference_points_.empty()) {
     return common::FrenetFramePoint();
   }
@@ -218,7 +211,6 @@ AINFO<<"(DMCZP) EnteringMethod: ReferenceLine::GetFrenetPoint";
 
 std::pair<std::array<double, 3>, std::array<double, 3>>
 ReferenceLine::ToFrenetFrame(const common::TrajectoryPoint& traj_point) const {
-AINFO<<"(DMCZP) EnteringMethod: ReferenceLine::ToFrenetFrame";
   CHECK(!reference_points_.empty());
 
   common::SLPoint sl_point;
@@ -238,7 +230,6 @@ AINFO<<"(DMCZP) EnteringMethod: ReferenceLine::ToFrenetFrame";
 }
 
 ReferencePoint ReferenceLine::GetNearestReferencePoint(const double s) const {
-AINFO<<"(DMCZP) EnteringMethod: ReferenceLine::GetNearestReferencePoint";
   const auto& accumulated_s = map_path_.accumulated_s();
   if (s < accumulated_s.front() - 1e-2) {
     AWARN << "The requested s: " << s << " < 0.";
@@ -263,7 +254,6 @@ AINFO<<"(DMCZP) EnteringMethod: ReferenceLine::GetNearestReferencePoint";
 }
 
 size_t ReferenceLine::GetNearestReferenceIndex(const double s) const {
-AINFO<<"(DMCZP) EnteringMethod: ReferenceLine::GetNearestReferenceIndex";
   const auto& accumulated_s = map_path_.accumulated_s();
   if (s < accumulated_s.front() - 1e-2) {
     AWARN << "The requested s: " << s << " < 0.";
@@ -298,7 +288,6 @@ std::vector<ReferencePoint> ReferenceLine::GetReferencePoints(
 }
 
 ReferencePoint ReferenceLine::GetReferencePoint(const double s) const {
-AINFO<<"(DMCZP) EnteringMethod: ReferenceLine::GetReferencePoint";
   const auto& accumulated_s = map_path_.accumulated_s();
   if (s < accumulated_s.front() - 1e-2) {
     AWARN << "The requested s: " << s << " < 0.";
@@ -331,7 +320,6 @@ double ReferenceLine::FindMinDistancePoint(const ReferencePoint& p0,
                                            const ReferencePoint& p1,
                                            const double s1, const double x,
                                            const double y) {
-AINFO<<"(DMCZP) EnteringMethod: ReferenceLine::FindMinDistancePoint";
   auto func_dist_square = [&p0, &p1, &s0, &s1, &x, &y](const double s) {
     auto p = Interpolate(p0, s0, p1, s1, s);
     double dx = p.x() - x;
@@ -345,7 +333,6 @@ AINFO<<"(DMCZP) EnteringMethod: ReferenceLine::FindMinDistancePoint";
 
 ReferencePoint ReferenceLine::GetReferencePoint(const double x,
                                                 const double y) const {
-AINFO<<"(DMCZP) EnteringMethod: ReferenceLine::GetReferencePoint";
   CHECK_GE(reference_points_.size(), 0);
 
   auto func_distance_square = [](const ReferencePoint& point, const double x,
@@ -387,7 +374,6 @@ AINFO<<"(DMCZP) EnteringMethod: ReferenceLine::GetReferencePoint";
 
 bool ReferenceLine::SLToXY(const SLPoint& sl_point,
                            common::math::Vec2d* const xy_point) const {
-AINFO<<"(DMCZP) EnteringMethod: ReferenceLine::SLToXY";
   CHECK_NOTNULL(xy_point);
   if (map_path_.num_points() < 2) {
     AERROR << "The reference line has too few points.";
@@ -403,7 +389,6 @@ AINFO<<"(DMCZP) EnteringMethod: ReferenceLine::SLToXY";
 
 bool ReferenceLine::XYToSL(const common::math::Vec2d& xy_point,
                            SLPoint* const sl_point) const {
-AINFO<<"(DMCZP) EnteringMethod: ReferenceLine::XYToSL";
   DCHECK_NOTNULL(sl_point);
   double s = 0.0;
   double l = 0.0;
@@ -419,7 +404,6 @@ AINFO<<"(DMCZP) EnteringMethod: ReferenceLine::XYToSL";
 ReferencePoint ReferenceLine::InterpolateWithMatchedIndex(
     const ReferencePoint& p0, const double s0, const ReferencePoint& p1,
     const double s1, const InterpolatedIndex& index) const {
-AINFO<<"(DMCZP) EnteringMethod: ReferenceLine::InterpolateWithMatchedIndex";
   if (std::fabs(s0 - s1) < common::math::kMathEpsilon) {
     return p0;
   }
@@ -438,7 +422,6 @@ ReferencePoint ReferenceLine::Interpolate(const ReferencePoint& p0,
                                           const double s0,
                                           const ReferencePoint& p1,
                                           const double s1, const double s) {
-AINFO<<"(DMCZP) EnteringMethod: ReferenceLine::Interpolate";
   if (std::fabs(s0 - s1) < common::math::kMathEpsilon) {
     return p0;
   }
@@ -478,11 +461,9 @@ const std::vector<ReferencePoint>& ReferenceLine::reference_points() const {
 }
 
 const MapPath& ReferenceLine::map_path() const { return map_path_; }
-AINFO<<"(DMCZP) EnteringMethod: ReferenceLine::map_path";
 
 bool ReferenceLine::GetLaneWidth(const double s, double* const lane_left_width,
                                  double* const lane_right_width) const {
-AINFO<<"(DMCZP) EnteringMethod: ReferenceLine::GetLaneWidth";
   if (map_path_.path_points().empty()) {
     return false;
   }
@@ -494,7 +475,6 @@ AINFO<<"(DMCZP) EnteringMethod: ReferenceLine::GetLaneWidth";
 }
 
 bool ReferenceLine::GetOffsetToMap(const double s, double* l_offset) const {
-AINFO<<"(DMCZP) EnteringMethod: ReferenceLine::GetOffsetToMap";
   if (map_path_.path_points().empty()) {
     return false;
   }
@@ -509,7 +489,6 @@ AINFO<<"(DMCZP) EnteringMethod: ReferenceLine::GetOffsetToMap";
 
 bool ReferenceLine::GetRoadWidth(const double s, double* const road_left_width,
                                  double* const road_right_width) const {
-AINFO<<"(DMCZP) EnteringMethod: ReferenceLine::GetRoadWidth";
   if (map_path_.path_points().empty()) {
     return false;
   }
@@ -518,7 +497,6 @@ AINFO<<"(DMCZP) EnteringMethod: ReferenceLine::GetRoadWidth";
 
 void ReferenceLine::GetLaneFromS(
     const double s, std::vector<hdmap::LaneInfoConstPtr>* lanes) const {
-AINFO<<"(DMCZP) EnteringMethod: ReferenceLine::GetLaneFromS";
   CHECK_NOTNULL(lanes);
   auto ref_point = GetReferencePoint(s);
   std::unordered_set<hdmap::LaneInfoConstPtr> lane_set;
@@ -530,7 +508,6 @@ AINFO<<"(DMCZP) EnteringMethod: ReferenceLine::GetLaneFromS";
 }
 
 double ReferenceLine::GetDrivingWidth(const SLBoundary& sl_boundary) const {
-AINFO<<"(DMCZP) EnteringMethod: ReferenceLine::GetDrivingWidth";
   double lane_left_width = 0.0;
   double lane_right_width = 0.0;
   GetLaneWidth(sl_boundary.start_s(), &lane_left_width, &lane_right_width);
@@ -543,7 +520,6 @@ AINFO<<"(DMCZP) EnteringMethod: ReferenceLine::GetDrivingWidth";
 }
 
 bool ReferenceLine::IsOnLane(const common::math::Vec2d& vec2d_point) const {
-AINFO<<"(DMCZP) EnteringMethod: ReferenceLine::IsOnLane";
   common::SLPoint sl_point;
   if (!XYToSL(vec2d_point, &sl_point)) {
     return false;
@@ -552,7 +528,6 @@ AINFO<<"(DMCZP) EnteringMethod: ReferenceLine::IsOnLane";
 }
 
 bool ReferenceLine::IsOnLane(const SLBoundary& sl_boundary) const {
-AINFO<<"(DMCZP) EnteringMethod: ReferenceLine::IsOnLane";
   if (sl_boundary.end_s() < 0 || sl_boundary.start_s() > Length()) {
     return false;
   }
@@ -565,7 +540,6 @@ AINFO<<"(DMCZP) EnteringMethod: ReferenceLine::IsOnLane";
 }
 
 bool ReferenceLine::IsOnLane(const SLPoint& sl_point) const {
-AINFO<<"(DMCZP) EnteringMethod: ReferenceLine::IsOnLane";
   if (sl_point.s() <= 0 || sl_point.s() > map_path_.length()) {
     return false;
   }
@@ -581,18 +555,15 @@ AINFO<<"(DMCZP) EnteringMethod: ReferenceLine::IsOnLane";
 
 bool ReferenceLine::IsBlockRoad(const common::math::Box2d& box2d,
                                 double gap) const {
-AINFO<<"(DMCZP) EnteringMethod: ReferenceLine::IsBlockRoad";
   return map_path_.OverlapWith(box2d, gap);
 }
 
 bool ReferenceLine::IsOnRoad(const common::math::Vec2d& vec2d_point) const {
-AINFO<<"(DMCZP) EnteringMethod: ReferenceLine::IsOnRoad";
   common::SLPoint sl_point;
   return XYToSL(vec2d_point, &sl_point) && IsOnRoad(sl_point);
 }
 
 bool ReferenceLine::IsOnRoad(const SLBoundary& sl_boundary) const {
-AINFO<<"(DMCZP) EnteringMethod: ReferenceLine::IsOnRoad";
   if (sl_boundary.end_s() < 0 || sl_boundary.start_s() > Length()) {
     return false;
   }
@@ -605,7 +576,6 @@ AINFO<<"(DMCZP) EnteringMethod: ReferenceLine::IsOnRoad";
 }
 
 bool ReferenceLine::IsOnRoad(const SLPoint& sl_point) const {
-AINFO<<"(DMCZP) EnteringMethod: ReferenceLine::IsOnRoad";
   if (sl_point.s() <= 0 || sl_point.s() > map_path_.length()) {
     return false;
   }
@@ -624,7 +594,6 @@ AINFO<<"(DMCZP) EnteringMethod: ReferenceLine::IsOnRoad";
 bool ReferenceLine::GetApproximateSLBoundary(
     const common::math::Box2d& box, const double start_s, const double end_s,
     SLBoundary* const sl_boundary) const {
-AINFO<<"(DMCZP) EnteringMethod: ReferenceLine::GetApproximateSLBoundary";
   double s = 0.0;
   double l = 0.0;
   double distance = 0.0;
@@ -663,8 +632,6 @@ AINFO<<"(DMCZP) EnteringMethod: ReferenceLine::GetApproximateSLBoundary";
 
 bool ReferenceLine::GetSLBoundary(const common::math::Box2d& box,
                                   SLBoundary* const sl_boundary) const {
-AINFO<<"(DMCZP) EnteringMethod: ReferenceLine::GetSLBoundary";
-AINFO<<"(DMCZP) EnteringMethod: ReferenceLine::GetSLBoundary";
   double start_s(std::numeric_limits<double>::max());
   double end_s(std::numeric_limits<double>::lowest());
   double start_l(std::numeric_limits<double>::max());
@@ -757,7 +724,6 @@ bool ReferenceLine::GetSLBoundary(const hdmap::Polygon& polygon,
 }
 
 bool ReferenceLine::HasOverlap(const common::math::Box2d& box) const {
-AINFO<<"(DMCZP) EnteringMethod: ReferenceLine::HasOverlap";
   SLBoundary sl_boundary;
   if (!GetSLBoundary(box, &sl_boundary)) {
     AERROR << "Failed to get sl boundary for box: " << box.DebugString();
@@ -789,7 +755,6 @@ AINFO<<"(DMCZP) EnteringMethod: ReferenceLine::HasOverlap";
 }
 
 std::string ReferenceLine::DebugString() const {
-AINFO<<"(DMCZP) EnteringMethod: ReferenceLine::DebugString";
   const auto limit =
       std::min(reference_points_.size(),
                static_cast<size_t>(FLAGS_trajectory_point_num_for_debug));
@@ -800,7 +765,6 @@ AINFO<<"(DMCZP) EnteringMethod: ReferenceLine::DebugString";
 }
 
 double ReferenceLine::GetSpeedLimitFromS(const double s) const {
-AINFO<<"(DMCZP) EnteringMethod: ReferenceLine::GetSpeedLimitFromS";
   for (const auto& speed_limit : speed_limit_) {
     if (s >= speed_limit.start_s && s <= speed_limit.end_s) {
       return speed_limit.speed_limit;
@@ -821,7 +785,6 @@ AINFO<<"(DMCZP) EnteringMethod: ReferenceLine::GetSpeedLimitFromS";
 
 void ReferenceLine::AddSpeedLimit(double start_s, double end_s,
                                   double speed_limit) {
-AINFO<<"(DMCZP) EnteringMethod: ReferenceLine::AddSpeedLimit";
   std::vector<SpeedLimit> new_speed_limit;
   for (const auto& limit : speed_limit_) {
     if (start_s >= limit.end_s || end_s <= limit.start_s) {

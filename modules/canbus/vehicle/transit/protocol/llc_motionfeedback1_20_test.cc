@@ -36,7 +36,6 @@ class Motionfeedback1_20_test : public ::testing::Test {
 };
 
 TEST_F(Motionfeedback1_20_test, General) {
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   const uint8_t bytes[8] = {0x8f, 0x9e, 0xad, 0xbc, 0xcb, 0xda, 0xe9, 0xf8};
   const int32_t length_Gear = 3;
   const int32_t length_Parkingbrake = 1;

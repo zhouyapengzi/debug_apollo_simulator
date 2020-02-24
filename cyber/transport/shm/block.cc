@@ -27,12 +27,10 @@ const int32_t Block::kWriteExclusive = -1;
 const int32_t Block::kMaxTryLockTimes = 5;
 
 Block::Block() : msg_size_(0), msg_info_size_(0) {}
-AINFO<<"(DMCZP) EnteringMethod: Block::Block";
 
 Block::~Block() {}
 
 bool Block::TryLockForWrite() {
-AINFO<<"(DMCZP) EnteringMethod: Block::TryLockForWrite";
   int32_t rw_lock_free = kRWLockFree;
   if (!lock_num_.compare_exchange_weak(rw_lock_free, kWriteExclusive,
                                        std::memory_order_acq_rel,
@@ -44,7 +42,6 @@ AINFO<<"(DMCZP) EnteringMethod: Block::TryLockForWrite";
 }
 
 bool Block::TryLockForRead() {
-AINFO<<"(DMCZP) EnteringMethod: Block::TryLockForRead";
   int32_t lock_num = lock_num_.load();
   if (lock_num < kRWLockFree) {
     AINFO << "block is being written.";
@@ -72,10 +69,8 @@ AINFO<<"(DMCZP) EnteringMethod: Block::TryLockForRead";
 }
 
 void Block::ReleaseWriteLock() { lock_num_.fetch_add(1); }
-AINFO<<"(DMCZP) EnteringMethod: Block::ReleaseWriteLock";
 
 void Block::ReleaseReadLock() { lock_num_.fetch_sub(1); }
-AINFO<<"(DMCZP) EnteringMethod: Block::ReleaseReadLock";
 
 }  // namespace transport
 }  // namespace cyber

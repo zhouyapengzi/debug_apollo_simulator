@@ -92,7 +92,6 @@ class MPCControllerTest : public ::testing::Test, MPCController {
 };
 
 TEST_F(MPCControllerTest, ComputeLateralErrors) {
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   auto localization_pb = LoadLocalizaionPb(
       "/apollo/modules//control/testdata/mpc_controller_test/"
       "1_localization.pb.txt");

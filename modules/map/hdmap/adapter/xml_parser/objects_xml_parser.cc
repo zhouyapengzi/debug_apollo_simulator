@@ -25,7 +25,6 @@ namespace adapter {
 
 Status ObjectsXmlParser::ParseCrosswalks(const tinyxml2::XMLElement& xml_node,
                                          std::vector<PbCrosswalk>* crosswalks) {
-AINFO<<"(DMCZP) EnteringMethod: ObjectsXmlParser::ParseCrosswalks";
   CHECK_NOTNULL(crosswalks);
   const tinyxml2::XMLElement* sub_node = xml_node.FirstChildElement("object");
   while (sub_node) {
@@ -60,7 +59,6 @@ AINFO<<"(DMCZP) EnteringMethod: ObjectsXmlParser::ParseCrosswalks";
 Status ObjectsXmlParser::ParseClearAreas(
     const tinyxml2::XMLElement& xml_node,
     std::vector<PbClearArea>* clear_areas) {
-AINFO<<"(DMCZP) EnteringMethod: ObjectsXmlParser::ParseClearAreas";
   CHECK_NOTNULL(clear_areas);
   const tinyxml2::XMLElement* sub_node = xml_node.FirstChildElement("object");
   while (sub_node) {
@@ -98,7 +96,6 @@ AINFO<<"(DMCZP) EnteringMethod: ObjectsXmlParser::ParseClearAreas";
 Status ObjectsXmlParser::ParseSpeedBumps(
     const tinyxml2::XMLElement& xml_node,
     std::vector<PbSpeedBump>* speed_bumps) {
-AINFO<<"(DMCZP) EnteringMethod: ObjectsXmlParser::ParseSpeedBumps";
   CHECK_NOTNULL(speed_bumps);
   const tinyxml2::XMLElement* object_node =
       xml_node.FirstChildElement("object");
@@ -139,7 +136,6 @@ AINFO<<"(DMCZP) EnteringMethod: ObjectsXmlParser::ParseSpeedBumps";
 Status ObjectsXmlParser::ParseStopLines(
     const tinyxml2::XMLElement& xml_node,
     std::vector<StopLineInternal>* stop_lines) {
-AINFO<<"(DMCZP) EnteringMethod: ObjectsXmlParser::ParseStopLines";
   CHECK_NOTNULL(stop_lines);
   const tinyxml2::XMLElement* object_node =
       xml_node.FirstChildElement("object");
@@ -176,7 +172,6 @@ AINFO<<"(DMCZP) EnteringMethod: ObjectsXmlParser::ParseStopLines";
 Status ObjectsXmlParser::ParseParkingSpaces(
     const tinyxml2::XMLElement& xml_node,
     std::vector<PbParkingSpace>* parking_spaces) {
-AINFO<<"(DMCZP) EnteringMethod: ObjectsXmlParser::ParseParkingSpaces";
   CHECK_NOTNULL(parking_spaces);
   const tinyxml2::XMLElement* sub_node = xml_node.FirstChildElement("object");
   while (sub_node) {
@@ -219,7 +214,6 @@ AINFO<<"(DMCZP) EnteringMethod: ObjectsXmlParser::ParseParkingSpaces";
 Status ObjectsXmlParser::ParsePNCJunctions(
     const tinyxml2::XMLElement& xml_node,
     std::vector<PbPNCJunction>* pnc_junctions) {
-AINFO<<"(DMCZP) EnteringMethod: ObjectsXmlParser::ParsePNCJunctions";
   CHECK_NOTNULL(pnc_junctions);
 
   const tinyxml2::XMLElement* sub_node = xml_node.FirstChildElement("object");
@@ -259,7 +253,6 @@ AINFO<<"(DMCZP) EnteringMethod: ObjectsXmlParser::ParsePNCJunctions";
 
 Status ObjectsXmlParser::ParsePassageGroup(const tinyxml2::XMLElement& xml_node,
                                            PbPNCJunction* pnc_junction) {
-AINFO<<"(DMCZP) EnteringMethod: ObjectsXmlParser::ParsePassageGroup";
   CHECK_NOTNULL(pnc_junction);
 
   auto sub_node = xml_node.FirstChildElement("passageGroup");
@@ -285,7 +278,6 @@ AINFO<<"(DMCZP) EnteringMethod: ObjectsXmlParser::ParsePassageGroup";
 
 Status ObjectsXmlParser::ParsePassage(const tinyxml2::XMLElement& xml_node,
                                       PbPassageGroup* passage_group) {
-AINFO<<"(DMCZP) EnteringMethod: ObjectsXmlParser::ParsePassage";
   CHECK_NOTNULL(passage_group);
 
   auto sub_node = xml_node.FirstChildElement("passage");
@@ -334,7 +326,6 @@ AINFO<<"(DMCZP) EnteringMethod: ObjectsXmlParser::ParsePassage";
 Status ObjectsXmlParser::ParsePassageIds(
     const tinyxml2::XMLElement& xml_node, const std::string& child_node_name,
     std::vector<std::string>* passage_node_ids) {
-AINFO<<"(DMCZP) EnteringMethod: ObjectsXmlParser::ParsePassageIds";
   CHECK_NOTNULL(passage_node_ids);
 
   passage_node_ids->clear();
@@ -357,7 +348,6 @@ AINFO<<"(DMCZP) EnteringMethod: ObjectsXmlParser::ParsePassageIds";
 
 Status ObjectsXmlParser::ToPassageType(const std::string& type,
                                        PbPassageType* passage_type) {
-AINFO<<"(DMCZP) EnteringMethod: ObjectsXmlParser::ToPassageType";
   CHECK_NOTNULL(passage_type);
 
   std::string upper_str = UtilXmlParser::ToUpper(type);

@@ -25,7 +25,6 @@ namespace perception {
 namespace camera {
 
 TEST(OnlineCalibrationServiceTest, online_calibration_service_test) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   base::BrownCameraDistortionModel model;
   common::LoadBrownCameraIntrinsic(
       "/apollo/modules/perception/testdata/"

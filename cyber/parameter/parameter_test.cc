@@ -66,7 +66,6 @@ class ParameterTest : public ::testing::Test {
 };
 
 TEST_F(ParameterTest, constructors) {
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   Parameter param("test");
   EXPECT_EQ(ParamType::NOT_SET, param.Type());
   Parameter param2(param);
@@ -74,7 +73,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST_F";
 }
 
 TEST_F(ParameterTest, from_pb) {
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   proto::Param param;
   param.set_name("test");
   param.set_type(proto::ParamType::INT);
@@ -105,7 +103,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST_F";
 }
 
 TEST_F(ParameterTest, to_pb) {
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   proto::Param param = _int_param->ToProtoParam();
   EXPECT_EQ("int", param.name());
   EXPECT_EQ(ParamType::INT, param.type());
@@ -113,7 +110,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST_F";
 }
 
 TEST_F(ParameterTest, type) {
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   EXPECT_EQ(ParamType::BOOL, _bool_param->Type());
   EXPECT_EQ(ParamType::INT, _int_param->Type());
   EXPECT_EQ(ParamType::DOUBLE, _double_param->Type());
@@ -122,7 +118,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST_F";
 }
 
 TEST_F(ParameterTest, type_name) {
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   EXPECT_EQ("BOOL", _bool_param->TypeName());
   EXPECT_EQ("INT", _int_param->TypeName());
   EXPECT_EQ("DOUBLE", _double_param->TypeName());
@@ -131,7 +126,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST_F";
 }
 
 TEST_F(ParameterTest, name) {
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   EXPECT_EQ("bool", _bool_param->Name());
   EXPECT_EQ("int", _int_param->Name());
   EXPECT_EQ("double", _double_param->Name());
@@ -140,24 +134,19 @@ AINFO<<"(DMCZP) EnteringMethod: TEST_F";
 }
 
 TEST_F(ParameterTest, as_bool) {
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   EXPECT_TRUE(_bool_param->AsBool());
   EXPECT_FALSE(Parameter("bool", false).AsBool());
 }
 
 TEST_F(ParameterTest, as_int) { EXPECT_EQ(100, _int_param->AsInt64()); }
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
 
 TEST_F(ParameterTest, as_double) { EXPECT_EQ(0.0, _double_param->AsDouble()); }
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
 
 TEST_F(ParameterTest, AsString) {
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   EXPECT_EQ(_string_param->AsString(), "test");
 }
 
 TEST_F(ParameterTest, value) {
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   EXPECT_TRUE(_bool_param->value<bool>());
   EXPECT_EQ("", _bool_param->value<std::string>());
 
@@ -184,7 +173,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST_F";
 }
 
 TEST_F(ParameterTest, debug_string) {
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   EXPECT_EQ("{name: \"bool\", type: \"BOOL\", value: true}",
             _bool_param->DebugString());
   EXPECT_EQ("{name: \"int\", type: \"INT\", value: 100}",

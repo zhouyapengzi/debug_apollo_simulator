@@ -31,7 +31,6 @@ namespace apollo {
 namespace cyber {
 
 TEST(WriterReaderTest, constructor) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   const std::string channel_name("constructor");
   proto::RoleAttributes attr;
   attr.set_channel_name(channel_name);
@@ -64,7 +63,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST";
 }
 
 TEST(WriterReaderTest, init_and_shutdown) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   const std::string channel_name_a("init");
   const std::string channel_name_b("shutdown");
 
@@ -120,7 +118,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST";
 }
 
 TEST(WriterReaderTest, messaging) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   proto::RoleAttributes attr;
   attr.set_node_name("writer");
   attr.set_channel_name("messaging");
@@ -166,7 +163,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST";
 }
 
 TEST(WriterReaderTest, observe) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   proto::RoleAttributes attr;
   attr.set_node_name("node");
   attr.set_channel_name("channel");
@@ -236,7 +232,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST";
 }
 
 TEST(WriterReaderTest, get_delay_sec) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   proto::RoleAttributes attr;
   attr.set_node_name("node");
   attr.set_channel_name("channel");
@@ -262,7 +257,6 @@ class Message {
 };
 
 TEST(WriterReaderTest, user_defined_message) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   proto::RoleAttributes attr;
   attr.set_channel_name("/internal_channel");
   auto channel_id = common::GlobalData::RegisterChannel(attr.channel_name());
@@ -303,7 +297,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST";
 }  // namespace apollo
 
 int main(int argc, char** argv) {
-AINFO<<"(DMCZP) EnteringMethod: main";
   testing::InitGoogleTest(&argc, argv);
   apollo::cyber::Init(argv[0]);
   auto res = RUN_ALL_TESTS();

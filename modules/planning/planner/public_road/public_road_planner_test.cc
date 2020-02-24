@@ -29,7 +29,6 @@ namespace apollo {
 namespace planning {
 
 TEST(PublicRoadPlannerTest, Simple) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   PublicRoadPlanner public_road_planner;
   PlanningConfig config;
   EXPECT_EQ(public_road_planner.Name(), "PUBLIC_ROAD");

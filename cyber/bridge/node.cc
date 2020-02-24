@@ -17,11 +17,6 @@
 Node::Node()
     : node(apollo::cyber::CreateNode("bridge"))
 {
-AINFO<<"(DMCZP) EnteringMethod: Node::Node";
-AINFO<<"(DMCZP) EnteringMethod: Node::remove";
-AINFO<<"(DMCZP) EnteringMethod: Node::add_reader";
-AINFO<<"(DMCZP) EnteringMethod: Node::add_writer";
-AINFO<<"(DMCZP) EnteringMethod: Node::publish";
 }
 
 Node::~Node()

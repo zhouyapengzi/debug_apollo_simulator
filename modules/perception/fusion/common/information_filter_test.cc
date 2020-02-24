@@ -23,13 +23,11 @@ namespace perception {
 namespace fusion {
 
 TEST(FusionCommonTest, return_name_test) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   InformationFilter imf;
   EXPECT_EQ(imf.Name(), "InformationFilter");
 }
 
 TEST(FusionCommonTest, test_init) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   InformationFilter imf;
   Eigen::VectorXd states;
   Eigen::MatrixXd uncertainty;
@@ -44,7 +42,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST";
 }
 
 TEST(FusionCommonTest, test_set_last_observation) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   InformationFilter imf;
   Eigen::VectorXd last_observation;
   Eigen::MatrixXd last_observation_uncertainty;
@@ -96,7 +93,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST";
 }
 
 TEST(FusionCommonTest, test_predict) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   InformationFilter imf;
   Eigen::VectorXd states;
   Eigen::MatrixXd uncertainty;
@@ -120,7 +116,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST";
 }
 
 TEST(FusionCommonTest, test_set_cmat) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   InformationFilter imf;
   Eigen::MatrixXd c_mat;
   c_mat.setIdentity(6, 1);
@@ -141,7 +136,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST";
 }
 
 TEST(FusionCommonTest, test_correct) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   InformationFilter imf;
   Eigen::VectorXd obs_states;
   Eigen::MatrixXd obs_uncertainty;
@@ -163,7 +157,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST";
 }
 
 TEST(FusionCommonTest, test_value_correct) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   double time_diff = 0.05;
   InformationFilter imf;
   Eigen::VectorXd states;

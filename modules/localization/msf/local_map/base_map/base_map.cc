@@ -31,7 +31,6 @@ BaseMap::BaseMap(BaseMapConfig* map_config)
       map_node_cache_lvl1_(nullptr),
       map_node_cache_lvl2_(nullptr),
       map_node_pool_(nullptr) {}
-AINFO<<"(DMCZP) EnteringMethod: BaseMap::BaseMap";
 
 BaseMap::~BaseMap() {
   if (map_node_cache_lvl1_) {
@@ -45,7 +44,6 @@ BaseMap::~BaseMap() {
 }
 
 void BaseMap::InitMapNodeCaches(int cacheL1_size, int cahceL2_size) {
-AINFO<<"(DMCZP) EnteringMethod: BaseMap::InitMapNodeCaches";
   CHECK(map_node_cache_lvl1_ == nullptr);
   CHECK(map_node_cache_lvl2_ == nullptr);
   map_node_cache_lvl1_ =
@@ -55,14 +53,12 @@ AINFO<<"(DMCZP) EnteringMethod: BaseMap::InitMapNodeCaches";
 }
 
 BaseMapNode* BaseMap::GetMapNode(const MapNodeIndex& index) {
-AINFO<<"(DMCZP) EnteringMethod: BaseMap::GetMapNode";
   BaseMapNode* node = nullptr;
   map_node_cache_lvl1_->Get(index, &node);
   return node;
 }
 
 BaseMapNode* BaseMap::GetMapNodeSafe(const MapNodeIndex& index) {
-AINFO<<"(DMCZP) EnteringMethod: BaseMap::GetMapNodeSafe";
   BaseMapNode* node = nullptr;
   // try get from cacheL1
   if (map_node_cache_lvl1_->Get(index, &node)) {
@@ -93,12 +89,10 @@ AINFO<<"(DMCZP) EnteringMethod: BaseMap::GetMapNodeSafe";
 
 /**@brief Check if the map node in the cache. */
 bool BaseMap::IsMapNodeExist(const MapNodeIndex& index) const {
-AINFO<<"(DMCZP) EnteringMethod: BaseMap::IsMapNodeExist";
   return map_node_cache_lvl1_->IsExist(index);
 }
 
 bool BaseMap::SetMapFolderPath(const std::string folder_path) {
-AINFO<<"(DMCZP) EnteringMethod: BaseMap::SetMapFolderPath";
   map_config_->map_folder_path_ = folder_path;
 
   // Try to load the config
@@ -112,14 +106,12 @@ AINFO<<"(DMCZP) EnteringMethod: BaseMap::SetMapFolderPath";
 }
 
 void BaseMap::AddDataset(const std::string dataset_path) {
-AINFO<<"(DMCZP) EnteringMethod: BaseMap::AddDataset";
   map_config_->map_datasets_.push_back(dataset_path);
   std::string config_path = map_config_->map_folder_path_ + "/config.xml";
   map_config_->Save(config_path);
 }
 
 void BaseMap::LoadMapNodes(std::set<MapNodeIndex>* map_ids) {
-AINFO<<"(DMCZP) EnteringMethod: BaseMap::LoadMapNodes";
   CHECK_LE(static_cast<int>(map_ids->size()), map_node_cache_lvl1_->Capacity());
   // check in cacheL1
   typename std::set<MapNodeIndex>::iterator itr = map_ids->begin();
@@ -188,7 +180,6 @@ AINFO<<"(DMCZP) EnteringMethod: BaseMap::LoadMapNodes";
 }
 
 void BaseMap::PreloadMapNodes(std::set<MapNodeIndex>* map_ids) {
-AINFO<<"(DMCZP) EnteringMethod: BaseMap::PreloadMapNodes";
   DCHECK_LE(static_cast<int>(map_ids->size()),
             map_node_cache_lvl2_->Capacity());
   // check in cacheL2
@@ -236,12 +227,10 @@ AINFO<<"(DMCZP) EnteringMethod: BaseMap::PreloadMapNodes";
 }
 
 void BaseMap::AttachMapNodePool(BaseMapNodePool* map_node_pool) {
-AINFO<<"(DMCZP) EnteringMethod: BaseMap::AttachMapNodePool";
   map_node_pool_ = map_node_pool;
 }
 
 void BaseMap::LoadMapNodeThreadSafety(MapNodeIndex index, bool is_reserved) {
-AINFO<<"(DMCZP) EnteringMethod: BaseMap::LoadMapNodeThreadSafety";
   BaseMapNode* map_node = nullptr;
   while (map_node == nullptr) {
     map_node = map_node_pool_->AllocMapNode();
@@ -277,7 +266,6 @@ AINFO<<"(DMCZP) EnteringMethod: BaseMap::LoadMapNodeThreadSafety";
 void BaseMap::PreloadMapArea(const Eigen::Vector3d& location,
                              const Eigen::Vector3d& trans_diff,
                              unsigned int resolution_id, unsigned int zone_id) {
-AINFO<<"(DMCZP) EnteringMethod: BaseMap::PreloadMapArea";
   CHECK_NOTNULL(map_node_pool_);
 
   int x_direction = trans_diff[0] > 0 ? 1 : -1;
@@ -418,7 +406,6 @@ AINFO<<"(DMCZP) EnteringMethod: BaseMap::PreloadMapArea";
 bool BaseMap::LoadMapArea(const Eigen::Vector3d& seed_pt3d,
                           unsigned int resolution_id, unsigned int zone_id,
                           int filter_size_x, int filter_size_y) {
-AINFO<<"(DMCZP) EnteringMethod: BaseMap::LoadMapArea";
   CHECK_NOTNULL(map_node_pool_);
   std::set<MapNodeIndex> map_ids;
   float map_pixel_resolution =

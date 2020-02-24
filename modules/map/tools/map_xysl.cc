@@ -45,22 +45,6 @@ DEFINE_double(l, 0.0, "l");
 using apollo::common::PointENU;
 
 namespace apollo {
-AINFO<<"(DMCZP) EnteringMethod: DEFINE_bool";
-AINFO<<"(DMCZP) EnteringMethod: DEFINE_bool";
-AINFO<<"(DMCZP) EnteringMethod: DEFINE_bool";
-AINFO<<"(DMCZP) EnteringMethod: DEFINE_bool";
-AINFO<<"(DMCZP) EnteringMethod: DEFINE_bool";
-AINFO<<"(DMCZP) EnteringMethod: DEFINE_string";
-AINFO<<"(DMCZP) EnteringMethod: DEFINE_string";
-AINFO<<"(DMCZP) EnteringMethod: DEFINE_string";
-AINFO<<"(DMCZP) EnteringMethod: DEFINE_string";
-AINFO<<"(DMCZP) EnteringMethod: DEFINE_double";
-AINFO<<"(DMCZP) EnteringMethod: DEFINE_double";
-AINFO<<"(DMCZP) EnteringMethod: DEFINE_string";
-AINFO<<"(DMCZP) EnteringMethod: DEFINE_string";
-AINFO<<"(DMCZP) EnteringMethod: DEFINE_string";
-AINFO<<"(DMCZP) EnteringMethod: DEFINE_double";
-AINFO<<"(DMCZP) EnteringMethod: DEFINE_double";
 namespace hdmap {
 
 #define QUIT_IF(CONDITION, RET, LEVEL, MSG, ...) \
@@ -284,7 +268,6 @@ class MapUtil {
 }  // namespace apollo
 
 int main(int argc, char *argv[]) {
-AINFO<<"(DMCZP) EnteringMethod: main";
   google::InitGoogleLogging(argv[0]);
   google::ParseCommandLineFlags(&argc, &argv, true);
   const std::string map_file = apollo::hdmap::BaseMapFile();

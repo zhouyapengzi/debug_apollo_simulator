@@ -27,7 +27,6 @@ namespace planning {
 using Eigen::MatrixXd;
 
 TEST(TestPiecewiseLinearConstraint, add_monotone_inequality_constraint) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   PiecewiseLinearConstraint constraint(10, 0.1);
   constraint.AddMonotoneInequalityConstraint();
   const auto mat = constraint.inequality_constraint_matrix();
@@ -55,7 +54,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST";
 }
 
 TEST(TestPiecewiseLinearConstraint, add_boundary) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   PiecewiseLinearConstraint constraint(10, 0.1);
   std::vector<uint32_t> index_list;
   std::vector<double> lower_bound;
@@ -103,7 +101,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST";
 }
 
 TEST(TestPiecewiseLinearConstraint, add_derivative_boundary) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   PiecewiseLinearConstraint constraint(10, 0.1);
   std::vector<uint32_t> index_list;
   std::vector<double> lower_bound;
@@ -152,7 +149,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST";
 }
 
 TEST(TestPiecewiseLinearConstraint, add_second_derivative_boundary) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   PiecewiseLinearConstraint constraint(10, 0.1);
   std::vector<uint32_t> index_list;
   std::vector<double> lower_bound;

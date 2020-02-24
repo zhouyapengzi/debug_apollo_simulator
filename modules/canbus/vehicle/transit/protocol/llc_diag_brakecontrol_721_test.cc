@@ -31,7 +31,6 @@ class llc_diag_brakecontrol_721Test : public ::testing ::Test {
 };
 
 TEST_F(llc_diag_brakecontrol_721Test, part1) {
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   Llcdiagbrakecontrol721 brakectrl_721_;
   uint8_t data[8] = {0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF};
   double x = 0.0;
@@ -49,7 +48,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST_F";
 }
 
 TEST_F(llc_diag_brakecontrol_721Test, part2) {
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   Llcdiagbrakecontrol721 brakectrl_721_;
   uint8_t data[8] = {0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF};
   double x = 0.0;

@@ -28,7 +28,6 @@ namespace planning {
 
 using StringIndexedList = IndexedList<int, std::string>;
 TEST(IndexedList, Add_ConstRef) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   StringIndexedList object;
   {
     ASSERT_NE(nullptr, object.Add(1, "one"));
@@ -52,7 +51,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST";
 }
 
 TEST(IndexedList, Find) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   StringIndexedList object;
   object.Add(1, "one");
   auto* one = object.Find(1);
@@ -66,7 +64,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST";
 }
 
 TEST(IndexedList, Copy) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   StringIndexedList b_object;
   b_object.Add(1, "one");
   b_object.Add(2, "two");

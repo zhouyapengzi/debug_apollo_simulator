@@ -41,9 +41,6 @@ using namespace tf2;
 
 void setIdentity(TransformStorage& stor)
 {
-AINFO<<"(DMCZP) EnteringMethod: setIdentity";
-AINFO<<"(DMCZP) EnteringMethod: TEST";
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   stor.translation_.setValue(0.0, 0.0, 0.0);
   stor.rotation_.setValue(0.0, 0.0, 0.0, 1.0);
 }
@@ -100,7 +97,6 @@ TEST(StaticCache, DuplicateEntries)
 }
 
 int main(int argc, char **argv){
-AINFO<<"(DMCZP) EnteringMethod: main";
   testing::InitGoogleTest(&argc, argv);
   return RUN_ALL_TESTS();
 }

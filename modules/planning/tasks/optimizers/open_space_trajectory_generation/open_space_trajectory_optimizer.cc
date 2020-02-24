@@ -31,7 +31,6 @@ using apollo::common::VehicleState;
 OpenSpaceTrajectoryOptimizer::OpenSpaceTrajectoryOptimizer(
     const OpenSpaceTrajectoryOptimizerConfig& config)
     : config_(config) {
-AINFO<<"(DMCZP) EnteringMethod: OpenSpaceTrajectoryOptimizer::OpenSpaceTrajectoryOptimizer";
   // Load config
   config_ = config;
 
@@ -59,8 +58,6 @@ common::Status OpenSpaceTrajectoryOptimizer::Plan(
     const Eigen::MatrixXd& obstacles_A, const Eigen::MatrixXd& obstacles_b,
     const std::vector<std::vector<common::math::Vec2d>>&
         obstacles_vertices_vec) {
-AINFO<<"(DMCZP) EnteringMethod: OpenSpaceTrajectoryOptimizer::Plan";
-AINFO<<"(DMCZP) EnteringMethod: OpenSpaceTrajectoryOptimizer::RecordDebugInfo";
   if (XYbounds.empty() || end_pose.empty() || obstacles_edges_num.cols() == 0 ||
       obstacles_A.cols() == 0 || obstacles_b.cols() == 0) {
     ADEBUG << "OpenSpaceTrajectoryOptimizer input data not ready";
@@ -391,7 +388,6 @@ void OpenSpaceTrajectoryOptimizer::RecordDebugInfo(
 
 void OpenSpaceTrajectoryOptimizer::UpdateDebugInfo(
     planning_internal::OpenSpaceDebug* open_space_debug) {
-AINFO<<"(DMCZP) EnteringMethod: OpenSpaceTrajectoryOptimizer::UpdateDebugInfo";
   open_space_debug->MergeFrom(open_space_debug_);
 }
 
@@ -399,7 +395,6 @@ bool OpenSpaceTrajectoryOptimizer::IsInitPointNearDestination(
     const common::TrajectoryPoint& planning_init_point,
     const std::vector<double>& end_pose, double rotate_angle,
     const Vec2d& translate_origin) {
-AINFO<<"(DMCZP) EnteringMethod: OpenSpaceTrajectoryOptimizer::IsInitPointNearDestination";
   CHECK_EQ(end_pose.size(), 4);
   Vec2d end_pose_to_world_frame = Vec2d(end_pose[0], end_pose[1]);
 
@@ -423,8 +418,6 @@ AINFO<<"(DMCZP) EnteringMethod: OpenSpaceTrajectoryOptimizer::IsInitPointNearDes
 void OpenSpaceTrajectoryOptimizer::PathPointNormalizing(
     double rotate_angle, const common::math::Vec2d& translate_origin, double* x,
     double* y, double* phi) {
-AINFO<<"(DMCZP) EnteringMethod: OpenSpaceTrajectoryOptimizer::PathPointNormalizing";
-AINFO<<"(DMCZP) EnteringMethod: OpenSpaceTrajectoryOptimizer::PathPointDeNormalizing";
   *x -= translate_origin.x();
   *y -= translate_origin.y();
   double tmp_x = *x;
@@ -447,7 +440,6 @@ void OpenSpaceTrajectoryOptimizer::PathPointDeNormalizing(
 void OpenSpaceTrajectoryOptimizer::LoadTrajectory(
     const Eigen::MatrixXd& state_result, const Eigen::MatrixXd& control_result,
     const Eigen::MatrixXd& time_result) {
-AINFO<<"(DMCZP) EnteringMethod: OpenSpaceTrajectoryOptimizer::LoadTrajectory";
   optimized_trajectory_.clear();
 
   // Optimizer doesn't take end condition control state into consideration for
@@ -496,10 +488,7 @@ void OpenSpaceTrajectoryOptimizer::UseWarmStartAsResult(
     Eigen::MatrixXd* state_result_ds, Eigen::MatrixXd* control_result_ds,
     Eigen::MatrixXd* time_result_ds, Eigen::MatrixXd* dual_l_result_ds,
     Eigen::MatrixXd* dual_n_result_ds) {
-AINFO<<"(DMCZP) EnteringMethod: OpenSpaceTrajectoryOptimizer::UseWarmStartAsResult";
-AINFO<<"(DMCZP) EnteringMethod: OpenSpaceTrajectoryOptimizer::GenerateDistanceApproachTraj";
   AERROR << "Use warm start as trajectory output";
-AINFO<<"(DMCZP) EnteringMethod: OpenSpaceTrajectoryOptimizer::CombineTrajectories";
 
   *state_result_ds = xWS;
   *control_result_ds = uWS;
@@ -584,7 +573,6 @@ bool OpenSpaceTrajectoryOptimizer::GenerateDistanceApproachTraj(
 // TODO(Jinyun): deprecate the use of Eigen in trajectory smoothing
 void OpenSpaceTrajectoryOptimizer::LoadHybridAstarResultInEigen(
     HybridAStartResult* result, Eigen::MatrixXd* xWS, Eigen::MatrixXd* uWS) {
-AINFO<<"(DMCZP) EnteringMethod: OpenSpaceTrajectoryOptimizer::LoadHybridAstarResultInEigen";
   // load Warm Start result(horizon is timestep number minus one)
   size_t horizon = result->x.size() - 1;
   xWS->resize(4, horizon + 1);
@@ -814,8 +802,6 @@ bool OpenSpaceTrajectoryOptimizer::GenerateDecoupledTraj(
     const std::vector<std::vector<common::math::Vec2d>>& obstacles_vertices_vec,
     Eigen::MatrixXd* state_result_dc, Eigen::MatrixXd* control_result_dc,
     Eigen::MatrixXd* time_result_dc) {
-AINFO<<"(DMCZP) EnteringMethod: OpenSpaceTrajectoryOptimizer::GenerateDecoupledTraj";
-AINFO<<"(DMCZP) EnteringMethod: OpenSpaceTrajectoryOptimizer::LoadResult";
   DiscretizedTrajectory smoothed_trajectory;
   if (!iterative_anchoring_smoother_->Smooth(
           xWS, init_a, init_v, obstacles_vertices_vec, &smoothed_trajectory)) {

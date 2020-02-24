@@ -36,7 +36,6 @@ using apollo::hdmap::LaneInfo;
 // Custom helper functions for sorting purpose.
 bool HeadingIsAtLeft(const std::vector<double>& heading1,
                      const std::vector<double>& heading2, const size_t idx) {
-AINFO<<"(DMCZP) EnteringMethod: HeadingIsAtLeft";
   if (idx >= heading1.size() || idx >= heading2.size()) {
     return true;
   }
@@ -51,7 +50,6 @@ AINFO<<"(DMCZP) EnteringMethod: HeadingIsAtLeft";
 }
 
 int ConvertTurnTypeToDegree(const Lane& lane) {
-AINFO<<"(DMCZP) EnteringMethod: ConvertTurnTypeToDegree";
   // Sanity checks.
   if (!lane.has_turn()) {
     return 0;
@@ -74,7 +72,6 @@ AINFO<<"(DMCZP) EnteringMethod: ConvertTurnTypeToDegree";
 
 bool IsAtLeft(std::shared_ptr<const LaneInfo> lane1,
               std::shared_ptr<const LaneInfo> lane2) {
-AINFO<<"(DMCZP) EnteringMethod: IsAtLeft";
   if (lane1->lane().has_turn() && lane2->lane().has_turn() &&
       lane1->lane().turn() != lane2->lane().turn()) {
     int degree_to_left_1 = ConvertTurnTypeToDegree(lane1->lane());
@@ -93,10 +90,8 @@ RoadGraph::RoadGraph(const double start_s, const double length,
       length_(length),
       consider_divide_(consider_divide),
       lane_info_ptr_(lane_info_ptr) {}
-AINFO<<"(DMCZP) EnteringMethod: RoadGraph::RoadGraph";
 
 Status RoadGraph::BuildLaneGraph(LaneGraph* const lane_graph_ptr) {
-AINFO<<"(DMCZP) EnteringMethod: RoadGraph::BuildLaneGraph";
   // Sanity checks.
   if (length_ < 0.0 || lane_info_ptr_ == nullptr) {
     const auto error_msg = common::util::StrCat(
@@ -121,7 +116,6 @@ AINFO<<"(DMCZP) EnteringMethod: RoadGraph::BuildLaneGraph";
 }
 
 Status RoadGraph::BuildLaneGraphBidirection(LaneGraph* const lane_graph_ptr) {
-AINFO<<"(DMCZP) EnteringMethod: RoadGraph::BuildLaneGraphBidirection";
   // Sanity checks.
   if (length_ < 0.0 || lane_info_ptr_ == nullptr) {
     const auto error_msg = common::util::StrCat(
@@ -155,7 +149,6 @@ AINFO<<"(DMCZP) EnteringMethod: RoadGraph::BuildLaneGraphBidirection";
 
 LaneGraph RoadGraph::CombineLaneGraphs(const LaneGraph& lane_graph_predecessor,
                                        const LaneGraph& lane_graph_successor) {
-AINFO<<"(DMCZP) EnteringMethod: RoadGraph::CombineLaneGraphs";
   LaneGraph final_lane_graph;
   for (const auto& lane_sequence_pre : lane_graph_predecessor.lane_sequence()) {
     const auto& ending_lane_segment = lane_sequence_pre.lane_segment(
@@ -188,7 +181,6 @@ AINFO<<"(DMCZP) EnteringMethod: RoadGraph::CombineLaneGraphs";
 
 bool RoadGraph::IsOnLaneGraph(std::shared_ptr<const LaneInfo> lane_info_ptr,
                               const LaneGraph& lane_graph) {
-AINFO<<"(DMCZP) EnteringMethod: RoadGraph::IsOnLaneGraph";
   if (!lane_graph.IsInitialized()) {
     return false;
   }
@@ -210,8 +202,6 @@ void RoadGraph::ConstructLaneSequence(
     const int graph_search_horizon, const bool consider_lane_split,
     std::list<LaneSegment>* const lane_segments,
     LaneGraph* const lane_graph_ptr) const {
-AINFO<<"(DMCZP) EnteringMethod: RoadGraph::ConstructLaneSequence";
-AINFO<<"(DMCZP) EnteringMethod: RoadGraph::ConstructLaneSequence";
   ConstructLaneSequence(true, accumulated_s, curr_lane_seg_s, lane_info_ptr,
                         graph_search_horizon, consider_lane_split,
                         lane_segments, lane_graph_ptr);
@@ -340,7 +330,6 @@ std::shared_ptr<const hdmap::LaneInfo>
 RoadGraph::LaneWithSmallestAverageCurvature(
     const std::vector<std::shared_ptr<const hdmap::LaneInfo>>& lane_infos)
     const {
-AINFO<<"(DMCZP) EnteringMethod: RoadGraph::LaneWithSmallestAverageCurvature";
   CHECK(!lane_infos.empty());
   size_t sample_size = FLAGS_sample_size_for_average_lane_curvature;
   std::shared_ptr<const hdmap::LaneInfo> selected_lane_info = lane_infos[0];
@@ -359,7 +348,6 @@ AINFO<<"(DMCZP) EnteringMethod: RoadGraph::LaneWithSmallestAverageCurvature";
 
 double RoadGraph::AverageCurvature(const std::string& lane_id,
                                    const size_t sample_size) const {
-AINFO<<"(DMCZP) EnteringMethod: RoadGraph::AverageCurvature";
   CHECK_GT(sample_size, 0);
   std::shared_ptr<const hdmap::LaneInfo> lane_info_ptr =
       PredictionMap::LaneById(lane_id);

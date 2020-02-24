@@ -37,7 +37,6 @@ typedef std::pair<double, double> IntervalIn;
 
 //  bitmap2d test
 TEST(hdmap_roi_filter_bitmap2d_test, test_bitmap) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   Bitmap2D bitmap;
   Eigen::Vector2d min_range(0.0, 0.0);
   Eigen::Vector2d max_range(70.0, 70.0);
@@ -87,7 +86,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST";
 
 // polygon scan test
 TEST(hdmap_roi_filter_bitmap2d_test, test_polygon_scan_cvter) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   Edge edge;
   EXPECT_EQ(edge.min_x, 0.0);
   AINFO << edge;
@@ -129,7 +127,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST";
 }
 
 bool LoadFrameData(LidarFrame* frame) {
-AINFO<<"(DMCZP) EnteringMethod: LoadFrameData";
   std::ifstream fin;
   fin.open(
       "/apollo/modules/perception/testdata/lidar/lib/roi_filter/"
@@ -289,21 +286,17 @@ class HdmapROIFilterTest : public ::testing::Test {
 
 // test init from config manager
 TEST_F(HdmapROIFilterTest, init) { HdmapROIFilterTest::Init(); }
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
 
 // test the filter function
 TEST_F(HdmapROIFilterTest, filter_with_edge_table) {
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   HdmapROIFilterTest::FilterWithEdgeTable();
 }
 
 TEST_F(HdmapROIFilterTest, filter_with_parallel) {
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   HdmapROIFilterTest::FilterWithParallel();
 }
 
 TEST_F(HdmapROIFilterTest, filter_with_simple_case) {
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   // TODO(perception): fix the test.
   // HdmapROIFilterTest::SimpleCaseFilter();
 }

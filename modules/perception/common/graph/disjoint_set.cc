@@ -22,7 +22,6 @@ namespace common {
 
 Universe::Universe(const int elements_num)
     : elts_(elements_num), sets_num_(elements_num) {
-AINFO<<"(DMCZP) EnteringMethod: Universe::Universe";
   for (int i = 0; i < elements_num; ++i) {
     elts_[i].rank = 0;
     elts_[i].size = 1;
@@ -31,7 +30,6 @@ AINFO<<"(DMCZP) EnteringMethod: Universe::Universe";
 }
 
 void Universe::Reset(const int elements_num) {
-AINFO<<"(DMCZP) EnteringMethod: Universe::Reset";
   sets_num_ = elements_num;
   elts_.resize(elements_num);
   for (int i = 0; i < elements_num; ++i) {
@@ -42,7 +40,6 @@ AINFO<<"(DMCZP) EnteringMethod: Universe::Reset";
 }
 
 int Universe::Find(const int x) {
-AINFO<<"(DMCZP) EnteringMethod: Universe::Find";
   int y = x;
   while (y != elts_[y].p) {
     y = elts_[y].p;
@@ -60,7 +57,6 @@ AINFO<<"(DMCZP) EnteringMethod: Universe::Find";
 }
 
 void Universe::Join(const int x, const int y) {
-AINFO<<"(DMCZP) EnteringMethod: Universe::Join";
   if (elts_[x].rank > elts_[y].rank) {
     elts_[y].p = x;
     elts_[x].size += elts_[y].size;

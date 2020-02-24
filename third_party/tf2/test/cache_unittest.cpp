@@ -43,18 +43,7 @@ unsigned int step = 0;
 
 void seed_rand()
 {
-AINFO<<"(DMCZP) EnteringMethod: seed_rand";
   values.clear();
-AINFO<<"(DMCZP) EnteringMethod: setIdentity";
-AINFO<<"(DMCZP) EnteringMethod: TEST";
-AINFO<<"(DMCZP) EnteringMethod: TEST";
-AINFO<<"(DMCZP) EnteringMethod: TEST";
-AINFO<<"(DMCZP) EnteringMethod: TEST";
-AINFO<<"(DMCZP) EnteringMethod: TEST";
-AINFO<<"(DMCZP) EnteringMethod: TEST";
-AINFO<<"(DMCZP) EnteringMethod: TEST";
-AINFO<<"(DMCZP) EnteringMethod: TEST";
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   for (unsigned int i = 0; i < 1000; i++)
   {
     int pseudo_rand = std::floor(i * M_PI);
@@ -66,7 +55,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST";
 
 double get_rand() 
 { 
-AINFO<<"(DMCZP) EnteringMethod: get_rand";
   if (values.size() == 0) throw std::runtime_error("you need to call seed_rand first");
   if (step >= values.size()) 
     step = 0;
@@ -416,7 +404,6 @@ TEST(TimeCache, DuplicateEntries)
 }
 
 int main(int argc, char **argv){
-AINFO<<"(DMCZP) EnteringMethod: main";
   testing::InitGoogleTest(&argc, argv);
   return RUN_ALL_TESTS();
 }

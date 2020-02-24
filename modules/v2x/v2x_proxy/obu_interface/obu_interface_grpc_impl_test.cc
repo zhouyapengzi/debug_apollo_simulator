@@ -27,7 +27,6 @@ namespace apollo {
 namespace v2x {
 
 TEST(ObuInterFaceGrpcImplTest, Construct) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   apollo::cyber::Init("obu_interface_grpc_impl_test");
   ObuInterFaceGrpcImpl obuinteface;
   EXPECT_TRUE(obuinteface.InitFlag());

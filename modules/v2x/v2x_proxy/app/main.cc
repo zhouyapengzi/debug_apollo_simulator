@@ -22,7 +22,6 @@
 #include "modules/v2x/v2x_proxy/app/v2x_proxy.h"
 
 int main(int argc, char *argv[]) {
-AINFO<<"(DMCZP) EnteringMethod: main";
   google::ParseCommandLineFlags(&argc, &argv, true);
   apollo::cyber::Init(argv[0]);
 

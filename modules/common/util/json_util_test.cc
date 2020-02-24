@@ -28,7 +28,6 @@ namespace util {
 using Json = nlohmann::json;
 
 TEST(JsonUtilTest, ProtoToTypedJson) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   StatusPb status;
   status.set_msg("MsgA");
 
@@ -38,7 +37,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST";
 }
 
 TEST(JsonUtilTest, GetStringFromJson) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   Json json_obj;
   json_obj["key1"] = 0;
   json_obj["key2"] = "";
@@ -58,7 +56,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST";
 }
 
 TEST(JsonUtilTest, GetStringVectorFromJson) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   Json json_obj;
   json_obj["key1"] = 0;
   json_obj["key2"] = Json::array();

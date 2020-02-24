@@ -26,7 +26,6 @@ namespace perception {
 namespace inference {
 
 TEST(ICaffePoolOutputDimensionsFormulaTest, test_compute) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   nvinfer1::ICaffePoolOutputDimensionsFormula poolFormula;
 
   nvinfer1::DimsHW input_dims(4, 4);
@@ -46,7 +45,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST";
 }
 
 TEST(Int8EntropyCalibratorTest, test_init) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   // test empty batch_stream
   {
     BatchStream batch_stream;
@@ -66,7 +64,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST";
 }
 
 TEST(Int8EntropyCalibratorTest, test_cache) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   // DONOT read cache
   {
     BatchStream batch_stream(
@@ -111,7 +108,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST";
 }
 
 TEST(Int8EntropyCalibratorTest, test_get_batch) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   // DO read cache
   {
     BatchStream batch_stream(

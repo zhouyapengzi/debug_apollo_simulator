@@ -46,7 +46,6 @@ class PoseContainerTest : public ::testing::Test {
 };
 
 TEST_F(PoseContainerTest, Insertion) {
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   LocalizationEstimate localization;
   InitPose(&localization);
 

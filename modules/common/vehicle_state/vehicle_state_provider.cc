@@ -32,12 +32,10 @@ namespace apollo {
 namespace common {
 
 VehicleStateProvider::VehicleStateProvider() {}
-AINFO<<"(DMCZP) EnteringMethod: VehicleStateProvider::VehicleStateProvider";
 
 Status VehicleStateProvider::Update(
     const localization::LocalizationEstimate &localization,
     const canbus::Chassis &chassis) {
-AINFO<<"(DMCZP) EnteringMethod: VehicleStateProvider::Update";
   original_localization_ = localization;
   if (!ConstructExceptLinearVelocity(localization)) {
     std::string msg = util::StrCat(
@@ -84,7 +82,6 @@ AINFO<<"(DMCZP) EnteringMethod: VehicleStateProvider::Update";
 
 bool VehicleStateProvider::ConstructExceptLinearVelocity(
     const localization::LocalizationEstimate &localization) {
-AINFO<<"(DMCZP) EnteringMethod: VehicleStateProvider::ConstructExceptLinearVelocity";
   if (!localization.has_pose()) {
     AERROR << "Invalid localization input.";
     return false;
@@ -154,76 +151,58 @@ AINFO<<"(DMCZP) EnteringMethod: VehicleStateProvider::ConstructExceptLinearVeloc
 }
 
 double VehicleStateProvider::x() const { return vehicle_state_.x(); }
-AINFO<<"(DMCZP) EnteringMethod: VehicleStateProvider::x";
 
 double VehicleStateProvider::y() const { return vehicle_state_.y(); }
-AINFO<<"(DMCZP) EnteringMethod: VehicleStateProvider::y";
 
 double VehicleStateProvider::z() const { return vehicle_state_.z(); }
-AINFO<<"(DMCZP) EnteringMethod: VehicleStateProvider::z";
 
 double VehicleStateProvider::roll() const { return vehicle_state_.roll(); }
-AINFO<<"(DMCZP) EnteringMethod: VehicleStateProvider::roll";
 
 double VehicleStateProvider::pitch() const { return vehicle_state_.pitch(); }
-AINFO<<"(DMCZP) EnteringMethod: VehicleStateProvider::pitch";
 
 double VehicleStateProvider::yaw() const { return vehicle_state_.yaw(); }
-AINFO<<"(DMCZP) EnteringMethod: VehicleStateProvider::yaw";
 
 double VehicleStateProvider::heading() const {
-AINFO<<"(DMCZP) EnteringMethod: VehicleStateProvider::heading";
   return vehicle_state_.heading();
 }
 
 double VehicleStateProvider::kappa() const { return vehicle_state_.kappa(); }
-AINFO<<"(DMCZP) EnteringMethod: VehicleStateProvider::kappa";
 
 double VehicleStateProvider::linear_velocity() const {
-AINFO<<"(DMCZP) EnteringMethod: VehicleStateProvider::linear_velocity";
   return vehicle_state_.linear_velocity();
 }
 
 double VehicleStateProvider::angular_velocity() const {
-AINFO<<"(DMCZP) EnteringMethod: VehicleStateProvider::angular_velocity";
   return vehicle_state_.angular_velocity();
 }
 
 double VehicleStateProvider::linear_acceleration() const {
-AINFO<<"(DMCZP) EnteringMethod: VehicleStateProvider::linear_acceleration";
   return vehicle_state_.linear_acceleration();
 }
 
 double VehicleStateProvider::gear() const { return vehicle_state_.gear(); }
-AINFO<<"(DMCZP) EnteringMethod: VehicleStateProvider::gear";
 
 double VehicleStateProvider::timestamp() const {
-AINFO<<"(DMCZP) EnteringMethod: VehicleStateProvider::timestamp";
   return vehicle_state_.timestamp();
 }
 
 const localization::Pose &VehicleStateProvider::pose() const {
-AINFO<<"(DMCZP) EnteringMethod: &VehicleStateProvider::pose";
   return vehicle_state_.pose();
 }
 
 const localization::Pose &VehicleStateProvider::original_pose() const {
-AINFO<<"(DMCZP) EnteringMethod: &VehicleStateProvider::original_pose";
   return original_localization_.pose();
 }
 
 void VehicleStateProvider::set_linear_velocity(const double linear_velocity) {
-AINFO<<"(DMCZP) EnteringMethod: VehicleStateProvider::set_linear_velocity";
   vehicle_state_.set_linear_velocity(linear_velocity);
 }
 
 const VehicleState &VehicleStateProvider::vehicle_state() const {
-AINFO<<"(DMCZP) EnteringMethod: &VehicleStateProvider::vehicle_state";
   return vehicle_state_;
 }
 
 math::Vec2d VehicleStateProvider::EstimateFuturePosition(const double t) const {
-AINFO<<"(DMCZP) EnteringMethod: VehicleStateProvider::EstimateFuturePosition";
   Eigen::Vector3d vec_distance(0.0, 0.0, 0.0);
   double v = vehicle_state_.linear_velocity();
   // Predict distance travel vector
@@ -256,7 +235,6 @@ AINFO<<"(DMCZP) EnteringMethod: VehicleStateProvider::EstimateFuturePosition";
 
 math::Vec2d VehicleStateProvider::ComputeCOMPosition(
     const double rear_to_com_distance) const {
-AINFO<<"(DMCZP) EnteringMethod: VehicleStateProvider::ComputeCOMPosition";
   // set length as distance between rear wheel and center of mass.
   Eigen::Vector3d v;
   if ((FLAGS_state_transform_to_com_reverse &&

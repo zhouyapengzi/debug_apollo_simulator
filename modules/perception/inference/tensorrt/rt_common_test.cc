@@ -23,7 +23,6 @@ namespace perception {
 namespace inference {
 
 TEST(RTReshapeDimsTest, test) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   nvinfer1::DimsCHW dims;
   nvinfer1::DimsCHW input_dims;
   dims.d[2] = -1;
@@ -41,7 +40,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST";
 }
 
 TEST(RTModifyPoolingParamTest, test) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   {
     PoolingParameter pool_param;
     pool_param.set_kernel_size(1);
@@ -100,7 +98,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST";
 }
 
 TEST(RTParseConvParamTest, test) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   {
     ConvolutionParameter conv_param;
     conv_param.add_kernel_size(3);

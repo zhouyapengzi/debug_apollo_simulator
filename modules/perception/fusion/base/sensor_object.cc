@@ -27,9 +27,6 @@ namespace fusion {
 SensorObject::SensorObject(
     const std::shared_ptr<const base::Object>& object_ptr)
     : object_(object_ptr), frame_header_(nullptr) {}
-AINFO<<"(DMCZP) EnteringMethod: SensorObject::SensorObject";
-AINFO<<"(DMCZP) EnteringMethod: SensorObject::SensorObject";
-AINFO<<"(DMCZP) EnteringMethod: SensorObject::SensorObject";
 
 SensorObject::SensorObject(
     const std::shared_ptr<const base::Object>& object_ptr,
@@ -44,7 +41,6 @@ SensorObject::SensorObject(
 }
 
 double SensorObject::GetTimestamp() const {
-AINFO<<"(DMCZP) EnteringMethod: SensorObject::GetTimestamp";
   if (frame_header_ == nullptr) {
     return 0.0;
   }
@@ -53,7 +49,6 @@ AINFO<<"(DMCZP) EnteringMethod: SensorObject::GetTimestamp";
 }
 
 bool SensorObject::GetRelatedFramePose(Eigen::Affine3d* pose) const {
-AINFO<<"(DMCZP) EnteringMethod: SensorObject::GetRelatedFramePose";
   CHECK_NOTNULL(pose);
   if (frame_header_ == nullptr) {
     return false;
@@ -64,7 +59,6 @@ AINFO<<"(DMCZP) EnteringMethod: SensorObject::GetRelatedFramePose";
 }
 
 std::string SensorObject::GetSensorId() const {
-AINFO<<"(DMCZP) EnteringMethod: SensorObject::GetSensorId";
   if (frame_header_ == nullptr) {
     return std::string("");
   }
@@ -73,7 +67,6 @@ AINFO<<"(DMCZP) EnteringMethod: SensorObject::GetSensorId";
 }
 
 base::SensorType SensorObject::GetSensorType() const {
-AINFO<<"(DMCZP) EnteringMethod: SensorObject::GetSensorType";
   if (frame_header_ == nullptr) {
     return base::SensorType::UNKNOWN_SENSOR_TYPE;
   }
@@ -83,25 +76,21 @@ AINFO<<"(DMCZP) EnteringMethod: SensorObject::GetSensorType";
 
 // FusedObject implementations
 FusedObject::FusedObject() {
-AINFO<<"(DMCZP) EnteringMethod: FusedObject::FusedObject";
   base::ObjectPool& object_pool = base::ObjectPool::Instance();
   object_ = object_pool.Get();
 }
 
 bool IsLidar(const SensorObjectConstPtr& obj) {
-AINFO<<"(DMCZP) EnteringMethod: IsLidar";
   base::SensorType type = obj->GetSensorType();
   return common::SensorManager::Instance()->IsLidar(type);
 }
 
 bool IsRadar(const SensorObjectConstPtr& obj) {
-AINFO<<"(DMCZP) EnteringMethod: IsRadar";
   base::SensorType type = obj->GetSensorType();
   return common::SensorManager::Instance()->IsRadar(type);
 }
 
 bool IsCamera(const SensorObjectConstPtr& obj) {
-AINFO<<"(DMCZP) EnteringMethod: IsCamera";
   base::SensorType type = obj->GetSensorType();
   return common::SensorManager::Instance()->IsCamera(type);
 }

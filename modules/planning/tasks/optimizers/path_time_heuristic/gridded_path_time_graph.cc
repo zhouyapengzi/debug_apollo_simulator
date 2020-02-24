@@ -44,7 +44,6 @@ namespace {
 
 bool CheckOverlapOnDpStGraph(const std::vector<const STBoundary*>& boundaries,
                              const StGraphPoint& p1, const StGraphPoint& p2) {
-AINFO<<"(DMCZP) EnteringMethod: CheckOverlapOnDpStGraph";
   for (const auto* boundary : boundaries) {
     if (boundary->boundary_type() == STBoundary::BoundaryType::KEEP_CLEAR) {
       continue;
@@ -67,7 +66,6 @@ GriddedPathTimeGraph::GriddedPathTimeGraph(
       init_point_(init_point),
       dp_st_cost_(dp_config, st_graph_data_.total_time_by_conf(), obstacles,
                   init_point_) {
-AINFO<<"(DMCZP) EnteringMethod: GriddedPathTimeGraph::GriddedPathTimeGraph";
   unit_s_ = st_graph_data_.path_length() /
             (gridded_path_time_graph_config_.matrix_dimension_s() - 1);
   unit_t_ = st_graph_data_.total_time_by_conf() /
@@ -75,7 +73,6 @@ AINFO<<"(DMCZP) EnteringMethod: GriddedPathTimeGraph::GriddedPathTimeGraph";
 }
 
 Status GriddedPathTimeGraph::Search(SpeedData* const speed_data) {
-AINFO<<"(DMCZP) EnteringMethod: GriddedPathTimeGraph::Search";
   constexpr double kBounadryEpsilon = 1e-2;
   for (const auto& boundary : st_graph_data_.st_boundaries()) {
     if (boundary->boundary_type() == STBoundary::BoundaryType::KEEP_CLEAR) {
@@ -121,7 +118,6 @@ AINFO<<"(DMCZP) EnteringMethod: GriddedPathTimeGraph::Search";
 }
 
 Status GriddedPathTimeGraph::InitCostTable() {
-AINFO<<"(DMCZP) EnteringMethod: GriddedPathTimeGraph::InitCostTable";
   uint32_t dim_s = gridded_path_time_graph_config_.matrix_dimension_s();
   uint32_t dim_t = gridded_path_time_graph_config_.matrix_dimension_t();
   DCHECK_GT(dim_s, 2);
@@ -141,7 +137,6 @@ AINFO<<"(DMCZP) EnteringMethod: GriddedPathTimeGraph::InitCostTable";
 }
 
 Status GriddedPathTimeGraph::CalculateTotalCost() {
-AINFO<<"(DMCZP) EnteringMethod: GriddedPathTimeGraph::CalculateTotalCost";
   // col and row are for STGraph
   // t corresponding to col
   // s corresponding to row
@@ -192,7 +187,6 @@ AINFO<<"(DMCZP) EnteringMethod: GriddedPathTimeGraph::CalculateTotalCost";
 void GriddedPathTimeGraph::GetRowRange(const StGraphPoint& point,
                                        size_t* next_highest_row,
                                        size_t* next_lowest_row) {
-AINFO<<"(DMCZP) EnteringMethod: GriddedPathTimeGraph::GetRowRange";
   double v0 = 0.0;
   if (!point.pre_point()) {
     v0 = init_point_.v();
@@ -227,7 +221,6 @@ AINFO<<"(DMCZP) EnteringMethod: GriddedPathTimeGraph::GetRowRange";
 
 void GriddedPathTimeGraph::CalculateCostAt(
     const std::shared_ptr<StGraphMessage>& msg) {
-AINFO<<"(DMCZP) EnteringMethod: GriddedPathTimeGraph::CalculateCostAt";
   const uint32_t c = msg->c;
   const uint32_t r = msg->r;
   auto& cost_cr = cost_table_[c][r];
@@ -357,7 +350,6 @@ AINFO<<"(DMCZP) EnteringMethod: GriddedPathTimeGraph::CalculateCostAt";
 }
 
 Status GriddedPathTimeGraph::RetrieveSpeedProfile(SpeedData* const speed_data) {
-AINFO<<"(DMCZP) EnteringMethod: GriddedPathTimeGraph::RetrieveSpeedProfile";
   double min_cost = std::numeric_limits<double>::infinity();
   const StGraphPoint* best_end_point = nullptr;
   for (const StGraphPoint& cur_point : cost_table_.back()) {
@@ -418,7 +410,6 @@ double GriddedPathTimeGraph::CalculateEdgeCost(const STPoint& first,
                                                const STPoint& forth,
                                                const double speed_limit,
                                                const double soft_speed_limit) {
-AINFO<<"(DMCZP) EnteringMethod: GriddedPathTimeGraph::CalculateEdgeCost";
   return dp_st_cost_.GetSpeedCost(third, forth, speed_limit, soft_speed_limit) +
          dp_st_cost_.GetAccelCostByThreePoints(second, third, forth) +
          dp_st_cost_.GetJerkCostByFourPoints(first, second, third, forth);
@@ -427,8 +418,6 @@ AINFO<<"(DMCZP) EnteringMethod: GriddedPathTimeGraph::CalculateEdgeCost";
 double GriddedPathTimeGraph::CalculateEdgeCostForSecondCol(
     const uint32_t row, const double speed_limit,
     const double soft_speed_limit) {
-AINFO<<"(DMCZP) EnteringMethod: GriddedPathTimeGraph::CalculateEdgeCostForSecondCol";
-AINFO<<"(DMCZP) EnteringMethod: GriddedPathTimeGraph::CalculateEdgeCostForThirdCol";
   double init_speed = init_point_.v();
   double init_acc = init_point_.a();
   const STPoint& pre_point = cost_table_[0][0].point();

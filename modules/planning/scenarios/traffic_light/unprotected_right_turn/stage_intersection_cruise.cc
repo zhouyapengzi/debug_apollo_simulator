@@ -29,7 +29,6 @@ namespace traffic_light {
 Stage::StageStatus
 TrafficLightUnprotectedRightTurnStageIntersectionCruise::Process(
     const common::TrajectoryPoint& planning_init_point, Frame* frame) {
-AINFO<<"(DMCZP) EnteringMethod: TrafficLightUnprotectedRightTurnStageIntersectionCruise::Process";
   ADEBUG << "stage: IntersectionCruise";
   CHECK_NOTNULL(frame);
 
@@ -50,7 +49,6 @@ AINFO<<"(DMCZP) EnteringMethod: TrafficLightUnprotectedRightTurnStageIntersectio
 
 Stage::StageStatus
 TrafficLightUnprotectedRightTurnStageIntersectionCruise::FinishStage() {
-AINFO<<"(DMCZP) EnteringMethod: TrafficLightUnprotectedRightTurnStageIntersectionCruise::FinishStage";
   return FinishScenario();
 }
 

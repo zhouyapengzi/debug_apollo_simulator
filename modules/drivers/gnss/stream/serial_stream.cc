@@ -37,7 +37,6 @@ namespace drivers {
 namespace gnss {
 
 speed_t get_serial_baudrate(uint32_t rate) {
-AINFO<<"(DMCZP) EnteringMethod: get_serial_baudrate";
   switch (rate) {
     case 9600:
       return B9600;
@@ -106,7 +105,6 @@ SerialStream::SerialStream(const char* device_name, speed_t baud_rate,
       fd_(-1),
       errno_(0),
       is_open_(false) {
-AINFO<<"(DMCZP) EnteringMethod: SerialStream::SerialStream";
   if (device_name_.empty()) {
     status_ = Stream::Status::ERROR;
   }
@@ -115,7 +113,6 @@ AINFO<<"(DMCZP) EnteringMethod: SerialStream::SerialStream";
 SerialStream::~SerialStream() { this->close(); }
 
 void SerialStream::open(void) {
-AINFO<<"(DMCZP) EnteringMethod: SerialStream::open";
   int fd = 0;
   fd = ::open(device_name_.c_str(), O_RDWR | O_NOCTTY | O_NONBLOCK);
   if (fd == -1) {
@@ -143,7 +140,6 @@ AINFO<<"(DMCZP) EnteringMethod: SerialStream::open";
 }
 
 bool SerialStream::configure_port(int fd) {
-AINFO<<"(DMCZP) EnteringMethod: SerialStream::configure_port";
   if (fd < 0) {
     return false;
   }
@@ -224,7 +220,6 @@ AINFO<<"(DMCZP) EnteringMethod: SerialStream::configure_port";
 }
 
 bool SerialStream::Connect() {
-AINFO<<"(DMCZP) EnteringMethod: SerialStream::Connect";
   if (!is_open_) {
     this->open();
     if (!is_open_) {
@@ -244,7 +239,6 @@ AINFO<<"(DMCZP) EnteringMethod: SerialStream::Connect";
 }
 
 void SerialStream::close(void) {
-AINFO<<"(DMCZP) EnteringMethod: SerialStream::close";
   if (is_open_) {
     ::close(fd_);
     fd_ = -1;
@@ -254,7 +248,6 @@ AINFO<<"(DMCZP) EnteringMethod: SerialStream::close";
 }
 
 bool SerialStream::Disconnect() {
-AINFO<<"(DMCZP) EnteringMethod: SerialStream::Disconnect";
   if (!is_open_) {
     // not open
     return false;
@@ -265,7 +258,6 @@ AINFO<<"(DMCZP) EnteringMethod: SerialStream::Disconnect";
 }
 
 void SerialStream::check_remove() {
-AINFO<<"(DMCZP) EnteringMethod: SerialStream::check_remove";
   char data = 0;
   ssize_t nsent = ::write(fd_, &data, 0);
   if (nsent < 0) {
@@ -282,7 +274,6 @@ AINFO<<"(DMCZP) EnteringMethod: SerialStream::check_remove";
 }
 
 size_t SerialStream::read(uint8_t* buffer, size_t max_length) {
-AINFO<<"(DMCZP) EnteringMethod: SerialStream::read";
   if (!is_open_) {
     if (!Connect()) {
       return 0;
@@ -340,7 +331,6 @@ AINFO<<"(DMCZP) EnteringMethod: SerialStream::read";
 }
 
 size_t SerialStream::write(const uint8_t* data, size_t length) {
-AINFO<<"(DMCZP) EnteringMethod: SerialStream::write";
   if (!is_open_) {
     if (!Connect()) {
       return 0;
@@ -394,7 +384,6 @@ AINFO<<"(DMCZP) EnteringMethod: SerialStream::write";
 }
 
 bool SerialStream::wait_readable(uint32_t timeout_us) {
-AINFO<<"(DMCZP) EnteringMethod: SerialStream::wait_readable";
   // Setup a select call to block for serial data or a timeout
   timespec timeout_ts;
   fd_set readfds;
@@ -417,7 +406,6 @@ AINFO<<"(DMCZP) EnteringMethod: SerialStream::wait_readable";
 }
 
 bool SerialStream::wait_writable(uint32_t timeout_us) {
-AINFO<<"(DMCZP) EnteringMethod: SerialStream::wait_writable";
   // Setup a select call to block for serial data or a timeout
   timespec timeout_ts;
   fd_set writefds;
@@ -441,7 +429,6 @@ AINFO<<"(DMCZP) EnteringMethod: SerialStream::wait_writable";
 
 Stream* Stream::create_serial(const char* device_name, uint32_t baud_rate,
                               uint32_t timeout_usec) {
-AINFO<<"(DMCZP) EnteringMethod: Stream::create_serial";
   speed_t baud = get_serial_baudrate(baud_rate);
   return baud == 0 ? nullptr
                    : new SerialStream(device_name, baud, timeout_usec);

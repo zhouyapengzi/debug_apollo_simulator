@@ -34,12 +34,10 @@ class ZhongyunVehicleFactoryTest : public ::testing::Test {
 };
 
 TEST_F(ZhongyunVehicleFactoryTest, InitVehicleController) {
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   EXPECT_NE(zhongyun_factory_.CreateVehicleController(), nullptr);
 }
 
 TEST_F(ZhongyunVehicleFactoryTest, InitMessageManager) {
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   EXPECT_NE(zhongyun_factory_.CreateMessageManager(), nullptr);
 }
 

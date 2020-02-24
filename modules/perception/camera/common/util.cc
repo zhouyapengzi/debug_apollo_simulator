@@ -23,16 +23,13 @@ namespace perception {
 namespace camera {
 
 bool Equal(double x, double target, double eps) {
-AINFO<<"(DMCZP) EnteringMethod: Equal";
   return std::abs(x - target) < eps;
 }
 bool Equal(float x, float target, float eps) {
-AINFO<<"(DMCZP) EnteringMethod: Equal";
   return std::abs(x - target) < eps;
 }
 
 bool LoadAnchors(const std::string &path, std::vector<float> *anchors) {
-AINFO<<"(DMCZP) EnteringMethod: LoadAnchors";
   int num_anchors = 0;
   std::ifstream ifs(path, std::ifstream::in);
   ifs >> num_anchors;
@@ -54,7 +51,6 @@ AINFO<<"(DMCZP) EnteringMethod: LoadAnchors";
 
 bool LoadTypes(const std::string &path,
                std::vector<base::ObjectSubType> *types) {
-AINFO<<"(DMCZP) EnteringMethod: LoadTypes";
   std::ifstream ifs(path, std::ifstream::in);
   if (!ifs.good()) {
     AERROR << "Type_list not found: " << path;
@@ -75,7 +71,6 @@ AINFO<<"(DMCZP) EnteringMethod: LoadTypes";
   return true;
 }
 bool LoadExpand(const std::string &path, std::vector<float> *expands) {
-AINFO<<"(DMCZP) EnteringMethod: LoadExpand";
   std::ifstream ifs(path, std::ifstream::in);
   if (!ifs.good()) {
     AERROR << "expand_list not found: " << path;
@@ -93,7 +88,6 @@ AINFO<<"(DMCZP) EnteringMethod: LoadExpand";
 bool ResizeCPU(const base::Blob<uint8_t> &src_blob,
                std::shared_ptr<base::Blob<float>> dst_blob, int stepwidth,
                int start_axis) {
-AINFO<<"(DMCZP) EnteringMethod: ResizeCPU";
   int width = dst_blob->shape(2);
   int height = dst_blob->shape(1);
   int channel = dst_blob->shape(3);
@@ -162,7 +156,6 @@ AINFO<<"(DMCZP) EnteringMethod: ResizeCPU";
 }
 
 std::string GetCyberWorkRoot() {
-AINFO<<"(DMCZP) EnteringMethod: GetCyberWorkRoot";
   std::string work_root = cyber::common::GetEnv("MODULE_PATH");
   if (work_root.empty()) {
     work_root = cyber::common::GetEnv("CYBER_PATH");
@@ -171,7 +164,6 @@ AINFO<<"(DMCZP) EnteringMethod: GetCyberWorkRoot";
 }
 
 void FillObjectPolygonFromBBox3D(base::Object *object_ptr) {
-AINFO<<"(DMCZP) EnteringMethod: FillObjectPolygonFromBBox3D";
   if (!object_ptr) {
     return;
   }

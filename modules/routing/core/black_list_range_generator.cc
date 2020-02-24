@@ -24,7 +24,6 @@ constexpr double S_GAP_FOR_BLACK = 0.01;
 namespace {
 
 double MoveSForward(double s, double upper_bound) {
-AINFO<<"(DMCZP) EnteringMethod: MoveSForward";
   if (s > upper_bound) {
     AERROR << "Illegal s: " << s << ", upper bound: " << upper_bound;
     return s;
@@ -37,7 +36,6 @@ AINFO<<"(DMCZP) EnteringMethod: MoveSForward";
 }
 
 double MoveSBackward(double s, double lower_bound) {
-AINFO<<"(DMCZP) EnteringMethod: MoveSBackward";
   if (s < lower_bound) {
     AERROR << "Illegal s: " << s << ", lower bound: " << lower_bound;
     return s;
@@ -51,7 +49,6 @@ AINFO<<"(DMCZP) EnteringMethod: MoveSBackward";
 
 void GetOutParallelLane(const TopoNode* node,
                         std::unordered_set<const TopoNode*>* const node_set) {
-AINFO<<"(DMCZP) EnteringMethod: GetOutParallelLane";
   for (const auto* edge : node->OutToLeftOrRightEdge()) {
     const auto* to_node = edge->ToNode();
     if (node_set->count(to_node) == 0) {
@@ -63,7 +60,6 @@ AINFO<<"(DMCZP) EnteringMethod: GetOutParallelLane";
 
 void GetInParallelLane(const TopoNode* node,
                        std::unordered_set<const TopoNode*>* const node_set) {
-AINFO<<"(DMCZP) EnteringMethod: GetInParallelLane";
   for (const auto* edge : node->InFromLeftOrRightEdge()) {
     const auto* from_node = edge->FromNode();
     if (node_set->count(from_node) == 0) {
@@ -76,8 +72,6 @@ AINFO<<"(DMCZP) EnteringMethod: GetInParallelLane";
 // for new navigator
 void AddBlackMapFromRoad(const RoutingRequest& request, const TopoGraph* graph,
                          TopoRangeManager* const range_manager) {
-AINFO<<"(DMCZP) EnteringMethod: AddBlackMapFromRoad";
-AINFO<<"(DMCZP) EnteringMethod: AddBlackMapFromLane";
   for (const auto& road_id : request.blacklisted_road()) {
     std::unordered_set<const TopoNode*> road_nodes_set;
     graph->GetNodesByRoadId(road_id, &road_nodes_set);
@@ -100,7 +94,6 @@ void AddBlackMapFromLane(const RoutingRequest& request, const TopoGraph* graph,
 
 void AddBlackMapFromOutParallel(const TopoNode* node, double cut_ratio,
                                 TopoRangeManager* const range_manager) {
-AINFO<<"(DMCZP) EnteringMethod: AddBlackMapFromOutParallel";
   std::unordered_set<const TopoNode*> par_node_set;
   GetOutParallelLane(node, &par_node_set);
   par_node_set.erase(node);
@@ -112,7 +105,6 @@ AINFO<<"(DMCZP) EnteringMethod: AddBlackMapFromOutParallel";
 
 void AddBlackMapFromInParallel(const TopoNode* node, double cut_ratio,
                                TopoRangeManager* const range_manager) {
-AINFO<<"(DMCZP) EnteringMethod: AddBlackMapFromInParallel";
   std::unordered_set<const TopoNode*> par_node_set;
   GetInParallelLane(node, &par_node_set);
   par_node_set.erase(node);
@@ -127,7 +119,6 @@ AINFO<<"(DMCZP) EnteringMethod: AddBlackMapFromInParallel";
 void BlackListRangeGenerator::GenerateBlackMapFromRequest(
     const RoutingRequest& request, const TopoGraph* graph,
     TopoRangeManager* const range_manager) const {
-AINFO<<"(DMCZP) EnteringMethod: BlackListRangeGenerator::GenerateBlackMapFromRequest";
   AddBlackMapFromLane(request, graph, range_manager);
   AddBlackMapFromRoad(request, graph, range_manager);
   range_manager->SortAndMerge();
@@ -136,7 +127,6 @@ AINFO<<"(DMCZP) EnteringMethod: BlackListRangeGenerator::GenerateBlackMapFromReq
 void BlackListRangeGenerator::AddBlackMapFromTerminal(
     const TopoNode* src_node, const TopoNode* dest_node, double start_s,
     double end_s, TopoRangeManager* const range_manager) const {
-AINFO<<"(DMCZP) EnteringMethod: BlackListRangeGenerator::AddBlackMapFromTerminal";
   double start_length = src_node->Length();
   double end_length = dest_node->Length();
   if (start_s < 0.0 || start_s > start_length) {

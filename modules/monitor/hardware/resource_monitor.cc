@@ -35,8 +35,6 @@ DEFINE_double(resource_monitor_interval, 5,
               "Topic status checking interval (s).");
 
 namespace apollo {
-AINFO<<"(DMCZP) EnteringMethod: DEFINE_string";
-AINFO<<"(DMCZP) EnteringMethod: DEFINE_double";
 namespace monitor {
 
 using apollo::common::util::StrCat;
@@ -44,10 +42,8 @@ using apollo::common::util::StrCat;
 ResourceMonitor::ResourceMonitor()
     : RecurrentRunner(FLAGS_resource_monitor_name,
                       FLAGS_resource_monitor_interval) {}
-AINFO<<"(DMCZP) EnteringMethod: ResourceMonitor::ResourceMonitor";
 
 void ResourceMonitor::RunOnce(const double current_time) {
-AINFO<<"(DMCZP) EnteringMethod: ResourceMonitor::RunOnce";
   auto manager = MonitorManager::Instance();
   const auto& mode = manager->GetHMIMode();
   auto* components = manager->GetStatus()->mutable_components();
@@ -64,7 +60,6 @@ AINFO<<"(DMCZP) EnteringMethod: ResourceMonitor::RunOnce";
 void ResourceMonitor::UpdateStatus(
     const apollo::dreamview::ResourceMonitorConfig& config,
     ComponentStatus* status) {
-AINFO<<"(DMCZP) EnteringMethod: ResourceMonitor::UpdateStatus";
   status->clear_status();
   // Monitor available disk space.
   for (const auto& disk_space : config.disk_spaces()) {

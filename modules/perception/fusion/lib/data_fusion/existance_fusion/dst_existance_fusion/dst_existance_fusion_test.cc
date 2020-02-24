@@ -28,7 +28,6 @@ namespace fusion {
 
 /* TODO(all): Initialize() not compiling. to be fixed
 TEST(DstExistFusionTest, test_update_with_measurement) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   FLAGS_work_root = "/apollo/modules/perception/testdata/"
       "fusion/dst_existance_fusion";
   FLAGS_obs_sensor_intrinsic_path =
@@ -119,7 +118,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST";
 
 /* TODO(all): Initialize() not compiling. to be fixed
 TEST(DstExistFusionTest, test_update_without_measurement) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   FLAGS_work_root = "./";
   FLAGS_obs_sensor_intrinsic_path = "./params";
   FLAGS_obs_sensor_meta_path = "./data/sensor_meta.pt";

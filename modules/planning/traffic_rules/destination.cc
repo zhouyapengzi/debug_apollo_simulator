@@ -36,11 +36,9 @@ using apollo::hdmap::HDMapUtil;
 
 Destination::Destination(const TrafficRuleConfig& config)
     : TrafficRule(config) {}
-AINFO<<"(DMCZP) EnteringMethod: Destination::Destination";
 
 Status Destination::ApplyRule(Frame* frame,
                               ReferenceLineInfo* const reference_line_info) {
-AINFO<<"(DMCZP) EnteringMethod: Destination::ApplyRule";
   CHECK_NOTNULL(frame);
   CHECK_NOTNULL(reference_line_info);
 
@@ -54,7 +52,6 @@ AINFO<<"(DMCZP) EnteringMethod: Destination::ApplyRule";
  */
 int Destination::MakeDecisions(Frame* frame,
                                ReferenceLineInfo* const reference_line_info) {
-AINFO<<"(DMCZP) EnteringMethod: Destination::MakeDecisions";
   CHECK_NOTNULL(frame);
   CHECK_NOTNULL(reference_line_info);
 

@@ -20,7 +20,6 @@
 #include "modules/localization/msf/local_map/pyramid_map/pyramid_map_matrix.h"
 
 int main(int argc, char** argv) {
-AINFO<<"(DMCZP) EnteringMethod: main";
   testing::InitGoogleTest(&argc, argv);
   return RUN_ALL_TESTS();
 }
@@ -38,7 +37,6 @@ class PyramidMapMatrixHandlerTestSuite : public ::testing::Test {
 };
 
 TEST_F(PyramidMapMatrixHandlerTestSuite, LossyMapFullAltMatrixHandler) {
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   // create handler
   BaseMapMatrixHandler* handler =
       PyramidMapMatrixHandlerSelector::AllocPyramidMapMatrixHandler(
@@ -99,7 +97,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST_F";
 }
 
 TEST_F(PyramidMapMatrixHandlerTestSuite, LosslessMapMatrixHandler) {
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   // create handler
   BaseMapMatrixHandler* handler =
       PyramidMapMatrixHandlerSelector::AllocPyramidMapMatrixHandler(
@@ -167,7 +164,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST_F";
 }
 
 TEST_F(PyramidMapMatrixHandlerTestSuite, PyramidLossyMapMatrixHandler) {
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   // create handler
   BaseMapMatrixHandler* handler =
       PyramidMapMatrixHandlerSelector::AllocPyramidMapMatrixHandler(
@@ -225,7 +221,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST_F";
 }
 
 TEST_F(PyramidMapMatrixHandlerTestSuite, PyramidLosslessMapMatrixHandler) {
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   // create handler
   BaseMapMatrixHandler* handler =
       PyramidMapMatrixHandlerSelector::AllocPyramidMapMatrixHandler(

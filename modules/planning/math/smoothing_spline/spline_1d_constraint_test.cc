@@ -25,7 +25,6 @@ namespace apollo {
 namespace planning {
 
 TEST(Spline1dConstraint, add_boundary) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   std::vector<double> x_knots = {0.0, 1.0};
   int32_t spline_order = 5;
   Spline1dConstraint constraint(x_knots, spline_order);
@@ -65,7 +64,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST";
 }
 
 TEST(Spline1dConstraint, add_derivative_boundary) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   std::vector<double> x_knots = {0.0, 1.0};
   int32_t spline_order = 5;
   Spline1dConstraint constraint(x_knots, spline_order);
@@ -105,7 +103,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST";
 }
 
 TEST(Spline1dConstraint, add_second_derivative_boundary) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   std::vector<double> x_knots = {0.0, 1.0};
   int32_t spline_order = 5;
   Spline1dConstraint constraint(x_knots, spline_order);
@@ -145,7 +142,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST";
 }
 
 TEST(Spline1dConstraint, add_smooth_constraint_01) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   std::vector<double> x_knots = {0.0, 1.0, 2.0};
   int32_t spline_order = 5;
   Spline1dConstraint constraint(x_knots, spline_order);
@@ -171,7 +167,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST";
 }
 
 TEST(Spline1dConstraint, add_smooth_constraint_02) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   std::vector<double> x_knots = {0.0, 1.0, 2.0, 3.0};
   int32_t spline_order = 5;
   Spline1dConstraint constraint(x_knots, spline_order);
@@ -199,7 +194,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST";
 }
 
 TEST(Spline1dConstraint, add_derivative_smooth_constraint) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   std::vector<double> x_knots = {0.0, 1.0, 2.0, 3.0};
   int32_t spline_order = 3;
   Spline1dConstraint constraint(x_knots, spline_order);
@@ -229,7 +223,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST";
 }
 
 TEST(Spline1dConstraint, add_second_derivative_smooth_constraint) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   std::vector<double> x_knots = {0.0, 1.0, 2.0, 3.0};
   int32_t spline_order = 3;
   Spline1dConstraint constraint(x_knots, spline_order);
@@ -261,7 +254,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST";
 }
 
 TEST(Spline1dConstraint, add_third_derivative_smooth_constraint) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   std::vector<double> x_knots = {0.0, 1.0, 2.0, 3.0};
   int32_t spline_order = 4;
   Spline1dConstraint constraint(x_knots, spline_order);
@@ -295,7 +287,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST";
 }
 
 TEST(Spline1dConstraint, add_monotone_inequality_constraint) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   std::vector<double> x_knots = {0.0, 1.0, 2.0, 3.0};
   int32_t spline_order = 4;
   Spline1dConstraint constraint(x_knots, spline_order);
@@ -329,7 +320,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST";
 }
 
 TEST(Spline1dConstraint, add_monotone_inequality_constraint_at_knots) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   std::vector<double> x_knots = {0.0, 1.0, 2.0, 3.0};
   int32_t spline_order = 4;
   Spline1dConstraint constraint(x_knots, spline_order);
@@ -359,7 +349,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST";
 }
 
 TEST(Spline1dConstraint, add_point_constraint) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   std::vector<double> x_knots = {0.0, 1.0, 2.0, 3.0};
   int32_t spline_order = 4;
   Spline1dConstraint constraint(x_knots, spline_order);
@@ -382,7 +371,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST";
 }
 
 TEST(Spline1dConstraint, add_point_derivative_constraint) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   std::vector<double> x_knots = {0.0, 1.0, 2.0, 3.0};
   int32_t spline_order = 4;
   Spline1dConstraint constraint(x_knots, spline_order);
@@ -405,7 +393,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST";
 }
 
 TEST(Spline1dConstraint, add_point_second_derivative_constraint) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   std::vector<double> x_knots = {0.0, 1.0, 2.0, 3.0};
   int32_t spline_order = 4;
   Spline1dConstraint constraint(x_knots, spline_order);
@@ -428,7 +415,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST";
 }
 
 TEST(Spline1dConstraint, add_point_third_derivative_constraint) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   std::vector<double> x_knots = {0.0, 1.0, 2.0, 3.0};
   int32_t spline_order = 4;
   Spline1dConstraint constraint(x_knots, spline_order);

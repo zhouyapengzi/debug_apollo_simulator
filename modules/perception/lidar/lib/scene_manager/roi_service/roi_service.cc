@@ -26,7 +26,6 @@ namespace lidar {
 using cyber::common::GetAbsolutePath;
 
 void ROIServiceContent::GetCopy(SceneServiceContent* content) const {
-AINFO<<"(DMCZP) EnteringMethod: ROIServiceContent::GetCopy";
   ROIServiceContent* roi_content = dynamic_cast<ROIServiceContent*>(content);
   if (roi_content == nullptr) {
     return;
@@ -41,7 +40,6 @@ AINFO<<"(DMCZP) EnteringMethod: ROIServiceContent::GetCopy";
 }
 
 void ROIServiceContent::SetContent(const SceneServiceContent& content) {
-AINFO<<"(DMCZP) EnteringMethod: ROIServiceContent::SetContent";
   const ROIServiceContent* roi_content =
       dynamic_cast<const ROIServiceContent*>(&content);
   if (roi_content == nullptr) {
@@ -60,12 +58,10 @@ AINFO<<"(DMCZP) EnteringMethod: ROIServiceContent::SetContent";
 
 inline bool ROIServiceContent::CheckBit(const size_t loc,
                                         const uint64_t block) const {
-AINFO<<"(DMCZP) EnteringMethod: ROIServiceContent::CheckBit";
   return block & (static_cast<uint64_t>(1) << loc);
 }
 
 bool ROIServiceContent::Check(const Eigen::Vector3d& world_point) const {
-AINFO<<"(DMCZP) EnteringMethod: ROIServiceContent::Check";
   if (!service_ready_) {
     return false;
   }
@@ -86,7 +82,6 @@ AINFO<<"(DMCZP) EnteringMethod: ROIServiceContent::Check";
 }
 
 bool ROIService::Init(const SceneServiceInitOptions& options) {
-AINFO<<"(DMCZP) EnteringMethod: ROIService::Init";
   self_content_.reset(new ROIServiceContent);
   roi_content_ref_ = dynamic_cast<ROIServiceContent*>(self_content_.get());
   auto config_manager = lib::ConfigManager::Instance();
@@ -106,7 +101,6 @@ AINFO<<"(DMCZP) EnteringMethod: ROIService::Init";
 }
 
 bool ROIService::QueryIsPointInROI(const Eigen::Vector3d& world_point) {
-AINFO<<"(DMCZP) EnteringMethod: ROIService::QueryIsPointInROI";
   std::lock_guard<std::mutex> lock(mutex_);
   bool status = QueryIsPointInROI(world_point, *roi_content_ref_);
   return status;
@@ -114,7 +108,6 @@ AINFO<<"(DMCZP) EnteringMethod: ROIService::QueryIsPointInROI";
 
 bool ROIService::QueryIsPointInROI(const Eigen::Vector3d& world_point,
                                    const ROIServiceContent& content) {
-AINFO<<"(DMCZP) EnteringMethod: ROIService::QueryIsPointInROI";
   return content.Check(world_point);
 }
 

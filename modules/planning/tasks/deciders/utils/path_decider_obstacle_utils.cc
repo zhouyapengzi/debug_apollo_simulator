@@ -27,7 +27,6 @@ namespace apollo {
 namespace planning {
 
 bool IsWithinPathDeciderScopeObstacle(const Obstacle& obstacle) {
-AINFO<<"(DMCZP) EnteringMethod: IsWithinPathDeciderScopeObstacle";
   // Obstacle should be non-virtual.
   if (obstacle.IsVirtual()) {
     return false;
@@ -54,7 +53,6 @@ AINFO<<"(DMCZP) EnteringMethod: IsWithinPathDeciderScopeObstacle";
 bool ComputeSLBoundaryIntersection(const SLBoundary& sl_boundary,
                                    const double s, double* ptr_l_min,
                                    double* ptr_l_max) {
-AINFO<<"(DMCZP) EnteringMethod: ComputeSLBoundaryIntersection";
   *ptr_l_min = std::numeric_limits<double>::max();
   *ptr_l_max = -std::numeric_limits<double>::max();
 

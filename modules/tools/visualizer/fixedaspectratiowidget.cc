@@ -23,7 +23,6 @@
 
 FixedAspectRatioWidget::FixedAspectRatioWidget(QWidget* parent, int index)
     : QWidget(parent), index_(index), refresh_timer_(this), viewer_() {
-AINFO<<"(DMCZP) EnteringMethod: FixedAspectRatioWidget::FixedAspectRatioWidget";
   viewer_.setParent(this);
   viewer_.setGeometry(geometry());
 
@@ -34,7 +33,6 @@ AINFO<<"(DMCZP) EnteringMethod: FixedAspectRatioWidget::FixedAspectRatioWidget";
 }
 
 void FixedAspectRatioWidget::StartOrStopUpdate(bool b) {
-AINFO<<"(DMCZP) EnteringMethod: FixedAspectRatioWidget::StartOrStopUpdate";
   if (viewer_.is_init_) {
     if (b) {
       refresh_timer_.start();
@@ -46,7 +44,6 @@ AINFO<<"(DMCZP) EnteringMethod: FixedAspectRatioWidget::StartOrStopUpdate";
 
 void FixedAspectRatioWidget::SetupDynamicTexture(
     const std::shared_ptr<Texture>& textureObj) {
-AINFO<<"(DMCZP) EnteringMethod: FixedAspectRatioWidget::SetupDynamicTexture";
   if (textureObj == nullptr) {
     viewer_.default_image_->setSizeChanged();
     viewer_.plane_.set_texture(viewer_.default_image_);
@@ -56,7 +53,6 @@ AINFO<<"(DMCZP) EnteringMethod: FixedAspectRatioWidget::SetupDynamicTexture";
 }
 
 void FixedAspectRatioWidget::mouseDoubleClickEvent(QMouseEvent* event) {
-AINFO<<"(DMCZP) EnteringMethod: FixedAspectRatioWidget::mouseDoubleClickEvent";
   if (event->button() == Qt::LeftButton) {
     emit focusOnThis(this);
     QWidget::mouseDoubleClickEvent(event);
@@ -64,7 +60,6 @@ AINFO<<"(DMCZP) EnteringMethod: FixedAspectRatioWidget::mouseDoubleClickEvent";
 }
 
 void FixedAspectRatioWidget::contextMenuEvent(QContextMenuEvent* event) {
-AINFO<<"(DMCZP) EnteringMethod: FixedAspectRatioWidget::contextMenuEvent";
   emit focusOnThis(this);
   QMenu m;
   m.addActions(actions());
@@ -75,7 +70,6 @@ AINFO<<"(DMCZP) EnteringMethod: FixedAspectRatioWidget::contextMenuEvent";
 }
 
 void FixedAspectRatioWidget::resizeEvent(QResizeEvent* revent) {
-AINFO<<"(DMCZP) EnteringMethod: FixedAspectRatioWidget::resizeEvent";
   QSize size = revent->size();
 
   {
@@ -116,7 +110,6 @@ AINFO<<"(DMCZP) EnteringMethod: FixedAspectRatioWidget::resizeEvent";
 }
 
 void FixedAspectRatioWidget::paintEvent(QPaintEvent* event) {
-AINFO<<"(DMCZP) EnteringMethod: FixedAspectRatioWidget::paintEvent";
   QStyleOption opt;
   opt.init(this);
   QPainter p(this);

@@ -32,7 +32,6 @@ namespace prediction {
 namespace {
 
 double ComputeMean(const std::vector<double>& nums, size_t start, size_t end) {
-AINFO<<"(DMCZP) EnteringMethod: ComputeMean";
   int count = 0;
   double sum = 0.0;
   for (size_t i = start; i <= end && i < nums.size(); i++) {
@@ -45,16 +44,13 @@ AINFO<<"(DMCZP) EnteringMethod: ComputeMean";
 }  // namespace
 
 MLPEvaluator::MLPEvaluator() {
-AINFO<<"(DMCZP) EnteringMethod: MLPEvaluator::MLPEvaluator";
   evaluator_type_ = ObstacleConf::MLP_EVALUATOR;
   LoadModel(FLAGS_evaluator_vehicle_mlp_file);
 }
 
 void MLPEvaluator::Clear() {}
-AINFO<<"(DMCZP) EnteringMethod: MLPEvaluator::Clear";
 
 bool MLPEvaluator::Evaluate(Obstacle* obstacle_ptr) {
-AINFO<<"(DMCZP) EnteringMethod: MLPEvaluator::Evaluate";
   Clear();
   CHECK_NOTNULL(obstacle_ptr);
   CHECK_LE(LANE_FEATURE_SIZE, 4 * FLAGS_max_num_lane_point);
@@ -135,10 +131,8 @@ AINFO<<"(DMCZP) EnteringMethod: MLPEvaluator::Evaluate";
 void MLPEvaluator::ExtractFeatureValues(Obstacle* obstacle_ptr,
                                         LaneSequence* lane_sequence_ptr,
                                         std::vector<double>* feature_values) {
-AINFO<<"(DMCZP) EnteringMethod: MLPEvaluator::ExtractFeatureValues";
   int id = obstacle_ptr->id();
   std::vector<double> obstacle_feature_values;
-AINFO<<"(DMCZP) EnteringMethod: MLPEvaluator::SetLaneFeatureValues";
 
   SetObstacleFeatureValues(obstacle_ptr, &obstacle_feature_values);
 
@@ -166,7 +160,6 @@ AINFO<<"(DMCZP) EnteringMethod: MLPEvaluator::SetLaneFeatureValues";
 
 void MLPEvaluator::SaveOfflineFeatures(
     LaneSequence* sequence, const std::vector<double>& feature_values) {
-AINFO<<"(DMCZP) EnteringMethod: MLPEvaluator::SaveOfflineFeatures";
   for (double feature_value : feature_values) {
     sequence->mutable_features()->add_mlp_features(feature_value);
   }
@@ -174,7 +167,6 @@ AINFO<<"(DMCZP) EnteringMethod: MLPEvaluator::SaveOfflineFeatures";
 
 void MLPEvaluator::SetObstacleFeatureValues(
     Obstacle* obstacle_ptr, std::vector<double>* feature_values) {
-AINFO<<"(DMCZP) EnteringMethod: MLPEvaluator::SetObstacleFeatureValues";
   feature_values->clear();
   feature_values->reserve(OBSTACLE_FEATURE_SIZE);
 
@@ -363,7 +355,6 @@ void MLPEvaluator::SetLaneFeatureValues(Obstacle* obstacle_ptr,
 }
 
 void MLPEvaluator::LoadModel(const std::string& model_file) {
-AINFO<<"(DMCZP) EnteringMethod: MLPEvaluator::LoadModel";
   model_ptr_.reset(new FnnVehicleModel());
   CHECK(model_ptr_ != nullptr);
   CHECK(cyber::common::GetProtoFromFile(model_file, model_ptr_.get()))
@@ -374,7 +365,6 @@ AINFO<<"(DMCZP) EnteringMethod: MLPEvaluator::LoadModel";
 
 double MLPEvaluator::ComputeProbability(
     const std::vector<double>& feature_values) {
-AINFO<<"(DMCZP) EnteringMethod: MLPEvaluator::ComputeProbability";
   CHECK_NOTNULL(model_ptr_.get());
   double probability = 0.0;
 

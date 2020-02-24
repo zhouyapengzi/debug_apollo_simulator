@@ -20,10 +20,8 @@ std::shared_ptr<Texture> Plane::NullTextureObj;
 
 Plane::Plane(const std::shared_ptr<Texture>& t)
     : RenderableObject(4, 4), texture_id_(0), texture_(t) {}
-AINFO<<"(DMCZP) EnteringMethod: Plane::Plane";
 
 bool Plane::FillVertexBuffer(GLfloat* pBuffer) {
-AINFO<<"(DMCZP) EnteringMethod: Plane::FillVertexBuffer";
   if (texture_ == nullptr || !texture_->isDirty()) return false;
 
   glGenTextures(1, &texture_id_);
@@ -63,7 +61,6 @@ AINFO<<"(DMCZP) EnteringMethod: Plane::FillVertexBuffer";
 }
 
 void Plane::SetupAllAttrPointer(void) {
-AINFO<<"(DMCZP) EnteringMethod: Plane::SetupAllAttrPointer";
   glEnableVertexAttribArray(0);
   glVertexAttribPointer(
       0, 2, GL_FLOAT, GL_FALSE,
@@ -77,7 +74,6 @@ AINFO<<"(DMCZP) EnteringMethod: Plane::SetupAllAttrPointer";
 }
 
 void Plane::Draw(void) {
-AINFO<<"(DMCZP) EnteringMethod: Plane::Draw";
   if (texture_->data()) {
     if (texture_->isSizeChanged()) {
       glGenTextures(1, &texture_id_);

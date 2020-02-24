@@ -43,7 +43,6 @@ constexpr double kSpeedOptimizationFallbackCost = 2e4;
 }  // namespace
 
 Stage::Stage(const ScenarioConfig::StageConfig& config) : config_(config) {
-AINFO<<"(DMCZP) EnteringMethod: Stage::Stage";
   // set stage_type in PlanningContext
   PlanningContext::Instance()
       ->mutable_planning_status()
@@ -74,10 +73,8 @@ AINFO<<"(DMCZP) EnteringMethod: Stage::Stage";
 }
 
 const std::string& Stage::Name() const { return name_; }
-AINFO<<"(DMCZP) EnteringMethod: Stage::Name";
 
 Task* Stage::FindTask(TaskConfig::TaskType task_type) const {
-AINFO<<"(DMCZP) EnteringMethod: Stage::FindTask";
   auto iter = tasks_.find(task_type);
   if (iter == tasks_.end()) {
     return nullptr;
@@ -88,7 +85,6 @@ AINFO<<"(DMCZP) EnteringMethod: Stage::FindTask";
 
 bool Stage::ExecuteTaskOnReferenceLine(
     const common::TrajectoryPoint& planning_start_point, Frame* frame) {
-AINFO<<"(DMCZP) EnteringMethod: Stage::ExecuteTaskOnReferenceLine";
   for (auto& reference_line_info : *frame->mutable_reference_line_info()) {
     if (!reference_line_info.IsDrivable()) {
       AERROR << "The generated path is not drivable";
@@ -128,7 +124,6 @@ AINFO<<"(DMCZP) EnteringMethod: Stage::ExecuteTaskOnReferenceLine";
 }
 
 bool Stage::ExecuteTaskOnOpenSpace(Frame* frame) {
-AINFO<<"(DMCZP) EnteringMethod: Stage::ExecuteTaskOnOpenSpace";
   auto ret = common::Status::OK();
   for (auto* task : task_list_) {
     ret = task->Execute(frame);
@@ -165,7 +160,6 @@ AINFO<<"(DMCZP) EnteringMethod: Stage::ExecuteTaskOnOpenSpace";
 }
 
 Stage::StageStatus Stage::FinishScenario() {
-AINFO<<"(DMCZP) EnteringMethod: Stage::FinishScenario";
   next_stage_ = ScenarioConfig::NO_STAGE;
   return Stage::FINISHED;
 }

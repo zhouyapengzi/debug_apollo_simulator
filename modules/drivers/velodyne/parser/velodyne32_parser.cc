@@ -22,7 +22,6 @@ namespace velodyne {
 
 Velodyne32Parser::Velodyne32Parser(const Config& config)
     : VelodyneParser(config), previous_packet_stamp_(0), gps_base_usec_(0) {
-AINFO<<"(DMCZP) EnteringMethod: Velodyne32Parser::Velodyne32Parser";
   inner_time_ = &velodyne::INNER_TIME_HDL32E;
   need_two_pt_correction_ = false;
   if (config_.model() == VLP32C) {
@@ -33,7 +32,6 @@ AINFO<<"(DMCZP) EnteringMethod: Velodyne32Parser::Velodyne32Parser";
 void Velodyne32Parser::GeneratePointcloud(
     const std::shared_ptr<VelodyneScan>& scan_msg,
     std::shared_ptr<PointCloud> out_msg) {
-AINFO<<"(DMCZP) EnteringMethod: Velodyne32Parser::GeneratePointcloud";
   // allocate a point cloud with same time and frame ID as raw data
   out_msg->mutable_header()->set_frame_id(scan_msg->header().frame_id());
   out_msg->set_height(1);
@@ -64,7 +62,6 @@ AINFO<<"(DMCZP) EnteringMethod: Velodyne32Parser::GeneratePointcloud";
 
 uint64_t Velodyne32Parser::GetTimestamp(double base_time, float time_offset,
                                         uint16_t block_id) {
-AINFO<<"(DMCZP) EnteringMethod: Velodyne32Parser::GetTimestamp";
   double t = base_time - time_offset;
   if (config_.model() == VLP32C) {
     t = base_time + time_offset;
@@ -75,7 +72,6 @@ AINFO<<"(DMCZP) EnteringMethod: Velodyne32Parser::GetTimestamp";
 
 void Velodyne32Parser::UnpackVLP32C(const VelodynePacket& pkt,
                                     std::shared_ptr<PointCloud> pc) {
-AINFO<<"(DMCZP) EnteringMethod: Velodyne32Parser::UnpackVLP32C";
   const RawPacket* raw = (const RawPacket*)pkt.data().c_str();
   double basetime = raw->gps_timestamp;  // usec
   float azimuth = 0.0f;
@@ -148,7 +144,6 @@ AINFO<<"(DMCZP) EnteringMethod: Velodyne32Parser::UnpackVLP32C";
 
 void Velodyne32Parser::Unpack(const VelodynePacket& pkt,
                               std::shared_ptr<PointCloud> pc) {
-AINFO<<"(DMCZP) EnteringMethod: Velodyne32Parser::Unpack";
   // const RawPacket* raw = (const RawPacket*)&pkt.data[0];
   const RawPacket* raw = (const RawPacket*)pkt.data().c_str();
   double basetime = raw->gps_timestamp;  // usec
@@ -201,7 +196,6 @@ AINFO<<"(DMCZP) EnteringMethod: Velodyne32Parser::Unpack";
 }
 
 void Velodyne32Parser::Order(std::shared_ptr<PointCloud> cloud) {
-AINFO<<"(DMCZP) EnteringMethod: Velodyne32Parser::Order";
   if (config_.model() == VLP32C) {
     return;
   }

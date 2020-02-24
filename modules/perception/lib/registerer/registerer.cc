@@ -21,7 +21,6 @@ namespace perception {
 namespace lib {
 
 BaseClassMap &GlobalFactoryMap() {
-AINFO<<"(DMCZP) EnteringMethod: &GlobalFactoryMap";
   static BaseClassMap factory_map;
   return factory_map;
 }
@@ -29,7 +28,6 @@ AINFO<<"(DMCZP) EnteringMethod: &GlobalFactoryMap";
 bool GetRegisteredClasses(
     const std::string &base_class_name,
     std::vector<std::string> *registered_derived_classes_names) {
-AINFO<<"(DMCZP) EnteringMethod: GetRegisteredClasses";
   CHECK_NOTNULL(registered_derived_classes_names);
   BaseClassMap &map = GlobalFactoryMap();
   auto iter = map.find(base_class_name);

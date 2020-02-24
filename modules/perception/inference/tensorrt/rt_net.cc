@@ -41,8 +41,6 @@ namespace inference {
 void RTNet::ConstructMap(const LayerParameter &layer_param,
                          nvinfer1::ILayer *layer, TensorMap *tensor_map,
                          TensorModifyMap *tensor_modify_map) {
-AINFO<<"(DMCZP) EnteringMethod: RTNet::ConstructMap";
-AINFO<<"(DMCZP) EnteringMethod: RTNet::addConvLayer";
   for (int i = 0; i < layer_param.top_size(); i++) {
     std::string top_name = layer_param.top(i);
     TensorModifyMap::iterator it;
@@ -123,9 +121,6 @@ void RTNet::addDeconvLayer(const LayerParameter &layer_param,
                            nvinfer1::INetworkDefinition *net,
                            TensorMap *tensor_map,
                            TensorModifyMap *tensor_modify_map) {
-AINFO<<"(DMCZP) EnteringMethod: RTNet::addDeconvLayer";
-AINFO<<"(DMCZP) EnteringMethod: RTNet::addActiveLayer";
-AINFO<<"(DMCZP) EnteringMethod: RTNet::addConcatLayer";
 
   AINFO << "(pengzi)RTNet::addDeconvLayer. thread:" << std::this_thread::get_id(); 
 
@@ -133,7 +128,6 @@ AINFO<<"(DMCZP) EnteringMethod: RTNet::addConcatLayer";
   ConvParam param;
   ParserConvParam(conv, &param);
   nvinfer1::IDeconvolutionLayer *deconvLayer = nullptr;
-AINFO<<"(DMCZP) EnteringMethod: RTNet::addArgmaxLayer";
   if ((*weight_map)[layer_param.name().c_str()].size() == 2) {
     deconvLayer =
         net->addDeconvolution(*inputs[0], conv.num_output(),
@@ -214,16 +208,10 @@ void RTNet::addPoolingLayer(const LayerParameter &layer_param,
                             nvinfer1::INetworkDefinition *net,
                             TensorMap *tensor_map,
                             TensorModifyMap *tensor_modify_map) {
-AINFO<<"(DMCZP) EnteringMethod: RTNet::addPoolingLayer";
   PoolingParameter pool = layer_param.pooling_param();
   nvinfer1::PoolingType pool_type =
       (pool.pool() == PoolingParameter_PoolMethod_MAX)
           ? nvinfer1::PoolingType::kMAX
-AINFO<<"(DMCZP) EnteringMethod: RTNet::addSoftmaxLayer";
-AINFO<<"(DMCZP) EnteringMethod: RTNet::addEltwiseLayer";
-AINFO<<"(DMCZP) EnteringMethod: RTNet::addPermuteLayer";
-AINFO<<"(DMCZP) EnteringMethod: RTNet::addReshapeLayer";
-AINFO<<"(DMCZP) EnteringMethod: RTNet::addPaddingLayer";
           : nvinfer1::PoolingType::kAVERAGE;
   CHECK(modify_pool_param(&pool));
   nvinfer1::IPoolingLayer *poolLayer = net->addPooling(
@@ -242,9 +230,7 @@ void RTNet::addSliceLayer(const LayerParameter &layer_param,
                           nvinfer1::INetworkDefinition *net,
                           TensorMap *tensor_map,
                           TensorModifyMap *tensor_modify_map) {
-AINFO<<"(DMCZP) EnteringMethod: RTNet::addSliceLayer";
   CHECK_GT(layer_param.slice_param().axis(), 0);
-AINFO<<"(DMCZP) EnteringMethod: RTNet::addScaleLayer";
   std::shared_ptr<SLICEPlugin> slice_plugin;
   slice_plugin.reset(
       new SLICEPlugin(layer_param.slice_param(), inputs[0]->getDimensions()));
@@ -261,7 +247,6 @@ void RTNet::addInnerproductLayer(const LayerParameter &layer_param,
                                  nvinfer1::INetworkDefinition *net,
                                  TensorMap *tensor_map,
                                  TensorModifyMap *tensor_modify_map) {
-AINFO<<"(DMCZP) EnteringMethod: RTNet::addInnerproductLayer";
   InnerProductParameter fc = layer_param.inner_product_param();
   nvinfer1::Weights bias{nvinfer1::DataType::kFLOAT, nullptr, 0};
   if ((*weight_map)[layer_param.name().c_str()].size() == 2) {
@@ -310,7 +295,6 @@ void RTNet::addBatchnormLayer(const LayerParameter &layer_param,
                               nvinfer1::INetworkDefinition *net,
                               TensorMap *tensor_map,
                               TensorModifyMap *tensor_modify_map) {
-AINFO<<"(DMCZP) EnteringMethod: RTNet::addBatchnormLayer";
   BatchNormParameter param = layer_param.batch_norm_param();
   nvinfer1::Weights power{nvinfer1::DataType::kFLOAT, nullptr, 0};
   // shift scale power
@@ -430,7 +414,6 @@ void RTNet::addLayer(const LayerParameter &layer_param,
                      WeightMap *weight_map, nvinfer1::INetworkDefinition *net,
                      TensorMap *tensor_map,
                      TensorModifyMap *tensor_modify_map) {
-AINFO<<"(DMCZP) EnteringMethod: RTNet::addLayer";
 
    AINFO<<"(pengzi) in method: RTNet::addLayer(const LayerParameter &layer_param,
                      nvinfer1::ITensor *const *inputs, int nbInputs,
@@ -491,7 +474,6 @@ AINFO<<"(DMCZP) EnteringMethod: RTNet::addLayer";
   }
 }
 bool RTNet::loadWeights(const std::string &model_file, WeightMap *weight_map) {
-AINFO<<"(DMCZP) EnteringMethod: RTNet::loadWeights";
   NetParameter net;
   if (!ReadProtoFromBinaryFile(model_file.c_str(), &net)) {
     AFATAL << "open file " << model_file << " failed";
@@ -517,7 +499,6 @@ AINFO<<"(DMCZP) EnteringMethod: RTNet::loadWeights";
   return true;
 }
 void RTNet::mergeBN(int index, LayerParameter *layer_param) {
-AINFO<<"(DMCZP) EnteringMethod: RTNet::mergeBN";
   auto blob = (layer_param->mutable_blobs(index));
   CHECK_EQ(blob->double_data_size(), 0);
   CHECK_EQ(blob->double_diff_size(), 0);
@@ -544,7 +525,6 @@ AINFO<<"(DMCZP) EnteringMethod: RTNet::mergeBN";
   }
 }
 nvinfer1::Weights RTNet::loadLayerWeights(const float *data, int size) {
-AINFO<<"(DMCZP) EnteringMethod: RTNet::loadLayerWeights";
   nvinfer1::Weights wt{nvinfer1::DataType::kFLOAT, nullptr, 0};
   std::shared_ptr<float> val;
   val.reset(new float[size]);
@@ -557,7 +537,6 @@ AINFO<<"(DMCZP) EnteringMethod: RTNet::loadLayerWeights";
   return wt;
 }
 nvinfer1::Weights RTNet::loadLayerWeights(float data, int size) {
-AINFO<<"(DMCZP) EnteringMethod: RTNet::loadLayerWeights";
   nvinfer1::Weights wt{nvinfer1::DataType::kFLOAT, nullptr, 0};
   std::shared_ptr<float> val;
   val.reset(new float[size]);
@@ -574,9 +553,6 @@ RTNet::RTNet(const std::string &net_file, const std::string &model_file,
              const std::vector<std::string> &outputs,
              const std::vector<std::string> &inputs)
     : output_names_(outputs), input_names_(inputs) {
-AINFO<<"(DMCZP) EnteringMethod: RTNet::RTNet";
-AINFO<<"(DMCZP) EnteringMethod: RTNet::RTNet";
-AINFO<<"(DMCZP) EnteringMethod: RTNet::RTNet";
   loadWeights(model_file, &weight_map_);
   net_param_.reset(new NetParameter);
   loadNetParams(net_file, net_param_.get());
@@ -608,7 +584,6 @@ RTNet::RTNet(const std::string &net_file, const std::string &model_file,
 }
 
 bool RTNet::shape(const std::string &name, std::vector<int> *res) {
-AINFO<<"(DMCZP) EnteringMethod: RTNet::shape";
   auto engine = &(context_->getEngine());
   if (tensor_modify_map_.find(name) == tensor_modify_map_.end()) {
     AINFO << "can't get the shape of " << name;
@@ -628,7 +603,6 @@ AINFO<<"(DMCZP) EnteringMethod: RTNet::shape";
   return true;
 }
 void RTNet::init_blob(std::vector<std::string> *names) {
-AINFO<<"(DMCZP) EnteringMethod: RTNet::init_blob";
   auto engine = &(context_->getEngine());
 
   for (auto name : *names) {
@@ -650,7 +624,6 @@ AINFO<<"(DMCZP) EnteringMethod: RTNet::init_blob";
 }
 
 bool RTNet::Init(const std::map<std::string, std::vector<int>> &shapes) {
-AINFO<<"(DMCZP) EnteringMethod: RTNet::Init";
   if (gpu_id_ < 0) {
     AINFO << "must use gpu mode";
     return false;
@@ -686,7 +659,6 @@ AINFO<<"(DMCZP) EnteringMethod: RTNet::Init";
 }
 bool RTNet::checkInt8(const std::string &gpu_name,
                       nvinfer1::IInt8Calibrator *calibrator) {
-AINFO<<"(DMCZP) EnteringMethod: RTNet::checkInt8";
   if (calibrator == nullptr) {
     AINFO << "Device Works on FP32 Mode.";
     return false;
@@ -704,7 +676,6 @@ AINFO<<"(DMCZP) EnteringMethod: RTNet::checkInt8";
 bool RTNet::addInput(const TensorDimsMap &tensor_dims_map,
                      const std::map<std::string, std::vector<int>> &shapes,
                      TensorMap *tensor_map) {
-AINFO<<"(DMCZP) EnteringMethod: RTNet::addInput";
   CHECK_GT(net_param_->layer_size(), 0);
   input_names_.clear();
   for (auto dims_pair : tensor_dims_map) {
@@ -729,7 +700,6 @@ AINFO<<"(DMCZP) EnteringMethod: RTNet::addInput";
 
 void RTNet::parse_with_api(
     const std::map<std::string, std::vector<int>> &shapes) {
-AINFO<<"(DMCZP) EnteringMethod: RTNet::parse_with_api";
   CHECK_GT(net_param_->layer_size(), 0);
   std::vector<LayerParameter> order;
   TensorMap tensor_map;
@@ -777,7 +747,6 @@ RTNet::~RTNet() {
 }
 
 void RTNet::Infer() {
-AINFO<<"(DMCZP) EnteringMethod: RTNet::Infer";
   AINFO << "(pengzi)begin RT net infer. thread:" << std::this_thread::get_id();
 
   BASE_CUDA_CHECK(cudaSetDevice(gpu_id_));

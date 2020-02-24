@@ -43,14 +43,12 @@ SpeedLimitDecider::SpeedLimitDecider(const SpeedBoundsDeciderConfig& config,
       reference_line_(reference_line),
       path_data_(path_data),
       vehicle_param_(common::VehicleConfigHelper::GetConfig().vehicle_param()) {
-AINFO<<"(DMCZP) EnteringMethod: SpeedLimitDecider::SpeedLimitDecider";
 }
 
 // TODO(all): remove the code; use kappa from path point directly.
 void SpeedLimitDecider::GetAvgKappa(
     const std::vector<common::PathPoint>& path_points,
     std::vector<double>* kappa) const {
-AINFO<<"(DMCZP) EnteringMethod: SpeedLimitDecider::GetAvgKappa";
   CHECK_NOTNULL(kappa);
   const int kHalfNumPoints = speed_bounds_config_.num_points_to_avg_kappa() / 2;
   CHECK_GT(kHalfNumPoints, 0);
@@ -83,7 +81,6 @@ AINFO<<"(DMCZP) EnteringMethod: SpeedLimitDecider::GetAvgKappa";
 Status SpeedLimitDecider::GetSpeedLimits(
     const IndexedList<std::string, Obstacle>& obstacles,
     SpeedLimit* const speed_limit_data) const {
-AINFO<<"(DMCZP) EnteringMethod: SpeedLimitDecider::GetSpeedLimits";
   CHECK_NOTNULL(speed_limit_data);
 
   std::vector<double> avg_kappa;
@@ -218,7 +215,6 @@ AINFO<<"(DMCZP) EnteringMethod: SpeedLimitDecider::GetSpeedLimits";
 }
 
 double SpeedLimitDecider::GetCentricAccLimit(const double kappa) const {
-AINFO<<"(DMCZP) EnteringMethod: SpeedLimitDecider::GetCentricAccLimit";
   // this function uses a linear model with upper and lower bound to determine
   // centric acceleration limit
 

@@ -28,7 +28,6 @@ namespace perception {
 namespace lidar {
 
 TEST(LidarDummyAlgorithmTest, lidar_dummy_algorithm_test) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   {
     std::string name = "DummyClassifier";
     // BaseClassifier* classifier

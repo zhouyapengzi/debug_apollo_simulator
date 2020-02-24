@@ -28,7 +28,6 @@ using apollo::perception::PerceptionObstacles;
 using grpc::Status;
 
 GrpcServerImpl::GrpcServerImpl() : node_(cyber::CreateNode("v2x_grpc_server")) {
-AINFO<<"(DMCZP) EnteringMethod: GrpcServerImpl::GrpcServerImpl";
   CHECK(node_) << "Create v2x grpc server node failed";
   first_flag_writer_ =
       node_->CreateWriter<StatusResponse>("/apollo/v2x/inner/sync_flag");
@@ -40,7 +39,6 @@ AINFO<<"(DMCZP) EnteringMethod: GrpcServerImpl::GrpcServerImpl";
 grpc::Status GrpcServerImpl::SendPerceptionObstacles(
     grpc::ServerContext* /* context */, const PerceptionObstacles* request,
     StatusResponse* response) {
-AINFO<<"(DMCZP) EnteringMethod: GrpcServerImpl::SendPerceptionObstacles";
   ADEBUG << "Received SendPerceptionObstacles request from client! \n";
   if (request->perception_obstacle_size() == 0) {
     response->set_status(false);
@@ -66,7 +64,6 @@ AINFO<<"(DMCZP) EnteringMethod: GrpcServerImpl::SendPerceptionObstacles";
 grpc::Status GrpcServerImpl::SendV2xTrafficLight(
     grpc::ServerContext* /* context */,
     const IntersectionTrafficLightData* request, StatusResponse* response) {
-AINFO<<"(DMCZP) EnteringMethod: GrpcServerImpl::SendV2xTrafficLight";
   ADEBUG << "Received SendV2xTrafficLight request from client! \n";
   if (request->current_lane_trafficlight().single_traffic_light_size() == 0) {
     response->set_status(false);
@@ -102,8 +99,6 @@ AINFO<<"(DMCZP) EnteringMethod: GrpcServerImpl::SendV2xTrafficLight";
 
 void GrpcServerImpl::GetMsgFromGrpc(
     const std::shared_ptr<PerceptionObstacles>& ptr) {
-AINFO<<"(DMCZP) EnteringMethod: GrpcServerImpl::GetMsgFromGrpc";
-AINFO<<"(DMCZP) EnteringMethod: GrpcServerImpl::GetMsgFromGrpc";
   if (latest_obstacles_.perception_obstacle_size() == 0) {
     AERROR << "GetMsgFromGrpc PerceptionObstacles is invalid";
     return;

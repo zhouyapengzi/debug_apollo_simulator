@@ -22,7 +22,6 @@ namespace perception {
 namespace base {
 
 TEST(DistortionModelTest, omnidirectional_model_get_set_test) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   OmnidirectionalCameraDistortionModel distortion_model;
   EXPECT_EQ(distortion_model.name(), "OmnidirectionalCameraDistortionModel");
 
@@ -89,7 +88,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST";
 }
 
 TEST(DistortionModelTest, distortion_model_project_test) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   OmnidirectionalCameraDistortionModel distortion_model;
   EXPECT_EQ(distortion_model.name(), "OmnidirectionalCameraDistortionModel");
 

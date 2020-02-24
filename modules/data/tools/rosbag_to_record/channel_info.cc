@@ -26,7 +26,6 @@ static const char* empty_str_ = "";
 }  // namespace
 
 ChannelInfo::ChannelInfo() { InitChannels(); }
-AINFO<<"(DMCZP) EnteringMethod: ChannelInfo::ChannelInfo";
 
 ChannelInfo::~ChannelInfo() {
   channel_msg_type_.clear();
@@ -34,7 +33,6 @@ ChannelInfo::~ChannelInfo() {
 }
 
 const std::string ChannelInfo::GetMessageType(const std::string& channel_name) {
-AINFO<<"(DMCZP) EnteringMethod: ChannelInfo::GetMessageType";
   auto search = channel_msg_type_.find(channel_name);
   if (search != channel_msg_type_.end()) {
     return search->second;
@@ -43,7 +41,6 @@ AINFO<<"(DMCZP) EnteringMethod: ChannelInfo::GetMessageType";
 }
 
 const std::string ChannelInfo::GetProtoDesc(const std::string& channel_name) {
-AINFO<<"(DMCZP) EnteringMethod: ChannelInfo::GetProtoDesc";
   auto search = channel_proto_desc_.find(channel_name);
   if (search != channel_proto_desc_.end()) {
     return search->second;
@@ -56,7 +53,6 @@ const std::vector<std::string>& ChannelInfo::GetSupportChannels() {
 }
 
 void ChannelInfo::InitChannels() {
-AINFO<<"(DMCZP) EnteringMethod: ChannelInfo::InitChannels";
   InitChannelInfo<apollo::perception::PerceptionObstacles>(
       "/apollo/perception/obstacles", "apollo.perception.PerceptionObstacles");
   InitChannelInfo<apollo::planning::ADCTrajectory>(

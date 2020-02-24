@@ -36,13 +36,11 @@ using apollo::common::Status;
 using apollo::common::VehicleConfigHelper;
 
 PathDecider::PathDecider(const TaskConfig &config) : Task(config) {
-AINFO<<"(DMCZP) EnteringMethod: PathDecider::PathDecider";
   SetName("PathDecider");
 }
 
 Status PathDecider::Execute(Frame *frame,
                             ReferenceLineInfo *reference_line_info) {
-AINFO<<"(DMCZP) EnteringMethod: PathDecider::Execute";
   Task::Execute(frame, reference_line_info);
   return Process(reference_line_info, reference_line_info->path_data(),
                  reference_line_info->path_decision());
@@ -51,7 +49,6 @@ AINFO<<"(DMCZP) EnteringMethod: PathDecider::Execute";
 Status PathDecider::Process(const ReferenceLineInfo *reference_line_info,
                             const PathData &path_data,
                             PathDecision *const path_decision) {
-AINFO<<"(DMCZP) EnteringMethod: PathDecider::Process";
   CHECK_NOTNULL(path_decision);
   std::string blocking_obstacle_id =
       reference_line_info->GetBlockingObstacleId();
@@ -65,7 +62,6 @@ AINFO<<"(DMCZP) EnteringMethod: PathDecider::Process";
 bool PathDecider::MakeObjectDecision(const PathData &path_data,
                                      const std::string &blocking_obstacle_id,
                                      PathDecision *const path_decision) {
-AINFO<<"(DMCZP) EnteringMethod: PathDecider::MakeObjectDecision";
   DCHECK_NOTNULL(path_decision);
   if (!MakeStaticObstacleDecision(path_data, blocking_obstacle_id,
                                   path_decision)) {
@@ -81,7 +77,6 @@ AINFO<<"(DMCZP) EnteringMethod: PathDecider::MakeObjectDecision";
 bool PathDecider::MakeStaticObstacleDecision(
     const PathData &path_data, const std::string &blocking_obstacle_id,
     PathDecision *const path_decision) {
-AINFO<<"(DMCZP) EnteringMethod: PathDecider::MakeStaticObstacleDecision";
   // Sanity checks and get important values.
   DCHECK_NOTNULL(path_decision);
   const auto &frenet_path = path_data.frenet_frame_path();
@@ -202,7 +197,6 @@ AINFO<<"(DMCZP) EnteringMethod: PathDecider::MakeStaticObstacleDecision";
 
 ObjectStop PathDecider::GenerateObjectStopDecision(
     const Obstacle &obstacle) const {
-AINFO<<"(DMCZP) EnteringMethod: PathDecider::GenerateObjectStopDecision";
   ObjectStop object_stop;
 
   double stop_distance = obstacle.MinRadiusStopDistance(

@@ -25,7 +25,6 @@
 #include "modules/canbus/proto/chassis.pb.h"
 
 bool send(const std::string &remote_ip, uint16_t remote_port) {
-AINFO<<"(DMCZP) EnteringMethod: send";
   for (int i = 0; i < 100; i++) {
     auto pb_msg = std::make_shared<apollo::canbus::Chassis>();
     pb_msg->set_engine_started(true);
@@ -66,7 +65,6 @@ AINFO<<"(DMCZP) EnteringMethod: send";
 }
 
 int main(int argc, char *argv[]) {
-AINFO<<"(DMCZP) EnteringMethod: main";
   send("127.0.0.1", 8900);
   return 0;
 }

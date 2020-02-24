@@ -28,26 +28,21 @@ const int32_t Horncmd78::ID = 0x78;
 
 // public
 Horncmd78::Horncmd78() { Reset(); }
-AINFO<<"(DMCZP) EnteringMethod: Horncmd78::Horncmd78";
 
 uint32_t Horncmd78::GetPeriod() const {
-AINFO<<"(DMCZP) EnteringMethod: Horncmd78::GetPeriod";
   // TODO(QiL) :modify every protocol's period manually
   static const uint32_t PERIOD = 20 * 1000;
   return PERIOD;
 }
 
 void Horncmd78::UpdateData(uint8_t* data) { set_p_horn_cmd(data, horn_cmd_); }
-AINFO<<"(DMCZP) EnteringMethod: Horncmd78::UpdateData";
 
 void Horncmd78::Reset() {
-AINFO<<"(DMCZP) EnteringMethod: Horncmd78::Reset";
   // TODO(QiL) :you should check this manually
   horn_cmd_ = Horn_cmd_78::HORN_CMD_OFF;
 }
 
 Horncmd78* Horncmd78::set_horn_cmd(Horn_cmd_78::Horn_cmdType horn_cmd) {
-AINFO<<"(DMCZP) EnteringMethod: Horncmd78::set_horn_cmd";
   horn_cmd_ = horn_cmd;
   return this;
 }
@@ -58,7 +53,6 @@ AINFO<<"(DMCZP) EnteringMethod: Horncmd78::set_horn_cmd";
 // 'motorola', 'physical_unit': ''}
 void Horncmd78::set_p_horn_cmd(uint8_t* data,
                                Horn_cmd_78::Horn_cmdType horn_cmd) {
-AINFO<<"(DMCZP) EnteringMethod: Horncmd78::set_p_horn_cmd";
   uint8_t x = horn_cmd;
 
   Byte to_set(data + 0);

@@ -23,24 +23,20 @@ namespace cyber {
 namespace record {
 
 PlayTaskBuffer::PlayTaskBuffer() {}
-AINFO<<"(DMCZP) EnteringMethod: PlayTaskBuffer::PlayTaskBuffer";
 
 PlayTaskBuffer::~PlayTaskBuffer() { tasks_.clear(); }
 
 size_t PlayTaskBuffer::Size() const {
-AINFO<<"(DMCZP) EnteringMethod: PlayTaskBuffer::Size";
   std::lock_guard<std::mutex> lck(mutex_);
   return tasks_.size();
 }
 
 bool PlayTaskBuffer::Empty() const {
-AINFO<<"(DMCZP) EnteringMethod: PlayTaskBuffer::Empty";
   std::lock_guard<std::mutex> lck(mutex_);
   return tasks_.empty();
 }
 
 void PlayTaskBuffer::Push(const TaskPtr& task) {
-AINFO<<"(DMCZP) EnteringMethod: PlayTaskBuffer::Push";
   if (task == nullptr) {
     return;
   }
@@ -49,7 +45,6 @@ AINFO<<"(DMCZP) EnteringMethod: PlayTaskBuffer::Push";
 }
 
 PlayTaskBuffer::TaskPtr PlayTaskBuffer::Front() {
-AINFO<<"(DMCZP) EnteringMethod: PlayTaskBuffer::Front";
   std::lock_guard<std::mutex> lck(mutex_);
   if (tasks_.empty()) {
     return nullptr;
@@ -59,7 +54,6 @@ AINFO<<"(DMCZP) EnteringMethod: PlayTaskBuffer::Front";
 }
 
 void PlayTaskBuffer::PopFront() {
-AINFO<<"(DMCZP) EnteringMethod: PlayTaskBuffer::PopFront";
   std::lock_guard<std::mutex> lck(mutex_);
   if (!tasks_.empty()) {
     tasks_.erase(tasks_.begin());

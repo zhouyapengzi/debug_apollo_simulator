@@ -28,12 +28,10 @@ namespace wey {
 using ::apollo::drivers::canbus::Byte;
 
 Vinresp2392::Vinresp2392() {}
-AINFO<<"(DMCZP) EnteringMethod: Vinresp2392::Vinresp2392";
 const int32_t Vinresp2392::ID = 0x392;
 
 void Vinresp2392::Parse(const std::uint8_t* bytes, int32_t length,
                         ChassisDetail* chassis) const {
-AINFO<<"(DMCZP) EnteringMethod: Vinresp2392::Parse";
   chassis->mutable_wey()->mutable_vin_resp2_392()->set_vin15(
       vin15(bytes, length));
   chassis->mutable_wey()->mutable_vin_resp2_392()->set_vin14(
@@ -56,7 +54,6 @@ AINFO<<"(DMCZP) EnteringMethod: Vinresp2392::Parse";
 // 'is_signed_var': False, 'physical_range': '[0|255]', 'bit': 7, 'type':'int',
 // 'order': 'motorola', 'physical_unit': ''}
 int Vinresp2392::vin15(const std::uint8_t* bytes, int32_t length) const {
-AINFO<<"(DMCZP) EnteringMethod: Vinresp2392::vin15";
   Byte t0(bytes + 0);
   int32_t x = t0.get_byte(0, 8);
 
@@ -68,7 +65,6 @@ AINFO<<"(DMCZP) EnteringMethod: Vinresp2392::vin15";
 // 'is_signed_var': False, 'physical_range': '[0|255]', 'bit': 15,
 // 'type': 'int', 'order': 'motorola', 'physical_unit': ''}
 int Vinresp2392::vin14(const std::uint8_t* bytes, int32_t length) const {
-AINFO<<"(DMCZP) EnteringMethod: Vinresp2392::vin14";
   Byte t0(bytes + 1);
   int32_t x = t0.get_byte(0, 8);
 
@@ -80,7 +76,6 @@ AINFO<<"(DMCZP) EnteringMethod: Vinresp2392::vin14";
 // 'is_signed_var': False, 'physical_range': '[0|255]', 'bit': 23,
 // 'type': 'int', 'order': 'motorola', 'physical_unit': ''}
 int Vinresp2392::vin13(const std::uint8_t* bytes, int32_t length) const {
-AINFO<<"(DMCZP) EnteringMethod: Vinresp2392::vin13";
   Byte t0(bytes + 2);
   int32_t x = t0.get_byte(0, 8);
 
@@ -92,7 +87,6 @@ AINFO<<"(DMCZP) EnteringMethod: Vinresp2392::vin13";
 // 'is_signed_var': False, 'physical_range': '[0|255]', 'bit': 31,
 // 'type': 'int', 'order': 'motorola', 'physical_unit': ''}
 int Vinresp2392::vin12(const std::uint8_t* bytes, int32_t length) const {
-AINFO<<"(DMCZP) EnteringMethod: Vinresp2392::vin12";
   Byte t0(bytes + 3);
   int32_t x = t0.get_byte(0, 8);
 
@@ -104,7 +98,6 @@ AINFO<<"(DMCZP) EnteringMethod: Vinresp2392::vin12";
 // 'is_signed_var': False, 'physical_range': '[0|255]', 'bit': 39,
 // 'type': 'int', 'order': 'motorola', 'physical_unit': ''}
 int Vinresp2392::vin11(const std::uint8_t* bytes, int32_t length) const {
-AINFO<<"(DMCZP) EnteringMethod: Vinresp2392::vin11";
   Byte t0(bytes + 4);
   int32_t x = t0.get_byte(0, 8);
 
@@ -116,7 +109,6 @@ AINFO<<"(DMCZP) EnteringMethod: Vinresp2392::vin11";
 // 'is_signed_var': False, 'physical_range': '[0|255]', 'bit': 47,
 // 'type': 'int', 'order': 'motorola', 'physical_unit': ''}
 int Vinresp2392::vin10(const std::uint8_t* bytes, int32_t length) const {
-AINFO<<"(DMCZP) EnteringMethod: Vinresp2392::vin10";
   Byte t0(bytes + 5);
   int32_t x = t0.get_byte(0, 8);
 
@@ -128,7 +120,6 @@ AINFO<<"(DMCZP) EnteringMethod: Vinresp2392::vin10";
 // 'is_signed_var': False, 'physical_range': '[0|255]', 'bit': 55,
 // 'type': 'int', 'order': 'motorola', 'physical_unit': ''}
 int Vinresp2392::vin09(const std::uint8_t* bytes, int32_t length) const {
-AINFO<<"(DMCZP) EnteringMethod: Vinresp2392::vin09";
   Byte t0(bytes + 6);
   int32_t x = t0.get_byte(0, 8);
 
@@ -140,7 +131,6 @@ AINFO<<"(DMCZP) EnteringMethod: Vinresp2392::vin09";
 // 'is_signed_var': False, 'physical_range': '[0|255]', 'bit': 63,
 // 'type': 'int', 'order': 'motorola', 'physical_unit': ''}
 int Vinresp2392::vin08(const std::uint8_t* bytes, int32_t length) const {
-AINFO<<"(DMCZP) EnteringMethod: Vinresp2392::vin08";
   Byte t0(bytes + 7);
   int32_t x = t0.get_byte(0, 8);
 

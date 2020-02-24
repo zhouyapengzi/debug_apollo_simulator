@@ -28,25 +28,18 @@ namespace planning {
 using apollo::common::util::StringPrintf;
 
 STPoint::STPoint(const double s, const double t) : Vec2d(t, s) {}
-AINFO<<"(DMCZP) EnteringMethod: STPoint::STPoint";
 
 STPoint::STPoint(const common::math::Vec2d& vec2d_point) : Vec2d(vec2d_point) {}
-AINFO<<"(DMCZP) EnteringMethod: STPoint::STPoint";
 
 double STPoint::s() const { return y_; }
-AINFO<<"(DMCZP) EnteringMethod: STPoint::s";
 
 double STPoint::t() const { return x_; }
-AINFO<<"(DMCZP) EnteringMethod: STPoint::t";
 
 void STPoint::set_s(const double s) { y_ = s; }
-AINFO<<"(DMCZP) EnteringMethod: STPoint::set_s";
 
 void STPoint::set_t(const double t) { x_ = t; }
-AINFO<<"(DMCZP) EnteringMethod: STPoint::set_t";
 
 std::string STPoint::DebugString() const {
-AINFO<<"(DMCZP) EnteringMethod: STPoint::DebugString";
   return StringPrintf("{ \"s\" : %.6f, \"t\" : %.6f }", s(), t());
 }
 

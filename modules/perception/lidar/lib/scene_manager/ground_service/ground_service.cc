@@ -29,7 +29,6 @@ namespace lidar {
 using cyber::common::GetAbsolutePath;
 
 void GroundServiceContent::GetCopy(SceneServiceContent* content) const {
-AINFO<<"(DMCZP) EnteringMethod: GroundServiceContent::GetCopy";
   GroundServiceContent* ground_content =
       dynamic_cast<GroundServiceContent*>(content);
   if (ground_content == nullptr) {
@@ -49,7 +48,6 @@ AINFO<<"(DMCZP) EnteringMethod: GroundServiceContent::GetCopy";
 }
 
 void GroundServiceContent::SetContent(const SceneServiceContent& content) {
-AINFO<<"(DMCZP) EnteringMethod: GroundServiceContent::SetContent";
   const GroundServiceContent* ground_content =
       dynamic_cast<const GroundServiceContent*>(&content);
   if (ground_content == nullptr) {
@@ -70,13 +68,11 @@ AINFO<<"(DMCZP) EnteringMethod: GroundServiceContent::SetContent";
 }
 
 uint32_t inline GetIndex(uint32_t r, uint32_t c, uint32_t cols) {
-AINFO<<"(DMCZP) EnteringMethod: GetIndex";
   return (r * cols + c);
 }
 
 bool GroundServiceContent::PointToGrid(const Eigen::Vector3d& world_point,
                                        uint32_t* grid_index) const {
-AINFO<<"(DMCZP) EnteringMethod: GroundServiceContent::PointToGrid";
   double x = world_point(0) - grid_center_(0);
   double y = world_point(1) - grid_center_(1);
   if (x < bound_x_min_ || x > bound_x_max_ || y < bound_y_min_ ||
@@ -94,7 +90,6 @@ AINFO<<"(DMCZP) EnteringMethod: GroundServiceContent::PointToGrid";
 
 float GroundServiceContent::PointToPlaneDistance(
     const Eigen::Vector3d& world_point) const {
-AINFO<<"(DMCZP) EnteringMethod: GroundServiceContent::PointToPlaneDistance";
   uint32_t grid_index = 0;
   if (!PointToGrid(world_point, &grid_index)) {
     return std::numeric_limits<float>::max();
@@ -121,7 +116,6 @@ AINFO<<"(DMCZP) EnteringMethod: GroundServiceContent::PointToPlaneDistance";
 
 bool GroundServiceContent::Init(double roi_x, double roi_y, uint32_t rows,
                                 uint32_t cols) {
-AINFO<<"(DMCZP) EnteringMethod: GroundServiceContent::Init";
   bound_x_min_ = -roi_x;
   bound_y_min_ = -roi_y;
   bound_x_max_ = roi_x;
@@ -138,7 +132,6 @@ AINFO<<"(DMCZP) EnteringMethod: GroundServiceContent::Init";
 }
 
 bool GroundService::Init(const SceneServiceInitOptions& options) {
-AINFO<<"(DMCZP) EnteringMethod: GroundService::Init";
   self_content_.reset(new GroundServiceContent);
   ground_content_ref_ =
       dynamic_cast<GroundServiceContent*>(self_content_.get());
@@ -174,8 +167,6 @@ AINFO<<"(DMCZP) EnteringMethod: GroundService::Init";
 
 float GroundService::QueryPointToGroundDistance(
     const Eigen::Vector3d& world_point) {
-AINFO<<"(DMCZP) EnteringMethod: GroundService::QueryPointToGroundDistance";
-AINFO<<"(DMCZP) EnteringMethod: GroundService::QueryPointToGroundDistance";
   std::lock_guard<std::mutex> lock(mutex_);
   float distance =
       QueryPointToGroundDistance(world_point, *ground_content_ref_);

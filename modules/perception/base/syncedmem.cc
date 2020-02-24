@@ -63,8 +63,6 @@ license and copyright terms herein.
 #include "modules/perception/base/syncedmem.h"
 
 namespace apollo {
-AINFO<<"(DMCZP) EnteringMethod: Copyright";
-AINFO<<"(DMCZP) EnteringMethod: Copyright";
 namespace perception {
 namespace base {
 
@@ -77,8 +75,6 @@ SyncedMemory::SyncedMemory(bool use_cuda)
       cpu_malloc_use_cuda_(use_cuda),
       own_gpu_data_(false),
       device_(-1) {
-AINFO<<"(DMCZP) EnteringMethod: SyncedMemory::SyncedMemory";
-AINFO<<"(DMCZP) EnteringMethod: SyncedMemory::SyncedMemory";
 #ifndef PERCEPTION_CPU_ONLY
 #ifdef PERCEPTION_DEBUG
   BASE_CUDA_CHECK(cudaGetDevice(&device_));
@@ -116,7 +112,6 @@ SyncedMemory::~SyncedMemory() {
 }
 
 inline void SyncedMemory::to_cpu() {
-AINFO<<"(DMCZP) EnteringMethod: SyncedMemory::to_cpu";
   check_device();
   switch (head_) {
     case UNINITIALIZED:
@@ -148,7 +143,6 @@ AINFO<<"(DMCZP) EnteringMethod: SyncedMemory::to_cpu";
 }
 
 inline void SyncedMemory::to_gpu() {
-AINFO<<"(DMCZP) EnteringMethod: SyncedMemory::to_gpu";
   check_device();
 #ifndef PERCEPTION_CPU_ONLY
   switch (head_) {
@@ -176,14 +170,12 @@ AINFO<<"(DMCZP) EnteringMethod: SyncedMemory::to_gpu";
 }
 
 const void* SyncedMemory::cpu_data() {
-AINFO<<"(DMCZP) EnteringMethod: SyncedMemory::cpu_data";
   check_device();
   to_cpu();
   return (const void*)cpu_ptr_;
 }
 
 void SyncedMemory::set_cpu_data(void* data) {
-AINFO<<"(DMCZP) EnteringMethod: SyncedMemory::set_cpu_data";
   check_device();
   CHECK(data);
   if (own_cpu_data_) {
@@ -195,7 +187,6 @@ AINFO<<"(DMCZP) EnteringMethod: SyncedMemory::set_cpu_data";
 }
 
 const void* SyncedMemory::gpu_data() {
-AINFO<<"(DMCZP) EnteringMethod: SyncedMemory::gpu_data";
   check_device();
 #ifndef PERCEPTION_CPU_ONLY
   to_gpu();
@@ -207,7 +198,6 @@ AINFO<<"(DMCZP) EnteringMethod: SyncedMemory::gpu_data";
 }
 
 void SyncedMemory::set_gpu_data(void* data) {
-AINFO<<"(DMCZP) EnteringMethod: SyncedMemory::set_gpu_data";
   check_device();
 #ifndef PERCEPTION_CPU_ONLY
   CHECK(data);
@@ -223,7 +213,6 @@ AINFO<<"(DMCZP) EnteringMethod: SyncedMemory::set_gpu_data";
 }
 
 void* SyncedMemory::mutable_cpu_data() {
-AINFO<<"(DMCZP) EnteringMethod: SyncedMemory::mutable_cpu_data";
   check_device();
   to_cpu();
   head_ = HEAD_AT_CPU;
@@ -231,7 +220,6 @@ AINFO<<"(DMCZP) EnteringMethod: SyncedMemory::mutable_cpu_data";
 }
 
 void* SyncedMemory::mutable_gpu_data() {
-AINFO<<"(DMCZP) EnteringMethod: SyncedMemory::mutable_gpu_data";
   check_device();
 #ifndef PERCEPTION_CPU_ONLY
   to_gpu();
@@ -245,7 +233,6 @@ AINFO<<"(DMCZP) EnteringMethod: SyncedMemory::mutable_gpu_data";
 
 #ifndef PERCEPTION_CPU_ONLY
 void SyncedMemory::async_gpu_push(const cudaStream_t& stream) {
-AINFO<<"(DMCZP) EnteringMethod: SyncedMemory::async_gpu_push";
   check_device();
   CHECK_EQ(head_, HEAD_AT_CPU);
   if (gpu_ptr_ == nullptr) {
@@ -260,7 +247,6 @@ AINFO<<"(DMCZP) EnteringMethod: SyncedMemory::async_gpu_push";
 #endif
 
 void SyncedMemory::check_device() {
-AINFO<<"(DMCZP) EnteringMethod: SyncedMemory::check_device";
 #ifndef PERCEPTION_CPU_ONLY
 #ifdef PERCEPTION_DEBUG
   int device;

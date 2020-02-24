@@ -34,7 +34,6 @@ class MonitorTest : public MonitorLogger {
 };
 
 TEST(MonitorTest, Publish) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   MonitorTest monitor(MonitorMessageItem::CONTROL);
   //  std::vector<std::pair<MonitorMessageItem::LogLevel, std::string>> items{
   //      {MonitorMessageItem::INFO, "info message"},

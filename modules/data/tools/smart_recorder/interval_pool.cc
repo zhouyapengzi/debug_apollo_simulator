@@ -24,10 +24,8 @@ namespace apollo {
 namespace data {
 
 IntervalPool::IntervalPool() {}
-AINFO<<"(DMCZP) EnteringMethod: IntervalPool::IntervalPool";
 
 void IntervalPool::AddInterval(const Interval& interval) {
-AINFO<<"(DMCZP) EnteringMethod: IntervalPool::AddInterval";
   if (pool_.empty() || interval.begin_time > pool_iter_->end_time) {
     pool_.push_back(interval);
     pool_iter_ = std::prev(pool_.end());
@@ -40,7 +38,6 @@ AINFO<<"(DMCZP) EnteringMethod: IntervalPool::AddInterval";
 
 void IntervalPool::AddInterval(const uint64_t begin_time,
                                const uint64_t end_time) {
-AINFO<<"(DMCZP) EnteringMethod: IntervalPool::AddInterval";
   struct Interval interval;
   interval.begin_time = begin_time;
   interval.end_time = end_time;
@@ -48,7 +45,6 @@ AINFO<<"(DMCZP) EnteringMethod: IntervalPool::AddInterval";
 }
 
 void IntervalPool::ReorgIntervals() {
-AINFO<<"(DMCZP) EnteringMethod: IntervalPool::ReorgIntervals";
   // Sort the intervals by begin_time ascending
   std::sort(pool_.begin(), pool_.end(),
             [](const Interval& x, const Interval& y) {
@@ -59,7 +55,6 @@ AINFO<<"(DMCZP) EnteringMethod: IntervalPool::ReorgIntervals";
 }
 
 bool IntervalPool::MessageFallIntoRange(const uint64_t msg_time) {
-AINFO<<"(DMCZP) EnteringMethod: IntervalPool::MessageFallIntoRange";
   // For each message comes for checking, the logic is:
   // 1. Add end_time of any intervals whose begin_time is smaller
   //    than message time to the helper set
@@ -78,14 +73,12 @@ AINFO<<"(DMCZP) EnteringMethod: IntervalPool::MessageFallIntoRange";
 }
 
 void IntervalPool::Reset() {
-AINFO<<"(DMCZP) EnteringMethod: IntervalPool::Reset";
   pool_.clear();
   pool_iter_ = pool_.begin();
   accu_end_values_.clear();
 }
 
 void IntervalPool::PrintIntervals() const {
-AINFO<<"(DMCZP) EnteringMethod: IntervalPool::PrintIntervals";
   auto idx = 0;
   for (const auto& interval : pool_) {
     AINFO << "Interval " << ++idx << ": " << interval.begin_time << " - "
@@ -94,7 +87,6 @@ AINFO<<"(DMCZP) EnteringMethod: IntervalPool::PrintIntervals";
 }
 
 Interval IntervalPool::GetNextInterval() const {
-AINFO<<"(DMCZP) EnteringMethod: IntervalPool::GetNextInterval";
   if (pool_.empty()) {
     struct Interval interval;
     interval.begin_time = 0;

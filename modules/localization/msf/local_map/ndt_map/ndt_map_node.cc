@@ -22,14 +22,12 @@ namespace localization {
 namespace msf {
 
 NdtMapNode::NdtMapNode() : BaseMapNode(new NdtMapMatrix(), new ZlibStrategy()) {
-AINFO<<"(DMCZP) EnteringMethod: NdtMapNode::NdtMapNode";
   num_valid_cells_ = 0;
   num_valid_single_cells_ = 0;
 }
 NdtMapNode::~NdtMapNode() {}
 Eigen::Vector3d NdtMapNode::GetCoordinate3D(unsigned int x, unsigned int y,
                                             int altitude_index) const {
-AINFO<<"(DMCZP) EnteringMethod: NdtMapNode::GetCoordinate3D";
   const Eigen::Vector2d& left_top_corner = GetLeftTopCorner();
   Eigen::Vector2d coord_2d;
   coord_2d[0] =
@@ -50,7 +48,6 @@ AINFO<<"(DMCZP) EnteringMethod: NdtMapNode::GetCoordinate3D";
 Eigen::Vector3d NdtMapNode::GetCoordinateCenter3D(unsigned int x,
                                                   unsigned int y,
                                                   int altitude_index) const {
-AINFO<<"(DMCZP) EnteringMethod: NdtMapNode::GetCoordinateCenter3D";
   const Eigen::Vector2d& left_top_corner = GetLeftTopCorner();
   Eigen::Vector2d coord_2d;
   coord_2d[0] =
@@ -69,7 +66,6 @@ AINFO<<"(DMCZP) EnteringMethod: NdtMapNode::GetCoordinateCenter3D";
 }
 
 void NdtMapNode::Reduce(NdtMapNode* map_node, const NdtMapNode& map_node_new) {
-AINFO<<"(DMCZP) EnteringMethod: NdtMapNode::Reduce";
   assert(map_node->index_.m_ == map_node_new.index_.m_);
   assert(map_node->index_.n_ == map_node_new.index_.n_);
   assert(map_node->index_.resolution_id_ == map_node_new.index_.resolution_id_);

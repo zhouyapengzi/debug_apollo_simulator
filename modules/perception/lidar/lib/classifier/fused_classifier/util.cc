@@ -24,7 +24,6 @@ namespace util {
 using apollo::perception::base::ObjectType;
 
 void FromStdToVector(const std::vector<float>& src_prob, Vectord* dst_prob) {
-AINFO<<"(DMCZP) EnteringMethod: FromStdToVector";
   (*dst_prob)(0) = src_prob[0];
   for (size_t i = 3; i < static_cast<size_t>(ObjectType::MAX_OBJECT_TYPE);
        ++i) {
@@ -33,7 +32,6 @@ AINFO<<"(DMCZP) EnteringMethod: FromStdToVector";
 }
 
 void FromEigenToVector(const Vectord& src_prob, std::vector<float>* dst_prob) {
-AINFO<<"(DMCZP) EnteringMethod: FromEigenToVector";
   dst_prob->assign(static_cast<int>(ObjectType::MAX_OBJECT_TYPE), 0);
   dst_prob->at(0) = static_cast<float>(src_prob(0));
   for (size_t i = 3; i < static_cast<size_t>(ObjectType::MAX_OBJECT_TYPE);
@@ -43,21 +41,18 @@ AINFO<<"(DMCZP) EnteringMethod: FromEigenToVector";
 }
 
 void ToLog(Vectord* prob) {
-AINFO<<"(DMCZP) EnteringMethod: ToLog";
   for (size_t i = 0; i < VALID_OBJECT_TYPE; ++i) {
     (*prob)(i) = log((*prob)(i));
   }
 }
 
 void ToExp(Vectord* prob) {
-AINFO<<"(DMCZP) EnteringMethod: ToExp";
   for (size_t i = 0; i < VALID_OBJECT_TYPE; ++i) {
     (*prob)(i) = exp((*prob)(i));
   }
 }
 
 void ToExpStable(Vectord* prob) {
-AINFO<<"(DMCZP) EnteringMethod: ToExpStable";
   double min_value = prob->minCoeff();
   for (size_t i = 0; i < VALID_OBJECT_TYPE; ++i) {
     (*prob)(i) = exp((*prob)(i)-min_value);
@@ -65,14 +60,12 @@ AINFO<<"(DMCZP) EnteringMethod: ToExpStable";
 }
 
 void Normalize(Vectord* prob) {
-AINFO<<"(DMCZP) EnteringMethod: Normalize";
   double sum = prob->sum();
   sum = sum < 1e-9 ? 1e-9 : sum;
   *prob /= sum;
 }
 
 void NormalizeRow(Matrixd* prob) {
-AINFO<<"(DMCZP) EnteringMethod: NormalizeRow";
   double sum = 0.0;
   for (size_t row = 0; row < VALID_OBJECT_TYPE; ++row) {
     sum = 0.0;
@@ -87,7 +80,6 @@ AINFO<<"(DMCZP) EnteringMethod: NormalizeRow";
 }
 
 bool LoadSingleMatrix(std::ifstream& fin, Matrixd* matrix) {
-AINFO<<"(DMCZP) EnteringMethod: LoadSingleMatrix";
   for (size_t row = 0; row < VALID_OBJECT_TYPE; ++row) {
     for (size_t col = 0; col < VALID_OBJECT_TYPE; ++col) {
       fin >> (*matrix)(row, col);
@@ -97,7 +89,6 @@ AINFO<<"(DMCZP) EnteringMethod: LoadSingleMatrix";
 }
 
 bool LoadSingleMatrixFile(const std::string& filename, Matrixd* matrix) {
-AINFO<<"(DMCZP) EnteringMethod: LoadSingleMatrixFile";
   if (matrix == nullptr) {
     return false;
   }
@@ -113,7 +104,6 @@ AINFO<<"(DMCZP) EnteringMethod: LoadSingleMatrixFile";
 
 bool LoadMultipleMatricesFile(const std::string& filename,
                               std::map<std::string, Matrixd>* matrices) {
-AINFO<<"(DMCZP) EnteringMethod: LoadMultipleMatricesFile";
   if (matrices == nullptr) {
     return false;
   }

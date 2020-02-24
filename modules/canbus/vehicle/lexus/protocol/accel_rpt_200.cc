@@ -28,12 +28,10 @@ namespace lexus {
 using ::apollo::drivers::canbus::Byte;
 
 Accelrpt200::Accelrpt200() {}
-AINFO<<"(DMCZP) EnteringMethod: Accelrpt200::Accelrpt200";
 const int32_t Accelrpt200::ID = 0x200;
 
 void Accelrpt200::Parse(const std::uint8_t* bytes, int32_t length,
                         ChassisDetail* chassis) const {
-AINFO<<"(DMCZP) EnteringMethod: Accelrpt200::Parse";
   chassis->mutable_lexus()->mutable_accel_rpt_200()->set_vehicle_fault(
       vehicle_fault(bytes, length));
   chassis->mutable_lexus()->mutable_accel_rpt_200()->set_pacmod_fault(
@@ -61,7 +59,6 @@ AINFO<<"(DMCZP) EnteringMethod: Accelrpt200::Parse";
 // 'type': 'bool', 'order': 'motorola', 'physical_unit': ''}
 bool Accelrpt200::vehicle_fault(const std::uint8_t* bytes,
                                 int32_t length) const {
-AINFO<<"(DMCZP) EnteringMethod: Accelrpt200::vehicle_fault";
   Byte t0(bytes + 0);
   int32_t x = t0.get_byte(6, 1);
 
@@ -74,7 +71,6 @@ AINFO<<"(DMCZP) EnteringMethod: Accelrpt200::vehicle_fault";
 // 'type': 'bool', 'order': 'motorola', 'physical_unit': ''}
 bool Accelrpt200::pacmod_fault(const std::uint8_t* bytes,
                                int32_t length) const {
-AINFO<<"(DMCZP) EnteringMethod: Accelrpt200::pacmod_fault";
   Byte t0(bytes + 0);
   int32_t x = t0.get_byte(5, 1);
 
@@ -87,7 +83,6 @@ AINFO<<"(DMCZP) EnteringMethod: Accelrpt200::pacmod_fault";
 // '[0|1]', 'bit': 4, 'type': 'bool', 'order': 'motorola', 'physical_unit': ''}
 bool Accelrpt200::output_reported_fault(const std::uint8_t* bytes,
                                         int32_t length) const {
-AINFO<<"(DMCZP) EnteringMethod: Accelrpt200::output_reported_fault";
   Byte t0(bytes + 0);
   int32_t x = t0.get_byte(4, 1);
 
@@ -100,7 +95,6 @@ AINFO<<"(DMCZP) EnteringMethod: Accelrpt200::output_reported_fault";
 // '[0|1]', 'bit': 3, 'type': 'bool', 'order': 'motorola', 'physical_unit': ''}
 bool Accelrpt200::input_output_fault(const std::uint8_t* bytes,
                                      int32_t length) const {
-AINFO<<"(DMCZP) EnteringMethod: Accelrpt200::input_output_fault";
   Byte t0(bytes + 0);
   int32_t x = t0.get_byte(3, 1);
 
@@ -113,7 +107,6 @@ AINFO<<"(DMCZP) EnteringMethod: Accelrpt200::input_output_fault";
 // '[0|1]', 'bit': 2, 'type': 'bool', 'order': 'motorola', 'physical_unit': ''}
 bool Accelrpt200::command_output_fault(const std::uint8_t* bytes,
                                        int32_t length) const {
-AINFO<<"(DMCZP) EnteringMethod: Accelrpt200::command_output_fault";
   Byte t0(bytes + 0);
   int32_t x = t0.get_byte(2, 1);
 
@@ -126,7 +119,6 @@ AINFO<<"(DMCZP) EnteringMethod: Accelrpt200::command_output_fault";
 // 'type': 'bool', 'order': 'motorola', 'physical_unit': ''}
 bool Accelrpt200::override_active(const std::uint8_t* bytes,
                                   int32_t length) const {
-AINFO<<"(DMCZP) EnteringMethod: Accelrpt200::override_active";
   Byte t0(bytes + 0);
   int32_t x = t0.get_byte(1, 1);
 
@@ -138,7 +130,6 @@ AINFO<<"(DMCZP) EnteringMethod: Accelrpt200::override_active";
 // 'is_signed_var': False, 'physical_range': '[0|1]', 'bit': 0, 'type': 'bool',
 // 'order': 'motorola', 'physical_unit': ''}
 bool Accelrpt200::enabled(const std::uint8_t* bytes, int32_t length) const {
-AINFO<<"(DMCZP) EnteringMethod: Accelrpt200::enabled";
   Byte t0(bytes + 0);
   int32_t x = t0.get_byte(0, 1);
 
@@ -151,9 +142,7 @@ AINFO<<"(DMCZP) EnteringMethod: Accelrpt200::enabled";
 // 'type': 'double', 'order': 'motorola', 'physical_unit': ''}
 double Accelrpt200::manual_input(const std::uint8_t* bytes,
                                  int32_t length) const {
-AINFO<<"(DMCZP) EnteringMethod: Accelrpt200::manual_input";
   Byte t0(bytes + 1);
-AINFO<<"(DMCZP) EnteringMethod: Accelrpt200::output_value";
   int32_t x = t0.get_byte(0, 8);
 
   Byte t1(bytes + 2);
@@ -170,7 +159,6 @@ AINFO<<"(DMCZP) EnteringMethod: Accelrpt200::output_value";
 // 'type': 'double', 'order': 'motorola', 'physical_unit': ''}
 double Accelrpt200::commanded_value(const std::uint8_t* bytes,
                                     int32_t length) const {
-AINFO<<"(DMCZP) EnteringMethod: Accelrpt200::commanded_value";
   Byte t0(bytes + 3);
   int32_t x = t0.get_byte(0, 8);
 

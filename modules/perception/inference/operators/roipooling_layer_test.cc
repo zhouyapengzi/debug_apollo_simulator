@@ -21,7 +21,6 @@
 #include "gtest/gtest.h"
 
 TEST(ROIPoolFloorTest, test) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   int pooled_h = 7;
   int pooled_w = 7;
   bool use_floor = true;
@@ -93,7 +92,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST";
   ASSERT_EQ(top->cpu_data()[195], 0);
 }
 TEST(ROIPoolRoundTest, test) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   int pooled_h = 7;
   int pooled_w = 7;
   bool use_floor = false;

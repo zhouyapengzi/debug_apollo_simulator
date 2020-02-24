@@ -26,12 +26,10 @@ namespace ch {
 using ::apollo::drivers::canbus::Byte;
 
 Throttlestatus510::Throttlestatus510() {}
-AINFO<<"(DMCZP) EnteringMethod: Throttlestatus510::Throttlestatus510";
 const int32_t Throttlestatus510::ID = 0x510;
 
 void Throttlestatus510::Parse(const std::uint8_t* bytes, int32_t length,
                               ChassisDetail* chassis) const {
-AINFO<<"(DMCZP) EnteringMethod: Throttlestatus510::Parse";
   chassis->mutable_ch()
       ->mutable_throttle_status__510()
       ->set_throttle_pedal_en_sts(throttle_pedal_en_sts(bytes, length));
@@ -49,7 +47,6 @@ AINFO<<"(DMCZP) EnteringMethod: Throttlestatus510::Parse";
 Throttle_status__510::Throttle_pedal_en_stsType
 Throttlestatus510::throttle_pedal_en_sts(const std::uint8_t* bytes,
                                          int32_t length) const {
-AINFO<<"(DMCZP) EnteringMethod: Throttlestatus510::throttle_pedal_en_sts";
   Byte t0(bytes + 0);
   int32_t x = t0.get_byte(0, 8);
 
@@ -64,7 +61,6 @@ AINFO<<"(DMCZP) EnteringMethod: Throttlestatus510::throttle_pedal_en_sts";
 // 'order': 'intel', 'physical_unit': '%'}
 int Throttlestatus510::throttle_pedal_sts(const std::uint8_t* bytes,
                                           int32_t length) const {
-AINFO<<"(DMCZP) EnteringMethod: Throttlestatus510::throttle_pedal_sts";
   Byte t0(bytes + 1);
   int32_t x = t0.get_byte(0, 8);
 

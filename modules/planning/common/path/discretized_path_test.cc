@@ -28,7 +28,6 @@ using apollo::common::PathPoint;
 using apollo::common::util::MakePathPoint;
 
 TEST(DiscretizedPathTest, basic_test) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   PathPoint p1 = MakePathPoint(0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0);
   p1.set_s(0.0);
   PathPoint p2 = MakePathPoint(1.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0);
@@ -70,7 +69,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST";
 }
 
 TEST(DiscretizedPathTest, reverse_case) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   PathPoint p1 = MakePathPoint(0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0);
   p1.set_s(0.0);
   PathPoint p2 = MakePathPoint(1.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0);

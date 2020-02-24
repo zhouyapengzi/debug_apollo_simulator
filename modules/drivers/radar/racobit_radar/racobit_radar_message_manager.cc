@@ -40,7 +40,6 @@ namespace racobit_radar {
 RacobitRadarMessageManager::RacobitRadarMessageManager(
     std::shared_ptr<cyber::Writer<RacobitRadar>> writer)
     : writer_(std::move(writer)) {
-AINFO<<"(DMCZP) EnteringMethod: RacobitRadarMessageManager::RacobitRadarMessageManager";
   AddRecvProtocolData<RadarState201, true>();
   AddRecvProtocolData<ClusterListStatus600, true>();
   AddRecvProtocolData<ClusterGeneralInfo701, true>();
@@ -52,13 +51,11 @@ AINFO<<"(DMCZP) EnteringMethod: RacobitRadarMessageManager::RacobitRadarMessageM
 }
 
 void RacobitRadarMessageManager::set_radar_conf(RadarConf radar_conf) {
-AINFO<<"(DMCZP) EnteringMethod: RacobitRadarMessageManager::set_radar_conf";
   radar_config_.set_radar_conf(radar_conf);
 }
 
 void RacobitRadarMessageManager::set_can_client(
     std::shared_ptr<CanClient> can_client) {
-AINFO<<"(DMCZP) EnteringMethod: RacobitRadarMessageManager::set_can_client";
   can_client_ = can_client;
 }
 
@@ -77,7 +74,6 @@ ProtocolData<RacobitRadar>
 
 void RacobitRadarMessageManager::Parse(const uint32_t message_id,
                                        const uint8_t *data, int32_t length) {
-AINFO<<"(DMCZP) EnteringMethod: RacobitRadarMessageManager::Parse";
   ProtocolData<RacobitRadar> *sensor_protocol_data =
       GetMutableProtocolDataById(message_id);
   if (sensor_protocol_data == nullptr) {

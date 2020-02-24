@@ -56,19 +56,6 @@ DEFINE_string(image_color, "bgr", "color space of image");
 
 int read_detections(const std::string &path, const int &feature_dim,
                     const std::string &camera_name, CameraFrame *frame) {
-AINFO<<"(DMCZP) EnteringMethod: DEFINE_string";
-AINFO<<"(DMCZP) EnteringMethod: DEFINE_int32";
-AINFO<<"(DMCZP) EnteringMethod: DEFINE_string";
-AINFO<<"(DMCZP) EnteringMethod: DEFINE_string";
-AINFO<<"(DMCZP) EnteringMethod: DEFINE_string";
-AINFO<<"(DMCZP) EnteringMethod: DEFINE_int32";
-AINFO<<"(DMCZP) EnteringMethod: DEFINE_string";
-AINFO<<"(DMCZP) EnteringMethod: DEFINE_string";
-AINFO<<"(DMCZP) EnteringMethod: DEFINE_string";
-AINFO<<"(DMCZP) EnteringMethod: DEFINE_double";
-AINFO<<"(DMCZP) EnteringMethod: DEFINE_string";
-AINFO<<"(DMCZP) EnteringMethod: DEFINE_string";
-AINFO<<"(DMCZP) EnteringMethod: read_detections";
   const TemplateMap &kMinTemplateHWL =
       ObjectTemplateManager::Instance()->MinTemplateHWL();
 
@@ -117,7 +104,6 @@ AINFO<<"(DMCZP) EnteringMethod: read_detections";
 
 int write_track_imgs(const std::string &out_path, const cv::Mat &frame,
                      const std::vector<base::ObjectPtr> &tracked_objects) {
-AINFO<<"(DMCZP) EnteringMethod: write_track_imgs";
   cv::Mat image_mat_src = frame.clone();
   for (auto &visual_object : tracked_objects) {
     cv::Rect rect(visual_object->camera_supplement.box.xmin,
@@ -142,7 +128,6 @@ AINFO<<"(DMCZP) EnteringMethod: write_track_imgs";
 // @description: load camera extrinsics from yaml file
 bool LoadExtrinsics(const std::string &yaml_file,
                     Eigen::Matrix4d *camera_extrinsic) {
-AINFO<<"(DMCZP) EnteringMethod: LoadExtrinsics";
   if (!apollo::cyber::common::PathExists(yaml_file)) {
     AINFO << yaml_file << " not exist!";
     return false;
@@ -200,7 +185,6 @@ bool GetProjectMatrix(
     const std::map<std::string, Eigen::Matrix4d> &extrinsic_map,
     const std::map<std::string, Eigen::Matrix3f> &intrinsic_map,
     Eigen::Matrix3d *project_matrix, double *pitch_diff = nullptr) {
-AINFO<<"(DMCZP) EnteringMethod: GetProjectMatrix";
   std::string base_camera_name = FLAGS_base_camera_name;
   if (camera_name == base_camera_name) {
     *project_matrix = Eigen::Matrix3d::Identity();
@@ -229,7 +213,6 @@ AINFO<<"(DMCZP) EnteringMethod: GetProjectMatrix";
 // intrinsic_parm_ is a protected filed, cannot get directly
 bool LoadCameraIntrinsics(const std::string &yaml_file,
                           Eigen::Matrix3f *camera_intrinsic) {
-AINFO<<"(DMCZP) EnteringMethod: LoadCameraIntrinsics";
   if (!apollo::cyber::common::PathExists(yaml_file)) {
     AINFO << yaml_file << " not exist!";
     return false;
@@ -252,7 +235,6 @@ AINFO<<"(DMCZP) EnteringMethod: LoadCameraIntrinsics";
 }
 
 TEST(FusionObstacleTrackerTest, FusionObstacleTracker_test) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   // Init object template
   ObjectTemplateManagerInitOptions object_template_init_options;
   object_template_init_options.root_dir =

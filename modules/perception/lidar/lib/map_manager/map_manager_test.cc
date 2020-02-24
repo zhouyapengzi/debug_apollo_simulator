@@ -25,7 +25,6 @@ namespace perception {
 namespace lidar {
 
 TEST(LidarLibMapManagerTest, lidar_map_manager_empty_test) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   char cyber_path[100] = "CYBER_PATH=";
   putenv(cyber_path);
   char module_path[100] = "MODULE_PATH=";
@@ -42,7 +41,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST";
 }
 
 TEST(LidarLibMapManagerTest, lidar_map_manager_test) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   char cyber_path[100] = "CYBER_PATH=";
   putenv(cyber_path);
   char module_path[100] = "MODULE_PATH=";

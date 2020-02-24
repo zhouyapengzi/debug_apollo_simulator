@@ -27,7 +27,6 @@ class Torquecontrola3Test : public ::testing::Test {
 };
 
 TEST_F(Torquecontrola3Test, reset) {
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   uint8_t data[8] = {0x67, 0x62, 0x63, 0x64, 0x51, 0x52, 0x53, 0x54};
   Torquecontrola3 torque;
   EXPECT_EQ(torque.GetPeriod(), 20 * 1000);

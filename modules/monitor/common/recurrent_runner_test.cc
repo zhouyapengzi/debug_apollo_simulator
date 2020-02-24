@@ -33,7 +33,6 @@ class DummyRecurrentRunner : public RecurrentRunner {
 };
 
 TEST(RecurrentRunnerTest, Tick) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   DummyRecurrentRunner runner(1);
   EXPECT_EQ(0, runner.GetRoundCount());
 

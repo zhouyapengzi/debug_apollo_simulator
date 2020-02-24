@@ -34,7 +34,6 @@ using apollo::data::RecordProcessor;
 using apollo::data::SmartRecordTrigger;
 
 int main(int argc, char** argv) {
-AINFO<<"(DMCZP) EnteringMethod: main";
   google::ParseCommandLineFlags(&argc, &argv, true);
   if (FLAGS_restored_output_dir.empty()) {
     FLAGS_restored_output_dir = StrCat(FLAGS_source_records_dir, "_restored");

@@ -26,7 +26,6 @@ namespace service_discovery {
 
 SubscriberListener::SubscriberListener(const NewMsgCallback& callback)
     : callback_(callback) {}
-AINFO<<"(DMCZP) EnteringMethod: SubscriberListener::SubscriberListener";
 
 SubscriberListener::~SubscriberListener() {
   std::lock_guard<std::mutex> lck(mutex_);
@@ -34,7 +33,6 @@ SubscriberListener::~SubscriberListener() {
 }
 
 void SubscriberListener::onNewDataMessage(eprosima::fastrtps::Subscriber* sub) {
-AINFO<<"(DMCZP) EnteringMethod: SubscriberListener::onNewDataMessage";
   RETURN_IF_NULL(callback_);
 
   std::lock_guard<std::mutex> lock(mutex_);
@@ -49,7 +47,6 @@ AINFO<<"(DMCZP) EnteringMethod: SubscriberListener::onNewDataMessage";
 void SubscriberListener::onSubscriptionMatched(
     eprosima::fastrtps::Subscriber* sub,
     eprosima::fastrtps::MatchingInfo& info) {
-AINFO<<"(DMCZP) EnteringMethod: SubscriberListener::onSubscriptionMatched";
   (void)sub;
   (void)info;
 }

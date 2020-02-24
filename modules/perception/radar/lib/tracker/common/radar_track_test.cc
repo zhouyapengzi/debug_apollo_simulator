@@ -25,7 +25,6 @@ namespace perception {
 
 namespace radar {
 TEST(RadarTrackTest, radar_track_test) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   int tracked_times_threshold = 1;
   RadarTrack::SetTrackedTimesThreshold(tracked_times_threshold);
   std::string chosen_filter = "AdaptiveKalmanFilter";
@@ -71,7 +70,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST";
 }
 
 TEST(RadarTrackTest, radar_track_function_test) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   base::ObjectPtr object(new base::Object);
   object->track_id = 100;
   object->center << 10.0, 20.0, 0.0;

@@ -31,7 +31,6 @@ namespace apollo {
 namespace planning {
 
 TEST(EgoInfoTest, EgoInfoSimpleTest) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   const auto p =
       common::util::MakePathPoint(1.23, 3.23, 52.18, 0.1, 0.3, 0.32, 0.4);
   common::TrajectoryPoint tp;

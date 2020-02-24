@@ -33,7 +33,6 @@ constexpr double MinHalfFrameRatio = 12.5;
 }
 
 Screen* Screen::Instance(void) {
-AINFO<<"(DMCZP) EnteringMethod: Screen::Instance";
   static Screen s;
   return &s;
 }
@@ -80,7 +79,6 @@ Screen::Screen()
       current_state_(State::RenderMessage),
       highlight_direction_(0),
       current_render_obj_(nullptr) {}
-AINFO<<"(DMCZP) EnteringMethod: Screen::Screen";
 
 Screen::~Screen() {
   current_render_obj_ = nullptr;
@@ -88,10 +86,8 @@ Screen::~Screen() {
 }
 
 inline bool Screen::IsInit(void) const { return (stdscr != nullptr); }
-AINFO<<"(DMCZP) EnteringMethod: Screen::IsInit";
 
 void Screen::Init(void) {
-AINFO<<"(DMCZP) EnteringMethod: Screen::Init";
   initscr();
   if (stdscr == nullptr) return;
 
@@ -119,13 +115,10 @@ AINFO<<"(DMCZP) EnteringMethod: Screen::Init";
 }
 
 int Screen::Width(void) const { return COLS; }
-AINFO<<"(DMCZP) EnteringMethod: Screen::Width";
 
 int Screen::Height(void) const { return LINES; }
-AINFO<<"(DMCZP) EnteringMethod: Screen::Height";
 
 void Screen::SetCurrentColor(ColorPair color) const {
-AINFO<<"(DMCZP) EnteringMethod: Screen::SetCurrentColor";
   if (color == INVALID) return;
   if (IsInit()) {
     current_color_pair_ = color;
@@ -133,21 +126,18 @@ AINFO<<"(DMCZP) EnteringMethod: Screen::SetCurrentColor";
   }
 }
 void Screen::AddStr(int x, int y, const char* str) const {
-AINFO<<"(DMCZP) EnteringMethod: Screen::AddStr";
   if (IsInit()) {
     mvaddstr(y, x, str);
   }
 }
 
 void Screen::AddStr(const char* str) const {
-AINFO<<"(DMCZP) EnteringMethod: Screen::AddStr";
   if (IsInit()) {
     addstr(str);
   }
 }
 
 void Screen::ClearCurrentColor(void) const {
-AINFO<<"(DMCZP) EnteringMethod: Screen::ClearCurrentColor";
   if (IsInit()) {
     attroff(COLOR_PAIR(current_color_pair_));
     current_color_pair_ = INVALID;
@@ -155,7 +145,6 @@ AINFO<<"(DMCZP) EnteringMethod: Screen::ClearCurrentColor";
 }
 
 void Screen::AddStr(int x, int y, ColorPair color, const char* str) const {
-AINFO<<"(DMCZP) EnteringMethod: Screen::AddStr";
   if (IsInit()) {
     attron(COLOR_PAIR(color));
     mvaddstr(y, x, str);
@@ -164,7 +153,6 @@ AINFO<<"(DMCZP) EnteringMethod: Screen::AddStr";
 }
 
 void Screen::MoveOffsetXY(int offsetX, int offsetY) const {
-AINFO<<"(DMCZP) EnteringMethod: Screen::MoveOffsetXY";
   if (IsInit()) {
     int x, y;
     getyx(stdscr, y, x);
@@ -173,7 +161,6 @@ AINFO<<"(DMCZP) EnteringMethod: Screen::MoveOffsetXY";
 }
 
 void Screen::HighlightLine(int lineNo) {
-AINFO<<"(DMCZP) EnteringMethod: Screen::HighlightLine";
   if (IsInit() && lineNo < Height()) {
     SetCurrentColor(WHITE_BLACK);
     for (int x = 0; x < Width(); ++x) {
@@ -193,7 +180,6 @@ AINFO<<"(DMCZP) EnteringMethod: Screen::HighlightLine";
 }
 
 int Screen::SwitchState(int ch) {
-AINFO<<"(DMCZP) EnteringMethod: Screen::SwitchState";
   switch (current_state_) {
     case State::RenderInterCmdInfo:
       if (KEY_BACKSPACE == ch) {
@@ -214,7 +200,6 @@ AINFO<<"(DMCZP) EnteringMethod: Screen::SwitchState";
 }
 
 void Screen::Run() {
-AINFO<<"(DMCZP) EnteringMethod: Screen::Run";
   if (stdscr == nullptr || current_render_obj_ == nullptr) {
     return;
   }
@@ -245,7 +230,6 @@ AINFO<<"(DMCZP) EnteringMethod: Screen::Run";
 }
 
 void Screen::Resize(void) {
-AINFO<<"(DMCZP) EnteringMethod: Screen::Resize";
   if (IsInit()) {
     clear();
     refresh();
@@ -253,7 +237,6 @@ AINFO<<"(DMCZP) EnteringMethod: Screen::Resize";
 }
 
 void Screen::ShowRenderMessage(int ch) {
-AINFO<<"(DMCZP) EnteringMethod: Screen::ShowRenderMessage";
   erase();
   current_render_obj_->Render(this, ch);
 
@@ -317,7 +300,6 @@ AINFO<<"(DMCZP) EnteringMethod: Screen::ShowRenderMessage";
 }
 
 void Screen::ShowInteractiveCmd(int) {
-AINFO<<"(DMCZP) EnteringMethod: Screen::ShowInteractiveCmd";
   unsigned y = 0;
 
   SetCurrentColor(Screen::WHITE_BLACK);

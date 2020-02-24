@@ -36,7 +36,6 @@ class MonitorBufferTest : public ::testing::Test {
 };
 
 TEST_F(MonitorBufferTest, RegisterMacro) {
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   {
     buffer_.INFO("Info");
     EXPECT_EQ(MonitorMessageItem::INFO, buffer_.level_);
@@ -51,7 +50,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST_F";
 }
 
 TEST_F(MonitorBufferTest, AddMonitorMsgItem) {
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   buffer_.AddMonitorMsgItem(MonitorMessageItem::ERROR, "TestError");
   EXPECT_EQ(MonitorMessageItem::ERROR, buffer_.level_);
   ASSERT_EQ(1, buffer_.monitor_msg_items_.size());

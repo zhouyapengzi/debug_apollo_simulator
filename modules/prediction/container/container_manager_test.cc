@@ -35,7 +35,6 @@ class ContainerManagerTest : public ::testing::Test {
 };
 
 TEST_F(ContainerManagerTest, GetContainer) {
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   std::string conf_file = "modules/prediction/testdata/adapter_conf.pb.txt";
   bool ret_load_conf = cyber::common::GetProtoFromFile(conf_file, &conf_);
   EXPECT_TRUE(ret_load_conf);

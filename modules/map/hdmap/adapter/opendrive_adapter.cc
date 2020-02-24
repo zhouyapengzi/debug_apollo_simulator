@@ -26,7 +26,6 @@ namespace adapter {
 
 bool OpendriveAdapter::LoadData(const std::string& filename,
                                 apollo::hdmap::Map* pb_map) {
-AINFO<<"(DMCZP) EnteringMethod: OpendriveAdapter::LoadData";
   CHECK_NOTNULL(pb_map);
 
   tinyxml2::XMLDocument document;

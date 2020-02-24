@@ -29,7 +29,6 @@ namespace cyber {
 namespace transport {
 
 TEST(IntraDispatcherTest, on_message) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   auto dispatcher = IntraDispatcher::Instance();
 
   auto send_pb_msg = std::make_shared<proto::Chatter>();

@@ -29,10 +29,8 @@ using common::math::Box2d;
 using common::math::Vec2d;
 
 ScenarioManager::ScenarioManager() {}
-AINFO<<"(DMCZP) EnteringMethod: ScenarioManager::ScenarioManager";
 
 void ScenarioManager::Run() {
-AINFO<<"(DMCZP) EnteringMethod: ScenarioManager::Run";
   auto environment_features = FeatureExtractor::ExtractEnvironmentFeatures();
 
   auto ptr_scenario_features = ScenarioAnalyzer::Analyze(environment_features);
@@ -43,7 +41,6 @@ AINFO<<"(DMCZP) EnteringMethod: ScenarioManager::Run";
 }
 
 const Scenario& ScenarioManager::scenario() const { return current_scenario_; }
-AINFO<<"(DMCZP) EnteringMethod: ScenarioManager::scenario";
 
 }  // namespace prediction
 }  // namespace apollo

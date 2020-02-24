@@ -27,7 +27,6 @@ using common::Status;
 using common::TrajectoryPoint;
 
 Status PublicRoadPlanner::Init(const PlanningConfig& config) {
-AINFO<<"(DMCZP) EnteringMethod: PublicRoadPlanner::Init";
   config_ = config;
   std::set<ScenarioConfig::ScenarioType> supported_scenarios;
   const auto& public_road_config =
@@ -46,7 +45,6 @@ AINFO<<"(DMCZP) EnteringMethod: PublicRoadPlanner::Init";
 Status PublicRoadPlanner::Plan(const TrajectoryPoint& planning_start_point,
                                Frame* frame,
                                ADCTrajectory* ptr_computed_trajectory) {
-AINFO<<"(DMCZP) EnteringMethod: PublicRoadPlanner::Plan";
   DCHECK_NOTNULL(frame);
   scenario_manager_.Update(planning_start_point, *frame);
   scenario_ = scenario_manager_.mutable_scenario();

@@ -41,7 +41,6 @@ class PullOverScenarioTest : public ::testing::Test {
 };
 
 TEST_F(PullOverScenarioTest, VerifyConf) {
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   FLAGS_scenario_pull_over_config_file =
       "/apollo/modules/planning/conf/scenario/pull_over_config.pb.txt";
 
@@ -51,7 +50,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST_F";
 }
 
 TEST_F(PullOverScenarioTest, Init) {
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   FLAGS_scenario_pull_over_config_file =
       "/apollo/modules/planning/testdata/conf/"
       "scenario/pull_over_config.pb.txt";

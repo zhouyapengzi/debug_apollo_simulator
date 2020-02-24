@@ -29,7 +29,6 @@ namespace hdmap {
 
 MapDataCheckerCyberNode::MapDataCheckerCyberNode(
     std::shared_ptr<MapDataCheckerAgent> agent, bool *init_success) {
-AINFO<<"(DMCZP) EnteringMethod: MapDataCheckerCyberNode::MapDataCheckerCyberNode";
   if (!agent) {
     AFATAL << "MapDataCheckerAgent pointer is nullptr";
     *init_success = false;
@@ -52,7 +51,6 @@ AINFO<<"(DMCZP) EnteringMethod: MapDataCheckerCyberNode::MapDataCheckerCyberNode
 }
 
 int MapDataCheckerCyberNode::CreateChannelSubscriber() {
-AINFO<<"(DMCZP) EnteringMethod: MapDataCheckerCyberNode::CreateChannelSubscriber";
   AINFO << "create bestgnsspos reader, topic: " << FLAGS_topic_bestgnsspos;
   bestgnsspos_reader_ = node_->CreateReader<GnssBestPose_t>(
       FLAGS_topic_bestgnsspos,

@@ -26,7 +26,6 @@ namespace perception {
 namespace fusion {
 
 TEST(TrackTest, test) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   FLAGS_work_root = "/apollo/modules/perception/testdata/fusion/base/";
   FLAGS_obs_sensor_meta_path = "./data/sensor_meta.pt";
   FLAGS_obs_sensor_intrinsic_path =

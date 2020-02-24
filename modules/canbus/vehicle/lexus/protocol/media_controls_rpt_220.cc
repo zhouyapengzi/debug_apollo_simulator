@@ -28,12 +28,10 @@ namespace lexus {
 using ::apollo::drivers::canbus::Byte;
 
 Mediacontrolsrpt220::Mediacontrolsrpt220() {}
-AINFO<<"(DMCZP) EnteringMethod: Mediacontrolsrpt220::Mediacontrolsrpt220";
 const int32_t Mediacontrolsrpt220::ID = 0x220;
 
 void Mediacontrolsrpt220::Parse(const std::uint8_t* bytes, int32_t length,
                                 ChassisDetail* chassis) const {
-AINFO<<"(DMCZP) EnteringMethod: Mediacontrolsrpt220::Parse";
   chassis->mutable_lexus()->mutable_media_controls_rpt_220()->set_output_value(
       output_value(bytes, length));
   chassis->mutable_lexus()
@@ -73,9 +71,7 @@ AINFO<<"(DMCZP) EnteringMethod: Mediacontrolsrpt220::Parse";
 // 31, 'type': 'enum', 'order': 'motorola', 'physical_unit': ''}
 Media_controls_rpt_220::Output_valueType Mediacontrolsrpt220::output_value(
     const std::uint8_t* bytes, int32_t length) const {
-AINFO<<"(DMCZP) EnteringMethod: Mediacontrolsrpt220::output_value";
   Byte t0(bytes + 3);
-AINFO<<"(DMCZP) EnteringMethod: Mediacontrolsrpt220::manual_input";
   int32_t x = t0.get_byte(0, 8);
 
   Media_controls_rpt_220::Output_valueType ret =
@@ -96,7 +92,6 @@ AINFO<<"(DMCZP) EnteringMethod: Mediacontrolsrpt220::manual_input";
 Media_controls_rpt_220::Commanded_valueType
 Mediacontrolsrpt220::commanded_value(const std::uint8_t* bytes,
                                      int32_t length) const {
-AINFO<<"(DMCZP) EnteringMethod: Mediacontrolsrpt220::commanded_value";
   Byte t0(bytes + 2);
   int32_t x = t0.get_byte(0, 8);
 
@@ -130,7 +125,6 @@ Media_controls_rpt_220::Manual_inputType Mediacontrolsrpt220::manual_input(
 // 'type': 'bool', 'order': 'motorola', 'physical_unit': ''}
 bool Mediacontrolsrpt220::vehicle_fault(const std::uint8_t* bytes,
                                         int32_t length) const {
-AINFO<<"(DMCZP) EnteringMethod: Mediacontrolsrpt220::vehicle_fault";
   Byte t0(bytes + 0);
   int32_t x = t0.get_byte(6, 1);
 
@@ -143,7 +137,6 @@ AINFO<<"(DMCZP) EnteringMethod: Mediacontrolsrpt220::vehicle_fault";
 // 'type': 'bool', 'order': 'motorola', 'physical_unit': ''}
 bool Mediacontrolsrpt220::pacmod_fault(const std::uint8_t* bytes,
                                        int32_t length) const {
-AINFO<<"(DMCZP) EnteringMethod: Mediacontrolsrpt220::pacmod_fault";
   Byte t0(bytes + 0);
   int32_t x = t0.get_byte(5, 1);
 
@@ -156,7 +149,6 @@ AINFO<<"(DMCZP) EnteringMethod: Mediacontrolsrpt220::pacmod_fault";
 // 'type': 'bool', 'order': 'motorola', 'physical_unit': ''}
 bool Mediacontrolsrpt220::override_active(const std::uint8_t* bytes,
                                           int32_t length) const {
-AINFO<<"(DMCZP) EnteringMethod: Mediacontrolsrpt220::override_active";
   Byte t0(bytes + 0);
   int32_t x = t0.get_byte(1, 1);
 
@@ -169,7 +161,6 @@ AINFO<<"(DMCZP) EnteringMethod: Mediacontrolsrpt220::override_active";
 // '[0|1]', 'bit': 4, 'type': 'bool', 'order': 'motorola', 'physical_unit': ''}
 bool Mediacontrolsrpt220::output_reported_fault(const std::uint8_t* bytes,
                                                 int32_t length) const {
-AINFO<<"(DMCZP) EnteringMethod: Mediacontrolsrpt220::output_reported_fault";
   Byte t0(bytes + 0);
   int32_t x = t0.get_byte(4, 1);
 
@@ -182,7 +173,6 @@ AINFO<<"(DMCZP) EnteringMethod: Mediacontrolsrpt220::output_reported_fault";
 // '[0|1]', 'bit': 3, 'type': 'bool', 'order': 'motorola', 'physical_unit': ''}
 bool Mediacontrolsrpt220::input_output_fault(const std::uint8_t* bytes,
                                              int32_t length) const {
-AINFO<<"(DMCZP) EnteringMethod: Mediacontrolsrpt220::input_output_fault";
   Byte t0(bytes + 0);
   int32_t x = t0.get_byte(3, 1);
 
@@ -195,7 +185,6 @@ AINFO<<"(DMCZP) EnteringMethod: Mediacontrolsrpt220::input_output_fault";
 // 'order': 'motorola', 'physical_unit': ''}
 bool Mediacontrolsrpt220::enabled(const std::uint8_t* bytes,
                                   int32_t length) const {
-AINFO<<"(DMCZP) EnteringMethod: Mediacontrolsrpt220::enabled";
   Byte t0(bytes + 0);
   int32_t x = t0.get_byte(0, 1);
 
@@ -208,7 +197,6 @@ AINFO<<"(DMCZP) EnteringMethod: Mediacontrolsrpt220::enabled";
 // '[0|1]', 'bit': 2, 'type': 'bool', 'order': 'motorola', 'physical_unit': ''}
 bool Mediacontrolsrpt220::command_output_fault(const std::uint8_t* bytes,
                                                int32_t length) const {
-AINFO<<"(DMCZP) EnteringMethod: Mediacontrolsrpt220::command_output_fault";
   Byte t0(bytes + 0);
   int32_t x = t0.get_byte(2, 1);
 

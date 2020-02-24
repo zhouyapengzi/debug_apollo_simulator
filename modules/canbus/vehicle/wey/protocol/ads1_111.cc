@@ -28,17 +28,14 @@ const int32_t Ads1111::ID = 0x111;
 
 // public
 Ads1111::Ads1111() { Reset(); }
-AINFO<<"(DMCZP) EnteringMethod: Ads1111::Ads1111";
 
 uint32_t Ads1111::GetPeriod() const {
-AINFO<<"(DMCZP) EnteringMethod: Ads1111::GetPeriod";
   // TODO(ChaoMa) :modify every protocol's period manually
   static const uint32_t PERIOD = 20 * 1000;
   return PERIOD;
 }
 
 void Ads1111::UpdateData(uint8_t* data) {
-AINFO<<"(DMCZP) EnteringMethod: Ads1111::UpdateData";
   set_p_ads_dectostop(data, ads_dectostop_);
   set_p_ads_mode(data, ads_mode_);
   set_p_ads_taracce(data, ads_taracce_);
@@ -48,7 +45,6 @@ AINFO<<"(DMCZP) EnteringMethod: Ads1111::UpdateData";
 }
 
 void Ads1111::Reset() {
-AINFO<<"(DMCZP) EnteringMethod: Ads1111::Reset";
   // TODO(ChaoMa) :you should check this manually
   ads_dectostop_ = Ads1_111::ADS_DECTOSTOP_NO_DEMAND;
   ads_mode_ = Ads1_111::ADS_MODE_OFF_MODE;
@@ -59,7 +55,6 @@ AINFO<<"(DMCZP) EnteringMethod: Ads1111::Reset";
 }
 
 Ads1111* Ads1111::set_ads_dectostop(Ads1_111::Ads_dectostopType ads_dectostop) {
-AINFO<<"(DMCZP) EnteringMethod: Ads1111::set_ads_dectostop";
   ads_dectostop_ = ads_dectostop;
   return this;
 }
@@ -71,7 +66,6 @@ AINFO<<"(DMCZP) EnteringMethod: Ads1111::set_ads_dectostop";
 // 'type': 'enum', 'order': 'motorola', 'physical_unit': ''}
 void Ads1111::set_p_ads_dectostop(uint8_t* data,
                                   Ads1_111::Ads_dectostopType ads_dectostop) {
-AINFO<<"(DMCZP) EnteringMethod: Ads1111::set_p_ads_dectostop";
   int x = ads_dectostop;
 
   Byte to_set(data + 2);
@@ -79,7 +73,6 @@ AINFO<<"(DMCZP) EnteringMethod: Ads1111::set_p_ads_dectostop";
 }
 
 Ads1111* Ads1111::set_ads_mode(Ads1_111::Ads_modeType ads_mode) {
-AINFO<<"(DMCZP) EnteringMethod: Ads1111::set_ads_mode";
   ads_mode_ = ads_mode;
   return this;
 }
@@ -91,7 +84,6 @@ AINFO<<"(DMCZP) EnteringMethod: Ads1111::set_ads_mode";
 // 'physical_range': '[0|31]', 'bit': 7, 'type': 'enum', 'order': 'motorola',
 // 'physical_unit': ''}
 void Ads1111::set_p_ads_mode(uint8_t* data, Ads1_111::Ads_modeType ads_mode) {
-AINFO<<"(DMCZP) EnteringMethod: Ads1111::set_p_ads_mode";
   int x = ads_mode;
 
   Byte to_set(data + 0);
@@ -99,7 +91,6 @@ AINFO<<"(DMCZP) EnteringMethod: Ads1111::set_p_ads_mode";
 }
 
 Ads1111* Ads1111::set_ads_taracce(double ads_taracce) {
-AINFO<<"(DMCZP) EnteringMethod: Ads1111::set_ads_taracce";
   ads_taracce_ = ads_taracce;
   return this;
 }
@@ -109,7 +100,6 @@ AINFO<<"(DMCZP) EnteringMethod: Ads1111::set_ads_taracce";
 // 'is_signed_var': False, 'physical_range': '[-7|5.75]', 'bit': 15, 'type':
 // 'double', 'order': 'motorola', 'physical_unit': 'm/s2'}
 void Ads1111::set_p_ads_taracce(uint8_t* data, double ads_taracce) {
-AINFO<<"(DMCZP) EnteringMethod: Ads1111::set_p_ads_taracce";
   ads_taracce = ProtocolData::BoundedValue(-7.0, 5.75, ads_taracce);
   int x = static_cast<int>((ads_taracce - -7.000000) / 0.050000);
 
@@ -119,7 +109,6 @@ AINFO<<"(DMCZP) EnteringMethod: Ads1111::set_p_ads_taracce";
 
 Ads1111* Ads1111::set_ads_driveoff_req(
     Ads1_111::Ads_driveoff_reqType ads_driveoff_req) {
-AINFO<<"(DMCZP) EnteringMethod: Ads1111::set_ads_driveoff_req";
   ads_driveoff_req_ = ads_driveoff_req;
   return this;
 }
@@ -131,7 +120,6 @@ AINFO<<"(DMCZP) EnteringMethod: Ads1111::set_ads_driveoff_req";
 // 'physical_unit': ''}
 void Ads1111::set_p_ads_driveoff_req(
     uint8_t* data, Ads1_111::Ads_driveoff_reqType ads_driveoff_req) {
-AINFO<<"(DMCZP) EnteringMethod: Ads1111::set_p_ads_driveoff_req";
   int x = ads_driveoff_req;
 
   Byte to_set(data + 0);
@@ -139,7 +127,6 @@ AINFO<<"(DMCZP) EnteringMethod: Ads1111::set_p_ads_driveoff_req";
 }
 
 Ads1111* Ads1111::set_ads_aeb_taracce(double ads_aeb_taracce) {
-AINFO<<"(DMCZP) EnteringMethod: Ads1111::set_ads_aeb_taracce";
   ads_aeb_taracce_ = ads_aeb_taracce;
   return this;
 }
@@ -149,7 +136,6 @@ AINFO<<"(DMCZP) EnteringMethod: Ads1111::set_ads_aeb_taracce";
 // 'is_signed_var': False, 'physical_range': '[-16|16]', 'bit': 39, 'type':
 // 'double', 'order': 'motorola', 'physical_unit': 'm/s2'}
 void Ads1111::set_p_ads_aeb_taracce(uint8_t* data, double ads_aeb_taracce) {
-AINFO<<"(DMCZP) EnteringMethod: Ads1111::set_p_ads_aeb_taracce";
   ads_aeb_taracce = ProtocolData::BoundedValue(-16.0, 16.0, ads_aeb_taracce);
   int x = static_cast<int>((ads_aeb_taracce - -16.000000) / 0.000488);
   uint8_t t = 0;
@@ -166,7 +152,6 @@ AINFO<<"(DMCZP) EnteringMethod: Ads1111::set_p_ads_aeb_taracce";
 
 Ads1111* Ads1111::set_ads_aeb_tgtdecel_req(
     Ads1_111::Ads_aeb_tgtdecel_reqType ads_aeb_tgtdecel_req) {
-AINFO<<"(DMCZP) EnteringMethod: Ads1111::set_ads_aeb_tgtdecel_req";
   ads_aeb_tgtdecel_req_ = ads_aeb_tgtdecel_req;
   return this;
 }
@@ -179,7 +164,6 @@ AINFO<<"(DMCZP) EnteringMethod: Ads1111::set_ads_aeb_tgtdecel_req";
 // 'physical_unit': ''}
 void Ads1111::set_p_ads_aeb_tgtdecel_req(
     uint8_t* data, Ads1_111::Ads_aeb_tgtdecel_reqType ads_aeb_tgtdecel_req) {
-AINFO<<"(DMCZP) EnteringMethod: Ads1111::set_p_ads_aeb_tgtdecel_req";
   int x = ads_aeb_tgtdecel_req;
 
   Byte to_set(data + 3);

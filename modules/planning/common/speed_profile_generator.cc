@@ -40,7 +40,6 @@ using common::math::Vec2d;
 
 SpeedData SpeedProfileGenerator::GenerateFallbackSpeed(
     const double stop_distance) {
-AINFO<<"(DMCZP) EnteringMethod: SpeedProfileGenerator::GenerateFallbackSpeed";
   AERROR << "Fallback using piecewise jerk speed!";
   const double init_v = EgoInfo::Instance()->start_point().v();
   const double init_a = EgoInfo::Instance()->start_point().a();
@@ -115,7 +114,6 @@ AINFO<<"(DMCZP) EnteringMethod: SpeedProfileGenerator::GenerateFallbackSpeed";
 }
 
 void SpeedProfileGenerator::FillEnoughSpeedPoints(SpeedData* const speed_data) {
-AINFO<<"(DMCZP) EnteringMethod: SpeedProfileGenerator::FillEnoughSpeedPoints";
   const SpeedPoint& last_point = speed_data->back();
   if (last_point.t() >= FLAGS_fallback_total_time) {
     return;
@@ -128,7 +126,6 @@ AINFO<<"(DMCZP) EnteringMethod: SpeedProfileGenerator::FillEnoughSpeedPoints";
 
 SpeedData SpeedProfileGenerator::GenerateStopProfile(const double init_speed,
                                                      const double init_acc) {
-AINFO<<"(DMCZP) EnteringMethod: SpeedProfileGenerator::GenerateStopProfile";
   AERROR << "Slowing down the car within a constant deceleration with fallback "
             "stopping profile.";
   SpeedData speed_data;
@@ -157,7 +154,6 @@ AINFO<<"(DMCZP) EnteringMethod: SpeedProfileGenerator::GenerateStopProfile";
 
 SpeedData SpeedProfileGenerator::GenerateFixedDistanceCreepProfile(
     const double distance, const double max_speed) {
-AINFO<<"(DMCZP) EnteringMethod: SpeedProfileGenerator::GenerateFixedDistanceCreepProfile";
   constexpr double kConstDeceleration = -0.8;  // (~3sec to fully stop)
   constexpr double kProceedingSpeed = 2.23;    // (5mph proceeding speed)
   const double proceeding_speed = std::fmin(max_speed, kProceedingSpeed);

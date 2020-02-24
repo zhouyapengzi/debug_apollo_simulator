@@ -19,7 +19,6 @@
 DECLARE_string(work_root);
 
 namespace apollo {
-AINFO<<"(DMCZP) EnteringMethod: DECLARE_string";
 namespace perception {
 namespace lidar {
 
@@ -41,7 +40,6 @@ class PointCloudPreprocessorTest : public testing::Test {
 };
 
 void MockPointcloud(base::PointFCloud* cloud) {
-AINFO<<"(DMCZP) EnteringMethod: MockPointcloud";
   cloud->resize(10);
   for (size_t i = 0; i < cloud->size(); ++i) {
     cloud->at(i).x = 5.f * i;
@@ -64,7 +62,6 @@ AINFO<<"(DMCZP) EnteringMethod: MockPointcloud";
 }
 #ifdef PERCEPTION_LIDAR_USE_COMMON_MESSAGE
 void MockMessage(adu::common::sensor::PointCloud* message) {
-AINFO<<"(DMCZP) EnteringMethod: MockMessage";
   message->set_measurement_time(0.0);
   for (size_t i = 0; i < 10; ++i) {
     message->add_point();
@@ -90,7 +87,6 @@ AINFO<<"(DMCZP) EnteringMethod: MockMessage";
 #endif
 
 TEST_F(PointCloudPreprocessorTest, basic_test) {
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   EXPECT_EQ(preprocessor.Name(), "PointCloudPreprocessor");
   EXPECT_TRUE(preprocessor.Init());
   PointCloudPreprocessorOptions option;

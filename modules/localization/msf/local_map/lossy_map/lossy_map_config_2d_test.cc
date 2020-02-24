@@ -24,7 +24,6 @@ namespace msf {
 
 /**@brief Test load and set methods in LossyMapConfig2D. */
 TEST(LossyMapConfig2DTestSuite, LoadSetTest) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   BaseMapConfig config("lossy_map");
   ASSERT_TRUE(
       config.Load("/apollo/modules/localization/msf/local_map/"
@@ -51,7 +50,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST";
 
 /**@brief Test save method. */
 TEST(LossyMapConfig2DTestSuite, SaveTest) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   BaseMapConfig config("lossy_map");
   ASSERT_TRUE(
       config.Load("/apollo/modules/localization/msf/local_map/"

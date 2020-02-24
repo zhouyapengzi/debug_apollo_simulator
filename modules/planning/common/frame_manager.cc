@@ -30,12 +30,10 @@ std::unique_ptr<Frame> FrameManager::CreateFrame(
 }
 
 Frame* FrameManager::GetFrame(const uint32_t sequence_num) {
-AINFO<<"(DMCZP) EnteringMethod: FrameManager::GetFrame";
   return apollo::common::util::FindLinkedPtrOrNull(frames_, sequence_num);
 }
 
 Frame* FrameManager::GetLastFrame() {
-AINFO<<"(DMCZP) EnteringMethod: FrameManager::GetLastFrame";
   if (!sequence_queue_.empty()) {
     return GetFrame(sequence_queue_.back());
   }
@@ -43,7 +41,6 @@ AINFO<<"(DMCZP) EnteringMethod: FrameManager::GetLastFrame";
 }
 
 void FrameManager::SaveFrame(std::unique_ptr<Frame>* const frame) {
-AINFO<<"(DMCZP) EnteringMethod: FrameManager::SaveFrame";
   CHECK_NOTNULL(frame);
   CHECK_NOTNULL(frame->get());
   sequence_queue_.emplace_back((*frame)->SequenceNum());
@@ -56,7 +53,6 @@ AINFO<<"(DMCZP) EnteringMethod: FrameManager::SaveFrame";
 }
 
 void FrameManager::Clear() {
-AINFO<<"(DMCZP) EnteringMethod: FrameManager::Clear";
   while (!sequence_queue_.empty()) {
     frames_.erase(sequence_queue_.front());
     sequence_queue_.pop_front();

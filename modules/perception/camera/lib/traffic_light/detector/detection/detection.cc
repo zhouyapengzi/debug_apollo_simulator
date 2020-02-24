@@ -35,7 +35,6 @@ using cyber::common::GetAbsolutePath;
 
 bool TrafficLightDetection::Init(
     const camera::TrafficLightDetectorInitOptions &options) {
-AINFO<<"(DMCZP) EnteringMethod: TrafficLightDetection::Init";
 
    AINFO<< "(pengzi) traffic light detection ini. in method: TrafficLightDetection::Init(
     const camera::TrafficLightDetectorInitOptions &options).. thread:"<<std::this_thread::get_id();
@@ -166,7 +165,6 @@ AINFO<< "(pengzi) proto_path " << proto_path<<" thread:"<<std::this_thread::get_
 
 bool TrafficLightDetection::Inference(
     std::vector<base::TrafficLightPtr> *lights, DataProvider *data_provider) {
-AINFO<<"(DMCZP) EnteringMethod: TrafficLightDetection::Inference";
 
  AINFO<< "(pengzi) traffic light detection inference. in method: TrafficLightDetection::Inference(
     std::vector<base::TrafficLightPtr> *lights, DataProvider *data_provider). thread:"<<std::this_thread::get_id();
@@ -250,7 +248,6 @@ AINFO<< "(pengzi) rt_net infer. thread:"<<std::this_thread::get_id();
 
 bool TrafficLightDetection::Detect(const TrafficLightDetectorOptions &options,
                                    CameraFrame *frame) {
-AINFO<<"(DMCZP) EnteringMethod: TrafficLightDetection::Detect";
   if (frame->traffic_lights.size() <= 0) {
     AINFO << "no lights to detect";
     return true;
@@ -315,7 +312,6 @@ bool TrafficLightDetection::SelectOutputBoxes(
     const std::vector<float> &resize_scale_list_col,
     const std::vector<float> &resize_scale_list_row,
     std::vector<base::TrafficLightPtr> *lights) {
-AINFO<<"(DMCZP) EnteringMethod: TrafficLightDetection::SelectOutputBoxes";
 
        AINFO << "(pengzi) in method TrafficLightDetection::SelectOutputBoxes(
     const std::vector<base::RectI> &crop_box_list,
@@ -404,7 +400,6 @@ AINFO<<"(DMCZP) EnteringMethod: TrafficLightDetection::SelectOutputBoxes";
 
 void TrafficLightDetection::ApplyNMS(std::vector<base::TrafficLightPtr> *lights,
                                      double iou_thresh) {
-AINFO<<"(DMCZP) EnteringMethod: TrafficLightDetection::ApplyNMS";
 
   AINFO << "(pengzi) in method : trafficLightDetection::ApplyNMS";
                                        
@@ -455,7 +450,6 @@ AINFO<<"(DMCZP) EnteringMethod: TrafficLightDetection::ApplyNMS";
 }
 
 std::string TrafficLightDetection::Name() const {
-AINFO<<"(DMCZP) EnteringMethod: TrafficLightDetection::Name";
   return "TrafficLightDetection";
 }
 

@@ -25,7 +25,6 @@ using proto::RoleType;
 
 Node::Node(const std::string& node_name, const std::string& name_space)
     : node_name_(node_name), name_space_(name_space) {
-AINFO<<"(DMCZP) EnteringMethod: Node::Node";
   node_channel_impl_.reset(new NodeChannelImpl(node_name));
   node_service_impl_.reset(new NodeServiceImpl(node_name));
 }
@@ -33,17 +32,14 @@ AINFO<<"(DMCZP) EnteringMethod: Node::Node";
 Node::~Node() {}
 
 const std::string& Node::Name() const { return node_name_; }
-AINFO<<"(DMCZP) EnteringMethod: Node::Name";
 
 void Node::Observe() {
-AINFO<<"(DMCZP) EnteringMethod: Node::Observe";
   for (auto& reader : readers_) {
     reader.second->Observe();
   }
 }
 
 void Node::ClearData() {
-AINFO<<"(DMCZP) EnteringMethod: Node::ClearData";
   for (auto& reader : readers_) {
     reader.second->ClearData();
   }

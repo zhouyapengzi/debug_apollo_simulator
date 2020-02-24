@@ -39,7 +39,6 @@ constexpr double GRA_ACC = 9.8;
 
 LonController::LonController()
     : name_(ControlConf_ControllerType_Name(ControlConf::LON_CONTROLLER)) {
-AINFO<<"(DMCZP) EnteringMethod: LonController::LonController";
   if (FLAGS_enable_csv_debug) {
     time_t rawtime;
     char name_buffer[80];
@@ -81,7 +80,6 @@ AINFO<<"(DMCZP) EnteringMethod: LonController::LonController";
 }
 
 void LonController::CloseLogFile() {
-AINFO<<"(DMCZP) EnteringMethod: LonController::CloseLogFile";
   if (FLAGS_enable_csv_debug) {
     if (speed_log_file_ != nullptr) {
       fclose(speed_log_file_);
@@ -90,12 +88,10 @@ AINFO<<"(DMCZP) EnteringMethod: LonController::CloseLogFile";
   }
 }
 void LonController::Stop() { CloseLogFile(); }
-AINFO<<"(DMCZP) EnteringMethod: LonController::Stop";
 
 LonController::~LonController() { CloseLogFile(); }
 
 Status LonController::Init(const ControlConf *control_conf) {
-AINFO<<"(DMCZP) EnteringMethod: LonController::Init";
   control_conf_ = control_conf;
   if (control_conf_ == nullptr) {
     controller_initialized_ = false;
@@ -132,8 +128,6 @@ AINFO<<"(DMCZP) EnteringMethod: LonController::Init";
 
 void LonController::SetDigitalFilterPitchAngle(
     const LonControllerConf &lon_controller_conf) {
-AINFO<<"(DMCZP) EnteringMethod: LonController::SetDigitalFilterPitchAngle";
-AINFO<<"(DMCZP) EnteringMethod: LonController::LoadControlCalibrationTable";
   double cutoff_freq =
       lon_controller_conf.pitch_angle_filter_conf().cutoff_freq();
   double ts = lon_controller_conf.ts();
@@ -162,7 +156,6 @@ Status LonController::ComputeControlCommand(
     const canbus::Chassis *chassis,
     const planning::ADCTrajectory *planning_published_trajectory,
     control::ControlCommand *cmd) {
-AINFO<<"(DMCZP) EnteringMethod: LonController::ComputeControlCommand";
   localization_ = localization;
   chassis_ = chassis;
 
@@ -375,19 +368,16 @@ AINFO<<"(DMCZP) EnteringMethod: LonController::ComputeControlCommand";
 }
 
 Status LonController::Reset() {
-AINFO<<"(DMCZP) EnteringMethod: LonController::Reset";
   speed_pid_controller_.Reset();
   station_pid_controller_.Reset();
   return Status::OK();
 }
 
 std::string LonController::Name() const { return name_; }
-AINFO<<"(DMCZP) EnteringMethod: LonController::Name";
 
 void LonController::ComputeLongitudinalErrors(
     const TrajectoryAnalyzer *trajectory_analyzer, const double preview_time,
     const double ts, SimpleLongitudinalDebug *debug) {
-AINFO<<"(DMCZP) EnteringMethod: LonController::ComputeLongitudinalErrors";
   // the decomposed vehicle motion onto Frenet frame
   // s: longitudinal accumulated distance along reference trajectory
   // s_dot: longitudinal velocity along reference trajectory
@@ -476,7 +466,6 @@ AINFO<<"(DMCZP) EnteringMethod: LonController::ComputeLongitudinalErrors";
 
 void LonController::SetDigitalFilter(double ts, double cutoff_freq,
                                      common::DigitalFilter *digital_filter) {
-AINFO<<"(DMCZP) EnteringMethod: LonController::SetDigitalFilter";
   std::vector<double> denominators;
   std::vector<double> numerators;
   common::LpfCoefficients(ts, cutoff_freq, &denominators, &numerators);
@@ -485,7 +474,6 @@ AINFO<<"(DMCZP) EnteringMethod: LonController::SetDigitalFilter";
 
 // TODO(all): Refactor and simplify
 void LonController::GetPathRemain(SimpleLongitudinalDebug *debug) {
-AINFO<<"(DMCZP) EnteringMethod: LonController::GetPathRemain";
   int stop_index = 0;
 
   if (trajectory_message_->gear() == canbus::Chassis::GEAR_DRIVE) {

@@ -30,7 +30,6 @@ namespace {
 
 bool CheckBoxOverlapSlow(const Box2d &box1, const Box2d &box2,
                          bool *const ambiguous) {
-AINFO<<"(DMCZP) EnteringMethod: CheckBoxOverlapSlow";
   double headings[4] = {box1.heading(), box1.heading() + M_PI_2, box2.heading(),
                         box2.heading() + M_PI_2};
   *ambiguous = false;
@@ -66,24 +65,16 @@ AINFO<<"(DMCZP) EnteringMethod: CheckBoxOverlapSlow";
 }
 
 Box2d box1({0, 0}, 0, 4, 2);
-AINFO<<"(DMCZP) EnteringMethod: box1";
 Box2d box2({5, 2}, 0, 4, 2);
-AINFO<<"(DMCZP) EnteringMethod: box2";
 Box2d box3(LineSegment2d({2, 3}, {6, 3}), 2);
-AINFO<<"(DMCZP) EnteringMethod: box3";
 Box2d box4({7, 8}, M_PI_4, 5.0, 3.0);
-AINFO<<"(DMCZP) EnteringMethod: box4";
 Box2d box5({-2, -3}, -M_PI, 0.0, 0.0);
-AINFO<<"(DMCZP) EnteringMethod: box5";
 Box2d box6(LineSegment2d({2, 3}, {6, 3}), 0.0);
-AINFO<<"(DMCZP) EnteringMethod: box6";
 Box2d box7(AABox2d({4, 5}, 0, 0));
-AINFO<<"(DMCZP) EnteringMethod: box7";
 
 }  // namespace
 
 TEST(Box2dTest, DebugString) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   Box2d box1({0, 0}, 0, 4, 2);
   Box2d box2({5, 2}, 0, 4, 2);
   EXPECT_EQ(box1.DebugString(),
@@ -95,7 +86,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST";
 }
 
 TEST(Box2dTest, GetAllCorners) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   std::vector<Vec2d> corners1;
   box1.GetAllCorners(&corners1);
   EXPECT_NEAR(corners1[0].x(), 2.0, 1e-5);
@@ -120,7 +110,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST";
 }
 
 TEST(Box2dTest, CenterAndLength) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   EXPECT_NEAR(4, box3.center().x(), 1e-5);
   EXPECT_NEAR(3, box3.center().y(), 1e-5);
   EXPECT_NEAR(4, box3.length(), 1e-5);
@@ -131,7 +120,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST";
 }
 
 TEST(Box2dTest, HasOverlap) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   EXPECT_FALSE(box1.HasOverlap(box2));
   EXPECT_FALSE(box1.HasOverlap(box3));
   EXPECT_FALSE(box1.HasOverlap(box4));
@@ -149,7 +137,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST";
 }
 
 TEST(Box2dTest, GetAABox) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   AABox2d aabox1 = box1.GetAABox();
   AABox2d aabox2 = box2.GetAABox();
   AABox2d aabox3 = box3.GetAABox();
@@ -173,7 +160,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST";
 }
 
 TEST(Box2dTest, DistanceTo) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   EXPECT_NEAR(box1.DistanceTo({3, 0}), 1.0, 1e-5);
   EXPECT_NEAR(box1.DistanceTo({-3, 0}), 1.0, 1e-5);
   EXPECT_NEAR(box1.DistanceTo({0, 2}), 1.0, 1e-5);
@@ -192,7 +178,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST";
 }
 
 TEST(Box2dTest, IsPointIn) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   EXPECT_TRUE(box1.IsPointIn({0, 0}));
   EXPECT_TRUE(box1.IsPointIn({1, 0.5}));
   EXPECT_TRUE(box1.IsPointIn({-0.5, -1}));
@@ -203,7 +188,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST";
 }
 
 TEST(Box2dTest, IsPointOnBoundary) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   EXPECT_FALSE(box1.IsPointOnBoundary({0, 0}));
   EXPECT_FALSE(box1.IsPointOnBoundary({1, 0.5}));
   EXPECT_TRUE(box1.IsPointOnBoundary({-0.5, -1}));
@@ -215,7 +199,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST";
 }
 
 TEST(Box2dTest, RotateFromCenterAndShift) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   Box2d box({0, 0}, 0, 4, 2);
   std::vector<Vec2d> corners;
   EXPECT_NEAR(box.heading(), 0.0, 1e-5);
@@ -244,7 +227,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST";
 }
 
 TEST(Box2dTest, TestByRandom) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   bool ambiguous = false;
   for (int iter = 0; iter < 10000; ++iter) {
     const double x1 = RandomDouble(-10, 10);

@@ -24,7 +24,6 @@ using apollo::cyber::Time;
 using apollo::cyber::examples::proto::Chatter;
 
 int main(int argc, char *argv[]) {
-AINFO<<"(DMCZP) EnteringMethod: main";
   // init cyber framework
   apollo::cyber::Init(argv[0]);
   // create talker node

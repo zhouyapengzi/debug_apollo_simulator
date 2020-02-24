@@ -28,17 +28,14 @@ const int32_t Wipercmd134::ID = 0x134;
 
 // public
 Wipercmd134::Wipercmd134() { Reset(); }
-AINFO<<"(DMCZP) EnteringMethod: Wipercmd134::Wipercmd134";
 
 uint32_t Wipercmd134::GetPeriod() const {
-AINFO<<"(DMCZP) EnteringMethod: Wipercmd134::GetPeriod";
   // TODO(QiL) modify every protocol's period manually
   static const uint32_t PERIOD = 20 * 1000;
   return PERIOD;
 }
 
 void Wipercmd134::UpdateData(uint8_t* data) {
-AINFO<<"(DMCZP) EnteringMethod: Wipercmd134::UpdateData";
   set_p_ignore_overrides(data, ignore_overrides_);
   set_p_enable(data, enable_);
   set_p_clear_override(data, clear_override_);
@@ -47,7 +44,6 @@ AINFO<<"(DMCZP) EnteringMethod: Wipercmd134::UpdateData";
 }
 
 void Wipercmd134::Reset() {
-AINFO<<"(DMCZP) EnteringMethod: Wipercmd134::Reset";
   // TODO(QiL) you should check this manually
   ignore_overrides_ = false;
   enable_ = false;
@@ -57,7 +53,6 @@ AINFO<<"(DMCZP) EnteringMethod: Wipercmd134::Reset";
 }
 
 Wipercmd134* Wipercmd134::set_ignore_overrides(bool ignore_overrides) {
-AINFO<<"(DMCZP) EnteringMethod: Wipercmd134::set_ignore_overrides";
   ignore_overrides_ = ignore_overrides;
   return this;
 }
@@ -66,7 +61,6 @@ AINFO<<"(DMCZP) EnteringMethod: Wipercmd134::set_ignore_overrides";
 // 'len': 1, 'is_signed_var': False, 'physical_range': '[0|1]', 'bit': 1,
 // 'type': 'bool', 'order': 'motorola', 'physical_unit': ''}
 void Wipercmd134::set_p_ignore_overrides(uint8_t* data, bool ignore_overrides) {
-AINFO<<"(DMCZP) EnteringMethod: Wipercmd134::set_p_ignore_overrides";
   uint8_t x = ignore_overrides;
 
   Byte to_set(data + 0);
@@ -74,7 +68,6 @@ AINFO<<"(DMCZP) EnteringMethod: Wipercmd134::set_p_ignore_overrides";
 }
 
 Wipercmd134* Wipercmd134::set_enable(bool enable) {
-AINFO<<"(DMCZP) EnteringMethod: Wipercmd134::set_enable";
   enable_ = enable;
   return this;
 }
@@ -83,7 +76,6 @@ AINFO<<"(DMCZP) EnteringMethod: Wipercmd134::set_enable";
 // 'is_signed_var': False, 'physical_range': '[0|1]', 'bit': 0, 'type': 'bool',
 // 'order': 'motorola', 'physical_unit': ''}
 void Wipercmd134::set_p_enable(uint8_t* data, bool enable) {
-AINFO<<"(DMCZP) EnteringMethod: Wipercmd134::set_p_enable";
   uint8_t x = enable;
 
   Byte to_set(data + 0);
@@ -91,7 +83,6 @@ AINFO<<"(DMCZP) EnteringMethod: Wipercmd134::set_p_enable";
 }
 
 Wipercmd134* Wipercmd134::set_clear_override(bool clear_override) {
-AINFO<<"(DMCZP) EnteringMethod: Wipercmd134::set_clear_override";
   clear_override_ = clear_override;
   return this;
 }
@@ -100,7 +91,6 @@ AINFO<<"(DMCZP) EnteringMethod: Wipercmd134::set_clear_override";
 // 'len': 1, 'is_signed_var': False, 'physical_range': '[0|1]', 'bit': 2,
 // 'type': 'bool', 'order': 'motorola', 'physical_unit': ''}
 void Wipercmd134::set_p_clear_override(uint8_t* data, bool clear_override) {
-AINFO<<"(DMCZP) EnteringMethod: Wipercmd134::set_p_clear_override";
   uint8_t x = clear_override;
 
   Byte to_set(data + 0);
@@ -109,7 +99,6 @@ AINFO<<"(DMCZP) EnteringMethod: Wipercmd134::set_p_clear_override";
 
 Wipercmd134* Wipercmd134::set_wiper_cmd(
     Wiper_cmd_134::Wiper_cmdType wiper_cmd) {
-AINFO<<"(DMCZP) EnteringMethod: Wipercmd134::set_wiper_cmd";
   wiper_cmd_ = wiper_cmd;
   return this;
 }
@@ -123,7 +112,6 @@ AINFO<<"(DMCZP) EnteringMethod: Wipercmd134::set_wiper_cmd";
 // 'physical_unit': ''}
 void Wipercmd134::set_p_wiper_cmd(uint8_t* data,
                                   Wiper_cmd_134::Wiper_cmdType wiper_cmd) {
-AINFO<<"(DMCZP) EnteringMethod: Wipercmd134::set_p_wiper_cmd";
   uint8_t x = wiper_cmd;
 
   Byte to_set(data + 1);
@@ -131,7 +119,6 @@ AINFO<<"(DMCZP) EnteringMethod: Wipercmd134::set_p_wiper_cmd";
 }
 
 Wipercmd134* Wipercmd134::set_clear_faults(bool clear_faults) {
-AINFO<<"(DMCZP) EnteringMethod: Wipercmd134::set_clear_faults";
   clear_faults_ = clear_faults;
   return this;
 }
@@ -140,7 +127,6 @@ AINFO<<"(DMCZP) EnteringMethod: Wipercmd134::set_clear_faults";
 // 'len': 1, 'is_signed_var': False, 'physical_range': '[0|1]', 'bit': 3,
 // 'type': 'bool', 'order': 'motorola', 'physical_unit': ''}
 void Wipercmd134::set_p_clear_faults(uint8_t* data, bool clear_faults) {
-AINFO<<"(DMCZP) EnteringMethod: Wipercmd134::set_p_clear_faults";
   uint8_t x = clear_faults;
 
   Byte to_set(data + 0);

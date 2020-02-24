@@ -23,7 +23,6 @@ namespace perception {
 namespace camera {
 
 TEST(CropBoxTest, wholebox) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   int img_width = 1920;
   int img_height = 1080;
   {
@@ -80,7 +79,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST";
 }
 
 TEST(CropBoxTest, crop_roi) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   int img_width = 1920;
   int img_height = 1080;
   std::shared_ptr<IGetBox> crop;

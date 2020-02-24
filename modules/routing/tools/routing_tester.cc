@@ -31,9 +31,6 @@ DEFINE_string(routing_test_file,
 using apollo::cyber::Rate;
 
 int main(int argc, char *argv[]) {
-AINFO<<"(DMCZP) EnteringMethod: DEFINE_bool";
-AINFO<<"(DMCZP) EnteringMethod: DEFINE_string";
-AINFO<<"(DMCZP) EnteringMethod: main";
   google::ParseCommandLineFlags(&argc, &argv, true);
 
   // init cyber framework

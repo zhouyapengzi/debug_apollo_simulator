@@ -30,13 +30,11 @@ using apollo::common::math::Vec2d;
 
 OpenSpaceFallbackDecider::OpenSpaceFallbackDecider(const TaskConfig& config)
     : Decider(config) {}
-AINFO<<"(DMCZP) EnteringMethod: OpenSpaceFallbackDecider::OpenSpaceFallbackDecider";
 
 bool OpenSpaceFallbackDecider::QuardraticFormulaLowerSolution(const double a,
                                                               const double b,
                                                               const double c,
                                                               double* sol) {
-AINFO<<"(DMCZP) EnteringMethod: OpenSpaceFallbackDecider::QuardraticFormulaLowerSolution";
   // quardratic formula: ax^2 + bx + c = 0, return lower solution
   // TODO(QiL): use const from common::math
   const double kEpsilon = 1e-6;
@@ -60,7 +58,6 @@ AINFO<<"(DMCZP) EnteringMethod: OpenSpaceFallbackDecider::QuardraticFormulaLower
 }
 
 Status OpenSpaceFallbackDecider::Process(Frame* frame) {
-AINFO<<"(DMCZP) EnteringMethod: OpenSpaceFallbackDecider::Process";
   std::vector<std::vector<common::math::Box2d>> predicted_bounding_rectangles;
   size_t first_collision_index = 0;
   size_t fallback_start_index = 0;
@@ -283,7 +280,6 @@ void OpenSpaceFallbackDecider::BuildPredictedEnvironment(
     const std::vector<const Obstacle*>& obstacles,
     std::vector<std::vector<common::math::Box2d>>&
         predicted_bounding_rectangles) {
-AINFO<<"(DMCZP) EnteringMethod: OpenSpaceFallbackDecider::BuildPredictedEnvironment";
   predicted_bounding_rectangles.clear();
   double relative_time = 0.0;
   while (relative_time < config_.open_space_fallback_decider_config()
@@ -306,7 +302,6 @@ bool OpenSpaceFallbackDecider::IsCollisionFreeTrajectory(
     const std::vector<std::vector<common::math::Box2d>>&
         predicted_bounding_rectangles,
     size_t* current_index, size_t* first_collision_index) {
-AINFO<<"(DMCZP) EnteringMethod: OpenSpaceFallbackDecider::IsCollisionFreeTrajectory";
   // prediction time resolution: FLAGS_trajectory_time_resolution
   const auto& vehicle_config =
       common::VehicleConfigHelper::Instance()->GetConfig();

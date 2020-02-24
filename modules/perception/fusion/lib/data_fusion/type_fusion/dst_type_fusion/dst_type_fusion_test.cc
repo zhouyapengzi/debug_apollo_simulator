@@ -25,7 +25,6 @@ namespace perception {
 namespace fusion {
 
 TEST(DstTypeFusionTest, test_update_with_measurement) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   FLAGS_work_root =
       "/apollo/modules/perception/testdata/"
       "fusion/dst_type_fusion";
@@ -115,7 +114,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST";
 }
 
 TEST(DstTypeFusionTest, test_update_without_measurement) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   FLAGS_work_root =
       "/apollo/modules/perception/testdata/"
       "fusion/dst_type_fusion";

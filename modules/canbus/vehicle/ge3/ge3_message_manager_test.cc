@@ -47,7 +47,6 @@ class Ge3MessageManagerTest : public ::testing::Test {
 };
 
 TEST_F(Ge3MessageManagerTest, GetSendProtocols) {
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   EXPECT_NE(manager_.GetMutableProtocolDataById(Pcbcm201::ID), nullptr);
   EXPECT_NE(manager_.GetMutableProtocolDataById(Pcbcs202::ID), nullptr);
   EXPECT_NE(manager_.GetMutableProtocolDataById(Pcepb203::ID), nullptr);
@@ -56,7 +55,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST_F";
 }
 
 TEST_F(Ge3MessageManagerTest, GetRecvProtocols) {
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   EXPECT_NE(manager_.GetMutableProtocolDataById(Scu1301::ID), nullptr);
   EXPECT_NE(manager_.GetMutableProtocolDataById(Scu2302::ID), nullptr);
   EXPECT_NE(manager_.GetMutableProtocolDataById(Scu3303::ID), nullptr);

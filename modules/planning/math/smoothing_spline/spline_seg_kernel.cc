@@ -27,7 +27,6 @@ namespace apollo {
 namespace planning {
 
 SplineSegKernel::SplineSegKernel() {
-AINFO<<"(DMCZP) EnteringMethod: SplineSegKernel::SplineSegKernel";
   const int reserved_num_params = reserved_order_ + 1;
   CalculateFx(reserved_num_params);
   CalculateDerivative(reserved_num_params);
@@ -37,7 +36,6 @@ AINFO<<"(DMCZP) EnteringMethod: SplineSegKernel::SplineSegKernel";
 
 Eigen::MatrixXd SplineSegKernel::Kernel(const uint32_t num_params,
                                         const double accumulated_x) {
-AINFO<<"(DMCZP) EnteringMethod: SplineSegKernel::Kernel";
   if (num_params > reserved_order_ + 1) {
     CalculateFx(num_params);
   }
@@ -49,7 +47,6 @@ AINFO<<"(DMCZP) EnteringMethod: SplineSegKernel::Kernel";
 
 Eigen::MatrixXd SplineSegKernel::NthDerivativeKernel(
     const uint32_t n, const uint32_t num_params, const double accumulated_x) {
-AINFO<<"(DMCZP) EnteringMethod: SplineSegKernel::NthDerivativeKernel";
   if (n == 1) {
     return DerivativeKernel(num_params, accumulated_x);
   } else if (n == 2) {
@@ -63,7 +60,6 @@ AINFO<<"(DMCZP) EnteringMethod: SplineSegKernel::NthDerivativeKernel";
 
 Eigen::MatrixXd SplineSegKernel::DerivativeKernel(const uint32_t num_params,
                                                   const double accumulated_x) {
-AINFO<<"(DMCZP) EnteringMethod: SplineSegKernel::DerivativeKernel";
   if (num_params > reserved_order_ + 1) {
     CalculateDerivative(num_params);
   }
@@ -75,8 +71,6 @@ AINFO<<"(DMCZP) EnteringMethod: SplineSegKernel::DerivativeKernel";
 
 Eigen::MatrixXd SplineSegKernel::SecondOrderDerivativeKernel(
     const uint32_t num_params, const double accumulated_x) {
-AINFO<<"(DMCZP) EnteringMethod: SplineSegKernel::SecondOrderDerivativeKernel";
-AINFO<<"(DMCZP) EnteringMethod: SplineSegKernel::ThirdOrderDerivativeKernel";
   if (num_params > reserved_order_ + 1) {
     CalculateSecondOrderDerivative(num_params);
   }
@@ -101,7 +95,6 @@ void SplineSegKernel::IntegratedTermMatrix(const uint32_t num_params,
                                            const double x,
                                            const std::string& type,
                                            Eigen::MatrixXd* term_matrix) const {
-AINFO<<"(DMCZP) EnteringMethod: SplineSegKernel::IntegratedTermMatrix";
   if (term_matrix->rows() != term_matrix->cols() ||
       term_matrix->rows() != static_cast<int>(num_params)) {
     term_matrix->resize(num_params, num_params);
@@ -155,7 +148,6 @@ AINFO<<"(DMCZP) EnteringMethod: SplineSegKernel::IntegratedTermMatrix";
 }
 
 void SplineSegKernel::CalculateFx(const uint32_t num_params) {
-AINFO<<"(DMCZP) EnteringMethod: SplineSegKernel::CalculateFx";
   kernel_fx_ = Eigen::MatrixXd::Zero(num_params, num_params);
   for (int r = 0; r < kernel_fx_.rows(); ++r) {
     for (int c = 0; c < kernel_fx_.cols(); ++c) {
@@ -165,7 +157,6 @@ AINFO<<"(DMCZP) EnteringMethod: SplineSegKernel::CalculateFx";
 }
 
 void SplineSegKernel::CalculateDerivative(const uint32_t num_params) {
-AINFO<<"(DMCZP) EnteringMethod: SplineSegKernel::CalculateDerivative";
   kernel_derivative_ = Eigen::MatrixXd::Zero(num_params, num_params);
   for (int r = 1; r < kernel_derivative_.rows(); ++r) {
     for (int c = 1; c < kernel_derivative_.cols(); ++c) {
@@ -176,7 +167,6 @@ AINFO<<"(DMCZP) EnteringMethod: SplineSegKernel::CalculateDerivative";
 
 void SplineSegKernel::CalculateSecondOrderDerivative(
     const uint32_t num_params) {
-AINFO<<"(DMCZP) EnteringMethod: SplineSegKernel::CalculateSecondOrderDerivative";
   kernel_second_order_derivative_ =
       Eigen::MatrixXd::Zero(num_params, num_params);
   for (int r = 2; r < kernel_second_order_derivative_.rows(); ++r) {
@@ -188,7 +178,6 @@ AINFO<<"(DMCZP) EnteringMethod: SplineSegKernel::CalculateSecondOrderDerivative"
 }
 
 void SplineSegKernel::CalculateThirdOrderDerivative(const uint32_t num_params) {
-AINFO<<"(DMCZP) EnteringMethod: SplineSegKernel::CalculateThirdOrderDerivative";
   kernel_third_order_derivative_ =
       Eigen::MatrixXd::Zero(num_params, num_params);
   for (int r = 3; r < kernel_third_order_derivative_.rows(); ++r) {

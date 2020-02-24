@@ -27,7 +27,6 @@ namespace lidar {
 using cyber::common::GetAbsolutePath;
 
 bool MlfTracker::Init(const MlfTrackerInitOptions options) {
-AINFO<<"(DMCZP) EnteringMethod: MlfTracker::Init";
   auto config_manager = lib::ConfigManager::Instance();
   const lib::ModelConfig* model_config = nullptr;
   CHECK(config_manager->GetModelConfig(Name(), &model_config));
@@ -55,14 +54,12 @@ AINFO<<"(DMCZP) EnteringMethod: MlfTracker::Init";
 
 void MlfTracker::InitializeTrack(MlfTrackDataPtr new_track_data,
                                  TrackedObjectPtr new_object) {
-AINFO<<"(DMCZP) EnteringMethod: MlfTracker::InitializeTrack";
   new_track_data->Reset(new_object, GetNextTrackId());
   new_track_data->is_current_state_predicted_ = false;
 }
 
 void MlfTracker::UpdateTrackDataWithObject(MlfTrackDataPtr track_data,
                                            TrackedObjectPtr new_object) {
-AINFO<<"(DMCZP) EnteringMethod: MlfTracker::UpdateTrackDataWithObject";
   // 1. state filter and store belief in new_object
   for (auto& filter : filters_) {
     filter->UpdateWithObject(filter_options_, track_data, new_object);
@@ -74,7 +71,6 @@ AINFO<<"(DMCZP) EnteringMethod: MlfTracker::UpdateTrackDataWithObject";
 
 void MlfTracker::UpdateTrackDataWithoutObject(double timestamp,
                                               MlfTrackDataPtr track_data) {
-AINFO<<"(DMCZP) EnteringMethod: MlfTracker::UpdateTrackDataWithoutObject";
   for (auto& filter : filters_) {
     filter->UpdateWithoutObject(filter_options_, timestamp, track_data);
   }

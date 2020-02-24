@@ -31,7 +31,6 @@ namespace valet_parking {
 
 Stage::StageStatus StageApproachingParkingSpot::Process(
     const common::TrajectoryPoint& planning_init_point, Frame* frame) {
-AINFO<<"(DMCZP) EnteringMethod: StageApproachingParkingSpot::Process";
   ADEBUG << "stage: StageApproachingParkingSpot";
   CHECK_NOTNULL(frame);
   GetContext()->target_parking_spot_id.clear();
@@ -78,7 +77,6 @@ AINFO<<"(DMCZP) EnteringMethod: StageApproachingParkingSpot::Process";
 }
 
 bool StageApproachingParkingSpot::CheckADCStop(const Frame& frame) {
-AINFO<<"(DMCZP) EnteringMethod: StageApproachingParkingSpot::CheckADCStop";
   const auto& reference_line_info = frame.reference_line_info().front();
   const double adc_speed =
       common::VehicleStateProvider::Instance()->linear_velocity();

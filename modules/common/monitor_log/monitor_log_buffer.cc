@@ -26,10 +26,8 @@ namespace monitor {
 MonitorLogBuffer::MonitorLogBuffer(
     const MonitorMessageItem::MessageSource &source)
     : source_(source) {}
-AINFO<<"(DMCZP) EnteringMethod: MonitorLogBuffer::MonitorLogBuffer";
 
 void MonitorLogBuffer::Publish() {
-AINFO<<"(DMCZP) EnteringMethod: MonitorLogBuffer::Publish";
   if (!monitor_msg_items_.empty()) {
     logger_->Publish(source_, monitor_msg_items_);
     monitor_msg_items_.clear();
@@ -41,7 +39,6 @@ MonitorLogBuffer::~MonitorLogBuffer() { Publish(); }
 
 void MonitorLogBuffer::AddMonitorMsgItem(
     const MonitorMessageItem::LogLevel log_level, const std::string &msg) {
-AINFO<<"(DMCZP) EnteringMethod: MonitorLogBuffer::AddMonitorMsgItem";
   level_ = log_level;
   monitor_msg_items_.push_back(std::make_pair(log_level, msg));
 }

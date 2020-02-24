@@ -28,7 +28,6 @@ class Accel6bTest : public ::testing::Test {
 };
 
 TEST_F(Accel6bTest, Parse) {
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   Fuellevel72 fuel;
   uint8_t data[8] = {0x61, 0x62, 0x63, 0x64, 0xF1, 0xF2, 0xF3, 0xF4};
   int32_t length = 8;

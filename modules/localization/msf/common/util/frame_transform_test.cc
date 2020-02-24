@@ -31,7 +31,6 @@ class FrameTransformTestSuite : public ::testing::Test {
 };
 
 TEST_F(FrameTransformTestSuite, LatlonToUtmXYTest) {
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   double lon_rad = -2.129343746458001;
   double lat_rad = 0.6530018835651807;
   UTMCoor utm_xy;
@@ -41,7 +40,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST_F";
 }
 
 TEST_F(FrameTransformTestSuite, UtmXYToLatlonTest) {
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   double x = 588278.9834174265;
   double y = 4141295.255870659;
   int zone = 10;

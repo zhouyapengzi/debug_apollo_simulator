@@ -28,30 +28,25 @@ const int32_t Brakecontrola4::ID = 0xA4;
 
 // public
 Brakecontrola4::Brakecontrola4() { Reset(); }
-AINFO<<"(DMCZP) EnteringMethod: Brakecontrola4::Brakecontrola4";
 
 uint32_t Brakecontrola4::GetPeriod() const {
-AINFO<<"(DMCZP) EnteringMethod: Brakecontrola4::GetPeriod";
   // TODO(ChaoM) :  modify every protocol's period manually
   static const uint32_t PERIOD = 20 * 1000;
   return PERIOD;
 }
 
 void Brakecontrola4::UpdateData(uint8_t* data) {
-AINFO<<"(DMCZP) EnteringMethod: Brakecontrola4::UpdateData";
   set_p_brake_torque(data, brake_torque_);
   set_p_brake_enable_control(data, brake_enable_control_);
 }
 
 void Brakecontrola4::Reset() {
-AINFO<<"(DMCZP) EnteringMethod: Brakecontrola4::Reset";
   // TODO(ChaoM) :  you should check this manually
   brake_torque_ = 0.0;
   brake_enable_control_ = Brake_control_a4::BRAKE_ENABLE_CONTROL_BRAKE_MANUAL;
 }
 
 Brakecontrola4* Brakecontrola4::set_brake_torque(double brake_torque) {
-AINFO<<"(DMCZP) EnteringMethod: Brakecontrola4::set_brake_torque";
   brake_torque_ = brake_torque;
   return this;
 }
@@ -60,7 +55,6 @@ AINFO<<"(DMCZP) EnteringMethod: Brakecontrola4::set_brake_torque";
 // 'len': 16, 'is_signed_var': False, 'physical_range': '[0|100]', 'bit': 8,
 // 'type': 'double', 'order': 'intel', 'physical_unit': '%'}
 void Brakecontrola4::set_p_brake_torque(uint8_t* data, double brake_torque) {
-AINFO<<"(DMCZP) EnteringMethod: Brakecontrola4::set_p_brake_torque";
   brake_torque = ProtocolData::BoundedValue(0.0, 100.0, brake_torque);
   int x = static_cast<int>(brake_torque / 0.050000);
   uint8_t t = 0;
@@ -77,8 +71,6 @@ AINFO<<"(DMCZP) EnteringMethod: Brakecontrola4::set_p_brake_torque";
 
 Brakecontrola4* Brakecontrola4::set_brake_enable_control(
     Brake_control_a4::Brake_enable_controlType brake_enable_control) {
-AINFO<<"(DMCZP) EnteringMethod: Brakecontrola4::set_brake_enable_control";
-AINFO<<"(DMCZP) EnteringMethod: Brakecontrola4::set_p_brake_enable_control";
   brake_enable_control_ = brake_enable_control;
   return this;
 }

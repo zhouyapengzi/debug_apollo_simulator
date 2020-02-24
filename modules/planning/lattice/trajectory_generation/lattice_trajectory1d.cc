@@ -27,13 +27,11 @@ namespace planning {
 
 LatticeTrajectory1d::LatticeTrajectory1d(
     std::shared_ptr<Curve1d> ptr_trajectory1d) {
-AINFO<<"(DMCZP) EnteringMethod: LatticeTrajectory1d::LatticeTrajectory1d";
   ptr_trajectory1d_ = ptr_trajectory1d;
 }
 
 double LatticeTrajectory1d::Evaluate(const std::uint32_t order,
                                      const double param) const {
-AINFO<<"(DMCZP) EnteringMethod: LatticeTrajectory1d::Evaluate";
   double param_length = ptr_trajectory1d_->ParamLength();
   if (param < param_length) {
     return ptr_trajectory1d_->Evaluate(order, param);
@@ -60,60 +58,49 @@ AINFO<<"(DMCZP) EnteringMethod: LatticeTrajectory1d::Evaluate";
 }
 
 double LatticeTrajectory1d::ParamLength() const {
-AINFO<<"(DMCZP) EnteringMethod: LatticeTrajectory1d::ParamLength";
   return ptr_trajectory1d_->ParamLength();
 }
 
 std::string LatticeTrajectory1d::ToString() const {
-AINFO<<"(DMCZP) EnteringMethod: LatticeTrajectory1d::ToString";
   return ptr_trajectory1d_->ToString();
 }
 
 bool LatticeTrajectory1d::has_target_position() const {
-AINFO<<"(DMCZP) EnteringMethod: LatticeTrajectory1d::has_target_position";
   return has_target_position_;
 }
 
 bool LatticeTrajectory1d::has_target_velocity() const {
-AINFO<<"(DMCZP) EnteringMethod: LatticeTrajectory1d::has_target_velocity";
   return has_target_velocity_;
 }
 
 bool LatticeTrajectory1d::has_target_time() const { return has_target_time_; }
-AINFO<<"(DMCZP) EnteringMethod: LatticeTrajectory1d::has_target_time";
 
 double LatticeTrajectory1d::target_position() const {
-AINFO<<"(DMCZP) EnteringMethod: LatticeTrajectory1d::target_position";
   CHECK(has_target_position_);
   return target_position_;
 }
 
 double LatticeTrajectory1d::target_velocity() const {
-AINFO<<"(DMCZP) EnteringMethod: LatticeTrajectory1d::target_velocity";
   CHECK(has_target_velocity_);
   return target_velocity_;
 }
 
 double LatticeTrajectory1d::target_time() const {
-AINFO<<"(DMCZP) EnteringMethod: LatticeTrajectory1d::target_time";
   CHECK(has_target_time_);
   return target_time_;
 }
 
 void LatticeTrajectory1d::set_target_position(double target_position) {
-AINFO<<"(DMCZP) EnteringMethod: LatticeTrajectory1d::set_target_position";
   target_position_ = target_position;
   has_target_position_ = true;
 }
 
 void LatticeTrajectory1d::set_target_velocity(double target_velocity) {
-AINFO<<"(DMCZP) EnteringMethod: LatticeTrajectory1d::set_target_velocity";
   target_velocity_ = target_velocity;
   has_target_velocity_ = true;
 }
 
 void LatticeTrajectory1d::set_target_time(double target_time) {
-AINFO<<"(DMCZP) EnteringMethod: LatticeTrajectory1d::set_target_time";
   target_time_ = target_time;
   has_target_time_ = true;
 }

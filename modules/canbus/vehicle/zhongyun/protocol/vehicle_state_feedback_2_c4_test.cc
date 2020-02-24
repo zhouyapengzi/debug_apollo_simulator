@@ -27,7 +27,6 @@ class Vehiclestatefeedback2c4Test : public ::testing::Test {
 };
 
 TEST_F(Vehiclestatefeedback2c4Test, reset) {
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   Vehiclestatefeedback2c4 feedback_;
   int32_t length = 8;
   ChassisDetail cd;

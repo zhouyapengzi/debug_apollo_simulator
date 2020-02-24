@@ -30,8 +30,6 @@ namespace velodyne {
 void LoadPcds(const std::string& file_path, const unsigned int frame_index,
               const Eigen::Affine3d& pose, VelodyneFrame* velodyne_frame,
               bool is_global) {
-AINFO<<"(DMCZP) EnteringMethod: LoadPcds";
-AINFO<<"(DMCZP) EnteringMethod: LoadPcds";
   velodyne_frame->frame_index = frame_index;
   velodyne_frame->pose = pose;
   LoadPcds(file_path, frame_index, pose, &velodyne_frame->pt3ds,
@@ -95,8 +93,6 @@ void LoadPcds(const std::string& file_path, const unsigned int frame_index,
 void LoadPcdPoses(const std::string& file_path,
                   std::vector<Eigen::Affine3d>* poses,
                   std::vector<double>* timestamps) {
-AINFO<<"(DMCZP) EnteringMethod: LoadPcdPoses";
-AINFO<<"(DMCZP) EnteringMethod: LoadPcdPoses";
   std::vector<unsigned int> pcd_indices;
   LoadPcdPoses(file_path, poses, timestamps, &pcd_indices);
 }
@@ -134,7 +130,6 @@ void LoadPosesAndStds(const std::string& file_path,
                       std::vector<Eigen::Affine3d>* poses,
                       std::vector<Eigen::Vector3d>* stds,
                       std::vector<double>* timestamps) {
-AINFO<<"(DMCZP) EnteringMethod: LoadPosesAndStds";
   poses->clear();
   stds->clear();
   timestamps->clear();
@@ -166,7 +161,6 @@ AINFO<<"(DMCZP) EnteringMethod: LoadPosesAndStds";
 }
 
 bool LoadExtrinsic(const std::string& file_path, Eigen::Affine3d* extrinsic) {
-AINFO<<"(DMCZP) EnteringMethod: LoadExtrinsic";
   YAML::Node config = YAML::LoadFile(file_path);
   if (config["transform"]) {
     if (config["transform"]["translation"]) {

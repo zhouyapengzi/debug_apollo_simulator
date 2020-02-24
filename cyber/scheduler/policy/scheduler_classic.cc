@@ -42,7 +42,6 @@ using apollo::cyber::event::PerfEventCache;
 using apollo::cyber::event::SchedPerf;
 
 SchedulerClassic::SchedulerClassic() {
-AINFO<<"(DMCZP) EnteringMethod: SchedulerClassic::SchedulerClassic";
   std::string conf("conf/");
   conf.append(GlobalData::Instance()->ProcessGroup()).append(".conf");
   auto cfg_file = GetAbsolutePath(WorkRoot(), conf);
@@ -86,7 +85,6 @@ AINFO<<"(DMCZP) EnteringMethod: SchedulerClassic::SchedulerClassic";
 }
 
 void SchedulerClassic::CreateProcessor() {
-AINFO<<"(DMCZP) EnteringMethod: SchedulerClassic::CreateProcessor";
   for (auto& group : classic_conf_.groups()) {
     auto& group_name = group.name();
     auto proc_num = group.processor_num();
@@ -114,7 +112,6 @@ AINFO<<"(DMCZP) EnteringMethod: SchedulerClassic::CreateProcessor";
 }
 
 bool SchedulerClassic::DispatchTask(const std::shared_ptr<CRoutine>& cr) {
-AINFO<<"(DMCZP) EnteringMethod: SchedulerClassic::DispatchTask";
   // we use multi-key mutex to prevent race condition
   // when del && add cr with same crid
   MutexWrapper* wrapper = nullptr;
@@ -168,7 +165,6 @@ AINFO<<"(DMCZP) EnteringMethod: SchedulerClassic::DispatchTask";
 }
 
 bool SchedulerClassic::NotifyProcessor(uint64_t crid) {
-AINFO<<"(DMCZP) EnteringMethod: SchedulerClassic::NotifyProcessor";
   if (unlikely(stop_)) {
     return true;
   }
@@ -189,7 +185,6 @@ AINFO<<"(DMCZP) EnteringMethod: SchedulerClassic::NotifyProcessor";
 }
 
 bool SchedulerClassic::RemoveTask(const std::string& name) {
-AINFO<<"(DMCZP) EnteringMethod: SchedulerClassic::RemoveTask";
   if (unlikely(stop_)) {
     return true;
   }
@@ -199,7 +194,6 @@ AINFO<<"(DMCZP) EnteringMethod: SchedulerClassic::RemoveTask";
 }
 
 bool SchedulerClassic::RemoveCRoutine(uint64_t crid) {
-AINFO<<"(DMCZP) EnteringMethod: SchedulerClassic::RemoveCRoutine";
   // we use multi-key mutex to prevent race condition
   // when del && add cr with same crid
   MutexWrapper* wrapper = nullptr;

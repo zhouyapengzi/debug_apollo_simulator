@@ -31,8 +31,6 @@ DEFINE_string(navigation_dummy_file,
               "Used for sending navigation result to relative_map node.");
 
 int main(int argc, char** argv) {
-AINFO<<"(DMCZP) EnteringMethod: DEFINE_string";
-AINFO<<"(DMCZP) EnteringMethod: main";
   google::ParseCommandLineFlags(&argc, &argv, true);
   // Init the cyber framework
   apollo::cyber::Init(argv[0]);

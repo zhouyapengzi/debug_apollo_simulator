@@ -25,7 +25,6 @@ using base::AttributePointCloud;
 using base::PointF;
 
 TEST(LidarCloudMaskTest, lidar_cloud_mask_test) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   CloudMask mask;
   mask.Set(10, 0);
   EXPECT_EQ(mask.size(), 10);

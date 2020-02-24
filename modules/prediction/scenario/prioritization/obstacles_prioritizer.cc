@@ -46,7 +46,6 @@ namespace {
 bool IsLaneSequenceInReferenceLine(
     const LaneSequence& lane_sequence,
     const ADCTrajectoryContainer* ego_trajectory_container) {
-AINFO<<"(DMCZP) EnteringMethod: IsLaneSequenceInReferenceLine";
   for (const auto& lane_segment : lane_sequence.lane_segment()) {
     std::string lane_id = lane_segment.lane_id();
     if (ego_trajectory_container->IsLaneIdInReferenceLine(lane_id)) {
@@ -57,7 +56,6 @@ AINFO<<"(DMCZP) EnteringMethod: IsLaneSequenceInReferenceLine";
 }
 
 int NearestFrontObstacleIdOnLaneSequence(const LaneSequence& lane_sequence) {
-AINFO<<"(DMCZP) EnteringMethod: NearestFrontObstacleIdOnLaneSequence";
   int nearest_front_obstacle_id = std::numeric_limits<int>::min();
   double smallest_relative_s = std::numeric_limits<double>::max();
   for (const auto& nearby_obs : lane_sequence.nearby_obstacle()) {
@@ -74,7 +72,6 @@ AINFO<<"(DMCZP) EnteringMethod: NearestFrontObstacleIdOnLaneSequence";
 }
 
 int NearestBackwardObstacleIdOnLaneSequence(const LaneSequence& lane_sequence) {
-AINFO<<"(DMCZP) EnteringMethod: NearestBackwardObstacleIdOnLaneSequence";
   int nearest_backward_obstacle_id = std::numeric_limits<int>::min();
   double smallest_relative_s = std::numeric_limits<double>::max();
   for (const auto& nearby_obs : lane_sequence.nearby_obstacle()) {
@@ -93,17 +90,14 @@ AINFO<<"(DMCZP) EnteringMethod: NearestBackwardObstacleIdOnLaneSequence";
 }  // namespace
 
 ObstaclesPrioritizer::ObstaclesPrioritizer() {}
-AINFO<<"(DMCZP) EnteringMethod: ObstaclesPrioritizer::ObstaclesPrioritizer";
 
 void ObstaclesPrioritizer::PrioritizeObstacles() {
-AINFO<<"(DMCZP) EnteringMethod: ObstaclesPrioritizer::PrioritizeObstacles";
   ego_back_lane_id_set_.clear();
   AssignIgnoreLevel();
   AssignCautionLevel();
 }
 
 void ObstaclesPrioritizer::AssignIgnoreLevel() {
-AINFO<<"(DMCZP) EnteringMethod: ObstaclesPrioritizer::AssignIgnoreLevel";
   auto obstacles_container =
       ContainerManager::Instance()->GetContainer<ObstaclesContainer>(
           AdapterConfig::PERCEPTION_OBSTACLES);
@@ -189,14 +183,12 @@ AINFO<<"(DMCZP) EnteringMethod: ObstaclesPrioritizer::AssignIgnoreLevel";
 }
 
 void ObstaclesPrioritizer::AssignCautionLevel() {
-AINFO<<"(DMCZP) EnteringMethod: ObstaclesPrioritizer::AssignCautionLevel";
   AssignCautionLevelCruiseKeepLane();
   AssignCautionLevelCruiseChangeLane();
   AssignCautionLevelByEgoReferenceLine();
 }
 
 void ObstaclesPrioritizer::AssignCautionLevelCruiseKeepLane() {
-AINFO<<"(DMCZP) EnteringMethod: ObstaclesPrioritizer::AssignCautionLevelCruiseKeepLane";
   ObstaclesContainer* obstacles_container =
       ContainerManager::Instance()->GetContainer<ObstaclesContainer>(
           AdapterConfig::PERCEPTION_OBSTACLES);
@@ -233,7 +225,6 @@ AINFO<<"(DMCZP) EnteringMethod: ObstaclesPrioritizer::AssignCautionLevelCruiseKe
 }
 
 void ObstaclesPrioritizer::AssignCautionLevelCruiseChangeLane() {
-AINFO<<"(DMCZP) EnteringMethod: ObstaclesPrioritizer::AssignCautionLevelCruiseChangeLane";
   ObstaclesContainer* obstacles_container =
       ContainerManager::Instance()->GetContainer<ObstaclesContainer>(
           AdapterConfig::PERCEPTION_OBSTACLES);
@@ -295,7 +286,6 @@ AINFO<<"(DMCZP) EnteringMethod: ObstaclesPrioritizer::AssignCautionLevelCruiseCh
 }
 
 void ObstaclesPrioritizer::AssignCautionLevelByEgoReferenceLine() {
-AINFO<<"(DMCZP) EnteringMethod: ObstaclesPrioritizer::AssignCautionLevelByEgoReferenceLine";
   ObstaclesContainer* obstacles_container =
       ContainerManager::Instance()->GetContainer<ObstaclesContainer>(
           AdapterConfig::PERCEPTION_OBSTACLES);
@@ -447,9 +437,6 @@ AINFO<<"(DMCZP) EnteringMethod: ObstaclesPrioritizer::AssignCautionLevelByEgoRef
 void ObstaclesPrioritizer::AssignCautionByMerge(
     std::shared_ptr<const LaneInfo> lane_info_ptr,
     std::unordered_set<std::string>* const visited_lanes) {
-AINFO<<"(DMCZP) EnteringMethod: ObstaclesPrioritizer::AssignCautionByMerge";
-AINFO<<"(DMCZP) EnteringMethod: ObstaclesPrioritizer::AssignCautionByOverlap";
-AINFO<<"(DMCZP) EnteringMethod: ObstaclesPrioritizer::SetCautionBackward";
   SetCautionBackward(lane_info_ptr,
                      FLAGS_caution_search_distance_backward_for_merge,
                      visited_lanes);

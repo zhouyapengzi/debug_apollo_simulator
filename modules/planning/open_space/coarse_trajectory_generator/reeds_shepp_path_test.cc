@@ -78,7 +78,6 @@ class reeds_shepp : public ::testing::Test {
 };
 
 TEST_F(reeds_shepp, test_set_1) {
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   std::shared_ptr<Node3d> start_node = std::shared_ptr<Node3d>(new Node3d(
       0.0, 0.0, 10.0 * M_PI / 180.0, XYbounds_, planner_open_space_config_));
   std::shared_ptr<Node3d> end_node = std::shared_ptr<Node3d>(new Node3d(
@@ -91,7 +90,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   check(start_node, end_node, optimal_path);
 }
 TEST_F(reeds_shepp, test_set_2) {
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   std::shared_ptr<Node3d> start_node = std::shared_ptr<Node3d>(new Node3d(
       0.0, 0.0, 10.0 * M_PI / 180.0, XYbounds_, planner_open_space_config_));
   std::shared_ptr<Node3d> end_node = std::shared_ptr<Node3d>(new Node3d(
@@ -104,7 +102,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   check(start_node, end_node, optimal_path);
 }
 TEST_F(reeds_shepp, test_set_3) {
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   std::shared_ptr<Node3d> start_node = std::shared_ptr<Node3d>(new Node3d(
       0.0, 10.0, -10.0 * M_PI / 180.0, XYbounds_, planner_open_space_config_));
   std::shared_ptr<Node3d> end_node = std::shared_ptr<Node3d>(new Node3d(
@@ -117,7 +114,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   check(start_node, end_node, optimal_path);
 }
 TEST_F(reeds_shepp, test_set_4) {
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   std::shared_ptr<Node3d> start_node = std::shared_ptr<Node3d>(new Node3d(
       0.0, 10.0, -10.0 * M_PI / 180.0, XYbounds_, planner_open_space_config_));
   std::shared_ptr<Node3d> end_node = std::shared_ptr<Node3d>(new Node3d(
@@ -130,7 +126,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   check(start_node, end_node, optimal_path);
 }
 TEST_F(reeds_shepp, test_set_5) {
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   std::shared_ptr<Node3d> start_node = std::shared_ptr<Node3d>(new Node3d(
       0.0, 10.0, -10.0 * M_PI / 180.0, XYbounds_, planner_open_space_config_));
   std::shared_ptr<Node3d> end_node = std::shared_ptr<Node3d>(new Node3d(

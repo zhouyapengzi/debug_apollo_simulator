@@ -31,17 +31,14 @@ using apollo::common::Status;
 using apollo::common::TrajectoryPoint;
 
 RTKReplayPlanner::RTKReplayPlanner() {
-AINFO<<"(DMCZP) EnteringMethod: RTKReplayPlanner::RTKReplayPlanner";
   ReadTrajectoryFile(FLAGS_rtk_trajectory_filename);
 }
 
 Status RTKReplayPlanner::Init(const PlanningConfig&) { return Status::OK(); }
-AINFO<<"(DMCZP) EnteringMethod: RTKReplayPlanner::Init";
 
 Status RTKReplayPlanner::Plan(const TrajectoryPoint& planning_start_point,
                               Frame* frame,
                               ADCTrajectory* ptr_computed_trajectory) {
-AINFO<<"(DMCZP) EnteringMethod: RTKReplayPlanner::Plan";
   auto status = Status::OK();
   bool has_plan = false;
   auto it = std::find_if(
@@ -77,7 +74,6 @@ AINFO<<"(DMCZP) EnteringMethod: RTKReplayPlanner::Plan";
 Status RTKReplayPlanner::PlanOnReferenceLine(
     const TrajectoryPoint& planning_init_point, Frame*,
     ReferenceLineInfo* reference_line_info) {
-AINFO<<"(DMCZP) EnteringMethod: RTKReplayPlanner::PlanOnReferenceLine";
   if (complete_rtk_trajectory_.empty() || complete_rtk_trajectory_.size() < 2) {
     std::string msg(
         "RTKReplayPlanner doesn't have a recorded trajectory or "
@@ -125,7 +121,6 @@ AINFO<<"(DMCZP) EnteringMethod: RTKReplayPlanner::PlanOnReferenceLine";
 }
 
 void RTKReplayPlanner::ReadTrajectoryFile(const std::string& filename) {
-AINFO<<"(DMCZP) EnteringMethod: RTKReplayPlanner::ReadTrajectoryFile";
   if (!complete_rtk_trajectory_.empty()) {
     complete_rtk_trajectory_.clear();
   }
@@ -179,7 +174,6 @@ AINFO<<"(DMCZP) EnteringMethod: RTKReplayPlanner::ReadTrajectoryFile";
 std::uint32_t RTKReplayPlanner::QueryPositionMatchedPoint(
     const TrajectoryPoint& start_point,
     const std::vector<TrajectoryPoint>& trajectory) const {
-AINFO<<"(DMCZP) EnteringMethod: RTKReplayPlanner::QueryPositionMatchedPoint";
   auto func_distance_square = [](const TrajectoryPoint& point, const double x,
                                  const double y) {
     double dx = point.path_point().x() - x;

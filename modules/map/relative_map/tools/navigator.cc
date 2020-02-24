@@ -45,12 +45,6 @@ bool GetNavigationPathFromFile(const std::string& filename,
 void CheckConfig(const apollo::relative_map::NavigatorConfig& navigator_config);
 
 int main(int argc, char** argv) {
-AINFO<<"(DMCZP) EnteringMethod: ParseNavigationLineFileNames";
-AINFO<<"(DMCZP) EnteringMethod: GetNavigationPathFromFile";
-AINFO<<"(DMCZP) EnteringMethod: CheckConfig";
-AINFO<<"(DMCZP) EnteringMethod: main";
-AINFO<<"(DMCZP) EnteringMethod: ParseNavigationLineFileNames";
-AINFO<<"(DMCZP) EnteringMethod: GetNavigationPathFromFile";
   google::ParseCommandLineFlags(&argc, &argv, true);
   // Init the cyber framework
   apollo::cyber::Init(argv[0]);
@@ -209,7 +203,6 @@ bool GetNavigationPathFromFile(const std::string& filename,
 
 void CheckConfig(
     const apollo::relative_map::NavigatorConfig& navigator_config) {
-AINFO<<"(DMCZP) EnteringMethod: CheckConfig";
   CHECK(navigator_config.has_sample_param());
   const auto& sample_param = navigator_config.sample_param();
   CHECK(sample_param.has_straight_sample_interval());

@@ -43,7 +43,6 @@ class CreepDeciderTest : public ::testing::Test {
 };
 
 TEST_F(CreepDeciderTest, Init) {
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   CreepDecider creep_decider(config_);
   EXPECT_EQ(creep_decider.Name(),
             TaskConfig::TaskType_Name(config_.task_type()));

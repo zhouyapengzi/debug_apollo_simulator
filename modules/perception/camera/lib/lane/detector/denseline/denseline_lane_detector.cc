@@ -31,7 +31,6 @@ namespace camera {
 using cyber::common::GetAbsolutePath;
 
 bool DenselineLaneDetector::Init(const LaneDetectorInitOptions &options) {
-AINFO<<"(DMCZP) EnteringMethod: DenselineLaneDetector::Init";
   std::string proto_path = GetAbsolutePath(options.root_dir, options.conf_file);
   if (!cyber::common::GetProtoFromFile(proto_path, &denseline_param_)) {
     AINFO << "load proto param failed, root dir: " << options.root_dir;
@@ -151,7 +150,6 @@ AINFO<<"(DMCZP) EnteringMethod: DenselineLaneDetector::Init";
 
 bool DenselineLaneDetector::Detect(const LaneDetectorOptions &options,
                                    CameraFrame *frame) {
-AINFO<<"(DMCZP) EnteringMethod: DenselineLaneDetector::Detect";
   if (frame == nullptr) {
     AINFO << "camera frame is empty.";
     return false;
@@ -197,7 +195,6 @@ AINFO<<"(DMCZP) EnteringMethod: DenselineLaneDetector::Detect";
 }
 
 std::string DenselineLaneDetector::Name() const {
-AINFO<<"(DMCZP) EnteringMethod: DenselineLaneDetector::Name";
   return "DenselineLaneDetector";
 }
 

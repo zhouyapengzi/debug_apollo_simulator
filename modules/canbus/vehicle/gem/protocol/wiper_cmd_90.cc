@@ -28,28 +28,23 @@ const int32_t Wipercmd90::ID = 0x90;
 
 // public
 Wipercmd90::Wipercmd90() { Reset(); }
-AINFO<<"(DMCZP) EnteringMethod: Wipercmd90::Wipercmd90";
 
 uint32_t Wipercmd90::GetPeriod() const {
-AINFO<<"(DMCZP) EnteringMethod: Wipercmd90::GetPeriod";
   // TODO(QiL) :modify every protocol's period manually
   static const uint32_t PERIOD = 20 * 1000;
   return PERIOD;
 }
 
 void Wipercmd90::UpdateData(uint8_t* data) {
-AINFO<<"(DMCZP) EnteringMethod: Wipercmd90::UpdateData";
   set_p_wiper_cmd(data, wiper_cmd_);
 }
 
 void Wipercmd90::Reset() {
-AINFO<<"(DMCZP) EnteringMethod: Wipercmd90::Reset";
   // TODO(QiL) :you should check this manually
   wiper_cmd_ = Wiper_cmd_90::WIPER_CMD_WIPERS_OFF;
 }
 
 Wipercmd90* Wipercmd90::set_wiper_cmd(Wiper_cmd_90::Wiper_cmdType wiper_cmd) {
-AINFO<<"(DMCZP) EnteringMethod: Wipercmd90::set_wiper_cmd";
   wiper_cmd_ = wiper_cmd;
   return this;
 }
@@ -63,7 +58,6 @@ AINFO<<"(DMCZP) EnteringMethod: Wipercmd90::set_wiper_cmd";
 // 'physical_unit': ''}
 void Wipercmd90::set_p_wiper_cmd(uint8_t* data,
                                  Wiper_cmd_90::Wiper_cmdType wiper_cmd) {
-AINFO<<"(DMCZP) EnteringMethod: Wipercmd90::set_p_wiper_cmd";
   uint8_t x = wiper_cmd;
 
   Byte to_set(data + 0);

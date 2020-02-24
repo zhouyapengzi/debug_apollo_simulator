@@ -43,9 +43,6 @@ DEFINE_double(
     "look forward this distance when creating reference line from routing");
 
 namespace apollo {
-AINFO<<"(DMCZP) EnteringMethod: DEFINE_double";
-AINFO<<"(DMCZP) EnteringMethod: DEFINE_double";
-AINFO<<"(DMCZP) EnteringMethod: DEFINE_double";
 namespace hdmap {
 
 using apollo::common::PointENU;
@@ -61,21 +58,17 @@ const double kTrajectoryApproximationMaxError = 2.0;
 }  // namespace
 
 PncMap::PncMap(const HDMap *hdmap) : hdmap_(hdmap) {}
-AINFO<<"(DMCZP) EnteringMethod: PncMap::PncMap";
 
 const hdmap::HDMap *PncMap::hdmap() const { return hdmap_; }
-AINFO<<"(DMCZP) EnteringMethod: *PncMap::hdmap";
 
 LaneWaypoint PncMap::ToLaneWaypoint(
     const routing::LaneWaypoint &waypoint) const {
-AINFO<<"(DMCZP) EnteringMethod: PncMap::ToLaneWaypoint";
   auto lane = hdmap_->GetLaneById(hdmap::MakeMapId(waypoint.id()));
   CHECK(lane) << "Invalid lane id: " << waypoint.id();
   return LaneWaypoint(lane, waypoint.s());
 }
 
 double PncMap::LookForwardDistance(double velocity) {
-AINFO<<"(DMCZP) EnteringMethod: PncMap::LookForwardDistance";
   auto forward_distance = velocity * FLAGS_look_forward_time_sec;
 
   return forward_distance > FLAGS_look_forward_short_distance
@@ -84,14 +77,12 @@ AINFO<<"(DMCZP) EnteringMethod: PncMap::LookForwardDistance";
 }
 
 LaneSegment PncMap::ToLaneSegment(const routing::LaneSegment &segment) const {
-AINFO<<"(DMCZP) EnteringMethod: PncMap::ToLaneSegment";
   auto lane = hdmap_->GetLaneById(hdmap::MakeMapId(segment.id()));
   CHECK(lane) << "Invalid lane id: " << segment.id();
   return LaneSegment(lane, segment.start_s(), segment.end_s());
 }
 
 void PncMap::UpdateNextRoutingWaypointIndex(int cur_index) {
-AINFO<<"(DMCZP) EnteringMethod: PncMap::UpdateNextRoutingWaypointIndex";
   if (cur_index < 0) {
     next_routing_waypoint_index_ = 0;
     return;
@@ -140,7 +131,6 @@ std::vector<routing::LaneWaypoint> PncMap::FutureRouteWaypoints() const {
 }
 
 void PncMap::UpdateRoutingRange(int adc_index) {
-AINFO<<"(DMCZP) EnteringMethod: PncMap::UpdateRoutingRange";
   // Track routing range.
   if (range_start_ > adc_index || range_end_ < adc_index) {
     range_lane_ids_.clear();
@@ -163,7 +153,6 @@ AINFO<<"(DMCZP) EnteringMethod: PncMap::UpdateRoutingRange";
 }
 
 bool PncMap::UpdateVehicleState(const VehicleState &vehicle_state) {
-AINFO<<"(DMCZP) EnteringMethod: PncMap::UpdateVehicleState";
   if (!ValidateRouting(routing_)) {
     AERROR << "The routing is invalid when updatting vehicle state.";
     return false;
@@ -212,13 +201,11 @@ AINFO<<"(DMCZP) EnteringMethod: PncMap::UpdateVehicleState";
 }
 
 bool PncMap::IsNewRouting(const routing::RoutingResponse &routing) const {
-AINFO<<"(DMCZP) EnteringMethod: PncMap::IsNewRouting";
   return IsNewRouting(routing_, routing);
 }
 
 bool PncMap::IsNewRouting(const routing::RoutingResponse &prev,
                           const routing::RoutingResponse &routing) {
-AINFO<<"(DMCZP) EnteringMethod: PncMap::IsNewRouting";
   if (!ValidateRouting(routing)) {
     ADEBUG << "The provided routing is invalid.";
     return false;
@@ -227,7 +214,6 @@ AINFO<<"(DMCZP) EnteringMethod: PncMap::IsNewRouting";
 }
 
 bool PncMap::UpdateRoutingResponse(const routing::RoutingResponse &routing) {
-AINFO<<"(DMCZP) EnteringMethod: PncMap::UpdateRoutingResponse";
   range_lane_ids_.clear();
   route_indices_.clear();
   all_lane_ids_.clear();
@@ -282,12 +268,10 @@ AINFO<<"(DMCZP) EnteringMethod: PncMap::UpdateRoutingResponse";
 }
 
 const routing::RoutingResponse &PncMap::routing_response() const {
-AINFO<<"(DMCZP) EnteringMethod: &PncMap::routing_response";
   return routing_;
 }
 
 bool PncMap::ValidateRouting(const RoutingResponse &routing) {
-AINFO<<"(DMCZP) EnteringMethod: PncMap::ValidateRouting";
   const int num_road = routing.road_size();
   if (num_road == 0) {
     AERROR << "Route is empty.";
@@ -309,7 +293,6 @@ AINFO<<"(DMCZP) EnteringMethod: PncMap::ValidateRouting";
 
 int PncMap::SearchForwardWaypointIndex(int start,
                                        const LaneWaypoint &waypoint) const {
-AINFO<<"(DMCZP) EnteringMethod: PncMap::SearchForwardWaypointIndex";
   int i = std::max(start, 0);
   while (
       i < static_cast<int>(route_indices_.size()) &&
@@ -321,7 +304,6 @@ AINFO<<"(DMCZP) EnteringMethod: PncMap::SearchForwardWaypointIndex";
 
 int PncMap::SearchBackwardWaypointIndex(int start,
                                         const LaneWaypoint &waypoint) const {
-AINFO<<"(DMCZP) EnteringMethod: PncMap::SearchBackwardWaypointIndex";
   int i = std::min(static_cast<int>(route_indices_.size() - 1), start);
   while (i >= 0 && !RouteSegments::WithinLaneSegment(route_indices_[i].segment,
                                                      waypoint)) {
@@ -331,7 +313,6 @@ AINFO<<"(DMCZP) EnteringMethod: PncMap::SearchBackwardWaypointIndex";
 }
 
 int PncMap::NextWaypointIndex(int index) const {
-AINFO<<"(DMCZP) EnteringMethod: PncMap::NextWaypointIndex";
   if (index >= static_cast<int>(route_indices_.size() - 1)) {
     return static_cast<int>(route_indices_.size()) - 1;
   } else if (index < 0) {
@@ -342,7 +323,6 @@ AINFO<<"(DMCZP) EnteringMethod: PncMap::NextWaypointIndex";
 }
 
 int PncMap::GetWaypointIndex(const LaneWaypoint &waypoint) const {
-AINFO<<"(DMCZP) EnteringMethod: PncMap::GetWaypointIndex";
   int forward_index = SearchForwardWaypointIndex(adc_route_index_, waypoint);
   if (forward_index >= static_cast<int>(route_indices_.size())) {
     return SearchBackwardWaypointIndex(adc_route_index_, waypoint);
@@ -362,7 +342,6 @@ AINFO<<"(DMCZP) EnteringMethod: PncMap::GetWaypointIndex";
 
 bool PncMap::PassageToSegments(routing::Passage passage,
                                RouteSegments *segments) const {
-AINFO<<"(DMCZP) EnteringMethod: PncMap::PassageToSegments";
   CHECK_NOTNULL(segments);
   segments->clear();
   for (const auto &lane : passage.segment()) {
@@ -435,8 +414,6 @@ std::vector<int> PncMap::GetNeighborPassages(const routing::RoadSegment &road,
 }
 bool PncMap::GetRouteSegments(const VehicleState &vehicle_state,
                               std::list<RouteSegments> *const route_segments) {
-AINFO<<"(DMCZP) EnteringMethod: PncMap::GetRouteSegments";
-AINFO<<"(DMCZP) EnteringMethod: PncMap::GetRouteSegments";
   double look_forward_distance =
       LookForwardDistance(vehicle_state.linear_velocity());
   double look_backward_distance = FLAGS_look_backward_distance;
@@ -523,7 +500,6 @@ bool PncMap::GetRouteSegments(const VehicleState &vehicle_state,
 
 bool PncMap::GetNearestPointFromRouting(const VehicleState &state,
                                         LaneWaypoint *waypoint) const {
-AINFO<<"(DMCZP) EnteringMethod: PncMap::GetNearestPointFromRouting";
   const double kMaxDistance = 10.0;  // meters.
   waypoint->lane = nullptr;
   std::vector<LaneInfoConstPtr> lanes;
@@ -592,7 +568,6 @@ AINFO<<"(DMCZP) EnteringMethod: PncMap::GetNearestPointFromRouting";
 }
 
 LaneInfoConstPtr PncMap::GetRouteSuccessor(LaneInfoConstPtr lane) const {
-AINFO<<"(DMCZP) EnteringMethod: PncMap::GetRouteSuccessor";
   if (lane->lane().successor_id_size() == 0) {
     return nullptr;
   }
@@ -607,7 +582,6 @@ AINFO<<"(DMCZP) EnteringMethod: PncMap::GetRouteSuccessor";
 }
 
 LaneInfoConstPtr PncMap::GetRoutePredecessor(LaneInfoConstPtr lane) const {
-AINFO<<"(DMCZP) EnteringMethod: PncMap::GetRoutePredecessor";
   if (lane->lane().predecessor_id_size() == 0) {
     return nullptr;
   }
@@ -625,7 +599,6 @@ bool PncMap::ExtendSegments(const RouteSegments &segments,
                             const common::PointENU &point, double look_backward,
                             double look_forward,
                             RouteSegments *extended_segments) {
-AINFO<<"(DMCZP) EnteringMethod: PncMap::ExtendSegments";
   common::SLPoint sl;
   LaneWaypoint waypoint;
   if (!segments.GetProjection(point, &sl, &waypoint)) {
@@ -639,7 +612,6 @@ AINFO<<"(DMCZP) EnteringMethod: PncMap::ExtendSegments";
 bool PncMap::ExtendSegments(const RouteSegments &segments, double start_s,
                             double end_s,
                             RouteSegments *const truncated_segments) const {
-AINFO<<"(DMCZP) EnteringMethod: PncMap::ExtendSegments";
   if (segments.empty()) {
     AERROR << "The input segments is empty";
     return false;
@@ -738,7 +710,6 @@ AINFO<<"(DMCZP) EnteringMethod: PncMap::ExtendSegments";
 void PncMap::AppendLaneToPoints(LaneInfoConstPtr lane, const double start_s,
                                 const double end_s,
                                 std::vector<MapPathPoint> *const points) {
-AINFO<<"(DMCZP) EnteringMethod: PncMap::AppendLaneToPoints";
   if (points == nullptr || start_s >= end_s) {
     return;
   }

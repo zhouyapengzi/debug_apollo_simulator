@@ -38,20 +38,16 @@ HMI::HMI(WebSocketHandler* websocket, MapService* map_service,
       websocket_(websocket),
       map_service_(map_service),
       data_collection_monitor_(data_collection_monitor) {
-AINFO<<"(DMCZP) EnteringMethod: HMI::HMI";
   if (websocket_) {
     RegisterMessageHandlers();
   }
 }
 
 void HMI::Start() { hmi_worker_->Start(); }
-AINFO<<"(DMCZP) EnteringMethod: HMI::Start";
 
 void HMI::Stop() { hmi_worker_->Stop(); }
-AINFO<<"(DMCZP) EnteringMethod: HMI::Stop";
 
 void HMI::RegisterMessageHandlers() {
-AINFO<<"(DMCZP) EnteringMethod: HMI::RegisterMessageHandlers";
   // Broadcast HMIStatus to clients when status changed.
   hmi_worker_->RegisterStatusUpdateHandler(
       [this](const bool status_changed, HMIStatus* status) {
@@ -146,7 +142,6 @@ AINFO<<"(DMCZP) EnteringMethod: HMI::RegisterMessageHandlers";
 }
 
 void HMI::SendVehicleParam(WebSocketHandler::Connection* conn) {
-AINFO<<"(DMCZP) EnteringMethod: HMI::SendVehicleParam";
   if (websocket_ == nullptr) {
     return;
   }

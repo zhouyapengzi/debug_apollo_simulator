@@ -28,7 +28,6 @@ class Steeringmotorrpt274Test : public ::testing::Test {
 };
 
 TEST_F(Steeringmotorrpt274Test, reset) {
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   Steeringmotorrpt274 steeringmotor2;
   int32_t length = 8;
   ChassisDetail chassis_detail;

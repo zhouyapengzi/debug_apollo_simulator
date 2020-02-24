@@ -28,7 +28,6 @@ class Globalrpt6aTest : public ::testing::Test {
 };
 
 TEST_F(Globalrpt6aTest, reset) {
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   Globalrpt6a globalrpt;
   int32_t length = 8;
   ChassisDetail chassis_detail;

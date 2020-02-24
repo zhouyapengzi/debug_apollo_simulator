@@ -26,21 +26,16 @@ namespace common {
 namespace math {
 
 Vec2d Vec2d::CreateUnitVec2d(const double angle) {
-AINFO<<"(DMCZP) EnteringMethod: Vec2d::CreateUnitVec2d";
   return Vec2d(cos(angle), sin(angle));
 }
 
 double Vec2d::Length() const { return std::hypot(x_, y_); }
-AINFO<<"(DMCZP) EnteringMethod: Vec2d::Length";
 
 double Vec2d::LengthSquare() const { return x_ * x_ + y_ * y_; }
-AINFO<<"(DMCZP) EnteringMethod: Vec2d::LengthSquare";
 
 double Vec2d::Angle() const { return std::atan2(y_, x_); }
-AINFO<<"(DMCZP) EnteringMethod: Vec2d::Angle";
 
 void Vec2d::Normalize() {
-AINFO<<"(DMCZP) EnteringMethod: Vec2d::Normalize";
   const double l = Length();
   if (l > kMathEpsilon) {
     x_ /= l;
@@ -49,35 +44,29 @@ AINFO<<"(DMCZP) EnteringMethod: Vec2d::Normalize";
 }
 
 double Vec2d::DistanceTo(const Vec2d &other) const {
-AINFO<<"(DMCZP) EnteringMethod: Vec2d::DistanceTo";
   return std::hypot(x_ - other.x_, y_ - other.y_);
 }
 
 double Vec2d::DistanceSquareTo(const Vec2d &other) const {
-AINFO<<"(DMCZP) EnteringMethod: Vec2d::DistanceSquareTo";
   const double dx = x_ - other.x_;
   const double dy = y_ - other.y_;
   return dx * dx + dy * dy;
 }
 
 double Vec2d::CrossProd(const Vec2d &other) const {
-AINFO<<"(DMCZP) EnteringMethod: Vec2d::CrossProd";
   return x_ * other.y() - y_ * other.x();
 }
 
 double Vec2d::InnerProd(const Vec2d &other) const {
-AINFO<<"(DMCZP) EnteringMethod: Vec2d::InnerProd";
   return x_ * other.x() + y_ * other.y();
 }
 
 Vec2d Vec2d::rotate(const double angle) const {
-AINFO<<"(DMCZP) EnteringMethod: Vec2d::rotate";
   return Vec2d(x_ * cos(angle) - y_ * sin(angle),
                x_ * sin(angle) + y_ * cos(angle));
 }
 
 void Vec2d::SelfRotate(const double angle) {
-AINFO<<"(DMCZP) EnteringMethod: Vec2d::SelfRotate";
   double tmp_x = x_;
   x_ = x_ * cos(angle) - y_ * sin(angle);
   y_ = tmp_x * sin(angle) + y_ * cos(angle);
@@ -92,7 +81,6 @@ Vec2d Vec2d::operator-(const Vec2d &other) const {
 }
 
 Vec2d Vec2d::operator*(const double ratio) const {
-AINFO<<"(DMCZP) EnteringMethod: Vec2d::operator*";
   return Vec2d(x_ * ratio, y_ * ratio);
 }
 
@@ -132,10 +120,8 @@ bool Vec2d::operator==(const Vec2d &other) const {
 }
 
 Vec2d operator*(const double ratio, const Vec2d &vec) { return vec * ratio; }
-AINFO<<"(DMCZP) EnteringMethod: operator*";
 
 std::string Vec2d::DebugString() const {
-AINFO<<"(DMCZP) EnteringMethod: Vec2d::DebugString";
   return util::StrCat("vec2d ( x = ", x_, "  y = ", y_, " )");
 }
 

@@ -22,7 +22,6 @@ namespace perception {
 namespace base {
 
 TEST(ObjectTest, object_construct_test) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   Object object;
 
   EXPECT_EQ(object.id, -1);
@@ -50,7 +49,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST";
 }
 
 TEST(ObjectTest, object_reset_test) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   Object object;
   std::string str_obj = object.ToString();
 

@@ -22,7 +22,6 @@ namespace perception {
 namespace lib {
 
 TEST(ThreadWorkerTest, ThreadWorkerTest1) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   int count = 0;
   ThreadWorker worker;
   worker.Bind([&]() {
@@ -40,7 +39,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST";
 }
 
 TEST(ThreadWorkerTest, ThreadWorkerTest2) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   int count = 0;
   ThreadWorker worker;
   worker.Bind([&]() {

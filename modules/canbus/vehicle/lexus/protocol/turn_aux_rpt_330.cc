@@ -28,12 +28,10 @@ namespace lexus {
 using ::apollo::drivers::canbus::Byte;
 
 Turnauxrpt330::Turnauxrpt330() {}
-AINFO<<"(DMCZP) EnteringMethod: Turnauxrpt330::Turnauxrpt330";
 const int32_t Turnauxrpt330::ID = 0x330;
 
 void Turnauxrpt330::Parse(const std::uint8_t* bytes, int32_t length,
                           ChassisDetail* chassis) const {
-AINFO<<"(DMCZP) EnteringMethod: Turnauxrpt330::Parse";
   chassis->mutable_lexus()
       ->mutable_turn_aux_rpt_330()
       ->set_pass_blinker_bulb_on_is_valid(
@@ -55,7 +53,6 @@ AINFO<<"(DMCZP) EnteringMethod: Turnauxrpt330::Parse";
 // '[0|1]', 'bit': 9, 'type': 'bool', 'order': 'motorola', 'physical_unit': ''}
 bool Turnauxrpt330::pass_blinker_bulb_on_is_valid(const std::uint8_t* bytes,
                                                   int32_t length) const {
-AINFO<<"(DMCZP) EnteringMethod: Turnauxrpt330::pass_blinker_bulb_on_is_valid";
   Byte t0(bytes + 1);
   int32_t x = t0.get_byte(1, 1);
 
@@ -68,7 +65,6 @@ AINFO<<"(DMCZP) EnteringMethod: Turnauxrpt330::pass_blinker_bulb_on_is_valid";
 // '[0|1]', 'bit': 1, 'type': 'bool', 'order': 'motorola', 'physical_unit': ''}
 bool Turnauxrpt330::pass_blinker_bulb_on(const std::uint8_t* bytes,
                                          int32_t length) const {
-AINFO<<"(DMCZP) EnteringMethod: Turnauxrpt330::pass_blinker_bulb_on";
   Byte t0(bytes + 0);
   int32_t x = t0.get_byte(1, 1);
 
@@ -81,7 +77,6 @@ AINFO<<"(DMCZP) EnteringMethod: Turnauxrpt330::pass_blinker_bulb_on";
 // '[0|1]', 'bit': 8, 'type': 'bool', 'order': 'motorola', 'physical_unit': ''}
 bool Turnauxrpt330::driver_blinker_bulb_on_is_valid(const std::uint8_t* bytes,
                                                     int32_t length) const {
-AINFO<<"(DMCZP) EnteringMethod: Turnauxrpt330::driver_blinker_bulb_on_is_valid";
   Byte t0(bytes + 1);
   int32_t x = t0.get_byte(0, 1);
 
@@ -94,7 +89,6 @@ AINFO<<"(DMCZP) EnteringMethod: Turnauxrpt330::driver_blinker_bulb_on_is_valid";
 // '[0|1]', 'bit': 0, 'type': 'bool', 'order': 'motorola', 'physical_unit': ''}
 bool Turnauxrpt330::driver_blinker_bulb_on(const std::uint8_t* bytes,
                                            int32_t length) const {
-AINFO<<"(DMCZP) EnteringMethod: Turnauxrpt330::driver_blinker_bulb_on";
   Byte t0(bytes + 0);
   int32_t x = t0.get_byte(0, 1);
 

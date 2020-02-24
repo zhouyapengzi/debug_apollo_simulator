@@ -26,7 +26,6 @@ namespace apollo {
 namespace planning {
 
 TEST(AutotuningSpeedFeatureBuilder, test_case_two) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   AutotuningSpeedFeatureBuilder feature_builder;
   autotuning::TrajectoryRawFeature raw_feature;
   autotuning::TrajectoryPointRawFeature raw_point_feature;

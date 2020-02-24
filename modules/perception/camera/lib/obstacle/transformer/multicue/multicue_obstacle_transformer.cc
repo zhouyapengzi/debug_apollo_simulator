@@ -25,7 +25,6 @@ namespace camera {
 
 bool MultiCueObstacleTransformer::Init(
     const ObstacleTransformerInitOptions &options) {
-AINFO<<"(DMCZP) EnteringMethod: MultiCueObstacleTransformer::Init";
   std::string transformer_config =
       cyber::common::GetAbsolutePath(options.root_dir, options.conf_file);
 
@@ -46,7 +45,6 @@ AINFO<<"(DMCZP) EnteringMethod: MultiCueObstacleTransformer::Init";
 void MultiCueObstacleTransformer::SetObjMapperOptions(
     base::ObjectPtr obj, Eigen::Matrix3f camera_k_matrix, int width_image,
     int height_image, ObjMapperOptions *obj_mapper_options, float *theta_ray) {
-AINFO<<"(DMCZP) EnteringMethod: MultiCueObstacleTransformer::SetObjMapperOptions";
   // prepare bbox2d
   float bbox2d[4] = {
       obj->camera_supplement.box.xmin, obj->camera_supplement.box.ymin,
@@ -99,7 +97,6 @@ AINFO<<"(DMCZP) EnteringMethod: MultiCueObstacleTransformer::SetObjMapperOptions
 
 int MultiCueObstacleTransformer::MatchTemplates(base::ObjectSubType sub_type,
                                                 float *dimension_hwl) {
-AINFO<<"(DMCZP) EnteringMethod: MultiCueObstacleTransformer::MatchTemplates";
   const TemplateMap &kMinTemplateHWL =
       object_template_manager_->MinTemplateHWL();
   const TemplateMap &kMidTemplateHWL =
@@ -172,7 +169,6 @@ AINFO<<"(DMCZP) EnteringMethod: MultiCueObstacleTransformer::MatchTemplates";
 void MultiCueObstacleTransformer::FillResults(
     float object_center[3], float dimension_hwl[3], float rotation_y,
     Eigen::Affine3d camera2world_pose, float theta_ray, base::ObjectPtr obj) {
-AINFO<<"(DMCZP) EnteringMethod: MultiCueObstacleTransformer::FillResults";
   if (obj == nullptr) {
     return;
   }
@@ -218,7 +214,6 @@ AINFO<<"(DMCZP) EnteringMethod: MultiCueObstacleTransformer::FillResults";
 
 bool MultiCueObstacleTransformer::Transform(
     const ObstacleTransformerOptions &options, CameraFrame *frame) {
-AINFO<<"(DMCZP) EnteringMethod: MultiCueObstacleTransformer::Transform";
   if (frame->detected_objects.empty()) {
     ADEBUG << "No object input to transformer.";
     return true;
@@ -273,7 +268,6 @@ AINFO<<"(DMCZP) EnteringMethod: MultiCueObstacleTransformer::Transform";
 }
 
 std::string MultiCueObstacleTransformer::Name() const {
-AINFO<<"(DMCZP) EnteringMethod: MultiCueObstacleTransformer::Name";
   return "MultiCueObstacleTransformer";
 }
 

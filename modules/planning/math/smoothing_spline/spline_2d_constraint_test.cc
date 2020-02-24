@@ -27,7 +27,6 @@ namespace planning {
 using apollo::common::math::Vec2d;
 
 TEST(Spline2dConstraint, add_boundary_01) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   std::vector<double> x_knots = {0.0, 1.0};
   int32_t spline_order = 3;
   Spline2dConstraint constraint(x_knots, spline_order);
@@ -70,7 +69,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST";
 
 // test add boundary with non-zero angle
 TEST(Spline2dConstraint, add_boundary_02) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   std::vector<double> x_knots = {0.0, 1.0};
   int32_t spline_order = 3;
   Spline2dConstraint constraint(x_knots, spline_order);
@@ -113,7 +111,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST";
 
 // test add boundary with multiple splines
 TEST(Spline2dConstraint, add_boundary_03) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   std::vector<double> x_knots = {0.0, 1.0, 2.0};
   int32_t spline_order = 3;
   Spline2dConstraint constraint(x_knots, spline_order);
@@ -155,7 +152,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST";
 }
 
 TEST(Spline2dConstraint, add_boundary_04) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   std::vector<double> x_knots = {0.0, 1.0};
   int32_t spline_order = 3;
   Spline2dConstraint constraint(x_knots, spline_order);
@@ -197,7 +193,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST";
 }
 
 TEST(Spline2dConstraint, add_point_angle_constraint_01) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   std::vector<double> x_knots = {0.0, 1.0};
   int32_t spline_order = 3;
   Spline2dConstraint constraint(x_knots, spline_order);
@@ -230,7 +225,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST";
 }
 
 TEST(Spline2dConstraint, add_point_angle_constraint_02) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   std::vector<double> x_knots = {0.0, 1.0};
   int32_t spline_order = 3;
   Spline2dConstraint constraint(x_knots, spline_order);
@@ -263,7 +257,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST";
 }
 
 TEST(Spline2dConstraint, add_point_angle_constraint_03) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   std::vector<double> x_knots = {0.0, 1.0};
   int32_t spline_order = 3;
   Spline2dConstraint constraint(x_knots, spline_order);
@@ -296,7 +289,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST";
 }
 
 TEST(Spline2dConstraint, add_point_angle_constraint_04) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   std::vector<double> x_knots = {0.0, 1.0};
   int32_t spline_order = 3;
   Spline2dConstraint constraint(x_knots, spline_order);
@@ -329,7 +321,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST";
 }
 
 TEST(Spline2dConstraint, add_point_angle_constraint_05) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   std::vector<double> x_knots = {0.0, 1.0};
   int32_t spline_order = 3;
   Spline2dConstraint constraint(x_knots, spline_order);
@@ -362,7 +353,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST";
 }
 
 TEST(Spline2dConstraint, add_point_angle_constraint_06) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   std::vector<double> x_knots = {0.0, 1.0};
   int32_t spline_order = 3;
   Spline2dConstraint constraint(x_knots, spline_order);

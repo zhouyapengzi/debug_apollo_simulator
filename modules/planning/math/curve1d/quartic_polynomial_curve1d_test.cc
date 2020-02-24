@@ -28,7 +28,6 @@ namespace apollo {
 namespace planning {
 
 TEST(QuarticPolynomialCurve1dTest, Evaluate) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   {
     double x0 = 0.0;
     double dx0 = 0.0;
@@ -78,7 +77,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST";
 }
 
 TEST(QuarticPolynomialCurve1dTest, IntegratedFromCubicCurve) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   CubicPolynomialCurve1d cubic_curve(1, 2, 3, 2, 5);
   QuarticPolynomialCurve1d quartic_curve;
   quartic_curve.IntegratedFromCubicCurve(cubic_curve, 0.0);
@@ -95,7 +93,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST";
 }
 
 TEST(QuarticPolynomialCurve1dTest, DerivedFromQuinticCurve) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   QuinticPolynomialCurve1d quintic_curve(1, 2, 3, 2, 1, 2, 5);
   QuarticPolynomialCurve1d quartic_curve;
   quartic_curve.DerivedFromQuinticCurve(quintic_curve);
@@ -114,7 +111,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST";
 }
 
 TEST(QuarticPolynomialCurve1dTest, FitWithEndPointFirstOrder) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   QuarticPolynomialCurve1d quartic_curve(1, 2, 4, 2, 1, 3);
   quartic_curve.FitWithEndPointFirstOrder(2, 3, 2, 1, 2, 5);
   EXPECT_NEAR(quartic_curve.Evaluate(0, 0), 2, 1e-8);
@@ -126,7 +122,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST";
 }
 
 TEST(QuarticPolynomialCurve1dTest, FitWithEndPointSecondOrder) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   QuarticPolynomialCurve1d quartic_curve(1, 2, 4, 2, 1, 3);
   quartic_curve.FitWithEndPointSecondOrder(2, 7, 2, 6, 2, 8);
   EXPECT_NEAR(quartic_curve.Evaluate(0, 0), 2, 1e-8);

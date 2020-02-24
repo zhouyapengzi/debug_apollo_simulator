@@ -21,11 +21,9 @@ namespace perception {
 namespace lidar {
 
 bool DummyROIFilter::Init(const ROIFilterInitOptions& options) { return true; }
-AINFO<<"(DMCZP) EnteringMethod: DummyROIFilter::Init";
 
 bool DummyROIFilter::Filter(const ROIFilterOptions& options,
                             LidarFrame* frame) {
-AINFO<<"(DMCZP) EnteringMethod: DummyROIFilter::Filter";
   if (!frame) {
     return false;
   }

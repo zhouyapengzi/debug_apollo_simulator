@@ -27,21 +27,16 @@ namespace math {
 namespace {
 
 double LinearFunc(double x) { return 2.0 * x; }
-AINFO<<"(DMCZP) EnteringMethod: LinearFunc";
 
 double SquareFunc(double x) { return x * x; }
-AINFO<<"(DMCZP) EnteringMethod: SquareFunc";
 
 double CubicFunc(double x) { return (x - 1.0) * (x - 2.0) * (x - 3.0); }
-AINFO<<"(DMCZP) EnteringMethod: CubicFunc";
 
 double SinFunc(double x) { return std::sin(x); }
-AINFO<<"(DMCZP) EnteringMethod: SinFunc";
 
 }  // namespace
 
 TEST(SearchTest, GoldenSectionSearch) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   double linear_argmin = GoldenSectionSearch(LinearFunc, 0.0, 1.0, 1e-6);
   EXPECT_NEAR(linear_argmin, 0.0, 1e-5);
   double square_argmin = GoldenSectionSearch(SquareFunc, -1.0, 2.0, 1e-6);

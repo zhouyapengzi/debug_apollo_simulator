@@ -19,7 +19,6 @@
 #include "gtest/gtest.h"
 
 TEST(ArgmaxPluginsTest, test) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   {
     apollo::perception::inference::ArgMaxParameter argmax_param;
     argmax_param.set_out_max_val(true);

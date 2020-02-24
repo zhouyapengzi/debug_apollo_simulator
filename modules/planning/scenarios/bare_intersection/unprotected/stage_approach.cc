@@ -41,7 +41,6 @@ uint32_t BareIntersectionUnprotectedStageApproach::clear_counter_ = 0;
 
 Stage::StageStatus BareIntersectionUnprotectedStageApproach::Process(
     const TrajectoryPoint& planning_init_point, Frame* frame) {
-AINFO<<"(DMCZP) EnteringMethod: BareIntersectionUnprotectedStageApproach::Process";
   ADEBUG << "stage: Approach";
   CHECK_NOTNULL(frame);
 
@@ -179,7 +178,6 @@ AINFO<<"(DMCZP) EnteringMethod: BareIntersectionUnprotectedStageApproach::Proces
 }
 
 Stage::StageStatus BareIntersectionUnprotectedStageApproach::FinishStage() {
-AINFO<<"(DMCZP) EnteringMethod: BareIntersectionUnprotectedStageApproach::FinishStage";
   next_stage_ =
       ScenarioConfig::BARE_INTERSECTION_UNPROTECTED_INTERSECTION_CRUISE;
   return Stage::FINISHED;

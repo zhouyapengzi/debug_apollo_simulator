@@ -24,7 +24,6 @@ namespace service_discovery {
 
 ParticipantListener::ParticipantListener(const ChangeFunc& callback)
     : callback_(callback) {}
-AINFO<<"(DMCZP) EnteringMethod: ParticipantListener::ParticipantListener";
 
 ParticipantListener::~ParticipantListener() {
   std::lock_guard<std::mutex> lck(mutex_);
@@ -34,7 +33,6 @@ ParticipantListener::~ParticipantListener() {
 void ParticipantListener::onParticipantDiscovery(
     eprosima::fastrtps::Participant* p,
     eprosima::fastrtps::ParticipantDiscoveryInfo info) {
-AINFO<<"(DMCZP) EnteringMethod: ParticipantListener::onParticipantDiscovery";
   RETURN_IF_NULL(callback_);
   std::lock_guard<std::mutex> lock(mutex_);
   callback_(info);

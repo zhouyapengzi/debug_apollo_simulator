@@ -19,7 +19,6 @@ namespace apollo {
 namespace bridge {
 
 int GetProtoSize(const char *buf, size_t size) {
-AINFO<<"(DMCZP) EnteringMethod: GetProtoSize";
   if (size != sizeof(size_t)) {
     return 0;
   }

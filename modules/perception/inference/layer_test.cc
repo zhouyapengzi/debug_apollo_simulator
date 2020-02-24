@@ -23,7 +23,6 @@ namespace perception {
 namespace inference {
 
 TEST(Layer, default) {}
-AINFO<<"(DMCZP) EnteringMethod: TEST";
 
 }  // namespace inference
 }  // namespace perception

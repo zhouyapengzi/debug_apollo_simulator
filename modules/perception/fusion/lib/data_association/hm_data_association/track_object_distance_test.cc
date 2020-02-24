@@ -34,7 +34,6 @@ namespace fusion {
 TODO(all): not compiling. to be fixed
 
 class TrackObjectDistanceTest : public testing::Test {
-AINFO<<"(DMCZP) EnteringMethod: TODO";
  protected:
   void SetUp() {
     lib::FLAGS_work_root = "./fusion_test_data/hm_data_association";
@@ -45,7 +44,6 @@ AINFO<<"(DMCZP) EnteringMethod: TODO";
 };
 
 TEST_F(TrackObjectDistanceTest, test_is_track_id_consistent) {
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   TrackObjectDistance track_object_distance;
   base::ObjectPtr object1_ptr(new base::Object());
   object1_ptr->track_id = 0;
@@ -69,7 +67,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST_F";
 }
 
 TEST_F(TrackObjectDistanceTest, test_comppute_polygon_center) {
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   TrackObjectDistance track_object_distance;
   base::PolygonDType polygon;
   Eigen::Vector3d center;
@@ -84,7 +81,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST_F";
 }
 
 TEST_F(TrackObjectDistanceTest, test_compute_polygon_distance3d) {
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   TrackObjectDistance track_object_distance;
   base::ObjectPtr fusion_object_ptr(new base::Object());
   base::ObjectConstPtr fusion_object_const_ptr(fusion_object_ptr);
@@ -119,7 +115,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST_F";
 }
 
 TEST_F(TrackObjectDistanceTest, test_query_polygon_dcenter) {
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   TrackObjectDistance track_object_distance;
   base::ObjectConstPtr object_const_ptr;
   Eigen::Vector3d ref_pos(0, 0, 0);
@@ -143,7 +138,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST_F";
 }
 
 TEST_F(TrackObjectDistanceTest, test_query_camera_model) {
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   TrackObjectDistance track_object_distance;
   base::ObjectPtr sensor_object_ptr(new base::Object());
   base::ObjectConstPtr sensor_object_const_ptr(sensor_object_ptr);
@@ -163,7 +157,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST_F";
 }
 
 TEST_F(TrackObjectDistanceTest, test_query_world2camera_pose) {
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   TrackObjectDistance track_object_distance;
   {
     base::ObjectPtr sensor_object_ptr(new base::Object());
@@ -222,7 +215,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST_F";
 }
 
 TEST_F(TrackObjectDistanceTest, test_query_world2camera_pose_2) {
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   TrackObjectDistance track_object_distance;
   base::ObjectPtr sensor_object_ptr(new base::Object());
   base::ObjectConstPtr sensor_object_const_ptr(sensor_object_ptr);
@@ -250,7 +242,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST_F";
 }
 
 TEST_F(TrackObjectDistanceTest, test_query_lidar2world_pose) {
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   TrackObjectDistance track_object_distance;
   base::ObjectPtr sensor_object_ptr(new base::Object());
   base::ObjectConstPtr sensor_object_const_ptr(sensor_object_ptr);
@@ -281,7 +272,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST_F";
 }
 
 TEST_F(TrackObjectDistanceTest, test_query_projection_cache_object_0) {
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   TrackObjectDistance track_object_distance;
   base::ObjectPtr lidar_object_ptr(new base::Object());
   lidar_object_ptr->id = 1;
@@ -348,7 +338,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST_F";
 }
 
 TEST_F(TrackObjectDistanceTest, test_query_projection_cache_object_1) {
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   TrackObjectDistance track_object_distance;
   base::ObjectPtr lidar_object_ptr(new base::Object());
   lidar_object_ptr->id = 1;
@@ -416,7 +405,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST_F";
 }
 
 TEST_F(TrackObjectDistanceTest, test_query_projection_cache_object_2) {
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   TrackObjectDistance track_object_distance;
   base::ObjectPtr lidar_object_ptr(new base::Object());
   lidar_object_ptr->id = 1;
@@ -491,7 +479,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST_F";
 }
 
 TEST_F(TrackObjectDistanceTest, test_query_projection_cache_object_3) {
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   TrackObjectDistance track_object_distance;
   track_object_distance.ResetProjectionCache("lidar", 0.0);
   base::ObjectPtr lidar_object_ptr(new base::Object());
@@ -553,7 +540,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST_F";
 }
 
 TEST_F(TrackObjectDistanceTest, test_query_projection_cache_object_4) {
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   TrackObjectDistance track_object_distance;
   track_object_distance.ResetProjectionCache("lidar", 0.0);
   base::ObjectPtr lidar_object_ptr(new base::Object());
@@ -624,7 +610,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST_F";
 }
 
 TEST_F(TrackObjectDistanceTest, test_compute_radar_camera_similiarity_0) {
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   TrackObjectDistance track_object_distance;
   common::FLAGS_obs_sensor_meta_path = "./conf/sensor_meta.config";
   common::FLAGS_obs_sensor_intrinsic_path = "./params";
@@ -671,7 +656,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST_F";
 }
 
 TEST_F(TrackObjectDistanceTest, test_compute_radar_camera_similiarity_1) {
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   TrackObjectDistance track_object_distance;
   common::FLAGS_obs_sensor_meta_path = "./conf/sensor_meta.config";
   common::FLAGS_obs_sensor_intrinsic_path = "./params";
@@ -718,7 +702,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST_F";
 }
 
 TEST_F(TrackObjectDistanceTest, test_compute_radar_camera_similiarity_2) {
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   TrackObjectDistance track_object_distance;
   common::FLAGS_obs_sensor_meta_path = "./conf/sensor_meta.config";
   common::FLAGS_obs_sensor_intrinsic_path = "./params";
@@ -769,7 +752,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST_F";
 }
 
 TEST_F(TrackObjectDistanceTest, test_compute_radar_camera_similiarity_3) {
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   TrackObjectDistance track_object_distance;
   common::FLAGS_obs_sensor_meta_path = "./conf/sensor_meta.config";
   common::FLAGS_obs_sensor_intrinsic_path = "./params";
@@ -822,7 +804,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST_F";
 }
 
 TEST_F(TrackObjectDistanceTest, test_compute_radar_camera_similiarity_4) {
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   TrackObjectDistance track_object_distance;
   common::FLAGS_obs_sensor_meta_path = "./conf/sensor_meta.config";
   common::FLAGS_obs_sensor_intrinsic_path = "./params";
@@ -875,7 +856,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST_F";
 }
 
 TEST_F(TrackObjectDistanceTest, test_compute_radar_camera_similiarity_5) {
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   TrackObjectDistance track_object_distance;
   common::FLAGS_obs_sensor_meta_path = "./conf/sensor_meta.config";
   common::FLAGS_obs_sensor_intrinsic_path = "./params";
@@ -928,7 +908,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST_F";
 }
 
 TEST_F(TrackObjectDistanceTest, test_compute_lidar_camera_similiarity_0) {
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   TrackObjectDistance track_object_distance;
   common::FLAGS_obs_sensor_meta_path = "./conf/sensor_meta.config";
   common::FLAGS_obs_sensor_intrinsic_path = "./params";
@@ -978,7 +957,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST_F";
 }
 
 TEST_F(TrackObjectDistanceTest, test_compute_lidar_camera_similiarity_1) {
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   TrackObjectDistance track_object_distance;
   common::FLAGS_obs_sensor_meta_path = "./conf/sensor_meta.config";
   common::FLAGS_obs_sensor_intrinsic_path = "./params";
@@ -1028,7 +1006,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST_F";
 }
 
 TEST_F(TrackObjectDistanceTest, test_compute_lidar_camera_similiarity_2) {
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   TrackObjectDistance track_object_distance;
   common::FLAGS_obs_sensor_meta_path = "./conf/sensor_meta.config";
   common::FLAGS_obs_sensor_intrinsic_path = "./params";
@@ -1078,7 +1055,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST_F";
 }
 
 TEST_F(TrackObjectDistanceTest, test_compute_lidar_camera_similiarity_3) {
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   TrackObjectDistance track_object_distance;
   common::FLAGS_obs_sensor_meta_path = "./conf/sensor_meta.config";
   common::FLAGS_obs_sensor_intrinsic_path = "./params";
@@ -1128,7 +1104,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST_F";
 }
 
 TEST_F(TrackObjectDistanceTest, test_compute_lidar_camera_similiarity_4) {
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   TrackObjectDistance track_object_distance;
   common::FLAGS_obs_sensor_meta_path = "./conf/sensor_meta.config";
   common::FLAGS_obs_sensor_intrinsic_path = "./params";
@@ -1198,8 +1173,6 @@ ProjectionCache("lidar", 0.0); ProjectionCache& projection_cache =
 }
 
 TEST_F(TrackObjectDistanceTest, test_compute_lidar_camera_similiarity_5) {
-AINFO<<"(DMCZP) EnteringMethod: ProjectionCache";
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   TrackObjectDistance track_object_distance;
   common::FLAGS_obs_sensor_meta_path = "./conf/sensor_meta.config";
   common::FLAGS_obs_sensor_intrinsic_path = "./params";
@@ -1259,7 +1232,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST_F";
 }
 
 TEST_F(TrackObjectDistanceTest, test_compute_radar_camera_0) {
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   TrackObjectDistance track_object_distance;
   common::FLAGS_obs_sensor_meta_path = "./conf/sensor_meta.config";
   common::FLAGS_obs_sensor_intrinsic_path = "./params";
@@ -1312,7 +1284,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST_F";
 }
 
 TEST_F(TrackObjectDistanceTest, test_compute_radar_camera_1) {
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   TrackObjectDistance track_object_distance;
   common::FLAGS_obs_sensor_meta_path = "./conf/sensor_meta.config";
   common::FLAGS_obs_sensor_intrinsic_path = "./params";
@@ -1365,7 +1336,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST_F";
 }
 
 TEST_F(TrackObjectDistanceTest, test_compute_radar_camera_2) {
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   TrackObjectDistance track_object_distance;
   common::FLAGS_obs_sensor_meta_path = "./conf/sensor_meta.config";
   common::FLAGS_obs_sensor_intrinsic_path = "./params";
@@ -1420,7 +1390,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST_F";
 }
 
 TEST_F(TrackObjectDistanceTest, test_compute_radar_camera_3) {
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   TrackObjectDistance track_object_distance;
   common::FLAGS_obs_sensor_meta_path = "./conf/sensor_meta.config";
   common::FLAGS_obs_sensor_intrinsic_path = "./params";
@@ -1475,7 +1444,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST_F";
 }
 
 TEST_F(TrackObjectDistanceTest, test_compute_radar_camera_4) {
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   TrackObjectDistance track_object_distance;
   common::FLAGS_obs_sensor_meta_path = "./conf/sensor_meta.config";
   common::FLAGS_obs_sensor_intrinsic_path = "./params";
@@ -1530,7 +1498,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST_F";
 }
 
 TEST_F(TrackObjectDistanceTest, test_compute_lidar_camera_0) {
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   TrackObjectDistance track_object_distance;
   base::ObjectPtr lidar_object_ptr(new base::Object());
   lidar_object_ptr->center = Eigen::Vector3d(1, 1, 1);
@@ -1577,7 +1544,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST_F";
 }
 
 TEST_F(TrackObjectDistanceTest, test_compute_lidar_camera_1) {
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   TrackObjectDistance track_object_distance;
   base::ObjectPtr lidar_object_ptr(new base::Object());
   lidar_object_ptr->center = Eigen::Vector3d(1, 1, 1);
@@ -1624,7 +1590,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST_F";
 }
 
 TEST_F(TrackObjectDistanceTest, test_compute_lidar_camera_2) {
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   TrackObjectDistance track_object_distance;
   base::ObjectPtr lidar_object_ptr(new base::Object());
   lidar_object_ptr->center = Eigen::Vector3d(1, 1, 1);
@@ -1672,7 +1637,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST_F";
 }
 
 TEST_F(TrackObjectDistanceTest, test_compute_lidar_camera_3) {
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   TrackObjectDistance track_object_distance;
   track_object_distance.ResetProjectionCache("lidar", 0.0);
   base::ObjectPtr lidar_object_ptr(new base::Object());
@@ -1737,7 +1701,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST_F";
 }
 
 TEST_F(TrackObjectDistanceTest, test_compute_lidar_camera_4) {
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   TrackObjectDistance track_object_distance;
   base::ObjectPtr lidar_object_ptr(new base::Object());
   lidar_object_ptr->center = Eigen::Vector3d(1, 1, -1);
@@ -1785,7 +1748,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST_F";
 }
 
 TEST_F(TrackObjectDistanceTest, test_compute_lidar_camera_5) {
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   TrackObjectDistance track_object_distance;
   base::ObjectPtr lidar_object_ptr(new base::Object());
   lidar_object_ptr->center = Eigen::Vector3d(1, 1, -1);
@@ -1852,7 +1814,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST_F";
 }
 
 TEST_F(TrackObjectDistanceTest, test_compute_lidar_camera_6) {
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   TrackObjectDistance track_object_distance;
   base::ObjectPtr lidar_object_ptr(new base::Object());
   lidar_object_ptr->center = Eigen::Vector3d(1, 1, -1);
@@ -1919,7 +1880,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST_F";
 }
 
 TEST_F(TrackObjectDistanceTest, test_compute_0) {
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   TrackObjectDistance track_object_distance;
   TrackPtr fused_track(new Track());
 
@@ -1959,7 +1919,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST_F";
 }
 
 TEST_F(TrackObjectDistanceTest, test_compute_1) {
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   TrackObjectDistance track_object_distance;
   TrackPtr fused_track(new Track());
 
@@ -2010,7 +1969,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST_F";
 }
 
 TEST_F(TrackObjectDistanceTest, test_compute_2) {
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   TrackObjectDistance track_object_distance;
   TrackPtr fused_track(new Track());
 
@@ -2084,7 +2042,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST_F";
 }
 
 TEST_F(TrackObjectDistanceTest, test_compute_3) {
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   TrackObjectDistance track_object_distance;
   track_object_distance.ResetProjectionCache("lidar", 0.0);
   TrackPtr fused_track(new Track());
@@ -2161,7 +2118,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST_F";
 }
 
 TEST_F(TrackObjectDistanceTest, test_compute_4) {
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   TrackObjectDistance track_object_distance;
   TrackPtr fused_track(new Track());
 
@@ -2233,7 +2189,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST_F";
 }
 
 TEST_F(TrackObjectDistanceTest, test_compute_5) {
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   TrackObjectDistance track_object_distance;
   TrackPtr fused_track(new Track());
 
@@ -2300,7 +2255,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST_F";
 }
 
 TEST_F(TrackObjectDistanceTest, test_compute_6) {
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   TrackObjectDistance track_object_distance;
   TrackPtr fused_track(new Track());
 
@@ -2343,7 +2297,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST_F";
 }
 
 TEST_F(TrackObjectDistanceTest, test_compute_7) {
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   TrackObjectDistance track_object_distance;
   TrackPtr fused_track(new Track());
   base::ObjectPtr lidar_object_ptr(new base::Object());
@@ -2418,7 +2371,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST_F";
 }
 
 TEST_F(TrackObjectDistanceTest, test_compute_8) {
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   TrackObjectDistance track_object_distance;
   TrackPtr fused_track(new Track());
   base::ObjectPtr lidar_object_ptr(new base::Object());
@@ -2489,7 +2441,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST_F";
 }
 
 TEST_F(TrackObjectDistanceTest, test_compute_9) {
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   TrackObjectDistance track_object_distance;
   track_object_distance.ResetProjectionCache("front_camera", 0.0);
   TrackPtr fused_track(new Track());
@@ -2562,7 +2513,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   lidar_info_ptr = nullptr;
 }
 TEST_F(TrackObjectDistanceTest, test_compute_10) {
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   TrackObjectDistance track_object_distance;
   TrackPtr fused_track(new Track());
 
@@ -2628,7 +2578,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST_F";
 }
 
 TEST_F(TrackObjectDistanceTest, test_compute_11) {
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   TrackObjectDistance track_object_distance;
   TrackPtr fused_track(new Track());
 
@@ -2667,7 +2616,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST_F";
 }
 
 TEST_F(TrackObjectDistanceTest, test_compute_12) {
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   TrackObjectDistance track_object_distance;
   TrackPtr fused_track(new Track());
 

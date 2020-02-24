@@ -29,13 +29,11 @@ namespace prediction {
 using apollo::hdmap::LaneInfo;
 
 RNNEvaluator::RNNEvaluator() {
-AINFO<<"(DMCZP) EnteringMethod: RNNEvaluator::RNNEvaluator";
   evaluator_type_ = ObstacleConf::RNN_EVALUATOR;
   LoadModel(FLAGS_evaluator_vehicle_rnn_file);
 }
 
 bool RNNEvaluator::Evaluate(Obstacle* obstacle_ptr) {
-AINFO<<"(DMCZP) EnteringMethod: RNNEvaluator::Evaluate";
   Clear();
   CHECK_NOTNULL(obstacle_ptr);
 
@@ -116,10 +114,8 @@ AINFO<<"(DMCZP) EnteringMethod: RNNEvaluator::Evaluate";
 }
 
 void RNNEvaluator::Clear() {}
-AINFO<<"(DMCZP) EnteringMethod: RNNEvaluator::Clear";
 
 void RNNEvaluator::LoadModel(const std::string& model_file) {
-AINFO<<"(DMCZP) EnteringMethod: RNNEvaluator::LoadModel";
   NetParameter net_parameter;
   CHECK(cyber::common::GetProtoFromFile(model_file, &net_parameter))
       << "Unable to load model file: " << model_file << ".";
@@ -132,7 +128,6 @@ AINFO<<"(DMCZP) EnteringMethod: RNNEvaluator::LoadModel";
 int RNNEvaluator::ExtractFeatureValues(
     Obstacle* obstacle, Eigen::MatrixXf* const obstacle_feature_mat,
     std::unordered_map<int, Eigen::MatrixXf>* const lane_feature_mats) {
-AINFO<<"(DMCZP) EnteringMethod: RNNEvaluator::ExtractFeatureValues";
   std::vector<float> obstacle_features;
   std::vector<float> lane_features;
   if (SetupObstacleFeature(obstacle, &obstacle_features) != 0) {
@@ -173,7 +168,6 @@ AINFO<<"(DMCZP) EnteringMethod: RNNEvaluator::ExtractFeatureValues";
 
 int RNNEvaluator::SetupObstacleFeature(
     Obstacle* obstacle, std::vector<float>* const feature_values) {
-AINFO<<"(DMCZP) EnteringMethod: RNNEvaluator::SetupObstacleFeature";
   feature_values->clear();
   feature_values->reserve(DIM_OBSTACLE_FEATURE);
 
@@ -252,7 +246,6 @@ AINFO<<"(DMCZP) EnteringMethod: RNNEvaluator::SetupObstacleFeature";
 int RNNEvaluator::SetupLaneFeature(const Feature& feature,
                                    const LaneSequence& lane_sequence,
                                    std::vector<float>* const feature_values) {
-AINFO<<"(DMCZP) EnteringMethod: RNNEvaluator::SetupLaneFeature";
   CHECK_LE(LENGTH_LANE_POINT_SEQUENCE, FLAGS_max_num_lane_point);
   feature_values->clear();
   feature_values->reserve(static_cast<size_t>(DIM_LANE_POINT_FEATURE) *
@@ -301,7 +294,6 @@ AINFO<<"(DMCZP) EnteringMethod: RNNEvaluator::SetupLaneFeature";
 
 bool RNNEvaluator::IsCutinInHistory(const std::string& curr_lane_id,
                                     const std::string& prev_lane_id) {
-AINFO<<"(DMCZP) EnteringMethod: RNNEvaluator::IsCutinInHistory";
   std::shared_ptr<const LaneInfo> curr_lane_info =
       PredictionMap::LaneById(curr_lane_id);
   std::shared_ptr<const LaneInfo> prev_lane_info =

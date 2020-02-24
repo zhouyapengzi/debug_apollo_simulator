@@ -29,7 +29,6 @@ class DigitalFilterTest : public ::testing::Test {
 };
 
 TEST_F(DigitalFilterTest, SetGet) {
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   DigitalFilter digital_filter;
   std::vector<double> numerators = {1.0, 2.0, 3.0};
   std::vector<double> denominators = {4.0, 5.0, 6.0};
@@ -65,7 +64,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST_F";
 }
 
 TEST_F(DigitalFilterTest, FilterOff) {
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   std::vector<double> numerators = {0.0, 0.0, 0.0};
   std::vector<double> denominators = {1.0, 0.0, 0.0};
   DigitalFilter digital_filter(denominators, numerators);
@@ -88,7 +86,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST_F";
 }
 
 TEST_F(DigitalFilterTest, MovingAverage) {
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   std::vector<double> numerators = {0.25, 0.25, 0.25, 0.25};
   std::vector<double> denominators = {1.0, 0.0, 0.0};
   DigitalFilter digital_filter;

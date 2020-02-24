@@ -28,8 +28,6 @@ namespace camera {
 DEFINE_bool(vis, false, "plot results on image sequences");
 
 TEST(LanelineCalibratorTest, laneline_calibrator_test) {
-AINFO<<"(DMCZP) EnteringMethod: DEFINE_bool";
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   std::string root_path =
       "/apollo/modules/perception/testdata/"
       "camera/lib/calibrator/laneline/data/";

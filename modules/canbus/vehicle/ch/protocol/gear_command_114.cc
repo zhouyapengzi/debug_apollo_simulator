@@ -27,29 +27,24 @@ const int32_t Gearcommand114::ID = 0x114;
 
 // public
 Gearcommand114::Gearcommand114() { Reset(); }
-AINFO<<"(DMCZP) EnteringMethod: Gearcommand114::Gearcommand114";
 
 uint32_t Gearcommand114::GetPeriod() const {
-AINFO<<"(DMCZP) EnteringMethod: Gearcommand114::GetPeriod";
   // modify every protocol's period manually
   static const uint32_t PERIOD = 20 * 1000;
   return PERIOD;
 }
 
 void Gearcommand114::UpdateData(uint8_t* data) {
-AINFO<<"(DMCZP) EnteringMethod: Gearcommand114::UpdateData";
   set_p_gear_cmd(data, gear_cmd_);
 }
 
 void Gearcommand114::Reset() {
-AINFO<<"(DMCZP) EnteringMethod: Gearcommand114::Reset";
   // you should check this manually
   gear_cmd_ = Gear_command_114::GEAR_CMD_NEUTRAL;
 }
 
 Gearcommand114* Gearcommand114::set_gear_cmd(
     Gear_command_114::Gear_cmdType gear_cmd) {
-AINFO<<"(DMCZP) EnteringMethod: Gearcommand114::set_gear_cmd";
   gear_cmd_ = gear_cmd;
   return this;
 }
@@ -61,7 +56,6 @@ AINFO<<"(DMCZP) EnteringMethod: Gearcommand114::set_gear_cmd";
 // 'type': 'enum', 'order': 'intel', 'physical_unit': ''}
 void Gearcommand114::set_p_gear_cmd(uint8_t* data,
                                     Gear_command_114::Gear_cmdType gear_cmd) {
-AINFO<<"(DMCZP) EnteringMethod: Gearcommand114::set_p_gear_cmd";
   int x = gear_cmd;
 
   Byte to_set(data + 0);

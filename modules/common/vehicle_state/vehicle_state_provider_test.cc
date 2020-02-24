@@ -50,7 +50,6 @@ class VehicleStateProviderTest : public ::testing::Test {
 };
 
 TEST_F(VehicleStateProviderTest, Accessors) {
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   auto vehicle_state_provider = VehicleStateProvider::Instance();
   vehicle_state_provider->Update(localization_, chassis_);
   EXPECT_DOUBLE_EQ(vehicle_state_provider->x(), 357.51331791372041);
@@ -68,7 +67,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST_F";
 }
 
 TEST_F(VehicleStateProviderTest, EstimateFuturePosition) {
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   auto vehicle_state_provider = VehicleStateProvider::Instance();
   vehicle_state_provider->Update(localization_, chassis_);
   common::math::Vec2d future_position =

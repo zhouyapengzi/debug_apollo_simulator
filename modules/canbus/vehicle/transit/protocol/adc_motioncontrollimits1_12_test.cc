@@ -36,7 +36,6 @@ class Motioncontrollimits1_12_test : public ::testing::Test {
 };
 
 TEST_F(Motioncontrollimits1_12_test, General) {
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   uint8_t data[8] = {0x8f, 0x9e, 0xad, 0xbc, 0xcb, 0xda, 0xe9, 0xf8};
   const double adc_cmd_throttlecommandlimit = 64.00;
   const double adc_cmd_steeringrate = 3071.15;

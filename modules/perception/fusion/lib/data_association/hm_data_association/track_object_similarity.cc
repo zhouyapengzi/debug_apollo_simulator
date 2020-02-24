@@ -35,7 +35,6 @@ namespace fusion {
 double ComputePtsBoxLocationSimilarity(const ProjectionCachePtr& cache,
                                        const ProjectionCacheObject* object,
                                        const base::BBox2DF& camera_bbox) {
-AINFO<<"(DMCZP) EnteringMethod: ComputePtsBoxLocationSimilarity";
   static const double min_p = 1e-6;
   static const double max_p = 1 - 1e-6;
   double x_std_dev = 0.4;
@@ -105,7 +104,6 @@ AINFO<<"(DMCZP) EnteringMethod: ComputePtsBoxLocationSimilarity";
 double ComputePtsBoxShapeSimilarity(const ProjectionCachePtr& cache,
                                     const ProjectionCacheObject* object,
                                     const base::BBox2DF& camera_bbox) {
-AINFO<<"(DMCZP) EnteringMethod: ComputePtsBoxShapeSimilarity";
   static const double min_p = 1e-3;
   static const double max_p = 1 - 1e-3;
   double x_std_dev = 0.3;
@@ -156,7 +154,6 @@ AINFO<<"(DMCZP) EnteringMethod: ComputePtsBoxShapeSimilarity";
 double ComputePtsBoxSimilarity(const ProjectionCachePtr& cache,
                                const ProjectionCacheObject* object,
                                const base::BBox2DF& camera_bbox) {
-AINFO<<"(DMCZP) EnteringMethod: ComputePtsBoxSimilarity";
   double location_similarity =
       ComputePtsBoxLocationSimilarity(cache, object, camera_bbox);
   double shape_similarity =
@@ -177,7 +174,6 @@ double ComputeRadarCameraXSimilarity(const double velo_ct_x,
                                      const double camera_ct_x,
                                      const double size_x,
                                      const XSimilarityParams& params) {
-AINFO<<"(DMCZP) EnteringMethod: ComputeRadarCameraXSimilarity";
   double x_diff = std::abs(velo_ct_x - camera_ct_x) / size_x;
   double x_similarity = WelshVarLossFun(x_diff, params.welsh_loss_thresh_,
                                         params.welsh_loss_scale_);
@@ -189,7 +185,6 @@ double ComputeRadarCameraYSimilarity(const double velo_ct_y,
                                      const double camera_ct_y,
                                      const double size_y,
                                      const YSimilarityParams& params) {
-AINFO<<"(DMCZP) EnteringMethod: ComputeRadarCameraYSimilarity";
   // double y_diff =
   //     std::abs(velo_ct_y - camera_ct_y + size_y * params.smooth_factor_) /
   //     size_y;
@@ -212,7 +207,6 @@ double ComputeRadarCameraHSimilarity(
     const double size_y,
     const std::vector<Eigen::Vector2d>& radar_box2d_vertices,
     const HSimilarityParams& params) {
-AINFO<<"(DMCZP) EnteringMethod: ComputeRadarCameraHSimilarity";
   const double camera_height = camera->GetBaseObject()->size(2);
   double height_similarity = params.initial_similarity_;
   if (camera_height > FLT_EPSILON) {
@@ -238,7 +232,6 @@ double ComputeRadarCameraWSimilarity(
     const SensorObjectConstPtr& radar, const double width, const double size_x,
     const std::vector<Eigen::Vector2d>& radar_box2d_vertices,
     const WSimilarityParams& params) {
-AINFO<<"(DMCZP) EnteringMethod: ComputeRadarCameraWSimilarity";
   std::vector<double> radar_box2d_xs = {
       radar_box2d_vertices[0].x(), radar_box2d_vertices[1].x(),
       radar_box2d_vertices[2].x(), radar_box2d_vertices[3].x()};
@@ -261,7 +254,6 @@ double ComputeRadarCameraLocSimilarity(const Eigen::Vector3d& radar_ct,
                                        const SensorObjectConstPtr& camera,
                                        const Eigen::Matrix4d& world2camera_pose,
                                        const LocSimilarityParams& params) {
-AINFO<<"(DMCZP) EnteringMethod: ComputeRadarCameraLocSimilarity";
   Eigen::Vector3d camera_ct = camera->GetBaseObject()->center;
   Eigen::Vector3d camera_ct_c =
       (world2camera_pose * camera_ct.homogeneous()).head(3);
@@ -276,7 +268,6 @@ AINFO<<"(DMCZP) EnteringMethod: ComputeRadarCameraLocSimilarity";
 
 double ComputeRadarCameraVelocitySimilarity(
     const SensorObjectConstPtr& radar, const SensorObjectConstPtr& camera) {
-AINFO<<"(DMCZP) EnteringMethod: ComputeRadarCameraVelocitySimilarity";
   Eigen::Vector3f radar_velocity = radar->GetBaseObject()->velocity;
   Eigen::Vector3f camera_velocity = camera->GetBaseObject()->velocity;
 

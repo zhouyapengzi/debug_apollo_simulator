@@ -26,13 +26,11 @@ namespace canbus {
 
 std::unique_ptr<VehicleController>
 GemVehicleFactory::CreateVehicleController() {
-AINFO<<"(DMCZP) EnteringMethod: GemVehicleFactory::CreateVehicleController";
   return std::unique_ptr<VehicleController>(new gem::GemController());
 }
 
 std::unique_ptr<MessageManager<::apollo::canbus::ChassisDetail>>
 GemVehicleFactory::CreateMessageManager() {
-AINFO<<"(DMCZP) EnteringMethod: GemVehicleFactory::CreateMessageManager";
   return std::unique_ptr<MessageManager<::apollo::canbus::ChassisDetail>>(
       new gem::GemMessageManager());
 }

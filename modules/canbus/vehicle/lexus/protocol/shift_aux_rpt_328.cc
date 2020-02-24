@@ -28,12 +28,10 @@ namespace lexus {
 using ::apollo::drivers::canbus::Byte;
 
 Shiftauxrpt328::Shiftauxrpt328() {}
-AINFO<<"(DMCZP) EnteringMethod: Shiftauxrpt328::Shiftauxrpt328";
 const int32_t Shiftauxrpt328::ID = 0x328;
 
 void Shiftauxrpt328::Parse(const std::uint8_t* bytes, int32_t length,
                            ChassisDetail* chassis) const {
-AINFO<<"(DMCZP) EnteringMethod: Shiftauxrpt328::Parse";
   chassis->mutable_lexus()
       ->mutable_shift_aux_rpt_328()
       ->set_speed_interlock_active_is_valid(
@@ -67,9 +65,7 @@ AINFO<<"(DMCZP) EnteringMethod: Shiftauxrpt328::Parse";
 // '[0|1]', 'bit': 11, 'type': 'bool', 'order': 'motorola', 'physical_unit': ''}
 bool Shiftauxrpt328::speed_interlock_active_is_valid(const std::uint8_t* bytes,
                                                      int32_t length) const {
-AINFO<<"(DMCZP) EnteringMethod: Shiftauxrpt328::speed_interlock_active_is_valid";
   Byte t0(bytes + 1);
-AINFO<<"(DMCZP) EnteringMethod: Shiftauxrpt328::brake_interlock_active_is_valid";
   int32_t x = t0.get_byte(3, 1);
 
   bool ret = x;
@@ -81,11 +77,8 @@ AINFO<<"(DMCZP) EnteringMethod: Shiftauxrpt328::brake_interlock_active_is_valid"
 // '[0|1]', 'bit': 3, 'type': 'bool', 'order': 'motorola', 'physical_unit': ''}
 bool Shiftauxrpt328::speed_interlock_active(const std::uint8_t* bytes,
                                             int32_t length) const {
-AINFO<<"(DMCZP) EnteringMethod: Shiftauxrpt328::speed_interlock_active";
-AINFO<<"(DMCZP) EnteringMethod: Shiftauxrpt328::brake_interlock_active";
   Byte t0(bytes + 0);
   int32_t x = t0.get_byte(3, 1);
-AINFO<<"(DMCZP) EnteringMethod: Shiftauxrpt328::between_gears_is_valid";
 
   bool ret = x;
   return ret;
@@ -120,7 +113,6 @@ bool Shiftauxrpt328::brake_interlock_active(const std::uint8_t* bytes,
 // '[0|1]', 'bit': 9, 'type': 'bool', 'order': 'motorola', 'physical_unit': ''}
 bool Shiftauxrpt328::stay_in_neutral_mode_is_valid(const std::uint8_t* bytes,
                                                    int32_t length) const {
-AINFO<<"(DMCZP) EnteringMethod: Shiftauxrpt328::stay_in_neutral_mode_is_valid";
   Byte t0(bytes + 1);
   int32_t x = t0.get_byte(1, 1);
 
@@ -133,7 +125,6 @@ AINFO<<"(DMCZP) EnteringMethod: Shiftauxrpt328::stay_in_neutral_mode_is_valid";
 // '[0|1]', 'bit': 1, 'type': 'bool', 'order': 'motorola', 'physical_unit': ''}
 bool Shiftauxrpt328::stay_in_neutral_mode(const std::uint8_t* bytes,
                                           int32_t length) const {
-AINFO<<"(DMCZP) EnteringMethod: Shiftauxrpt328::stay_in_neutral_mode";
   Byte t0(bytes + 0);
   int32_t x = t0.get_byte(1, 1);
 
@@ -158,7 +149,6 @@ bool Shiftauxrpt328::between_gears_is_valid(const std::uint8_t* bytes,
 // 'type': 'bool', 'order': 'motorola', 'physical_unit': ''}
 bool Shiftauxrpt328::between_gears(const std::uint8_t* bytes,
                                    int32_t length) const {
-AINFO<<"(DMCZP) EnteringMethod: Shiftauxrpt328::between_gears";
   Byte t0(bytes + 0);
   int32_t x = t0.get_byte(0, 1);
 

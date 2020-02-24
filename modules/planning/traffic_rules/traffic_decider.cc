@@ -43,7 +43,6 @@ apollo::common::util::Factory<TrafficRuleConfig::RuleId, TrafficRule,
     TrafficDecider::s_rule_factory;
 
 void TrafficDecider::RegisterRules() {
-AINFO<<"(DMCZP) EnteringMethod: TrafficDecider::RegisterRules";
   s_rule_factory.Register(TrafficRuleConfig::BACKSIDE_VEHICLE,
                           [](const TrafficRuleConfig &config) -> TrafficRule * {
                             return new BacksideVehicle(config);
@@ -84,7 +83,6 @@ AINFO<<"(DMCZP) EnteringMethod: TrafficDecider::RegisterRules";
 }
 
 bool TrafficDecider::Init(const TrafficRuleConfigs &config) {
-AINFO<<"(DMCZP) EnteringMethod: TrafficDecider::Init";
   if (s_rule_factory.Empty()) {
     RegisterRules();
   }
@@ -94,7 +92,6 @@ AINFO<<"(DMCZP) EnteringMethod: TrafficDecider::Init";
 
 void TrafficDecider::BuildPlanningTarget(
     ReferenceLineInfo *reference_line_info) {
-AINFO<<"(DMCZP) EnteringMethod: TrafficDecider::BuildPlanningTarget";
   double min_s = std::numeric_limits<double>::infinity();
   StopPoint stop_point;
   for (const auto *obstacle :
@@ -136,7 +133,6 @@ AINFO<<"(DMCZP) EnteringMethod: TrafficDecider::BuildPlanningTarget";
 
 Status TrafficDecider::Execute(Frame *frame,
                                ReferenceLineInfo *reference_line_info) {
-AINFO<<"(DMCZP) EnteringMethod: TrafficDecider::Execute";
   CHECK_NOTNULL(frame);
   CHECK_NOTNULL(reference_line_info);
 

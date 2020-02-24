@@ -27,7 +27,6 @@ ReedShepp::ReedShepp(const common::VehicleParam& vehicle_param,
                      const PlannerOpenSpaceConfig& open_space_conf)
     : vehicle_param_(vehicle_param),
       planner_open_space_config_(open_space_conf) {
-AINFO<<"(DMCZP) EnteringMethod: ReedShepp::ReedShepp";
   max_kappa_ = std::tan(vehicle_param_.max_steer_angle() /
                         vehicle_param_.steer_ratio()) /
                vehicle_param_.wheel_base();
@@ -58,7 +57,6 @@ std::pair<double, double> ReedShepp::calc_tau_omega(const double u,
 bool ReedShepp::ShortestRSP(const std::shared_ptr<Node3d> start_node,
                             const std::shared_ptr<Node3d> end_node,
                             std::shared_ptr<ReedSheppPath> optimal_path) {
-AINFO<<"(DMCZP) EnteringMethod: ReedShepp::ShortestRSP";
   std::vector<ReedSheppPath> all_possible_paths;
   if (!GenerateRSPs(start_node, end_node, &all_possible_paths)) {
     ADEBUG << "Fail to generate different combination of Reed Shepp "
@@ -119,7 +117,6 @@ AINFO<<"(DMCZP) EnteringMethod: ReedShepp::ShortestRSP";
 bool ReedShepp::GenerateRSPs(const std::shared_ptr<Node3d> start_node,
                              const std::shared_ptr<Node3d> end_node,
                              std::vector<ReedSheppPath>* all_possible_paths) {
-AINFO<<"(DMCZP) EnteringMethod: ReedShepp::GenerateRSPs";
   if (FLAGS_enable_parallel_hybrid_a) {
     // AINFO << "parallel hybrid a*";
     if (!GenerateRSPPar(start_node, end_node, all_possible_paths)) {
@@ -138,7 +135,6 @@ AINFO<<"(DMCZP) EnteringMethod: ReedShepp::GenerateRSPs";
 bool ReedShepp::GenerateRSP(const std::shared_ptr<Node3d> start_node,
                             const std::shared_ptr<Node3d> end_node,
                             std::vector<ReedSheppPath>* all_possible_paths) {
-AINFO<<"(DMCZP) EnteringMethod: ReedShepp::GenerateRSP";
   double dx = end_node->GetX() - start_node->GetX();
   double dy = end_node->GetY() - start_node->GetY();
   double dphi = end_node->GetPhi() - start_node->GetPhi();
@@ -174,9 +170,6 @@ AINFO<<"(DMCZP) EnteringMethod: ReedShepp::GenerateRSP";
 
 bool ReedShepp::SCS(const double x, const double y, const double phi,
                     std::vector<ReedSheppPath>* all_possible_paths) {
-AINFO<<"(DMCZP) EnteringMethod: ReedShepp::SCS";
-AINFO<<"(DMCZP) EnteringMethod: ReedShepp::CSC";
-AINFO<<"(DMCZP) EnteringMethod: ReedShepp::CCC";
   RSPParam SLS_param;
   SLS(x, y, phi, &SLS_param);
   double SLS_lengths[3] = {SLS_param.t, SLS_param.u, SLS_param.v};
@@ -373,8 +366,6 @@ bool ReedShepp::CCC(const double x, const double y, const double phi,
 
 bool ReedShepp::CCCC(const double x, const double y, const double phi,
                      std::vector<ReedSheppPath>* all_possible_paths) {
-AINFO<<"(DMCZP) EnteringMethod: ReedShepp::CCCC";
-AINFO<<"(DMCZP) EnteringMethod: ReedShepp::CCSC";
   RSPParam LRLRn1_param;
   LRLRn(x, y, phi, &LRLRn1_param);
   double LRLRn1_lengths[4] = {LRLRn1_param.t, LRLRn1_param.u, -LRLRn1_param.u,
@@ -651,7 +642,6 @@ bool ReedShepp::CCSC(const double x, const double y, const double phi,
 
 bool ReedShepp::CCSCC(const double x, const double y, const double phi,
                       std::vector<ReedSheppPath>* all_possible_paths) {
-AINFO<<"(DMCZP) EnteringMethod: ReedShepp::CCSCC";
   RSPParam LRSLR1_param;
   LRSLR(x, y, phi, &LRSLR1_param);
   double LRSLR1_lengths[5] = {LRSLR1_param.t, -0.5 * M_PI, LRSLR1_param.u,
@@ -700,10 +690,6 @@ AINFO<<"(DMCZP) EnteringMethod: ReedShepp::CCSCC";
 
 void ReedShepp::LSL(const double x, const double y, const double phi,
                     RSPParam* param) {
-AINFO<<"(DMCZP) EnteringMethod: ReedShepp::LSL";
-AINFO<<"(DMCZP) EnteringMethod: ReedShepp::LSR";
-AINFO<<"(DMCZP) EnteringMethod: ReedShepp::LRL";
-AINFO<<"(DMCZP) EnteringMethod: ReedShepp::SLS";
   std::pair<double, double> polar =
       common::math::Cartesian2Polar(x - std::sin(phi), y - 1.0 + std::cos(phi));
   double u = polar.first;
@@ -797,11 +783,8 @@ void ReedShepp::SLS(const double x, const double y, const double phi,
 
 void ReedShepp::LRLRn(const double x, const double y, const double phi,
                       RSPParam* param) {
-AINFO<<"(DMCZP) EnteringMethod: ReedShepp::LRLRn";
-AINFO<<"(DMCZP) EnteringMethod: ReedShepp::LRLRp";
   double xi = x + std::sin(phi);
   double eta = y - 1.0 - std::cos(phi);
-AINFO<<"(DMCZP) EnteringMethod: ReedShepp::LRSLR";
   double rho = 0.25 * (2.0 + std::sqrt(xi * xi + eta * eta));
   double u = 0.0;
   if (rho <= 1.0 && rho >= 0.0) {
@@ -840,8 +823,6 @@ void ReedShepp::LRLRp(const double x, const double y, const double phi,
 
 void ReedShepp::LRSR(const double x, const double y, const double phi,
                      RSPParam* param) {
-AINFO<<"(DMCZP) EnteringMethod: ReedShepp::LRSR";
-AINFO<<"(DMCZP) EnteringMethod: ReedShepp::LRSL";
   double xi = x + std::sin(phi);
   double eta = y - 1.0 - std::cos(phi);
   std::pair<double, double> polar = common::math::Cartesian2Polar(-eta, xi);
@@ -917,7 +898,6 @@ void ReedShepp::LRSLR(const double x, const double y, const double phi,
 
 bool ReedShepp::SetRSP(const int size, const double* lengths, const char* types,
                        std::vector<ReedSheppPath>* all_possible_paths) {
-AINFO<<"(DMCZP) EnteringMethod: ReedShepp::SetRSP";
   ReedSheppPath path;
   std::vector<double> length_vec(lengths, lengths + size);
   std::vector<char> type_vec(types, types + size);
@@ -940,7 +920,6 @@ AINFO<<"(DMCZP) EnteringMethod: ReedShepp::SetRSP";
 bool ReedShepp::GenerateLocalConfigurations(
     const std::shared_ptr<Node3d> start_node,
     const std::shared_ptr<Node3d> end_node, ReedSheppPath* shortest_path) {
-AINFO<<"(DMCZP) EnteringMethod: ReedShepp::GenerateLocalConfigurations";
   double step_scaled =
       planner_open_space_config_.warm_start_config().step_size() * max_kappa_;
 
@@ -1025,7 +1004,6 @@ void ReedShepp::Interpolation(const int index, const double pd, const char m,
                               std ::vector<double>* py,
                               std::vector<double>* pphi,
                               std::vector<bool>* pgear) {
-AINFO<<"(DMCZP) EnteringMethod: ReedShepp::Interpolation";
   double ldx = 0.0;
   double ldy = 0.0;
   double gdx = 0.0;
@@ -1064,7 +1042,6 @@ bool ReedShepp::SetRSPPar(const int size, const double* lengths,
                           const std::string& types,
                           std::vector<ReedSheppPath>* all_possible_paths,
                           const int idx) {
-AINFO<<"(DMCZP) EnteringMethod: ReedShepp::SetRSPPar";
   ReedSheppPath path;
   std::vector<double> length_vec(lengths, lengths + size);
   std::vector<char> type_vec(types.begin(), types.begin() + size);
@@ -1087,7 +1064,6 @@ AINFO<<"(DMCZP) EnteringMethod: ReedShepp::SetRSPPar";
 bool ReedShepp::GenerateRSPPar(const std::shared_ptr<Node3d> start_node,
                                const std::shared_ptr<Node3d> end_node,
                                std::vector<ReedSheppPath>* all_possible_paths) {
-AINFO<<"(DMCZP) EnteringMethod: ReedShepp::GenerateRSPPar";
   double dx = end_node->GetX() - start_node->GetX();
   double dy = end_node->GetY() - start_node->GetY();
   double dphi = end_node->GetPhi() - start_node->GetPhi();

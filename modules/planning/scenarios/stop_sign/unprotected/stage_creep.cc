@@ -46,7 +46,6 @@ using hdmap::PathOverlap;
 
 Stage::StageStatus StopSignUnprotectedStageCreep::Process(
     const TrajectoryPoint& planning_init_point, Frame* frame) {
-AINFO<<"(DMCZP) EnteringMethod: StopSignUnprotectedStageCreep::Process";
   ADEBUG << "stage: Creep";
   CHECK_NOTNULL(frame);
 
@@ -113,7 +112,6 @@ AINFO<<"(DMCZP) EnteringMethod: StopSignUnprotectedStageCreep::Process";
 }
 
 Stage::StageStatus StopSignUnprotectedStageCreep::FinishStage() {
-AINFO<<"(DMCZP) EnteringMethod: StopSignUnprotectedStageCreep::FinishStage";
   next_stage_ = ScenarioConfig::STOP_SIGN_UNPROTECTED_INTERSECTION_CRUISE;
   return Stage::FINISHED;
 }

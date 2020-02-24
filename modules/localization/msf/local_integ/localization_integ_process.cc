@@ -35,7 +35,6 @@ LocalizationIntegProcess::LocalizationIntegProcess()
       integ_state_(IntegState::NOT_INIT),
       ins_pva_(),
       pva_covariance_{0.0},
-AINFO<<"(DMCZP) EnteringMethod: LocalizationIntegProcess::LocalizationIntegProcess";
       corrected_imu_(),
       earth_param_(),
       keep_running_(false),
@@ -50,7 +49,6 @@ LocalizationIntegProcess::~LocalizationIntegProcess() {
 }
 
 Status LocalizationIntegProcess::Init(const LocalizationIntegParam &param) {
-AINFO<<"(DMCZP) EnteringMethod: LocalizationIntegProcess::Init";
   // sins init
   sins_->Init(param.is_ins_can_self_align);
   sins_->SetSinsAlignFromVel(param.is_sins_align_with_vel);
@@ -82,7 +80,6 @@ AINFO<<"(DMCZP) EnteringMethod: LocalizationIntegProcess::Init";
 }
 
 void LocalizationIntegProcess::RawImuProcess(const ImuData &imu_msg) {
-AINFO<<"(DMCZP) EnteringMethod: LocalizationIntegProcess::RawImuProcess";
   integ_state_ = IntegState::NOT_INIT;
   double cur_imu_time = imu_msg.measurement_time;
 
@@ -137,7 +134,6 @@ AINFO<<"(DMCZP) EnteringMethod: LocalizationIntegProcess::RawImuProcess";
 }
 
 void LocalizationIntegProcess::GetValidFromOK() {
-AINFO<<"(DMCZP) EnteringMethod: LocalizationIntegProcess::GetValidFromOK";
   if (integ_state_ != IntegState::OK) {
     return;
   }
@@ -152,7 +148,6 @@ AINFO<<"(DMCZP) EnteringMethod: LocalizationIntegProcess::GetValidFromOK";
 }
 
 void LocalizationIntegProcess::GetState(IntegState *state) {
-AINFO<<"(DMCZP) EnteringMethod: LocalizationIntegProcess::GetState";
   CHECK_NOTNULL(state);
 
   *state = integ_state_;
@@ -161,7 +156,6 @@ AINFO<<"(DMCZP) EnteringMethod: LocalizationIntegProcess::GetState";
 
 void LocalizationIntegProcess::GetResult(IntegState *state,
                                          LocalizationEstimate *localization) {
-AINFO<<"(DMCZP) EnteringMethod: LocalizationIntegProcess::GetResult";
   CHECK_NOTNULL(state);
   CHECK_NOTNULL(localization);
 
@@ -241,7 +235,6 @@ AINFO<<"(DMCZP) EnteringMethod: LocalizationIntegProcess::GetResult";
 
 void LocalizationIntegProcess::GetResult(IntegState *state, InsPva *sins_pva,
                                          double pva_covariance[9][9]) {
-AINFO<<"(DMCZP) EnteringMethod: LocalizationIntegProcess::GetResult";
   CHECK_NOTNULL(state);
   CHECK_NOTNULL(sins_pva);
   CHECK_NOTNULL(pva_covariance);
@@ -253,7 +246,6 @@ AINFO<<"(DMCZP) EnteringMethod: LocalizationIntegProcess::GetResult";
 }
 
 void LocalizationIntegProcess::GetCorrectedImu(ImuData *imu_data) {
-AINFO<<"(DMCZP) EnteringMethod: LocalizationIntegProcess::GetCorrectedImu";
   CHECK_NOTNULL(imu_data);
 
   *imu_data = corrected_imu_;
@@ -262,7 +254,6 @@ AINFO<<"(DMCZP) EnteringMethod: LocalizationIntegProcess::GetCorrectedImu";
 
 void LocalizationIntegProcess::GetEarthParameter(
     InertialParameter *earth_param) {
-AINFO<<"(DMCZP) EnteringMethod: LocalizationIntegProcess::GetEarthParameter";
   CHECK_NOTNULL(earth_param);
 
   *earth_param = earth_param_;
@@ -271,29 +262,24 @@ AINFO<<"(DMCZP) EnteringMethod: LocalizationIntegProcess::GetEarthParameter";
 
 void LocalizationIntegProcess::MeasureDataProcess(
     const MeasureData &measure_msg) {
-AINFO<<"(DMCZP) EnteringMethod: LocalizationIntegProcess::MeasureDataProcess";
   measure_data_queue_mutex_.lock();
   measure_data_queue_.push(measure_msg);
   measure_data_queue_mutex_.unlock();
-AINFO<<"(DMCZP) EnteringMethod: LocalizationIntegProcess::MeasureDataProcessImpl";
 }
 
 void LocalizationIntegProcess::StartThreadLoop() {
-AINFO<<"(DMCZP) EnteringMethod: LocalizationIntegProcess::StartThreadLoop";
   keep_running_ = true;
   measure_data_queue_size_ = 150;
   cyber::Async(&LocalizationIntegProcess::MeasureDataThreadLoop, this);
 }
 
 void LocalizationIntegProcess::StopThreadLoop() {
-AINFO<<"(DMCZP) EnteringMethod: LocalizationIntegProcess::StopThreadLoop";
   if (keep_running_.load()) {
     keep_running_ = false;
   }
 }
 
 void LocalizationIntegProcess::MeasureDataThreadLoop() {
-AINFO<<"(DMCZP) EnteringMethod: LocalizationIntegProcess::MeasureDataThreadLoop";
   AINFO << "Started measure data process thread";
   while (keep_running_.load()) {
     {
@@ -345,7 +331,6 @@ void LocalizationIntegProcess::MeasureDataProcessImpl(
 
 bool LocalizationIntegProcess::CheckIntegMeasureData(
     const MeasureData &measure_data) {
-AINFO<<"(DMCZP) EnteringMethod: LocalizationIntegProcess::CheckIntegMeasureData";
   if (measure_data.measure_type == MeasureType::ODOMETER_VEL_ONLY) {
     AERROR << "receive a new odometry measurement!!!\n";
   }
@@ -369,7 +354,6 @@ AINFO<<"(DMCZP) EnteringMethod: LocalizationIntegProcess::CheckIntegMeasureData"
 
 bool LocalizationIntegProcess::LoadGnssAntennaExtrinsic(
     const std::string &file_path, TransformD *extrinsic) const {
-AINFO<<"(DMCZP) EnteringMethod: LocalizationIntegProcess::LoadGnssAntennaExtrinsic";
   CHECK_NOTNULL(extrinsic);
 
   YAML::Node confige = YAML::LoadFile(file_path);

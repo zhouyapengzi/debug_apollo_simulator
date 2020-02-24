@@ -28,7 +28,6 @@ namespace fusion {
 using apollo::perception::base::SensorInfo;
 
 TEST(ProbabliticFusionTest, test_init) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   FLAGS_work_root =
       "/apollo/modules/perception/testdata/"
       "fusion/probabilistic_fusion";
@@ -97,7 +96,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST";
 }
 
 TEST(ProbabliticFusionTest, test_update) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   FLAGS_work_root =
       "/apollo/modules/perception/testdata/"
       "fusion/probabilistic_fusion";
@@ -250,7 +248,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST";
 }
 
 TEST(ProbabilisticFusionTest, test_collect_sensor_measurement) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   FLAGS_work_root =
       "/apollo/modules/perception/testdata/"
       "fusion/probabilistic_fusion";

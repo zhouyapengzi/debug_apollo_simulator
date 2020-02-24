@@ -25,7 +25,6 @@ namespace cyber {
 namespace base {
 
 TEST(BoundedQueueTest, Enqueue) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   BoundedQueue<int> queue;
   queue.Init(100);
   EXPECT_EQ(0, queue.Size());
@@ -38,7 +37,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST";
 }
 
 TEST(BoundedQueueTest, Dequeue) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   BoundedQueue<int> queue;
   queue.Init(100);
   int value = 0;
@@ -51,7 +49,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST";
 }
 
 TEST(BoundedQueueTest, concurrency) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   BoundedQueue<int> queue;
   queue.Init(10);
   std::atomic_int count = {0};
@@ -102,7 +99,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST";
 }
 
 TEST(BoundedQueueTest, WaitDequeue) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   BoundedQueue<int> queue;
   queue.Init(100);
   queue.Enqueue(10);
@@ -118,7 +114,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST";
 }
 
 TEST(BoundedQueueTest, block_wait) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   BoundedQueue<int> queue;
   queue.Init(100, new BlockWaitStrategy());
   std::thread t([&]() {
@@ -131,7 +126,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST";
 }
 
 TEST(BoundedQueueTest, yield_wait) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   BoundedQueue<int> queue;
   queue.Init(100, new YieldWaitStrategy());
   std::thread t([&]() {
@@ -144,7 +138,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST";
 }
 
 TEST(BoundedQueueTest, spin_wait) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   BoundedQueue<int> queue;
   queue.Init(100, new BusySpinWaitStrategy());
   std::thread t([&]() {
@@ -157,7 +150,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST";
 }
 
 TEST(BoundedQueueTest, busy_wait) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   BoundedQueue<int> queue;
   queue.Init(100, new BusySpinWaitStrategy());
   std::thread t([&]() {

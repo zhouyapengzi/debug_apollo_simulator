@@ -53,7 +53,6 @@ FunInfoType LaneDetectionComponent::init_func_arry_[] = {
     {&LaneDetectionComponent::InitCameraListeners, "InitCameraListeners"}};
 
 static int GetGpuId(const camera::CameraPerceptionInitOptions &options) {
-AINFO<<"(DMCZP) EnteringMethod: GetGpuId";
   camera::app::PerceptionParam perception_param;
   std::string work_root = camera::GetCyberWorkRoot();
   std::string config_file =
@@ -73,7 +72,6 @@ AINFO<<"(DMCZP) EnteringMethod: GetGpuId";
 static bool SetCameraHeight(const std::string &sensor_name,
                             const std::string &params_dir,
                             float default_camera_height, float *camera_height) {
-AINFO<<"(DMCZP) EnteringMethod: SetCameraHeight";
   float base_h = default_camera_height;
   float camera_offset = 0.0f;
   try {
@@ -104,7 +102,6 @@ AINFO<<"(DMCZP) EnteringMethod: SetCameraHeight";
 // @description: load camera extrinsics from yaml file
 static bool LoadExtrinsics(const std::string &yaml_file,
                            Eigen::Matrix4d *camera_extrinsic) {
-AINFO<<"(DMCZP) EnteringMethod: LoadExtrinsics";
   if (!apollo::cyber::common::PathExists(yaml_file)) {
     AINFO << yaml_file << " not exist!";
     return false;
@@ -162,7 +159,6 @@ static bool GetProjectMatrix(
     const std::map<std::string, Eigen::Matrix4d> &extrinsic_map,
     const std::map<std::string, Eigen::Matrix3f> &intrinsic_map,
     Eigen::Matrix3d *project_matrix, double *pitch_diff = nullptr) {
-AINFO<<"(DMCZP) EnteringMethod: GetProjectMatrix";
   if (camera_names.size() != 2) {
     AINFO << "camera number must be 2!";
     return false;
@@ -187,7 +183,6 @@ AINFO<<"(DMCZP) EnteringMethod: GetProjectMatrix";
 LaneDetectionComponent::~LaneDetectionComponent() {}
 
 bool LaneDetectionComponent::Init() {
-AINFO<<"(DMCZP) EnteringMethod: LaneDetectionComponent::Init";
   if (InitConfig() != cyber::SUCC) {
     AERROR << "InitConfig() failed.";
     return false;
@@ -240,7 +235,6 @@ AINFO<<"(DMCZP) EnteringMethod: LaneDetectionComponent::Init";
 // On receiving motion service input, convert it to motion_buff_
 void LaneDetectionComponent::OnMotionService(
     const MotionServiceMsgType &message) {
-AINFO<<"(DMCZP) EnteringMethod: LaneDetectionComponent::OnMotionService";
   // Comment: use the circular buff to do it smartly, only push the latest
   // circular_buff only saves only the incremental motion between frames.
   // motion_service is now hard-coded for camera front 6mm
@@ -282,7 +276,6 @@ AINFO<<"(DMCZP) EnteringMethod: LaneDetectionComponent::OnMotionService";
 void LaneDetectionComponent::OnReceiveImage(
     const std::shared_ptr<apollo::drivers::Image> &message,
     const std::string &camera_name) {
-AINFO<<"(DMCZP) EnteringMethod: LaneDetectionComponent::OnReceiveImage";
   std::lock_guard<std::mutex> lock(mutex_);
   const double msg_timestamp = message->measurement_time() + timestamp_offset_;
   AINFO << "Enter LaneDetectionComponent::Proc(), "
@@ -345,7 +338,6 @@ AINFO<<"(DMCZP) EnteringMethod: LaneDetectionComponent::OnReceiveImage";
 }
 
 int LaneDetectionComponent::InitConfig() {
-AINFO<<"(DMCZP) EnteringMethod: LaneDetectionComponent::InitConfig";
   // the macro READ_CONF would return cyber::FAIL if config not exists
   apollo::perception::onboard::LaneDetection lane_detection_param;
   if (!GetProtoConfig(&lane_detection_param)) {
@@ -421,7 +413,6 @@ AINFO << "(pengzi) this config info is for lane detection. conf_file:" << camera
 }
 
 int LaneDetectionComponent::InitSensorInfo() {
-AINFO<<"(DMCZP) EnteringMethod: LaneDetectionComponent::InitSensorInfo";
   if (camera_names_.size() != 2) {
     AERROR << "invalid camera_names_.size(): " << camera_names_.size();
     return cyber::FAIL;
@@ -472,7 +463,6 @@ AINFO<<"(DMCZP) EnteringMethod: LaneDetectionComponent::InitSensorInfo";
 }
 
 int LaneDetectionComponent::InitAlgorithmPlugin() {
-AINFO<<"(DMCZP) EnteringMethod: LaneDetectionComponent::InitAlgorithmPlugin";
   camera_lane_pipeline_.reset(new camera::LaneCameraPerception);
   if (!camera_lane_pipeline_->Init(camera_perception_init_options_)) {
     AERROR << "camera_lane_pipeline_->Init() failed";
@@ -483,7 +473,6 @@ AINFO<<"(DMCZP) EnteringMethod: LaneDetectionComponent::InitAlgorithmPlugin";
 }
 
 int LaneDetectionComponent::InitCameraFrames() {
-AINFO<<"(DMCZP) EnteringMethod: LaneDetectionComponent::InitCameraFrames";
   if (camera_names_.size() != 2) {
     AERROR << "invalid camera_names_.size(): " << camera_names_.size();
     return cyber::FAIL;
@@ -550,7 +539,6 @@ AINFO<<"(DMCZP) EnteringMethod: LaneDetectionComponent::InitCameraFrames";
 }
 
 int LaneDetectionComponent::InitProjectMatrix() {
-AINFO<<"(DMCZP) EnteringMethod: LaneDetectionComponent::InitProjectMatrix";
   if (!GetProjectMatrix(camera_names_, extrinsic_map_, intrinsic_map_,
                         &project_matrix_, &pitch_diff_)) {
     AERROR << "GetProjectMatrix failed";
@@ -566,7 +554,6 @@ AINFO<<"(DMCZP) EnteringMethod: LaneDetectionComponent::InitProjectMatrix";
 }
 
 int LaneDetectionComponent::InitMotionService() {
-AINFO<<"(DMCZP) EnteringMethod: LaneDetectionComponent::InitMotionService";
   const std::string &channel_name_local = "/apollo/perception/motion_service";
   std::function<void(const MotionServiceMsgType &)> motion_service_callback =
       std::bind(&LaneDetectionComponent::OnMotionService, this,
@@ -583,7 +570,6 @@ AINFO<<"(DMCZP) EnteringMethod: LaneDetectionComponent::InitMotionService";
 }
 
 int LaneDetectionComponent::InitCameraListeners() {
-AINFO<<"(DMCZP) EnteringMethod: LaneDetectionComponent::InitCameraListeners";
   for (size_t i = 0; i < camera_names_.size(); ++i) {
     const std::string &camera_name = camera_names_[i];
     const std::string &channel_name = input_camera_channel_names_[i];
@@ -600,7 +586,6 @@ AINFO<<"(DMCZP) EnteringMethod: LaneDetectionComponent::InitCameraListeners";
 }
 
 void LaneDetectionComponent::SetCameraHeightAndPitch() {
-AINFO<<"(DMCZP) EnteringMethod: LaneDetectionComponent::SetCameraHeightAndPitch";
   camera_lane_pipeline_->SetCameraHeightAndPitch(
       camera_height_map_, name_camera_pitch_angle_diff_map_,
       default_camera_pitch_);
@@ -611,7 +596,6 @@ int LaneDetectionComponent::InternalProc(
     const std::string &camera_name, apollo::common::ErrorCode *error_code,
     SensorFrameMessage *prefused_message,
     apollo::perception::PerceptionLanes *out_message) {
-AINFO<<"(DMCZP) EnteringMethod: LaneDetectionComponent::InternalProc";
   const double msg_timestamp =
       in_message->measurement_time() + timestamp_offset_;
   const int frame_size = static_cast<int>(camera_frames_.size());
@@ -737,7 +721,6 @@ AINFO <<"(pengzi) Begin camera lane perception" <<".thread:"<< std::this_thread:
 int LaneDetectionComponent::ConvertLaneToCameraLaneline(
     const base::LaneLine &lane_line,
     apollo::perception::camera::CameraLaneLine *camera_laneline) {
-AINFO<<"(DMCZP) EnteringMethod: LaneDetectionComponent::ConvertLaneToCameraLaneline";
   CHECK_NOTNULL(camera_laneline);
   // fill the lane line attribute
   apollo::perception::camera::LaneLineType line_type =
@@ -813,7 +796,6 @@ int LaneDetectionComponent::MakeProtobufMsg(
     double msg_timestamp, const std::string &camera_name,
     const camera::CameraFrame &camera_frame,
     apollo::perception::PerceptionLanes *lanes_msg) {
-AINFO<<"(DMCZP) EnteringMethod: LaneDetectionComponent::MakeProtobufMsg";
   CHECK_NOTNULL(lanes_msg);
   auto itr = std::find(camera_names_.begin(), camera_names_.end(), camera_name);
   if (itr == camera_names_.end()) {

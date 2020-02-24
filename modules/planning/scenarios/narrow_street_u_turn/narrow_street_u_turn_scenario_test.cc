@@ -42,7 +42,6 @@ class NarrowStreetUTurnTest : public ::testing::Test {
 };
 
 TEST_F(NarrowStreetUTurnTest, VerifyConf) {
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   FLAGS_scenario_narrow_street_u_turn_config_file =
       "/apollo/modules/planning/conf/scenario/"
       "narrow_street_u_turn_config.pb.txt";
@@ -53,7 +52,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST_F";
 }
 
 TEST_F(NarrowStreetUTurnTest, Init) {
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   FLAGS_scenario_narrow_street_u_turn_config_file =
       "/apollo/modules/planning/testdata/conf/"
       "scenario/narrow_street_u_turn_config.pb.txt";

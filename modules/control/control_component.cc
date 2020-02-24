@@ -35,10 +35,8 @@ using apollo::planning::ADCTrajectory;
 
 ControlComponent::ControlComponent()
     : monitor_logger_buffer_(common::monitor::MonitorMessageItem::CONTROL) {}
-AINFO<<"(DMCZP) EnteringMethod: ControlComponent::ControlComponent";
 
 bool ControlComponent::Init() {
-AINFO<<"(DMCZP) EnteringMethod: ControlComponent::Init";
   // init_time_ = Clock::NowInSeconds();
 
   AINFO << "Control init, starting ...";
@@ -111,7 +109,6 @@ AINFO<<"(DMCZP) EnteringMethod: ControlComponent::Init";
 }
 
 void ControlComponent::OnPad(const std::shared_ptr<PadMessage> &pad) {
-AINFO<<"(DMCZP) EnteringMethod: ControlComponent::OnPad";
   pad_msg_.CopyFrom(*pad);
   ADEBUG << "Received Pad Msg:" << pad_msg_.DebugString();
   AERROR_IF(!pad_msg_.has_action()) << "pad message check failed!";
@@ -126,7 +123,6 @@ AINFO<<"(DMCZP) EnteringMethod: ControlComponent::OnPad";
 }
 
 void ControlComponent::OnChassis(const std::shared_ptr<Chassis> &chassis) {
-AINFO<<"(DMCZP) EnteringMethod: ControlComponent::OnChassis";
   ADEBUG << "Received chassis data: run chassis callback.";
   std::lock_guard<std::mutex> lock(mutex_);
   latest_chassis_.CopyFrom(*chassis);
@@ -134,7 +130,6 @@ AINFO<<"(DMCZP) EnteringMethod: ControlComponent::OnChassis";
 
 void ControlComponent::OnPlanning(
     const std::shared_ptr<ADCTrajectory> &trajectory) {
-AINFO<<"(DMCZP) EnteringMethod: ControlComponent::OnPlanning";
   ADEBUG << "Received chassis data: run trajectory callback.";
   std::lock_guard<std::mutex> lock(mutex_);
   latest_trajectory_.CopyFrom(*trajectory);
@@ -142,7 +137,6 @@ AINFO<<"(DMCZP) EnteringMethod: ControlComponent::OnPlanning";
 
 void ControlComponent::OnLocalization(
     const std::shared_ptr<LocalizationEstimate> &localization) {
-AINFO<<"(DMCZP) EnteringMethod: ControlComponent::OnLocalization";
   ADEBUG << "Received control data: run localization message callback.";
   std::lock_guard<std::mutex> lock(mutex_);
   latest_localization_.CopyFrom(*localization);
@@ -150,7 +144,6 @@ AINFO<<"(DMCZP) EnteringMethod: ControlComponent::OnLocalization";
 
 void ControlComponent::OnMonitor(
     const common::monitor::MonitorMessage &monitor_message) {
-AINFO<<"(DMCZP) EnteringMethod: ControlComponent::OnMonitor";
   for (const auto &item : monitor_message.item()) {
     if (item.log_level() == common::monitor::MonitorMessageItem::FATAL) {
       estop_ = true;
@@ -161,7 +154,6 @@ AINFO<<"(DMCZP) EnteringMethod: ControlComponent::OnMonitor";
 
 Status ControlComponent::ProduceControlCommand(
     ControlCommand *control_command) {
-AINFO<<"(DMCZP) EnteringMethod: ControlComponent::ProduceControlCommand";
   {
     std::lock_guard<std::mutex> lock(mutex_);
     local_view_.chassis = latest_chassis_;
@@ -287,7 +279,6 @@ AINFO<<"(DMCZP) EnteringMethod: ControlComponent::ProduceControlCommand";
 }
 
 bool ControlComponent::Proc() {
-AINFO<<"(DMCZP) EnteringMethod: ControlComponent::Proc";
   double start_timestamp = Clock::NowInSeconds();
 
   chassis_reader_->Observe();
@@ -384,7 +375,6 @@ AINFO<<"(DMCZP) EnteringMethod: ControlComponent::Proc";
 }
 
 Status ControlComponent::CheckInput(LocalView *local_view) {
-AINFO<<"(DMCZP) EnteringMethod: ControlComponent::CheckInput";
   ADEBUG << "Received localization:"
          << local_view->localization.ShortDebugString();
   ADEBUG << "Received chassis:" << local_view->chassis.ShortDebugString();
@@ -415,7 +405,6 @@ AINFO<<"(DMCZP) EnteringMethod: ControlComponent::CheckInput";
 }
 
 Status ControlComponent::CheckTimestamp(const LocalView &local_view) {
-AINFO<<"(DMCZP) EnteringMethod: ControlComponent::CheckTimestamp";
   if (!control_conf_.enable_input_timestamp_check() ||
       control_conf_.is_control_test_mode()) {
     ADEBUG << "Skip input timestamp check by gflags.";

@@ -37,7 +37,6 @@ class ZhongyunMessageManagerTest : public ::testing::Test {
 };
 
 TEST_F(ZhongyunMessageManagerTest, GetSendProtocols) {
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   EXPECT_NE(manager_.GetMutableProtocolDataById(Brakecontrola4::ID), nullptr);
   EXPECT_NE(manager_.GetMutableProtocolDataById(Gearcontrola1::ID), nullptr);
   EXPECT_NE(manager_.GetMutableProtocolDataById(Parkingcontrola5::ID), nullptr);
@@ -47,7 +46,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST_F";
 }
 
 TEST_F(ZhongyunMessageManagerTest, GetRecvProtocols) {
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   EXPECT_NE(manager_.GetMutableProtocolDataById(Enablestatefeedbackc3::ID),
             nullptr);
   EXPECT_NE(manager_.GetMutableProtocolDataById(Errorstatee1::ID), nullptr);

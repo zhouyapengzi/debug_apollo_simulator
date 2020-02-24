@@ -27,13 +27,11 @@ namespace apollo {
 namespace hdmap {
 
 bool Mapdatachecker::Init() {
-AINFO<<"(DMCZP) EnteringMethod: Mapdatachecker::Init";
   grpc_address_ = FLAGS_map_datachecker_host + ":" + FLAGS_map_datachecker_port;
   return true;
 }
 
 bool Mapdatachecker::Start() {
-AINFO<<"(DMCZP) EnteringMethod: Mapdatachecker::Start";
   AINFO << "Mapdatachecker::Start";
   Init();
 
@@ -64,10 +62,8 @@ AINFO<<"(DMCZP) EnteringMethod: Mapdatachecker::Start";
 }
 
 bool Mapdatachecker::Stop() { return true; }
-AINFO<<"(DMCZP) EnteringMethod: Mapdatachecker::Stop";
 
 void Mapdatachecker::Report() {}
-AINFO<<"(DMCZP) EnteringMethod: Mapdatachecker::Report";
 
 }  // namespace hdmap
 }  // namespace apollo

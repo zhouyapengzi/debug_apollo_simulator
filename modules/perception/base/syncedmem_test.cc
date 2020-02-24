@@ -68,15 +68,12 @@ license and copyright terms herein.
 #include "modules/perception/base/test/test_helper.h"
 
 namespace apollo {
-AINFO<<"(DMCZP) EnteringMethod: Copyright";
-AINFO<<"(DMCZP) EnteringMethod: Copyright";
 namespace perception {
 namespace base {
 
 class SyncedMemoryTest : public ::testing::Test {};
 
 TEST_F(SyncedMemoryTest, header_test) {
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   {
     bool use_cuda = true;
     void* ptr;
@@ -95,7 +92,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST_F";
 }
 
 TEST_F(SyncedMemoryTest, TestInitialization) {
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   SyncedMemory mem(10, true);
   EXPECT_EQ(mem.head(), SyncedMemory::UNINITIALIZED);
   EXPECT_EQ(mem.size(), 10);
@@ -107,7 +103,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST_F";
 #ifndef PERCEPTION_CPU_ONLY  // GPU test
 
 TEST_F(SyncedMemoryTest, TestAllocationCPUGPU) {
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   SyncedMemory mem(10, true);
   EXPECT_TRUE(mem.cpu_data());
   EXPECT_TRUE(mem.gpu_data());
@@ -118,7 +113,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST_F";
 #endif
 
 TEST_F(SyncedMemoryTest, TestAllocationCPU) {
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   SyncedMemory mem(10, true);
   EXPECT_TRUE(mem.cpu_data());
   EXPECT_TRUE(mem.mutable_cpu_data());
@@ -127,7 +121,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST_F";
 #ifndef PERCEPTION_CPU_ONLY  // GPU test
 
 TEST_F(SyncedMemoryTest, TestAllocationGPU) {
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   SyncedMemory mem(10, true);
   EXPECT_TRUE(mem.gpu_data());
   EXPECT_TRUE(mem.mutable_gpu_data());
@@ -136,7 +129,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST_F";
 #endif
 
 TEST_F(SyncedMemoryTest, TestCPUWrite) {
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   SyncedMemory mem(10, true);
   void* cpu_data = mem.mutable_cpu_data();
   EXPECT_EQ(mem.head(), SyncedMemory::HEAD_AT_CPU);
@@ -156,7 +148,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST_F";
 #ifndef PERCEPTION_CPU_ONLY  // GPU test
 
 TEST_F(SyncedMemoryTest, TestGPURead) {
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   SyncedMemory mem(10, true);
   void* cpu_data = mem.mutable_cpu_data();
   EXPECT_EQ(mem.head(), SyncedMemory::HEAD_AT_CPU);
@@ -187,7 +178,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST_F";
 }
 
 TEST_F(SyncedMemoryTest, TestGPUWrite) {
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   SyncedMemory mem(10, true);
   void* gpu_data = mem.mutable_gpu_data();
   EXPECT_EQ(mem.head(), SyncedMemory::HEAD_AT_GPU);

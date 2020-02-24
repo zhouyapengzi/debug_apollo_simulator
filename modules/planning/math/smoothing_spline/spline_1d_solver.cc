@@ -27,7 +27,6 @@ using Eigen::MatrixXd;
 // converte qp problem to proto
 void Spline1dSolver::GenerateProblemProto(
     QuadraticProgrammingProblem* const qp_proto) const {
-AINFO<<"(DMCZP) EnteringMethod: Spline1dSolver::GenerateProblemProto";
   const MatrixXd& kernel_matrix = kernel_.kernel_matrix();
   const MatrixXd& offset = kernel_.offset();
   const MatrixXd& inequality_constraint_matrix =
@@ -74,7 +73,6 @@ AINFO<<"(DMCZP) EnteringMethod: Spline1dSolver::GenerateProblemProto";
 
 void Spline1dSolver::ConvertMatrixXdToProto(const Eigen::MatrixXd& matrix,
                                             QPMatrix* const proto) const {
-AINFO<<"(DMCZP) EnteringMethod: Spline1dSolver::ConvertMatrixXdToProto";
   int row_size = static_cast<int>(matrix.rows());
   int col_size = static_cast<int>(matrix.cols());
 

@@ -28,12 +28,10 @@ namespace lexus {
 using ::apollo::drivers::canbus::Byte;
 
 Wiperauxrpt334::Wiperauxrpt334() {}
-AINFO<<"(DMCZP) EnteringMethod: Wiperauxrpt334::Wiperauxrpt334";
 const int32_t Wiperauxrpt334::ID = 0x334;
 
 void Wiperauxrpt334::Parse(const std::uint8_t* bytes, int32_t length,
                            ChassisDetail* chassis) const {
-AINFO<<"(DMCZP) EnteringMethod: Wiperauxrpt334::Parse";
   chassis->mutable_lexus()
       ->mutable_wiper_aux_rpt_334()
       ->set_spray_empty_is_valid(spray_empty_is_valid(bytes, length));
@@ -71,13 +69,11 @@ AINFO<<"(DMCZP) EnteringMethod: Wiperauxrpt334::Parse";
 // '[0|1]', 'bit': 13, 'type': 'bool', 'order': 'motorola', 'physical_unit': ''}
 bool Wiperauxrpt334::spray_empty_is_valid(const std::uint8_t* bytes,
                                           int32_t length) const {
-AINFO<<"(DMCZP) EnteringMethod: Wiperauxrpt334::spray_empty_is_valid";
   Byte t0(bytes + 1);
   int32_t x = t0.get_byte(5, 1);
 
   bool ret = x;
   return ret;
-AINFO<<"(DMCZP) EnteringMethod: Wiperauxrpt334::rear_wiping_is_valid";
 }
 
 // config detail: {'name': 'spray_empty', 'offset': 0.0, 'precision': 1.0,
@@ -85,12 +81,10 @@ AINFO<<"(DMCZP) EnteringMethod: Wiperauxrpt334::rear_wiping_is_valid";
 // 'type': 'bool', 'order': 'motorola', 'physical_unit': ''}
 bool Wiperauxrpt334::spray_empty(const std::uint8_t* bytes,
                                  int32_t length) const {
-AINFO<<"(DMCZP) EnteringMethod: Wiperauxrpt334::spray_empty";
   Byte t0(bytes + 0);
   int32_t x = t0.get_byte(5, 1);
 
   bool ret = x;
-AINFO<<"(DMCZP) EnteringMethod: Wiperauxrpt334::rear_wiping";
   return ret;
 }
 
@@ -99,7 +93,6 @@ AINFO<<"(DMCZP) EnteringMethod: Wiperauxrpt334::rear_wiping";
 // '[0|1]', 'bit': 12, 'type': 'bool', 'order': 'motorola', 'physical_unit': ''}
 bool Wiperauxrpt334::spray_near_empty_is_valid(const std::uint8_t* bytes,
                                                int32_t length) const {
-AINFO<<"(DMCZP) EnteringMethod: Wiperauxrpt334::spray_near_empty_is_valid";
   Byte t0(bytes + 1);
   int32_t x = t0.get_byte(4, 1);
 
@@ -112,7 +105,6 @@ AINFO<<"(DMCZP) EnteringMethod: Wiperauxrpt334::spray_near_empty_is_valid";
 // 'type': 'bool', 'order': 'motorola', 'physical_unit': ''}
 bool Wiperauxrpt334::spray_near_empty(const std::uint8_t* bytes,
                                       int32_t length) const {
-AINFO<<"(DMCZP) EnteringMethod: Wiperauxrpt334::spray_near_empty";
   Byte t0(bytes + 0);
   int32_t x = t0.get_byte(4, 1);
 
@@ -125,7 +117,6 @@ AINFO<<"(DMCZP) EnteringMethod: Wiperauxrpt334::spray_near_empty";
 // '[0|1]', 'bit': 11, 'type': 'bool', 'order': 'motorola', 'physical_unit': ''}
 bool Wiperauxrpt334::rear_spraying_is_valid(const std::uint8_t* bytes,
                                             int32_t length) const {
-AINFO<<"(DMCZP) EnteringMethod: Wiperauxrpt334::rear_spraying_is_valid";
   Byte t0(bytes + 1);
   int32_t x = t0.get_byte(3, 1);
 
@@ -138,7 +129,6 @@ AINFO<<"(DMCZP) EnteringMethod: Wiperauxrpt334::rear_spraying_is_valid";
 // 'type': 'bool', 'order': 'motorola', 'physical_unit': ''}
 bool Wiperauxrpt334::rear_spraying(const std::uint8_t* bytes,
                                    int32_t length) const {
-AINFO<<"(DMCZP) EnteringMethod: Wiperauxrpt334::rear_spraying";
   Byte t0(bytes + 0);
   int32_t x = t0.get_byte(3, 1);
 
@@ -175,7 +165,6 @@ bool Wiperauxrpt334::rear_wiping(const std::uint8_t* bytes,
 // '[0|1]', 'bit': 9, 'type': 'bool', 'order': 'motorola', 'physical_unit': ''}
 bool Wiperauxrpt334::front_spraying_is_valid(const std::uint8_t* bytes,
                                              int32_t length) const {
-AINFO<<"(DMCZP) EnteringMethod: Wiperauxrpt334::front_spraying_is_valid";
   Byte t0(bytes + 1);
   int32_t x = t0.get_byte(1, 1);
 
@@ -188,7 +177,6 @@ AINFO<<"(DMCZP) EnteringMethod: Wiperauxrpt334::front_spraying_is_valid";
 // 'type': 'bool', 'order': 'motorola', 'physical_unit': ''}
 bool Wiperauxrpt334::front_spraying(const std::uint8_t* bytes,
                                     int32_t length) const {
-AINFO<<"(DMCZP) EnteringMethod: Wiperauxrpt334::front_spraying";
   Byte t0(bytes + 0);
   int32_t x = t0.get_byte(1, 1);
 
@@ -201,7 +189,6 @@ AINFO<<"(DMCZP) EnteringMethod: Wiperauxrpt334::front_spraying";
 // '[0|1]', 'bit': 8, 'type': 'bool', 'order': 'motorola', 'physical_unit': ''}
 bool Wiperauxrpt334::front_wiping_is_valid(const std::uint8_t* bytes,
                                            int32_t length) const {
-AINFO<<"(DMCZP) EnteringMethod: Wiperauxrpt334::front_wiping_is_valid";
   Byte t0(bytes + 1);
   int32_t x = t0.get_byte(0, 1);
 
@@ -214,7 +201,6 @@ AINFO<<"(DMCZP) EnteringMethod: Wiperauxrpt334::front_wiping_is_valid";
 // 'type': 'bool', 'order': 'motorola', 'physical_unit': ''}
 bool Wiperauxrpt334::front_wiping(const std::uint8_t* bytes,
                                   int32_t length) const {
-AINFO<<"(DMCZP) EnteringMethod: Wiperauxrpt334::front_wiping";
   Byte t0(bytes + 0);
   int32_t x = t0.get_byte(0, 1);
 

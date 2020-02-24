@@ -36,7 +36,6 @@ apollo::common::util::Factory<
     PullOverScenario::s_stage_factory_;
 
 void PullOverScenario::Init() {
-AINFO<<"(DMCZP) EnteringMethod: PullOverScenario::Init";
   if (init_) {
     return;
   }
@@ -52,7 +51,6 @@ AINFO<<"(DMCZP) EnteringMethod: PullOverScenario::Init";
 }
 
 void PullOverScenario::RegisterStages() {
-AINFO<<"(DMCZP) EnteringMethod: PullOverScenario::RegisterStages";
   if (!s_stage_factory_.Empty()) {
     s_stage_factory_.Clear();
   }
@@ -90,7 +88,6 @@ std::unique_ptr<Stage> PullOverScenario::CreateStage(
  * read scenario specific configs and set in context_ for stages to read
  */
 bool PullOverScenario::GetScenarioConfig() {
-AINFO<<"(DMCZP) EnteringMethod: PullOverScenario::GetScenarioConfig";
   if (!config_.has_pull_over_config()) {
     AERROR << "miss scenario specific config";
     return false;

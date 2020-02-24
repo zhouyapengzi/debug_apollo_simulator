@@ -24,17 +24,14 @@ namespace apollo {
 namespace planning {
 
 Decider::Decider(const TaskConfig& config) : Task(config) {}
-AINFO<<"(DMCZP) EnteringMethod: Decider::Decider";
 
 apollo::common::Status Decider::Execute(
     Frame* frame, ReferenceLineInfo* reference_line_info) {
-AINFO<<"(DMCZP) EnteringMethod: Decider::Execute";
   Task::Execute(frame, reference_line_info);
   return Process(frame, reference_line_info);
 }
 
 apollo::common::Status Decider::Execute(Frame* frame) {
-AINFO<<"(DMCZP) EnteringMethod: Decider::Execute";
   Task::Execute(frame);
   return Process(frame);
 }

@@ -22,7 +22,6 @@ namespace perception {
 namespace radar {
 
 TEST(HdmapRadarRoiFilterTest, roi_filter) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   HdmapRadarRoiFilter roi_filter;
   bool init_result = roi_filter.Init();
   EXPECT_TRUE(init_result);
@@ -62,7 +61,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST";
 }
 
 TEST(HdmapRadarRoiFilter, name) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   HdmapRadarRoiFilter roi_filter;
   EXPECT_EQ(roi_filter.Name(), "HdmapRadarRoiFilter");
 }

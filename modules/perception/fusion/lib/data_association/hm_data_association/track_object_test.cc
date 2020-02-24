@@ -34,8 +34,6 @@ namespace fusion {
 TODO(all): not compiling. to be fixed
 
 TEST(MatcherTest, test_generate_unassign) {
-AINFO<<"(DMCZP) EnteringMethod: TODO";
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   HMTrackersObjectsAssociation matcher;
   std::vector<TrackMeasurmentPair> assignments;
   assignments.push_back(std::make_pair(1, 5));
@@ -50,7 +48,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST";
 }
 
 TEST(MatcherTest, test_all) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   FLAGS_work_root = "/apollo/modules/perception/testdata/"
       "fusion/hm_data_association";
   FLAGS_obs_sensor_meta_path = "./data/sensor_meta.pt";
@@ -294,7 +291,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST";
 }
 
 TEST(MatcherTest, test_minimize) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   HMTrackersObjectsAssociation matcher;
   std::vector<std::vector<double>> association_mat =
       std::vector<std::vector<double>>(4, std::vector<double>(3, 4.0));

@@ -36,7 +36,6 @@ class llc_auxiliaryfeedback_120Test : public ::testing ::Test {
 };
 
 TEST_F(llc_auxiliaryfeedback_120Test, General) {
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   const uint8_t kData[4] = {0xFB, 0xFF, 0xFF, 0xFF};
   int32_t length = 1;
   int32_t turnsignal_len = 2;

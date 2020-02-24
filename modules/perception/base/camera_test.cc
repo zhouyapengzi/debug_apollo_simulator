@@ -22,7 +22,6 @@ namespace perception {
 namespace base {
 
 TEST(CameraModelTest, camera_model_get_set_test) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   PinholeCameraModel camera_model;
   EXPECT_EQ(camera_model.get_width(), 0);
   EXPECT_EQ(camera_model.get_height(), 0);
@@ -36,7 +35,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST";
 }
 
 TEST(PinholeCameraModelTest, camera_model_project_test) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   PinholeCameraModel camera_model;
   camera_model.set_width(1080);
   camera_model.set_height(720);

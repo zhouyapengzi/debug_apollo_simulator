@@ -59,7 +59,6 @@ class GemMessageManagerTest : public ::testing::Test {
 };
 
 TEST_F(GemMessageManagerTest, GetSendProtocols) {
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   EXPECT_NE(manager_.GetMutableProtocolDataById(Accelcmd67::ID), nullptr);
   EXPECT_NE(manager_.GetMutableProtocolDataById(Brakecmd6b::ID), nullptr);
   EXPECT_NE(manager_.GetMutableProtocolDataById(Globalcmd69::ID), nullptr);
@@ -72,7 +71,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST_F";
 }
 
 TEST_F(GemMessageManagerTest, GetRecvProtocols) {
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   EXPECT_NE(manager_.GetMutableProtocolDataById(Accelrpt68::ID), nullptr);
   EXPECT_NE(manager_.GetMutableProtocolDataById(Brakemotorrpt170::ID), nullptr);
   EXPECT_NE(manager_.GetMutableProtocolDataById(Brakemotorrpt271::ID), nullptr);

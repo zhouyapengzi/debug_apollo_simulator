@@ -48,7 +48,6 @@ using perception::TrafficLight;
 
 Stage::StageStatus TrafficLightUnprotectedRightTurnStageCreep::Process(
     const TrajectoryPoint& planning_init_point, Frame* frame) {
-AINFO<<"(DMCZP) EnteringMethod: TrafficLightUnprotectedRightTurnStageCreep::Process";
   ADEBUG << "stage: Creep";
   CHECK_NOTNULL(frame);
 
@@ -130,7 +129,6 @@ AINFO<<"(DMCZP) EnteringMethod: TrafficLightUnprotectedRightTurnStageCreep::Proc
 
 Stage::StageStatus
 TrafficLightUnprotectedRightTurnStageCreep::FinishScenario() {
-AINFO<<"(DMCZP) EnteringMethod: TrafficLightUnprotectedRightTurnStageCreep::FinishScenario";
   PlanningContext::Instance()->mutable_planning_status()->clear_traffic_light();
 
   next_stage_ = ScenarioConfig::NO_STAGE;
@@ -138,7 +136,6 @@ AINFO<<"(DMCZP) EnteringMethod: TrafficLightUnprotectedRightTurnStageCreep::Fini
 }
 
 Stage::StageStatus TrafficLightUnprotectedRightTurnStageCreep::FinishStage() {
-AINFO<<"(DMCZP) EnteringMethod: TrafficLightUnprotectedRightTurnStageCreep::FinishStage";
   next_stage_ =
       ScenarioConfig::TRAFFIC_LIGHT_UNPROTECTED_RIGHT_TURN_INTERSECTION_CRUISE;
   return Stage::FINISHED;

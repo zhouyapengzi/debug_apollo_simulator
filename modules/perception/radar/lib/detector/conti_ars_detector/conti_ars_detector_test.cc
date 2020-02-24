@@ -22,7 +22,6 @@ namespace perception {
 namespace radar {
 
 TEST(ContiArsDetector, detect) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   drivers::ContiRadar corrected_obstacles;
   corrected_obstacles.mutable_header()->set_timestamp_sec(151237772.355345434);
   drivers::ContiRadarObs* conti_obs = corrected_obstacles.add_contiobs();
@@ -192,7 +191,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST";
 }
 
 TEST(ContiArsDetector, name) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   ContiArsDetector detector;
   EXPECT_EQ(detector.Name(), "ContiArsDetector");
 }

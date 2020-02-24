@@ -39,19 +39,16 @@ using ad_rss::world::RoadArea;
 using ad_rss::world::Scene;
 
 RssDecider::RssDecider(const TaskConfig &config) : Task(config) {
-AINFO<<"(DMCZP) EnteringMethod: RssDecider::RssDecider";
   SetName("RssDecider");
 }
 
 apollo::common::Status RssDecider::Execute(
     Frame *frame, ReferenceLineInfo *reference_line_info) {
-AINFO<<"(DMCZP) EnteringMethod: RssDecider::Execute";
   return Process(frame, reference_line_info);
 }
 
 Status RssDecider::Process(Frame *frame,
                            ReferenceLineInfo *reference_line_info) {
-AINFO<<"(DMCZP) EnteringMethod: RssDecider::Process";
   CHECK_NOTNULL(frame);
   CHECK_NOTNULL(reference_line_info);
 
@@ -364,7 +361,6 @@ AINFO<<"(DMCZP) EnteringMethod: RssDecider::Process";
 
 void RssDecider::rss_config_default_dynamics(
     ::ad_rss::world::Dynamics *dynamics) {
-AINFO<<"(DMCZP) EnteringMethod: RssDecider::rss_config_default_dynamics";
   dynamics->alphaLon.accelMax = ::ad_rss::physics::Acceleration(3.5);
   dynamics->alphaLon.brakeMax = ::ad_rss::physics::Acceleration(8);
   dynamics->alphaLon.brakeMin = ::ad_rss::physics::Acceleration(4.);
@@ -375,7 +371,6 @@ AINFO<<"(DMCZP) EnteringMethod: RssDecider::rss_config_default_dynamics";
 
 void RssDecider::rss_create_ego_object(::ad_rss::world::Object *ego,
                                        double vel_lon, double vel_lat) {
-AINFO<<"(DMCZP) EnteringMethod: RssDecider::rss_create_ego_object";
   ego->objectId = 1;
   ego->objectType = ::ad_rss::world::ObjectType::EgoVehicle;
   ego->velocity.speedLon = Speed(vel_lon);
@@ -386,7 +381,6 @@ AINFO<<"(DMCZP) EnteringMethod: RssDecider::rss_create_ego_object";
 
 void RssDecider::rss_create_other_object(::ad_rss::world::Object *other,
                                          double vel_lon, double vel_lat) {
-AINFO<<"(DMCZP) EnteringMethod: RssDecider::rss_create_other_object";
   other->objectId = 0;
   other->objectType = ::ad_rss::world::ObjectType::OtherVehicle;
   other->velocity.speedLon = Speed(vel_lon);
@@ -397,7 +391,6 @@ AINFO<<"(DMCZP) EnteringMethod: RssDecider::rss_create_other_object";
 
 void RssDecider::rss_dump_world_info(
     const struct rss_world_model_struct &rss_info) {
-AINFO<<"(DMCZP) EnteringMethod: RssDecider::rss_dump_world_info";
   AERROR << " RSS_INFO :"
          << " front_obs_dist: " << rss_info.front_obs_dist
          << " obs_s_start: " << rss_info.obs_s_start

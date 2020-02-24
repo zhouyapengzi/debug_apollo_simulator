@@ -31,7 +31,6 @@ namespace planning {
 Status AutotuningSpeedFeatureBuilder::BuildFeature(
     const autotuning::TrajectoryRawFeature& raw_feature,
     autotuning::TrajectoryFeature* const input_feature) const {
-AINFO<<"(DMCZP) EnteringMethod: AutotuningSpeedFeatureBuilder::BuildFeature";
   if (input_feature == nullptr) {
     const std::string msg = "input trajectory feature is empty";
     AERROR << msg;
@@ -63,7 +62,6 @@ AINFO<<"(DMCZP) EnteringMethod: AutotuningSpeedFeatureBuilder::BuildFeature";
 Status AutotuningSpeedFeatureBuilder::BuildPointFeature(
     const autotuning::TrajectoryPointRawFeature& raw_point_feature,
     autotuning::TrajectoryPointwiseFeature* const point_feature) const {
-AINFO<<"(DMCZP) EnteringMethod: AutotuningSpeedFeatureBuilder::BuildPointFeature";
   // set up basic feature:
   double v = raw_point_feature.speed_feature().v();
   auto* speed_feature = point_feature->mutable_speed_input_feature();
@@ -142,9 +140,6 @@ void AutotuningSpeedFeatureBuilder::map_obstacle_feature(
         obj_raw_feature,
     autotuning::SpeedPointwiseFeature_ObstacleFeature* const input_feature)
     const {
-AINFO<<"(DMCZP) EnteringMethod: AutotuningSpeedFeatureBuilder::map_obstacle_feature";
-AINFO<<"(DMCZP) EnteringMethod: AutotuningSpeedFeatureBuilder::map_nudge_obs_feature";
-AINFO<<"(DMCZP) EnteringMethod: AutotuningSpeedFeatureBuilder::map_sidepass_obs_feature";
   input_feature->set_longitudinal_distance(
       std::fabs(obj_raw_feature.relative_s()));
   input_feature->set_obstacle_speed(obj_raw_feature.speed());

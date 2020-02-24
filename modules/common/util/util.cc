@@ -24,7 +24,6 @@ namespace common {
 namespace util {
 
 SLPoint MakeSLPoint(const double s, const double l) {
-AINFO<<"(DMCZP) EnteringMethod: MakeSLPoint";
   SLPoint sl;
   sl.set_s(s);
   sl.set_l(l);
@@ -32,7 +31,6 @@ AINFO<<"(DMCZP) EnteringMethod: MakeSLPoint";
 }
 
 PointENU MakePointENU(const double x, const double y, const double z) {
-AINFO<<"(DMCZP) EnteringMethod: MakePointENU";
   PointENU point_enu;
   point_enu.set_x(x);
   point_enu.set_y(y);
@@ -49,7 +47,6 @@ PointENU operator+(const PointENU enu, const math::Vec2d& xy) {
 }
 
 PointENU MakePointENU(const math::Vec2d& xy) {
-AINFO<<"(DMCZP) EnteringMethod: MakePointENU";
   PointENU point_enu;
   point_enu.set_x(xy.x());
   point_enu.set_y(xy.y());
@@ -59,7 +56,6 @@ AINFO<<"(DMCZP) EnteringMethod: MakePointENU";
 
 SpeedPoint MakeSpeedPoint(const double s, const double t, const double v,
                           const double a, const double da) {
-AINFO<<"(DMCZP) EnteringMethod: MakeSpeedPoint";
   SpeedPoint speed_point;
   speed_point.set_s(s);
   speed_point.set_t(t);
@@ -72,7 +68,6 @@ AINFO<<"(DMCZP) EnteringMethod: MakeSpeedPoint";
 PathPoint MakePathPoint(const double x, const double y, const double z,
                         const double theta, const double kappa,
                         const double dkappa, const double ddkappa) {
-AINFO<<"(DMCZP) EnteringMethod: MakePathPoint";
   PathPoint path_point;
   path_point.set_x(x);
   path_point.set_y(y);
@@ -87,7 +82,6 @@ AINFO<<"(DMCZP) EnteringMethod: MakePathPoint";
 PathPoint GetWeightedAverageOfTwoPathPoints(const PathPoint& p1,
                                             const PathPoint& p2,
                                             const double w1, const double w2) {
-AINFO<<"(DMCZP) EnteringMethod: GetWeightedAverageOfTwoPathPoints";
   PathPoint p;
   p.set_x(p1.x() * w1 + p2.x() * w2);
   p.set_y(p1.y() * w1 + p2.y() * w2);

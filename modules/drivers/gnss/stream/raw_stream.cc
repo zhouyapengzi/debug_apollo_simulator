@@ -35,7 +35,6 @@ using apollo::canbus::Chassis;
 
 void switch_stream_status(const apollo::drivers::gnss::Stream::Status &status,
                           StreamStatus_Type *report_status_type) {
-AINFO<<"(DMCZP) EnteringMethod: switch_stream_status";
   switch (status) {
     case apollo::drivers::gnss::Stream::Status::CONNECTED:
       *report_status_type = StreamStatus::CONNECTED;
@@ -52,7 +51,6 @@ AINFO<<"(DMCZP) EnteringMethod: switch_stream_status";
   }
 }
 std::string getLocalTimeFileStr(const std::string &gpsbin_folder) {
-AINFO<<"(DMCZP) EnteringMethod: getLocalTimeFileStr";
   time_t it = std::time(0);
   char local_time_char[64];
   std::tm time_tm;
@@ -69,7 +67,6 @@ AINFO<<"(DMCZP) EnteringMethod: getLocalTimeFileStr";
 }
 
 Stream *create_stream(const config::Stream &sd) {
-AINFO<<"(DMCZP) EnteringMethod: *create_stream";
   switch (sd.type_case()) {
     case config::Stream::kSerial:
       if (!sd.serial().has_device()) {
@@ -141,7 +138,6 @@ AINFO<<"(DMCZP) EnteringMethod: *create_stream";
 RawStream::RawStream(const config::Config &config,
                      const std::shared_ptr<apollo::cyber::Node> &node)
     : config_(config), node_(node) {
-AINFO<<"(DMCZP) EnteringMethod: RawStream::RawStream";
   data_parser_ptr_.reset(new DataParser(config_, node_));
   rtcm_parser_ptr_.reset(new RtcmParser(config_, node_));
 }
@@ -161,7 +157,6 @@ RawStream::~RawStream() {
 }
 
 bool RawStream::Init() {
-AINFO<<"(DMCZP) EnteringMethod: RawStream::Init";
   CHECK_NOTNULL(data_parser_ptr_);
   CHECK_NOTNULL(rtcm_parser_ptr_);
   if (!data_parser_ptr_->Init()) {
@@ -305,7 +300,6 @@ AINFO<<"(DMCZP) EnteringMethod: RawStream::Init";
 }
 
 void RawStream::Start() {
-AINFO<<"(DMCZP) EnteringMethod: RawStream::Start";
   data_thread_ptr_.reset(new std::thread(&RawStream::DataSpin, this));
   rtk_thread_ptr_.reset(new std::thread(&RawStream::RtkSpin, this));
   if (config_.has_wheel_parameters()) {
@@ -316,7 +310,6 @@ AINFO<<"(DMCZP) EnteringMethod: RawStream::Start";
 }
 
 void RawStream::OnWheelVelocityTimer() {
-AINFO<<"(DMCZP) EnteringMethod: RawStream::OnWheelVelocityTimer";
   if (chassis_ptr_ == nullptr) {
     AINFO << "No chassis message received";
     return;
@@ -333,7 +326,6 @@ AINFO<<"(DMCZP) EnteringMethod: RawStream::OnWheelVelocityTimer";
 }
 
 bool RawStream::Connect() {
-AINFO<<"(DMCZP) EnteringMethod: RawStream::Connect";
   if (data_stream_) {
     if (data_stream_->get_status() != Stream::Status::CONNECTED) {
       if (!data_stream_->Connect()) {
@@ -384,7 +376,6 @@ AINFO<<"(DMCZP) EnteringMethod: RawStream::Connect";
 }
 
 bool RawStream::Disconnect() {
-AINFO<<"(DMCZP) EnteringMethod: RawStream::Disconnect";
   if (data_stream_) {
     if (data_stream_->get_status() == Stream::Status::CONNECTED) {
       if (!data_stream_->Disconnect()) {
@@ -423,7 +414,6 @@ AINFO<<"(DMCZP) EnteringMethod: RawStream::Disconnect";
 }
 
 bool RawStream::Login() {
-AINFO<<"(DMCZP) EnteringMethod: RawStream::Login";
   std::vector<std::string> login_data;
   for (const auto &login_command : config_.login_commands()) {
     data_stream_->write(login_command);
@@ -443,7 +433,6 @@ AINFO<<"(DMCZP) EnteringMethod: RawStream::Login";
 }
 
 bool RawStream::Logout() {
-AINFO<<"(DMCZP) EnteringMethod: RawStream::Logout";
   for (const auto &logout_command : config_.logout_commands()) {
     data_stream_->write(logout_command);
     AINFO << "Logout command: " << logout_command;
@@ -452,7 +441,6 @@ AINFO<<"(DMCZP) EnteringMethod: RawStream::Logout";
 }
 
 void RawStream::StreamStatusCheck() {
-AINFO<<"(DMCZP) EnteringMethod: RawStream::StreamStatusCheck";
   bool status_report = false;
   StreamStatus_Type report_stream_status;
 
@@ -487,7 +475,6 @@ AINFO<<"(DMCZP) EnteringMethod: RawStream::StreamStatusCheck";
 }
 
 void RawStream::DataSpin() {
-AINFO<<"(DMCZP) EnteringMethod: RawStream::DataSpin";
   common::util::FillHeader("gnss", &stream_status_);
   stream_writer_->Write(std::make_shared<StreamStatus>(stream_status_));
   while (cyber::OK()) {
@@ -510,7 +497,6 @@ AINFO<<"(DMCZP) EnteringMethod: RawStream::DataSpin";
 }
 
 void RawStream::RtkSpin() {
-AINFO<<"(DMCZP) EnteringMethod: RawStream::RtkSpin";
   if (in_rtk_stream_ == nullptr) {
     return;
   }
@@ -535,7 +521,6 @@ AINFO<<"(DMCZP) EnteringMethod: RawStream::RtkSpin";
 }
 
 void RawStream::PublishRtkData(const size_t length) {
-AINFO<<"(DMCZP) EnteringMethod: RawStream::PublishRtkData";
   std::shared_ptr<RawData> rtk_msg = std::make_shared<RawData>();
   CHECK_NOTNULL(rtk_msg);
   rtk_msg->set_data(reinterpret_cast<const char *>(buffer_rtk_), length);
@@ -544,7 +529,6 @@ AINFO<<"(DMCZP) EnteringMethod: RawStream::PublishRtkData";
 }
 
 void RawStream::PushGpgga(const size_t length) {
-AINFO<<"(DMCZP) EnteringMethod: RawStream::PushGpgga";
   if (!in_rtk_stream_) {
     return;
   }
@@ -564,7 +548,6 @@ AINFO<<"(DMCZP) EnteringMethod: RawStream::PushGpgga";
 }
 
 void RawStream::GpsbinCallback(const std::shared_ptr<RawData const> &raw_data) {
-AINFO<<"(DMCZP) EnteringMethod: RawStream::GpsbinCallback";
   if (gpsbin_stream_ == nullptr) {
     return;
   }

@@ -26,7 +26,6 @@ namespace lidar {
 
 bool MlfTrackObjectMatcher::Init(
     const MlfTrackObjectMatcherInitOptions &options) {
-AINFO<<"(DMCZP) EnteringMethod: MlfTrackObjectMatcher::Init";
   auto config_manager = lib::ConfigManager::Instance();
   const lib::ModelConfig *model_config = nullptr;
   CHECK(config_manager->GetModelConfig(Name(), &model_config));
@@ -69,7 +68,6 @@ void MlfTrackObjectMatcher::Match(
     std::vector<std::pair<size_t, size_t> > *assignments,
     std::vector<size_t> *unassigned_tracks,
     std::vector<size_t> *unassigned_objects) {
-AINFO<<"(DMCZP) EnteringMethod: MlfTrackObjectMatcher::Match";
   assignments->clear();
   unassigned_objects->clear();
   unassigned_tracks->clear();
@@ -107,7 +105,6 @@ void MlfTrackObjectMatcher::ComputeAssociateMatrix(
     const std::vector<MlfTrackDataPtr> &tracks,
     const std::vector<TrackedObjectPtr> &new_objects,
     common::SecureMat<float> *association_mat) {
-AINFO<<"(DMCZP) EnteringMethod: MlfTrackObjectMatcher::ComputeAssociateMatrix";
   for (size_t i = 0; i < tracks.size(); ++i) {
     for (size_t j = 0; j < new_objects.size(); ++j) {
       (*association_mat)(i, j) =

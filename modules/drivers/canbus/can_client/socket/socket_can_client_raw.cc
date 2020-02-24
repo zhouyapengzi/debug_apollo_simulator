@@ -30,7 +30,6 @@ namespace can {
 using apollo::common::ErrorCode;
 
 bool SocketCanClientRaw::Init(const CANCardParameter &parameter) {
-AINFO<<"(DMCZP) EnteringMethod: SocketCanClientRaw::Init";
   if (!parameter.has_channel_id()) {
     AERROR << "Init CAN failed: parameter does not have channel id. The "
               "parameter is "
@@ -49,7 +48,6 @@ SocketCanClientRaw::~SocketCanClientRaw() {
 }
 
 ErrorCode SocketCanClientRaw::Start() {
-AINFO<<"(DMCZP) EnteringMethod: SocketCanClientRaw::Start";
   if (is_started_) {
     return ErrorCode::OK;
   }
@@ -121,7 +119,6 @@ AINFO<<"(DMCZP) EnteringMethod: SocketCanClientRaw::Start";
 }
 
 void SocketCanClientRaw::Stop() {
-AINFO<<"(DMCZP) EnteringMethod: SocketCanClientRaw::Stop";
   if (is_started_) {
     is_started_ = false;
 
@@ -137,7 +134,6 @@ AINFO<<"(DMCZP) EnteringMethod: SocketCanClientRaw::Stop";
 // Synchronous transmission of CAN messages
 ErrorCode SocketCanClientRaw::Send(const std::vector<CanFrame> &frames,
                                    int32_t *const frame_num) {
-AINFO<<"(DMCZP) EnteringMethod: SocketCanClientRaw::Send";
   CHECK_NOTNULL(frame_num);
   CHECK_EQ(frames.size(), static_cast<size_t>(*frame_num));
 
@@ -171,7 +167,6 @@ AINFO<<"(DMCZP) EnteringMethod: SocketCanClientRaw::Send";
 // buf size must be 8 bytes, every time, we receive only one frame
 ErrorCode SocketCanClientRaw::Receive(std::vector<CanFrame> *const frames,
                                       int32_t *const frame_num) {
-AINFO<<"(DMCZP) EnteringMethod: SocketCanClientRaw::Receive";
   if (!is_started_) {
     AERROR << "Nvidia can client is not init! Please init first!";
     return ErrorCode::CAN_CLIENT_ERROR_RECV_FAILED;
@@ -208,7 +203,6 @@ AINFO<<"(DMCZP) EnteringMethod: SocketCanClientRaw::Receive";
 }
 
 std::string SocketCanClientRaw::GetErrorString(const int32_t /*status*/) {
-AINFO<<"(DMCZP) EnteringMethod: SocketCanClientRaw::GetErrorString";
   return "";
 }
 

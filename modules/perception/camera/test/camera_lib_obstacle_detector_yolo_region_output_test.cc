@@ -23,7 +23,6 @@ namespace apollo {
 namespace perception {
 namespace camera {
 void init_box(NormalizedBBox *box) {
-AINFO<<"(DMCZP) EnteringMethod: init_box";
   box->xmin = 1;
   box->xmax = 10;
   box->ymin = 1;
@@ -32,7 +31,6 @@ AINFO<<"(DMCZP) EnteringMethod: init_box";
 }
 
 TEST(YoloCameraDetectorTest, bbox_size_gpu_test) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   // empty bbox
   {
     float bbox[] = {1.0f, 1.0f, 1.0f, 1.0f};
@@ -61,7 +59,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST";
 }
 
 TEST(YoloCameraDetectorTest, jaccard_overlap_gpu_test) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   // no overlap
   {
     float bbox1[] = {.1f, .1f, .2f, .2f};
@@ -78,7 +75,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST";
 }
 
 TEST(YoloCameraDetectorTest, apply_nms_test) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   bool overlapped[] = {true, true, false, true, true, true, false, true, true};
 
   {
@@ -95,7 +91,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST";
 }
 
 TEST(YoloCameraDetectorTest, get_gpu_data_test) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   base::Blob<float> blob;
   blob.Reshape({1, 2});
   EXPECT_NE(get_gpu_data(true, blob), nullptr);
@@ -103,7 +98,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST";
 }
 
 TEST(YoloCameraDetectorTest, box_test) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   NormalizedBBox box1;
   NormalizedBBox box2;
   NormalizedBBox box3;
@@ -166,7 +160,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST";
   ASSERT_TRUE(fabs(size) < 1e-3);
 }
 TEST(YoloCameraDetectorTest, filter_box) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   base::ObjectPtr obj;
   obj.reset(new base::Object);
   obj->camera_supplement.box.ymax = 50;
@@ -219,7 +212,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST";
   ASSERT_EQ(v_objs.size(), 0);
 }
 TEST(YoloCameraDetectorTest, fill_results) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   base::ObjectPtr obj;
   obj.reset(new base::Object);
   float bbox[kBoxBlockSize];
@@ -287,7 +279,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST";
 }
 
 TEST(YoloCameraDetectorTest, nms_test) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   {
     std::vector<NormalizedBBox> test_objects;
     NormalizedBBox obj_ped1;

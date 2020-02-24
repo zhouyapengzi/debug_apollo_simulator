@@ -28,23 +28,19 @@ const int32_t Parkingcontrola5::ID = 0xA5;
 
 // public
 Parkingcontrola5::Parkingcontrola5() { Reset(); }
-AINFO<<"(DMCZP) EnteringMethod: Parkingcontrola5::Parkingcontrola5";
 
 uint32_t Parkingcontrola5::GetPeriod() const {
-AINFO<<"(DMCZP) EnteringMethod: Parkingcontrola5::GetPeriod";
   // TODO(ChaoM) :  modify every protocol's period manually
   static const uint32_t PERIOD = 20 * 1000;
   return PERIOD;
 }
 
 void Parkingcontrola5::UpdateData(uint8_t* data) {
-AINFO<<"(DMCZP) EnteringMethod: Parkingcontrola5::UpdateData";
   set_p_parking_target(data, parking_target_);
   set_p_parking_enable_control(data, parking_enable_control_);
 }
 
 void Parkingcontrola5::Reset() {
-AINFO<<"(DMCZP) EnteringMethod: Parkingcontrola5::Reset";
   // TODO(ChaoM) :  you should check this manually
   parking_target_ = Parking_control_a5::PARKING_TARGET_RELEASE;
   parking_enable_control_ =
@@ -53,7 +49,6 @@ AINFO<<"(DMCZP) EnteringMethod: Parkingcontrola5::Reset";
 
 Parkingcontrola5* Parkingcontrola5::set_parking_target(
     Parking_control_a5::Parking_targetType parking_target) {
-AINFO<<"(DMCZP) EnteringMethod: Parkingcontrola5::set_parking_target";
   parking_target_ = parking_target;
   return this;
 }
@@ -65,7 +60,6 @@ AINFO<<"(DMCZP) EnteringMethod: Parkingcontrola5::set_parking_target";
 // 'physical_unit': ''}
 void Parkingcontrola5::set_p_parking_target(
     uint8_t* data, Parking_control_a5::Parking_targetType parking_target) {
-AINFO<<"(DMCZP) EnteringMethod: Parkingcontrola5::set_p_parking_target";
   int x = parking_target;
 
   Byte to_set(data + 1);
@@ -74,8 +68,6 @@ AINFO<<"(DMCZP) EnteringMethod: Parkingcontrola5::set_p_parking_target";
 
 Parkingcontrola5* Parkingcontrola5::set_parking_enable_control(
     Parking_control_a5::Parking_enable_controlType parking_enable_control) {
-AINFO<<"(DMCZP) EnteringMethod: Parkingcontrola5::set_parking_enable_control";
-AINFO<<"(DMCZP) EnteringMethod: Parkingcontrola5::set_p_parking_enable_control";
   parking_enable_control_ = parking_enable_control;
   return this;
 }

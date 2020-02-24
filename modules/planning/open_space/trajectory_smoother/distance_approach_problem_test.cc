@@ -60,7 +60,6 @@ class DistanceApproachProblemTest : public ::testing::Test {
 };
 
 TEST_F(DistanceApproachProblemTest, initilization) {
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   distance_approach_.reset(
       new DistanceApproachProblem(planner_open_space_config_));
   EXPECT_NE(distance_approach_, nullptr);

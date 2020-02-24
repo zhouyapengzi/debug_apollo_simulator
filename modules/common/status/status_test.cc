@@ -22,7 +22,6 @@ namespace apollo {
 namespace common {
 
 TEST(Status, OK) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   EXPECT_EQ(Status::OK().code(), ErrorCode::OK);
   EXPECT_EQ(Status::OK().error_message(), "");
   EXPECT_EQ(Status::OK(), Status::OK());
@@ -32,7 +31,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST";
 }
 
 TEST(Status, Set) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   Status status;
   status = Status(ErrorCode::CONTROL_ERROR, "Error message");
   EXPECT_EQ(status.code(), ErrorCode::CONTROL_ERROR);
@@ -40,14 +38,12 @@ AINFO<<"(DMCZP) EnteringMethod: TEST";
 }
 
 TEST(Status, Copy) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   Status a(ErrorCode::CONTROL_ERROR, "Error message");
   Status b(a);
   EXPECT_EQ(a.ToString(), b.ToString());
 }
 
 TEST(Status, Assign) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   Status a(ErrorCode::CONTROL_ERROR, "Error message");
   Status b;
   b = a;
@@ -55,28 +51,24 @@ AINFO<<"(DMCZP) EnteringMethod: TEST";
 }
 
 TEST(Status, EqualsSame) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   Status a(ErrorCode::CONTROL_ERROR, "Error message");
   Status b(ErrorCode::CONTROL_ERROR, "Error message");
   EXPECT_EQ(a, b);
 }
 
 TEST(Status, EqualsDifferentCode) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   const Status a(ErrorCode::CONTROL_ERROR, "Error message");
   const Status b(ErrorCode::CANBUS_ERROR, "Error message");
   EXPECT_NE(a, b);
 }
 
 TEST(Status, EqualsDifferentMessage) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   const Status a(ErrorCode::CONTROL_ERROR, "Error message1");
   const Status b(ErrorCode::CONTROL_COMPUTE_ERROR, "Error message2");
   EXPECT_NE(a, b);
 }
 
 TEST(Status, ToString) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   EXPECT_EQ("OK", Status().ToString());
 
   const Status a(ErrorCode::CONTROL_ERROR, "Error message");

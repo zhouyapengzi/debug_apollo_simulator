@@ -51,7 +51,6 @@ TrajectoryEvaluator::TrajectoryEvaluator(
     : path_time_graph_(path_time_graph),
       reference_line_(reference_line),
       init_s_(init_s) {
-AINFO<<"(DMCZP) EnteringMethod: TrajectoryEvaluator::TrajectoryEvaluator";
   const double start_time = 0.0;
   const double end_time = FLAGS_trajectory_time_length;
   path_time_intervals_ = path_time_graph_->GetPathBlockingIntervals(
@@ -92,18 +91,15 @@ AINFO<<"(DMCZP) EnteringMethod: TrajectoryEvaluator::TrajectoryEvaluator";
 }
 
 bool TrajectoryEvaluator::has_more_trajectory_pairs() const {
-AINFO<<"(DMCZP) EnteringMethod: TrajectoryEvaluator::has_more_trajectory_pairs";
   return !cost_queue_.empty();
 }
 
 size_t TrajectoryEvaluator::num_of_trajectory_pairs() const {
-AINFO<<"(DMCZP) EnteringMethod: TrajectoryEvaluator::num_of_trajectory_pairs";
   return cost_queue_.size();
 }
 
 std::pair<PtrTrajectory1d, PtrTrajectory1d>
 TrajectoryEvaluator::next_top_trajectory_pair() {
-AINFO<<"(DMCZP) EnteringMethod: TrajectoryEvaluator::next_top_trajectory_pair";
   CHECK(has_more_trajectory_pairs());
   auto top = cost_queue_.top();
   cost_queue_.pop();
@@ -111,7 +107,6 @@ AINFO<<"(DMCZP) EnteringMethod: TrajectoryEvaluator::next_top_trajectory_pair";
 }
 
 double TrajectoryEvaluator::top_trajectory_pair_cost() const {
-AINFO<<"(DMCZP) EnteringMethod: TrajectoryEvaluator::top_trajectory_pair_cost";
   return cost_queue_.top().second;
 }
 
@@ -120,7 +115,6 @@ double TrajectoryEvaluator::Evaluate(
     const PtrTrajectory1d& lon_trajectory,
     const PtrTrajectory1d& lat_trajectory,
     std::vector<double>* cost_components) const {
-AINFO<<"(DMCZP) EnteringMethod: TrajectoryEvaluator::Evaluate";
   // Costs:
   // 1. Cost of missing the objective, e.g., cruise, stop, etc.
   // 2. Cost of longitudinal jerk
@@ -171,7 +165,6 @@ AINFO<<"(DMCZP) EnteringMethod: TrajectoryEvaluator::Evaluate";
 double TrajectoryEvaluator::LatOffsetCost(
     const PtrTrajectory1d& lat_trajectory,
     const std::vector<double>& s_values) const {
-AINFO<<"(DMCZP) EnteringMethod: TrajectoryEvaluator::LatOffsetCost";
   double lat_offset_start = lat_trajectory->Evaluate(0, 0.0);
   double cost_sqr_sum = 0.0;
   double cost_abs_sum = 0.0;
@@ -192,7 +185,6 @@ AINFO<<"(DMCZP) EnteringMethod: TrajectoryEvaluator::LatOffsetCost";
 double TrajectoryEvaluator::LatComfortCost(
     const PtrTrajectory1d& lon_trajectory,
     const PtrTrajectory1d& lat_trajectory) const {
-AINFO<<"(DMCZP) EnteringMethod: TrajectoryEvaluator::LatComfortCost";
   double max_cost = 0.0;
   for (double t = 0.0; t < FLAGS_trajectory_time_length;
        t += FLAGS_trajectory_time_resolution) {
@@ -211,10 +203,7 @@ AINFO<<"(DMCZP) EnteringMethod: TrajectoryEvaluator::LatComfortCost";
 
 double TrajectoryEvaluator::LonComfortCost(
     const PtrTrajectory1d& lon_trajectory) const {
-AINFO<<"(DMCZP) EnteringMethod: TrajectoryEvaluator::LonComfortCost";
   double cost_sqr_sum = 0.0;
-AINFO<<"(DMCZP) EnteringMethod: TrajectoryEvaluator::LonCollisionCost";
-AINFO<<"(DMCZP) EnteringMethod: TrajectoryEvaluator::CentripetalAccelerationCost";
   double cost_abs_sum = 0.0;
   for (double t = 0.0; t < FLAGS_trajectory_time_length;
        t += FLAGS_trajectory_time_resolution) {
@@ -230,7 +219,6 @@ double TrajectoryEvaluator::LonObjectiveCost(
     const PtrTrajectory1d& lon_trajectory,
     const PlanningTarget& planning_target,
     const std::vector<double>& ref_s_dots) const {
-AINFO<<"(DMCZP) EnteringMethod: TrajectoryEvaluator::LonObjectiveCost";
   double t_max = lon_trajectory->ParamLength();
   double dist_s =
       lon_trajectory->Evaluate(0, t_max) - lon_trajectory->Evaluate(0, 0.0);
@@ -351,7 +339,6 @@ std::vector<double> TrajectoryEvaluator::ComputeLongitudinalGuideVelocity(
 
 bool TrajectoryEvaluator::InterpolateDenseStPoints(
     const std::vector<SpeedPoint>& st_points, double t, double* traj_s) const {
-AINFO<<"(DMCZP) EnteringMethod: TrajectoryEvaluator::InterpolateDenseStPoints";
   CHECK_GT(st_points.size(), 1);
   if (t < st_points[0].t() || t > st_points[st_points.size() - 1].t()) {
     AERROR << "AutoTuning InterpolateDenseStPoints Error";

@@ -39,7 +39,6 @@ using apollo::common::time::Clock;
 using Eigen::MatrixXd;
 
 bool ActiveSetSpline1dSolver::Solve() {
-AINFO<<"(DMCZP) EnteringMethod: ActiveSetSpline1dSolver::Solve";
   const MatrixXd& kernel_matrix = kernel_.kernel_matrix();
   const MatrixXd& offset = kernel_.offset();
   const MatrixXd& inequality_constraint_matrix =

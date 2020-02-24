@@ -63,7 +63,6 @@ LocalizationLidarProcess::LocalizationLidarProcess()
       out_map_count_(0),
       forecast_integ_state_(ForecastState::NOT_VALID),
       forecast_timer_(-1) {}
-AINFO<<"(DMCZP) EnteringMethod: LocalizationLidarProcess::LocalizationLidarProcess";
 
 LocalizationLidarProcess::~LocalizationLidarProcess() {
   delete locator_;
@@ -74,7 +73,6 @@ LocalizationLidarProcess::~LocalizationLidarProcess() {
 }
 
 Status LocalizationLidarProcess::Init(const LocalizationIntegParam& params) {
-AINFO<<"(DMCZP) EnteringMethod: LocalizationLidarProcess::Init";
   // initial_success_ = false;
   map_path_ = params.map_path;
   lidar_extrinsic_file_ = params.lidar_extrinsic_file;
@@ -154,7 +152,6 @@ AINFO<<"(DMCZP) EnteringMethod: LocalizationLidarProcess::Init";
 double LocalizationLidarProcess::ComputeDeltaYawLimit(
     const int64_t index_cur, const int64_t index_stable, const double limit_min,
     const double limit_max) {
-AINFO<<"(DMCZP) EnteringMethod: LocalizationLidarProcess::ComputeDeltaYawLimit";
   if (index_cur > index_stable) {
     return limit_min;
   }
@@ -165,7 +162,6 @@ AINFO<<"(DMCZP) EnteringMethod: LocalizationLidarProcess::ComputeDeltaYawLimit";
 }
 
 void LocalizationLidarProcess::PcdProcess(const LidarFrame& lidar_frame) {
-AINFO<<"(DMCZP) EnteringMethod: LocalizationLidarProcess::PcdProcess";
   if (!CheckState()) {
     AERROR << "PcdProcess: Receive an invalid lidar msg!";
     return;
@@ -212,7 +208,6 @@ AINFO<<"(DMCZP) EnteringMethod: LocalizationLidarProcess::PcdProcess";
 void LocalizationLidarProcess::GetResult(int* lidar_status,
                                          TransformD* location,
                                          Matrix3D* covariance) const {
-AINFO<<"(DMCZP) EnteringMethod: LocalizationLidarProcess::GetResult";
   CHECK_NOTNULL(lidar_status);
   CHECK_NOTNULL(location);
   CHECK_NOTNULL(covariance);
@@ -224,7 +219,6 @@ AINFO<<"(DMCZP) EnteringMethod: LocalizationLidarProcess::GetResult";
 }
 
 int LocalizationLidarProcess::GetResult(LocalizationEstimate* lidar_local_msg) {
-AINFO<<"(DMCZP) EnteringMethod: LocalizationLidarProcess::GetResult";
   if (lidar_local_msg == nullptr) {
     return static_cast<int>(LidarState::NOT_VALID);
   }
@@ -271,13 +265,11 @@ AINFO<<"(DMCZP) EnteringMethod: LocalizationLidarProcess::GetResult";
 }
 
 void LocalizationLidarProcess::IntegPvaProcess(const InsPva& sins_pva_msg) {
-AINFO<<"(DMCZP) EnteringMethod: LocalizationLidarProcess::IntegPvaProcess";
   pose_forecastor_->PushInspvaData(sins_pva_msg);
   return;
 }
 
 void LocalizationLidarProcess::RawImuProcess(const ImuData& imu_msg) {
-AINFO<<"(DMCZP) EnteringMethod: LocalizationLidarProcess::RawImuProcess";
   pose_forecastor_->PushImuData(imu_msg);
   return;
 }
@@ -285,7 +277,6 @@ AINFO<<"(DMCZP) EnteringMethod: LocalizationLidarProcess::RawImuProcess";
 bool LocalizationLidarProcess::GetPredictPose(const double lidar_time,
                                               TransformD* predict_pose,
                                               ForecastState* forecast_state) {
-AINFO<<"(DMCZP) EnteringMethod: LocalizationLidarProcess::GetPredictPose";
   CHECK_NOTNULL(predict_pose);
   CHECK_NOTNULL(forecast_state);
 
@@ -351,10 +342,8 @@ AINFO<<"(DMCZP) EnteringMethod: LocalizationLidarProcess::GetPredictPose";
 }
 
 bool LocalizationLidarProcess::CheckState() { return true; }
-AINFO<<"(DMCZP) EnteringMethod: LocalizationLidarProcess::CheckState";
 
 void LocalizationLidarProcess::UpdateState(const int ret, const double time) {
-AINFO<<"(DMCZP) EnteringMethod: LocalizationLidarProcess::UpdateState";
   if (ret == 0) {  // OK
     double location_score = 0.0;
     locator_->GetResult(&location_, &location_covariance_, &location_score);
@@ -424,7 +413,6 @@ AINFO<<"(DMCZP) EnteringMethod: LocalizationLidarProcess::UpdateState";
 
 bool LocalizationLidarProcess::LoadLidarExtrinsic(const std::string& file_path,
                                                   TransformD* lidar_extrinsic) {
-AINFO<<"(DMCZP) EnteringMethod: LocalizationLidarProcess::LoadLidarExtrinsic";
   CHECK_NOTNULL(lidar_extrinsic);
 
   YAML::Node config = YAML::LoadFile(file_path);
@@ -452,7 +440,6 @@ AINFO<<"(DMCZP) EnteringMethod: LocalizationLidarProcess::LoadLidarExtrinsic";
 
 bool LocalizationLidarProcess::LoadLidarHeight(const std::string& file_path,
                                                LidarHeight* height) {
-AINFO<<"(DMCZP) EnteringMethod: LocalizationLidarProcess::LoadLidarHeight";
   CHECK_NOTNULL(height);
 
   if (!cyber::common::PathExists(file_path)) {

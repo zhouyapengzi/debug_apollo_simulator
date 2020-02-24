@@ -33,31 +33,21 @@ constexpr double kSegmentationEpsilon = 0.2;
 }  // namespace
 
 const std::string &RouteSegments::Id() const { return id_; }
-AINFO<<"(DMCZP) EnteringMethod: &RouteSegments::Id";
 
 void RouteSegments::SetId(const std::string &id) { id_ = id; }
-AINFO<<"(DMCZP) EnteringMethod: RouteSegments::SetId";
 
 void RouteSegments::SetCanExit(bool can_exit) { can_exit_ = can_exit; }
-AINFO<<"(DMCZP) EnteringMethod: RouteSegments::SetCanExit";
 
 bool RouteSegments::CanExit() const { return can_exit_; }
-AINFO<<"(DMCZP) EnteringMethod: RouteSegments::CanExit";
 
 bool RouteSegments::StopForDestination() const { return stop_for_destination_; }
-AINFO<<"(DMCZP) EnteringMethod: RouteSegments::StopForDestination";
 
 void RouteSegments::SetStopForDestination(bool stop_for_destination) {
-AINFO<<"(DMCZP) EnteringMethod: RouteSegments::SetStopForDestination";
   stop_for_destination_ = stop_for_destination;
 }
 
 bool RouteSegments::WithinLaneSegment(const LaneSegment &lane_segment,
                                       const LaneWaypoint &waypoint) {
-AINFO<<"(DMCZP) EnteringMethod: RouteSegments::WithinLaneSegment";
-AINFO<<"(DMCZP) EnteringMethod: RouteSegments::WithinLaneSegment";
-AINFO<<"(DMCZP) EnteringMethod: RouteSegments::WithinLaneSegment";
-AINFO<<"(DMCZP) EnteringMethod: RouteSegments::WithinLaneSegment";
   return waypoint.lane &&
          lane_segment.lane->id().id() == waypoint.lane->id().id() &&
          lane_segment.start_s - kSegmentationEpsilon <= waypoint.s &&
@@ -86,7 +76,6 @@ bool RouteSegments::WithinLaneSegment(const routing::LaneSegment &lane_segment,
 }
 
 bool RouteSegments::Stitch(const RouteSegments &other) {
-AINFO<<"(DMCZP) EnteringMethod: RouteSegments::Stitch";
   auto first_waypoint = FirstWaypoint();
   bool has_overlap = IsWaypointOnSegment(other.FirstWaypoint());
   if (other.IsWaypointOnSegment(first_waypoint)) {
@@ -114,43 +103,34 @@ AINFO<<"(DMCZP) EnteringMethod: RouteSegments::Stitch";
 }
 
 const LaneWaypoint &RouteSegments::RouteEndWaypoint() const {
-AINFO<<"(DMCZP) EnteringMethod: &RouteSegments::RouteEndWaypoint";
   return route_end_waypoint_;
 }
 
 bool RouteSegments::IsOnSegment() const { return is_on_segment_; }
-AINFO<<"(DMCZP) EnteringMethod: RouteSegments::IsOnSegment";
 
 void RouteSegments::SetIsOnSegment(bool on_segment) {
-AINFO<<"(DMCZP) EnteringMethod: RouteSegments::SetIsOnSegment";
   is_on_segment_ = on_segment;
 }
 
 bool RouteSegments::IsNeighborSegment() const { return is_neighbor_; }
-AINFO<<"(DMCZP) EnteringMethod: RouteSegments::IsNeighborSegment";
 
 void RouteSegments::SetIsNeighborSegment(bool is_neighbor) {
-AINFO<<"(DMCZP) EnteringMethod: RouteSegments::SetIsNeighborSegment";
   is_neighbor_ = is_neighbor;
 }
 
 void RouteSegments::SetRouteEndWaypoint(const LaneWaypoint &waypoint) {
-AINFO<<"(DMCZP) EnteringMethod: RouteSegments::SetRouteEndWaypoint";
   route_end_waypoint_ = waypoint;
 }
 
 LaneWaypoint RouteSegments::FirstWaypoint() const {
-AINFO<<"(DMCZP) EnteringMethod: RouteSegments::FirstWaypoint";
   return LaneWaypoint(front().lane, front().start_s, 0.0);
 }
 
 LaneWaypoint RouteSegments::LastWaypoint() const {
-AINFO<<"(DMCZP) EnteringMethod: RouteSegments::LastWaypoint";
   return LaneWaypoint(back().lane, back().end_s, 0.0);
 }
 
 void RouteSegments::SetProperties(const RouteSegments &other) {
-AINFO<<"(DMCZP) EnteringMethod: RouteSegments::SetProperties";
   route_end_waypoint_ = other.RouteEndWaypoint();
   can_exit_ = other.CanExit();
   is_on_segment_ = other.IsOnSegment();
@@ -161,7 +141,6 @@ AINFO<<"(DMCZP) EnteringMethod: RouteSegments::SetProperties";
 }
 
 double RouteSegments::Length(const RouteSegments &segments) {
-AINFO<<"(DMCZP) EnteringMethod: RouteSegments::Length";
   double s = 0.0;
   for (const auto &seg : segments) {
     s += seg.Length();
@@ -172,13 +151,10 @@ AINFO<<"(DMCZP) EnteringMethod: RouteSegments::Length";
 bool RouteSegments::GetProjection(const common::PointENU &point_enu,
                                   common::SLPoint *sl_point,
                                   LaneWaypoint *waypoint) const {
-AINFO<<"(DMCZP) EnteringMethod: RouteSegments::GetProjection";
   return GetProjection({point_enu.x(), point_enu.y()}, sl_point, waypoint);
 }
 
 bool RouteSegments::IsConnectedSegment(const RouteSegments &other) const {
-AINFO<<"(DMCZP) EnteringMethod: RouteSegments::IsConnectedSegment";
-AINFO<<"(DMCZP) EnteringMethod: RouteSegments::GetProjection";
   if (empty() || other.empty()) {
     return false;
   }
@@ -200,9 +176,6 @@ AINFO<<"(DMCZP) EnteringMethod: RouteSegments::GetProjection";
 bool RouteSegments::Shrink(const common::math::Vec2d &point,
                            const double look_backward,
                            const double look_forward) {
-AINFO<<"(DMCZP) EnteringMethod: RouteSegments::Shrink";
-AINFO<<"(DMCZP) EnteringMethod: RouteSegments::Shrink";
-AINFO<<"(DMCZP) EnteringMethod: RouteSegments::Shrink";
   common::SLPoint sl_point;
   LaneWaypoint waypoint;
   if (!GetProjection(point, &sl_point, &waypoint)) {
@@ -269,7 +242,6 @@ bool RouteSegments::Shrink(const double s, const LaneWaypoint &waypoint,
 }
 
 bool RouteSegments::GetWaypoint(const double s, LaneWaypoint *waypoint) const {
-AINFO<<"(DMCZP) EnteringMethod: RouteSegments::GetWaypoint";
   double accumulated_s = 0.0;
   bool has_projection = false;
   for (auto iter = begin(); iter != end();
@@ -325,27 +297,22 @@ bool RouteSegments::GetProjection(const common::math::Vec2d &point,
 }
 
 void RouteSegments::SetPreviousAction(routing::ChangeLaneType action) {
-AINFO<<"(DMCZP) EnteringMethod: RouteSegments::SetPreviousAction";
   previous_action_ = action;
 }
 
 routing::ChangeLaneType RouteSegments::PreviousAction() const {
-AINFO<<"(DMCZP) EnteringMethod: RouteSegments::PreviousAction";
   return previous_action_;
 }
 
 void RouteSegments::SetNextAction(routing::ChangeLaneType action) {
-AINFO<<"(DMCZP) EnteringMethod: RouteSegments::SetNextAction";
   next_action_ = action;
 }
 
 routing::ChangeLaneType RouteSegments::NextAction() const {
-AINFO<<"(DMCZP) EnteringMethod: RouteSegments::NextAction";
   return next_action_;
 }
 
 bool RouteSegments::IsWaypointOnSegment(const LaneWaypoint &waypoint) const {
-AINFO<<"(DMCZP) EnteringMethod: RouteSegments::IsWaypointOnSegment";
   for (auto iter = begin(); iter != end(); ++iter) {
     if (WithinLaneSegment(*iter, waypoint)) {
       return true;
@@ -355,7 +322,6 @@ AINFO<<"(DMCZP) EnteringMethod: RouteSegments::IsWaypointOnSegment";
 }
 
 bool RouteSegments::CanDriveFrom(const LaneWaypoint &waypoint) const {
-AINFO<<"(DMCZP) EnteringMethod: RouteSegments::CanDriveFrom";
   auto point = waypoint.lane->GetSmoothPoint(waypoint.s);
 
   // 0 if waypoint is on segment, ok

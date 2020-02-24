@@ -64,7 +64,6 @@ std::map<base::LaneLinePositionType, int> spatialLUTind = {
 // @brief: evaluating y value of given x for a third-order polynomial function
 template <typename T = float>
 T GetPolyValue(T a, T b, T c, T d, T x) {
-AINFO<<"(DMCZP) EnteringMethod: GetPolyValue";
   T y = d;
   T v = x;
   y += (c * v);
@@ -77,7 +76,6 @@ AINFO<<"(DMCZP) EnteringMethod: GetPolyValue";
 
 bool DarkSCNNLanePostprocessor::Init(
     const LanePostprocessorInitOptions& options) {
-AINFO<<"(DMCZP) EnteringMethod: DarkSCNNLanePostprocessor::Init";
   // Read detector config parameter
   darkSCNN::DarkSCNNParam darkscnn_param;
   const std::string& proto_path =
@@ -120,8 +118,6 @@ AINFO<<"(DMCZP) EnteringMethod: DarkSCNNLanePostprocessor::Init";
 
 bool DarkSCNNLanePostprocessor::Process2D(
     const LanePostprocessorOptions& options, CameraFrame* frame) {
-AINFO<<"(DMCZP) EnteringMethod: DarkSCNNLanePostprocessor::Process2D";
-AINFO<<"(DMCZP) EnteringMethod: DarkSCNNLanePostprocessor::Process3D";
   ADEBUG << "Begin to Process2D.";
   frame->lane_objects.clear();
   auto start = std::chrono::high_resolution_clock::now();
@@ -413,7 +409,6 @@ bool DarkSCNNLanePostprocessor::Process3D(
 }
 
 void DarkSCNNLanePostprocessor::ConvertImagePoint2Camera(CameraFrame* frame) {
-AINFO<<"(DMCZP) EnteringMethod: DarkSCNNLanePostprocessor::ConvertImagePoint2Camera";
   float pitch_angle = frame->calibration_service->QueryPitchAngle();
   float camera_ground_height =
       frame->calibration_service->QueryCameraToGroundHeight();
@@ -443,7 +438,6 @@ AINFO<<"(DMCZP) EnteringMethod: DarkSCNNLanePostprocessor::ConvertImagePoint2Cam
 
 // @brief: Fit camera lane line using polynomial
 void DarkSCNNLanePostprocessor::PolyFitCameraLaneline(CameraFrame* frame) {
-AINFO<<"(DMCZP) EnteringMethod: DarkSCNNLanePostprocessor::PolyFitCameraLaneline";
   std::vector<base::LaneLine>& lane_objects = frame->lane_objects;
   int laneline_num = static_cast<int>(lane_objects.size());
   for (int line_index = 0; line_index < laneline_num; ++line_index) {
@@ -481,7 +475,6 @@ AINFO<<"(DMCZP) EnteringMethod: DarkSCNNLanePostprocessor::PolyFitCameraLaneline
 }
 
 std::string DarkSCNNLanePostprocessor::Name() const {
-AINFO<<"(DMCZP) EnteringMethod: DarkSCNNLanePostprocessor::Name";
   return "DarkSCNNLanePostprocessor";
 }
 

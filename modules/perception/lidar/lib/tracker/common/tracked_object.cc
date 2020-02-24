@@ -29,7 +29,6 @@ using PointFCloud = apollo::perception::base::AttributePointCloud<base::PointF>;
 
 TrackedObject::TrackedObject(base::ObjectPtr obj_ptr,
                              const Eigen::Affine3d& pose) {
-AINFO<<"(DMCZP) EnteringMethod: TrackedObject::TrackedObject";
   AttachObject(obj_ptr, pose);
 }
 
@@ -37,7 +36,6 @@ void TrackedObject::AttachObject(base::ObjectPtr obj_ptr,
                                  const Eigen::Affine3d& pose,
                                  const Eigen::Vector3d& global_to_local_offset,
                                  const base::SensorInfo& sensor) {
-AINFO<<"(DMCZP) EnteringMethod: TrackedObject::AttachObject";
   if (obj_ptr) {
     // all state of input obj_ptr will not change except cloud world
     object_ptr = obj_ptr;
@@ -92,7 +90,6 @@ AINFO<<"(DMCZP) EnteringMethod: TrackedObject::AttachObject";
 }
 
 void TrackedObject::TransformObjectCloudToWorld() {
-AINFO<<"(DMCZP) EnteringMethod: TrackedObject::TransformObjectCloudToWorld";
   const base::PointFCloud& cloud = (object_ptr->lidar_supplement).cloud;
   base::PointDCloud& cloud_world = (object_ptr->lidar_supplement).cloud_world;
   cloud_world.clear();
@@ -110,7 +107,6 @@ AINFO<<"(DMCZP) EnteringMethod: TrackedObject::TransformObjectCloudToWorld";
 }
 
 void TrackedObject::Reset() {
-AINFO<<"(DMCZP) EnteringMethod: TrackedObject::Reset";
   object_ptr.reset();
   sensor_to_local_pose = Eigen::Affine3d::Identity();
 
@@ -173,13 +169,11 @@ AINFO<<"(DMCZP) EnteringMethod: TrackedObject::Reset";
 void TrackedObject::Reset(base::ObjectPtr obj_ptr, const Eigen::Affine3d& pose,
                           const Eigen::Vector3d& global_to_local_offset,
                           const base::SensorInfo& sensor) {
-AINFO<<"(DMCZP) EnteringMethod: TrackedObject::Reset";
   Reset();
   AttachObject(obj_ptr, pose, global_to_local_offset, sensor);
 }
 
 void TrackedObject::CopyFrom(TrackedObjectPtr rhs, bool is_deep) {
-AINFO<<"(DMCZP) EnteringMethod: TrackedObject::CopyFrom";
   *this = *rhs;
   if (is_deep) {
     object_ptr = base::ObjectPool::Instance().Get();
@@ -190,7 +184,6 @@ AINFO<<"(DMCZP) EnteringMethod: TrackedObject::CopyFrom";
 }
 
 void TrackedObject::ToObject(base::ObjectPtr obj) const {
-AINFO<<"(DMCZP) EnteringMethod: TrackedObject::ToObject";
   *obj = *object_ptr;
   // obj id keep default
   // obj polygon calculate outside, because
@@ -225,7 +218,6 @@ AINFO<<"(DMCZP) EnteringMethod: TrackedObject::ToObject";
 }
 
 std::string TrackedObject::ToString() const {
-AINFO<<"(DMCZP) EnteringMethod: TrackedObject::ToString";
   // std::string txt;
   // return txt;
   std::ostringstream oos;
@@ -238,7 +230,6 @@ AINFO<<"(DMCZP) EnteringMethod: TrackedObject::ToString";
 }
 
 void TrackedObject::ComputeShapeFeatures() {
-AINFO<<"(DMCZP) EnteringMethod: TrackedObject::ComputeShapeFeatures";
   // Compute object's shape feature
   // 1. check whether shape feature is ready
   // 2. compute object's shape feature

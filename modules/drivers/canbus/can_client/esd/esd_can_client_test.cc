@@ -30,7 +30,6 @@ namespace can {
 using apollo::common::ErrorCode;
 
 TEST(EsdCanClientTest, simple_test) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   CANCardParameter param;
   param.set_brand(CANCardParameter::ESD_CAN);
   param.set_channel_id(CANCardParameter::CHANNEL_ID_ZERO);

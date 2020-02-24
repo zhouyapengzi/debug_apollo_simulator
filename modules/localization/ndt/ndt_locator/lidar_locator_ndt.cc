@@ -34,7 +34,6 @@ namespace ndt {
 
 LidarLocatorNdt::LidarLocatorNdt()
     : config_("map_ndt_v01"), map_(&config_), map_preload_node_pool_(30, 12) {
-AINFO<<"(DMCZP) EnteringMethod: LidarLocatorNdt::LidarLocatorNdt";
   Eigen::Translation3d trans(0, 0, 0);
   Eigen::Quaterniond quat(1, 0, 0, 0);
   velodyne_extrinsic_ = trans * quat;
@@ -49,7 +48,6 @@ LidarLocatorNdt::~LidarLocatorNdt() {}
 
 void LidarLocatorNdt::Init(const Eigen::Affine3d& init_location,
                            unsigned int resolution_id, int zone_id) {
-AINFO<<"(DMCZP) EnteringMethod: LidarLocatorNdt::Init";
   location_ = init_location;
   resolution_id_ = resolution_id;
   zone_id_ = zone_id;
@@ -92,7 +90,6 @@ AINFO<<"(DMCZP) EnteringMethod: LidarLocatorNdt::Init";
 
 void LidarLocatorNdt::LoadMap(const Eigen::Affine3d& init_location,
                               unsigned int resolution_id, int zone_id) {
-AINFO<<"(DMCZP) EnteringMethod: LidarLocatorNdt::LoadMap";
   map_preload_node_pool_.Initial(&(map_.GetConfig()));
   map_.InitMapNodeCaches(12, 24);
   map_.AttachMapNodePool(&map_preload_node_pool_);
@@ -103,32 +100,27 @@ AINFO<<"(DMCZP) EnteringMethod: LidarLocatorNdt::LoadMap";
 }
 
 void LidarLocatorNdt::SetMapFolderPath(const std::string folder_path) {
-AINFO<<"(DMCZP) EnteringMethod: LidarLocatorNdt::SetMapFolderPath";
   if (!map_.SetMapFolderPath(folder_path)) {
     AERROR << "Map folder is invalid!";
   }
 }
 
 void LidarLocatorNdt::SetVelodyneExtrinsic(const Eigen::Affine3d& extrinsic) {
-AINFO<<"(DMCZP) EnteringMethod: LidarLocatorNdt::SetVelodyneExtrinsic";
   velodyne_extrinsic_ = extrinsic;
 }
 
 void LidarLocatorNdt::SetLidarHeight(double height) {
-AINFO<<"(DMCZP) EnteringMethod: LidarLocatorNdt::SetLidarHeight";
   lidar_height_ = height;
   AINFO << "Set height: " << lidar_height_;
 }
 
 void LidarLocatorNdt::SetOnlineCloudResolution(const float& online_resolution) {
-AINFO<<"(DMCZP) EnteringMethod: LidarLocatorNdt::SetOnlineCloudResolution";
   proj_reslution_ = online_resolution;
   AINFO << "Proj resolution: " << proj_reslution_;
 }
 
 int LidarLocatorNdt::Update(unsigned int frame_idx, const Eigen::Affine3d& pose,
                             const LidarFrame& lidar_frame) {
-AINFO<<"(DMCZP) EnteringMethod: LidarLocatorNdt::Update";
   // Increasement from INSPVA
   Eigen::Vector3d trans_diff =
       pose.translation() - pre_input_location_.translation();
@@ -254,15 +246,12 @@ AINFO<<"(DMCZP) EnteringMethod: LidarLocatorNdt::Update";
 }
 
 Eigen::Affine3d LidarLocatorNdt::GetPose() const { return location_; }
-AINFO<<"(DMCZP) EnteringMethod: LidarLocatorNdt::GetPose";
 
 Eigen::Vector3d LidarLocatorNdt::GetPredictLocation() const {
-AINFO<<"(DMCZP) EnteringMethod: LidarLocatorNdt::GetPredictLocation";
   return predict_location_.translation();
 }
 
 Eigen::Matrix3d LidarLocatorNdt::GetLocationCovariance() const {
-AINFO<<"(DMCZP) EnteringMethod: LidarLocatorNdt::GetLocationCovariance";
   return location_covariance_;
 }
 
@@ -270,7 +259,6 @@ void LidarLocatorNdt::ComposeMapCells(
     const Eigen::Vector2d& left_top_coord2d, int zone_id,
     unsigned int resolution_id, float map_pixel_resolution,
     const Eigen::Affine3d& inverse_transform) {
-AINFO<<"(DMCZP) EnteringMethod: LidarLocatorNdt::ComposeMapCells";
   apollo::common::time::Timer timer;
   timer.Start();
 

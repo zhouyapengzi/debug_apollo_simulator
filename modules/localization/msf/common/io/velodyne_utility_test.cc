@@ -32,7 +32,6 @@ class VelodyneUtilityTestSuite : public ::testing::Test {
 
 /**@brief Test . */
 TEST_F(VelodyneUtilityTestSuite, test) { ASSERT_TRUE(true); }
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
 
 }  // namespace msf
 }  // namespace localization

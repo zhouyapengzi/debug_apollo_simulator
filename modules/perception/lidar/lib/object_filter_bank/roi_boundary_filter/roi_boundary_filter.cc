@@ -29,7 +29,6 @@ namespace lidar {
 using cyber::common::GetAbsolutePath;
 
 bool ROIBoundaryFilter::Init(const ObjectFilterInitOptions& options) {
-AINFO<<"(DMCZP) EnteringMethod: ROIBoundaryFilter::Init";
   auto config_manager = lib::ConfigManager::Instance();
   const lib::ModelConfig* model_config = nullptr;
   CHECK(config_manager->GetModelConfig(Name(), &model_config));
@@ -50,7 +49,6 @@ AINFO<<"(DMCZP) EnteringMethod: ROIBoundaryFilter::Init";
 
 bool ROIBoundaryFilter::Filter(const ObjectFilterOptions& options,
                                LidarFrame* frame) {
-AINFO<<"(DMCZP) EnteringMethod: ROIBoundaryFilter::Filter";
   if (!frame) {
     AINFO << "Lidar frame is nullptr.";
     return false;
@@ -100,7 +98,6 @@ AINFO<<"(DMCZP) EnteringMethod: ROIBoundaryFilter::Filter";
 
 void ROIBoundaryFilter::BuildWorldPolygons(const ObjectFilterOptions& options,
                                            const LidarFrame& frame) {
-AINFO<<"(DMCZP) EnteringMethod: ROIBoundaryFilter::BuildWorldPolygons";
   const Eigen::Affine3d& pose = frame.lidar2world_pose;
   const std::vector<base::ObjectPtr>& objects = frame.segmented_objects;
   polygons_in_world_.clear();
@@ -126,7 +123,6 @@ AINFO<<"(DMCZP) EnteringMethod: ROIBoundaryFilter::BuildWorldPolygons";
 
 void ROIBoundaryFilter::FillObjectRoiFlag(const ObjectFilterOptions& options,
                                           LidarFrame* frame) {
-AINFO<<"(DMCZP) EnteringMethod: ROIBoundaryFilter::FillObjectRoiFlag";
   auto& objects = frame->segmented_objects;
   objects_cross_roi_.assign(objects.size(), false);
   for (size_t i = 0; i < objects.size(); ++i) {
@@ -150,9 +146,6 @@ AINFO<<"(DMCZP) EnteringMethod: ROIBoundaryFilter::FillObjectRoiFlag";
 void ROIBoundaryFilter::FilterObjectsOutsideBoundary(
     const ObjectFilterOptions& options, LidarFrame* frame,
     std::vector<bool>* objects_valid_flag) {
-AINFO<<"(DMCZP) EnteringMethod: ROIBoundaryFilter::FilterObjectsOutsideBoundary";
-AINFO<<"(DMCZP) EnteringMethod: ROIBoundaryFilter::FilterObjectsInsideBoundary";
-AINFO<<"(DMCZP) EnteringMethod: ROIBoundaryFilter::FilterObjectsByConfidence";
   const std::vector<base::RoadBoundary>& road_boundary =
       frame->hdmap_struct->road_boundary;
   auto& objects = frame->segmented_objects;

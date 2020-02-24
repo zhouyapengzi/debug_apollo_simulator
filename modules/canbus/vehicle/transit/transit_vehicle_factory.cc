@@ -26,13 +26,11 @@ namespace canbus {
 
 std::unique_ptr<VehicleController>
 TransitVehicleFactory::CreateVehicleController() {
-AINFO<<"(DMCZP) EnteringMethod: TransitVehicleFactory::CreateVehicleController";
   return std::unique_ptr<VehicleController>(new transit::TransitController());
 }
 
 std::unique_ptr<MessageManager<::apollo::canbus::ChassisDetail>>
 TransitVehicleFactory::CreateMessageManager() {
-AINFO<<"(DMCZP) EnteringMethod: TransitVehicleFactory::CreateMessageManager";
   return std::unique_ptr<MessageManager<::apollo::canbus::ChassisDetail>>(
       new transit::TransitMessageManager());
 }

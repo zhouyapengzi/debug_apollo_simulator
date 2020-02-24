@@ -27,7 +27,6 @@ using apollo::control::ControlCommand;
 using apollo::monitor::SystemStatus;
 
 bool GuardianComponent::Init() {
-AINFO<<"(DMCZP) EnteringMethod: GuardianComponent::Init";
   if (!GetProtoConfig(&guardian_conf_)) {
     AERROR << "Unable to load canbus conf file: " << ConfigFilePath();
     return false;
@@ -62,7 +61,6 @@ AINFO<<"(DMCZP) EnteringMethod: GuardianComponent::Init";
 }
 
 bool GuardianComponent::Proc() {
-AINFO<<"(DMCZP) EnteringMethod: GuardianComponent::Proc";
   ADEBUG << "Timer is triggered: publish GuardianComponent result";
   bool safety_mode_triggered = false;
   if (guardian_conf_.guardian_enable()) {
@@ -84,13 +82,11 @@ AINFO<<"(DMCZP) EnteringMethod: GuardianComponent::Proc";
 }
 
 void GuardianComponent::PassThroughControlCommand() {
-AINFO<<"(DMCZP) EnteringMethod: GuardianComponent::PassThroughControlCommand";
   std::lock_guard<std::mutex> lock(mutex_);
   guardian_cmd_.mutable_control_command()->CopyFrom(control_cmd_);
 }
 
 void GuardianComponent::TriggerSafetyMode() {
-AINFO<<"(DMCZP) EnteringMethod: GuardianComponent::TriggerSafetyMode";
   AINFO << "Safety state triggered, with system safety mode trigger time : "
         << system_status_.safety_mode_trigger_time();
   std::lock_guard<std::mutex> lock(mutex_);

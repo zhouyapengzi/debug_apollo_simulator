@@ -38,7 +38,6 @@ typedef apollo::localization::msf::FeatureXYPlane::PointCloudPtrT
 
 bool ParseCommandLine(int argc, char* argv[],
                       boost::program_options::variables_map* vm) {
-AINFO<<"(DMCZP) EnteringMethod: ParseCommandLine";
   boost::program_options::options_description desc("Allowd options");
   desc.add_options()("help", "product help message")(
       "use_plane_inliers_only",
@@ -92,7 +91,6 @@ AINFO<<"(DMCZP) EnteringMethod: ParseCommandLine";
 }
 
 void VarianceOnline(double* mean, double* var, unsigned int* N, double x) {
-AINFO<<"(DMCZP) EnteringMethod: VarianceOnline";
   ++(*N);
   double value = (x - (*mean)) / (*N);
   double v1 = x - (*mean);
@@ -102,7 +100,6 @@ AINFO<<"(DMCZP) EnteringMethod: VarianceOnline";
 }
 
 int main(int argc, char** argv) {
-AINFO<<"(DMCZP) EnteringMethod: main";
   FeatureXYPlane plane_extractor;
 
   boost::program_options::variables_map boost_args;

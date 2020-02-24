@@ -25,7 +25,6 @@ namespace perception {
 namespace camera {
 
 KalmanFilterConstVelocity::KalmanFilterConstVelocity() {
-AINFO<<"(DMCZP) EnteringMethod: KalmanFilterConstVelocity::KalmanFilterConstVelocity";
   // other value should be changed in predict
   state_transition_matrix_.setIdentity();
   measure_matrix_ << 1, 0, 0, 0, 0, 1, 0, 0;
@@ -36,13 +35,11 @@ AINFO<<"(DMCZP) EnteringMethod: KalmanFilterConstVelocity::KalmanFilterConstVelo
 }
 
 void KalmanFilterConstVelocity::Init(Eigen::VectorXd x) {
-AINFO<<"(DMCZP) EnteringMethod: KalmanFilterConstVelocity::Init";
   state_ << x(0), x(1), 0, 0;
   inited_ = true;
 }
 
 void KalmanFilterConstVelocity::Predict(float delta_t) {
-AINFO<<"(DMCZP) EnteringMethod: KalmanFilterConstVelocity::Predict";
    AINFO<<"(pengzi) begin predict using kalmanfilter. in method: KalmanFilterConstVelocity::Predict(float delta_t). thread:"<< std::this_thread::get_id();
   if (inited_) {
     state_transition_matrix_(0, 2) = delta_t;
@@ -55,13 +52,11 @@ AINFO<<"(DMCZP) EnteringMethod: KalmanFilterConstVelocity::Predict";
   }
 }
 void KalmanFilterConstVelocity::MagicVelocity(const Eigen::VectorXd &vel) {
-AINFO<<"(DMCZP) EnteringMethod: KalmanFilterConstVelocity::MagicVelocity";
   AINFO<<"(pengzi) in method: KalmanFilterConstVelocity::MagicVelocity(const Eigen::VectorXd &vel). thread:"<< std::this_thread::get_id();
   state_(2) = vel(0);
   state_(3) = vel(1);
 }
 void KalmanFilterConstVelocity::Correct(const Eigen::VectorXd &z) {
-AINFO<<"(DMCZP) EnteringMethod: KalmanFilterConstVelocity::Correct";
   if (inited_) {
     Eigen::Vector2d measure;
     measure << z[0], z[1];
@@ -85,15 +80,12 @@ AINFO<<"(DMCZP) EnteringMethod: KalmanFilterConstVelocity::Correct";
 }
 
 Eigen::Vector4d KalmanFilterConstVelocity::get_state() const { return state_; }
-AINFO<<"(DMCZP) EnteringMethod: KalmanFilterConstVelocity::get_state";
 void KalmanFilterConstVelocity::MagicPosition(const Eigen::VectorXd &pos) {
-AINFO<<"(DMCZP) EnteringMethod: KalmanFilterConstVelocity::MagicPosition";
   state_(0) = pos(0);
   state_(1) = pos(1);
 }
 
 void ExtendedKalmanFilter::Init() {
-AINFO<<"(DMCZP) EnteringMethod: ExtendedKalmanFilter::Init";
   // other value should be changed in predict
   state_transition_matrix_.setIdentity();
   measure_matrix_ << 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1;
@@ -104,14 +96,12 @@ AINFO<<"(DMCZP) EnteringMethod: ExtendedKalmanFilter::Init";
 }
 
 void ExtendedKalmanFilter::Init(Eigen::VectorXd x) {
-AINFO<<"(DMCZP) EnteringMethod: ExtendedKalmanFilter::Init";
   Init();
   state_ << x(0), x(1), 0, x(2);
   inited_ = true;
 }
 
 void ExtendedKalmanFilter::Predict(float delta_t) {
-AINFO<<"(DMCZP) EnteringMethod: ExtendedKalmanFilter::Predict";
    AINFO<<"(pengzi) in method: ExtendedKalmanFilter::Predict(float delta_t). thread:"<< std::this_thread::get_id();
   if (inited_) {
     float sin_theta = static_cast<float>(std::sin(state_(3)));
@@ -132,7 +122,6 @@ AINFO<<"(DMCZP) EnteringMethod: ExtendedKalmanFilter::Predict";
 }
 
 void ExtendedKalmanFilter::Correct(const Eigen::VectorXd &z) {
-AINFO<<"(DMCZP) EnteringMethod: ExtendedKalmanFilter::Correct";
   if (inited_) {
     Eigen::Vector3d measure;
     measure << z[0], z[1], z[2];
@@ -150,16 +139,13 @@ AINFO<<"(DMCZP) EnteringMethod: ExtendedKalmanFilter::Correct";
 }
 
 Eigen::Vector4d ExtendedKalmanFilter::get_state() const { return state_; }
-AINFO<<"(DMCZP) EnteringMethod: ExtendedKalmanFilter::get_state";
 
 void MeanFilter::SetWindow(int window) {
-AINFO<<"(DMCZP) EnteringMethod: MeanFilter::SetWindow";
   window_ = window;
   index_ = 0;
 }
 
 void MeanFilter::AddMeasure(const Eigen::VectorXd &z) {
-AINFO<<"(DMCZP) EnteringMethod: MeanFilter::AddMeasure";
    AINFO<<"(pengzi) in method: MeanFilter::AddMeasure(const Eigen::VectorXd &z) . thread:"<< std::this_thread::get_id();
   if (measures_.size() < static_cast<unsigned int>(window_)) {
     measures_.push_back(z);
@@ -188,19 +174,15 @@ AINFO<<"(DMCZP) EnteringMethod: MeanFilter::AddMeasure";
 }
 
 const Eigen::VectorXd &MeanFilter::get_state() const { return state_; }
-AINFO<<"(DMCZP) EnteringMethod: &MeanFilter::get_state";
 
 const Eigen::MatrixXd &MeanFilter::get_variance() const { return variance_; }
-AINFO<<"(DMCZP) EnteringMethod: &MeanFilter::get_variance";
 
 void FirstOrderRCLowPassFilter::SetAlpha(float alpha) {
-AINFO<<"(DMCZP) EnteringMethod: FirstOrderRCLowPassFilter::SetAlpha";
   alpha_ = alpha;
   inited_ = false;
 }
 
 void FirstOrderRCLowPassFilter::AddMeasure(const Eigen::VectorXd &z) {
-AINFO<<"(DMCZP) EnteringMethod: FirstOrderRCLowPassFilter::AddMeasure";
   AINFO<<"(pengzi) in method: FirstOrderRCLowPassFilter::AddMeasure(const Eigen::VectorXd &z) . thread:"<< std::this_thread::get_id();
   if (inited_) {
     state_ = z + alpha_ * (state_ - z);
@@ -211,7 +193,6 @@ AINFO<<"(DMCZP) EnteringMethod: FirstOrderRCLowPassFilter::AddMeasure";
 }
 
 Eigen::VectorXd FirstOrderRCLowPassFilter::get_state() const { return state_; }
-AINFO<<"(DMCZP) EnteringMethod: FirstOrderRCLowPassFilter::get_state";
 
 struct {
   bool operator()(Eigen::VectorXd a, Eigen::VectorXd b) const {
@@ -220,13 +201,11 @@ struct {
 } customLess;
 
 void MaxNMeanFilter::SetWindow(int window) {
-AINFO<<"(DMCZP) EnteringMethod: MaxNMeanFilter::SetWindow";
   window_ = window;
   index_ = 0;
 }
 
 void MaxNMeanFilter::AddMeasure(const Eigen::VectorXd &z) {
-AINFO<<"(DMCZP) EnteringMethod: MaxNMeanFilter::AddMeasure";
   measures_.push_back(z);
   std::sort(measures_.begin(), measures_.end(), customLess);
   if (measures_.size() > static_cast<unsigned int>(window_)) {
@@ -235,7 +214,6 @@ AINFO<<"(DMCZP) EnteringMethod: MaxNMeanFilter::AddMeasure";
 }
 
 Eigen::VectorXd MaxNMeanFilter::get_state() const {
-AINFO<<"(DMCZP) EnteringMethod: MaxNMeanFilter::get_state";
   Eigen::VectorXd x = measures_[0];
   for (size_t i = 1; i < measures_.size(); ++i) {
     x += measures_[i];
@@ -244,7 +222,6 @@ AINFO<<"(DMCZP) EnteringMethod: MaxNMeanFilter::get_state";
   return x;
 }
 void MaxNMeanFilter::Clear() { measures_.clear(); }
-AINFO<<"(DMCZP) EnteringMethod: MaxNMeanFilter::Clear";
 }  // namespace camera
 }  // namespace perception
 }  // namespace apollo

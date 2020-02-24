@@ -47,11 +47,9 @@ using apollo::cyber::common::GetProtoFromFile;
 using Eigen::MatrixXf;
 
 NCut::NCut() {}
-AINFO<<"(DMCZP) EnteringMethod: NCut::NCut";
 NCut::~NCut() { ADEBUG << "NCut destructor done"; }
 
 bool NCut::Init(const NCutParam &param) {
-AINFO<<"(DMCZP) EnteringMethod: NCut::Init";
   if (!Configure(param)) {
     AERROR << "failed to load ncut config.";
     return false;
@@ -66,7 +64,6 @@ AINFO<<"(DMCZP) EnteringMethod: NCut::Init";
 }
 
 bool NCut::Configure(const NCutParam &ncut_param_) {
-AINFO<<"(DMCZP) EnteringMethod: NCut::Configure";
   _grid_radius = ncut_param_.grid_radius();
   _connect_radius = ncut_param_.connect_radius();
   _super_pixel_cell_size = ncut_param_.super_pixel_cell_size();
@@ -88,7 +85,6 @@ AINFO<<"(DMCZP) EnteringMethod: NCut::Configure";
 }
 
 void NCut::Segment(base::PointFCloudConstPtr cloud) {
-AINFO<<"(DMCZP) EnteringMethod: NCut::Segment";
   double start_t = omp_get_wtime();
   // .0 clear everything
   _segment_pids.clear();
@@ -151,14 +147,12 @@ AINFO<<"(DMCZP) EnteringMethod: NCut::Segment";
 void NCut::SuperPixelsFloodFill(base::PointFCloudConstPtr cloud, float radius,
                                 float cell_size,
                                 std::vector<std::vector<int>> *super_pixels) {
-AINFO<<"(DMCZP) EnteringMethod: NCut::SuperPixelsFloodFill";
   FloodFill ff_grid(radius, cell_size);
   std::vector<int> num_cells_per_components;
   ff_grid.GetSegments(cloud, super_pixels, &num_cells_per_components);
 }
 
 void NCut::PrecomputeAllSkeletonAndBbox() {
-AINFO<<"(DMCZP) EnteringMethod: NCut::PrecomputeAllSkeletonAndBbox";
   const int num_clusters = static_cast<int>(_cluster_points.size());
   _cluster_skeleton_points.resize(num_clusters);
   _cluster_skeleton_features.resize(num_clusters);
@@ -190,7 +184,6 @@ AINFO<<"(DMCZP) EnteringMethod: NCut::PrecomputeAllSkeletonAndBbox";
 void NCut::BuildAverageHeightMap(
     base::PointFCloudConstPtr cloud, const FloodFill &ff_map,
     cv::Mat *cv_height_map_in, std::vector<gridIndex> *point_pixel_indices_in) {
-AINFO<<"(DMCZP) EnteringMethod: NCut::BuildAverageHeightMap";
   cv::Mat &cv_height_map = *cv_height_map_in;
   std::vector<gridIndex> &point_pixel_indices = *point_pixel_indices_in;
   const int num_points = static_cast<int>(cloud->size());
@@ -232,7 +225,6 @@ AINFO<<"(DMCZP) EnteringMethod: NCut::BuildAverageHeightMap";
 void NCut::SampleByGrid(const std::vector<int> &point_gids,
                         MatrixXf *skeleton_coords_in,
                         MatrixXf *skeleton_feature_in) {
-AINFO<<"(DMCZP) EnteringMethod: NCut::SampleByGrid";
   MatrixXf &skeleton_coords = *skeleton_coords_in;
   MatrixXf &skeleton_feature = *skeleton_feature_in;
   FloodFill sampler(_grid_radius, _skeleton_cell_size);
@@ -266,7 +258,6 @@ AINFO<<"(DMCZP) EnteringMethod: NCut::SampleByGrid";
 }
 
 void NCut::GetPatchFeature(const MatrixXf &points, MatrixXf *features_in) {
-AINFO<<"(DMCZP) EnteringMethod: NCut::GetPatchFeature";
   MatrixXf &features = *features_in;
   const int num_points = static_cast<int>(points.rows());
   const int dim = _patch_size * _patch_size;
@@ -298,7 +289,6 @@ AINFO<<"(DMCZP) EnteringMethod: NCut::GetPatchFeature";
 
 NCut::NcutBoundingBox NCut::ComputeClusterBoundingBox(
     const std::vector<int> &point_gids) {
-AINFO<<"(DMCZP) EnteringMethod: NCut::ComputeClusterBoundingBox";
   // ! Note: do not perform rotation, so just some intuitive guess
   float x_max = -FLT_MAX;
   float y_max = -FLT_MAX;
@@ -326,7 +316,6 @@ AINFO<<"(DMCZP) EnteringMethod: NCut::ComputeClusterBoundingBox";
 }
 
 std::string NCut::GetPcLabel(const base::PointFCloudPtr &cloud) {
-AINFO<<"(DMCZP) EnteringMethod: NCut::GetPcLabel";
   if (cloud->size() < OBSTACLE_MINIMUM_NUM_POINTS) {
     return "unknown";
   }
@@ -346,7 +335,6 @@ AINFO<<"(DMCZP) EnteringMethod: NCut::GetPcLabel";
 void NCut::NormalizedCut(float ncuts_threshold, bool use_classifier,
                          std::vector<std::vector<int>> *segment_clusters_in,
                          std::vector<std::string> *segment_labels_in) {
-AINFO<<"(DMCZP) EnteringMethod: NCut::NormalizedCut";
   std::vector<std::vector<int>> &segment_clusters = *segment_clusters_in;
   std::vector<std::string> &segment_labels = *segment_labels_in;
   const int num_clusters = static_cast<int>(_cluster_points.size());
@@ -481,7 +469,6 @@ AINFO<<"(DMCZP) EnteringMethod: NCut::NormalizedCut";
 }
 
 void NCut::ComputeSkeletonWeights(Eigen::MatrixXf *weights_in) {
-AINFO<<"(DMCZP) EnteringMethod: NCut::ComputeSkeletonWeights";
   Eigen::MatrixXf &weights = *weights_in;
   const int num_clusters = static_cast<int>(_cluster_points.size());
   const double hs2 = _sigma_space * _sigma_space;
@@ -512,7 +499,6 @@ AINFO<<"(DMCZP) EnteringMethod: NCut::ComputeSkeletonWeights";
 float NCut::GetMinNcuts(const Eigen::MatrixXf &in_weights,
                         const std::vector<int> *in_clusters,
                         std::vector<int> *seg1, std::vector<int> *seg2) {
-AINFO<<"(DMCZP) EnteringMethod: NCut::GetMinNcuts";
   // .0 initialization
   const int num_clusters = static_cast<int>(in_weights.rows());
   seg1->resize(num_clusters);
@@ -592,7 +578,6 @@ AINFO<<"(DMCZP) EnteringMethod: NCut::GetMinNcuts";
 
 void NCut::LaplacianDecomposition(const Eigen::MatrixXf &weights,
                                   Eigen::MatrixXf *eigenvectors_in) {
-AINFO<<"(DMCZP) EnteringMethod: NCut::LaplacianDecomposition";
 #ifdef DEBUG_NCUT
 // std::cout << "laplacian 0:\n " << weights << std::endl << std::endl;
 #endif
@@ -666,7 +651,6 @@ bool NCut::ComputeSquaredSkeletonDistance(const Eigen::MatrixXf &in1_points,
                                           const Eigen::MatrixXf &in2_features,
                                           float *dist_point,
                                           float *dist_feature) {
-AINFO<<"(DMCZP) EnteringMethod: NCut::ComputeSquaredSkeletonDistance";
   if (!((in1_points.rows() == in1_features.rows()) &&
         (in2_points.rows() == in2_features.rows()))) {
     return false;
@@ -705,7 +689,6 @@ AINFO<<"(DMCZP) EnteringMethod: NCut::ComputeSquaredSkeletonDistance";
 
 bool NCut::IsMovableObstacle(const std::vector<int> &cluster_ids,
                              std::string *label) {
-AINFO<<"(DMCZP) EnteringMethod: NCut::IsMovableObstacle";
   NcutBoundingBox box;
   GetComponentBoundingBox(cluster_ids, &box);
   float dummy_length = GetBboxLength(box);
@@ -724,7 +707,6 @@ AINFO<<"(DMCZP) EnteringMethod: NCut::IsMovableObstacle";
 }
 
 std::string NCut::GetClustersLabel(const std::vector<int> &cluster_ids) {
-AINFO<<"(DMCZP) EnteringMethod: NCut::GetClustersLabel";
   std::vector<int> point_ids;
   GetClustersPids(cluster_ids, &point_ids);
   base::PointFCloudPtr cloud =
@@ -734,7 +716,6 @@ AINFO<<"(DMCZP) EnteringMethod: NCut::GetClustersLabel";
 
 void NCut::GetClustersPids(const std::vector<int> &cids,
                            std::vector<int> *pids_in) {
-AINFO<<"(DMCZP) EnteringMethod: NCut::GetClustersPids";
   std::vector<int> &pids = *pids_in;
   int num_points = 0;
   for (size_t i = 0; i < cids.size(); ++i) {
@@ -752,7 +733,6 @@ AINFO<<"(DMCZP) EnteringMethod: NCut::GetClustersPids";
 
 int NCut::GetComponentBoundingBox(const std::vector<int> &cluster_ids,
                                   NcutBoundingBox *box_in) {
-AINFO<<"(DMCZP) EnteringMethod: NCut::GetComponentBoundingBox";
   NcutBoundingBox &box = *box_in;
   if (cluster_ids.size() == 0) {
     return 0;
@@ -786,7 +766,6 @@ AINFO<<"(DMCZP) EnteringMethod: NCut::GetComponentBoundingBox";
 
 std::string NCut::GetPcRoughLabel(const base::PointFCloudPtr &cloud,
                                   bool only_check_pedestrian) {
-AINFO<<"(DMCZP) EnteringMethod: NCut::GetPcRoughLabel";
   if (cloud->size() < OBSTACLE_MINIMUM_NUM_POINTS) {
     return "unknown";
   }
@@ -827,7 +806,6 @@ AINFO<<"(DMCZP) EnteringMethod: NCut::GetPcRoughLabel";
 
 void NCut::GetSegmentRoughSize(const base::PointFCloudPtr &cloud, float *length,
                                float *width, float *height) {
-AINFO<<"(DMCZP) EnteringMethod: NCut::GetSegmentRoughSize";
   float x_max = -FLT_MAX;
   float y_max = -FLT_MAX;
   float z_max = -FLT_MAX;

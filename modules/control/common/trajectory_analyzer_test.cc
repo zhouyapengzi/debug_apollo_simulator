@@ -34,9 +34,7 @@ class TrajectoryAnalyzerTest : public ::testing::Test {
 
 void SetTrajectory(const std::vector<double> &xs, const std::vector<double> &ys,
                    planning::ADCTrajectory *adc_trajectory) {
-AINFO<<"(DMCZP) EnteringMethod: SetTrajectory";
   for (size_t i = 0; i < xs.size(); ++i) {
-AINFO<<"(DMCZP) EnteringMethod: SetTrajectory";
     auto *point = adc_trajectory->add_trajectory_point();
     point->mutable_path_point()->set_x(xs[i]);
     point->mutable_path_point()->set_y(ys[i]);
@@ -48,7 +46,6 @@ void SetTrajectoryWithTime(const std::vector<double> &xs,
                            const std::vector<double> &ys,
                            const std::vector<double> &ts,
                            planning::ADCTrajectory *adc_trajectory) {
-AINFO<<"(DMCZP) EnteringMethod: SetTrajectoryWithTime";
   for (size_t i = 0; i < xs.size(); ++i) {
     auto *point = adc_trajectory->add_trajectory_point();
     point->mutable_path_point()->set_x(xs[i]);
@@ -69,7 +66,6 @@ void SetTrajectory(const std::vector<double> &xs, const std::vector<double> &ys,
 }
 
 TEST_F(TrajectoryAnalyzerTest, SetADCTrajectory) {
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   planning::ADCTrajectory adc_trajectory;
   std::vector<double> xs = {1.0, 1.1, 1.2, 1.3, 1.4};
   std::vector<double> ys = {1.0, 1.1, 1.2, 1.3, 1.4};
@@ -83,7 +79,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST_F";
 }
 
 TEST_F(TrajectoryAnalyzerTest, Constructor) {
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   planning::ADCTrajectory adc_trajectory;
   std::vector<double> xs = {1.0, 1.1, 1.2, 1.3, 1.4};
   std::vector<double> ys = {1.0, 1.1, 1.2, 1.3, 1.4};
@@ -101,7 +96,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST_F";
 }
 
 TEST_F(TrajectoryAnalyzerTest, QueryMatchedPathPoint) {
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   planning::ADCTrajectory adc_trajectory;
   std::vector<double> xs = {1.0, 1.1, 1.2, 1.3, 1.8};
   std::vector<double> ys = {1.0, 1.1, 1.2, 1.3, 1.8};
@@ -119,7 +113,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST_F";
 }
 
 TEST_F(TrajectoryAnalyzerTest, ToTrajectoryFrame) {
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   planning::ADCTrajectory adc_trajectory;
   std::vector<double> xs = {0.8, 0.9, 1.0, 1.1, 1.2};
   std::vector<double> ys = {0.0, 0.0, 0.0, 0.0, 0.0};
@@ -149,7 +142,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST_F";
 }
 
 TEST_F(TrajectoryAnalyzerTest, QueryNearestPointByAbsoluteTimeInterpolation) {
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   planning::ADCTrajectory adc_trajectory;
   std::vector<double> xs = {1.0, 1.1, 1.2, 1.3, 1.4};
   std::vector<double> ys = {1.0, 1.1, 1.2, 1.3, 1.4};

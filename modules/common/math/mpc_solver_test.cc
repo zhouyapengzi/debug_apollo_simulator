@@ -23,7 +23,6 @@ namespace common {
 namespace math {
 
 TEST(MPCSolverTest, MPC) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   const int states = 4;
   int controls = 2;
   const int horizon = 10;

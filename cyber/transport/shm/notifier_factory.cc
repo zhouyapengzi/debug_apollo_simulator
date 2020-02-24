@@ -30,7 +30,6 @@ namespace transport {
 using common::GlobalData;
 
 auto NotifierFactory::CreateNotifier() -> NotifierPtr {
-AINFO<<"(DMCZP) EnteringMethod: NotifierFactory::CreateNotifier";
   std::string notifier_type(MulticastNotifier::Type());
   auto& g_conf = GlobalData::Instance()->Config();
   if (g_conf.has_transport_conf() && g_conf.transport_conf().has_shm_conf() &&
@@ -51,12 +50,10 @@ AINFO<<"(DMCZP) EnteringMethod: NotifierFactory::CreateNotifier";
 }
 
 auto NotifierFactory::CreateConditionNotifier() -> NotifierPtr {
-AINFO<<"(DMCZP) EnteringMethod: NotifierFactory::CreateConditionNotifier";
   return ConditionNotifier::Instance();
 }
 
 auto NotifierFactory::CreateMulticastNotifier() -> NotifierPtr {
-AINFO<<"(DMCZP) EnteringMethod: NotifierFactory::CreateMulticastNotifier";
   return MulticastNotifier::Instance();
 }
 

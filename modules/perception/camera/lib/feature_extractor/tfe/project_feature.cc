@@ -31,7 +31,6 @@ namespace camera {
 using cyber::common::GetAbsolutePath;
 
 bool ProjectFeature::Init(const FeatureExtractorInitOptions &options) {
-AINFO<<"(DMCZP) EnteringMethod: ProjectFeature::Init";
   std::string efx_config = GetAbsolutePath(options.root_dir, options.conf_file);
   CHECK(cyber::common::GetProtoFromFile(efx_config, &param_))
       << "Read config failed: " << efx_config;
@@ -64,7 +63,6 @@ AINFO<<"(DMCZP) EnteringMethod: ProjectFeature::Init";
 
 bool ProjectFeature::Extract(const FeatureExtractorOptions &options,
                              CameraFrame *frame) {
-AINFO<<"(DMCZP) EnteringMethod: ProjectFeature::Extract";
   auto input_blob = inference_->get_blob(param_.input_blob());
   auto output_blob = inference_->get_blob(param_.feat_blob());
   if (frame->detected_objects.empty()) {
@@ -91,7 +89,6 @@ AINFO<<"(DMCZP) EnteringMethod: ProjectFeature::Extract";
 }
 
 std::string ProjectFeature::Name() const { return "ProjectFeature"; }
-AINFO<<"(DMCZP) EnteringMethod: ProjectFeature::Name";
 
 REGISTER_FEATURE_EXTRACTOR(ProjectFeature);
 }  // namespace camera

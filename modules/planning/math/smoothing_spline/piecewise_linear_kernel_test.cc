@@ -27,7 +27,6 @@ namespace planning {
 using Eigen::MatrixXd;
 
 TEST(TestPiecewiseLinearKernel, add_regularization) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   PiecewiseLinearKernel kernel(10, 0.1);
 
   kernel.AddRegularization(0.2);
@@ -61,7 +60,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST";
 }
 
 TEST(TestPiecewiseLinearKernel, add_reference_line_kernel_matrix_01) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   PiecewiseLinearKernel kernel(10, 0.1);
 
   std::vector<uint32_t> index_list;
@@ -86,7 +84,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST";
 }
 
 TEST(TestPiecewiseLinearKernel, add_reference_line_kernel_matrix_02) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   PiecewiseLinearKernel kernel(10, 0.1);
 
   std::vector<uint32_t> index_list;
@@ -124,7 +121,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST";
 }
 
 TEST(TestPiecewiseLinearKernel, add_second_order_derivative_matrix) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   PiecewiseLinearKernel kernel(10, 0.1);
   const double init_derivative = 5.0;
 
@@ -158,7 +154,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST";
 }
 
 TEST(TestPiecewiseLinearKernel, add_third_order_derivative_matrix) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   PiecewiseLinearKernel kernel(10, 0.1);
   const double init_derivative = 5.0;
   const double init_second_derivative = 2.0;

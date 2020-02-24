@@ -28,7 +28,6 @@ namespace camera {
 
 bool LocationRefinerObstaclePostprocessor::Init(
     const ObstaclePostprocessorInitOptions &options) {
-AINFO<<"(DMCZP) EnteringMethod: LocationRefinerObstaclePostprocessor::Init";
   std::string postprocessor_config =
       cyber::common::GetAbsolutePath(options.root_dir, options.conf_file);
 
@@ -48,7 +47,6 @@ AINFO<<"(DMCZP) EnteringMethod: LocationRefinerObstaclePostprocessor::Init";
 
 bool LocationRefinerObstaclePostprocessor::Process(
     const ObstaclePostprocessorOptions &options, CameraFrame *frame) {
-AINFO<<"(DMCZP) EnteringMethod: LocationRefinerObstaclePostprocessor::Process";
   if (frame->detected_objects.empty() ||
       frame->calibration_service == nullptr ||
       !options.do_refinement_with_calibration_service) {
@@ -163,7 +161,6 @@ AINFO<<"(DMCZP) EnteringMethod: LocationRefinerObstaclePostprocessor::Process";
 }
 
 std::string LocationRefinerObstaclePostprocessor::Name() const {
-AINFO<<"(DMCZP) EnteringMethod: LocationRefinerObstaclePostprocessor::Name";
   return "LocationRefinerObstaclePostprocessor";
 }
 

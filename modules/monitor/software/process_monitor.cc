@@ -30,17 +30,13 @@ DEFINE_double(process_monitor_interval, 1.5,
               "Process status checking interval in seconds.");
 
 namespace apollo {
-AINFO<<"(DMCZP) EnteringMethod: DEFINE_string";
-AINFO<<"(DMCZP) EnteringMethod: DEFINE_double";
 namespace monitor {
 
 ProcessMonitor::ProcessMonitor()
     : RecurrentRunner(FLAGS_process_monitor_name,
                       FLAGS_process_monitor_interval) {}
-AINFO<<"(DMCZP) EnteringMethod: ProcessMonitor::ProcessMonitor";
 
 void ProcessMonitor::RunOnce(const double current_time) {
-AINFO<<"(DMCZP) EnteringMethod: ProcessMonitor::RunOnce";
   // Get running processes.
   std::vector<std::string> running_processes;
   for (const auto& cmd_file : cyber::common::Glob("/proc/*/cmdline")) {
@@ -83,7 +79,6 @@ void ProcessMonitor::UpdateStatus(
     const std::vector<std::string>& running_processes,
     const apollo::dreamview::ProcessMonitorConfig& config,
     ComponentStatus* status) {
-AINFO<<"(DMCZP) EnteringMethod: ProcessMonitor::UpdateStatus";
   status->clear_status();
   for (const std::string& command : running_processes) {
     bool all_keywords_matched = true;

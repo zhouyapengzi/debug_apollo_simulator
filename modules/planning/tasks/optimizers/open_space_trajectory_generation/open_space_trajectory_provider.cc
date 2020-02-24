@@ -40,7 +40,6 @@ using apollo::common::time::Clock;
 OpenSpaceTrajectoryProvider::OpenSpaceTrajectoryProvider(
     const TaskConfig& config)
     : TrajectoryOptimizer(config) {
-AINFO<<"(DMCZP) EnteringMethod: OpenSpaceTrajectoryProvider::OpenSpaceTrajectoryProvider";
   open_space_trajectory_optimizer_.reset(new OpenSpaceTrajectoryOptimizer(
       config.open_space_trajectory_provider_config()
           .open_space_trajectory_optimizer_config()));
@@ -53,7 +52,6 @@ OpenSpaceTrajectoryProvider::~OpenSpaceTrajectoryProvider() {
 }
 
 void OpenSpaceTrajectoryProvider::Stop() {
-AINFO<<"(DMCZP) EnteringMethod: OpenSpaceTrajectoryProvider::Stop";
   if (FLAGS_enable_open_space_planner_thread) {
     is_generation_thread_stop_.store(true);
     if (thread_init_flag_) {
@@ -67,7 +65,6 @@ AINFO<<"(DMCZP) EnteringMethod: OpenSpaceTrajectoryProvider::Stop";
 }
 
 void OpenSpaceTrajectoryProvider::Restart() {
-AINFO<<"(DMCZP) EnteringMethod: OpenSpaceTrajectoryProvider::Restart";
   if (FLAGS_enable_open_space_planner_thread) {
     is_generation_thread_stop_.store(true);
     if (thread_init_flag_) {
@@ -83,7 +80,6 @@ AINFO<<"(DMCZP) EnteringMethod: OpenSpaceTrajectoryProvider::Restart";
 }
 
 Status OpenSpaceTrajectoryProvider::Process() {
-AINFO<<"(DMCZP) EnteringMethod: OpenSpaceTrajectoryProvider::Process";
   auto trajectory_data =
       frame_->mutable_open_space_info()->mutable_stitched_trajectory_result();
   // Start thread when getting in Process() for the first time
@@ -238,7 +234,6 @@ AINFO<<"(DMCZP) EnteringMethod: OpenSpaceTrajectoryProvider::Process";
 }
 
 void OpenSpaceTrajectoryProvider::GenerateTrajectoryThread() {
-AINFO<<"(DMCZP) EnteringMethod: OpenSpaceTrajectoryProvider::GenerateTrajectoryThread";
   while (!is_generation_thread_stop_) {
     if (!trajectory_updated_ && data_ready_) {
       OpenSpaceTrajectoryThreadData thread_data;
@@ -272,7 +267,6 @@ bool OpenSpaceTrajectoryProvider::IsVehicleNearDestination(
     const common::VehicleState& vehicle_state,
     const std::vector<double>& end_pose, double rotate_angle,
     const Vec2d& translate_origin) {
-AINFO<<"(DMCZP) EnteringMethod: OpenSpaceTrajectoryProvider::IsVehicleNearDestination";
   CHECK_EQ(end_pose.size(), 4);
   Vec2d end_pose_to_world_frame = Vec2d(end_pose[0], end_pose[1]);
 
@@ -319,7 +313,6 @@ AINFO<<"(DMCZP) EnteringMethod: OpenSpaceTrajectoryProvider::IsVehicleNearDestin
 
 bool OpenSpaceTrajectoryProvider::IsVehicleStopDueToFallBack(
     const bool is_on_fallback, const common::VehicleState& vehicle_state) {
-AINFO<<"(DMCZP) EnteringMethod: OpenSpaceTrajectoryProvider::IsVehicleStopDueToFallBack";
   if (!is_on_fallback) {
     return false;
   }
@@ -335,8 +328,6 @@ AINFO<<"(DMCZP) EnteringMethod: OpenSpaceTrajectoryProvider::IsVehicleStopDueToF
 
 void OpenSpaceTrajectoryProvider::GenerateStopTrajectory(
     DiscretizedTrajectory* const trajectory_data) {
-AINFO<<"(DMCZP) EnteringMethod: OpenSpaceTrajectoryProvider::GenerateStopTrajectory";
-AINFO<<"(DMCZP) EnteringMethod: OpenSpaceTrajectoryProvider::LoadResult";
   double relative_time = 0.0;
   // TODO(Jinyun) Move to conf
   constexpr int stop_trajectory_length = 10;
@@ -402,14 +393,12 @@ void OpenSpaceTrajectoryProvider::LoadResult(
 
 void OpenSpaceTrajectoryProvider::ReuseLastFrameResult(
     const Frame* last_frame, DiscretizedTrajectory* const trajectory_data) {
-AINFO<<"(DMCZP) EnteringMethod: OpenSpaceTrajectoryProvider::ReuseLastFrameResult";
   *(trajectory_data) =
       last_frame->open_space_info().stitched_trajectory_result();
   frame_->mutable_open_space_info()->set_open_space_provider_success(true);
 }
 
 void OpenSpaceTrajectoryProvider::ReuseLastFrameDebug(const Frame* last_frame) {
-AINFO<<"(DMCZP) EnteringMethod: OpenSpaceTrajectoryProvider::ReuseLastFrameDebug";
   // reuse last frame's instance
   auto* ptr_debug = frame_->mutable_open_space_info()->mutable_debug_instance();
   ptr_debug->mutable_planning_data()->mutable_open_space()->MergeFrom(

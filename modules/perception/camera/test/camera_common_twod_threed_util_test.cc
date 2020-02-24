@@ -22,7 +22,6 @@ namespace perception {
 namespace camera {
 
 TEST(TwodThreedUtilTest, CalAngleDiffTest) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   const float eps = 1e-5f;
   const float M_PI_float = static_cast<float>(M_PI);
 
@@ -60,7 +59,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST";
 }
 
 TEST(TwodThreedUtilTest, GetSharpAngleTest) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   const float eps = 1e-5f;
   const float M_PI_float = static_cast<float>(M_PI);
 
@@ -82,7 +80,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST";
 }
 
 TEST(TwodThreedUtilTest, GetJaccardIndexTest) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   const float eps = 1e-5f;
 
   float bbox_ref[4] = {200, 200, 400, 400};
@@ -109,7 +106,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST";
 }
 
 TEST(TwodThreedUtilTest, OccludeTest) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   {
     float bbox1[4] = {200, 200, 400, 400};
     float bbox2[4] = {0, 0, 100, 100};
@@ -162,7 +158,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST";
 }
 
 TEST(TwodThreedUtilTest, GetBboxFromPtsTest) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   const float eps = 1e-5f;
   {
     float pts[] = {0.5f, 0.6f};
@@ -185,7 +180,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST";
 }
 
 TEST(TwodThreedUtilTest, GetMinIndexVecTest) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   {
     float vec[] = {-1.f};
     EXPECT_EQ(GetMinIndexVec(vec, 1), 0);
@@ -197,7 +191,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST";
 }
 
 TEST(TwodThreedUtilTest, CheckXYTest) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   const int width = 100;
   const int height = 100;
 
@@ -231,7 +224,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST";
 }
 
 TEST(TwodThreedUtilTest, GetScoreViaRotDimensionCenterTest) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   float bbox_ref[4] = {0, 0, 0, 0};
   float hwl8[3] = {1.5f, 1.6f, 4.0f};
   float object_center1[3] = {-3.32887f, 1.86078f, 17.2908f};
@@ -280,7 +272,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST";
 }
 
 TEST(TwodThreedUtilTest, GetDxDzForCenterFromGroundLineSegTest) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   {
     int width = 1920;
     int height = 1080;

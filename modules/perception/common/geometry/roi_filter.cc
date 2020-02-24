@@ -33,7 +33,6 @@ using ObjectPtr = std::shared_ptr<apollo::perception::base::Object>;
 using apollo::perception::base::ObjectType;
 
 bool IsPtInRoi(const HdmapStructConstPtr roi, const PointD pt) {
-AINFO<<"(DMCZP) EnteringMethod: IsPtInRoi";
   for (std::size_t j = 0; j < roi->road_polygons.size(); j++) {
     if (IsPointXYInPolygon2DXY(pt, roi->road_polygons[j])) {
       return true;
@@ -48,7 +47,6 @@ AINFO<<"(DMCZP) EnteringMethod: IsPtInRoi";
 }
 
 bool IsObjectInRoi(const HdmapStructConstPtr roi, const ObjectConstPtr obj) {
-AINFO<<"(DMCZP) EnteringMethod: IsObjectInRoi";
   PointD ct;
   ct.x = obj->center[0];
   ct.y = obj->center[1];
@@ -58,7 +56,6 @@ AINFO<<"(DMCZP) EnteringMethod: IsObjectInRoi";
 
 bool IsObjectBboxInRoi(const HdmapStructConstPtr roi,
                        const ObjectConstPtr obj) {
-AINFO<<"(DMCZP) EnteringMethod: IsObjectBboxInRoi";
   Eigen::Vector3d bbox_center = obj->center;
   PointD ct;
   ct.x = bbox_center[0];
@@ -98,7 +95,6 @@ AINFO<<"(DMCZP) EnteringMethod: IsObjectBboxInRoi";
 bool ObjectInRoiCheck(const HdmapStructConstPtr roi,
                       const std::vector<ObjectPtr>& objects,
                       std::vector<ObjectPtr>* valid_objects) {
-AINFO<<"(DMCZP) EnteringMethod: ObjectInRoiCheck";
   if (roi == nullptr ||
       (roi->road_polygons.empty() && roi->junction_polygons.empty())) {
     valid_objects->assign(objects.begin(), objects.end());

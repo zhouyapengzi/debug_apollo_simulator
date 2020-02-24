@@ -42,7 +42,6 @@ class LeadlagControllerTest : public ::testing::Test {
 };
 
 TEST_F(LeadlagControllerTest, StationLeadlagController) {
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   double dt = 0.01;
   LeadlagConf leadlag_conf =
       lon_controller_conf_.reverse_station_leadlag_conf();
@@ -60,7 +59,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST_F";
 }
 
 TEST_F(LeadlagControllerTest, SpeedLeadlagController) {
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   double dt = 0.01;
   LeadlagConf leadlag_conf = lon_controller_conf_.reverse_speed_leadlag_conf();
   LeadlagController leadlag_controller;

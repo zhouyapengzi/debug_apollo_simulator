@@ -46,7 +46,6 @@ PathTimeGraph::PathTimeGraph(
     const ReferenceLineInfo* ptr_reference_line_info, const double s_start,
     const double s_end, const double t_start, const double t_end,
     const std::array<double, 3>& init_d) {
-AINFO<<"(DMCZP) EnteringMethod: PathTimeGraph::PathTimeGraph";
   CHECK_LT(s_start, s_end);
   CHECK_LT(t_start, t_end);
   path_range_.first = s_start;
@@ -62,7 +61,6 @@ AINFO<<"(DMCZP) EnteringMethod: PathTimeGraph::PathTimeGraph";
 SLBoundary PathTimeGraph::ComputeObstacleBoundary(
     const std::vector<common::math::Vec2d>& vertices,
     const std::vector<PathPoint>& discretized_ref_points) const {
-AINFO<<"(DMCZP) EnteringMethod: PathTimeGraph::ComputeObstacleBoundary";
   double start_s(std::numeric_limits<double>::max());
   double end_s(std::numeric_limits<double>::lowest());
   double start_l(std::numeric_limits<double>::max());
@@ -89,9 +87,6 @@ AINFO<<"(DMCZP) EnteringMethod: PathTimeGraph::ComputeObstacleBoundary";
 void PathTimeGraph::SetupObstacles(
     const std::vector<const Obstacle*>& obstacles,
     const std::vector<PathPoint>& discretized_ref_points) {
-AINFO<<"(DMCZP) EnteringMethod: PathTimeGraph::SetupObstacles";
-AINFO<<"(DMCZP) EnteringMethod: PathTimeGraph::SetStaticObstacle";
-AINFO<<"(DMCZP) EnteringMethod: PathTimeGraph::SetDynamicObstacle";
   for (const Obstacle* obstacle : obstacles) {
     if (obstacle->IsVirtual()) {
       continue;
@@ -200,7 +195,6 @@ void PathTimeGraph::SetDynamicObstacle(
 
 STPoint PathTimeGraph::SetPathTimePoint(const std::string& obstacle_id,
                                         const double s, const double t) const {
-AINFO<<"(DMCZP) EnteringMethod: PathTimeGraph::SetPathTimePoint";
   STPoint path_time_point(s, t);
   return path_time_point;
 }
@@ -211,7 +205,6 @@ const std::vector<STBoundary>& PathTimeGraph::GetPathTimeObstacles() const {
 
 bool PathTimeGraph::GetPathTimeObstacle(const std::string& obstacle_id,
                                         STBoundary* path_time_obstacle) {
-AINFO<<"(DMCZP) EnteringMethod: PathTimeGraph::GetPathTimeObstacle";
   if (path_time_obstacle_map_.find(obstacle_id) ==
       path_time_obstacle_map_.end()) {
     return false;
@@ -247,7 +240,6 @@ std::vector<std::vector<std::pair<double, double>>>
 PathTimeGraph::GetPathBlockingIntervals(const double t_start,
                                         const double t_end,
                                         const double t_resolution) {
-AINFO<<"(DMCZP) EnteringMethod: PathTimeGraph::GetPathBlockingIntervals";
   std::vector<std::vector<std::pair<double, double>>> intervals;
   for (double t = t_start; t <= t_end; t += t_resolution) {
     intervals.push_back(GetPathBlockingIntervals(t));
@@ -315,7 +307,6 @@ std::vector<STPoint> PathTimeGraph::GetObstacleSurroundingPoints(
 }
 
 bool PathTimeGraph::IsObstacleInGraph(const std::string& obstacle_id) {
-AINFO<<"(DMCZP) EnteringMethod: PathTimeGraph::IsObstacleInGraph";
   return path_time_obstacle_map_.find(obstacle_id) !=
          path_time_obstacle_map_.end();
 }
@@ -369,7 +360,6 @@ void PathTimeGraph::UpdateLateralBoundsByObstacle(
     const SLBoundary& sl_boundary, const std::vector<double>& discretized_path,
     const double s_start, const double s_end,
     std::vector<std::pair<double, double>>* const bounds) {
-AINFO<<"(DMCZP) EnteringMethod: PathTimeGraph::UpdateLateralBoundsByObstacle";
   if (sl_boundary.start_s() > s_end || sl_boundary.end_s() < s_start) {
     return;
   }

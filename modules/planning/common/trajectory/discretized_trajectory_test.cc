@@ -27,7 +27,6 @@ namespace apollo {
 namespace planning {
 
 TEST(basic_test, DiscretizedTrajectory) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   const std::string path_of_standard_trajectory =
       "modules/planning/testdata/trajectory_data/standard_trajectory.pb.txt";
   ADCTrajectory trajectory;

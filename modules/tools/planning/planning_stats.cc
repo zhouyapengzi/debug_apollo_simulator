@@ -37,7 +37,6 @@ using apollo::planning::StatsGroup;
 PlanningStats g_stats;
 
 void CollectStatsGroup(bool has_val, double val, StatsGroup* stats_group) {
-AINFO<<"(DMCZP) EnteringMethod: CollectStatsGroup";
   if (has_val) {
     stats_group->set_num(stats_group->num() + 1);
     stats_group->set_sum(stats_group->sum() + val);
@@ -48,7 +47,6 @@ AINFO<<"(DMCZP) EnteringMethod: CollectStatsGroup";
 }
 
 void OnPlanning(const ADCTrajectory& trajectory) {
-AINFO<<"(DMCZP) EnteringMethod: OnPlanning";
   CollectStatsGroup(trajectory.has_total_path_length(),
                     trajectory.total_path_length(),
                     g_stats.mutable_total_path_length());
@@ -66,7 +64,6 @@ AINFO<<"(DMCZP) EnteringMethod: OnPlanning";
 }
 
 int main(int argc, char** argv) {
-AINFO<<"(DMCZP) EnteringMethod: main";
   using std::this_thread::sleep_for;
 
   google::InitGoogleLogging(argv[0]);

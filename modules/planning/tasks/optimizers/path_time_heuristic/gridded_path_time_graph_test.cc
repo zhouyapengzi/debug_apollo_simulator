@@ -89,7 +89,6 @@ class DpStGraphTest : public ::testing::Test {
 };
 
 TEST_F(DpStGraphTest, simple) {
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   Obstacle o1;
   o1.SetId("o1");
   obstacle_list_.push_back(o1);

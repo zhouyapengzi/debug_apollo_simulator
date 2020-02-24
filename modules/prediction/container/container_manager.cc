@@ -27,16 +27,13 @@ using apollo::common::adapter::AdapterConfig;
 using apollo::common::adapter::AdapterManagerConfig;
 
 ContainerManager::ContainerManager() {}
-AINFO<<"(DMCZP) EnteringMethod: ContainerManager::ContainerManager";
 
 void ContainerManager::Init(const AdapterManagerConfig& config) {
-AINFO<<"(DMCZP) EnteringMethod: ContainerManager::Init";
   config_.CopyFrom(config);
   RegisterContainers();
 }
 
 void ContainerManager::RegisterContainers() {
-AINFO<<"(DMCZP) EnteringMethod: ContainerManager::RegisterContainers";
   for (const auto& adapter_config : config_.config()) {
     if (adapter_config.has_type() &&
         (adapter_config.mode() == AdapterConfig::RECEIVE_ONLY ||
@@ -48,7 +45,6 @@ AINFO<<"(DMCZP) EnteringMethod: ContainerManager::RegisterContainers";
 
 std::unique_ptr<Container> ContainerManager::CreateContainer(
     const AdapterConfig::MessageType& type) {
-AINFO<<"(DMCZP) EnteringMethod: ContainerManager::RegisterContainer";
   std::unique_ptr<Container> container_ptr(nullptr);
   if (type == AdapterConfig::PERCEPTION_OBSTACLES) {
     container_ptr.reset(new ObstaclesContainer());

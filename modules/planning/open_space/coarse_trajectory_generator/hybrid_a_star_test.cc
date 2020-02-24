@@ -52,7 +52,6 @@ class HybridATest : public ::testing::Test {
 };
 
 TEST_F(HybridATest, test1) {
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   double sx = -15.0;
   double sy = 0.0;
   double sphi = 0.0;

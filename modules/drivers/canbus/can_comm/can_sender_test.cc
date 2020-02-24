@@ -28,7 +28,6 @@ namespace drivers {
 namespace canbus {
 
 TEST(CanSenderTest, OneRunCase) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   CanSender<::apollo::canbus::ChassisDetail> sender;
   can::FakeCanClient can_client;
   sender.Init(&can_client, true);

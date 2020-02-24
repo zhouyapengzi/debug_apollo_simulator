@@ -22,7 +22,6 @@ namespace velodyne {
 
 Velodyne64Parser::Velodyne64Parser(const Config& config)
     : VelodyneParser(config) {
-AINFO<<"(DMCZP) EnteringMethod: Velodyne64Parser::Velodyne64Parser";
   for (int i = 0; i < 4; i++) {
     gps_base_usec_[i] = 0;
     previous_packet_stamp_[i] = 0;
@@ -45,7 +44,6 @@ AINFO<<"(DMCZP) EnteringMethod: Velodyne64Parser::Velodyne64Parser";
 }
 
 void Velodyne64Parser::setup() {
-AINFO<<"(DMCZP) EnteringMethod: Velodyne64Parser::setup";
   VelodyneParser::setup();
   if (!config_.calibration_online() && config_.organized()) {
     InitOffsets();
@@ -53,7 +51,6 @@ AINFO<<"(DMCZP) EnteringMethod: Velodyne64Parser::setup";
 }
 
 void Velodyne64Parser::SetBaseTimeFromPackets(const VelodynePacket& pkt) {
-AINFO<<"(DMCZP) EnteringMethod: Velodyne64Parser::SetBaseTimeFromPackets";
   // const RawPacket* raw = (const RawPacket*)&pkt.data[0];
   const RawPacket* raw = (const RawPacket*)pkt.data().c_str();
   StatusType status_type = StatusType(raw->status_type);
@@ -120,7 +117,6 @@ AINFO<<"(DMCZP) EnteringMethod: Velodyne64Parser::SetBaseTimeFromPackets";
 }
 
 void Velodyne64Parser::CheckGpsStatus(const VelodynePacket& pkt) {
-AINFO<<"(DMCZP) EnteringMethod: Velodyne64Parser::CheckGpsStatus";
   // const RawPacket* raw = (const RawPacket*)&pkt.data[0];
   const RawPacket* raw = (const RawPacket*)pkt.data().c_str();
   StatusType status_type = StatusType(raw->status_type);
@@ -137,7 +133,6 @@ AINFO<<"(DMCZP) EnteringMethod: Velodyne64Parser::CheckGpsStatus";
 }
 
 void Velodyne64Parser::InitOffsets() {
-AINFO<<"(DMCZP) EnteringMethod: Velodyne64Parser::InitOffsets";
   int width = 64;
   // pre compute col offsets
   for (int i = 0; i < width; ++i) {
@@ -154,7 +149,6 @@ AINFO<<"(DMCZP) EnteringMethod: Velodyne64Parser::InitOffsets";
 void Velodyne64Parser::GeneratePointcloud(
     const std::shared_ptr<VelodyneScan>& scan_msg,
     std::shared_ptr<PointCloud> pointcloud) {
-AINFO<<"(DMCZP) EnteringMethod: Velodyne64Parser::GeneratePointcloud";
   if (config_.calibration_online() && !calibration_.initialized_) {
     if (online_calibration_.decode(scan_msg) == -1) {
       return;
@@ -205,7 +199,6 @@ AINFO<<"(DMCZP) EnteringMethod: Velodyne64Parser::GeneratePointcloud";
 
 uint64_t Velodyne64Parser::GetTimestamp(double base_time, float time_offset,
                                         uint16_t block_id) {
-AINFO<<"(DMCZP) EnteringMethod: Velodyne64Parser::GetTimestamp";
   double t = base_time - time_offset;
   double timestamp = 0.0;
   int index = 0;
@@ -229,7 +222,6 @@ AINFO<<"(DMCZP) EnteringMethod: Velodyne64Parser::GetTimestamp";
 int Velodyne64Parser::IntensityCompensate(const LaserCorrection& corrections,
                                           const uint16_t raw_distance,
                                           int intensity) {
-AINFO<<"(DMCZP) EnteringMethod: Velodyne64Parser::IntensityCompensate";
   float tmp = 1.0f - static_cast<float>(raw_distance) / 65535.0f;
   intensity +=
       static_cast<int>(corrections.focal_slope *
@@ -247,7 +239,6 @@ AINFO<<"(DMCZP) EnteringMethod: Velodyne64Parser::IntensityCompensate";
 
 void Velodyne64Parser::Unpack(const VelodynePacket& pkt,
                               std::shared_ptr<PointCloud> pc) {
-AINFO<<"(DMCZP) EnteringMethod: Velodyne64Parser::Unpack";
   ADEBUG << "Received packet, time: " << pkt.stamp();
 
   // const RawPacket* raw = (const RawPacket*)&pkt.data[0];
@@ -314,7 +305,6 @@ AINFO<<"(DMCZP) EnteringMethod: Velodyne64Parser::Unpack";
 }
 
 void Velodyne64Parser::Order(std::shared_ptr<PointCloud> cloud) {
-AINFO<<"(DMCZP) EnteringMethod: Velodyne64Parser::Order";
   int height = 64;
   cloud->set_height(height);
   int width = cloud->point_size() / cloud->height();

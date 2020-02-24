@@ -58,7 +58,6 @@ class IntraTranceiverTest : public ::testing::Test {
 };
 
 TEST_F(IntraTranceiverTest, constructor) {
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   RoleAttributes attr;
   TransmitterPtr transmitter =
       std::make_shared<IntraTransmitter<proto::UnitTest>>(attr);
@@ -74,7 +73,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST_F";
 }
 
 TEST_F(IntraTranceiverTest, enable_and_disable) {
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   // repeated call
   transmitter_a_->Enable();
 

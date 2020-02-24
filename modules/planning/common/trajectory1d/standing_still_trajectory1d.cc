@@ -26,17 +26,13 @@ namespace planning {
 StandingStillTrajectory1d::StandingStillTrajectory1d(const double p,
                                                      const double duration)
     : fixed_position_(p), duration_(duration) {}
-AINFO<<"(DMCZP) EnteringMethod: StandingStillTrajectory1d::StandingStillTrajectory1d";
 
 double StandingStillTrajectory1d::ParamLength() const { return duration_; }
-AINFO<<"(DMCZP) EnteringMethod: StandingStillTrajectory1d::ParamLength";
 
 std::string StandingStillTrajectory1d::ToString() const { return ""; }
-AINFO<<"(DMCZP) EnteringMethod: StandingStillTrajectory1d::ToString";
 
 double StandingStillTrajectory1d::Evaluate(const std::uint32_t order,
                                            const double param) const {
-AINFO<<"(DMCZP) EnteringMethod: StandingStillTrajectory1d::Evaluate";
   //  CHECK(param <= duration_);
   switch (order) {
     case 0:
@@ -52,22 +48,18 @@ AINFO<<"(DMCZP) EnteringMethod: StandingStillTrajectory1d::Evaluate";
 }
 
 double StandingStillTrajectory1d::Evaluate_s(const double t) const {
-AINFO<<"(DMCZP) EnteringMethod: StandingStillTrajectory1d::Evaluate_s";
   return fixed_position_;
 }
 
 double StandingStillTrajectory1d::Evaluate_v(const double t) const {
-AINFO<<"(DMCZP) EnteringMethod: StandingStillTrajectory1d::Evaluate_v";
   return 0.0;
 }
 
 double StandingStillTrajectory1d::Evaluate_a(const double t) const {
-AINFO<<"(DMCZP) EnteringMethod: StandingStillTrajectory1d::Evaluate_a";
   return 0.0;
 }
 
 double StandingStillTrajectory1d::Evaluate_j(const double t) const {
-AINFO<<"(DMCZP) EnteringMethod: StandingStillTrajectory1d::Evaluate_j";
   return 0.0;
 }
 

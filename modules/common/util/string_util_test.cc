@@ -25,7 +25,6 @@ namespace common {
 namespace util {
 
 TEST(StringUtilTest, Split) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   {
     std::vector<std::string> result;
     Split("abc.def", '.', &result);
@@ -42,7 +41,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST";
 }
 
 TEST(StringUtilTest, StartWith) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   EXPECT_TRUE(StartWith("abc.def", ""));
   EXPECT_TRUE(StartWith("abc.def", "abc"));
   EXPECT_TRUE(StartWith("abc.def", "abc."));
@@ -51,7 +49,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST";
 }
 
 TEST(StringUtilTest, EndWith) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   EXPECT_TRUE(EndWith("abc.def", ""));
   EXPECT_TRUE(EndWith("abc.def", "def"));
   EXPECT_TRUE(EndWith("abc.def", ".def"));
@@ -60,7 +57,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST";
 }
 
 TEST(StringUtilTest, IterPrinter) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   // Container.
   std::vector<std::string> vec;
   EXPECT_EQ("", PrintIter(vec));  // Empty string
@@ -78,7 +74,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST";
 }
 
 TEST(StringUtilTest, DecodeBase64) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   EXPECT_EQ("", DecodeBase64(""));
   EXPECT_EQ("f", DecodeBase64("Zg=="));
   EXPECT_EQ("fo", DecodeBase64("Zm8="));
@@ -89,7 +84,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST";
 }
 
 TEST(StringUtilTest, EncodeBase64) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   EXPECT_EQ("", EncodeBase64(""));
   EXPECT_EQ("Zg==", EncodeBase64("f"));
   EXPECT_EQ("Zm8=", EncodeBase64("fo"));

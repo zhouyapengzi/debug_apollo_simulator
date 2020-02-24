@@ -29,7 +29,6 @@ namespace stop_sign {
 
 Stage::StageStatus StopSignUnprotectedStageIntersectionCruise::Process(
     const common::TrajectoryPoint& planning_init_point, Frame* frame) {
-AINFO<<"(DMCZP) EnteringMethod: StopSignUnprotectedStageIntersectionCruise::Process";
   ADEBUG << "stage: IntersectionCruise";
   CHECK_NOTNULL(frame);
 
@@ -47,7 +46,6 @@ AINFO<<"(DMCZP) EnteringMethod: StopSignUnprotectedStageIntersectionCruise::Proc
 }
 
 Stage::StageStatus StopSignUnprotectedStageIntersectionCruise::FinishStage() {
-AINFO<<"(DMCZP) EnteringMethod: StopSignUnprotectedStageIntersectionCruise::FinishStage";
   return FinishScenario();
 }
 

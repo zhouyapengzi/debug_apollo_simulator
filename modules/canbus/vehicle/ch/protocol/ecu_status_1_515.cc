@@ -26,12 +26,10 @@ namespace ch {
 using ::apollo::drivers::canbus::Byte;
 
 Ecustatus1515::Ecustatus1515() {}
-AINFO<<"(DMCZP) EnteringMethod: Ecustatus1515::Ecustatus1515";
 const int32_t Ecustatus1515::ID = 0x515;
 
 void Ecustatus1515::Parse(const std::uint8_t* bytes, int32_t length,
                           ChassisDetail* chassis) const {
-AINFO<<"(DMCZP) EnteringMethod: Ecustatus1515::Parse";
   chassis->mutable_ch()->mutable_ecu_status_1_515()->set_speed(
       speed(bytes, length));
   chassis->mutable_ch()->mutable_ecu_status_1_515()->set_acc_speed(
@@ -49,7 +47,6 @@ AINFO<<"(DMCZP) EnteringMethod: Ecustatus1515::Parse";
 // 'physical_range': '[0|0]', 'bit': 0, 'type': 'double', 'order': 'intel',
 // 'physical_unit': 'm/s'}
 double Ecustatus1515::speed(const std::uint8_t* bytes, int32_t length) const {
-AINFO<<"(DMCZP) EnteringMethod: Ecustatus1515::speed";
   Byte t0(bytes + 1);
   int32_t x = t0.get_byte(0, 8);
 
@@ -71,7 +68,6 @@ AINFO<<"(DMCZP) EnteringMethod: Ecustatus1515::speed";
 // 'double', 'order': 'intel', 'physical_unit': 'm/s^2'}
 double Ecustatus1515::acc_speed(const std::uint8_t* bytes,
                                 int32_t length) const {
-AINFO<<"(DMCZP) EnteringMethod: Ecustatus1515::acc_speed";
   Byte t0(bytes + 3);
   int32_t x = t0.get_byte(0, 8);
 
@@ -94,7 +90,6 @@ AINFO<<"(DMCZP) EnteringMethod: Ecustatus1515::acc_speed";
 // 'intel', 'physical_unit': ''}
 Ecu_status_1_515::Ctrl_stsType Ecustatus1515::ctrl_sts(
     const std::uint8_t* bytes, int32_t length) const {
-AINFO<<"(DMCZP) EnteringMethod: Ecustatus1515::ctrl_sts";
   Byte t0(bytes + 4);
   int32_t x = t0.get_byte(0, 8);
 
@@ -109,8 +104,6 @@ AINFO<<"(DMCZP) EnteringMethod: Ecustatus1515::ctrl_sts";
 // 'int', 'order': 'intel', 'physical_unit': ''}
 int Ecustatus1515::chassis_sts(const std::uint8_t* bytes,
                                int32_t length) const {
-AINFO<<"(DMCZP) EnteringMethod: Ecustatus1515::chassis_sts";
-AINFO<<"(DMCZP) EnteringMethod: Ecustatus1515::chassis_err";
   Byte t0(bytes + 4);
   int32_t x = t0.get_byte(0, 8);
 

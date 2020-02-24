@@ -28,28 +28,23 @@ const int32_t Shiftcmd65::ID = 0x65;
 
 // public
 Shiftcmd65::Shiftcmd65() { Reset(); }
-AINFO<<"(DMCZP) EnteringMethod: Shiftcmd65::Shiftcmd65";
 
 uint32_t Shiftcmd65::GetPeriod() const {
-AINFO<<"(DMCZP) EnteringMethod: Shiftcmd65::GetPeriod";
   // TODO(QiL) :modify every protocol's period manually
   static const uint32_t PERIOD = 20 * 1000;
   return PERIOD;
 }
 
 void Shiftcmd65::UpdateData(uint8_t* data) {
-AINFO<<"(DMCZP) EnteringMethod: Shiftcmd65::UpdateData";
   set_p_shift_cmd(data, shift_cmd_);
 }
 
 void Shiftcmd65::Reset() {
-AINFO<<"(DMCZP) EnteringMethod: Shiftcmd65::Reset";
   // TODO(QiL) :you should check this manually
   shift_cmd_ = Shift_cmd_65::SHIFT_CMD_PARK;
 }
 
 Shiftcmd65* Shiftcmd65::set_shift_cmd(Shift_cmd_65::Shift_cmdType shift_cmd) {
-AINFO<<"(DMCZP) EnteringMethod: Shiftcmd65::set_shift_cmd";
   shift_cmd_ = shift_cmd;
   return this;
 }
@@ -62,7 +57,6 @@ AINFO<<"(DMCZP) EnteringMethod: Shiftcmd65::set_shift_cmd";
 // '[0|4]', 'bit': 7, 'type': 'enum', 'order': 'motorola', 'physical_unit': ''}
 void Shiftcmd65::set_p_shift_cmd(uint8_t* data,
                                  Shift_cmd_65::Shift_cmdType shift_cmd) {
-AINFO<<"(DMCZP) EnteringMethod: Shiftcmd65::set_p_shift_cmd";
   uint8_t x = shift_cmd;
 
   Byte to_set(data + 0);

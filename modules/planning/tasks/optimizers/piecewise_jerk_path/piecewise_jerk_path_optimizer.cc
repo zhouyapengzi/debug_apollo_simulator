@@ -39,7 +39,6 @@ using apollo::common::Status;
 
 PiecewiseJerkPathOptimizer::PiecewiseJerkPathOptimizer(const TaskConfig& config)
     : PathOptimizer(config) {
-AINFO<<"(DMCZP) EnteringMethod: PiecewiseJerkPathOptimizer::PiecewiseJerkPathOptimizer";
   SetName("PiecewiseJerkPathOptimizer");
   CHECK(config_.has_piecewise_jerk_path_config());
 }
@@ -48,7 +47,6 @@ common::Status PiecewiseJerkPathOptimizer::Process(
     const SpeedData& speed_data, const ReferenceLine& reference_line,
     const common::TrajectoryPoint& init_point,
     PathData* const final_path_data) {
-AINFO<<"(DMCZP) EnteringMethod: PiecewiseJerkPathOptimizer::Process";
   const auto init_frenet_state = reference_line.ToFrenetFrame(init_point);
 
   // Choose lane_change_path_config for lane-change cases
@@ -148,7 +146,6 @@ bool PiecewiseJerkPathOptimizer::OptimizePath(
     const std::vector<std::pair<double, double>>& lat_boundaries,
     const std::array<double, 5>& w, std::vector<double>* x,
     std::vector<double>* dx, std::vector<double>* ddx, const int max_iter) {
-AINFO<<"(DMCZP) EnteringMethod: PiecewiseJerkPathOptimizer::OptimizePath";
   PiecewiseJerkPathProblem piecewise_jerk_problem(lat_boundaries.size(),
                                                   delta_s, init_state);
 
@@ -207,7 +204,6 @@ FrenetFramePath PiecewiseJerkPathOptimizer::ToPiecewiseJerkPath(
     const std::vector<double>& x, const std::vector<double>& dx,
     const std::vector<double>& ddx, const double delta_s,
     const double start_s) const {
-AINFO<<"(DMCZP) EnteringMethod: PiecewiseJerkPathOptimizer::ToPiecewiseJerkPath";
   CHECK(!x.empty());
   CHECK(!dx.empty());
   CHECK(!ddx.empty());
@@ -243,7 +239,6 @@ AINFO<<"(DMCZP) EnteringMethod: PiecewiseJerkPathOptimizer::ToPiecewiseJerkPath"
 double PiecewiseJerkPathOptimizer::EstimateJerkBoundary(
     const double vehicle_speed, const double axis_distance,
     const double max_yaw_rate) const {
-AINFO<<"(DMCZP) EnteringMethod: PiecewiseJerkPathOptimizer::EstimateJerkBoundary";
   return max_yaw_rate / axis_distance / vehicle_speed;
 }
 

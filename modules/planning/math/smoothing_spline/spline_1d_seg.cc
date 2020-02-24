@@ -25,22 +25,18 @@ namespace apollo {
 namespace planning {
 
 Spline1dSeg::Spline1dSeg(const uint32_t order) {
-AINFO<<"(DMCZP) EnteringMethod: Spline1dSeg::Spline1dSeg";
   SetSplineFunc(PolynomialXd(order));
 }
 
 Spline1dSeg::Spline1dSeg(const std::vector<double>& params) {
-AINFO<<"(DMCZP) EnteringMethod: Spline1dSeg::Spline1dSeg";
   SetSplineFunc(PolynomialXd(params));
 }
 
 void Spline1dSeg::SetParams(const std::vector<double>& params) {
-AINFO<<"(DMCZP) EnteringMethod: Spline1dSeg::SetParams";
   SetSplineFunc(PolynomialXd(params));
 }
 
 void Spline1dSeg::SetSplineFunc(const PolynomialXd& spline_func) {
-AINFO<<"(DMCZP) EnteringMethod: Spline1dSeg::SetSplineFunc";
   spline_func_ = spline_func;
   derivative_ = PolynomialXd::DerivedFrom(spline_func_);
   second_order_derivative_ = PolynomialXd::DerivedFrom(derivative_);
@@ -48,34 +44,26 @@ AINFO<<"(DMCZP) EnteringMethod: Spline1dSeg::SetSplineFunc";
 }
 
 double Spline1dSeg::operator()(const double x) const { return spline_func_(x); }
-AINFO<<"(DMCZP) EnteringMethod: Spline1dSeg::operator";
 
 double Spline1dSeg::Derivative(const double x) const { return derivative_(x); }
-AINFO<<"(DMCZP) EnteringMethod: Spline1dSeg::Derivative";
 
 double Spline1dSeg::SecondOrderDerivative(const double x) const {
-AINFO<<"(DMCZP) EnteringMethod: Spline1dSeg::SecondOrderDerivative";
   return second_order_derivative_(x);
 }
 
 double Spline1dSeg::ThirdOrderDerivative(const double x) const {
-AINFO<<"(DMCZP) EnteringMethod: Spline1dSeg::ThirdOrderDerivative";
   return third_order_derivative_(x);
 }
 
 const PolynomialXd& Spline1dSeg::spline_func() const { return spline_func_; }
-AINFO<<"(DMCZP) EnteringMethod: Spline1dSeg::spline_func";
 
 const PolynomialXd& Spline1dSeg::Derivative() const { return derivative_; }
-AINFO<<"(DMCZP) EnteringMethod: Spline1dSeg::Derivative";
 
 const PolynomialXd& Spline1dSeg::SecondOrderDerivative() const {
-AINFO<<"(DMCZP) EnteringMethod: Spline1dSeg::SecondOrderDerivative";
   return second_order_derivative_;
 }
 
 const PolynomialXd& Spline1dSeg::ThirdOrderDerivative() const {
-AINFO<<"(DMCZP) EnteringMethod: Spline1dSeg::ThirdOrderDerivative";
   return third_order_derivative_;
 }
 

@@ -27,7 +27,6 @@ using base::PointCloud;
 using base::PointF;
 
 TEST(PointCloudProcessingDownsamplingTest, downsampling_circular_test1) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   PointF center_pt, tmp_pt;
   center_pt.x = 0.f;
   center_pt.y = 0.f;
@@ -59,7 +58,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST";
 }
 
 TEST(PointCloudProcessingDownsamplingTest, downsampling_circular_test2) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   PointF center_pt, tmp_pt;
   center_pt.x = 0.f;
   center_pt.y = 0.f;
@@ -85,7 +83,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST";
 }
 
 TEST(PointCloudProcessingDownsamplingTest, downsampling_circular_test3) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   PointF center_pt, tmp_pt;
   center_pt.x = 0.f;
   center_pt.y = 0.f;
@@ -111,7 +108,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST";
 }
 
 TEST(PointCloudProcessingDownsamplingTest, downsampling_circular_org_all1) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   std::shared_ptr<PointCloud<PointF>> pc_in =
       std::shared_ptr<PointCloud<PointF>>(new PointCloud<PointF>);
   std::shared_ptr<PointCloud<PointF>> pc_out =
@@ -136,7 +132,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST";
 }
 
 TEST(PointCloudProcessingDownsamplingTest, downsampling_circular_org_all2) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   std::shared_ptr<PointCloud<PointF>> pc_in =
       std::shared_ptr<PointCloud<PointF>>(new PointCloud<PointF>);
   std::shared_ptr<PointCloud<PointF>> pc_out =
@@ -159,7 +154,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST";
 }
 
 TEST(PointCloudProcessingDownsamplingTest, downsampling_circular_org_partial1) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   std::shared_ptr<PointCloud<PointF>> pc_in =
       std::shared_ptr<PointCloud<PointF>>(
           new PointCloud<PointF>(64, 64, PointF()));
@@ -193,7 +187,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST";
 }
 
 TEST(PointCloudProcessingDownsamplingTest, downsampling_circular_org_partial2) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   std::shared_ptr<PointCloud<PointF>> pc_in =
       std::shared_ptr<PointCloud<PointF>>(
           new PointCloud<PointF>(64, 64, PointF()));
@@ -229,8 +222,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST";
 
 TEST(PointCloudProcessingDownsamplingTest,
      downsampling_rectangle_org_partial1) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   std::shared_ptr<PointCloud<PointF>> pc_in =
       std::shared_ptr<PointCloud<PointF>>(
           new PointCloud<PointF>(128, 128, PointF()));
@@ -299,7 +290,6 @@ TEST(PointCloudProcessingDownsamplingTest,
 }
 
 TEST(PointCloudProcessingDownsamplingTest, downsampling_rectangle_neighbour1) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   PointF tmp_pt;
   std::shared_ptr<PointCloud<PointF>> pc_in =
       std::shared_ptr<PointCloud<PointF>>(
@@ -325,7 +315,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST";
 }
 
 TEST(PointCloudProcessingDownsamplingTest, downsampling_rectangle_neighbour2) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   PointF tmp_pt;
   std::shared_ptr<PointCloud<PointF>> pc_in =
       std::shared_ptr<PointCloud<PointF>>(

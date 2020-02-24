@@ -43,7 +43,6 @@ using nlohmann::json;
 namespace {
 bool GetNavigationPathFromFile(const std::string& filename,
                                NavigationPath* navigation_path) {
-AINFO<<"(DMCZP) EnteringMethod: GetNavigationPathFromFile";
   CHECK_NOTNULL(navigation_path);
 
   std::ifstream ifs(filename, std::ios::in);
@@ -74,7 +73,6 @@ AINFO<<"(DMCZP) EnteringMethod: GetNavigationPathFromFile";
 bool GenerateNavigationInfo(
     const std::vector<std::string>& navigation_line_filenames,
     NavigationInfo* navigation_info) {
-AINFO<<"(DMCZP) EnteringMethod: GenerateNavigationInfo";
   CHECK_NOTNULL(navigation_info);
 
   int i = 0;
@@ -123,7 +121,6 @@ class NavigationLaneTest : public testing::Test {
 };
 
 TEST_F(NavigationLaneTest, GenerateOneLaneMap) {
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   navigation_line_filenames_.emplace_back(data_file_dir_ + "left.smoothed");
   EXPECT_TRUE(
       GenerateNavigationInfo(navigation_line_filenames_, &navigation_info_));
@@ -145,7 +142,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST_F";
 }
 
 TEST_F(NavigationLaneTest, GenerateTwoLaneMap) {
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   navigation_line_filenames_.emplace_back(data_file_dir_ + "left.smoothed");
   navigation_line_filenames_.emplace_back(data_file_dir_ + "right.smoothed");
   EXPECT_TRUE(
@@ -183,7 +179,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST_F";
 }
 
 TEST_F(NavigationLaneTest, GenerateThreeLaneMap) {
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   navigation_line_filenames_.emplace_back(data_file_dir_ + "left.smoothed");
   navigation_line_filenames_.emplace_back(data_file_dir_ + "middle.smoothed");
   navigation_line_filenames_.emplace_back(data_file_dir_ + "right.smoothed");

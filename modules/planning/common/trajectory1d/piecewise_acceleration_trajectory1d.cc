@@ -32,7 +32,6 @@ namespace planning {
 
 PiecewiseAccelerationTrajectory1d::PiecewiseAccelerationTrajectory1d(
     const double start_s, const double start_v) {
-AINFO<<"(DMCZP) EnteringMethod: PiecewiseAccelerationTrajectory1d::PiecewiseAccelerationTrajectory1d";
   s_.push_back(start_s);
   v_.push_back(start_v);
   a_.push_back(0.0);
@@ -41,7 +40,6 @@ AINFO<<"(DMCZP) EnteringMethod: PiecewiseAccelerationTrajectory1d::PiecewiseAcce
 
 void PiecewiseAccelerationTrajectory1d::AppendSegment(const double a,
                                                       const double t_duration) {
-AINFO<<"(DMCZP) EnteringMethod: PiecewiseAccelerationTrajectory1d::AppendSegment";
   double s0 = s_.back();
   double v0 = v_.back();
   double t0 = t_.back();
@@ -62,7 +60,6 @@ AINFO<<"(DMCZP) EnteringMethod: PiecewiseAccelerationTrajectory1d::AppendSegment
 }
 
 void PiecewiseAccelerationTrajectory1d::PopSegment() {
-AINFO<<"(DMCZP) EnteringMethod: PiecewiseAccelerationTrajectory1d::PopSegment";
   if (a_.size() > 0) {
     s_.pop_back();
     v_.pop_back();
@@ -72,13 +69,11 @@ AINFO<<"(DMCZP) EnteringMethod: PiecewiseAccelerationTrajectory1d::PopSegment";
 }
 
 double PiecewiseAccelerationTrajectory1d::ParamLength() const {
-AINFO<<"(DMCZP) EnteringMethod: PiecewiseAccelerationTrajectory1d::ParamLength";
   CHECK_GT(t_.size(), 1);
   return t_.back() - t_.front();
 }
 
 std::string PiecewiseAccelerationTrajectory1d::ToString() const {
-AINFO<<"(DMCZP) EnteringMethod: PiecewiseAccelerationTrajectory1d::ToString";
   return apollo::common::util::StrCat(apollo::common::util::PrintIter(s_, "\t"),
                                       apollo::common::util::PrintIter(t_, "\t"),
                                       apollo::common::util::PrintIter(v_, "\t"),
@@ -88,7 +83,6 @@ AINFO<<"(DMCZP) EnteringMethod: PiecewiseAccelerationTrajectory1d::ToString";
 
 double PiecewiseAccelerationTrajectory1d::Evaluate(const std::uint32_t order,
                                                    const double param) const {
-AINFO<<"(DMCZP) EnteringMethod: PiecewiseAccelerationTrajectory1d::Evaluate";
   CHECK_GT(t_.size(), 1);
   CHECK(t_.front() <= param && param <= t_.back());
 
@@ -106,7 +100,6 @@ AINFO<<"(DMCZP) EnteringMethod: PiecewiseAccelerationTrajectory1d::Evaluate";
 }
 
 double PiecewiseAccelerationTrajectory1d::Evaluate_s(const double t) const {
-AINFO<<"(DMCZP) EnteringMethod: PiecewiseAccelerationTrajectory1d::Evaluate_s";
   auto it_lower = std::lower_bound(t_.begin(), t_.end(), t);
   auto index = std::distance(t_.begin(), it_lower);
 
@@ -123,7 +116,6 @@ AINFO<<"(DMCZP) EnteringMethod: PiecewiseAccelerationTrajectory1d::Evaluate_s";
 }
 
 double PiecewiseAccelerationTrajectory1d::Evaluate_v(const double t) const {
-AINFO<<"(DMCZP) EnteringMethod: PiecewiseAccelerationTrajectory1d::Evaluate_v";
   auto it_lower = std::lower_bound(t_.begin(), t_.end(), t);
   auto index = std::distance(t_.begin(), it_lower);
 
@@ -138,14 +130,12 @@ AINFO<<"(DMCZP) EnteringMethod: PiecewiseAccelerationTrajectory1d::Evaluate_v";
 }
 
 double PiecewiseAccelerationTrajectory1d::Evaluate_a(const double t) const {
-AINFO<<"(DMCZP) EnteringMethod: PiecewiseAccelerationTrajectory1d::Evaluate_a";
   auto it_lower = std::lower_bound(t_.begin(), t_.end(), t);
   auto index = std::distance(t_.begin(), it_lower);
   return a_[index - 1];
 }
 
 double PiecewiseAccelerationTrajectory1d::Evaluate_j(const double t) const {
-AINFO<<"(DMCZP) EnteringMethod: PiecewiseAccelerationTrajectory1d::Evaluate_j";
   return 0.0;
 }
 

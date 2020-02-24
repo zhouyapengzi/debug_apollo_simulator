@@ -52,7 +52,6 @@ namespace canbus {
 namespace gem {
 
 GemMessageManager::GemMessageManager() {
-AINFO<<"(DMCZP) EnteringMethod: GemMessageManager::GemMessageManager";
   // Control Messages
   AddSendProtocolData<Accelcmd67, true>();
   AddSendProtocolData<Brakecmd6b, true>();

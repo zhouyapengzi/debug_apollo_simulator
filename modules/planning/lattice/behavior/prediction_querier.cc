@@ -30,7 +30,6 @@ PredictionQuerier::PredictionQuerier(
     const std::vector<const Obstacle*>& obstacles,
     const std::shared_ptr<std::vector<common::PathPoint>>& ptr_reference_line)
     : ptr_reference_line_(ptr_reference_line) {
-AINFO<<"(DMCZP) EnteringMethod: PredictionQuerier::PredictionQuerier";
   for (const auto ptr_obstacle : obstacles) {
     if (common::util::InsertIfNotPresent(&id_obstacle_map_, ptr_obstacle->Id(),
                                          ptr_obstacle)) {
@@ -47,7 +46,6 @@ std::vector<const Obstacle*> PredictionQuerier::GetObstacles() const {
 
 double PredictionQuerier::ProjectVelocityAlongReferenceLine(
     const std::string& obstacle_id, const double s, const double t) const {
-AINFO<<"(DMCZP) EnteringMethod: PredictionQuerier::ProjectVelocityAlongReferenceLine";
   CHECK(id_obstacle_map_.find(obstacle_id) != id_obstacle_map_.end());
 
   const auto& trajectory = id_obstacle_map_.at(obstacle_id)->Trajectory();

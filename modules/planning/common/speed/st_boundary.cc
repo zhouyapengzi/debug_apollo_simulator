@@ -32,7 +32,6 @@ using common::math::Vec2d;
 
 STBoundary::STBoundary(
     const std::vector<std::pair<STPoint, STPoint>>& point_pairs) {
-AINFO<<"(DMCZP) EnteringMethod: STBoundary::STBoundary";
   CHECK(IsValid(point_pairs)) << "The input point_pairs are NOT valid";
 
   std::vector<std::pair<STPoint, STPoint>> reduced_pairs(point_pairs);
@@ -66,12 +65,10 @@ AINFO<<"(DMCZP) EnteringMethod: STBoundary::STBoundary";
 
 bool STBoundary::IsPointNear(const common::math::LineSegment2d& seg,
                              const Vec2d& point, const double max_dist) {
-AINFO<<"(DMCZP) EnteringMethod: STBoundary::IsPointNear";
   return seg.DistanceSquareTo(point) < max_dist * max_dist;
 }
 
 std::string STBoundary::TypeName(BoundaryType type) {
-AINFO<<"(DMCZP) EnteringMethod: STBoundary::TypeName";
   if (type == BoundaryType::FOLLOW) {
     return "FOLLOW";
   } else if (type == BoundaryType::KEEP_CLEAR) {
@@ -92,7 +89,6 @@ AINFO<<"(DMCZP) EnteringMethod: STBoundary::TypeName";
 
 void STBoundary::RemoveRedundantPoints(
     std::vector<std::pair<STPoint, STPoint>>* point_pairs) {
-AINFO<<"(DMCZP) EnteringMethod: STBoundary::RemoveRedundantPoints";
   if (!point_pairs || point_pairs->size() <= 2) {
     return;
   }
@@ -121,7 +117,6 @@ AINFO<<"(DMCZP) EnteringMethod: STBoundary::RemoveRedundantPoints";
 
 bool STBoundary::IsValid(
     const std::vector<std::pair<STPoint, STPoint>>& point_pairs) const {
-AINFO<<"(DMCZP) EnteringMethod: STBoundary::IsValid";
   if (point_pairs.size() < 2) {
     AERROR << "point_pairs.size() must > 2. current point_pairs.size() = "
            << point_pairs.size();
@@ -161,7 +156,6 @@ AINFO<<"(DMCZP) EnteringMethod: STBoundary::IsValid";
 }
 
 bool STBoundary::IsPointInBoundary(const STPoint& st_point) const {
-AINFO<<"(DMCZP) EnteringMethod: STBoundary::IsPointInBoundary";
   if (st_point.t() <= min_t_ || st_point.t() >= max_t_) {
     return false;
   }
@@ -180,31 +174,26 @@ AINFO<<"(DMCZP) EnteringMethod: STBoundary::IsPointInBoundary";
 }
 
 STPoint STBoundary::upper_left_point() const {
-AINFO<<"(DMCZP) EnteringMethod: STBoundary::upper_left_point";
   DCHECK(!upper_points_.empty()) << "StBoundary has zero points.";
   return upper_points_.front();
 }
 
 STPoint STBoundary::upper_right_point() const {
-AINFO<<"(DMCZP) EnteringMethod: STBoundary::upper_right_point";
   DCHECK(!upper_points_.empty()) << "StBoundary has zero points.";
   return upper_points_.back();
 }
 
 STPoint STBoundary::bottom_left_point() const {
-AINFO<<"(DMCZP) EnteringMethod: STBoundary::bottom_left_point";
   DCHECK(!lower_points_.empty()) << "StBoundary has zero points.";
   return lower_points_.front();
 }
 
 STPoint STBoundary::bottom_right_point() const {
-AINFO<<"(DMCZP) EnteringMethod: STBoundary::bottom_right_point";
   DCHECK(!lower_points_.empty()) << "StBoundary has zero points.";
   return lower_points_.back();
 }
 
 STBoundary STBoundary::ExpandByS(const double s) const {
-AINFO<<"(DMCZP) EnteringMethod: STBoundary::ExpandByS";
   if (lower_points_.empty()) {
     return STBoundary();
   }
@@ -218,7 +207,6 @@ AINFO<<"(DMCZP) EnteringMethod: STBoundary::ExpandByS";
 }
 
 STBoundary STBoundary::ExpandByT(const double t) const {
-AINFO<<"(DMCZP) EnteringMethod: STBoundary::ExpandByT";
   if (lower_points_.empty()) {
     AERROR << "The current st_boundary has NO points.";
     return STBoundary();
@@ -269,33 +257,26 @@ AINFO<<"(DMCZP) EnteringMethod: STBoundary::ExpandByT";
 }
 
 STBoundary::BoundaryType STBoundary::boundary_type() const {
-AINFO<<"(DMCZP) EnteringMethod: STBoundary::boundary_type";
   return boundary_type_;
 }
 void STBoundary::SetBoundaryType(const BoundaryType& boundary_type) {
-AINFO<<"(DMCZP) EnteringMethod: STBoundary::SetBoundaryType";
   boundary_type_ = boundary_type;
 }
 
 const std::string& STBoundary::id() const { return id_; }
-AINFO<<"(DMCZP) EnteringMethod: STBoundary::id";
 
 void STBoundary::set_id(const std::string& id) { id_ = id; }
-AINFO<<"(DMCZP) EnteringMethod: STBoundary::set_id";
 
 double STBoundary::characteristic_length() const {
-AINFO<<"(DMCZP) EnteringMethod: STBoundary::characteristic_length";
   return characteristic_length_;
 }
 
 void STBoundary::SetCharacteristicLength(const double characteristic_length) {
-AINFO<<"(DMCZP) EnteringMethod: STBoundary::SetCharacteristicLength";
   characteristic_length_ = characteristic_length;
 }
 
 bool STBoundary::GetUnblockSRange(const double curr_time, double* s_upper,
                                   double* s_lower) const {
-AINFO<<"(DMCZP) EnteringMethod: STBoundary::GetUnblockSRange";
   CHECK_NOTNULL(s_upper);
   CHECK_NOTNULL(s_lower);
 
@@ -337,7 +318,6 @@ AINFO<<"(DMCZP) EnteringMethod: STBoundary::GetUnblockSRange";
 
 bool STBoundary::GetBoundarySRange(const double curr_time, double* s_upper,
                                    double* s_lower) const {
-AINFO<<"(DMCZP) EnteringMethod: STBoundary::GetBoundarySRange";
   CHECK_NOTNULL(s_upper);
   CHECK_NOTNULL(s_lower);
   if (curr_time < min_t_ || curr_time > max_t_) {
@@ -364,18 +344,13 @@ AINFO<<"(DMCZP) EnteringMethod: STBoundary::GetBoundarySRange";
 }
 
 double STBoundary::min_s() const { return min_s_; }
-AINFO<<"(DMCZP) EnteringMethod: STBoundary::min_s";
 double STBoundary::min_t() const { return min_t_; }
-AINFO<<"(DMCZP) EnteringMethod: STBoundary::min_t";
 double STBoundary::max_s() const { return max_s_; }
-AINFO<<"(DMCZP) EnteringMethod: STBoundary::max_s";
 double STBoundary::max_t() const { return max_t_; }
-AINFO<<"(DMCZP) EnteringMethod: STBoundary::max_t";
 
 bool STBoundary::GetIndexRange(const std::vector<STPoint>& points,
                                const double t, size_t* left,
                                size_t* right) const {
-AINFO<<"(DMCZP) EnteringMethod: STBoundary::GetIndexRange";
   CHECK_NOTNULL(left);
   CHECK_NOTNULL(right);
   if (t < points.front().t() || t > points.back().t()) {
@@ -399,7 +374,6 @@ AINFO<<"(DMCZP) EnteringMethod: STBoundary::GetIndexRange";
 STBoundary STBoundary::CreateInstance(
     const std::vector<STPoint>& lower_points,
     const std::vector<STPoint>& upper_points) {
-AINFO<<"(DMCZP) EnteringMethod: STBoundary::CreateInstance";
   if (lower_points.size() != upper_points.size() || lower_points.size() < 2) {
     return STBoundary();
   }
@@ -414,7 +388,6 @@ AINFO<<"(DMCZP) EnteringMethod: STBoundary::CreateInstance";
 }
 
 STBoundary STBoundary::CutOffByT(const double t) const {
-AINFO<<"(DMCZP) EnteringMethod: STBoundary::CutOffByT";
   std::vector<STPoint> lower_points;
   std::vector<STPoint> upper_points;
   for (size_t i = 0; i < lower_points_.size() && i < upper_points_.size();
@@ -429,22 +402,18 @@ AINFO<<"(DMCZP) EnteringMethod: STBoundary::CutOffByT";
 }
 
 void STBoundary::set_upper_left_point(STPoint st_point) {
-AINFO<<"(DMCZP) EnteringMethod: STBoundary::set_upper_left_point";
   upper_left_point_ = std::move(st_point);
 }
 
 void STBoundary::set_upper_right_point(STPoint st_point) {
-AINFO<<"(DMCZP) EnteringMethod: STBoundary::set_upper_right_point";
   upper_right_point_ = std::move(st_point);
 }
 
 void STBoundary::set_bottom_left_point(STPoint st_point) {
-AINFO<<"(DMCZP) EnteringMethod: STBoundary::set_bottom_left_point";
   bottom_left_point_ = std::move(st_point);
 }
 
 void STBoundary::set_bottom_right_point(STPoint st_point) {
-AINFO<<"(DMCZP) EnteringMethod: STBoundary::set_bottom_right_point";
   bottom_right_point_ = std::move(st_point);
 }
 

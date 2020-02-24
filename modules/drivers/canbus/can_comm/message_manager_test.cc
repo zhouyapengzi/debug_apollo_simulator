@@ -46,7 +46,6 @@ class MockMessageManager
 };
 
 TEST(MessageManagerTest, GetMutableProtocolDataById) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   uint8_t mock_data = 1;
   MockMessageManager manager;
   manager.Parse(MockProtocolData::ID, &mock_data, 8);

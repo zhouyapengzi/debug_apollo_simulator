@@ -29,7 +29,6 @@ namespace apollo {
 namespace canbus {
 
 void VehicleFactory::RegisterVehicleFactory() {
-AINFO<<"(DMCZP) EnteringMethod: VehicleFactory::RegisterVehicleFactory";
   Register(apollo::common::LINCOLN_MKZ, []() -> AbstractVehicleFactory * {
     return new LincolnVehicleFactory();
   });

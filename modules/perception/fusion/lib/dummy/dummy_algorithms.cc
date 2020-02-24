@@ -21,7 +21,6 @@ namespace fusion {
 
 // class DummyFusionSystem implementation
 bool DummyFusionSystem::Init(const FusionInitOptions& options) {
-AINFO<<"(DMCZP) EnteringMethod: DummyFusionSystem::Init";
   main_sensor_ = options.main_sensor;
   return true;
 }
@@ -29,7 +28,6 @@ AINFO<<"(DMCZP) EnteringMethod: DummyFusionSystem::Init";
 bool DummyFusionSystem::Fuse(const FusionOptions& options,
                              const base::FrameConstPtr& sensor_frame,
                              std::vector<base::ObjectPtr>* fused_objects) {
-AINFO<<"(DMCZP) EnteringMethod: DummyFusionSystem::Fuse";
   if (fused_objects == nullptr) {
     return false;
   }
@@ -48,32 +46,27 @@ AINFO<<"(DMCZP) EnteringMethod: DummyFusionSystem::Fuse";
 
 // class DummyDataAssociation implementation
 bool DummyDataAssociation::Init() { return true; }
-AINFO<<"(DMCZP) EnteringMethod: DummyDataAssociation::Init";
 
 bool DummyDataAssociation::Associate(const AssociationOptions& options,
                                      SensorFramePtr sensor_measurements,
                                      ScenePtr scene,
                                      AssociationResult* association_result) {
-AINFO<<"(DMCZP) EnteringMethod: DummyDataAssociation::Associate";
   return true;
 }
 
 // class DummyTracker implementation
 bool DummyTracker::Init(TrackPtr track, SensorObjectPtr measurement) {
-AINFO<<"(DMCZP) EnteringMethod: DummyTracker::Init";
   return true;
 }
 
 void DummyTracker::UpdateWithMeasurement(const TrackerOptions& options,
                                          const SensorObjectPtr measurement,
                                          double target_timestamp) {}
-AINFO<<"(DMCZP) EnteringMethod: DummyTracker::UpdateWithMeasurement";
 
 void DummyTracker::UpdateWithoutMeasurement(const TrackerOptions& options,
                                             const std::string& sensor_id,
                                             double measurement_timestamp,
                                             double target_timestamp) {}
-AINFO<<"(DMCZP) EnteringMethod: DummyTracker::UpdateWithoutMeasurement";
 
 FUSION_REGISTER_FUSIONSYSTEM(DummyFusionSystem);
 

@@ -41,7 +41,6 @@ class Node3dTest : public ::testing::Test {
 };
 
 TEST_F(Node3dTest, GetBoundingBox) {
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   Box2d test_box = Node3d::GetBoundingBox(vehicle_param_, 0.0, 0.0, 0.0);
   double ego_length = vehicle_param_.length();
   double ego_width = vehicle_param_.width();

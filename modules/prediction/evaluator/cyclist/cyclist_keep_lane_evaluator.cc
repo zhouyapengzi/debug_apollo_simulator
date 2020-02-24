@@ -20,12 +20,10 @@ namespace apollo {
 namespace prediction {
 
 CyclistKeepLaneEvaluator::CyclistKeepLaneEvaluator() {
-AINFO<<"(DMCZP) EnteringMethod: CyclistKeepLaneEvaluator::CyclistKeepLaneEvaluator";
   evaluator_type_ = ObstacleConf::CYCLIST_KEEP_LANE_EVALUATOR;
 }
 
 bool CyclistKeepLaneEvaluator::Evaluate(Obstacle* obstacle_ptr) {
-AINFO<<"(DMCZP) EnteringMethod: CyclistKeepLaneEvaluator::Evaluate";
   CHECK_NOTNULL(obstacle_ptr);
 
   obstacle_ptr->SetEvaluatorType(evaluator_type_);
@@ -65,7 +63,6 @@ AINFO<<"(DMCZP) EnteringMethod: CyclistKeepLaneEvaluator::Evaluate";
 
 double CyclistKeepLaneEvaluator::ComputeProbability(
     const std::string& curr_lane_id, const LaneSequence& lane_sequence) {
-AINFO<<"(DMCZP) EnteringMethod: CyclistKeepLaneEvaluator::ComputeProbability";
   if (lane_sequence.lane_segment_size() == 0) {
     AWARN << "Empty lane sequence.";
     return 0.0;

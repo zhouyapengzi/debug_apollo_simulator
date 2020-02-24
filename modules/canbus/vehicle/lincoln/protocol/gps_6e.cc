@@ -28,7 +28,6 @@ const int32_t Gps6e::ID = 0x6E;
 
 void Gps6e::Parse(const std::uint8_t *bytes, int32_t length,
                   ChassisDetail *chassis_detail) const {
-AINFO<<"(DMCZP) EnteringMethod: Gps6e::Parse";
   chassis_detail->mutable_basic()->set_year(year(bytes, length));
   chassis_detail->mutable_basic()->set_month(month(bytes, length));
   chassis_detail->mutable_basic()->set_day(day(bytes, length));
@@ -45,42 +44,36 @@ AINFO<<"(DMCZP) EnteringMethod: Gps6e::Parse";
 }
 
 int32_t Gps6e::year(const std::uint8_t *bytes, int32_t length) const {
-AINFO<<"(DMCZP) EnteringMethod: Gps6e::year";
   Byte frame(bytes + 0);
   int32_t x = frame.get_byte(0, 7);
   return x;
 }
 
 int32_t Gps6e::month(const std::uint8_t *bytes, int32_t length) const {
-AINFO<<"(DMCZP) EnteringMethod: Gps6e::month";
   Byte frame(bytes + 1);
   int32_t x = frame.get_byte(0, 4);
   return x;
 }
 
 int32_t Gps6e::day(const std::uint8_t *bytes, int32_t length) const {
-AINFO<<"(DMCZP) EnteringMethod: Gps6e::day";
   Byte frame(bytes + 2);
   int32_t x = frame.get_byte(0, 5);
   return x;
 }
 
 int32_t Gps6e::hours(const std::uint8_t *bytes, int32_t length) const {
-AINFO<<"(DMCZP) EnteringMethod: Gps6e::hours";
   Byte frame(bytes + 3);
   int32_t x = frame.get_byte(0, 5);
   return x;
 }
 
 int32_t Gps6e::minutes(const std::uint8_t *bytes, int32_t length) const {
-AINFO<<"(DMCZP) EnteringMethod: Gps6e::minutes";
   Byte frame(bytes + 4);
   int32_t x = frame.get_byte(0, 6);
   return x;
 }
 
 int32_t Gps6e::seconds(const std::uint8_t *bytes, int32_t length) const {
-AINFO<<"(DMCZP) EnteringMethod: Gps6e::seconds";
   Byte frame(bytes + 5);
   int32_t x = frame.get_byte(0, 6);
   return x;
@@ -88,28 +81,24 @@ AINFO<<"(DMCZP) EnteringMethod: Gps6e::seconds";
 
 double Gps6e::compass_direction(const std::uint8_t *bytes,
                                 int32_t length) const {
-AINFO<<"(DMCZP) EnteringMethod: Gps6e::compass_direction";
   Byte frame(bytes + 6);
   int32_t x = frame.get_byte(0, 4);
   return x * 45.000000;
 }
 
 double Gps6e::pdop(const std::uint8_t *bytes, int32_t length) const {
-AINFO<<"(DMCZP) EnteringMethod: Gps6e::pdop";
   Byte frame(bytes + 7);
   int32_t x = frame.get_byte(0, 5);
   return x * 0.200000;
 }
 
 bool Gps6e::is_gps_fault(const std::uint8_t *bytes, int32_t length) const {
-AINFO<<"(DMCZP) EnteringMethod: Gps6e::is_gps_fault";
   Byte frame(bytes + 7);
   return frame.is_bit_1(5);
 }
 
 bool Gps6e::is_inferred_position(const std::uint8_t *bytes,
                                  int32_t length) const {
-AINFO<<"(DMCZP) EnteringMethod: Gps6e::is_inferred_position";
   Byte frame(bytes + 7);
   return frame.is_bit_1(6);
 }

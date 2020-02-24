@@ -26,7 +26,6 @@ namespace lib {
 using std::string;
 
 void Timer::Start() {
-AINFO<<"(DMCZP) EnteringMethod: Timer::Start";
   struct timeval tv;
   gettimeofday(&tv, nullptr);
 
@@ -34,7 +33,6 @@ AINFO<<"(DMCZP) EnteringMethod: Timer::Start";
 }
 
 uint64_t Timer::End(const string &msg) {
-AINFO<<"(DMCZP) EnteringMethod: Timer::End";
   struct timeval tv;
   gettimeofday(&tv, nullptr);
   end_time_ = tv.tv_sec * 1000 + tv.tv_usec / 1000;

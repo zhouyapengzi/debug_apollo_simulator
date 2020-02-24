@@ -26,7 +26,6 @@ namespace apollo {
 namespace planning {
 
 TEST(AutotuningMLPNetModeltest, test_case_one) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   AutotuningMLPModel model;
   prediction::NetParameter net_parameter;
   EXPECT_TRUE(model.LoadModel(net_parameter));

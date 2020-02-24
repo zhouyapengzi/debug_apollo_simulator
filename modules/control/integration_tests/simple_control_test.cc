@@ -36,7 +36,6 @@ class SimpleControlTest : public ControlTestBase {
 };
 
 TEST_F(SimpleControlTest, simple_test) {
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   FLAGS_enable_csv_debug = true;
   FLAGS_test_localization_file = "1_localization.pb.txt";
   FLAGS_test_pad_file = "1_pad.pb.txt";
@@ -47,7 +46,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST_F";
 }
 
 TEST_F(SimpleControlTest, state_exact_match) {
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   FLAGS_test_localization_file = "1_localization.pb.txt";
   FLAGS_test_pad_file = "1_pad.pb.txt";
   FLAGS_test_planning_file = "1_planning.pb.txt";
@@ -57,7 +55,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST_F";
 }
 
 TEST_F(SimpleControlTest, pad_reset) {
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   FLAGS_test_localization_file = "1_localization.pb.txt";
   FLAGS_test_pad_file = "2_pad.pb.txt";
   FLAGS_test_planning_file = "1_planning.pb.txt";
@@ -67,7 +64,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST_F";
 }
 
 TEST_F(SimpleControlTest, monitor_fatal) {
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   FLAGS_test_localization_file = "1_localization.pb.txt";
   FLAGS_test_pad_file = "1_pad.pb.txt";
   FLAGS_test_planning_file = "1_planning.pb.txt";

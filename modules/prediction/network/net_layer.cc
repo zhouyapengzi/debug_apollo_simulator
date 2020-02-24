@@ -30,7 +30,6 @@ namespace prediction {
 namespace network {
 
 bool Layer::Load(const LayerParameter& layer_pb) {
-AINFO<<"(DMCZP) EnteringMethod: Layer::Load";
   if (!layer_pb.has_name()) {
     ADEBUG << "Set name at default";
     name_ = "layer";
@@ -47,7 +46,6 @@ AINFO<<"(DMCZP) EnteringMethod: Layer::Load";
 }
 
 bool Dense::Load(const LayerParameter& layer_pb) {
-AINFO<<"(DMCZP) EnteringMethod: Dense::Load";
   if (!Layer::Load(layer_pb)) {
     AERROR << "Fail to Load LayerParameter!";
     return false;
@@ -57,7 +55,6 @@ AINFO<<"(DMCZP) EnteringMethod: Dense::Load";
 }
 
 bool Dense::Load(const DenseParameter& dense_pb) {
-AINFO<<"(DMCZP) EnteringMethod: Dense::Load";
   if (!dense_pb.has_weights() || !LoadTensor(dense_pb.weights(), &weights_)) {
     AERROR << "Fail to Load weights!";
     return false;
@@ -84,7 +81,6 @@ AINFO<<"(DMCZP) EnteringMethod: Dense::Load";
 
 void Dense::Run(const std::vector<Eigen::MatrixXf>& inputs,
                 Eigen::MatrixXf* output) {
-AINFO<<"(DMCZP) EnteringMethod: Dense::Run";
   CHECK_EQ(inputs.size(), 1);
   Eigen::MatrixXf prod = static_cast<Eigen::MatrixXf>(inputs[0] * weights_);
   if (use_bias_) {
@@ -96,7 +92,6 @@ AINFO<<"(DMCZP) EnteringMethod: Dense::Run";
 }
 
 bool Conv1d::Load(const LayerParameter& layer_pb) {
-AINFO<<"(DMCZP) EnteringMethod: Conv1d::Load";
   if (!Layer::Load(layer_pb)) {
     AERROR << "Fail to Load LayerParameter!";
     return false;
@@ -106,9 +101,7 @@ AINFO<<"(DMCZP) EnteringMethod: Conv1d::Load";
 }
 
 bool Conv1d::Load(const Conv1dParameter& conv1d_pb) {
-AINFO<<"(DMCZP) EnteringMethod: Conv1d::Load";
   if (!conv1d_pb.has_kernel() || !LoadTensor(conv1d_pb.kernel(), &kernel_)) {
-AINFO<<"(DMCZP) EnteringMethod: Input::Run";
     AERROR << "Fail to Load kernel!";
     return false;
   }
@@ -135,7 +128,6 @@ AINFO<<"(DMCZP) EnteringMethod: Input::Run";
 
 void Conv1d::Run(const std::vector<Eigen::MatrixXf>& inputs,
                  Eigen::MatrixXf* output) {
-AINFO<<"(DMCZP) EnteringMethod: Conv1d::Run";
   CHECK_EQ(inputs.size(), 1);
   CHECK_GT(kernel_.size(), 0);
   CHECK_EQ(kernel_[0].rows(), inputs[0].rows());
@@ -160,7 +152,6 @@ AINFO<<"(DMCZP) EnteringMethod: Conv1d::Run";
 }
 
 bool MaxPool1d::Load(const LayerParameter& layer_pb) {
-AINFO<<"(DMCZP) EnteringMethod: MaxPool1d::Load";
   if (!Layer::Load(layer_pb)) {
     AERROR << "Fail to Load LayerParameter!";
     return false;
@@ -171,7 +162,6 @@ AINFO<<"(DMCZP) EnteringMethod: MaxPool1d::Load";
 }
 
 bool MaxPool1d::Load(const MaxPool1dParameter& maxpool1d_pb) {
-AINFO<<"(DMCZP) EnteringMethod: MaxPool1d::Load";
   CHECK(maxpool1d_pb.has_kernel_size());
   CHECK_GT(maxpool1d_pb.has_kernel_size(), 0);
   kernel_size_ = maxpool1d_pb.kernel_size();
@@ -186,10 +176,8 @@ AINFO<<"(DMCZP) EnteringMethod: MaxPool1d::Load";
 
 void MaxPool1d::Run(const std::vector<Eigen::MatrixXf>& inputs,
                     Eigen::MatrixXf* output) {
-AINFO<<"(DMCZP) EnteringMethod: MaxPool1d::Run";
   CHECK_EQ(inputs.size(), 1);
   int output_num_col =
-AINFO<<"(DMCZP) EnteringMethod: AvgPool1d::Run";
       static_cast<int>((inputs[0].cols() - kernel_size_) / stride_) + 1;
   int output_num_row = static_cast<int>(inputs[0].rows());
   output->resize(output_num_row, output_num_col);
@@ -208,7 +196,6 @@ AINFO<<"(DMCZP) EnteringMethod: AvgPool1d::Run";
 }
 
 bool AvgPool1d::Load(const LayerParameter& layer_pb) {
-AINFO<<"(DMCZP) EnteringMethod: AvgPool1d::Load";
   if (!Layer::Load(layer_pb)) {
     AERROR << "Fail to Load LayerParameter!";
     return false;
@@ -219,7 +206,6 @@ AINFO<<"(DMCZP) EnteringMethod: AvgPool1d::Load";
 }
 
 bool AvgPool1d::Load(const AvgPool1dParameter& avgpool1d_pb) {
-AINFO<<"(DMCZP) EnteringMethod: AvgPool1d::Load";
   CHECK(avgpool1d_pb.has_kernel_size());
   CHECK_GT(avgpool1d_pb.has_kernel_size(), 0);
   kernel_size_ = avgpool1d_pb.kernel_size();
@@ -254,7 +240,6 @@ void AvgPool1d::Run(const std::vector<Eigen::MatrixXf>& inputs,
 }
 
 bool Activation::Load(const LayerParameter& layer_pb) {
-AINFO<<"(DMCZP) EnteringMethod: Activation::Load";
   if (!Layer::Load(layer_pb)) {
     AERROR << "Fail to Load the layer parameters!";
     return false;
@@ -269,7 +254,6 @@ AINFO<<"(DMCZP) EnteringMethod: Activation::Load";
 }
 
 bool Activation::Load(const ActivationParameter& activation_pb) {
-AINFO<<"(DMCZP) EnteringMethod: Activation::Load";
   if (!activation_pb.has_activation()) {
     kactivation_ = serialize_to_function("linear");
   } else {
@@ -280,13 +264,11 @@ AINFO<<"(DMCZP) EnteringMethod: Activation::Load";
 
 void Activation::Run(const std::vector<Eigen::MatrixXf>& inputs,
                      Eigen::MatrixXf* output) {
-AINFO<<"(DMCZP) EnteringMethod: Activation::Run";
   CHECK_EQ(inputs.size(), 1);
   *output = inputs[0].unaryExpr(kactivation_);
 }
 
 bool BatchNormalization::Load(const LayerParameter& layer_pb) {
-AINFO<<"(DMCZP) EnteringMethod: BatchNormalization::Load";
   if (!Layer::Load(layer_pb)) {
     AERROR << "Fail to Load the layer parameters!";
     return false;
@@ -323,7 +305,6 @@ AINFO<<"(DMCZP) EnteringMethod: BatchNormalization::Load";
 
 void BatchNormalization::Run(const std::vector<Eigen::MatrixXf>& inputs,
                              Eigen::MatrixXf* output) {
-AINFO<<"(DMCZP) EnteringMethod: BatchNormalization::Run";
   CHECK_EQ(inputs.size(), 1);
   Eigen::MatrixXf temp = (inputs[0].rowwise() - mu_.transpose());
   Eigen::MatrixXf norm =
@@ -338,7 +319,6 @@ AINFO<<"(DMCZP) EnteringMethod: BatchNormalization::Run";
 }
 
 bool LSTM::Load(const LayerParameter& layer_pb) {
-AINFO<<"(DMCZP) EnteringMethod: LSTM::Load";
   if (!Layer::Load(layer_pb)) {
     AERROR << "Fail to Load the layer parameters!";
     return false;
@@ -449,7 +429,6 @@ AINFO<<"(DMCZP) EnteringMethod: LSTM::Load";
 
 void LSTM::Step(const Eigen::MatrixXf& input, Eigen::MatrixXf* output,
                 Eigen::MatrixXf* ht_1, Eigen::MatrixXf* ct_1) {
-AINFO<<"(DMCZP) EnteringMethod: LSTM::Step";
   Eigen::MatrixXf x_i = input * wi_ + bi_.transpose();
   Eigen::MatrixXf x_f = input * wf_ + bf_.transpose();
   Eigen::MatrixXf x_c = input * wc_ + bc_.transpose();
@@ -470,7 +449,6 @@ AINFO<<"(DMCZP) EnteringMethod: LSTM::Step";
 
 void LSTM::Run(const std::vector<Eigen::MatrixXf>& inputs,
                Eigen::MatrixXf* output) {
-AINFO<<"(DMCZP) EnteringMethod: LSTM::Run";
   CHECK_EQ(inputs.size(), 1);
   Eigen::MatrixXf sequences(inputs[0].rows(), units_);
   Eigen::MatrixXf temp;
@@ -486,7 +464,6 @@ AINFO<<"(DMCZP) EnteringMethod: LSTM::Run";
 }
 
 void LSTM::ResetState() {
-AINFO<<"(DMCZP) EnteringMethod: LSTM::ResetState";
   ht_1_.resize(1, units_);
   ct_1_.resize(1, units_);
   ht_1_.fill(0.0);
@@ -494,14 +471,12 @@ AINFO<<"(DMCZP) EnteringMethod: LSTM::ResetState";
 }
 
 void LSTM::State(std::vector<Eigen::MatrixXf>* states) const {
-AINFO<<"(DMCZP) EnteringMethod: LSTM::State";
   states->resize(2);
   states->at(0) = ht_1_;
   states->at(1) = ct_1_;
 }
 
 void LSTM::SetState(const std::vector<Eigen::MatrixXf>& states) {
-AINFO<<"(DMCZP) EnteringMethod: LSTM::SetState";
   CHECK_EQ(states.size(), 2);
   CHECK_EQ(states[0].rows(), 1);
   CHECK_EQ(states[1].rows(), 1);
@@ -512,7 +487,6 @@ AINFO<<"(DMCZP) EnteringMethod: LSTM::SetState";
 }
 
 bool Flatten::Load(const LayerParameter& layer_pb) {
-AINFO<<"(DMCZP) EnteringMethod: Flatten::Load";
   if (!Layer::Load(layer_pb)) {
     AERROR << "Fail to Load the layer parameters!";
     return false;
@@ -522,7 +496,6 @@ AINFO<<"(DMCZP) EnteringMethod: Flatten::Load";
 
 void Flatten::Run(const std::vector<Eigen::MatrixXf>& inputs,
                   Eigen::MatrixXf* output) {
-AINFO<<"(DMCZP) EnteringMethod: Flatten::Run";
   CHECK_EQ(inputs.size(), 1);
   Eigen::Matrix<float, Eigen::Dynamic, Eigen::Dynamic, Eigen::RowMajor> inp(
       inputs[0]);
@@ -531,7 +504,6 @@ AINFO<<"(DMCZP) EnteringMethod: Flatten::Run";
 }
 
 bool Input::Load(const LayerParameter& layer_pb) {
-AINFO<<"(DMCZP) EnteringMethod: Input::Load";
   if (!Layer::Load(layer_pb)) {
     AERROR << "Fail to Load the layer parameters!";
     return false;
@@ -569,7 +541,6 @@ void Input::Run(const std::vector<Eigen::MatrixXf>& inputs,
 }
 
 bool Concatenate::Load(const LayerParameter& layer_pb) {
-AINFO<<"(DMCZP) EnteringMethod: Concatenate::Load";
   if (!Layer::Load(layer_pb)) {
     AERROR << "Fail to Load the layer parameters!";
     return false;
@@ -585,7 +556,6 @@ AINFO<<"(DMCZP) EnteringMethod: Concatenate::Load";
 
 void Concatenate::Run(const std::vector<Eigen::MatrixXf>& inputs,
                       Eigen::MatrixXf* output) {
-AINFO<<"(DMCZP) EnteringMethod: Concatenate::Run";
   CHECK_EQ(inputs.size(), 2);
   CHECK_EQ(inputs[0].rows(), inputs[1].rows());
   output->resize(inputs[0].rows(), inputs[0].cols() + inputs[1].cols());

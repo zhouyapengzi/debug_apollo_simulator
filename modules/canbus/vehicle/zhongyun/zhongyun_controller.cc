@@ -43,7 +43,6 @@ ErrorCode ZhongyunController::Init(
     const VehicleParameter& params,
     CanSender<::apollo::canbus::ChassisDetail>* const can_sender,
     MessageManager<::apollo::canbus::ChassisDetail>* const message_manager) {
-AINFO<<"(DMCZP) EnteringMethod: ZhongyunController::Init";
   if (is_initialized_) {
     AINFO << "ZhongyunController has already been initialized.";
     return ErrorCode::CANBUS_ERROR;
@@ -119,7 +118,6 @@ AINFO<<"(DMCZP) EnteringMethod: ZhongyunController::Init";
 ZhongyunController::~ZhongyunController() {}
 
 bool ZhongyunController::Start() {
-AINFO<<"(DMCZP) EnteringMethod: ZhongyunController::Start";
   if (!is_initialized_) {
     AERROR << "ZhongyunController has NOT been initialized.";
     return false;
@@ -131,7 +129,6 @@ AINFO<<"(DMCZP) EnteringMethod: ZhongyunController::Start";
 }
 
 void ZhongyunController::Stop() {
-AINFO<<"(DMCZP) EnteringMethod: ZhongyunController::Stop";
   if (!is_initialized_) {
     AERROR << "ZhongyunController stops or starts improperly!";
     return;
@@ -145,7 +142,6 @@ AINFO<<"(DMCZP) EnteringMethod: ZhongyunController::Stop";
 }
 
 Chassis ZhongyunController::chassis() {
-AINFO<<"(DMCZP) EnteringMethod: ZhongyunController::chassis";
   chassis_.Clear();
 
   ChassisDetail chassis_detail;
@@ -262,13 +258,11 @@ AINFO<<"(DMCZP) EnteringMethod: ZhongyunController::chassis";
 }
 
 void ZhongyunController::Emergency() {
-AINFO<<"(DMCZP) EnteringMethod: ZhongyunController::Emergency";
   set_driving_mode(Chassis::EMERGENCY_MODE);
   ResetProtocol();
 }
 
 ErrorCode ZhongyunController::EnableAutoMode() {
-AINFO<<"(DMCZP) EnteringMethod: ZhongyunController::EnableAutoMode";
   if (driving_mode() == Chassis::COMPLETE_AUTO_DRIVE) {
     AINFO << "Already in COMPLETE_AUTO_DRIVE mode.";
     return ErrorCode::OK;
@@ -299,7 +293,6 @@ AINFO<<"(DMCZP) EnteringMethod: ZhongyunController::EnableAutoMode";
 }
 
 ErrorCode ZhongyunController::DisableAutoMode() {
-AINFO<<"(DMCZP) EnteringMethod: ZhongyunController::DisableAutoMode";
   ResetProtocol();
   can_sender_->Update();
   set_driving_mode(Chassis::COMPLETE_MANUAL);
@@ -309,7 +302,6 @@ AINFO<<"(DMCZP) EnteringMethod: ZhongyunController::DisableAutoMode";
 }
 
 ErrorCode ZhongyunController::EnableSteeringOnlyMode() {
-AINFO<<"(DMCZP) EnteringMethod: ZhongyunController::EnableSteeringOnlyMode";
   if (driving_mode() == Chassis::COMPLETE_AUTO_DRIVE ||
       driving_mode() == Chassis::AUTO_STEER_ONLY) {
     set_driving_mode(Chassis::AUTO_STEER_ONLY);
@@ -342,7 +334,6 @@ AINFO<<"(DMCZP) EnteringMethod: ZhongyunController::EnableSteeringOnlyMode";
 }
 
 ErrorCode ZhongyunController::EnableSpeedOnlyMode() {
-AINFO<<"(DMCZP) EnteringMethod: ZhongyunController::EnableSpeedOnlyMode";
   if (driving_mode() == Chassis::COMPLETE_AUTO_DRIVE ||
       driving_mode() == Chassis::AUTO_SPEED_ONLY) {
     set_driving_mode(Chassis::AUTO_SPEED_ONLY);
@@ -374,7 +365,6 @@ AINFO<<"(DMCZP) EnteringMethod: ZhongyunController::EnableSpeedOnlyMode";
 
 // NEUTRAL, REVERSE, DRIVE, PARK
 void ZhongyunController::Gear(Chassis::GearPosition gear_position) {
-AINFO<<"(DMCZP) EnteringMethod: ZhongyunController::Gear";
   if (driving_mode() != Chassis::COMPLETE_AUTO_DRIVE &&
       driving_mode() != Chassis::AUTO_SPEED_ONLY) {
     AINFO << "This drive mode no need to set gear.";
@@ -420,7 +410,6 @@ AINFO<<"(DMCZP) EnteringMethod: ZhongyunController::Gear";
 // brake with brake pedal
 // pedal:0.00~99.99, unit:percentage
 void ZhongyunController::Brake(double pedal) {
-AINFO<<"(DMCZP) EnteringMethod: ZhongyunController::Brake";
   if (driving_mode() != Chassis::COMPLETE_AUTO_DRIVE &&
       driving_mode() != Chassis::AUTO_SPEED_ONLY) {
     AINFO << "The current drive mode does not need to set brake pedal.";
@@ -432,7 +421,6 @@ AINFO<<"(DMCZP) EnteringMethod: ZhongyunController::Brake";
 // drive with throttle pedal
 // pedal:0.00~99.99 unit:percentage
 void ZhongyunController::Throttle(double pedal) {
-AINFO<<"(DMCZP) EnteringMethod: ZhongyunController::Throttle";
   if (driving_mode() != Chassis::COMPLETE_AUTO_DRIVE &&
       driving_mode() != Chassis::AUTO_SPEED_ONLY) {
     AINFO << "The current drive mode does not need to set throttle pedal.";
@@ -445,7 +433,6 @@ AINFO<<"(DMCZP) EnteringMethod: ZhongyunController::Throttle";
 // drive with acceleration/deceleration
 // acc:-7.0 ~ 5.0, unit:m/s^2
 void ZhongyunController::Acceleration(double acc) {
-AINFO<<"(DMCZP) EnteringMethod: ZhongyunController::Acceleration";
   if (driving_mode() != Chassis::COMPLETE_AUTO_DRIVE &&
       driving_mode() != Chassis::AUTO_SPEED_ONLY) {
     AINFO << "The current drive mode does not need to set acceleration.";
@@ -459,7 +446,6 @@ AINFO<<"(DMCZP) EnteringMethod: ZhongyunController::Acceleration";
 // steering with old angle speed
 // angle:-99.99~0.00~99.99, unit:, left:-, right:+
 void ZhongyunController::Steer(double angle) {
-AINFO<<"(DMCZP) EnteringMethod: ZhongyunController::Steer";
   if (driving_mode() != Chassis::COMPLETE_AUTO_DRIVE &&
       driving_mode() != Chassis::AUTO_STEER_ONLY) {
     AINFO << "The current driving mode does not need to set steer.";
@@ -474,7 +460,6 @@ AINFO<<"(DMCZP) EnteringMethod: ZhongyunController::Steer";
 // zhongyun has no angle_speed
 // angle:-30~30, unit:deg, left:+, right:-
 void ZhongyunController::Steer(double angle, double angle_spd) {
-AINFO<<"(DMCZP) EnteringMethod: ZhongyunController::Steer";
   if (driving_mode() != Chassis::COMPLETE_AUTO_DRIVE &&
       driving_mode() != Chassis::AUTO_STEER_ONLY) {
     AINFO << "The current driving mode does not need to set steer.";
@@ -486,7 +471,6 @@ AINFO<<"(DMCZP) EnteringMethod: ZhongyunController::Steer";
 }
 
 void ZhongyunController::SetEpbBreak(const ControlCommand& command) {
-AINFO<<"(DMCZP) EnteringMethod: ZhongyunController::SetEpbBreak";
   if (command.parking_brake()) {
     parking_control_a5_->set_parking_target(
         Parking_control_a5::PARKING_TARGET_PARKING_TRIGGER);
@@ -497,7 +481,6 @@ AINFO<<"(DMCZP) EnteringMethod: ZhongyunController::SetEpbBreak";
 }
 
 void ZhongyunController::SetBeam(const ControlCommand& command) {
-AINFO<<"(DMCZP) EnteringMethod: ZhongyunController::SetBeam";
   if (command.signal().high_beam()) {
     // None
   } else if (command.signal().low_beam()) {
@@ -508,7 +491,6 @@ AINFO<<"(DMCZP) EnteringMethod: ZhongyunController::SetBeam";
 }
 
 void ZhongyunController::SetHorn(const ControlCommand& command) {
-AINFO<<"(DMCZP) EnteringMethod: ZhongyunController::SetHorn";
   if (command.signal().horn()) {
     // None
   } else {
@@ -517,18 +499,15 @@ AINFO<<"(DMCZP) EnteringMethod: ZhongyunController::SetHorn";
 }
 
 void ZhongyunController::SetTurningSignal(const ControlCommand& command) {
-AINFO<<"(DMCZP) EnteringMethod: ZhongyunController::SetTurningSignal";
   // Set Turn Signal
   // None
 }
 
 void ZhongyunController::ResetProtocol() {
-AINFO<<"(DMCZP) EnteringMethod: ZhongyunController::ResetProtocol";
   message_manager_->ResetSendMessages();
 }
 
 bool ZhongyunController::CheckChassisError() {
-AINFO<<"(DMCZP) EnteringMethod: ZhongyunController::CheckChassisError";
   ChassisDetail chassis_detail;
   message_manager_->GetSensorData(&chassis_detail);
   if (!chassis_detail.has_zhongyun()) {
@@ -579,7 +558,6 @@ AINFO<<"(DMCZP) EnteringMethod: ZhongyunController::CheckChassisError";
 }
 
 void ZhongyunController::SecurityDogThreadFunc() {
-AINFO<<"(DMCZP) EnteringMethod: ZhongyunController::SecurityDogThreadFunc";
   int32_t vertical_ctrl_fail = 0;
   int32_t horizontal_ctrl_fail = 0;
 
@@ -649,7 +627,6 @@ AINFO<<"(DMCZP) EnteringMethod: ZhongyunController::SecurityDogThreadFunc";
 }
 
 bool ZhongyunController::CheckResponse(const int32_t flags, bool need_wait) {
-AINFO<<"(DMCZP) EnteringMethod: ZhongyunController::CheckResponse";
   // for Zhongyun, CheckResponse commonly takes 300ms. We leave a 100ms buffer
   // for it.
   int32_t retry_num = 20;
@@ -699,26 +676,22 @@ AINFO<<"(DMCZP) EnteringMethod: ZhongyunController::CheckResponse";
 }
 
 void ZhongyunController::set_chassis_error_mask(const int32_t mask) {
-AINFO<<"(DMCZP) EnteringMethod: ZhongyunController::set_chassis_error_mask";
   std::lock_guard<std::mutex> lock(chassis_mask_mutex_);
   chassis_error_mask_ = mask;
 }
 
 int32_t ZhongyunController::chassis_error_mask() {
-AINFO<<"(DMCZP) EnteringMethod: ZhongyunController::chassis_error_mask";
   std::lock_guard<std::mutex> lock(chassis_mask_mutex_);
   return chassis_error_mask_;
 }
 
 Chassis::ErrorCode ZhongyunController::chassis_error_code() {
-AINFO<<"(DMCZP) EnteringMethod: ZhongyunController::chassis_error_code";
   std::lock_guard<std::mutex> lock(chassis_error_code_mutex_);
   return chassis_error_code_;
 }
 
 void ZhongyunController::set_chassis_error_code(
     const Chassis::ErrorCode& error_code) {
-AINFO<<"(DMCZP) EnteringMethod: ZhongyunController::set_chassis_error_code";
   std::lock_guard<std::mutex> lock(chassis_error_code_mutex_);
   chassis_error_code_ = error_code;
 }

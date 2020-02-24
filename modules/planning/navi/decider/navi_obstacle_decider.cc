@@ -44,10 +44,8 @@ constexpr double kEpislon = 1e-6;
 }  // namespace
 
 NaviObstacleDecider::NaviObstacleDecider() : NaviTask("NaviObstacleDecider") {}
-AINFO<<"(DMCZP) EnteringMethod: NaviObstacleDecider::NaviObstacleDecider";
 
 bool NaviObstacleDecider::Init(const PlanningConfig& config) {
-AINFO<<"(DMCZP) EnteringMethod: NaviObstacleDecider::Init";
   PlannerNaviConfig planner_navi_conf =
       config.navigation_planning_config().planner_navi_config();
   config_ = planner_navi_conf.navi_obstacle_decider_config();
@@ -57,7 +55,6 @@ AINFO<<"(DMCZP) EnteringMethod: NaviObstacleDecider::Init";
 double NaviObstacleDecider::GetMinLaneWidth(
     const std::vector<common::PathPoint>& path_data_points,
     const ReferenceLine& reference_line) {
-AINFO<<"(DMCZP) EnteringMethod: NaviObstacleDecider::GetMinLaneWidth";
   double min_lane_width = std::numeric_limits<double>::max();
   double lane_left_width = 0.0;
   double lane_right_width = 0.0;
@@ -78,7 +75,6 @@ void NaviObstacleDecider::AddObstacleOffsetDirection(
     const common::PathPoint& projection_point,
     const std::vector<common::PathPoint>& path_data_points,
     const Obstacle* current_obstacle, const double proj_len, double* dist) {
-AINFO<<"(DMCZP) EnteringMethod: NaviObstacleDecider::AddObstacleOffsetDirection";
   Vec2d p1(0.0, 0.0);
   Vec2d p2(0.0, 0.0);
 
@@ -106,7 +102,6 @@ bool NaviObstacleDecider::IsNeedFilterObstacle(
     const std::vector<common::PathPoint>& path_data_points,
     const common::VehicleState& vehicle_state,
     PathPoint* projection_point_ptr) {
-AINFO<<"(DMCZP) EnteringMethod: NaviObstacleDecider::IsNeedFilterObstacle";
   bool is_filter = true;
   *projection_point_ptr = PathMatcher::MatchToPath(
       path_data_points, current_obstacle->Perception().position().x(),
@@ -147,7 +142,6 @@ void NaviObstacleDecider::ProcessObstacle(
     const std::vector<common::PathPoint>& path_data_points,
     const PathDecision& path_decision, const double min_lane_width,
     const common::VehicleState& vehicle_state) {
-AINFO<<"(DMCZP) EnteringMethod: NaviObstacleDecider::ProcessObstacle";
   auto func_distance = [](const PathPoint& point, const double x,
                           const double y) {
     double dx = point.x() - x;
@@ -189,7 +183,6 @@ AINFO<<"(DMCZP) EnteringMethod: NaviObstacleDecider::ProcessObstacle";
 double NaviObstacleDecider::GetObstacleActualOffsetDistance(
     std::map<double, double>::iterator iter, const double right_nudge_lane,
     const double left_nudge_lane, int* lane_obstacles_num) {
-AINFO<<"(DMCZP) EnteringMethod: NaviObstacleDecider::GetObstacleActualOffsetDistance";
   auto obs_width = iter->first;
   auto lat_dist = iter->second;
   ADEBUG << "get obstacle width : " << obs_width
@@ -234,7 +227,6 @@ AINFO<<"(DMCZP) EnteringMethod: NaviObstacleDecider::GetObstacleActualOffsetDist
 }
 
 void NaviObstacleDecider::RecordLastNudgeDistance(const double nudge_dist) {
-AINFO<<"(DMCZP) EnteringMethod: NaviObstacleDecider::RecordLastNudgeDistance";
   double tolerance = config_.nudge_allow_tolerance();
 
   if (std::fabs(nudge_dist) > tolerance) {
@@ -253,7 +245,6 @@ AINFO<<"(DMCZP) EnteringMethod: NaviObstacleDecider::RecordLastNudgeDistance";
 
 void NaviObstacleDecider::SmoothNudgeDistance(
     const common::VehicleState& vehicle_state, double* nudge_dist) {
-AINFO<<"(DMCZP) EnteringMethod: NaviObstacleDecider::SmoothNudgeDistance";
   CHECK_NOTNULL(nudge_dist);
   if (vehicle_state.linear_velocity() < config_.max_allow_nudge_speed()) {
     ++limit_speed_num_;
@@ -279,7 +270,6 @@ double NaviObstacleDecider::GetNudgeDistance(
     const ReferenceLine& reference_line, const PathDecision& path_decision,
     const std::vector<common::PathPoint>& path_data_points,
     const common::VehicleState& vehicle_state, int* lane_obstacles_num) {
-AINFO<<"(DMCZP) EnteringMethod: NaviObstacleDecider::GetNudgeDistance";
   CHECK_NOTNULL(lane_obstacles_num);
 
   // Calculating the left and right nudgeable distance on the lane
@@ -352,7 +342,6 @@ AINFO<<"(DMCZP) EnteringMethod: NaviObstacleDecider::GetNudgeDistance";
 
 void NaviObstacleDecider::KeepNudgePosition(const double nudge_dist,
                                             int* lane_obstacles_num) {
-AINFO<<"(DMCZP) EnteringMethod: NaviObstacleDecider::KeepNudgePosition";
   if (std::fabs(nudge_dist) > config_.nudge_allow_tolerance() &&
       std::fabs(last_nudge_dist_) < config_.nudge_allow_tolerance() &&
       !keep_nudge_flag_) {
@@ -374,7 +363,6 @@ AINFO<<"(DMCZP) EnteringMethod: NaviObstacleDecider::KeepNudgePosition";
 void NaviObstacleDecider::GetUnsafeObstaclesInfo(
     const std::vector<common::PathPoint>& path_data_points,
     const std::vector<const Obstacle*>& obstacles) {
-AINFO<<"(DMCZP) EnteringMethod: NaviObstacleDecider::GetUnsafeObstaclesInfo";
   // Find start point of the reference line.
   double reference_line_y = path_data_points[0].y();
 

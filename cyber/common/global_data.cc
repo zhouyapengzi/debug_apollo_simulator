@@ -40,7 +40,6 @@ AtomicHashMap<uint64_t, std::string, 256> GlobalData::task_id_map_;
 namespace {
 const char* empty_str_ = "";
 char* program_path() {
-AINFO<<"(DMCZP) EnteringMethod: program_path";
   char* path = reinterpret_cast<char*>(malloc(PATH_MAX));
   if (path != nullptr) {
     auto len = readlink("/proc/self/exe", path, PATH_MAX);
@@ -55,7 +54,6 @@ AINFO<<"(DMCZP) EnteringMethod: program_path";
 }  // namespace
 
 GlobalData::GlobalData() {
-AINFO<<"(DMCZP) EnteringMethod: GlobalData::GlobalData";
   InitHostInfo();
   CHECK(InitConfig());
   process_id_ = getpid();
@@ -81,39 +79,28 @@ AINFO<<"(DMCZP) EnteringMethod: GlobalData::GlobalData";
 GlobalData::~GlobalData() {}
 
 int GlobalData::ProcessId() const { return process_id_; }
-AINFO<<"(DMCZP) EnteringMethod: GlobalData::ProcessId";
 
 void GlobalData::SetProcessGroup(const std::string& process_group) {
-AINFO<<"(DMCZP) EnteringMethod: GlobalData::SetProcessGroup";
   process_group_ = process_group;
 }
 const std::string& GlobalData::ProcessGroup() const { return process_group_; }
-AINFO<<"(DMCZP) EnteringMethod: GlobalData::ProcessGroup";
 
 void GlobalData::SetSchedName(const std::string& sched_name) {
-AINFO<<"(DMCZP) EnteringMethod: GlobalData::SetSchedName";
   sched_name_ = sched_name;
 }
 const std::string& GlobalData::SchedName() const { return sched_name_; }
-AINFO<<"(DMCZP) EnteringMethod: GlobalData::SchedName";
 
 const std::string& GlobalData::HostIp() const { return host_ip_; }
-AINFO<<"(DMCZP) EnteringMethod: GlobalData::HostIp";
 
 const std::string& GlobalData::HostName() const { return host_name_; }
-AINFO<<"(DMCZP) EnteringMethod: GlobalData::HostName";
 
 void GlobalData::EnableSimulationMode() { is_reality_mode_ = false; }
-AINFO<<"(DMCZP) EnteringMethod: GlobalData::EnableSimulationMode";
 
 void GlobalData::DisableSimulationMode() { is_reality_mode_ = true; }
-AINFO<<"(DMCZP) EnteringMethod: GlobalData::DisableSimulationMode";
 
 bool GlobalData::IsRealityMode() const { return is_reality_mode_; }
-AINFO<<"(DMCZP) EnteringMethod: GlobalData::IsRealityMode";
 
 void GlobalData::InitHostInfo() {
-AINFO<<"(DMCZP) EnteringMethod: GlobalData::InitHostInfo";
   char host_name[1024];
   gethostname(host_name, sizeof(host_name));
   host_name_ = host_name;
@@ -164,7 +151,6 @@ AINFO<<"(DMCZP) EnteringMethod: GlobalData::InitHostInfo";
 }
 
 bool GlobalData::InitConfig() {
-AINFO<<"(DMCZP) EnteringMethod: GlobalData::InitConfig";
   auto config_path = GetAbsolutePath(WorkRoot(), "conf/cyber.pb.conf");
   if (!GetProtoFromFile(config_path, &config_)) {
     AERROR << "read cyber default conf failed!";
@@ -175,10 +161,8 @@ AINFO<<"(DMCZP) EnteringMethod: GlobalData::InitConfig";
 }
 
 const CyberConfig& GlobalData::Config() const { return config_; }
-AINFO<<"(DMCZP) EnteringMethod: GlobalData::Config";
 
 uint64_t GlobalData::RegisterNode(const std::string& node_name) {
-AINFO<<"(DMCZP) EnteringMethod: GlobalData::RegisterNode";
   auto id = Hash(node_name);
   while (node_id_map_.Has(id)) {
     std::string* name = nullptr;
@@ -194,7 +178,6 @@ AINFO<<"(DMCZP) EnteringMethod: GlobalData::RegisterNode";
 }
 
 std::string GlobalData::GetNodeById(uint64_t id) {
-AINFO<<"(DMCZP) EnteringMethod: GlobalData::GetNodeById";
   std::string* node_name = nullptr;
   if (node_id_map_.Get(id, &node_name)) {
     return *node_name;
@@ -203,7 +186,6 @@ AINFO<<"(DMCZP) EnteringMethod: GlobalData::GetNodeById";
 }
 
 uint64_t GlobalData::RegisterChannel(const std::string& channel) {
-AINFO<<"(DMCZP) EnteringMethod: GlobalData::RegisterChannel";
   auto id = Hash(channel);
   while (channel_id_map_.Has(id)) {
     std::string* name = nullptr;
@@ -219,7 +201,6 @@ AINFO<<"(DMCZP) EnteringMethod: GlobalData::RegisterChannel";
 }
 
 std::string GlobalData::GetChannelById(uint64_t id) {
-AINFO<<"(DMCZP) EnteringMethod: GlobalData::GetChannelById";
   std::string* channel = nullptr;
   if (channel_id_map_.Get(id, &channel)) {
     return *channel;
@@ -228,7 +209,6 @@ AINFO<<"(DMCZP) EnteringMethod: GlobalData::GetChannelById";
 }
 
 uint64_t GlobalData::RegisterService(const std::string& service) {
-AINFO<<"(DMCZP) EnteringMethod: GlobalData::RegisterService";
   auto id = Hash(service);
   while (service_id_map_.Has(id)) {
     std::string* name = nullptr;
@@ -244,7 +224,6 @@ AINFO<<"(DMCZP) EnteringMethod: GlobalData::RegisterService";
 }
 
 std::string GlobalData::GetServiceById(uint64_t id) {
-AINFO<<"(DMCZP) EnteringMethod: GlobalData::GetServiceById";
   std::string* service = nullptr;
   if (service_id_map_.Get(id, &service)) {
     return *service;
@@ -253,7 +232,6 @@ AINFO<<"(DMCZP) EnteringMethod: GlobalData::GetServiceById";
 }
 
 uint64_t GlobalData::RegisterTaskName(const std::string& task_name) {
-AINFO<<"(DMCZP) EnteringMethod: GlobalData::RegisterTaskName";
   auto id = Hash(task_name);
   while (task_id_map_.Has(id)) {
     std::string* name = nullptr;
@@ -269,7 +247,6 @@ AINFO<<"(DMCZP) EnteringMethod: GlobalData::RegisterTaskName";
 }
 
 std::string GlobalData::GetTaskNameById(uint64_t id) {
-AINFO<<"(DMCZP) EnteringMethod: GlobalData::GetTaskNameById";
   std::string* task_name = nullptr;
   if (task_id_map_.Get(id, &task_name)) {
     return *task_name;

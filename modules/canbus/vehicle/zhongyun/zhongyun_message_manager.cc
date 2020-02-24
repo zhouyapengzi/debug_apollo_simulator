@@ -31,7 +31,6 @@ namespace canbus {
 namespace zhongyun {
 
 ZhongyunMessageManager::ZhongyunMessageManager() {
-AINFO<<"(DMCZP) EnteringMethod: ZhongyunMessageManager::ZhongyunMessageManager";
   // Control Messages
   AddSendProtocolData<Brakecontrola4, true>();
   AddSendProtocolData<Gearcontrola1, true>();

@@ -27,7 +27,6 @@ class Vinresp2392Test : public ::testing::Test {
 };
 
 TEST_F(Vinresp2392Test, reset) {
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   Vinresp2392 vin2;
   int32_t length = 8;
   ChassisDetail chassis_detail;

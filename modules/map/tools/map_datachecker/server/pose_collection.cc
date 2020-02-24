@@ -19,18 +19,15 @@ namespace apollo {
 namespace hdmap {
 
 PoseCollection::PoseCollection(std::shared_ptr<JSonConf> sp_conf) {
-AINFO<<"(DMCZP) EnteringMethod: PoseCollection::PoseCollection";
   sp_conf_ = sp_conf;
   Reset();
 }
 
 void PoseCollection::Reset() {
-AINFO<<"(DMCZP) EnteringMethod: PoseCollection::Reset";
   sp_poses_ = std::make_shared<std::vector<FramePose>>();
 }
 
 void PoseCollection::Collect(const FramePose& pose) {
-AINFO<<"(DMCZP) EnteringMethod: PoseCollection::Collect";
   if (sp_poses_ == nullptr) {
     sp_poses_ = std::make_shared<std::vector<FramePose>>();
   }

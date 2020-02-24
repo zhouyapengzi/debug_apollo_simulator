@@ -29,7 +29,6 @@ using PointFCloud = apollo::perception::base::AttributePointCloud<PointF>;
 using PointFCloudPtr = std::shared_ptr<PointFCloud>;
 
 TEST(ConvexHull2DTest, convex_hull_2d) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   ConvexHull2D<PointFCloud, PointFCloud> convex_hull_2d;
   PointFCloud pointcloud_in, pointcloud_out;
   bool flag = true;
@@ -95,7 +94,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST";
 }
 
 TEST(ConvexHull2DTest1, convex_hull_2d1) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   ConvexHull2D<PointFCloud, PointFCloud> convex_hull_2d;
   PointFCloudPtr pointcloud_in_ptr =
       PointFCloudPtr(new PointFCloud(128, 128, PointF()));

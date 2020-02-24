@@ -29,7 +29,6 @@ namespace cyber {
 namespace transport {
 
 TEST(IdentityTest, identity_test) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   Identity id1;
   Identity id2;
   Identity id3;
@@ -50,7 +49,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST";
 }
 
 TEST(EndpointTest, endpoint_test) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   // empty attr
   RoleAttributes attr;
   Endpoint endpoint1(attr);

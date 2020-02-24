@@ -22,7 +22,6 @@ namespace util {
 
 StringTokenizer::StringTokenizer(const std::string &s,
                                  const std::string &delims) {
-AINFO<<"(DMCZP) EnteringMethod: StringTokenizer::StringTokenizer";
   s_ = s;
   delims_ = delims;
 
@@ -45,7 +44,6 @@ std::vector<std::string> StringTokenizer::Split(const std::string &str,
 }
 
 std::string StringTokenizer::Next() {
-AINFO<<"(DMCZP) EnteringMethod: StringTokenizer::Next";
   if (std::string::npos != index_ || std::string::npos != last_index_) {
     auto token = s_.substr(last_index_, index_ - last_index_);
     last_index_ = s_.find_first_not_of(delims_, index_);

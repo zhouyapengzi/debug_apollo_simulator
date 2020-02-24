@@ -27,12 +27,10 @@ namespace apollo {
 namespace data {
 
 SmallTopicsTrigger::SmallTopicsTrigger() {
-AINFO<<"(DMCZP) EnteringMethod: SmallTopicsTrigger::SmallTopicsTrigger";
   trigger_name_ = "SmallTopicsTrigger";
 }
 
 bool SmallTopicsTrigger::ShouldRestore(const RecordMessage& msg) const {
-AINFO<<"(DMCZP) EnteringMethod: SmallTopicsTrigger::ShouldRestore";
   const std::set<std::string>& small_channels =
       ChannelPool::Instance()->GetSmallChannels();
   return trigger_obj_->enabled() &&

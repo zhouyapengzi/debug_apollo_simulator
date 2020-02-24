@@ -28,11 +28,9 @@ namespace planning {
 using apollo::common::Status;
 
 PathOptimizer::PathOptimizer(const TaskConfig& config) : Task(config) {}
-AINFO<<"(DMCZP) EnteringMethod: PathOptimizer::PathOptimizer";
 
 Status PathOptimizer::Execute(Frame* frame,
                               ReferenceLineInfo* const reference_line_info) {
-AINFO<<"(DMCZP) EnteringMethod: PathOptimizer::Execute";
   Task::Execute(frame, reference_line_info);
   auto ret = Process(
       reference_line_info->speed_data(), reference_line_info->reference_line(),
@@ -47,7 +45,6 @@ AINFO<<"(DMCZP) EnteringMethod: PathOptimizer::Execute";
 }
 
 void PathOptimizer::RecordDebugInfo(const PathData& path_data) {
-AINFO<<"(DMCZP) EnteringMethod: PathOptimizer::RecordDebugInfo";
   const auto& path_points = path_data.discretized_path();
   auto* ptr_optimized_path = reference_line_info_->mutable_debug()
                                  ->mutable_planning_data()

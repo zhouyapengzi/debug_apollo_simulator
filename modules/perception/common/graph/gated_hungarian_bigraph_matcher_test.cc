@@ -40,7 +40,6 @@ class GatedHungarianMatcherTest : public testing::Test {
 };  // class HungarianMatcherTest
 
 TEST_F(GatedHungarianMatcherTest, test_Match_Minimize_badcase1) {
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   SecureMat<float>* global_costs = optimizer_->mutable_global_costs();
   global_costs->Reserve(1000, 1000);
 
@@ -110,7 +109,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST_F";
 }
 
 TEST_F(GatedHungarianMatcherTest, test_Match_Minimize_badcase_2) {
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   SecureMat<float>* global_costs = optimizer_->mutable_global_costs();
   global_costs->Reserve(1000, 1000);
 
@@ -162,7 +160,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST_F";
 }
 
 TEST_F(GatedHungarianMatcherTest, test_Match_Minimize) {
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   SecureMat<float>* global_costs = optimizer_->mutable_global_costs();
   global_costs->Reserve(1000, 1000);
 
@@ -414,7 +411,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST_F";
 }
 
 TEST_F(GatedHungarianMatcherTest, test_Match_Maximize) {
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   SecureMat<float>* global_costs = optimizer_->mutable_global_costs();
   global_costs->Reserve(1000, 1000);
 

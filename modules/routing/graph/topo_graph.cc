@@ -22,14 +22,12 @@ namespace apollo {
 namespace routing {
 
 void TopoGraph::Clear() {
-AINFO<<"(DMCZP) EnteringMethod: TopoGraph::Clear";
   topo_nodes_.clear();
   topo_edges_.clear();
   node_index_map_.clear();
 }
 
 bool TopoGraph::LoadNodes(const Graph& graph) {
-AINFO<<"(DMCZP) EnteringMethod: TopoGraph::LoadNodes";
   if (graph.node_size() == 0) {
     AERROR << "No nodes found in topology graph.";
     return false;
@@ -46,7 +44,6 @@ AINFO<<"(DMCZP) EnteringMethod: TopoGraph::LoadNodes";
 
 // Need to execute load_nodes() firstly
 bool TopoGraph::LoadEdges(const Graph& graph) {
-AINFO<<"(DMCZP) EnteringMethod: TopoGraph::LoadEdges";
   if (graph.edge_size() == 0) {
     AINFO << "0 edges found in topology graph, but it's fine";
     return true;
@@ -70,7 +67,6 @@ AINFO<<"(DMCZP) EnteringMethod: TopoGraph::LoadEdges";
 }
 
 bool TopoGraph::LoadGraph(const Graph& graph) {
-AINFO<<"(DMCZP) EnteringMethod: TopoGraph::LoadGraph";
   Clear();
 
   map_version_ = graph.hdmap_version();
@@ -89,13 +85,10 @@ AINFO<<"(DMCZP) EnteringMethod: TopoGraph::LoadGraph";
 }
 
 const std::string& TopoGraph::MapVersion() const { return map_version_; }
-AINFO<<"(DMCZP) EnteringMethod: TopoGraph::MapVersion";
 
 const std::string& TopoGraph::MapDistrict() const { return map_district_; }
-AINFO<<"(DMCZP) EnteringMethod: TopoGraph::MapDistrict";
 
 const TopoNode* TopoGraph::GetNode(const std::string& id) const {
-AINFO<<"(DMCZP) EnteringMethod: TopoGraph::GetNode";
   const auto& iter = node_index_map_.find(id);
   if (iter == node_index_map_.end()) {
     return nullptr;
@@ -106,7 +99,6 @@ AINFO<<"(DMCZP) EnteringMethod: TopoGraph::GetNode";
 void TopoGraph::GetNodesByRoadId(
     const std::string& road_id,
     std::unordered_set<const TopoNode*>* const node_in_road) const {
-AINFO<<"(DMCZP) EnteringMethod: TopoGraph::GetNodesByRoadId";
   const auto& iter = road_node_map_.find(road_id);
   if (iter != road_node_map_.end()) {
     node_in_road->insert(iter->second.begin(), iter->second.end());

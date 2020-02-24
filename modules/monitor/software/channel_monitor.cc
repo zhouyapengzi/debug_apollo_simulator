@@ -42,8 +42,6 @@ DEFINE_double(channel_monitor_interval, 5,
               "Channel monitor checking interval in seconds.");
 
 namespace apollo {
-AINFO<<"(DMCZP) EnteringMethod: DEFINE_string";
-AINFO<<"(DMCZP) EnteringMethod: DEFINE_double";
 namespace monitor {
 namespace {
 using apollo::common::util::StrCat;
@@ -81,10 +79,8 @@ std::shared_ptr<cyber::ReaderBase> GetReader(const std::string& channel) {
 ChannelMonitor::ChannelMonitor()
     : RecurrentRunner(FLAGS_channel_monitor_name,
                       FLAGS_channel_monitor_interval) {}
-AINFO<<"(DMCZP) EnteringMethod: ChannelMonitor::ChannelMonitor";
 
 void ChannelMonitor::RunOnce(const double current_time) {
-AINFO<<"(DMCZP) EnteringMethod: ChannelMonitor::RunOnce";
   auto manager = MonitorManager::Instance();
   const auto& mode = manager->GetHMIMode();
   auto* components = manager->GetStatus()->mutable_components();
@@ -101,7 +97,6 @@ AINFO<<"(DMCZP) EnteringMethod: ChannelMonitor::RunOnce";
 void ChannelMonitor::UpdateStatus(
     const apollo::dreamview::ChannelMonitorConfig& config,
     ComponentStatus* status) {
-AINFO<<"(DMCZP) EnteringMethod: ChannelMonitor::UpdateStatus";
   status->clear_status();
   auto reader = GetReader(config.name());
   if (reader == nullptr) {

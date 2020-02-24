@@ -23,7 +23,6 @@ using apollo::cyber::ParameterClient;
 using apollo::cyber::ParameterServer;
 
 int main(int argc, char** argv) {
-AINFO<<"(DMCZP) EnteringMethod: main";
   apollo::cyber::Init(*argv);
   std::shared_ptr<apollo::cyber::Node> node =
       apollo::cyber::CreateNode("parameter");

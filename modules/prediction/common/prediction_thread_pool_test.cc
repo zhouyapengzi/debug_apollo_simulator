@@ -24,7 +24,6 @@ namespace apollo {
 namespace prediction {
 
 TEST(PredictionThreadPoolTest, global_for_each) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   std::vector<int> expect = {1, 2, 3, 4, 5, 6, 7, 8};
   std::vector<int> real = {1, 2, 3, 4, 5, 6, 7, 8};
 
@@ -38,7 +37,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST";
 
 /* TODO(kechxu) uncomment this when deadlock issue is fixed
 TEST(PredictionThreadPoolTest, avoid_deadlock) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   std::vector<int> expect = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13};
   std::vector<int> real = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13};
 

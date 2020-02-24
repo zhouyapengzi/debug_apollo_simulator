@@ -49,7 +49,6 @@ constexpr double kEpsilon = 0.1;
 // const double kMinYCoordinate = 0;
 
 bool IsPointValid(const PointENU &point) {
-AINFO<<"(DMCZP) EnteringMethod: IsPointValid";
   /* if (point.x() > kMaxXCoordinate || point.x() < kMinXCoordinate) {
     return false;
   }
@@ -62,7 +61,6 @@ AINFO<<"(DMCZP) EnteringMethod: IsPointValid";
 }
 
 void RemoveDuplicates(std::vector<Vec2d> *points) {
-AINFO<<"(DMCZP) EnteringMethod: RemoveDuplicates";
   RETURN_IF_NULL(points);
 
   int count = 0;
@@ -76,7 +74,6 @@ AINFO<<"(DMCZP) EnteringMethod: RemoveDuplicates";
 }
 
 void PointsFromCurve(const Curve &input_curve, std::vector<Vec2d> *points) {
-AINFO<<"(DMCZP) EnteringMethod: PointsFromCurve";
   RETURN_IF_NULL(points);
   points->clear();
 
@@ -95,7 +92,6 @@ AINFO<<"(DMCZP) EnteringMethod: PointsFromCurve";
 }
 
 apollo::common::math::Polygon2d ConvertToPolygon2d(const Polygon &polygon) {
-AINFO<<"(DMCZP) EnteringMethod: ConvertToPolygon2d";
   std::vector<Vec2d> points;
   points.reserve(polygon.point_size());
   for (const auto &point : polygon.point()) {
@@ -113,7 +109,6 @@ AINFO<<"(DMCZP) EnteringMethod: ConvertToPolygon2d";
 void SegmentsFromCurve(
     const Curve &curve,
     std::vector<apollo::common::math::LineSegment2d> *segments) {
-AINFO<<"(DMCZP) EnteringMethod: SegmentsFromCurve";
   RETURN_IF_NULL(segments);
 
   std::vector<Vec2d> points;
@@ -124,7 +119,6 @@ AINFO<<"(DMCZP) EnteringMethod: SegmentsFromCurve";
 }
 
 PointENU PointFromVec2d(const Vec2d &point) {
-AINFO<<"(DMCZP) EnteringMethod: PointFromVec2d";
   PointENU pt;
   pt.set_x(point.x());
   pt.set_y(point.y());
@@ -134,10 +128,8 @@ AINFO<<"(DMCZP) EnteringMethod: PointFromVec2d";
 }  // namespace
 
 LaneInfo::LaneInfo(const Lane &lane) : lane_(lane) { Init(); }
-AINFO<<"(DMCZP) EnteringMethod: LaneInfo::LaneInfo";
 
 void LaneInfo::Init() {
-AINFO<<"(DMCZP) EnteringMethod: LaneInfo::Init";
   PointsFromCurve(lane_.central_curve(), &points_);
   CHECK_GE(points_.size(), 2);
   segments_.clear();
@@ -216,7 +208,6 @@ AINFO<<"(DMCZP) EnteringMethod: LaneInfo::Init";
 
 void LaneInfo::GetWidth(const double s, double *left_width,
                         double *right_width) const {
-AINFO<<"(DMCZP) EnteringMethod: LaneInfo::GetWidth";
   if (left_width != nullptr) {
     *left_width = GetWidthFromSample(sampled_left_width_, s);
   }
@@ -226,7 +217,6 @@ AINFO<<"(DMCZP) EnteringMethod: LaneInfo::GetWidth";
 }
 
 double LaneInfo::Heading(const double s) const {
-AINFO<<"(DMCZP) EnteringMethod: LaneInfo::Heading";
   const double kEpsilon = 0.001;
   if (s + kEpsilon < accumulated_s_.front()) {
     AERROR << "s:" << s << " should be >= " << accumulated_s_.front();
@@ -247,7 +237,6 @@ AINFO<<"(DMCZP) EnteringMethod: LaneInfo::Heading";
 }
 
 double LaneInfo::Curvature(const double s) const {
-AINFO<<"(DMCZP) EnteringMethod: LaneInfo::Curvature";
   if (points_.size() < 2) {
     AERROR << "Not enough points to compute curvature.";
     return 0.0;
@@ -277,7 +266,6 @@ AINFO<<"(DMCZP) EnteringMethod: LaneInfo::Curvature";
 }
 
 double LaneInfo::GetWidth(const double s) const {
-AINFO<<"(DMCZP) EnteringMethod: LaneInfo::GetWidth";
   double left_width = 0.0;
   double right_width = 0.0;
   GetWidth(s, &left_width, &right_width);
@@ -285,7 +273,6 @@ AINFO<<"(DMCZP) EnteringMethod: LaneInfo::GetWidth";
 }
 
 double LaneInfo::GetEffectiveWidth(const double s) const {
-AINFO<<"(DMCZP) EnteringMethod: LaneInfo::GetEffectiveWidth";
   double left_width = 0.0;
   double right_width = 0.0;
   GetWidth(s, &left_width, &right_width);
@@ -294,7 +281,6 @@ AINFO<<"(DMCZP) EnteringMethod: LaneInfo::GetEffectiveWidth";
 
 void LaneInfo::GetRoadWidth(const double s, double *left_width,
                             double *right_width) const {
-AINFO<<"(DMCZP) EnteringMethod: LaneInfo::GetRoadWidth";
   if (left_width != nullptr) {
     *left_width = GetWidthFromSample(sampled_left_road_width_, s);
   }
@@ -304,7 +290,6 @@ AINFO<<"(DMCZP) EnteringMethod: LaneInfo::GetRoadWidth";
 }
 
 double LaneInfo::GetRoadWidth(const double s) const {
-AINFO<<"(DMCZP) EnteringMethod: LaneInfo::GetRoadWidth";
   double left_width = 0.0;
   double right_width = 0.0;
   GetRoadWidth(s, &left_width, &right_width);
@@ -313,7 +298,6 @@ AINFO<<"(DMCZP) EnteringMethod: LaneInfo::GetRoadWidth";
 
 double LaneInfo::GetWidthFromSample(
     const std::vector<LaneInfo::SampledWidth> &samples, const double s) const {
-AINFO<<"(DMCZP) EnteringMethod: LaneInfo::GetWidthFromSample";
   if (samples.empty()) {
     return 0.0;
   }
@@ -340,7 +324,6 @@ AINFO<<"(DMCZP) EnteringMethod: LaneInfo::GetWidthFromSample";
 }
 
 bool LaneInfo::IsOnLane(const Vec2d &point) const {
-AINFO<<"(DMCZP) EnteringMethod: LaneInfo::IsOnLane";
   double accumulate_s = 0.0;
   double lateral = 0.0;
   if (!GetProjection(point, &accumulate_s, &lateral)) {
@@ -362,7 +345,6 @@ AINFO<<"(DMCZP) EnteringMethod: LaneInfo::IsOnLane";
 }
 
 bool LaneInfo::IsOnLane(const apollo::common::math::Box2d &box) const {
-AINFO<<"(DMCZP) EnteringMethod: LaneInfo::IsOnLane";
   std::vector<Vec2d> corners;
   box.GetAllCorners(&corners);
   for (const auto &corner : corners) {
@@ -374,7 +356,6 @@ AINFO<<"(DMCZP) EnteringMethod: LaneInfo::IsOnLane";
 }
 
 PointENU LaneInfo::GetSmoothPoint(double s) const {
-AINFO<<"(DMCZP) EnteringMethod: LaneInfo::GetSmoothPoint";
   PointENU point;
   RETURN_VAL_IF(points_.size() < 2, point);
   if (s <= 0.0) {
@@ -400,7 +381,6 @@ AINFO<<"(DMCZP) EnteringMethod: LaneInfo::GetSmoothPoint";
 }
 
 double LaneInfo::DistanceTo(const Vec2d &point) const {
-AINFO<<"(DMCZP) EnteringMethod: LaneInfo::DistanceTo";
   const auto segment_box = lane_segment_kdtree_->GetNearestObject(point);
   RETURN_VAL_IF_NULL(segment_box, 0.0);
   return segment_box->DistanceTo(point);
@@ -408,7 +388,6 @@ AINFO<<"(DMCZP) EnteringMethod: LaneInfo::DistanceTo";
 
 double LaneInfo::DistanceTo(const Vec2d &point, Vec2d *map_point,
                             double *s_offset, int *s_offset_index) const {
-AINFO<<"(DMCZP) EnteringMethod: LaneInfo::DistanceTo";
   RETURN_VAL_IF_NULL(map_point, 0.0);
   RETURN_VAL_IF_NULL(s_offset, 0.0);
   RETURN_VAL_IF_NULL(s_offset_index, 0.0);
@@ -424,7 +403,6 @@ AINFO<<"(DMCZP) EnteringMethod: LaneInfo::DistanceTo";
 }
 
 PointENU LaneInfo::GetNearestPoint(const Vec2d &point, double *distance) const {
-AINFO<<"(DMCZP) EnteringMethod: LaneInfo::GetNearestPoint";
   PointENU empty_point;
   RETURN_VAL_IF_NULL(distance, empty_point);
 
@@ -439,7 +417,6 @@ AINFO<<"(DMCZP) EnteringMethod: LaneInfo::GetNearestPoint";
 
 bool LaneInfo::GetProjection(const Vec2d &point, double *accumulate_s,
                              double *lateral) const {
-AINFO<<"(DMCZP) EnteringMethod: LaneInfo::GetProjection";
   RETURN_VAL_IF_NULL(accumulate_s, false);
   RETURN_VAL_IF_NULL(lateral, false);
 
@@ -483,12 +460,10 @@ AINFO<<"(DMCZP) EnteringMethod: LaneInfo::GetProjection";
 }
 
 void LaneInfo::PostProcess(const HDMapImpl &map_instance) {
-AINFO<<"(DMCZP) EnteringMethod: LaneInfo::PostProcess";
   UpdateOverlaps(map_instance);
 }
 
 void LaneInfo::UpdateOverlaps(const HDMapImpl &map_instance) {
-AINFO<<"(DMCZP) EnteringMethod: LaneInfo::UpdateOverlaps";
   for (const auto &overlap_id : overlap_ids_) {
     const auto &overlap_ptr =
         map_instance.GetOverlapById(MakeMapId(overlap_id));
@@ -537,7 +512,6 @@ AINFO<<"(DMCZP) EnteringMethod: LaneInfo::UpdateOverlaps";
 }
 
 void LaneInfo::CreateKDTree() {
-AINFO<<"(DMCZP) EnteringMethod: LaneInfo::CreateKDTree";
   apollo::common::math::AABoxKDTreeParams params;
   params.max_leaf_dimension = 5.0;  // meters.
   params.max_leaf_size = 16;
@@ -553,12 +527,10 @@ AINFO<<"(DMCZP) EnteringMethod: LaneInfo::CreateKDTree";
 }
 
 JunctionInfo::JunctionInfo(const Junction &junction) : junction_(junction) {
-AINFO<<"(DMCZP) EnteringMethod: JunctionInfo::JunctionInfo";
   Init();
 }
 
 void JunctionInfo::Init() {
-AINFO<<"(DMCZP) EnteringMethod: JunctionInfo::Init";
   polygon_ = ConvertToPolygon2d(junction_.polygon());
   CHECK_GT(polygon_.num_points(), 2);
 
@@ -568,12 +540,10 @@ AINFO<<"(DMCZP) EnteringMethod: JunctionInfo::Init";
 }
 
 void JunctionInfo::PostProcess(const HDMapImpl &map_instance) {
-AINFO<<"(DMCZP) EnteringMethod: JunctionInfo::PostProcess";
   UpdateOverlaps(map_instance);
 }
 
 void JunctionInfo::UpdateOverlaps(const HDMapImpl &map_instance) {
-AINFO<<"(DMCZP) EnteringMethod: JunctionInfo::UpdateOverlaps";
   for (const auto &overlap_id : overlap_ids_) {
     const auto &overlap_ptr = map_instance.GetOverlapById(overlap_id);
     if (overlap_ptr == nullptr) {
@@ -594,10 +564,8 @@ AINFO<<"(DMCZP) EnteringMethod: JunctionInfo::UpdateOverlaps";
 }
 
 SignalInfo::SignalInfo(const Signal &signal) : signal_(signal) { Init(); }
-AINFO<<"(DMCZP) EnteringMethod: SignalInfo::SignalInfo";
 
 void SignalInfo::Init() {
-AINFO<<"(DMCZP) EnteringMethod: SignalInfo::Init";
   for (const auto &stop_line : signal_.stop_line()) {
     SegmentsFromCurve(stop_line, &segments_);
   }
@@ -612,23 +580,19 @@ AINFO<<"(DMCZP) EnteringMethod: SignalInfo::Init";
 
 CrosswalkInfo::CrosswalkInfo(const Crosswalk &crosswalk)
     : crosswalk_(crosswalk) {
-AINFO<<"(DMCZP) EnteringMethod: CrosswalkInfo::CrosswalkInfo";
   Init();
 }
 
 void CrosswalkInfo::Init() {
-AINFO<<"(DMCZP) EnteringMethod: CrosswalkInfo::Init";
   polygon_ = ConvertToPolygon2d(crosswalk_.polygon());
   CHECK_GT(polygon_.num_points(), 2);
 }
 
 StopSignInfo::StopSignInfo(const StopSign &stop_sign) : stop_sign_(stop_sign) {
-AINFO<<"(DMCZP) EnteringMethod: StopSignInfo::StopSignInfo";
   init();
 }
 
 void StopSignInfo::init() {
-AINFO<<"(DMCZP) EnteringMethod: StopSignInfo::init";
   for (const auto &stop_line : stop_sign_.stop_line()) {
     SegmentsFromCurve(stop_line, &segments_);
   }
@@ -640,12 +604,10 @@ AINFO<<"(DMCZP) EnteringMethod: StopSignInfo::init";
 }
 
 void StopSignInfo::PostProcess(const HDMapImpl &map_instance) {
-AINFO<<"(DMCZP) EnteringMethod: StopSignInfo::PostProcess";
   UpdateOverlaps(map_instance);
 }
 
 void StopSignInfo::UpdateOverlaps(const HDMapImpl &map_instance) {
-AINFO<<"(DMCZP) EnteringMethod: StopSignInfo::UpdateOverlaps";
   for (const auto &overlap_id : overlap_ids_) {
     const auto &overlap_ptr = map_instance.GetOverlapById(overlap_id);
     if (overlap_ptr == nullptr) {
@@ -672,12 +634,10 @@ AINFO<<"(DMCZP) EnteringMethod: StopSignInfo::UpdateOverlaps";
 
 YieldSignInfo::YieldSignInfo(const YieldSign &yield_sign)
     : yield_sign_(yield_sign) {
-AINFO<<"(DMCZP) EnteringMethod: YieldSignInfo::YieldSignInfo";
   Init();
 }
 
 void YieldSignInfo::Init() {
-AINFO<<"(DMCZP) EnteringMethod: YieldSignInfo::Init";
   for (const auto &stop_line : yield_sign_.stop_line()) {
     SegmentsFromCurve(stop_line, &segments_);
   }
@@ -687,24 +647,20 @@ AINFO<<"(DMCZP) EnteringMethod: YieldSignInfo::Init";
 
 ClearAreaInfo::ClearAreaInfo(const ClearArea &clear_area)
     : clear_area_(clear_area) {
-AINFO<<"(DMCZP) EnteringMethod: ClearAreaInfo::ClearAreaInfo";
   Init();
 }
 
 void ClearAreaInfo::Init() {
-AINFO<<"(DMCZP) EnteringMethod: ClearAreaInfo::Init";
   polygon_ = ConvertToPolygon2d(clear_area_.polygon());
   CHECK_GT(polygon_.num_points(), 2);
 }
 
 SpeedBumpInfo::SpeedBumpInfo(const SpeedBump &speed_bump)
     : speed_bump_(speed_bump) {
-AINFO<<"(DMCZP) EnteringMethod: SpeedBumpInfo::SpeedBumpInfo";
   Init();
 }
 
 void SpeedBumpInfo::Init() {
-AINFO<<"(DMCZP) EnteringMethod: SpeedBumpInfo::Init";
   for (const auto &stop_line : speed_bump_.position()) {
     SegmentsFromCurve(stop_line, &segments_);
   }
@@ -712,10 +668,8 @@ AINFO<<"(DMCZP) EnteringMethod: SpeedBumpInfo::Init";
 }
 
 OverlapInfo::OverlapInfo(const Overlap &overlap) : overlap_(overlap) {}
-AINFO<<"(DMCZP) EnteringMethod: OverlapInfo::OverlapInfo";
 
 const ObjectOverlapInfo *OverlapInfo::GetObjectOverlapInfo(const Id &id) const {
-AINFO<<"(DMCZP) EnteringMethod: *OverlapInfo::GetObjectOverlapInfo";
   for (const auto &object : overlap_.object()) {
     if (object.id().id() == id.id()) {
       return &object;
@@ -725,7 +679,6 @@ AINFO<<"(DMCZP) EnteringMethod: *OverlapInfo::GetObjectOverlapInfo";
 }
 
 RoadInfo::RoadInfo(const Road &road) : road_(road) {
-AINFO<<"(DMCZP) EnteringMethod: RoadInfo::RoadInfo";
   for (const auto &section : road_.section()) {
     sections_.push_back(section);
     road_boundaries_.push_back(section.boundary());
@@ -738,24 +691,20 @@ const std::vector<RoadBoundary> &RoadInfo::GetBoundaries() const {
 
 ParkingSpaceInfo::ParkingSpaceInfo(const ParkingSpace &parking_space)
     : parking_space_(parking_space) {
-AINFO<<"(DMCZP) EnteringMethod: ParkingSpaceInfo::ParkingSpaceInfo";
   Init();
 }
 
 void ParkingSpaceInfo::Init() {
-AINFO<<"(DMCZP) EnteringMethod: ParkingSpaceInfo::Init";
   polygon_ = ConvertToPolygon2d(parking_space_.polygon());
   CHECK_GT(polygon_.num_points(), 2);
 }
 
 PNCJunctionInfo::PNCJunctionInfo(const PNCJunction &pnc_junction)
     : junction_(pnc_junction) {
-AINFO<<"(DMCZP) EnteringMethod: PNCJunctionInfo::PNCJunctionInfo";
   Init();
 }
 
 void PNCJunctionInfo::Init() {
-AINFO<<"(DMCZP) EnteringMethod: PNCJunctionInfo::Init";
   polygon_ = ConvertToPolygon2d(junction_.polygon());
   CHECK_GT(polygon_.num_points(), 2);
 

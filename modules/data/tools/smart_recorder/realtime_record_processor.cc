@@ -57,7 +57,6 @@ using cyber::record::RecordReader;
 using cyber::record::RecordViewer;
 
 std::string GetNextRecordFileName(const std::string& record_path) {
-AINFO<<"(DMCZP) EnteringMethod: GetNextRecordFileName";
   constexpr int kSuffixLen = 5;
   const std::string kInitialSequence = "00000";
   if (record_path.empty()) {
@@ -74,7 +73,6 @@ AINFO<<"(DMCZP) EnteringMethod: GetNextRecordFileName";
 }
 
 bool IsRecordValid(const std::string& record_path) {
-AINFO<<"(DMCZP) EnteringMethod: IsRecordValid";
   if (!PathExists(record_path)) {
     return false;
   }
@@ -94,7 +92,6 @@ RealtimeRecordProcessor::RealtimeRecordProcessor(
     const std::string& source_record_dir,
     const std::string& restored_output_dir)
     : RecordProcessor(source_record_dir, restored_output_dir) {
-AINFO<<"(DMCZP) EnteringMethod: RealtimeRecordProcessor::RealtimeRecordProcessor";
   default_output_filename_ = restored_output_dir_;
   default_output_filename_.erase(
       std::remove(default_output_filename_.begin(),
@@ -105,7 +102,6 @@ AINFO<<"(DMCZP) EnteringMethod: RealtimeRecordProcessor::RealtimeRecordProcessor
 }
 
 bool RealtimeRecordProcessor::Init(const SmartRecordTrigger& trigger_conf) {
-AINFO<<"(DMCZP) EnteringMethod: RealtimeRecordProcessor::Init";
   // Init input/output, for realtime processor create both
   // input and output dir if they do not exist
   if (!EnsureDirectory(source_record_dir_) ||
@@ -148,7 +144,6 @@ AINFO<<"(DMCZP) EnteringMethod: RealtimeRecordProcessor::Init";
 }
 
 bool RealtimeRecordProcessor::Process() {
-AINFO<<"(DMCZP) EnteringMethod: RealtimeRecordProcessor::Process";
   // Recorder goes first
   recorder_->Start();
   PublishStatus(RecordingState::RECORDING, "smart recorder started");
@@ -191,7 +186,6 @@ AINFO<<"(DMCZP) EnteringMethod: RealtimeRecordProcessor::Process";
 }
 
 void RealtimeRecordProcessor::MonitorStatus() {
-AINFO<<"(DMCZP) EnteringMethod: RealtimeRecordProcessor::MonitorStatus";
   int status_counter = 0;
   while (!cyber::IsShutdown()) {
     static constexpr int kCheckingFrequency = 100;
@@ -216,7 +210,6 @@ AINFO<<"(DMCZP) EnteringMethod: RealtimeRecordProcessor::MonitorStatus";
 
 void RealtimeRecordProcessor::PublishStatus(const RecordingState state,
                                             const std::string& message) const {
-AINFO<<"(DMCZP) EnteringMethod: RealtimeRecordProcessor::PublishStatus";
   SmartRecorderStatus status;
   Header* status_headerpb = status.mutable_header();
   status_headerpb->set_timestamp_sec(cyber::Time::Now().ToSecond());
@@ -228,7 +221,6 @@ AINFO<<"(DMCZP) EnteringMethod: RealtimeRecordProcessor::PublishStatus";
 
 bool RealtimeRecordProcessor::GetNextValidRecord(
     std::string* record_path) const {
-AINFO<<"(DMCZP) EnteringMethod: RealtimeRecordProcessor::GetNextValidRecord";
   *record_path = StrCat(source_record_dir_, "/", default_output_filename_, ".",
                         GetNextRecordFileName(*record_path));
   while (!is_terminating_ && !IsRecordValid(*record_path)) {
@@ -239,7 +231,6 @@ AINFO<<"(DMCZP) EnteringMethod: RealtimeRecordProcessor::GetNextValidRecord";
 }
 
 void RealtimeRecordProcessor::RestoreMessage(const uint64_t message_time) {
-AINFO<<"(DMCZP) EnteringMethod: RealtimeRecordProcessor::RestoreMessage";
   // Check and restore messages, logic is:
   // 1. If new events got triggered, restore reader proceeds all the way to the
   //    event's end

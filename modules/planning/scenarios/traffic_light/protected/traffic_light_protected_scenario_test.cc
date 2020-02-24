@@ -42,7 +42,6 @@ class TrafficLightProtectedScenarioTest : public ::testing::Test {
 };
 
 TEST_F(TrafficLightProtectedScenarioTest, VerifyConf) {
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   FLAGS_scenario_traffic_light_protected_config_file =
       "/apollo/modules/planning/conf/"
       "scenario/traffic_light_protected_config.pb.txt";
@@ -53,7 +52,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST_F";
 }
 
 TEST_F(TrafficLightProtectedScenarioTest, Init) {
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   FLAGS_scenario_traffic_light_protected_config_file =
       "/apollo/modules/planning/testdata/conf/"
       "scenario/traffic_light_protected_config.pb.txt";

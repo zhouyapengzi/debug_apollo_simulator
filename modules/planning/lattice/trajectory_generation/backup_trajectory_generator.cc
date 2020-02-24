@@ -31,13 +31,11 @@ BackupTrajectoryGenerator::BackupTrajectoryGenerator(
     : init_relative_time_(init_relative_time),
       ptr_collision_checker_(ptr_collision_checker),
       ptr_trajectory1d_generator_(trajectory1d_generator) {
-AINFO<<"(DMCZP) EnteringMethod: BackupTrajectoryGenerator::BackupTrajectoryGenerator";
   GenerateTrajectory1dPairs(init_s, init_d);
 }
 
 void BackupTrajectoryGenerator::GenerateTrajectory1dPairs(const State& init_s,
                                                           const State& init_d) {
-AINFO<<"(DMCZP) EnteringMethod: BackupTrajectoryGenerator::GenerateTrajectory1dPairs";
   std::vector<std::shared_ptr<Curve1d>> lon_trajectories;
   std::array<double, 5> dds_condidates = {-0.1, -1.0, -2.0, -3.0, -4.0};
   for (const auto dds : dds_condidates) {
@@ -58,7 +56,6 @@ AINFO<<"(DMCZP) EnteringMethod: BackupTrajectoryGenerator::GenerateTrajectory1dP
 
 DiscretizedTrajectory BackupTrajectoryGenerator::GenerateTrajectory(
     const std::vector<PathPoint>& discretized_ref_points) {
-AINFO<<"(DMCZP) EnteringMethod: BackupTrajectoryGenerator::GenerateTrajectory";
   while (trajectory_pair_pqueue_.size() > 1) {
     auto top_pair = trajectory_pair_pqueue_.top();
     trajectory_pair_pqueue_.pop();

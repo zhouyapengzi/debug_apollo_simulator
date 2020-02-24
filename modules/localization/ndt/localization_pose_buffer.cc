@@ -27,7 +27,6 @@ namespace ndt {
 const unsigned int LocalizationPoseBuffer::s_buffer_size_ = 20;
 
 LocalizationPoseBuffer::LocalizationPoseBuffer() {
-AINFO<<"(DMCZP) EnteringMethod: LocalizationPoseBuffer::LocalizationPoseBuffer";
   lidar_poses_.resize(s_buffer_size_);
   used_buffer_size_ = 0;
   head_index_ = 0;
@@ -39,7 +38,6 @@ LocalizationPoseBuffer::~LocalizationPoseBuffer() {}
 void LocalizationPoseBuffer::UpdateLidarPose(
     double timestamp, const Eigen::Affine3d& locator_pose,
     const Eigen::Affine3d& novatel_pose) {
-AINFO<<"(DMCZP) EnteringMethod: LocalizationPoseBuffer::UpdateLidarPose";
   if (!has_initialized_) {
     lidar_poses_[head_index_].locator_pose = locator_pose;
     lidar_poses_[head_index_].locator_pose.linear() = novatel_pose.linear();
@@ -65,7 +63,6 @@ AINFO<<"(DMCZP) EnteringMethod: LocalizationPoseBuffer::UpdateLidarPose";
 
 Eigen::Affine3d LocalizationPoseBuffer::UpdateOdometryPose(
     double timestamp, const Eigen::Affine3d& novatel_pose) {
-AINFO<<"(DMCZP) EnteringMethod: LocalizationPoseBuffer::UpdateOdometryPose";
   Eigen::Affine3d pose = novatel_pose;
   if (used_buffer_size_ > 0) {
     pose.translation()[0] = 0;

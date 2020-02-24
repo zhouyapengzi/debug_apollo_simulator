@@ -25,7 +25,6 @@ namespace apollo {
 namespace planning {
 
 TEST(ActiveSetSpline1dSolver, one) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   // starting point
   std::vector<double> x_knots{0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
   ActiveSetSpline1dSolver pg(x_knots, 6);
@@ -71,7 +70,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST";
 }
 
 TEST(ActiveSetSpline1dSolver, two) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   // starting point
   std::vector<double> x_knots{0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
   ActiveSetSpline1dSolver pg(x_knots, 6);

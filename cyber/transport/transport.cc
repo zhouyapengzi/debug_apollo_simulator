@@ -29,7 +29,6 @@ Transport::Transport()
       intra_dispatcher_(nullptr),
       shm_dispatcher_(nullptr),
       rtps_dispatcher_(nullptr) {
-AINFO<<"(DMCZP) EnteringMethod: Transport::Transport";
   CreateParticipant();
   notifier_ = NotifierFactory::CreateNotifier();
   intra_dispatcher_ = IntraDispatcher::Instance();
@@ -41,7 +40,6 @@ AINFO<<"(DMCZP) EnteringMethod: Transport::Transport";
 Transport::~Transport() { Shutdown(); }
 
 void Transport::Shutdown() {
-AINFO<<"(DMCZP) EnteringMethod: Transport::Shutdown";
   if (is_shutdown_.exchange(true)) {
     return;
   }
@@ -58,7 +56,6 @@ AINFO<<"(DMCZP) EnteringMethod: Transport::Shutdown";
 }
 
 void Transport::CreateParticipant() {
-AINFO<<"(DMCZP) EnteringMethod: Transport::CreateParticipant";
   std::string participant_name =
       common::GlobalData::Instance()->HostName() + "+" +
       std::to_string(common::GlobalData::Instance()->ProcessId());

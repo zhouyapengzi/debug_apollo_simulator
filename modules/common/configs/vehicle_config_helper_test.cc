@@ -39,7 +39,6 @@ class VehicleConfigHelperTest : public ::testing::Test {
 };
 
 TEST_F(VehicleConfigHelperTest, MinSafeTurnRadius) {
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   config_.mutable_vehicle_param()->set_right_edge_to_center(0.5);
   config_.mutable_vehicle_param()->set_front_edge_to_center(3.0);
   VehicleConfigHelper::Init(config_);

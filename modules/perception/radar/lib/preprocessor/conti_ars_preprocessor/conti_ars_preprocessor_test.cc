@@ -34,7 +34,6 @@ class ContiArsPreprocessorTest : public testing::Test {
 };
 
 TEST_F(ContiArsPreprocessorTest, init) {
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   float delay_time = static_cast<float>(preprocessor.GetDelayTime());
   EXPECT_FLOAT_EQ(delay_time, 0.0);
   FLAGS_work_root =
@@ -48,7 +47,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST_F";
 }
 
 TEST_F(ContiArsPreprocessorTest, preprocess) {
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   drivers::ContiRadar raw_obs;
   Header radar_header;
   radar_header.set_timestamp_sec(151237772.355345434);

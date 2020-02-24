@@ -28,23 +28,19 @@ const int32_t Gearcontrola1::ID = 0xA1;
 
 // public
 Gearcontrola1::Gearcontrola1() { Reset(); }
-AINFO<<"(DMCZP) EnteringMethod: Gearcontrola1::Gearcontrola1";
 
 uint32_t Gearcontrola1::GetPeriod() const {
-AINFO<<"(DMCZP) EnteringMethod: Gearcontrola1::GetPeriod";
   // TODO(ChaoM) :  modify every protocol's period manually
   static const uint32_t PERIOD = 20 * 1000;
   return PERIOD;
 }
 
 void Gearcontrola1::UpdateData(uint8_t* data) {
-AINFO<<"(DMCZP) EnteringMethod: Gearcontrola1::UpdateData";
   set_p_gear_state_target(data, gear_state_target_);
   set_p_gear_enable_control(data, gear_enable_control_);
 }
 
 void Gearcontrola1::Reset() {
-AINFO<<"(DMCZP) EnteringMethod: Gearcontrola1::Reset";
   // TODO(ChaoM) :  you should check this manually
   gear_state_target_ = Gear_control_a1::GEAR_STATE_TARGET_P;
   gear_enable_control_ =
@@ -53,7 +49,6 @@ AINFO<<"(DMCZP) EnteringMethod: Gearcontrola1::Reset";
 
 Gearcontrola1* Gearcontrola1::set_gear_state_target(
     Gear_control_a1::Gear_state_targetType gear_state_target) {
-AINFO<<"(DMCZP) EnteringMethod: Gearcontrola1::set_gear_state_target";
   gear_state_target_ = gear_state_target;
   return this;
 }
@@ -65,7 +60,6 @@ AINFO<<"(DMCZP) EnteringMethod: Gearcontrola1::set_gear_state_target";
 // 'bit': 8, 'type': 'enum', 'order': 'intel', 'physical_unit': ''}
 void Gearcontrola1::set_p_gear_state_target(
     uint8_t* data, Gear_control_a1::Gear_state_targetType gear_state_target) {
-AINFO<<"(DMCZP) EnteringMethod: Gearcontrola1::set_p_gear_state_target";
   int x = gear_state_target;
 
   Byte to_set(data + 1);
@@ -74,8 +68,6 @@ AINFO<<"(DMCZP) EnteringMethod: Gearcontrola1::set_p_gear_state_target";
 
 Gearcontrola1* Gearcontrola1::set_gear_enable_control(
     Gear_control_a1::Gear_enable_controlType gear_enable_control) {
-AINFO<<"(DMCZP) EnteringMethod: Gearcontrola1::set_gear_enable_control";
-AINFO<<"(DMCZP) EnteringMethod: Gearcontrola1::set_p_gear_enable_control";
   gear_enable_control_ = gear_enable_control;
   return this;
 }

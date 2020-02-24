@@ -46,11 +46,9 @@ std::vector<base::ObjectSubType> kTypeRefinedByRef = {
     base::ObjectSubType::TRICYCLIST};
 
 ObjectTemplateManager::ObjectTemplateManager() {}
-AINFO<<"(DMCZP) EnteringMethod: ObjectTemplateManager::ObjectTemplateManager";
 
 bool ObjectTemplateManager::Init(
     const ObjectTemplateManagerInitOptions &options) {
-AINFO<<"(DMCZP) EnteringMethod: ObjectTemplateManager::Init";
   lib::MutexLock lock(&mutex_);
   if (inited_) {
     return true;
@@ -178,7 +176,6 @@ AINFO<<"(DMCZP) EnteringMethod: ObjectTemplateManager::Init";
 }
 
 void ObjectTemplateManager::LoadVehTemplates(const ObjectTemplate &tmplt) {
-AINFO<<"(DMCZP) EnteringMethod: ObjectTemplateManager::LoadVehTemplates";
   std::vector<std::tuple<float, float, float> > list_tpl;
   list_tpl.resize(0);
   for (int i = 0; i < tmplt.dim_size(); ++i) {
@@ -195,7 +192,6 @@ AINFO<<"(DMCZP) EnteringMethod: ObjectTemplateManager::LoadVehTemplates";
 
 void ObjectTemplateManager::LoadVehMinMidMaxTemplates(
     const base::ObjectSubType &type, const ObjectTemplate &tmplt) {
-AINFO<<"(DMCZP) EnteringMethod: ObjectTemplateManager::LoadVehMinMidMaxTemplates";
   std::vector<std::tuple<float, float, float> > list_tpl;
   list_tpl.resize(0);
   for (int i = 0; i < tmplt.dim_size(); ++i) {
@@ -225,7 +221,6 @@ AINFO<<"(DMCZP) EnteringMethod: ObjectTemplateManager::LoadVehMinMidMaxTemplates
 // util for tmplt search
 float ObjectTemplateManager::Get3dDimensionSimilarity(const float *hwl1,
                                                       const float *hwl2) {
-AINFO<<"(DMCZP) EnteringMethod: ObjectTemplateManager::Get3dDimensionSimilarity";
   CHECK(hwl1 != nullptr);
   CHECK(hwl2 != nullptr);
 
@@ -246,7 +241,6 @@ AINFO<<"(DMCZP) EnteringMethod: ObjectTemplateManager::Get3dDimensionSimilarity"
 // for general visual obj
 float ObjectTemplateManager::VehObjHwlBySearchTemplates(float *hwl, int *index,
                                                         bool *is_flip) {
-AINFO<<"(DMCZP) EnteringMethod: ObjectTemplateManager::VehObjHwlBySearchTemplates";
   CHECK(inited_);
   CHECK(hwl != nullptr);
 

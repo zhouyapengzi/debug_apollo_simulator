@@ -23,7 +23,6 @@ namespace perception {
 namespace radar {
 
 TEST(AdaptiveKalmanFilterTest, adaptive_kalman_filter_test) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   BaseFilter* filter = new AdaptiveKalmanFilter();
   EXPECT_NE(filter, nullptr);
   EXPECT_EQ(filter->Name(), "AdaptiveKalmanFilter");

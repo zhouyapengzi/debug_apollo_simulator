@@ -43,7 +43,6 @@ using ::google::protobuf::RepeatedPtrField;
 namespace {
 
 bool IsAllowedToCross(const LaneBoundary& boundary) {
-AINFO<<"(DMCZP) EnteringMethod: IsAllowedToCross";
   for (const auto& boundary_type : boundary.boundary_type()) {
     if (boundary_type.types(0) != LaneBoundaryType::DOTTED_YELLOW &&
         boundary_type.types(0) != LaneBoundaryType::DOTTED_WHITE) {
@@ -61,10 +60,8 @@ GraphCreator::GraphCreator(const std::string& base_map_file_path,
     : base_map_file_path_(base_map_file_path),
       dump_topo_file_path_(dump_topo_file_path),
       routing_conf_(routing_conf) {}
-AINFO<<"(DMCZP) EnteringMethod: GraphCreator::GraphCreator";
 
 bool GraphCreator::Create() {
-AINFO<<"(DMCZP) EnteringMethod: GraphCreator::Create";
   if (EndWith(base_map_file_path_, ".xml")) {
     if (!hdmap::adapter::OpendriveAdapter::LoadData(base_map_file_path_,
                                                     &pbmap_)) {
@@ -169,14 +166,12 @@ AINFO<<"(DMCZP) EnteringMethod: GraphCreator::Create";
 
 std::string GraphCreator::GetEdgeID(const std::string& from_id,
                                     const std::string& to_id) {
-AINFO<<"(DMCZP) EnteringMethod: GraphCreator::GetEdgeID";
   return from_id + "->" + to_id;
 }
 
 void GraphCreator::AddEdge(const Node& from_node,
                            const RepeatedPtrField<Id>& to_node_vec,
                            const Edge::DirectionType& type) {
-AINFO<<"(DMCZP) EnteringMethod: GraphCreator::AddEdge";
   for (const auto& to_id : to_node_vec) {
     if (forbidden_lane_id_set_.find(to_id.id()) !=
         forbidden_lane_id_set_.end()) {
@@ -199,7 +194,6 @@ AINFO<<"(DMCZP) EnteringMethod: GraphCreator::AddEdge";
 }
 
 bool GraphCreator::IsValidUTurn(const hdmap::Lane& lane, const double radius) {
-AINFO<<"(DMCZP) EnteringMethod: GraphCreator::IsValidUTurn";
   if (lane.turn() != hdmap::Lane::U_TURN) {  // not a u-turn
     return false;
   }
@@ -240,7 +234,6 @@ AINFO<<"(DMCZP) EnteringMethod: GraphCreator::IsValidUTurn";
 }
 
 void GraphCreator::InitForbiddenLanes() {
-AINFO<<"(DMCZP) EnteringMethod: GraphCreator::InitForbiddenLanes";
   for (const auto& lane : pbmap_.lane()) {
     if (lane.type() != hdmap::Lane::CITY_DRIVING) {
       forbidden_lane_id_set_.insert(lane.id().id());

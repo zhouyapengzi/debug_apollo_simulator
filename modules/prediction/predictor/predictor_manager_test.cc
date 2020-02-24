@@ -43,7 +43,6 @@ class PredictorManagerTest : public KMLMapBasedTest {
 };
 
 TEST_F(PredictorManagerTest, General) {
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   FLAGS_enable_trim_prediction_trajectory = false;
   std::string conf_file = "modules/prediction/testdata/adapter_conf.pb.txt";
   bool ret_load_conf =

@@ -37,14 +37,12 @@ namespace apollo {
 namespace planning {
 
 static PathPoint GenPathPoint(double s, double kappa = 0.0) {
-AINFO<<"(DMCZP) EnteringMethod: GenPathPoint";
   auto path_point = MakePathPoint(s, 0.0, 0.0, 0.0, kappa, 0.0, 0.0);
   path_point.set_s(s);
   return path_point;
 }
 
 TEST(NaviSpeedDeciderTest, CreateSpeedData) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   NaviSpeedDecider speed_decider;
   speed_decider.preferred_speed_ = 10.0;
   speed_decider.max_speed_ = 20.0;
@@ -89,7 +87,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST";
 }
 
 TEST(NaviSpeedDeciderTest, CreateSpeedDataForStaticObstacle) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   NaviSpeedDecider speed_decider;
   speed_decider.preferred_speed_ = 10.0;
   speed_decider.max_speed_ = 20.0;
@@ -144,7 +141,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST";
 }
 
 TEST(NaviSpeedDeciderTest, CreateSpeedDataForObstacles) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   NaviSpeedDecider speed_decider;
   speed_decider.preferred_speed_ = 10.0;
   speed_decider.max_speed_ = 20.0;
@@ -212,7 +208,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST";
 }
 
 TEST(NaviSpeedDeciderTest, CreateSpeedDataForCurve) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   NaviSpeedDecider speed_decider;
   speed_decider.preferred_speed_ = 12.0;
   speed_decider.max_speed_ = 30.0;
@@ -287,7 +282,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST";
 }
 
 TEST(NaviSpeedDeciderTest, ErrorTest) {}
-AINFO<<"(DMCZP) EnteringMethod: TEST";
 
 }  // namespace planning
 }  // namespace apollo

@@ -26,7 +26,6 @@ namespace drivers {
 namespace velodyne {
 
 void Velodyne64Driver::Init() {
-AINFO<<"(DMCZP) EnteringMethod: Velodyne64Driver::Init";
   const double frequency = config_.rpm() / 60.0;  // expected Hz rate
 
   // default number of packets for each scan is a single revolution
@@ -43,7 +42,6 @@ AINFO<<"(DMCZP) EnteringMethod: Velodyne64Driver::Init";
  *  @returns true unless end of file reached
  */
 bool Velodyne64Driver::Poll(const std::shared_ptr<VelodyneScan>& scan) {
-AINFO<<"(DMCZP) EnteringMethod: Velodyne64Driver::Poll";
   // Allocate a new shared pointer for zero-copy sharing with other nodelets.
   int poll_result =
       config_.use_sensor_sync() ? PollStandardSync(scan) : PollStandard(scan);
@@ -69,7 +67,6 @@ AINFO<<"(DMCZP) EnteringMethod: Velodyne64Driver::Poll";
 }
 
 bool Velodyne64Driver::CheckAngle(const VelodynePacket& packet) {
-AINFO<<"(DMCZP) EnteringMethod: Velodyne64Driver::CheckAngle";
   // check the angle in every packet
   // for each model of velodyne 64 the data struct is same , so we don't need to
   // check the lidar model
@@ -89,7 +86,6 @@ AINFO<<"(DMCZP) EnteringMethod: Velodyne64Driver::CheckAngle";
 }
 
 int Velodyne64Driver::PollStandardSync(std::shared_ptr<VelodyneScan> scan) {
-AINFO<<"(DMCZP) EnteringMethod: Velodyne64Driver::PollStandardSync";
   // Since the velodyne delivers data at a very high rate, keep
   // reading and publishing scans as fast as possible.
   while (true) {

@@ -29,9 +29,6 @@ DEFINE_double(gps_monitor_interval, 3, "GPS status checking interval (s).");
 DEFINE_string(gps_component_name, "GPS", "Localization component name.");
 
 namespace apollo {
-AINFO<<"(DMCZP) EnteringMethod: DEFINE_string";
-AINFO<<"(DMCZP) EnteringMethod: DEFINE_double";
-AINFO<<"(DMCZP) EnteringMethod: DEFINE_string";
 namespace monitor {
 
 using apollo::drivers::gnss::GnssStatus;
@@ -39,10 +36,8 @@ using apollo::drivers::gnss::InsStatus;
 
 GpsMonitor::GpsMonitor()
     : RecurrentRunner(FLAGS_gps_monitor_name, FLAGS_gps_monitor_interval) {}
-AINFO<<"(DMCZP) EnteringMethod: GpsMonitor::GpsMonitor";
 
 void GpsMonitor::RunOnce(const double current_time) {
-AINFO<<"(DMCZP) EnteringMethod: GpsMonitor::RunOnce";
   auto manager = MonitorManager::Instance();
   Component* component = apollo::common::util::FindOrNull(
       *manager->GetStatus()->mutable_components(), FLAGS_gps_component_name);

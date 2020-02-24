@@ -42,7 +42,6 @@ class BareIntersectionUnprotectedScenarioTest : public ::testing::Test {
 };
 
 TEST_F(BareIntersectionUnprotectedScenarioTest, VerifyConf) {
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   FLAGS_scenario_bare_intersection_unprotected_config_file =
       "/apollo/modules/planning/conf/"
       "scenario/bare_intersection_unprotected_config.pb.txt";
@@ -53,7 +52,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST_F";
 }
 
 TEST_F(BareIntersectionUnprotectedScenarioTest, Init) {
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   FLAGS_scenario_bare_intersection_unprotected_config_file =
       "/apollo/modules/planning/testdata/conf/"
       "scenario/bare_intersection_unprotected_config.pb.txt";

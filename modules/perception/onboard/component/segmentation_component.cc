@@ -31,7 +31,6 @@ uint32_t SegmentationComponent::s_seq_num_ = 0;
 std::mutex SegmentationComponent::s_mutex_;
 
 bool SegmentationComponent::Init() {
-AINFO<<"(DMCZP) EnteringMethod: SegmentationComponent::Init";
   LidarSegmentationComponentConfig comp_config;
   if (!GetProtoConfig(&comp_config)) {
     return false;
@@ -55,7 +54,6 @@ AINFO<<"(DMCZP) EnteringMethod: SegmentationComponent::Init";
 
 bool SegmentationComponent::Proc(
     const std::shared_ptr<drivers::PointCloud>& message) {
-AINFO<<"(DMCZP) EnteringMethod: SegmentationComponent::Proc";
   AINFO << "Enter segmentation component, message timestamp: "
         << std::to_string(message->measurement_time()) << " current timestamp: "
         << std::to_string(lib::TimeUtil::GetCurrentTime());
@@ -72,7 +70,6 @@ AINFO<<"(DMCZP) EnteringMethod: SegmentationComponent::Proc";
 }
 
 bool SegmentationComponent::InitAlgorithmPlugin() {
-AINFO<<"(DMCZP) EnteringMethod: SegmentationComponent::InitAlgorithmPlugin";
   CHECK(common::SensorManager::Instance()->GetSensorInfo(sensor_name_,
                                                          &sensor_info_));
 
@@ -99,7 +96,6 @@ AINFO<<"(DMCZP) EnteringMethod: SegmentationComponent::InitAlgorithmPlugin";
 bool SegmentationComponent::InternalProc(
     const std::shared_ptr<const drivers::PointCloud>& in_message,
     const std::shared_ptr<LidarFrameMessage>& out_message) {
-AINFO<<"(DMCZP) EnteringMethod: SegmentationComponent::InternalProc";
   PERCEPTION_PERF_FUNCTION_WITH_INDICATOR(sensor_name_);
   {
     std::unique_lock<std::mutex> lock(s_mutex_);

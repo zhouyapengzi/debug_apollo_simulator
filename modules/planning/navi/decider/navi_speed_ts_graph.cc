@@ -45,7 +45,6 @@ constexpr double kInfinityValue = 1.0e8;
 }  // namespace
 
 static void CheckConstraints(const NaviSpeedTsConstraints& constraints) {
-AINFO<<"(DMCZP) EnteringMethod: CheckConstraints";
   CHECK_GE(constraints.t_min, 0.0);
   CHECK_GE(constraints.v_max, 0.0);
   CHECK_GE(constraints.v_max, constraints.v_preffered);
@@ -59,7 +58,6 @@ AINFO<<"(DMCZP) EnteringMethod: CheckConstraints";
 
 static void CombineConstraints(const NaviSpeedTsConstraints& constraints,
                                NaviSpeedTsConstraints* dst) {
-AINFO<<"(DMCZP) EnteringMethod: CombineConstraints";
   dst->t_min = std::max(constraints.t_min, dst->t_min);
   dst->v_max = std::min(constraints.v_max, dst->v_max);
   dst->v_preffered = std::min(constraints.v_preffered, dst->v_preffered);
@@ -72,13 +70,11 @@ AINFO<<"(DMCZP) EnteringMethod: CombineConstraints";
 }
 
 NaviSpeedTsGraph::NaviSpeedTsGraph() {
-AINFO<<"(DMCZP) EnteringMethod: NaviSpeedTsGraph::NaviSpeedTsGraph";
   Reset(kDefaultSStep, kDefaultSMax, 0.0, 0.0, 0.0);
 }
 
 void NaviSpeedTsGraph::Reset(double s_step, double s_max, double start_v,
                              double start_a, double start_da) {
-AINFO<<"(DMCZP) EnteringMethod: NaviSpeedTsGraph::Reset";
   CHECK_GT(s_step, 0.0);
   CHECK_GE(s_max, s_step);
   CHECK_GE(start_v, 0.0);
@@ -95,7 +91,6 @@ AINFO<<"(DMCZP) EnteringMethod: NaviSpeedTsGraph::Reset";
 
 void NaviSpeedTsGraph::UpdateConstraints(
     const NaviSpeedTsConstraints& constraints) {
-AINFO<<"(DMCZP) EnteringMethod: NaviSpeedTsGraph::UpdateConstraints";
   CheckConstraints(constraints);
 
   for (auto& pc : constraints_) CombineConstraints(constraints, &pc);
@@ -103,7 +98,6 @@ AINFO<<"(DMCZP) EnteringMethod: NaviSpeedTsGraph::UpdateConstraints";
 
 void NaviSpeedTsGraph::UpdateRangeConstraints(
     double start_s, double end_s, const NaviSpeedTsConstraints& constraints) {
-AINFO<<"(DMCZP) EnteringMethod: NaviSpeedTsGraph::UpdateRangeConstraints";
   CHECK_GE(start_s, 0.0);
   CHECK_GE(end_s, start_s);
   CheckConstraints(constraints);
@@ -123,7 +117,6 @@ void NaviSpeedTsGraph::UpdateObstacleConstraints(double distance,
                                                  double following_accel_ratio,
                                                  double v,
                                                  double cruise_speed) {
-AINFO<<"(DMCZP) EnteringMethod: NaviSpeedTsGraph::UpdateObstacleConstraints";
   CHECK_GE(distance, 0.0);
   CHECK_GE(safe_distance, 0.0);
   CHECK_GT(following_accel_ratio, 0.0);
@@ -197,7 +190,6 @@ AINFO<<"(DMCZP) EnteringMethod: NaviSpeedTsGraph::UpdateObstacleConstraints";
 }
 
 Status NaviSpeedTsGraph::Solve(std::vector<NaviSpeedTsPoint>* output) {
-AINFO<<"(DMCZP) EnteringMethod: NaviSpeedTsGraph::Solve";
   CHECK_NOTNULL(output);
 
   // make constraints of the first point

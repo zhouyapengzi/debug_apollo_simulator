@@ -30,12 +30,10 @@ namespace conti_radar {
 using apollo::drivers::canbus::Byte;
 
 ClusterGeneralInfo701::ClusterGeneralInfo701() {}
-AINFO<<"(DMCZP) EnteringMethod: ClusterGeneralInfo701::ClusterGeneralInfo701";
 const uint32_t ClusterGeneralInfo701::ID = 0x701;
 
 void ClusterGeneralInfo701::Parse(const std::uint8_t* bytes, int32_t length,
                                   ContiRadar* conti_radar) const {
-AINFO<<"(DMCZP) EnteringMethod: ClusterGeneralInfo701::Parse";
   auto obs = conti_radar->add_contiobs();
   obs->set_clusterortrack(true);
   obs->set_obstacle_id(obstacle_id(bytes, length));
@@ -53,7 +51,6 @@ AINFO<<"(DMCZP) EnteringMethod: ClusterGeneralInfo701::Parse";
 
 int ClusterGeneralInfo701::obstacle_id(const std::uint8_t* bytes,
                                        int32_t length) const {
-AINFO<<"(DMCZP) EnteringMethod: ClusterGeneralInfo701::obstacle_id";
   Byte t0(bytes);
   uint32_t x = t0.get_byte(0, 8);
 
@@ -63,7 +60,6 @@ AINFO<<"(DMCZP) EnteringMethod: ClusterGeneralInfo701::obstacle_id";
 
 double ClusterGeneralInfo701::longitude_dist(const std::uint8_t* bytes,
                                              int32_t length) const {
-AINFO<<"(DMCZP) EnteringMethod: ClusterGeneralInfo701::longitude_dist";
   Byte t0(bytes + 1);
   uint32_t x = t0.get_byte(0, 8);
 
@@ -77,7 +73,6 @@ AINFO<<"(DMCZP) EnteringMethod: ClusterGeneralInfo701::longitude_dist";
 
 double ClusterGeneralInfo701::lateral_dist(const std::uint8_t* bytes,
                                            int32_t length) const {
-AINFO<<"(DMCZP) EnteringMethod: ClusterGeneralInfo701::lateral_dist";
   Byte t0(bytes + 2);
   uint32_t x = t0.get_byte(0, 2);
 
@@ -91,7 +86,6 @@ AINFO<<"(DMCZP) EnteringMethod: ClusterGeneralInfo701::lateral_dist";
 
 double ClusterGeneralInfo701::longitude_vel(const std::uint8_t* bytes,
                                             int32_t length) const {
-AINFO<<"(DMCZP) EnteringMethod: ClusterGeneralInfo701::longitude_vel";
   Byte t0(bytes + 4);
   uint32_t x = t0.get_byte(0, 8);
 
@@ -105,7 +99,6 @@ AINFO<<"(DMCZP) EnteringMethod: ClusterGeneralInfo701::longitude_vel";
 
 double ClusterGeneralInfo701::lateral_vel(const std::uint8_t* bytes,
                                           int32_t length) const {
-AINFO<<"(DMCZP) EnteringMethod: ClusterGeneralInfo701::lateral_vel";
   Byte t0(bytes + 5);
   uint32_t x = t0.get_byte(0, 6);
 
@@ -119,7 +112,6 @@ AINFO<<"(DMCZP) EnteringMethod: ClusterGeneralInfo701::lateral_vel";
 
 double ClusterGeneralInfo701::rcs(const std::uint8_t* bytes,
                                   int32_t length) const {
-AINFO<<"(DMCZP) EnteringMethod: ClusterGeneralInfo701::rcs";
   Byte t0(bytes + 7);
   uint32_t x = t0.get_byte(0, 8);
   double ret = x * CLUSTER_RCS_RES + CLUSTER_RCS;
@@ -128,7 +120,6 @@ AINFO<<"(DMCZP) EnteringMethod: ClusterGeneralInfo701::rcs";
 
 int ClusterGeneralInfo701::dynprop(const std::uint8_t* bytes,
                                    int32_t length) const {
-AINFO<<"(DMCZP) EnteringMethod: ClusterGeneralInfo701::dynprop";
   Byte t0(bytes + 6);
   uint32_t x = t0.get_byte(0, 3);
   int ret = x;

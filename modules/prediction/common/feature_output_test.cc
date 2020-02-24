@@ -27,13 +27,11 @@ class FeatureOutputTest : public ::testing::Test {
 };
 
 TEST_F(FeatureOutputTest, get_ready) {
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   EXPECT_TRUE(FeatureOutput::Ready());
   EXPECT_EQ(0, FeatureOutput::Size());
 }
 
 TEST_F(FeatureOutputTest, insertion) {
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   Feature feature;
   for (int i = 0; i < 3; ++i) {
     Feature feature;
@@ -43,7 +41,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST_F";
 }
 
 TEST_F(FeatureOutputTest, clear) {
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   Feature feature;
   for (int i = 0; i < 3; ++i) {
     Feature feature;

@@ -37,7 +37,6 @@ std::unordered_map<std::string, JunctionFeature>
     JunctionAnalyzer::junction_features_;
 
 void JunctionAnalyzer::Init(const std::string& junction_id) {
-AINFO<<"(DMCZP) EnteringMethod: JunctionAnalyzer::Init";
   if (junction_info_ptr_ != nullptr &&
       junction_info_ptr_->id().id() == junction_id) {
     return;
@@ -48,7 +47,6 @@ AINFO<<"(DMCZP) EnteringMethod: JunctionAnalyzer::Init";
 }
 
 void JunctionAnalyzer::Clear() {
-AINFO<<"(DMCZP) EnteringMethod: JunctionAnalyzer::Clear";
   // Clear all data
   junction_info_ptr_ = nullptr;
   junction_exits_.clear();
@@ -56,7 +54,6 @@ AINFO<<"(DMCZP) EnteringMethod: JunctionAnalyzer::Clear";
 }
 
 void JunctionAnalyzer::SetAllJunctionExits() {
-AINFO<<"(DMCZP) EnteringMethod: JunctionAnalyzer::SetAllJunctionExits";
   CHECK_NOTNULL(junction_info_ptr_);
   for (const auto& overlap_id : junction_info_ptr_->junction().overlap_id()) {
     auto overlap_info_ptr = PredictionMap::OverlapById(overlap_id.id());
@@ -87,7 +84,6 @@ AINFO<<"(DMCZP) EnteringMethod: JunctionAnalyzer::SetAllJunctionExits";
 
 std::vector<JunctionExit> JunctionAnalyzer::GetJunctionExits(
     const std::string& start_lane_id) {
-AINFO<<"(DMCZP) EnteringMethod: JunctionAnalyzer::GetJunctionFeature";
   // TODO(hongyi) make this a gflag
   int max_search_level = 5;
 
@@ -139,7 +135,6 @@ const JunctionFeature& JunctionAnalyzer::GetJunctionFeature(
 
 JunctionFeature JunctionAnalyzer::GetJunctionFeature(
     const std::vector<std::string>& start_lane_ids) {
-AINFO<<"(DMCZP) EnteringMethod: JunctionAnalyzer::GetJunctionFeature";
   JunctionFeature merged_junction_feature;
   bool initialized = false;
   std::unordered_map<std::string, JunctionExit> junction_exits_map;
@@ -166,18 +161,15 @@ AINFO<<"(DMCZP) EnteringMethod: JunctionAnalyzer::GetJunctionFeature";
 }
 
 bool JunctionAnalyzer::IsExitLane(const std::string& lane_id) {
-AINFO<<"(DMCZP) EnteringMethod: JunctionAnalyzer::IsExitLane";
   return junction_exits_.find(lane_id) != junction_exits_.end();
 }
 
 const std::string& JunctionAnalyzer::GetJunctionId() {
-AINFO<<"(DMCZP) EnteringMethod: JunctionAnalyzer::GetJunctionId";
   CHECK_NOTNULL(junction_info_ptr_);
   return junction_info_ptr_->id().id();
 }
 
 double JunctionAnalyzer::ComputeJunctionRange() {
-AINFO<<"(DMCZP) EnteringMethod: JunctionAnalyzer::ComputeJunctionRange";
   CHECK_NOTNULL(junction_info_ptr_);
   if (!junction_info_ptr_->junction().has_polygon() ||
       junction_info_ptr_->junction().polygon().point_size() < 3) {

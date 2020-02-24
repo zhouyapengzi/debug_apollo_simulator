@@ -55,8 +55,6 @@ std::vector<std::string> MockClient::received_messages_;
 static WebSocketHandler handler("Test");
 
 TEST(WebSocketTest, IntegrationTest) {
-AINFO<<"(DMCZP) EnteringMethod: handler";
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   // NOTE: Here a magic number is picked up as the port, which is not ideal but
   // in almost all cases this should be fine for a small integration test.
   CivetServer server({"listening_ports", "32695"});
@@ -84,7 +82,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST";
 }
 
 TEST(WebSocketTest, handleData) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   // NOTE: Here a magic number is picked up as the port, which is not ideal but
   // in almost all cases this should be fine for a small integration test.
   CivetServer server({"listening_ports", "32695"});

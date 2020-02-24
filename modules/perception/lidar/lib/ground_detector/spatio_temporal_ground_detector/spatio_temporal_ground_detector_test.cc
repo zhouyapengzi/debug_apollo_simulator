@@ -30,11 +30,8 @@ DECLARE_string(config_manager_path);
 }  // namespace lib
 
 namespace lidar {
-AINFO<<"(DMCZP) EnteringMethod: DECLARE_string";
-AINFO<<"(DMCZP) EnteringMethod: DECLARE_string";
 
 bool LoadPCDFile(const std::string& file_path, base::PointFCloudPtr cloud_out) {
-AINFO<<"(DMCZP) EnteringMethod: LoadPCDFile";
   int ret = 0;
   pcl::PointCloud<pcl::PointXYZI> org_cloud;
   if ((ret = pcl::io::loadPCDFile(file_path, org_cloud)) < 0) {
@@ -61,7 +58,6 @@ AINFO<<"(DMCZP) EnteringMethod: LoadPCDFile";
 }
 
 TEST(SpatioTemporalGroundDetectorTest, test_spatio_temporal_ground_detector) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   // char cyber_path[100] = "CYBER_PATH=";
   // putenv(cyber_path);
   // char module_path[100] = "MODULE_PATH=";

@@ -20,7 +20,6 @@ namespace localization {
 namespace msf {
 
 PyramidMapNodeConfig::PyramidMapNodeConfig() {}
-AINFO<<"(DMCZP) EnteringMethod: PyramidMapNodeConfig::PyramidMapNodeConfig";
 
 PyramidMapNodeConfig::~PyramidMapNodeConfig() {}
 

@@ -39,7 +39,6 @@ class StageApproachingParkingSpotTest : public ::testing::Test {
 };
 
 TEST_F(StageApproachingParkingSpotTest, Init) {
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   StageApproachingParkingSpot stage_approaching_parking_spot(config_);
   EXPECT_EQ(stage_approaching_parking_spot.Name(),
             ScenarioConfig::StageType_Name(config_.stage_type()));

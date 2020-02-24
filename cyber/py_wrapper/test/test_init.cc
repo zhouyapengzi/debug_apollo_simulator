@@ -21,13 +21,11 @@
 #include "gtest/gtest.h"
 
 TEST(CyberInitTest, test_init) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   EXPECT_TRUE(apollo::cyber::OK());
   EXPECT_TRUE(apollo::cyber::IsShutdown());
 }
 
 int main(int argc, char** argv) {
-AINFO<<"(DMCZP) EnteringMethod: main";
   apollo::cyber::Init(argv[0]);
   testing::InitGoogleTest(&argc, argv);
   return RUN_ALL_TESTS();

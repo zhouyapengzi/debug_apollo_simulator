@@ -26,7 +26,6 @@ namespace perception {
 namespace radar {
 
 TEST(BaseMatcherTest, base_matcher_test) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   std::unique_ptr<BaseMatcher> matcher(new BaseMatcher());
   EXPECT_TRUE(matcher->Init());
   EXPECT_EQ(matcher->Name(), "BaseMatcher");

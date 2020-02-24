@@ -38,7 +38,6 @@ namespace obstacle {
 
 bool load_filename(std::string path, std::string suffix,
                    std::vector<std::string> *name_list) {
-AINFO<<"(DMCZP) EnteringMethod: load_filename";
   assert(name_list != nullptr);
   name_list->clear();
   boost::filesystem::directory_iterator end_itr;
@@ -81,7 +80,6 @@ AINFO<<"(DMCZP) EnteringMethod: load_filename";
 
 bool load_ref_camera_k_mat(const std::string &filename, float k_mat[9], int *w,
                            int *h) {
-AINFO<<"(DMCZP) EnteringMethod: load_ref_camera_k_mat";
   std::fstream fin(filename);
   if (!fin.is_open()) {
     std::cerr << "Fail to load the camera k matrix: " << filename << std::endl;
@@ -122,7 +120,6 @@ AINFO<<"(DMCZP) EnteringMethod: load_ref_camera_k_mat";
 void write_text_on_image(cv::Mat *image, float left, float top,
                          const char *text, const CvFont &font,
                          const cv::Scalar &color) {
-AINFO<<"(DMCZP) EnteringMethod: write_text_on_image";
   IplImage ipl_img = *image;
   cvPutText(&ipl_img, text, cvPoint(common::IRound(left), common::IRound(top)),
             &font, color);

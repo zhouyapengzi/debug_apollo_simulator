@@ -23,22 +23,16 @@ DEFINE_string(test_monitor_file, "", "montor input file");
 DEFINE_bool(test_update_golden_log, false, "true to update golden log file.");
 
 namespace apollo {
-AINFO<<"(DMCZP) EnteringMethod: DEFINE_string";
-AINFO<<"(DMCZP) EnteringMethod: DEFINE_string";
-AINFO<<"(DMCZP) EnteringMethod: DEFINE_string";
-AINFO<<"(DMCZP) EnteringMethod: DEFINE_bool";
 namespace third_party_perception {
 
 uint32_t ThirdPartyPerceptionTestBase::s_seq_num_ = 0;
 
 void ThirdPartyPerceptionTestBase::SetUpTestCase() {
-AINFO<<"(DMCZP) EnteringMethod: ThirdPartyPerceptionTestBase::SetUpTestCase";
   FLAGS_adapter_config_filename =
       "/apollo/modules/third_party_perception/testdata/conf/adapter.conf";
 }
 
 void ThirdPartyPerceptionTestBase::SetUp() { ++s_seq_num_; }
-AINFO<<"(DMCZP) EnteringMethod: ThirdPartyPerceptionTestBase::SetUp";
 
 }  // namespace third_party_perception
 }  // namespace apollo

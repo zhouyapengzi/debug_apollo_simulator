@@ -26,7 +26,6 @@ namespace velodyne {
 uint64_t VelodyneParser::GetGpsStamp(double current_packet_stamp,
                                      double *previous_packet_stamp,
                                      uint64_t *gps_base_usec) {
-AINFO<<"(DMCZP) EnteringMethod: VelodyneParser::GetGpsStamp";
   if (current_packet_stamp < *previous_packet_stamp) {
     // plus 3600 when large jump back, discard little jump back for wrong time
     // in lidar
@@ -56,7 +55,6 @@ AINFO<<"(DMCZP) EnteringMethod: VelodyneParser::GetGpsStamp";
 }
 
 PointXYZIT VelodyneParser::get_nan_point(uint64_t timestamp) {
-AINFO<<"(DMCZP) EnteringMethod: VelodyneParser::get_nan_point";
   PointXYZIT nan_point;
   nan_point.set_timestamp(timestamp);
   nan_point.set_x(nan);
@@ -68,11 +66,9 @@ AINFO<<"(DMCZP) EnteringMethod: VelodyneParser::get_nan_point";
 
 VelodyneParser::VelodyneParser(const Config &config)
     : last_time_stamp_(0), config_(config), mode_(STRONGEST) {}
-AINFO<<"(DMCZP) EnteringMethod: VelodyneParser::VelodyneParser";
 
 void VelodyneParser::init_angle_params(double view_direction,
                                        double view_width) {
-AINFO<<"(DMCZP) EnteringMethod: VelodyneParser::init_angle_params";
   // converting angle parameters into the velodyne reference (rad)
   double tmp_min_angle = view_direction + view_width / 2;
   double tmp_max_angle = view_direction - view_width / 2;
@@ -94,7 +90,6 @@ AINFO<<"(DMCZP) EnteringMethod: VelodyneParser::init_angle_params";
 
 /** Set up for on-line operation. */
 void VelodyneParser::setup() {
-AINFO<<"(DMCZP) EnteringMethod: VelodyneParser::setup";
   if (!config_.calibration_online()) {
     calibration_.read(config_.calibration_file());
 
@@ -111,7 +106,6 @@ AINFO<<"(DMCZP) EnteringMethod: VelodyneParser::setup";
 }
 
 bool VelodyneParser::is_scan_valid(int rotation, float range) {
-AINFO<<"(DMCZP) EnteringMethod: VelodyneParser::is_scan_valid";
   // check range first
   if (range < config_.min_range() || range > config_.max_range()) {
     return false;
@@ -132,7 +126,6 @@ AINFO<<"(DMCZP) EnteringMethod: VelodyneParser::is_scan_valid";
 void VelodyneParser::ComputeCoords(const float &raw_distance,
                                    const LaserCorrection &corrections,
                                    const uint16_t rotation, PointXYZIT *point) {
-AINFO<<"(DMCZP) EnteringMethod: VelodyneParser::ComputeCoords";
   // ROS_ASSERT_MSG(rotation < 36000, "rotation must between 0 and 35999");
   assert(rotation <= 36000);
   double x = 0.0;
@@ -208,7 +201,6 @@ AINFO<<"(DMCZP) EnteringMethod: VelodyneParser::ComputeCoords";
 }
 
 VelodyneParser *VelodyneParserFactory::CreateParser(Config source_config) {
-AINFO<<"(DMCZP) EnteringMethod: *VelodyneParserFactory::CreateParser";
   Config config = source_config;
   if (config.model() == VLP16) {
     config.set_calibration_online(false);

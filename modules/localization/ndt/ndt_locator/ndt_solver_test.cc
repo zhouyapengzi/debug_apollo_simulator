@@ -33,7 +33,6 @@ namespace localization {
 namespace ndt {
 
 msf::MapNodeIndex GetMapIndexFromMapFolder(const std::string& map_folder) {
-AINFO<<"(DMCZP) EnteringMethod: GetMapIndexFromMapFolder";
   msf::MapNodeIndex index;
   char buf[100];
   sscanf(map_folder.c_str(), "/%03u/%05s/%02d/%08u/%08u", &index.resolution_id_,
@@ -48,7 +47,6 @@ AINFO<<"(DMCZP) EnteringMethod: GetMapIndexFromMapFolder";
 
 bool GetAllMapIndex(const std::string& src_map_folder,
                     std::list<msf::MapNodeIndex>* buf) {
-AINFO<<"(DMCZP) EnteringMethod: GetAllMapIndex";
   std::string src_map_path = src_map_folder + "/map";
   buf->clear();
   boost::filesystem::recursive_directory_iterator end_iter;
@@ -74,7 +72,6 @@ class NdtSolverTestSuite : public ::testing::Test {
 };
 
 TEST_F(NdtSolverTestSuite, NdtSolver) {
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   // Set NDT
   NormalDistributionsTransform<pcl::PointXYZ, pcl::PointXYZ> reg;
   reg.SetMaximumIterations(5);

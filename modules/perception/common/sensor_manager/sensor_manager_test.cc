@@ -24,7 +24,6 @@ namespace common {
 
 /* TODO(all): to be added back
 TEST(SensorManagerTest, test) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   FLAGS_work_root = "/apollo/modules/perception/testdata/"
       "common/sensor_manager/";
   FLAGS_obs_sensor_meta_path = "data/sensor_meta.pt";
@@ -107,7 +106,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST";
 
 /* TODO(all): test not working. to be added back
 TEST(SensorManagerTest, test_init_error) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   SensorManager* sensor_manager = SensorManager::Instance();
   sensor_manager->inited_ = false;
   FLAGS_work_root = "/apollo/modules/perception/testdata/"

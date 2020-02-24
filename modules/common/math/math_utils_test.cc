@@ -25,7 +25,6 @@ namespace common {
 namespace math {
 
 TEST(MathUtilsTest, CrossProd) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   EXPECT_NEAR(CrossProd({0, 0}, {0, 1}, {1, 0}), -1.0, 1e-5);
   EXPECT_NEAR(CrossProd({0, 0}, {1, 0}, {0, 1}), 1.0, 1e-5);
   EXPECT_NEAR(CrossProd({0, 1}, {0, 0}, {1, 0}), 1.0, 1e-5);
@@ -35,7 +34,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST";
 }
 
 TEST(MathUtilsTest, InnerProd) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   EXPECT_NEAR(InnerProd({0, 0}, {0, 1}, {1, 0}), 0.0, 1e-5);
   EXPECT_NEAR(InnerProd({0, 0}, {1, 0}, {0, 1}), 0.0, 1e-5);
   EXPECT_NEAR(InnerProd({0, 1}, {0, 0}, {1, 0}), 1.0, 1e-5);
@@ -46,7 +44,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST";
 }
 
 TEST(MathUtilsTest, WrapAngle) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   EXPECT_NEAR(WrapAngle(-1.2), -1.2 + M_PI * 2.0, 1e-6);
   EXPECT_NEAR(WrapAngle(3.4), 3.4, 1e-6);
   EXPECT_NEAR(WrapAngle(5.6), 5.6, 1e-6);
@@ -57,7 +54,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST";
 }
 
 TEST(MathUtilsTest, NormalizeAngle) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   EXPECT_DOUBLE_EQ(1.5, NormalizeAngle(1.5));
   EXPECT_DOUBLE_EQ(1.5 - M_PI, NormalizeAngle(1.5 + M_PI));
   EXPECT_DOUBLE_EQ(1.5, NormalizeAngle(1.5 + M_PI * 2));
@@ -72,7 +68,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST";
 }
 
 TEST(MathUtilsTest, Square) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   EXPECT_DOUBLE_EQ(121.0, Square(11.0));
   EXPECT_FLOAT_EQ(144.0f, Square(-12.0f));
   EXPECT_EQ(169, Square(-13));
@@ -81,17 +76,14 @@ AINFO<<"(DMCZP) EnteringMethod: TEST";
 }
 
 TEST(MathUtilsTest, Sqr) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   EXPECT_DOUBLE_EQ(121.0, Sqr(11.0));
   EXPECT_DOUBLE_EQ(0.25, Sqr(0.5));
   EXPECT_DOUBLE_EQ(169.0, Sqr(-13.0));
 }
 
 TEST(MathUtilsTest, Sigmoid) { EXPECT_DOUBLE_EQ(0.5, Sigmoid(0.0)); }
-AINFO<<"(DMCZP) EnteringMethod: TEST";
 
 TEST(MathUtilsTest, Clamp) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   EXPECT_EQ(1, Clamp(1, 0, 6));
   EXPECT_EQ(6, Clamp(7, 0, 6));
   EXPECT_EQ(0, Clamp(-1, 0, 6));
@@ -100,7 +92,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST";
 }
 
 TEST(MathUtilsTest, RotateVector2d) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   double expected_x = 0.0;
   double expected_y = std::sqrt(2.0);
 
@@ -124,7 +115,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST";
 }
 
 TEST(MathUtilsTest, QPSTTest) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   // Load problem data
   c_float P_x[4] = {
       4.00000000000000000000,

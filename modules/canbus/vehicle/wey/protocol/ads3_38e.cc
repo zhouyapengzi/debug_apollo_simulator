@@ -28,17 +28,14 @@ const int32_t Ads338e::ID = 0x38E;
 
 // public
 Ads338e::Ads338e() { Reset(); }
-AINFO<<"(DMCZP) EnteringMethod: Ads338e::Ads338e";
 
 uint32_t Ads338e::GetPeriod() const {
-AINFO<<"(DMCZP) EnteringMethod: Ads338e::GetPeriod";
   // TODO(ChaoMa) :modify every protocol's period manually
   static const uint32_t PERIOD = 20 * 1000;
   return PERIOD;
 }
 
 void Ads338e::UpdateData(uint8_t* data) {
-AINFO<<"(DMCZP) EnteringMethod: Ads338e::UpdateData";
   set_p_ads_bcm_worksts(data, ads_bcm_worksts_);
   set_p_ads_bcmworkstsvalid(data, ads_bcmworkstsvalid_);
   set_p_ads_reqcontrolbcm(data, ads_reqcontrolbcm_);
@@ -55,7 +52,6 @@ AINFO<<"(DMCZP) EnteringMethod: Ads338e::UpdateData";
 }
 
 void Ads338e::Reset() {
-AINFO<<"(DMCZP) EnteringMethod: Ads338e::Reset";
   // TODO(ChaoMa) you should check this manually
   ads_bcm_worksts_ = Ads3_38e::ADS_BCM_WORKSTS_DISABLE;
   ads_bcmworkstsvalid_ = Ads3_38e::ADS_BCMWORKSTSVALID_INVALID;
@@ -74,7 +70,6 @@ AINFO<<"(DMCZP) EnteringMethod: Ads338e::Reset";
 
 Ads338e* Ads338e::set_ads_bcm_worksts(
     Ads3_38e::Ads_bcm_workstsType ads_bcm_worksts) {
-AINFO<<"(DMCZP) EnteringMethod: Ads338e::set_ads_bcm_worksts";
   ads_bcm_worksts_ = ads_bcm_worksts;
   return this;
 }
@@ -88,7 +83,6 @@ AINFO<<"(DMCZP) EnteringMethod: Ads338e::set_ads_bcm_worksts";
 // 'physical_unit': ''}
 void Ads338e::set_p_ads_bcm_worksts(
     uint8_t* data, Ads3_38e::Ads_bcm_workstsType ads_bcm_worksts) {
-AINFO<<"(DMCZP) EnteringMethod: Ads338e::set_p_ads_bcm_worksts";
   int x = ads_bcm_worksts;
 
   Byte to_set(data + 0);
@@ -97,7 +91,6 @@ AINFO<<"(DMCZP) EnteringMethod: Ads338e::set_p_ads_bcm_worksts";
 
 Ads338e* Ads338e::set_ads_bcmworkstsvalid(
     Ads3_38e::Ads_bcmworkstsvalidType ads_bcmworkstsvalid) {
-AINFO<<"(DMCZP) EnteringMethod: Ads338e::set_ads_bcmworkstsvalid";
   ads_bcmworkstsvalid_ = ads_bcmworkstsvalid;
   return this;
 }
@@ -109,7 +102,6 @@ AINFO<<"(DMCZP) EnteringMethod: Ads338e::set_ads_bcmworkstsvalid";
 // '[0|1]', 'bit': 7, 'type': 'enum', 'order': 'motorola', 'physical_unit': ''}
 void Ads338e::set_p_ads_bcmworkstsvalid(
     uint8_t* data, Ads3_38e::Ads_bcmworkstsvalidType ads_bcmworkstsvalid) {
-AINFO<<"(DMCZP) EnteringMethod: Ads338e::set_p_ads_bcmworkstsvalid";
   int x = ads_bcmworkstsvalid;
 
   Byte to_set(data + 0);
@@ -118,7 +110,6 @@ AINFO<<"(DMCZP) EnteringMethod: Ads338e::set_p_ads_bcmworkstsvalid";
 
 Ads338e* Ads338e::set_ads_reqcontrolbcm(
     Ads3_38e::Ads_reqcontrolbcmType ads_reqcontrolbcm) {
-AINFO<<"(DMCZP) EnteringMethod: Ads338e::set_ads_reqcontrolbcm";
   ads_reqcontrolbcm_ = ads_reqcontrolbcm;
   return this;
 }
@@ -130,7 +121,6 @@ AINFO<<"(DMCZP) EnteringMethod: Ads338e::set_ads_reqcontrolbcm";
 // '[0|1]', 'bit': 8, 'type': 'enum', 'order': 'motorola', 'physical_unit': ''}
 void Ads338e::set_p_ads_reqcontrolbcm(
     uint8_t* data, Ads3_38e::Ads_reqcontrolbcmType ads_reqcontrolbcm) {
-AINFO<<"(DMCZP) EnteringMethod: Ads338e::set_p_ads_reqcontrolbcm";
   int x = ads_reqcontrolbcm;
 
   Byte to_set(data + 1);
@@ -138,7 +128,6 @@ AINFO<<"(DMCZP) EnteringMethod: Ads338e::set_p_ads_reqcontrolbcm";
 }
 
 Ads338e* Ads338e::set_highbeamton(Ads3_38e::HighbeamtonType highbeamton) {
-AINFO<<"(DMCZP) EnteringMethod: Ads338e::set_highbeamton";
   highbeamton_ = highbeamton;
   return this;
 }
@@ -150,7 +139,6 @@ AINFO<<"(DMCZP) EnteringMethod: Ads338e::set_highbeamton";
 // 'physical_unit': ''}
 void Ads338e::set_p_highbeamton(uint8_t* data,
                                 Ads3_38e::HighbeamtonType highbeamton) {
-AINFO<<"(DMCZP) EnteringMethod: Ads338e::set_p_highbeamton";
   int x = highbeamton;
 
   Byte to_set(data + 1);
@@ -158,7 +146,6 @@ AINFO<<"(DMCZP) EnteringMethod: Ads338e::set_p_highbeamton";
 }
 
 Ads338e* Ads338e::set_dippedbeamon(Ads3_38e::DippedbeamonType dippedbeamon) {
-AINFO<<"(DMCZP) EnteringMethod: Ads338e::set_dippedbeamon";
   dippedbeamon_ = dippedbeamon;
   return this;
 }
@@ -170,7 +157,6 @@ AINFO<<"(DMCZP) EnteringMethod: Ads338e::set_dippedbeamon";
 // 'physical_unit': ''}
 void Ads338e::set_p_dippedbeamon(uint8_t* data,
                                  Ads3_38e::DippedbeamonType dippedbeamon) {
-AINFO<<"(DMCZP) EnteringMethod: Ads338e::set_p_dippedbeamon";
   int x = dippedbeamon;
 
   Byte to_set(data + 1);
@@ -178,7 +164,6 @@ AINFO<<"(DMCZP) EnteringMethod: Ads338e::set_p_dippedbeamon";
 }
 
 Ads338e* Ads338e::set_turnllighton(Ads3_38e::TurnllightonType turnllighton) {
-AINFO<<"(DMCZP) EnteringMethod: Ads338e::set_turnllighton";
   turnllighton_ = turnllighton;
   return this;
 }
@@ -191,7 +176,6 @@ AINFO<<"(DMCZP) EnteringMethod: Ads338e::set_turnllighton";
 // 'physical_unit': ''}
 void Ads338e::set_p_turnllighton(uint8_t* data,
                                  Ads3_38e::TurnllightonType turnllighton) {
-AINFO<<"(DMCZP) EnteringMethod: Ads338e::set_p_turnllighton";
   int x = turnllighton;
 
   Byte to_set(data + 2);
@@ -200,7 +184,6 @@ AINFO<<"(DMCZP) EnteringMethod: Ads338e::set_p_turnllighton";
 
 Ads338e* Ads338e::set_emergencylighton(
     Ads3_38e::EmergencylightonType emergencylighton) {
-AINFO<<"(DMCZP) EnteringMethod: Ads338e::set_emergencylighton";
   emergencylighton_ = emergencylighton;
   return this;
 }
@@ -212,7 +195,6 @@ AINFO<<"(DMCZP) EnteringMethod: Ads338e::set_emergencylighton";
 // 'physical_unit': ''}
 void Ads338e::set_p_emergencylighton(
     uint8_t* data, Ads3_38e::EmergencylightonType emergencylighton) {
-AINFO<<"(DMCZP) EnteringMethod: Ads338e::set_p_emergencylighton";
   int x = emergencylighton;
 
   Byte to_set(data + 5);
@@ -220,7 +202,6 @@ AINFO<<"(DMCZP) EnteringMethod: Ads338e::set_p_emergencylighton";
 }
 
 Ads338e* Ads338e::set_ffoglampon(Ads3_38e::FfoglamponType ffoglampon) {
-AINFO<<"(DMCZP) EnteringMethod: Ads338e::set_ffoglampon";
   ffoglampon_ = ffoglampon;
   return this;
 }
@@ -232,7 +213,6 @@ AINFO<<"(DMCZP) EnteringMethod: Ads338e::set_ffoglampon";
 // 'physical_unit': ''}
 void Ads338e::set_p_ffoglampon(uint8_t* data,
                                Ads3_38e::FfoglamponType ffoglampon) {
-AINFO<<"(DMCZP) EnteringMethod: Ads338e::set_p_ffoglampon";
   int x = ffoglampon;
 
   Byte to_set(data + 5);
@@ -240,7 +220,6 @@ AINFO<<"(DMCZP) EnteringMethod: Ads338e::set_p_ffoglampon";
 }
 
 Ads338e* Ads338e::set_rfoglampon(Ads3_38e::RfoglamponType rfoglampon) {
-AINFO<<"(DMCZP) EnteringMethod: Ads338e::set_rfoglampon";
   rfoglampon_ = rfoglampon;
   return this;
 }
@@ -252,7 +231,6 @@ AINFO<<"(DMCZP) EnteringMethod: Ads338e::set_rfoglampon";
 // 'physical_unit': ''}
 void Ads338e::set_p_rfoglampon(uint8_t* data,
                                Ads3_38e::RfoglamponType rfoglampon) {
-AINFO<<"(DMCZP) EnteringMethod: Ads338e::set_p_rfoglampon";
   int x = rfoglampon;
 
   Byte to_set(data + 5);
@@ -260,7 +238,6 @@ AINFO<<"(DMCZP) EnteringMethod: Ads338e::set_p_rfoglampon";
 }
 
 Ads338e* Ads338e::set_brakelight(Ads3_38e::BrakelightType brakelight) {
-AINFO<<"(DMCZP) EnteringMethod: Ads338e::set_brakelight";
   brakelight_ = brakelight;
   return this;
 }
@@ -272,7 +249,6 @@ AINFO<<"(DMCZP) EnteringMethod: Ads338e::set_brakelight";
 // 'physical_unit': ''}
 void Ads338e::set_p_brakelight(uint8_t* data,
                                Ads3_38e::BrakelightType brakelight) {
-AINFO<<"(DMCZP) EnteringMethod: Ads338e::set_p_brakelight";
   int x = brakelight;
 
   Byte to_set(data + 6);
@@ -280,7 +256,6 @@ AINFO<<"(DMCZP) EnteringMethod: Ads338e::set_p_brakelight";
 }
 
 Ads338e* Ads338e::set_hornon(Ads3_38e::HornonType hornon) {
-AINFO<<"(DMCZP) EnteringMethod: Ads338e::set_hornon";
   hornon_ = hornon;
   return this;
 }
@@ -290,7 +265,6 @@ AINFO<<"(DMCZP) EnteringMethod: Ads338e::set_hornon";
 // 'HornON', 'is_signed_var': False, 'offset': 0.0, 'physical_range': '[0|1]',
 // 'bit': 49, 'type': 'enum', 'order': 'motorola', 'physical_unit': ''}
 void Ads338e::set_p_hornon(uint8_t* data, Ads3_38e::HornonType hornon) {
-AINFO<<"(DMCZP) EnteringMethod: Ads338e::set_p_hornon";
   int x = hornon;
 
   Byte to_set(data + 6);
@@ -299,7 +273,6 @@ AINFO<<"(DMCZP) EnteringMethod: Ads338e::set_p_hornon";
 
 Ads338e* Ads338e::set_fwindshieldwiper(
     Ads3_38e::FwindshieldwiperType fwindshieldwiper) {
-AINFO<<"(DMCZP) EnteringMethod: Ads338e::set_fwindshieldwiper";
   fwindshieldwiper_ = fwindshieldwiper;
   return this;
 }
@@ -311,7 +284,6 @@ AINFO<<"(DMCZP) EnteringMethod: Ads338e::set_fwindshieldwiper";
 // 'physical_unit': ''}
 void Ads338e::set_p_fwindshieldwiper(
     uint8_t* data, Ads3_38e::FwindshieldwiperType fwindshieldwiper) {
-AINFO<<"(DMCZP) EnteringMethod: Ads338e::set_p_fwindshieldwiper";
   int x = fwindshieldwiper;
 
   Byte to_set(data + 6);
@@ -320,7 +292,6 @@ AINFO<<"(DMCZP) EnteringMethod: Ads338e::set_p_fwindshieldwiper";
 
 Ads338e* Ads338e::set_rwindshieldwiper(
     Ads3_38e::RwindshieldwiperType rwindshieldwiper) {
-AINFO<<"(DMCZP) EnteringMethod: Ads338e::set_rwindshieldwiper";
   rwindshieldwiper_ = rwindshieldwiper;
   return this;
 }
@@ -332,7 +303,6 @@ AINFO<<"(DMCZP) EnteringMethod: Ads338e::set_rwindshieldwiper";
 // 'physical_unit': ''}
 void Ads338e::set_p_rwindshieldwiper(
     uint8_t* data, Ads3_38e::RwindshieldwiperType rwindshieldwiper) {
-AINFO<<"(DMCZP) EnteringMethod: Ads338e::set_p_rwindshieldwiper";
   int x = rwindshieldwiper;
 
   Byte to_set(data + 7);

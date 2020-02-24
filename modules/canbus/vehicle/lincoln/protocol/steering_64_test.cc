@@ -23,7 +23,6 @@ namespace canbus {
 namespace lincoln {
 
 TEST(Steering64Test, General) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   uint8_t data[8] = {0x67, 0x62, 0x63, 0x64, 0x51, 0x52, 0x53, 0x54};
   Steering64 steering;
   EXPECT_EQ(steering.GetPeriod(), 10 * 1000);

@@ -50,16 +50,6 @@ DEFINE_string(test_previous_planning_file, "",
               "The previous planning test file");
 
 void PlanningTestBase::SetUpTestCase() {
-AINFO<<"(DMCZP) EnteringMethod: DEFINE_string";
-AINFO<<"(DMCZP) EnteringMethod: DEFINE_bool";
-AINFO<<"(DMCZP) EnteringMethod: DEFINE_string";
-AINFO<<"(DMCZP) EnteringMethod: DEFINE_string";
-AINFO<<"(DMCZP) EnteringMethod: DEFINE_string";
-AINFO<<"(DMCZP) EnteringMethod: DEFINE_string";
-AINFO<<"(DMCZP) EnteringMethod: DEFINE_string";
-AINFO<<"(DMCZP) EnteringMethod: DEFINE_string";
-AINFO<<"(DMCZP) EnteringMethod: DEFINE_string";
-AINFO<<"(DMCZP) EnteringMethod: PlanningTestBase::SetUpTestCase";
   FLAGS_use_multi_thread_to_add_obstacles = false;
   FLAGS_enable_multi_thread_in_dp_st_graph = false;
   FLAGS_planning_config_file =
@@ -86,7 +76,6 @@ AINFO<<"(DMCZP) EnteringMethod: PlanningTestBase::SetUpTestCase";
 }
 
 bool PlanningTestBase::FeedTestData() {
-AINFO<<"(DMCZP) EnteringMethod: PlanningTestBase::FeedTestData";
   // chassis
   Chassis chassis;
   if (FLAGS_test_chassis_file.empty()) {
@@ -162,7 +151,6 @@ AINFO<<"(DMCZP) EnteringMethod: PlanningTestBase::FeedTestData";
 }
 
 void PlanningTestBase::SetUp() {
-AINFO<<"(DMCZP) EnteringMethod: PlanningTestBase::SetUp";
   if (FLAGS_use_navigation_mode) {
     // TODO(all)
     // planning_ = std::unique_ptr<PlanningBase>(new NaviPlanning());
@@ -197,7 +185,6 @@ AINFO<<"(DMCZP) EnteringMethod: PlanningTestBase::SetUp";
 }
 
 void PlanningTestBase::UpdateData() {
-AINFO<<"(DMCZP) EnteringMethod: PlanningTestBase::UpdateData";
   CHECK(FeedTestData()) << "Failed to feed test data";
 
   if (!FLAGS_test_previous_planning_file.empty()) {
@@ -218,7 +205,6 @@ AINFO<<"(DMCZP) EnteringMethod: PlanningTestBase::UpdateData";
 
 void PlanningTestBase::TrimPlanning(ADCTrajectory* origin,
                                     bool no_trajectory_point) {
-AINFO<<"(DMCZP) EnteringMethod: PlanningTestBase::TrimPlanning";
   origin->clear_latency_stats();
   origin->clear_debug();
   // origin->mutable_header()->clear_radar_timestamp();
@@ -236,7 +222,6 @@ AINFO<<"(DMCZP) EnteringMethod: PlanningTestBase::TrimPlanning";
 
 bool PlanningTestBase::RunPlanning(const std::string& test_case_name,
                                    int case_num, bool no_trajectory_point) {
-AINFO<<"(DMCZP) EnteringMethod: PlanningTestBase::RunPlanning";
   const std::string golden_result_file = apollo::common::util::StrCat(
       "result_", test_case_name, "_", case_num, ".pb.txt");
 
@@ -284,7 +269,6 @@ AINFO<<"(DMCZP) EnteringMethod: PlanningTestBase::RunPlanning";
 }
 
 bool PlanningTestBase::IsValidTrajectory(const ADCTrajectory& trajectory) {
-AINFO<<"(DMCZP) EnteringMethod: PlanningTestBase::IsValidTrajectory";
   for (int i = 0; i < trajectory.trajectory_point_size(); ++i) {
     const auto& point = trajectory.trajectory_point(i);
 
@@ -322,7 +306,6 @@ AINFO<<"(DMCZP) EnteringMethod: PlanningTestBase::IsValidTrajectory";
 
 TrafficRuleConfig* PlanningTestBase::GetTrafficRuleConfig(
     const TrafficRuleConfig::RuleId& rule_id) {
-AINFO<<"(DMCZP) EnteringMethod: PlanningTestBase::GetTrafficRuleConfig";
   for (auto& config : *planning_->traffic_rule_configs_.mutable_config()) {
     if (config.rule_id() == rule_id) {
       return &config;

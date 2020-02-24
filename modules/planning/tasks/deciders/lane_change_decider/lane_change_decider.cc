@@ -33,10 +33,8 @@ using apollo::common::util::StrCat;
 
 LaneChangeDecider::LaneChangeDecider(const TaskConfig& config)
     : Decider(config) {}
-AINFO<<"(DMCZP) EnteringMethod: LaneChangeDecider::LaneChangeDecider";
 
 Status LaneChangeDecider::Process(Frame* frame) {
-AINFO<<"(DMCZP) EnteringMethod: LaneChangeDecider::Process";
   // Sanity checks.
   CHECK_NOTNULL(frame);
   std::list<ReferenceLineInfo>* reference_line_info =
@@ -121,8 +119,6 @@ AINFO<<"(DMCZP) EnteringMethod: LaneChangeDecider::Process";
 
 void LaneChangeDecider::UpdateStatus(ChangeLaneStatus::Status status_code,
                                      const std::string& path_id) {
-AINFO<<"(DMCZP) EnteringMethod: LaneChangeDecider::UpdateStatus";
-AINFO<<"(DMCZP) EnteringMethod: LaneChangeDecider::UpdateStatus";
   UpdateStatus(Clock::NowInSeconds(), status_code, path_id);
 }
 
@@ -139,8 +135,6 @@ void LaneChangeDecider::UpdateStatus(double timestamp,
 
 void LaneChangeDecider::PrioritizeChangeLane(
     std::list<ReferenceLineInfo>* reference_line_info) const {
-AINFO<<"(DMCZP) EnteringMethod: LaneChangeDecider::PrioritizeChangeLane";
-AINFO<<"(DMCZP) EnteringMethod: LaneChangeDecider::RemoveChangeLane";
   if (reference_line_info->empty()) {
     AERROR << "Reference line info empty";
     return;
@@ -170,7 +164,6 @@ void LaneChangeDecider::RemoveChangeLane(
 
 std::string LaneChangeDecider::GetCurrentPathId(
     const std::list<ReferenceLineInfo>& reference_line_info) const {
-AINFO<<"(DMCZP) EnteringMethod: LaneChangeDecider::GetCurrentPathId";
   for (const auto& info : reference_line_info) {
     if (!info.IsChangeLanePath()) {
       return info.Lanes().Id();
@@ -181,7 +174,6 @@ AINFO<<"(DMCZP) EnteringMethod: LaneChangeDecider::GetCurrentPathId";
 
 bool LaneChangeDecider::IsClearToChangeLane(
     ReferenceLineInfo* reference_line_info) {
-AINFO<<"(DMCZP) EnteringMethod: LaneChangeDecider::IsClearToChangeLane";
   double ego_start_s = reference_line_info->AdcSlBoundary().start_s();
   double ego_end_s = reference_line_info->AdcSlBoundary().end_s();
   double ego_v =
@@ -280,7 +272,6 @@ bool LaneChangeDecider::IsPerceptionBlocked(
     const ReferenceLineInfo& reference_line_info,
     const double search_beam_length, const double search_beam_radius_intensity,
     const double search_range, const double is_block_angle_threshold) {
-AINFO<<"(DMCZP) EnteringMethod: LaneChangeDecider::IsPerceptionBlocked";
   const auto& vehicle_state = reference_line_info.vehicle_state();
   const common::math::Vec2d adv_pos(vehicle_state.x(), vehicle_state.y());
   const double adv_heading = vehicle_state.heading();
@@ -334,7 +325,6 @@ bool LaneChangeDecider::HysteresisFilter(const double obstacle_distance,
                                          const double safe_distance,
                                          const double distance_buffer,
                                          const bool is_obstacle_blocking) {
-AINFO<<"(DMCZP) EnteringMethod: LaneChangeDecider::HysteresisFilter";
   if (is_obstacle_blocking) {
     return obstacle_distance < safe_distance + distance_buffer;
   } else {

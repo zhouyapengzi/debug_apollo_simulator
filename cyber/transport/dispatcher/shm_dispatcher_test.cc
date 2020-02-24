@@ -33,7 +33,6 @@ namespace cyber {
 namespace transport {
 
 TEST(ShmDispatcherTest, add_listener) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   auto dispatcher = ShmDispatcher::Instance();
   RoleAttributes self_attr;
   self_attr.set_channel_name("add_listener");
@@ -56,7 +55,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST";
 }
 
 TEST(ShmDispatcherTest, on_message) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   auto dispatcher = ShmDispatcher::Instance();
 
   RoleAttributes oppo_attr;
@@ -98,7 +96,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST";
 }
 
 TEST(ShmDispatcherTest, shutdown) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   auto dispatcher = ShmDispatcher::Instance();
   dispatcher->Shutdown();
 
@@ -111,7 +108,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST";
 }  // namespace apollo
 
 int main(int argc, char** argv) {
-AINFO<<"(DMCZP) EnteringMethod: main";
   testing::InitGoogleTest(&argc, argv);
   apollo::cyber::Init(argv[0]);
   apollo::cyber::transport::Transport::Instance();

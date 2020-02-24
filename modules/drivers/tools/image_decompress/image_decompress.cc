@@ -27,7 +27,6 @@ namespace image_decompress {
 using apollo::drivers::Image;
 
 bool ImageDecompressComponent::Init() {
-AINFO<<"(DMCZP) EnteringMethod: ImageDecompressComponent::Init";
   if (!GetProtoConfig(&config_)) {
     AERROR << "Parse config file failed: " << ConfigFilePath();
     return false;
@@ -39,7 +38,6 @@ AINFO<<"(DMCZP) EnteringMethod: ImageDecompressComponent::Init";
 
 bool ImageDecompressComponent::Proc(
     const std::shared_ptr<apollo::drivers::CompressedImage>& compressed_image) {
-AINFO<<"(DMCZP) EnteringMethod: ImageDecompressComponent::Proc";
   auto image = std::make_shared<Image>();
   image->mutable_header()->CopyFrom(compressed_image->header());
   if (compressed_image->has_measurement_time()) {

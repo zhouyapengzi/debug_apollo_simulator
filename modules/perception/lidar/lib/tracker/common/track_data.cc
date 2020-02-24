@@ -22,10 +22,8 @@ namespace perception {
 namespace lidar {
 const int TrackData::kMaxHistorySize = 40;
 TrackData::TrackData() { Reset(); }
-AINFO<<"(DMCZP) EnteringMethod: TrackData::TrackData";
 
 TrackData::TrackData(TrackedObjectPtr obj, int track_id) {}
-AINFO<<"(DMCZP) EnteringMethod: TrackData::TrackData";
 
 TrackData::~TrackData() {}
 
@@ -83,7 +81,6 @@ const std::pair<double, TrackedObjectConstPtr> TrackData::GetHistoryObject(
 }
 
 void TrackData::Reset() {
-AINFO<<"(DMCZP) EnteringMethod: TrackData::Reset";
   track_id_ = -1;
   age_ = 0;
   consecutive_invisible_count_ = 0;
@@ -100,14 +97,12 @@ AINFO<<"(DMCZP) EnteringMethod: TrackData::Reset";
 }
 
 void TrackData::Reset(TrackedObjectPtr obj, double time, int track_id) {
-AINFO<<"(DMCZP) EnteringMethod: TrackData::Reset";
   Reset();
   track_id_ = track_id;
   PushTrackedObjectToTrack(obj, time);
 }
 
 void TrackData::PushTrackedObjectToTrack(TrackedObjectPtr obj, double time) {
-AINFO<<"(DMCZP) EnteringMethod: TrackData::PushTrackedObjectToTrack";
   if (history_objects_.find(time) == history_objects_.end()) {
     history_objects_.insert(std::make_pair(time, obj));
     age_++;

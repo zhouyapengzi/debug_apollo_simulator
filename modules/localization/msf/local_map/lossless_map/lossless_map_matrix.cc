@@ -27,10 +27,8 @@ LosslessMapSingleCell::LosslessMapSingleCell()
       altitude(0.0),
       altitude_var(0.0),
       count(0) {}
-AINFO<<"(DMCZP) EnteringMethod: LosslessMapSingleCell::LosslessMapSingleCell";
 
 void LosslessMapSingleCell::Reset() {
-AINFO<<"(DMCZP) EnteringMethod: LosslessMapSingleCell::Reset";
   intensity = 0.0;
   intensity_var = 0.0;
   altitude = 0.0;
@@ -48,7 +46,6 @@ LosslessMapSingleCell& LosslessMapSingleCell::operator=(
 
 void LosslessMapSingleCell::AddSample(const float new_altitude,
                                       const float new_intensity) {
-AINFO<<"(DMCZP) EnteringMethod: LosslessMapSingleCell::AddSample";
   ++count;
   float fcount = static_cast<float>(count);
   float v1 = new_intensity - intensity;
@@ -65,7 +62,6 @@ AINFO<<"(DMCZP) EnteringMethod: LosslessMapSingleCell::AddSample";
 }
 
 unsigned int LosslessMapSingleCell::LoadBinary(unsigned char* buf) {
-AINFO<<"(DMCZP) EnteringMethod: LosslessMapSingleCell::LoadBinary";
   float* p = reinterpret_cast<float*>(buf);
   intensity = *p;
   ++p;
@@ -83,7 +79,6 @@ AINFO<<"(DMCZP) EnteringMethod: LosslessMapSingleCell::LoadBinary";
 
 unsigned int LosslessMapSingleCell::CreateBinary(unsigned char* buf,
                                                  unsigned int buf_size) const {
-AINFO<<"(DMCZP) EnteringMethod: LosslessMapSingleCell::CreateBinary";
   unsigned int target_size = GetBinarySize();
   if (buf_size >= target_size) {
     float* p = reinterpret_cast<float*>(buf);
@@ -103,16 +98,13 @@ AINFO<<"(DMCZP) EnteringMethod: LosslessMapSingleCell::CreateBinary";
 }
 
 unsigned int LosslessMapSingleCell::GetBinarySize() const {
-AINFO<<"(DMCZP) EnteringMethod: LosslessMapSingleCell::GetBinarySize";
   return static_cast<unsigned int>(sizeof(float) * 4 + sizeof(unsigned int));
 }
 
 // ======================LosslessMapCell===========================
 LosslessMapCell::LosslessMapCell() { layer_num = 1; }
-AINFO<<"(DMCZP) EnteringMethod: LosslessMapCell::LosslessMapCell";
 
 void LosslessMapCell::Reset() {
-AINFO<<"(DMCZP) EnteringMethod: LosslessMapCell::Reset";
   for (unsigned int i = 0; i < IDL_CAR_NUM_RESERVED_MAP_LAYER; ++i) {
     map_cells[i].Reset();
   }
@@ -121,7 +113,6 @@ AINFO<<"(DMCZP) EnteringMethod: LosslessMapCell::Reset";
 
 void LosslessMapCell::SetValueLayer(double altitude, unsigned char intensity,
                                     double altitude_thres) {
-AINFO<<"(DMCZP) EnteringMethod: LosslessMapCell::SetValueLayer";
   DCHECK_LE(layer_num, IDL_CAR_NUM_RESERVED_MAP_LAYER);
 
   unsigned int best_layer_id = GetLayerId(altitude);
@@ -163,14 +154,12 @@ AINFO<<"(DMCZP) EnteringMethod: LosslessMapCell::SetValueLayer";
 }
 
 void LosslessMapCell::SetValue(double altitude, unsigned char intensity) {
-AINFO<<"(DMCZP) EnteringMethod: LosslessMapCell::SetValue";
   DCHECK_LE(layer_num, IDL_CAR_NUM_RESERVED_MAP_LAYER);
   LosslessMapSingleCell& cell = map_cells[0];
   cell.AddSample(static_cast<float>(altitude), static_cast<float>(intensity));
 }
 
 unsigned int LosslessMapCell::LoadBinary(unsigned char* buf) {
-AINFO<<"(DMCZP) EnteringMethod: LosslessMapCell::LoadBinary";
   unsigned int* p = reinterpret_cast<unsigned int*>(buf);
   unsigned int size = *p;
   ++p;
@@ -186,7 +175,6 @@ AINFO<<"(DMCZP) EnteringMethod: LosslessMapCell::LoadBinary";
 
 unsigned int LosslessMapCell::CreateBinary(unsigned char* buf,
                                            unsigned int buf_size) const {
-AINFO<<"(DMCZP) EnteringMethod: LosslessMapCell::CreateBinary";
   unsigned int target_size = GetBinarySize();
   if (buf_size >= target_size) {
     unsigned int* p = reinterpret_cast<unsigned int*>(buf);
@@ -206,7 +194,6 @@ AINFO<<"(DMCZP) EnteringMethod: LosslessMapCell::CreateBinary";
 }
 
 unsigned int LosslessMapCell::GetBinarySize() const {
-AINFO<<"(DMCZP) EnteringMethod: LosslessMapCell::GetBinarySize";
   unsigned int target_size = sizeof(
       unsigned int);  // The size of the variable for the number of layers.
   for (size_t i = 0; i < layer_num; ++i) {
@@ -217,7 +204,6 @@ AINFO<<"(DMCZP) EnteringMethod: LosslessMapCell::GetBinarySize";
 }
 
 unsigned int LosslessMapCell::GetLayerId(double altitude) const {
-AINFO<<"(DMCZP) EnteringMethod: LosslessMapCell::GetLayerId";
   unsigned int best_layer_id = 0;
   double best_layer_alt_dif = 1e10;
   for (unsigned int i = 1; i < layer_num; ++i) {
@@ -232,7 +218,6 @@ AINFO<<"(DMCZP) EnteringMethod: LosslessMapCell::GetLayerId";
 }
 
 void LosslessMapCell::GetValue(std::vector<unsigned char>* values) const {
-AINFO<<"(DMCZP) EnteringMethod: LosslessMapCell::GetValue";
   values->clear();
   for (unsigned int i = 1; i < layer_num; ++i) {
     const LosslessMapSingleCell& cell = map_cells[i];
@@ -241,7 +226,6 @@ AINFO<<"(DMCZP) EnteringMethod: LosslessMapCell::GetValue";
 }
 
 void LosslessMapCell::GetVar(std::vector<float>* vars) const {
-AINFO<<"(DMCZP) EnteringMethod: LosslessMapCell::GetVar";
   vars->clear();
   for (unsigned int i = 1; i < layer_num; ++i) {
     const LosslessMapSingleCell& cell = map_cells[i];
@@ -250,7 +234,6 @@ AINFO<<"(DMCZP) EnteringMethod: LosslessMapCell::GetVar";
 }
 
 void LosslessMapCell::GetAlt(std::vector<float>* alts) const {
-AINFO<<"(DMCZP) EnteringMethod: LosslessMapCell::GetAlt";
   alts->clear();
   for (unsigned int i = 1; i < layer_num; ++i) {
     const LosslessMapSingleCell& cell = map_cells[i];
@@ -259,7 +242,6 @@ AINFO<<"(DMCZP) EnteringMethod: LosslessMapCell::GetAlt";
 }
 
 void LosslessMapCell::GetAltVar(std::vector<float>* alt_vars) const {
-AINFO<<"(DMCZP) EnteringMethod: LosslessMapCell::GetAltVar";
   alt_vars->clear();
   for (unsigned int i = 1; i < layer_num; ++i) {
     const LosslessMapSingleCell& cell = map_cells[i];
@@ -268,7 +250,6 @@ AINFO<<"(DMCZP) EnteringMethod: LosslessMapCell::GetAltVar";
 }
 
 void LosslessMapCell::GetCount(std::vector<unsigned int>* counts) const {
-AINFO<<"(DMCZP) EnteringMethod: LosslessMapCell::GetCount";
   counts->clear();
   for (unsigned int i = 1; i < layer_num; ++i) {
     const LosslessMapSingleCell& cell = map_cells[i];
@@ -278,7 +259,6 @@ AINFO<<"(DMCZP) EnteringMethod: LosslessMapCell::GetCount";
 
 // ======================LosslessMapMatrix===========================
 LosslessMapMatrix::LosslessMapMatrix() {
-AINFO<<"(DMCZP) EnteringMethod: LosslessMapMatrix::LosslessMapMatrix";
   rows_ = 0;
   cols_ = 0;
   map_cells_ = nullptr;
@@ -294,7 +274,6 @@ LosslessMapMatrix::~LosslessMapMatrix() {
 
 LosslessMapMatrix::LosslessMapMatrix(const LosslessMapMatrix& matrix)
     : BaseMapMatrix(matrix) {
-AINFO<<"(DMCZP) EnteringMethod: LosslessMapMatrix::LosslessMapMatrix";
   Init(matrix.rows_, matrix.cols_);
   for (unsigned int y = 0; y < rows_; ++y) {
     for (unsigned int x = 0; x < cols_; ++x) {
@@ -304,7 +283,6 @@ AINFO<<"(DMCZP) EnteringMethod: LosslessMapMatrix::LosslessMapMatrix";
 }
 
 void LosslessMapMatrix::Init(const BaseMapConfig* config) {
-AINFO<<"(DMCZP) EnteringMethod: LosslessMapMatrix::Init";
   unsigned int rows = config->map_node_size_y_;
   unsigned int cols = config->map_node_size_x_;
   if (rows_ == rows && cols_ == cols) {
@@ -315,13 +293,11 @@ AINFO<<"(DMCZP) EnteringMethod: LosslessMapMatrix::Init";
 }
 
 void LosslessMapMatrix::Reset(const BaseMapConfig* config) {
-AINFO<<"(DMCZP) EnteringMethod: LosslessMapMatrix::Reset";
   Reset(config->map_node_size_y_, config->map_node_size_x_);
   return;
 }
 
 void LosslessMapMatrix::Init(unsigned int rows, unsigned int cols) {
-AINFO<<"(DMCZP) EnteringMethod: LosslessMapMatrix::Init";
   if (map_cells_) {
     delete[] map_cells_;
     map_cells_ = nullptr;
@@ -332,7 +308,6 @@ AINFO<<"(DMCZP) EnteringMethod: LosslessMapMatrix::Init";
 }
 
 void LosslessMapMatrix::Reset(unsigned int rows, unsigned int cols) {
-AINFO<<"(DMCZP) EnteringMethod: LosslessMapMatrix::Reset";
   unsigned int length = rows * cols;
   for (unsigned int i = 0; i < length; ++i) {
     map_cells_[i].Reset();
@@ -340,7 +315,6 @@ AINFO<<"(DMCZP) EnteringMethod: LosslessMapMatrix::Reset";
 }
 
 unsigned int LosslessMapMatrix::LoadBinary(unsigned char* buf) {
-AINFO<<"(DMCZP) EnteringMethod: LosslessMapMatrix::LoadBinary";
   unsigned int* p = reinterpret_cast<unsigned int*>(buf);
   rows_ = *p;
   ++p;
@@ -361,7 +335,6 @@ AINFO<<"(DMCZP) EnteringMethod: LosslessMapMatrix::LoadBinary";
 
 unsigned int LosslessMapMatrix::CreateBinary(unsigned char* buf,
                                              unsigned int buf_size) const {
-AINFO<<"(DMCZP) EnteringMethod: LosslessMapMatrix::CreateBinary";
   unsigned int target_size = GetBinarySize();
   if (buf_size >= target_size) {
     unsigned int* p = reinterpret_cast<unsigned int*>(buf);
@@ -385,7 +358,6 @@ AINFO<<"(DMCZP) EnteringMethod: LosslessMapMatrix::CreateBinary";
 }
 
 unsigned int LosslessMapMatrix::GetBinarySize() const {
-AINFO<<"(DMCZP) EnteringMethod: LosslessMapMatrix::GetBinarySize";
   // default binary size
   unsigned int target_size =
       static_cast<unsigned int>(sizeof(unsigned int) * 2);  // rows and cols
@@ -399,7 +371,6 @@ AINFO<<"(DMCZP) EnteringMethod: LosslessMapMatrix::GetBinarySize";
 }
 
 void LosslessMapMatrix::GetIntensityImg(cv::Mat* intensity_img) const {
-AINFO<<"(DMCZP) EnteringMethod: LosslessMapMatrix::GetIntensityImg";
   *intensity_img = cv::Mat(cv::Size(cols_, rows_), CV_8UC1);
 
   for (uint32_t y = 0; y < rows_; ++y) {

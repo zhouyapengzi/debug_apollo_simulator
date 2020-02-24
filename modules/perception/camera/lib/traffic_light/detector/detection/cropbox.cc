@@ -27,7 +27,6 @@ namespace camera {
 void CropBox::getCropBox(const int width, const int height,
                          const base::TrafficLightPtr &light,
                          base::RectI *crop_box) {
-AINFO<<"(DMCZP) EnteringMethod: CropBox::getCropBox";
   int rows = height;
   int cols = width;
 
@@ -82,18 +81,15 @@ AINFO<<"(pengzi) CropBox::getCropBox. rows:"<rows <<" cols:"<<cols << " thread:"
   crop_box->height = yb - yt + 1;
 }
 void CropBox::Init(float crop_scale, int min_crop_size) {
-AINFO<<"(DMCZP) EnteringMethod: CropBox::Init";
   crop_scale_ = crop_scale;
   min_crop_size_ = min_crop_size;
 }
 CropBox::CropBox(float crop_scale, int min_crop_size) {
-AINFO<<"(DMCZP) EnteringMethod: CropBox::CropBox";
   Init(crop_scale, min_crop_size);
 }
 void CropBoxWholeImage::getCropBox(const int width, const int height,
                                    const base::TrafficLightPtr &light,
                                    base::RectI *crop_box) {
-AINFO<<"(DMCZP) EnteringMethod: CropBoxWholeImage::getCropBox";
   if (!OutOfValidRegion(light->region.projection_roi, width, height) &&
       light->region.projection_roi.Area() > 0) {
     crop_box->x = crop_box->y = 0;

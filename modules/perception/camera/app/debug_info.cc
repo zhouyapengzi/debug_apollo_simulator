@@ -42,7 +42,6 @@ std::vector<std::string> sub_type_string = {"UNKNOWN",
 
 void WriteCamera2World(std::ofstream &fout, int frame_num,
                        const Eigen::Affine3d &pose) {
-AINFO<<"(DMCZP) EnteringMethod: WriteCamera2World";
   if (!fout.is_open()) {
     AERROR << "Cannot write Camera2World!";
     return;
@@ -67,7 +66,6 @@ AINFO<<"(DMCZP) EnteringMethod: WriteCamera2World";
 
 void WriteTracking(std::ofstream &fout, int frame_num,
                    const std::vector<base::ObjectPtr> &tracked_object) {
-AINFO<<"(DMCZP) EnteringMethod: WriteTracking";
   if (!fout.is_open()) {
     AERROR << "Cannot write tracking!";
     return;
@@ -94,8 +92,6 @@ AINFO<<"(DMCZP) EnteringMethod: WriteTracking";
 
 int WriteDetections(const bool enabled, const std::string &out_path,
                     const std::vector<base::ObjectPtr> &objects) {
-AINFO<<"(DMCZP) EnteringMethod: WriteDetections";
-AINFO<<"(DMCZP) EnteringMethod: WriteDetections";
   if (!enabled) {
     return -1;
   }
@@ -215,7 +211,6 @@ int WriteDetections(const bool enabled, const std::string &out_path,
 
 int WriteLanelines(const bool enabled, const std::string &save_path,
                    const std::vector<base::LaneLine> &lane_objects) {
-AINFO<<"(DMCZP) EnteringMethod: WriteLanelines";
   if (!enabled) {
     return -1;
   }
@@ -294,7 +289,6 @@ AINFO<<"(DMCZP) EnteringMethod: WriteLanelines";
 
 int WriteCalibrationOutput(bool enabled, const std::string &out_path,
                            const CameraFrame *frame) {
-AINFO<<"(DMCZP) EnteringMethod: WriteCalibrationOutput";
   if (!enabled) {
     return -1;
   }
@@ -320,7 +314,6 @@ AINFO<<"(DMCZP) EnteringMethod: WriteCalibrationOutput";
 void WriteFusionTracking(std::ofstream &fout, int frame_num,
                          const std::string &camera_name,
                          const std::vector<base::ObjectPtr> &tracked_object) {
-AINFO<<"(DMCZP) EnteringMethod: WriteFusionTracking";
   if (!fout.is_open()) {
     AERROR << "Failed to write tracking!";
     return;

@@ -22,7 +22,6 @@ namespace perception {
 namespace camera {
 
 TEST(DummyObstacleTracker, test_init) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   BaseObstacleTracker *tracker =
       BaseObstacleTrackerRegisterer::GetInstanceByName("DummyObstacleTracker");
   EXPECT_EQ("DummyObstacleTracker", tracker->Name());
@@ -31,7 +30,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST";
 }
 
 TEST(DummyInferenceEngine, test_camera_roi_filter) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   InferenceEngineInitOptions init_options;
   InferenceEngineOptions options;
   BaseInferenceEngine *inference_engine =
@@ -44,7 +42,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST";
 }
 
 TEST(DummyLaneDetector, test_init) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   BaseLaneDetector *lane_detector =
       BaseLaneDetectorRegisterer::GetInstanceByName("DummyLaneDetector");
   EXPECT_EQ("DummyLaneDetector", lane_detector->Name());

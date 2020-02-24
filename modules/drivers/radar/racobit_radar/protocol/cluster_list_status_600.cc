@@ -29,12 +29,10 @@ using apollo::drivers::RacobitRadarObs;
 using apollo::drivers::canbus::Byte;
 
 ClusterListStatus600::ClusterListStatus600() {}
-AINFO<<"(DMCZP) EnteringMethod: ClusterListStatus600::ClusterListStatus600";
 const uint32_t ClusterListStatus600::ID = 0x600;
 
 void ClusterListStatus600::Parse(const std::uint8_t* bytes, int32_t length,
                                  RacobitRadar* racobit_radar) const {
-AINFO<<"(DMCZP) EnteringMethod: ClusterListStatus600::Parse";
   auto status = racobit_radar->mutable_cluster_list_status();
   status->set_near(near(bytes, length));
   status->set_far(far(bytes, length));
@@ -46,7 +44,6 @@ AINFO<<"(DMCZP) EnteringMethod: ClusterListStatus600::Parse";
 
 int ClusterListStatus600::near(const std::uint8_t* bytes,
                                int32_t length) const {
-AINFO<<"(DMCZP) EnteringMethod: ClusterListStatus600::near";
   Byte t0(bytes);
   int32_t x = t0.get_byte(0, 8);
 
@@ -55,7 +52,6 @@ AINFO<<"(DMCZP) EnteringMethod: ClusterListStatus600::near";
 }
 
 int ClusterListStatus600::far(const std::uint8_t* bytes, int32_t length) const {
-AINFO<<"(DMCZP) EnteringMethod: ClusterListStatus600::far";
   Byte t0(bytes + 1);
   int32_t x = t0.get_byte(0, 8);
 
@@ -65,7 +61,6 @@ AINFO<<"(DMCZP) EnteringMethod: ClusterListStatus600::far";
 
 int ClusterListStatus600::meas_counter(const std::uint8_t* bytes,
                                        int32_t length) const {
-AINFO<<"(DMCZP) EnteringMethod: ClusterListStatus600::meas_counter";
   Byte t0(bytes + 2);
   int32_t x = t0.get_byte(0, 8);
 
@@ -80,7 +75,6 @@ AINFO<<"(DMCZP) EnteringMethod: ClusterListStatus600::meas_counter";
 
 int ClusterListStatus600::interface_version(const std::uint8_t* bytes,
                                             int32_t length) const {
-AINFO<<"(DMCZP) EnteringMethod: ClusterListStatus600::interface_version";
   Byte t0(bytes + 4);
   int32_t x = t0.get_byte(4, 4);
 

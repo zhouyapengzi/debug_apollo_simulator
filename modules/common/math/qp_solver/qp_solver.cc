@@ -35,36 +35,28 @@ QpSolver::QpSolver(const Eigen::MatrixXd& kernel_matrix,
       affine_inequality_boundary_(affine_inequality_boundary),
       affine_equality_matrix_(affine_equality_matrix),
       affine_equality_boundary_(affine_equality_boundary) {}
-AINFO<<"(DMCZP) EnteringMethod: QpSolver::QpSolver";
 
 const Eigen::MatrixXd& QpSolver::params() const { return params_; }
-AINFO<<"(DMCZP) EnteringMethod: QpSolver::params";
 
 const Eigen::MatrixXd& QpSolver::kernel_matrix() const {
-AINFO<<"(DMCZP) EnteringMethod: QpSolver::kernel_matrix";
   return kernel_matrix_;
 }
 
 const Eigen::MatrixXd& QpSolver::offset() const { return offset_; }
-AINFO<<"(DMCZP) EnteringMethod: QpSolver::offset";
 
 const Eigen::MatrixXd& QpSolver::affine_equality_matrix() const {
-AINFO<<"(DMCZP) EnteringMethod: QpSolver::affine_equality_matrix";
   return affine_equality_matrix_;
 }
 
 const Eigen::MatrixXd& QpSolver::affine_equality_boundary() const {
-AINFO<<"(DMCZP) EnteringMethod: QpSolver::affine_equality_boundary";
   return affine_equality_boundary_;
 }
 
 const Eigen::MatrixXd& QpSolver::affine_inequality_matrix() const {
-AINFO<<"(DMCZP) EnteringMethod: QpSolver::affine_inequality_matrix";
   return affine_inequality_matrix_;
 }
 
 const Eigen::MatrixXd& QpSolver::affine_inequality_boundary() const {
-AINFO<<"(DMCZP) EnteringMethod: QpSolver::affine_inequality_boundary";
   return affine_inequality_boundary_;
 }
 

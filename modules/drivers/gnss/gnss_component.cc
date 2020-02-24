@@ -24,10 +24,8 @@ using apollo::cyber::proto::RoleAttributes;
 GnssDriverComponent::GnssDriverComponent()
     : monitor_logger_buffer_(
           apollo::common::monitor::MonitorMessageItem::GNSS) {}
-AINFO<<"(DMCZP) EnteringMethod: GnssDriverComponent::GnssDriverComponent";
 
 bool GnssDriverComponent::Init() {
-AINFO<<"(DMCZP) EnteringMethod: GnssDriverComponent::Init";
   config::Config gnss_config;
   if (!apollo::cyber::common::GetProtoFromFile(config_file_path_,
                                                &gnss_config)) {

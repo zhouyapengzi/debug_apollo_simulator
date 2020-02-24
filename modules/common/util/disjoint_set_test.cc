@@ -60,7 +60,6 @@ class DisjointSetTest : public testing::Test {
 };
 
 TEST_F(DisjointSetTest, DisjointSetMakeSet) {
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   Node* node = new Node();
   DisjointSetMakeSet<Node>(node);
   EXPECT_EQ(node, node->parent);
@@ -72,7 +71,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST_F";
 }
 
 TEST_F(DisjointSetTest, DisjointSetFindRecursive) {
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   Node* root_node2 = DisjointSetFindRecursive<Node>(node2_);
   EXPECT_EQ(node1_, root_node2);
   Node* root_node3 = DisjointSetFindRecursive<Node>(node3_);
@@ -80,7 +78,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST_F";
 }
 
 TEST_F(DisjointSetTest, DisjointSetFind) {
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   Node* root_node2 = DisjointSetFind<Node>(node2_);
   EXPECT_EQ(node1_, root_node2);
   Node* root_node3 = DisjointSetFind<Node>(node3_);
@@ -89,12 +86,10 @@ AINFO<<"(DMCZP) EnteringMethod: TEST_F";
 }
 
 TEST_F(DisjointSetTest, DisjointSetMerge) {
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   DisjointSetMerge<Node>(node1_, node2_);
 }
 
 TEST_F(DisjointSetTest, DisjointSetUnion) {
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   DisjointSetUnion<Node>(node1_, node2_);
   EXPECT_EQ(node1_->parent, node2_->parent);
 }

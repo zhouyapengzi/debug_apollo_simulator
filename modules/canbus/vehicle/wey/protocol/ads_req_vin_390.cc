@@ -28,29 +28,24 @@ const int32_t Adsreqvin390::ID = 0x390;
 
 // public
 Adsreqvin390::Adsreqvin390() { Reset(); }
-AINFO<<"(DMCZP) EnteringMethod: Adsreqvin390::Adsreqvin390";
 
 uint32_t Adsreqvin390::GetPeriod() const {
-AINFO<<"(DMCZP) EnteringMethod: Adsreqvin390::GetPeriod";
   // TODO(ChaoMa) :modify every protocol's period manually
   static const uint32_t PERIOD = 20 * 1000;
   return PERIOD;
 }
 
 void Adsreqvin390::UpdateData(uint8_t* data) {
-AINFO<<"(DMCZP) EnteringMethod: Adsreqvin390::UpdateData";
   set_p_req_vin_signal(data, req_vin_signal_);
 }
 
 void Adsreqvin390::Reset() {
-AINFO<<"(DMCZP) EnteringMethod: Adsreqvin390::Reset";
   // TODO(ChaoMa) :you should check this manually
   req_vin_signal_ = Ads_req_vin_390::REQ_VIN_SIGNAL_NO_REQUEST;
 }
 
 Adsreqvin390* Adsreqvin390::set_req_vin_signal(
     Ads_req_vin_390::Req_vin_signalType req_vin_signal) {
-AINFO<<"(DMCZP) EnteringMethod: Adsreqvin390::set_req_vin_signal";
   req_vin_signal_ = req_vin_signal;
   return this;
 }
@@ -62,7 +57,6 @@ AINFO<<"(DMCZP) EnteringMethod: Adsreqvin390::set_req_vin_signal";
 // 'type': 'enum', 'order': 'motorola', 'physical_unit': ''}
 void Adsreqvin390::set_p_req_vin_signal(
     uint8_t* data, Ads_req_vin_390::Req_vin_signalType req_vin_signal) {
-AINFO<<"(DMCZP) EnteringMethod: Adsreqvin390::set_p_req_vin_signal";
   int x = req_vin_signal;
 
   Byte to_set(data + 0);

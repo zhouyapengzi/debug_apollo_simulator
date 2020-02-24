@@ -40,7 +40,6 @@ using cyber::record::RecordViewer;
 using cyber::record::RecordWriter;
 
 bool PostRecordProcessor::Init(const SmartRecordTrigger& trigger_conf) {
-AINFO<<"(DMCZP) EnteringMethod: PostRecordProcessor::Init";
   if (!DirectoryExists(source_record_dir_)) {
     AERROR << "source record dir does not exist: " << source_record_dir_;
     return false;
@@ -59,7 +58,6 @@ AINFO<<"(DMCZP) EnteringMethod: PostRecordProcessor::Init";
 }
 
 bool PostRecordProcessor::Process() {
-AINFO<<"(DMCZP) EnteringMethod: PostRecordProcessor::Process";
   // First scan, get intervals
   for (const std::string& record : source_record_files_) {
     const auto reader =
@@ -97,7 +95,6 @@ AINFO<<"(DMCZP) EnteringMethod: PostRecordProcessor::Process";
 }
 
 std::string PostRecordProcessor::GetDefaultOutputFile() const {
-AINFO<<"(DMCZP) EnteringMethod: PostRecordProcessor::GetDefaultOutputFile";
   std::string src_file_name = source_record_files_.front();
   const std::string record_flag(".record");
   src_file_name.resize(src_file_name.size() - src_file_name.find(record_flag) +
@@ -106,7 +103,6 @@ AINFO<<"(DMCZP) EnteringMethod: PostRecordProcessor::GetDefaultOutputFile";
 }
 
 void PostRecordProcessor::LoadSourceRecords() {
-AINFO<<"(DMCZP) EnteringMethod: PostRecordProcessor::LoadSourceRecords";
   DIR* dirp = opendir(source_record_dir_.c_str());
   if (dirp == nullptr) {
     AERROR << "failed to open source dir: " << source_record_dir_;

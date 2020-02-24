@@ -34,7 +34,6 @@ AABox2d::AABox2d(const Vec2d &center, const double length, const double width)
       width_(width),
       half_length_(length / 2.0),
       half_width_(width / 2.0) {
-AINFO<<"(DMCZP) EnteringMethod: AABox2d::AABox2d";
   CHECK_GT(length_, -kMathEpsilon);
   CHECK_GT(width_, -kMathEpsilon);
 }
@@ -43,10 +42,8 @@ AABox2d::AABox2d(const Vec2d &one_corner, const Vec2d &opposite_corner)
     : AABox2d((one_corner + opposite_corner) / 2.0,
               std::abs(one_corner.x() - opposite_corner.x()),
               std::abs(one_corner.y() - opposite_corner.y())) {}
-AINFO<<"(DMCZP) EnteringMethod: AABox2d::AABox2d";
 
 AABox2d::AABox2d(const std::vector<Vec2d> &points) {
-AINFO<<"(DMCZP) EnteringMethod: AABox2d::AABox2d";
   CHECK(!points.empty());
   double min_x = points[0].x();
   double max_x = points[0].x();
@@ -67,7 +64,6 @@ AINFO<<"(DMCZP) EnteringMethod: AABox2d::AABox2d";
 }
 
 void AABox2d::GetAllCorners(std::vector<Vec2d> *const corners) const {
-AINFO<<"(DMCZP) EnteringMethod: AABox2d::GetAllCorners";
   CHECK_NOTNULL(corners)->clear();
   corners->reserve(4);
   corners->emplace_back(center_.x() + half_length_, center_.y() - half_width_);
@@ -77,13 +73,11 @@ AINFO<<"(DMCZP) EnteringMethod: AABox2d::GetAllCorners";
 }
 
 bool AABox2d::IsPointIn(const Vec2d &point) const {
-AINFO<<"(DMCZP) EnteringMethod: AABox2d::IsPointIn";
   return std::abs(point.x() - center_.x()) <= half_length_ + kMathEpsilon &&
          std::abs(point.y() - center_.y()) <= half_width_ + kMathEpsilon;
 }
 
 bool AABox2d::IsPointOnBoundary(const Vec2d &point) const {
-AINFO<<"(DMCZP) EnteringMethod: AABox2d::IsPointOnBoundary";
   const double dx = std::abs(point.x() - center_.x());
   const double dy = std::abs(point.y() - center_.y());
   return (std::abs(dx - half_length_) <= kMathEpsilon &&
@@ -93,7 +87,6 @@ AINFO<<"(DMCZP) EnteringMethod: AABox2d::IsPointOnBoundary";
 }
 
 double AABox2d::DistanceTo(const Vec2d &point) const {
-AINFO<<"(DMCZP) EnteringMethod: AABox2d::DistanceTo";
   const double dx = std::abs(point.x() - center_.x()) - half_length_;
   const double dy = std::abs(point.y() - center_.y()) - half_width_;
   if (dx <= 0.0) {
@@ -106,7 +99,6 @@ AINFO<<"(DMCZP) EnteringMethod: AABox2d::DistanceTo";
 }
 
 double AABox2d::DistanceTo(const AABox2d &box) const {
-AINFO<<"(DMCZP) EnteringMethod: AABox2d::DistanceTo";
   const double dx =
       std::abs(box.center_x() - center_.x()) - box.half_length() - half_length_;
   const double dy =
@@ -121,7 +113,6 @@ AINFO<<"(DMCZP) EnteringMethod: AABox2d::DistanceTo";
 }
 
 bool AABox2d::HasOverlap(const AABox2d &box) const {
-AINFO<<"(DMCZP) EnteringMethod: AABox2d::HasOverlap";
   return std::abs(box.center_x() - center_.x()) <=
              box.half_length() + half_length_ &&
          std::abs(box.center_y() - center_.y()) <=
@@ -129,10 +120,8 @@ AINFO<<"(DMCZP) EnteringMethod: AABox2d::HasOverlap";
 }
 
 void AABox2d::Shift(const Vec2d &shift_vec) { center_ += shift_vec; }
-AINFO<<"(DMCZP) EnteringMethod: AABox2d::Shift";
 
 void AABox2d::MergeFrom(const AABox2d &other_box) {
-AINFO<<"(DMCZP) EnteringMethod: AABox2d::MergeFrom";
   const double x1 = std::min(min_x(), other_box.min_x());
   const double x2 = std::max(max_x(), other_box.max_x());
   const double y1 = std::min(min_y(), other_box.min_y());
@@ -145,7 +134,6 @@ AINFO<<"(DMCZP) EnteringMethod: AABox2d::MergeFrom";
 }
 
 void AABox2d::MergeFrom(const Vec2d &other_point) {
-AINFO<<"(DMCZP) EnteringMethod: AABox2d::MergeFrom";
   const double x1 = std::min(min_x(), other_point.x());
   const double x2 = std::max(max_x(), other_point.x());
   const double y1 = std::min(min_y(), other_point.y());
@@ -158,7 +146,6 @@ AINFO<<"(DMCZP) EnteringMethod: AABox2d::MergeFrom";
 }
 
 std::string AABox2d::DebugString() const {
-AINFO<<"(DMCZP) EnteringMethod: AABox2d::DebugString";
   return util::StrCat("aabox2d ( center = ", center_.DebugString(),
                       "  length = ", length_, "  width = ", width_, " )");
 }

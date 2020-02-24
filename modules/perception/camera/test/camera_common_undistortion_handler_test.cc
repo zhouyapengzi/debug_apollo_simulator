@@ -28,11 +28,8 @@ DECLARE_string(obs_sensor_intrinsic_path);
 }  // namespace common
 
 namespace camera {
-AINFO<<"(DMCZP) EnteringMethod: DECLARE_string";
-AINFO<<"(DMCZP) EnteringMethod: DECLARE_string";
 
 TEST(UndistortionHandlerTest, test_init) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   unsetenv("MODULE_PATH");
   unsetenv("CYBER_PATH");
   {
@@ -69,7 +66,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST";
 }
 
 TEST(UndistortionHandlerTest, test_undistortion) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   unsetenv("MODULE_PATH");
   unsetenv("CYBER_PATH");
   {
@@ -113,7 +109,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST";
 }
 
 TEST(UndistortionHandlerTest, test_verify) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   unsetenv("MODULE_PATH");
   unsetenv("CYBER_PATH");
   {

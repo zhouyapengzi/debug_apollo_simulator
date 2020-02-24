@@ -26,12 +26,10 @@ namespace ge3 {
 using ::apollo::drivers::canbus::Byte;
 
 Scubcs2307::Scubcs2307() {}
-AINFO<<"(DMCZP) EnteringMethod: Scubcs2307::Scubcs2307";
 const int32_t Scubcs2307::ID = 0x307;
 
 void Scubcs2307::Parse(const std::uint8_t* bytes, int32_t length,
                        ChassisDetail* chassis) const {
-AINFO<<"(DMCZP) EnteringMethod: Scubcs2307::Parse";
   chassis->mutable_ge3()->mutable_scu_bcs_2_307()->set_bcs_vehspdvd(
       bcs_vehspdvd(bytes, length));
   chassis->mutable_ge3()->mutable_scu_bcs_2_307()->set_bcs_yawrate(
@@ -51,7 +49,6 @@ AINFO<<"(DMCZP) EnteringMethod: Scubcs2307::Parse";
 // 'physical_unit': '-'}
 Scu_bcs_2_307::Bcs_vehspdvdType Scubcs2307::bcs_vehspdvd(
     const std::uint8_t* bytes, int32_t length) const {
-AINFO<<"(DMCZP) EnteringMethod: Scubcs2307::bcs_vehspdvd";
   Byte t0(bytes + 5);
   int32_t x = t0.get_byte(0, 1);
 
@@ -66,7 +63,6 @@ AINFO<<"(DMCZP) EnteringMethod: Scubcs2307::bcs_vehspdvd";
 // 'motorola', 'physical_unit': 'rad/s'}
 double Scubcs2307::bcs_yawrate(const std::uint8_t* bytes,
                                int32_t length) const {
-AINFO<<"(DMCZP) EnteringMethod: Scubcs2307::bcs_yawrate";
   Byte t0(bytes + 6);
   int32_t x = t0.get_byte(0, 8);
 
@@ -84,7 +80,6 @@ AINFO<<"(DMCZP) EnteringMethod: Scubcs2307::bcs_yawrate";
 // 'physical_range': '[0|240]', 'bit': 39, 'type': 'double', 'order':
 // 'motorola', 'physical_unit': 'km/h'}
 double Scubcs2307::bcs_vehspd(const std::uint8_t* bytes, int32_t length) const {
-AINFO<<"(DMCZP) EnteringMethod: Scubcs2307::bcs_vehspd";
   Byte t0(bytes + 4);
   int32_t x = t0.get_byte(0, 8);
 
@@ -103,7 +98,6 @@ AINFO<<"(DMCZP) EnteringMethod: Scubcs2307::bcs_vehspd";
 // 'type': 'double', 'order': 'motorola', 'physical_unit': 'm/s^2'}
 double Scubcs2307::bcs_vehlongaccel(const std::uint8_t* bytes,
                                     int32_t length) const {
-AINFO<<"(DMCZP) EnteringMethod: Scubcs2307::bcs_vehlongaccel";
   Byte t0(bytes + 2);
   int32_t x = t0.get_byte(0, 8);
 
@@ -122,7 +116,6 @@ AINFO<<"(DMCZP) EnteringMethod: Scubcs2307::bcs_vehlongaccel";
 // 'type': 'double', 'order': 'motorola', 'physical_unit': 'm/s^2'}
 double Scubcs2307::bcs_vehlataccel(const std::uint8_t* bytes,
                                    int32_t length) const {
-AINFO<<"(DMCZP) EnteringMethod: Scubcs2307::bcs_vehlataccel";
   Byte t0(bytes + 0);
   int32_t x = t0.get_byte(0, 8);
 

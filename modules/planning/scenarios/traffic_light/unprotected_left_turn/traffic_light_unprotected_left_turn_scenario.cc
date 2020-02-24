@@ -41,7 +41,6 @@ using hdmap::HDMapUtil;
 using perception::TrafficLight;
 
 void TrafficLightUnprotectedLeftTurnScenario::Init() {
-AINFO<<"(DMCZP) EnteringMethod: TrafficLightUnprotectedLeftTurnScenario::Init";
   if (init_) {
     return;
   }
@@ -86,7 +85,6 @@ apollo::common::util::Factory<
     TrafficLightUnprotectedLeftTurnScenario::s_stage_factory_;
 
 void TrafficLightUnprotectedLeftTurnScenario::RegisterStages() {
-AINFO<<"(DMCZP) EnteringMethod: TrafficLightUnprotectedLeftTurnScenario::RegisterStages";
   if (!s_stage_factory_.Empty()) {
     s_stage_factory_.Clear();
   }
@@ -120,7 +118,6 @@ std::unique_ptr<Stage> TrafficLightUnprotectedLeftTurnScenario::CreateStage(
  * read scenario specific configs and set in context_ for stages to read
  */
 bool TrafficLightUnprotectedLeftTurnScenario::GetScenarioConfig() {
-AINFO<<"(DMCZP) EnteringMethod: TrafficLightUnprotectedLeftTurnScenario::GetScenarioConfig";
   if (!config_.has_traffic_light_unprotected_left_turn_config()) {
     AERROR << "miss scenario specific config";
     return false;

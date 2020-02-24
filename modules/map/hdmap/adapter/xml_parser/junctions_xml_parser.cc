@@ -28,7 +28,6 @@ namespace adapter {
 
 Status JunctionsXmlParser::Parse(const tinyxml2::XMLElement& xml_node,
                                  std::vector<JunctionInternal>* junctions) {
-AINFO<<"(DMCZP) EnteringMethod: JunctionsXmlParser::Parse";
   const tinyxml2::XMLElement* junction_node =
       xml_node.FirstChildElement("junction");
   while (junction_node) {

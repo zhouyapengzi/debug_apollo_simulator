@@ -42,7 +42,6 @@ class StopSignUnprotectedScenarioTest : public ::testing::Test {
 };
 
 TEST_F(StopSignUnprotectedScenarioTest, VerifyConf) {
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   FLAGS_scenario_stop_sign_unprotected_config_file =
       "/apollo/modules/planning/conf/"
       "scenario/stop_sign_unprotected_config.pb.txt";
@@ -53,7 +52,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST_F";
 }
 
 TEST_F(StopSignUnprotectedScenarioTest, Init) {
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   FLAGS_scenario_stop_sign_unprotected_config_file =
       "/apollo/modules/planning/testdata/conf/"
       "scenario/stop_sign_unprotected_config.pb.txt";

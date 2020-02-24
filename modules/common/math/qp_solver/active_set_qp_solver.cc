@@ -46,10 +46,8 @@ ActiveSetQpSolver::ActiveSetQpSolver(
       qp_eps_den_(FLAGS_default_active_set_eps_den),
       qp_eps_iter_ref_(FLAGS_default_active_set_eps_iter_ref),
       debug_info_(FLAGS_default_enable_active_set_debug_info) {}
-AINFO<<"(DMCZP) EnteringMethod: ActiveSetQpSolver::ActiveSetQpSolver";
 
 bool ActiveSetQpSolver::Solve() {
-AINFO<<"(DMCZP) EnteringMethod: ActiveSetQpSolver::Solve";
   ::qpOASES::QProblem qp_problem(num_param_, num_constraint_, hessian_type_);
   ::qpOASES::Options my_options;
 
@@ -172,71 +170,54 @@ AINFO<<"(DMCZP) EnteringMethod: ActiveSetQpSolver::Solve";
 }
 
 void ActiveSetQpSolver::set_qp_eps_num(const double eps) { qp_eps_num_ = eps; }
-AINFO<<"(DMCZP) EnteringMethod: ActiveSetQpSolver::set_qp_eps_num";
 
 void ActiveSetQpSolver::set_qp_eps_den(const double eps) { qp_eps_den_ = eps; }
-AINFO<<"(DMCZP) EnteringMethod: ActiveSetQpSolver::set_qp_eps_den";
 
 void ActiveSetQpSolver::set_qp_eps_iter_ref(const double eps) {
-AINFO<<"(DMCZP) EnteringMethod: ActiveSetQpSolver::set_qp_eps_iter_ref";
   qp_eps_iter_ref_ = eps;
 }
 
 void ActiveSetQpSolver::set_debug_info(const bool enable) {
-AINFO<<"(DMCZP) EnteringMethod: ActiveSetQpSolver::set_debug_info";
   debug_info_ = enable;
 }
 
 void ActiveSetQpSolver::set_l_lower_bound(const double l_lower_bound) {
-AINFO<<"(DMCZP) EnteringMethod: ActiveSetQpSolver::set_l_lower_bound";
   l_lower_bound_ = l_lower_bound;
 }
 
 void ActiveSetQpSolver::set_l_upper_bound(const double l_upper_bound) {
-AINFO<<"(DMCZP) EnteringMethod: ActiveSetQpSolver::set_l_upper_bound";
   l_upper_bound_ = l_upper_bound;
 }
 
 void ActiveSetQpSolver::set_constraint_upper_bound(
     const double la_upper_bound) {
-AINFO<<"(DMCZP) EnteringMethod: ActiveSetQpSolver::set_constraint_upper_bound";
   constraint_upper_bound_ = la_upper_bound;
 }
 
 void ActiveSetQpSolver::set_max_iteration(const int max_iter) {
-AINFO<<"(DMCZP) EnteringMethod: ActiveSetQpSolver::set_max_iteration";
   max_iteration_ = max_iter;
 }
 
 double ActiveSetQpSolver::qp_eps_num() const { return qp_eps_num_; }
-AINFO<<"(DMCZP) EnteringMethod: ActiveSetQpSolver::qp_eps_num";
 
 double ActiveSetQpSolver::qp_eps_den() const { return qp_eps_den_; }
-AINFO<<"(DMCZP) EnteringMethod: ActiveSetQpSolver::qp_eps_den";
 
 double ActiveSetQpSolver::qp_eps_iter_ref() const { return qp_eps_iter_ref_; }
-AINFO<<"(DMCZP) EnteringMethod: ActiveSetQpSolver::qp_eps_iter_ref";
 
 bool ActiveSetQpSolver::debug_info() const { return debug_info_; }
-AINFO<<"(DMCZP) EnteringMethod: ActiveSetQpSolver::debug_info";
 
 double ActiveSetQpSolver::l_lower_bound() const { return l_lower_bound_; }
-AINFO<<"(DMCZP) EnteringMethod: ActiveSetQpSolver::l_lower_bound";
 
 double ActiveSetQpSolver::l_upper_bound() const { return l_upper_bound_; }
-AINFO<<"(DMCZP) EnteringMethod: ActiveSetQpSolver::l_upper_bound";
 
 double ActiveSetQpSolver::constraint_upper_bound() const {
-AINFO<<"(DMCZP) EnteringMethod: ActiveSetQpSolver::constraint_upper_bound";
   return constraint_upper_bound_;
 }
 
 int ActiveSetQpSolver::max_iteration() const { return max_iteration_; }
-AINFO<<"(DMCZP) EnteringMethod: ActiveSetQpSolver::max_iteration";
 
 // pure virtual
 bool ActiveSetQpSolver::sanity_check() {
-AINFO<<"(DMCZP) EnteringMethod: ActiveSetQpSolver::sanity_check";
   return kernel_matrix_.rows() == kernel_matrix_.cols() &&
          kernel_matrix_.rows() == affine_inequality_matrix_.cols() &&
          kernel_matrix_.rows() == affine_equality_matrix_.cols() &&

@@ -28,12 +28,10 @@ namespace gem {
 using ::apollo::drivers::canbus::Byte;
 
 Wiperrpt91::Wiperrpt91() {}
-AINFO<<"(DMCZP) EnteringMethod: Wiperrpt91::Wiperrpt91";
 const int32_t Wiperrpt91::ID = 0x91;
 
 void Wiperrpt91::Parse(const std::uint8_t* bytes, int32_t length,
                        ChassisDetail* chassis) const {
-AINFO<<"(DMCZP) EnteringMethod: Wiperrpt91::Parse";
   chassis->mutable_gem()->mutable_wiper_rpt_91()->set_output_value(
       output_value(bytes, length));
   chassis->mutable_gem()->mutable_wiper_rpt_91()->set_commanded_value(
@@ -51,9 +49,6 @@ AINFO<<"(DMCZP) EnteringMethod: Wiperrpt91::Parse";
 // 'type': 'enum', 'order': 'motorola', 'physical_unit': ''}
 Wiper_rpt_91::Output_valueType Wiperrpt91::output_value(
     const std::uint8_t* bytes, int32_t length) const {
-AINFO<<"(DMCZP) EnteringMethod: Wiperrpt91::output_value";
-AINFO<<"(DMCZP) EnteringMethod: Wiperrpt91::commanded_value";
-AINFO<<"(DMCZP) EnteringMethod: Wiperrpt91::manual_input";
   Byte t0(bytes + 2);
   int32_t x = t0.get_byte(0, 8);
 

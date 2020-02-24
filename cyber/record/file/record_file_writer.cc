@@ -26,12 +26,10 @@ namespace cyber {
 namespace record {
 
 RecordFileWriter::RecordFileWriter() {}
-AINFO<<"(DMCZP) EnteringMethod: RecordFileWriter::RecordFileWriter";
 
 RecordFileWriter::~RecordFileWriter() { Close(); }
 
 bool RecordFileWriter::Open(const std::string& path) {
-AINFO<<"(DMCZP) EnteringMethod: RecordFileWriter::Open";
   std::lock_guard<std::mutex> lock(mutex_);
   path_ = path;
   if (::apollo::cyber::common::PathExists(path_)) {
@@ -56,7 +54,6 @@ AINFO<<"(DMCZP) EnteringMethod: RecordFileWriter::Open";
 }
 
 void RecordFileWriter::Close() {
-AINFO<<"(DMCZP) EnteringMethod: RecordFileWriter::Close";
   if (is_writing_) {
     // wait for the flush operation that may exist now
     while (!chunk_flush_->empty()) {
@@ -100,7 +97,6 @@ AINFO<<"(DMCZP) EnteringMethod: RecordFileWriter::Close";
 }
 
 bool RecordFileWriter::WriteHeader(const Header& header) {
-AINFO<<"(DMCZP) EnteringMethod: RecordFileWriter::WriteHeader";
   std::lock_guard<std::mutex> lock(mutex_);
   header_ = header;
   if (!WriteSection<Header>(header_)) {
@@ -111,7 +107,6 @@ AINFO<<"(DMCZP) EnteringMethod: RecordFileWriter::WriteHeader";
 }
 
 bool RecordFileWriter::WriteIndex() {
-AINFO<<"(DMCZP) EnteringMethod: RecordFileWriter::WriteIndex";
   std::lock_guard<std::mutex> lock(mutex_);
   for (int i = 0; i < index_.indexes_size(); i++) {
     SingleIndex* single_index = index_.mutable_indexes(i);
@@ -133,7 +128,6 @@ AINFO<<"(DMCZP) EnteringMethod: RecordFileWriter::WriteIndex";
 }
 
 bool RecordFileWriter::WriteChannel(const Channel& channel) {
-AINFO<<"(DMCZP) EnteringMethod: RecordFileWriter::WriteChannel";
   std::lock_guard<std::mutex> lock(mutex_);
   if (!WriteSection<Channel>(channel)) {
     AERROR << "Write section fail";
@@ -154,7 +148,6 @@ AINFO<<"(DMCZP) EnteringMethod: RecordFileWriter::WriteChannel";
 
 bool RecordFileWriter::WriteChunk(const ChunkHeader& chunk_header,
                                   const ChunkBody& chunk_body) {
-AINFO<<"(DMCZP) EnteringMethod: RecordFileWriter::WriteChunk";
   std::lock_guard<std::mutex> lock(mutex_);
   if (!WriteSection<ChunkHeader>(chunk_header)) {
     AERROR << "Write chunk header fail";
@@ -190,7 +183,6 @@ AINFO<<"(DMCZP) EnteringMethod: RecordFileWriter::WriteChunk";
 }
 
 bool RecordFileWriter::WriteMessage(const SingleMessage& message) {
-AINFO<<"(DMCZP) EnteringMethod: RecordFileWriter::WriteMessage";
   chunk_active_->add(message);
   auto it = channel_message_number_map_.find(message.channel_name());
   if (it != channel_message_number_map_.end()) {
@@ -221,7 +213,6 @@ AINFO<<"(DMCZP) EnteringMethod: RecordFileWriter::WriteMessage";
 }
 
 void RecordFileWriter::Flush() {
-AINFO<<"(DMCZP) EnteringMethod: RecordFileWriter::Flush";
   while (is_writing_) {
     std::unique_lock<std::mutex> flush_lock(flush_mutex_);
     flush_cv_.wait(flush_lock,
@@ -242,7 +233,6 @@ AINFO<<"(DMCZP) EnteringMethod: RecordFileWriter::Flush";
 
 uint64_t RecordFileWriter::GetMessageNumber(
     const std::string& channel_name) const {
-AINFO<<"(DMCZP) EnteringMethod: RecordFileWriter::GetMessageNumber";
   auto search = channel_message_number_map_.find(channel_name);
   if (search != channel_message_number_map_.end()) {
     return search->second;

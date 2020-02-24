@@ -25,7 +25,6 @@ namespace apollo {
 namespace planning {
 Spline2dSeg::Spline2dSeg(const uint32_t order)
     : spline_func_x_(order), spline_func_y_(order) {
-AINFO<<"(DMCZP) EnteringMethod: Spline2dSeg::Spline2dSeg";
   derivative_x_ = PolynomialXd::DerivedFrom(spline_func_x_);
   derivative_y_ = PolynomialXd::DerivedFrom(spline_func_y_);
   second_derivative_x_ = PolynomialXd::DerivedFrom(derivative_x_);
@@ -37,7 +36,6 @@ AINFO<<"(DMCZP) EnteringMethod: Spline2dSeg::Spline2dSeg";
 Spline2dSeg::Spline2dSeg(const std::vector<double>& x_param,
                          const std::vector<double>& y_param)
     : spline_func_x_(x_param), spline_func_y_(y_param) {
-AINFO<<"(DMCZP) EnteringMethod: Spline2dSeg::Spline2dSeg";
   derivative_x_ = PolynomialXd::DerivedFrom(spline_func_x_);
   derivative_y_ = PolynomialXd::DerivedFrom(spline_func_y_);
   second_derivative_x_ = PolynomialXd::DerivedFrom(derivative_x_);
@@ -48,7 +46,6 @@ AINFO<<"(DMCZP) EnteringMethod: Spline2dSeg::Spline2dSeg";
 
 bool Spline2dSeg::SetParams(const std::vector<double>& x_param,
                             const std::vector<double>& y_param) {
-AINFO<<"(DMCZP) EnteringMethod: Spline2dSeg::SetParams";
   if (x_param.size() != y_param.size()) {
     return false;
   }
@@ -69,74 +66,58 @@ std::pair<double, double> Spline2dSeg::operator()(const double t) const {
 }
 
 double Spline2dSeg::x(const double t) const { return spline_func_x_(t); }
-AINFO<<"(DMCZP) EnteringMethod: Spline2dSeg::x";
 
 double Spline2dSeg::y(const double t) const { return spline_func_y_(t); }
-AINFO<<"(DMCZP) EnteringMethod: Spline2dSeg::y";
 
 double Spline2dSeg::DerivativeX(const double t) const {
-AINFO<<"(DMCZP) EnteringMethod: Spline2dSeg::DerivativeX";
   return derivative_x_(t);
 }
 
 double Spline2dSeg::DerivativeY(const double t) const {
-AINFO<<"(DMCZP) EnteringMethod: Spline2dSeg::DerivativeY";
   return derivative_y_(t);
 }
 
 double Spline2dSeg::SecondDerivativeX(const double t) const {
-AINFO<<"(DMCZP) EnteringMethod: Spline2dSeg::SecondDerivativeX";
   return second_derivative_x_(t);
 }
 
 double Spline2dSeg::SecondDerivativeY(const double t) const {
-AINFO<<"(DMCZP) EnteringMethod: Spline2dSeg::SecondDerivativeY";
   return second_derivative_y_(t);
 }
 
 double Spline2dSeg::ThirdDerivativeX(const double t) const {
-AINFO<<"(DMCZP) EnteringMethod: Spline2dSeg::ThirdDerivativeX";
   return third_derivative_x_(t);
 }
 
 double Spline2dSeg::ThirdDerivativeY(const double t) const {
-AINFO<<"(DMCZP) EnteringMethod: Spline2dSeg::ThirdDerivativeY";
   return third_derivative_y_(t);
 }
 
 const PolynomialXd& Spline2dSeg::spline_func_x() const {
-AINFO<<"(DMCZP) EnteringMethod: Spline2dSeg::spline_func_x";
   return spline_func_x_;
 }
 
 const PolynomialXd& Spline2dSeg::spline_func_y() const {
-AINFO<<"(DMCZP) EnteringMethod: Spline2dSeg::spline_func_y";
   return spline_func_y_;
 }
 
 const PolynomialXd& Spline2dSeg::DerivativeX() const { return derivative_x_; }
-AINFO<<"(DMCZP) EnteringMethod: Spline2dSeg::DerivativeX";
 
 const PolynomialXd& Spline2dSeg::DerivativeY() const { return derivative_y_; }
-AINFO<<"(DMCZP) EnteringMethod: Spline2dSeg::DerivativeY";
 
 const PolynomialXd& Spline2dSeg::SecondDerivativeX() const {
-AINFO<<"(DMCZP) EnteringMethod: Spline2dSeg::SecondDerivativeX";
   return second_derivative_x_;
 }
 
 const PolynomialXd& Spline2dSeg::SecondDerivativeY() const {
-AINFO<<"(DMCZP) EnteringMethod: Spline2dSeg::SecondDerivativeY";
   return second_derivative_y_;
 }
 
 const PolynomialXd& Spline2dSeg::ThirdDerivativeX() const {
-AINFO<<"(DMCZP) EnteringMethod: Spline2dSeg::ThirdDerivativeX";
   return third_derivative_x_;
 }
 
 const PolynomialXd& Spline2dSeg::ThirdDerivativeY() const {
-AINFO<<"(DMCZP) EnteringMethod: Spline2dSeg::ThirdDerivativeY";
   return third_derivative_y_;
 }
 

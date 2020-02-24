@@ -34,7 +34,6 @@ class BaseMapPoolTestSuite : public ::testing::Test {
 
 /**@brief Test all public methods in BaseMapNodePool.*/
 TEST_F(BaseMapPoolTestSuite, MapNodePoolTest) {
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   LosslessMapConfig option;
   bool is_fixed_size = false;
 

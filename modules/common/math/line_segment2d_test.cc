@@ -25,7 +25,6 @@ namespace common {
 namespace math {
 
 TEST(LineSegment2dTest, Accessors) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   const LineSegment2d ls({1, 2}, {5, 4});
   EXPECT_NEAR(ls.length(), std::sqrt(20.0), 1e-5);
   EXPECT_NEAR(ls.length_sqr(), 20.0, 1e-5);
@@ -40,7 +39,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST";
 }
 
 TEST(LineSegment2dTest, DistanceTo) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   const LineSegment2d ls({1, 2}, {5, 4});
   Vec2d nearest_pt;
   EXPECT_NEAR(ls.DistanceTo({0, 0}, &nearest_pt), std::sqrt(5.0), 1e-5);
@@ -61,7 +59,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST";
 }
 
 TEST(LineSegment2dTest, GetPerpendicularFoot) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   const LineSegment2d ls({1, 2}, {5, 4});
   Vec2d foot_pt;
   EXPECT_NEAR(ls.GetPerpendicularFoot({0, 0}, &foot_pt), 0.6 * std::sqrt(5.0),
@@ -74,7 +71,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST";
 }
 
 TEST(LineSegment2dTest, ProjectOntoUnit) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   const LineSegment2d ls({1, 2}, {5, 4});
   EXPECT_NEAR(ls.ProjectOntoUnit({1, 2}), 0.0, 1e-5);
   EXPECT_NEAR(ls.ProjectOntoUnit({5, 4}), std::sqrt(20.0), 1e-5);
@@ -83,7 +79,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST";
 }
 
 TEST(LineSegment2dTest, GetIntersect) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   const LineSegment2d ls({1, 2}, {5, 4});
   Vec2d point;
   EXPECT_FALSE(ls.GetIntersect({{1, 3}, {5, 5}}, &point));
@@ -111,7 +106,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST";
 }
 
 TEST(LineSegment2dTest, IsPointIn) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   const LineSegment2d ls({1, 2}, {5, 4});
   EXPECT_TRUE(ls.IsPointIn({1, 2}));
   EXPECT_TRUE(ls.IsPointIn({5, 4}));

@@ -35,7 +35,6 @@ class NDTLocalizationTest : public ::testing::Test {
 };
 
 TEST_F(NDTLocalizationTest, UpdateLidarPose) {
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   Eigen::Affine3d odometry_pose = Eigen::Affine3d::Identity();
   Eigen::Affine3d lidar_pose = Eigen::Affine3d::Identity();
   double time_now = apollo::common::time::Clock::NowInSeconds();
@@ -47,7 +46,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST_F";
 }
 
 TEST_F(NDTLocalizationTest, UpdateOdometryPose) {
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   Eigen::Affine3d odometry_pose = Eigen::Affine3d::Identity();
   Eigen::Affine3d lidar_pose = Eigen::Affine3d::Identity();
   double time_now = apollo::common::time::Clock::NowInSeconds();

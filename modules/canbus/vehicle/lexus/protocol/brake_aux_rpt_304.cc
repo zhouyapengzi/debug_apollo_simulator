@@ -28,12 +28,10 @@ namespace lexus {
 using ::apollo::drivers::canbus::Byte;
 
 Brakeauxrpt304::Brakeauxrpt304() {}
-AINFO<<"(DMCZP) EnteringMethod: Brakeauxrpt304::Brakeauxrpt304";
 const int32_t Brakeauxrpt304::ID = 0x304;
 
 void Brakeauxrpt304::Parse(const std::uint8_t* bytes, int32_t length,
                            ChassisDetail* chassis) const {
-AINFO<<"(DMCZP) EnteringMethod: Brakeauxrpt304::Parse";
   chassis->mutable_lexus()
       ->mutable_brake_aux_rpt_304()
       ->set_brake_on_off_is_valid(brake_on_off_is_valid(bytes, length));
@@ -67,7 +65,6 @@ AINFO<<"(DMCZP) EnteringMethod: Brakeauxrpt304::Parse";
 // '[0|1]', 'bit': 60, 'type': 'bool', 'order': 'motorola', 'physical_unit': ''}
 bool Brakeauxrpt304::brake_on_off_is_valid(const std::uint8_t* bytes,
                                            int32_t length) const {
-AINFO<<"(DMCZP) EnteringMethod: Brakeauxrpt304::brake_on_off_is_valid";
   Byte t0(bytes + 7);
   int32_t x = t0.get_byte(4, 1);
 
@@ -80,7 +77,6 @@ AINFO<<"(DMCZP) EnteringMethod: Brakeauxrpt304::brake_on_off_is_valid";
 // 'type': 'bool', 'order': 'motorola', 'physical_unit': ''}
 bool Brakeauxrpt304::brake_on_off(const std::uint8_t* bytes,
                                   int32_t length) const {
-AINFO<<"(DMCZP) EnteringMethod: Brakeauxrpt304::brake_on_off";
   Byte t0(bytes + 6);
   int32_t x = t0.get_byte(1, 1);
 
@@ -93,7 +89,6 @@ AINFO<<"(DMCZP) EnteringMethod: Brakeauxrpt304::brake_on_off";
 // '[0|1]', 'bit': 59, 'type': 'bool', 'order': 'motorola', 'physical_unit': ''}
 bool Brakeauxrpt304::user_interaction_is_valid(const std::uint8_t* bytes,
                                                int32_t length) const {
-AINFO<<"(DMCZP) EnteringMethod: Brakeauxrpt304::user_interaction_is_valid";
   Byte t0(bytes + 7);
   int32_t x = t0.get_byte(3, 1);
 
@@ -106,7 +101,6 @@ AINFO<<"(DMCZP) EnteringMethod: Brakeauxrpt304::user_interaction_is_valid";
 // 'type': 'bool', 'order': 'motorola', 'physical_unit': ''}
 bool Brakeauxrpt304::user_interaction(const std::uint8_t* bytes,
                                       int32_t length) const {
-AINFO<<"(DMCZP) EnteringMethod: Brakeauxrpt304::user_interaction";
   Byte t0(bytes + 6);
   int32_t x = t0.get_byte(0, 1);
 
@@ -119,7 +113,6 @@ AINFO<<"(DMCZP) EnteringMethod: Brakeauxrpt304::user_interaction";
 // '[0|1]', 'bit': 58, 'type': 'bool', 'order': 'motorola', 'physical_unit': ''}
 bool Brakeauxrpt304::raw_brake_pressure_is_valid(const std::uint8_t* bytes,
                                                  int32_t length) const {
-AINFO<<"(DMCZP) EnteringMethod: Brakeauxrpt304::raw_brake_pressure_is_valid";
   Byte t0(bytes + 7);
   int32_t x = t0.get_byte(2, 1);
 
@@ -133,7 +126,6 @@ AINFO<<"(DMCZP) EnteringMethod: Brakeauxrpt304::raw_brake_pressure_is_valid";
 // 'physical_unit': ''}
 double Brakeauxrpt304::raw_brake_pressure(const std::uint8_t* bytes,
                                           int32_t length) const {
-AINFO<<"(DMCZP) EnteringMethod: Brakeauxrpt304::raw_brake_pressure";
   Byte t0(bytes + 4);
   int32_t x = t0.get_byte(0, 8);
 
@@ -154,7 +146,6 @@ AINFO<<"(DMCZP) EnteringMethod: Brakeauxrpt304::raw_brake_pressure";
 // '[0|1]', 'bit': 57, 'type': 'bool', 'order': 'motorola', 'physical_unit': ''}
 bool Brakeauxrpt304::raw_pedal_force_is_valid(const std::uint8_t* bytes,
                                               int32_t length) const {
-AINFO<<"(DMCZP) EnteringMethod: Brakeauxrpt304::raw_pedal_force_is_valid";
   Byte t0(bytes + 7);
   int32_t x = t0.get_byte(1, 1);
 
@@ -167,7 +158,6 @@ AINFO<<"(DMCZP) EnteringMethod: Brakeauxrpt304::raw_pedal_force_is_valid";
 // 'bit': 23, 'type': 'double', 'order': 'motorola', 'physical_unit': ''}
 double Brakeauxrpt304::raw_pedal_force(const std::uint8_t* bytes,
                                        int32_t length) const {
-AINFO<<"(DMCZP) EnteringMethod: Brakeauxrpt304::raw_pedal_force";
   Byte t0(bytes + 2);
   int32_t x = t0.get_byte(0, 8);
 
@@ -188,7 +178,6 @@ AINFO<<"(DMCZP) EnteringMethod: Brakeauxrpt304::raw_pedal_force";
 // '[0|1]', 'bit': 56, 'type': 'bool', 'order': 'motorola', 'physical_unit': ''}
 bool Brakeauxrpt304::raw_pedal_pos_is_valid(const std::uint8_t* bytes,
                                             int32_t length) const {
-AINFO<<"(DMCZP) EnteringMethod: Brakeauxrpt304::raw_pedal_pos_is_valid";
   Byte t0(bytes + 7);
   int32_t x = t0.get_byte(0, 1);
 
@@ -201,7 +190,6 @@ AINFO<<"(DMCZP) EnteringMethod: Brakeauxrpt304::raw_pedal_pos_is_valid";
 // 'bit': 7, 'type': 'double', 'order': 'motorola', 'physical_unit': ''}
 double Brakeauxrpt304::raw_pedal_pos(const std::uint8_t* bytes,
                                      int32_t length) const {
-AINFO<<"(DMCZP) EnteringMethod: Brakeauxrpt304::raw_pedal_pos";
   Byte t0(bytes + 0);
   int32_t x = t0.get_byte(0, 8);
 

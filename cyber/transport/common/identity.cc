@@ -25,7 +25,6 @@ namespace cyber {
 namespace transport {
 
 Identity::Identity(bool need_generate) : hash_value_(0), hash_value_str_("") {
-AINFO<<"(DMCZP) EnteringMethod: Identity::Identity";
   memset(data_, 0, ID_SIZE);
   if (need_generate) {
     uuid_t uuid;
@@ -36,7 +35,6 @@ AINFO<<"(DMCZP) EnteringMethod: Identity::Identity";
 }
 
 Identity::Identity(const Identity& another) {
-AINFO<<"(DMCZP) EnteringMethod: Identity::Identity";
   memcpy(data_, another.data(), ID_SIZE);
   hash_value_ = another.hash_value_;
   hash_value_str_ = another.hash_value_str_;
@@ -62,16 +60,12 @@ bool Identity::operator!=(const Identity& another) const {
 }
 
 const std::string& Identity::ToString() const { return hash_value_str_; }
-AINFO<<"(DMCZP) EnteringMethod: Identity::ToString";
 
 size_t Identity::Length() const { return ID_SIZE; }
-AINFO<<"(DMCZP) EnteringMethod: Identity::Length";
 
 uint64_t Identity::HashValue() const { return hash_value_; }
-AINFO<<"(DMCZP) EnteringMethod: Identity::HashValue";
 
 void Identity::Update() {
-AINFO<<"(DMCZP) EnteringMethod: Identity::Update";
   hash_value_ = common::Hash(std::string(data_, ID_SIZE));
   hash_value_str_ = std::to_string(hash_value_);
 }

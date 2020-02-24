@@ -32,7 +32,6 @@ using apollo::common::math::Vec2d;
 using Eigen::MatrixXd;
 
 TEST(constraint_test, test_suit_one) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   std::vector<double> t_knots{0, 1, 2, 3, 4, 5};
   uint32_t order = 5;
   ActiveSetSpline2dSolver spline_solver(t_knots, order);

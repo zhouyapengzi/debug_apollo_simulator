@@ -41,11 +41,9 @@ using Eigen::MatrixXd;
 ActiveSetSpline2dSolver::ActiveSetSpline2dSolver(
     const std::vector<double>& t_knots, const uint32_t order)
     : Spline2dSolver(t_knots, order) {}
-AINFO<<"(DMCZP) EnteringMethod: ActiveSetSpline2dSolver::ActiveSetSpline2dSolver";
 
 void ActiveSetSpline2dSolver::Reset(const std::vector<double>& t_knots,
                                     const uint32_t order) {
-AINFO<<"(DMCZP) EnteringMethod: ActiveSetSpline2dSolver::Reset";
   spline_ = Spline2d(t_knots, order);
   kernel_ = Spline2dKernel(t_knots, order);
   constraint_ = Spline2dConstraint(t_knots, order);
@@ -53,18 +51,14 @@ AINFO<<"(DMCZP) EnteringMethod: ActiveSetSpline2dSolver::Reset";
 
 // customize setup
 Spline2dConstraint* ActiveSetSpline2dSolver::mutable_constraint() {
-AINFO<<"(DMCZP) EnteringMethod: ActiveSetSpline2dSolver::mutable_constraint";
   return &constraint_;
 }
 
 Spline2dKernel* ActiveSetSpline2dSolver::mutable_kernel() { return &kernel_; }
-AINFO<<"(DMCZP) EnteringMethod: ActiveSetSpline2dSolver::mutable_kernel";
 
 Spline2d* ActiveSetSpline2dSolver::mutable_spline() { return &spline_; }
-AINFO<<"(DMCZP) EnteringMethod: ActiveSetSpline2dSolver::mutable_spline";
 
 bool ActiveSetSpline2dSolver::Solve() {
-AINFO<<"(DMCZP) EnteringMethod: ActiveSetSpline2dSolver::Solve";
   const MatrixXd& kernel_matrix = kernel_.kernel_matrix();
   const MatrixXd& offset = kernel_.offset();
   const MatrixXd& inequality_constraint_matrix =
@@ -235,6 +229,5 @@ AINFO<<"(DMCZP) EnteringMethod: ActiveSetSpline2dSolver::Solve";
 
 // extract
 const Spline2d& ActiveSetSpline2dSolver::spline() const { return spline_; }
-AINFO<<"(DMCZP) EnteringMethod: ActiveSetSpline2dSolver::spline";
 }  // namespace planning
 }  // namespace apollo

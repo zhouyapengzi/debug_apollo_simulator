@@ -28,7 +28,6 @@ class Wheelspeedrpt7aTest : public ::testing::Test {
 };
 
 TEST_F(Wheelspeedrpt7aTest, reset) {
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   Wheelspeedrpt7a wheelspeed;
   int32_t length = 8;
   ChassisDetail chassis_detail;

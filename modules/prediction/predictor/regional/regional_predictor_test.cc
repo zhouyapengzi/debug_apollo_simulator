@@ -40,7 +40,6 @@ class RegionalPredictorTest : public KMLMapBasedTest {
 };
 
 TEST_F(RegionalPredictorTest, Predict) {
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   EXPECT_DOUBLE_EQ(perception_obstacles_.header().timestamp_sec(),
                    1501183430.161906);
   apollo::perception::PerceptionObstacle perception_obstacle =
@@ -56,7 +55,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST_F";
 }
 
 TEST_F(RegionalPredictorTest, MovingPedestrian) {
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   EXPECT_DOUBLE_EQ(perception_obstacles_.header().timestamp_sec(),
                    1501183430.161906);
   apollo::perception::PerceptionObstacle perception_obstacle =
@@ -71,7 +69,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST_F";
 }
 
 TEST_F(RegionalPredictorTest, StationaryPedestrian) {
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   EXPECT_DOUBLE_EQ(perception_obstacles_.header().timestamp_sec(),
                    1501183430.161906);
   apollo::perception::PerceptionObstacle perception_obstacle =

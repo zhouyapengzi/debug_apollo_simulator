@@ -24,32 +24,27 @@ namespace class_loader {
 namespace utility {
 
 std::recursive_mutex& GetClassFactoryMapMapMutex() {
-AINFO<<"(DMCZP) EnteringMethod: GetClassFactoryMapMapMutex";
   static std::recursive_mutex m;
   return m;
 }
 
 std::recursive_mutex& GetLibPathPocoShareLibMutex() {
-AINFO<<"(DMCZP) EnteringMethod: GetLibPathPocoShareLibMutex";
   static std::recursive_mutex m;
   return m;
 }
 
 BaseToClassFactoryMapMap& GetClassFactoryMapMap() {
-AINFO<<"(DMCZP) EnteringMethod: GetClassFactoryMapMap";
   static BaseToClassFactoryMapMap instance;
   return instance;
 }
 
 LibpathPocolibVector& GetLibPathPocoShareLibVector() {
-AINFO<<"(DMCZP) EnteringMethod: GetLibPathPocoShareLibVector";
   static LibpathPocolibVector instance;
   return instance;
 }
 
 ClassClassFactoryMap& GetClassFactoryMapByBaseClass(
     const std::string& typeid_base_class_name) {
-AINFO<<"(DMCZP) EnteringMethod: GetClassFactoryMapByBaseClass";
   BaseToClassFactoryMapMap& factoryMapMap = GetClassFactoryMapMap();
   std::string base_class_name = typeid_base_class_name;
   if (factoryMapMap.find(base_class_name) == factoryMapMap.end()) {
@@ -60,42 +55,35 @@ AINFO<<"(DMCZP) EnteringMethod: GetClassFactoryMapByBaseClass";
 }
 
 std::string& GetCurLoadingLibraryNameReference() {
-AINFO<<"(DMCZP) EnteringMethod: GetCurLoadingLibraryNameReference";
   static std::string library_name;
   return library_name;
 }
 
 std::string GetCurLoadingLibraryName() {
-AINFO<<"(DMCZP) EnteringMethod: GetCurLoadingLibraryName";
   return GetCurLoadingLibraryNameReference();
 }
 
 void SetCurLoadingLibraryName(const std::string& library_name) {
-AINFO<<"(DMCZP) EnteringMethod: SetCurLoadingLibraryName";
   std::string& library_name_ref = GetCurLoadingLibraryNameReference();
   library_name_ref = library_name;
 }
 
 ClassLoader*& GetCurActiveClassLoaderReference() {
-AINFO<<"(DMCZP) EnteringMethod: GetCurActiveClassLoaderReference";
   static ClassLoader* loader = nullptr;
   return loader;
 }
 
 ClassLoader* GetCurActiveClassLoader() {
-AINFO<<"(DMCZP) EnteringMethod: GetCurActiveClassLoader";
   return (GetCurActiveClassLoaderReference());
 }
 
 void SetCurActiveClassLoader(ClassLoader* loader) {
-AINFO<<"(DMCZP) EnteringMethod: SetCurActiveClassLoader";
   ClassLoader*& loader_ref = GetCurActiveClassLoaderReference();
   loader_ref = loader;
 }
 
 ClassFactoryVector GetAllClassFactoryObjects(
     const ClassClassFactoryMap& factories) {
-AINFO<<"(DMCZP) EnteringMethod: GetAllClassFactoryObjects";
   ClassFactoryVector all_class_factory_objs;
   for (auto& class_factory : factories) {
     all_class_factory_objs.emplace_back(class_factory.second);
@@ -105,7 +93,6 @@ AINFO<<"(DMCZP) EnteringMethod: GetAllClassFactoryObjects";
 }
 
 ClassFactoryVector GetAllClassFactoryObjects() {
-AINFO<<"(DMCZP) EnteringMethod: GetAllClassFactoryObjects";
   std::lock_guard<std::recursive_mutex> lck(GetClassFactoryMapMapMutex());
 
   ClassFactoryVector all_class_factory_objs;
@@ -121,10 +108,8 @@ AINFO<<"(DMCZP) EnteringMethod: GetAllClassFactoryObjects";
 
 ClassFactoryVector GetAllClassFactoryObjectsOfLibrary(
     const std::string& library_path) {
-AINFO<<"(DMCZP) EnteringMethod: GetAllClassFactoryObjectsOfLibrary";
   ClassFactoryVector all_class_factory_objs = GetAllClassFactoryObjects();
   ClassFactoryVector library_class_factory_objs;
-AINFO<<"(DMCZP) EnteringMethod: FindLoadedLibrary";
   for (auto& class_factory_obj : all_class_factory_objs) {
     if (class_factory_obj->GetRelativeLibraryPath() == library_path) {
       library_class_factory_objs.emplace_back(class_factory_obj);
@@ -136,7 +121,6 @@ AINFO<<"(DMCZP) EnteringMethod: FindLoadedLibrary";
 void DestroyClassFactoryObjectsOfLibrary(
     const std::string& library_path, const ClassLoader* class_loader,
     ClassClassFactoryMap* class_factory_map) {
-AINFO<<"(DMCZP) EnteringMethod: DestroyClassFactoryObjectsOfLibrary";
   for (ClassClassFactoryMap::iterator itr = class_factory_map->begin();
        itr != class_factory_map->end();) {
     AbstractClassFactoryBase* class_factory_object = itr->second;
@@ -158,7 +142,6 @@ AINFO<<"(DMCZP) EnteringMethod: DestroyClassFactoryObjectsOfLibrary";
 
 void DestroyClassFactoryObjectsOfLibrary(const std::string& library_path,
                                          const ClassLoader* loader) {
-AINFO<<"(DMCZP) EnteringMethod: DestroyClassFactoryObjectsOfLibrary";
   std::lock_guard<std::recursive_mutex> lck(GetClassFactoryMapMapMutex());
 
   BaseToClassFactoryMapMap& factory_map_map = GetClassFactoryMapMap();
@@ -181,7 +164,6 @@ LibpathPocolibVector::iterator FindLoadedLibrary(
 }
 
 bool IsLibraryLoadedByAnybody(const std::string& library_path) {
-AINFO<<"(DMCZP) EnteringMethod: IsLibraryLoadedByAnybody";
   std::lock_guard<std::recursive_mutex> lck(GetLibPathPocoShareLibMutex());
 
   LibpathPocolibVector& opened_libraries = GetLibPathPocoShareLibVector();
@@ -191,7 +173,6 @@ AINFO<<"(DMCZP) EnteringMethod: IsLibraryLoadedByAnybody";
 
 bool IsLibraryLoaded(const std::string& library_path,
                      ClassLoader* class_loader) {
-AINFO<<"(DMCZP) EnteringMethod: IsLibraryLoaded";
   bool is_lib_loaded_by_anyone = IsLibraryLoadedByAnybody(library_path);
   ClassFactoryVector lib_class_factory_objs =
       GetAllClassFactoryObjectsOfLibrary(library_path);
@@ -213,7 +194,6 @@ AINFO<<"(DMCZP) EnteringMethod: IsLibraryLoaded";
 }
 
 bool LoadLibrary(const std::string& library_path, ClassLoader* loader) {
-AINFO<<"(DMCZP) EnteringMethod: LoadLibrary";
   if (IsLibraryLoadedByAnybody(library_path)) {
     AINFO << "lib has been loaded by others,only attach to class factory obj."
           << library_path;
@@ -270,7 +250,6 @@ AINFO<<"(DMCZP) EnteringMethod: LoadLibrary";
 }
 
 void UnloadLibrary(const std::string& library_path, ClassLoader* loader) {
-AINFO<<"(DMCZP) EnteringMethod: UnloadLibrary";
   {
     std::lock_guard<std::recursive_mutex> lck(GetLibPathPocoShareLibMutex());
     LibpathPocolibVector& opened_libraries = GetLibPathPocoShareLibVector();

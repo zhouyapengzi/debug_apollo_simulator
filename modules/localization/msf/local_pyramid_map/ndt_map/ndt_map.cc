@@ -21,7 +21,6 @@ namespace localization {
 namespace msf {
 
 NdtMap::NdtMap(NdtMapConfig* config) : BaseMap(config) {}
-AINFO<<"(DMCZP) EnteringMethod: NdtMap::NdtMap";
 
 NdtMap::~NdtMap() {}
 

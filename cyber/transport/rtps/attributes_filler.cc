@@ -26,13 +26,11 @@ namespace cyber {
 namespace transport {
 
 AttributesFiller::AttributesFiller() {}
-AINFO<<"(DMCZP) EnteringMethod: AttributesFiller::AttributesFiller";
 AttributesFiller::~AttributesFiller() {}
 
 bool AttributesFiller::FillInPubAttr(
     const std::string& channel_name, const QosProfile& qos,
     eprosima::fastrtps::PublisherAttributes* pub_attr) {
-AINFO<<"(DMCZP) EnteringMethod: AttributesFiller::FillInPubAttr";
   RETURN_VAL_IF_NULL(pub_attr, false);
 
   pub_attr->topic.topicName = channel_name;
@@ -121,7 +119,6 @@ AINFO<<"(DMCZP) EnteringMethod: AttributesFiller::FillInPubAttr";
 bool AttributesFiller::FillInSubAttr(
     const std::string& channel_name, const QosProfile& qos,
     eprosima::fastrtps::SubscriberAttributes* sub_attr) {
-AINFO<<"(DMCZP) EnteringMethod: AttributesFiller::FillInSubAttr";
   RETURN_VAL_IF_NULL(sub_attr, false);
   sub_attr->topic.topicName = channel_name;
   sub_attr->topic.topicDataType = "UnderlayMessage";

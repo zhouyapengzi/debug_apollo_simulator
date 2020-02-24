@@ -31,7 +31,6 @@ bool DiscretePointsMath::ComputePathProfile(
     const std::vector<std::pair<double, double>>& xy_points,
     std::vector<double>* headings, std::vector<double>* accumulated_s,
     std::vector<double>* kappas, std::vector<double>* dkappas) {
-AINFO<<"(DMCZP) EnteringMethod: DiscretePointsMath::ComputePathProfile";
   CHECK_NOTNULL(headings);
   CHECK_NOTNULL(kappas);
   CHECK_NOTNULL(dkappas);

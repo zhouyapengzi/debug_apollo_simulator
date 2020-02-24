@@ -41,7 +41,6 @@ DualVariableWarmStartOSQPInterface::DualVariableWarmStartOSQPInterface(
       obstacles_A_(obstacles_A),
       obstacles_b_(obstacles_b),
       xWS_(xWS) {
-AINFO<<"(DMCZP) EnteringMethod: DualVariableWarmStartOSQPInterface::DualVariableWarmStartOSQPInterface";
   CHECK(horizon < std::numeric_limits<int>::max())
       << "Invalid cast on horizon in open space planner";
   horizon_ = static_cast<int>(horizon);
@@ -78,7 +77,6 @@ AINFO<<"(DMCZP) EnteringMethod: DualVariableWarmStartOSQPInterface::DualVariable
 void printMatrix(const int r, const int c, const std::vector<c_float>& P_data,
                  const std::vector<c_int>& P_indices,
                  const std::vector<c_int>& P_indptr) {
-AINFO<<"(DMCZP) EnteringMethod: printMatrix";
   Eigen::MatrixXf tmp = Eigen::MatrixXf::Zero(r, c);
 
   for (size_t i = 0; i < P_indptr.size() - 1; ++i) {
@@ -104,7 +102,6 @@ AINFO<<"(DMCZP) EnteringMethod: printMatrix";
 void DualVariableWarmStartOSQPInterface::assembleA(
     const int r, const int c, const std::vector<c_float>& P_data,
     const std::vector<c_int>& P_indices, const std::vector<c_int>& P_indptr) {
-AINFO<<"(DMCZP) EnteringMethod: DualVariableWarmStartOSQPInterface::assembleA";
   constraint_A_ = Eigen::MatrixXf::Zero(r, c);
 
   for (size_t i = 0; i < P_indptr.size() - 1; ++i) {
@@ -121,7 +118,6 @@ AINFO<<"(DMCZP) EnteringMethod: DualVariableWarmStartOSQPInterface::assembleA";
 }
 
 bool DualVariableWarmStartOSQPInterface::optimize() {
-AINFO<<"(DMCZP) EnteringMethod: DualVariableWarmStartOSQPInterface::optimize";
   int kNumParam = num_of_variables_;
   int kNumConst = num_of_constraints_;
 
@@ -239,7 +235,6 @@ AINFO<<"(DMCZP) EnteringMethod: DualVariableWarmStartOSQPInterface::optimize";
 
 void DualVariableWarmStartOSQPInterface::check_solution(
     const Eigen::MatrixXd& l_warm_up, const Eigen::MatrixXd& n_warm_up) {
-AINFO<<"(DMCZP) EnteringMethod: DualVariableWarmStartOSQPInterface::check_solution";
   Eigen::MatrixXf x(num_of_variables_, 1);
   Eigen::MatrixXf g(num_of_constraints_, 1);
 
@@ -300,7 +295,6 @@ AINFO<<"(DMCZP) EnteringMethod: DualVariableWarmStartOSQPInterface::check_soluti
 void DualVariableWarmStartOSQPInterface::assemble_P(
     std::vector<c_float>* P_data, std::vector<c_int>* P_indices,
     std::vector<c_int>* P_indptr) {
-AINFO<<"(DMCZP) EnteringMethod: DualVariableWarmStartOSQPInterface::assemble_P";
   // the objective function is norm(A' * lambda)
   std::vector<c_float> P_tmp;
   int edges_counter = 0;
@@ -364,7 +358,6 @@ AINFO<<"(DMCZP) EnteringMethod: DualVariableWarmStartOSQPInterface::assemble_P";
 void DualVariableWarmStartOSQPInterface::assemble_constraint(
     std::vector<c_float>* A_data, std::vector<c_int>* A_indices,
     std::vector<c_int>* A_indptr) {
-AINFO<<"(DMCZP) EnteringMethod: DualVariableWarmStartOSQPInterface::assemble_constraint";
   /*
    * The constraint matrix is as the form,
    *  |R' * A',   G'|, #: 2 * obstacles_num_ * (horizon_ + 1)
@@ -473,7 +466,6 @@ AINFO<<"(DMCZP) EnteringMethod: DualVariableWarmStartOSQPInterface::assemble_con
 
 void DualVariableWarmStartOSQPInterface::get_optimization_results(
     Eigen::MatrixXd* l_warm_up, Eigen::MatrixXd* n_warm_up) const {
-AINFO<<"(DMCZP) EnteringMethod: DualVariableWarmStartOSQPInterface::get_optimization_results";
   *l_warm_up = l_warm_up_;
   *n_warm_up = n_warm_up_;
 }

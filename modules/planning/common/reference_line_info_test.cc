@@ -36,7 +36,6 @@ class ReferenceLineInfoTest : public ::testing::Test {
 };
 
 TEST_F(ReferenceLineInfoTest, BasicTest) {
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   EXPECT_EQ(reference_line_info_.trajectory_type(), ADCTrajectory::UNKNOWN);
 
   reference_line_info_.set_trajectory_type(ADCTrajectory::NORMAL);

@@ -51,7 +51,6 @@ void TrackObjectDistance::GetModified2DRadarBoxVertices(
     const base::BaseCameraModelPtr& camera_intrinsic,
     const Eigen::Matrix4d& world2camera_pose,
     std::vector<Eigen::Vector2d>* radar_box2d_vertices) {
-AINFO<<"(DMCZP) EnteringMethod: TrackObjectDistance::GetModified2DRadarBoxVertices";
   const double camera_height = camera->GetBaseObject()->size(2);
   std::vector<Eigen::Vector3d> modified_radar_box_vertices = radar_box_vertices;
   for (size_t i = 0; i < 4; ++i) {
@@ -71,14 +70,12 @@ AINFO<<"(DMCZP) EnteringMethod: TrackObjectDistance::GetModified2DRadarBoxVertic
 
 base::BaseCameraModelPtr TrackObjectDistance::QueryCameraModel(
     const SensorObjectConstPtr& camera) {
-AINFO<<"(DMCZP) EnteringMethod: TrackObjectDistance::QueryCameraModel";
   return SensorDataManager::Instance()->GetCameraIntrinsic(
       camera->GetSensorId());
 }
 
 bool TrackObjectDistance::QueryWorld2CameraPose(
     const SensorObjectConstPtr& camera, Eigen::Matrix4d* pose) {
-AINFO<<"(DMCZP) EnteringMethod: TrackObjectDistance::QueryWorld2CameraPose";
   Eigen::Affine3d camera2world_pose;
   bool status = SensorDataManager::Instance()->GetPose(
       camera->GetSensorId(), camera->GetTimestamp(), &camera2world_pose);
@@ -91,7 +88,6 @@ AINFO<<"(DMCZP) EnteringMethod: TrackObjectDistance::QueryWorld2CameraPose";
 
 bool TrackObjectDistance::QueryLidar2WorldPose(
     const SensorObjectConstPtr& lidar, Eigen::Matrix4d* pose) {
-AINFO<<"(DMCZP) EnteringMethod: TrackObjectDistance::QueryLidar2WorldPose";
   Eigen::Affine3d velo2world_pose;
   if (!lidar->GetRelatedFramePose(&velo2world_pose)) {
     return false;
@@ -105,7 +101,6 @@ ProjectionCacheObject* TrackObjectDistance::BuildProjectionCacheObject(
     const base::BaseCameraModelPtr& camera_model,
     const std::string& measurement_sensor_id, double measurement_timestamp,
     const std::string& projection_sensor_id, double projection_timestamp) {
-AINFO<<"(DMCZP) EnteringMethod: TrackObjectDistance::BuildProjectionCacheObject";
   // 1. get lidar2camera_pose
   Eigen::Matrix4d world2camera_pose;
   if (!QueryWorld2CameraPose(camera, &world2camera_pose)) {
@@ -206,7 +201,6 @@ ProjectionCacheObject* TrackObjectDistance::QueryProjectionCacheObject(
     const SensorObjectConstPtr& lidar, const SensorObjectConstPtr& camera,
     const base::BaseCameraModelPtr& camera_model,
     const bool measurement_is_lidar) {
-AINFO<<"(DMCZP) EnteringMethod: TrackObjectDistance::QueryProjectionCacheObject";
   // 1. try to query existed projection cache object
   const std::string& measurement_sensor_id =
       measurement_is_lidar ? lidar->GetSensorId() : camera->GetSensorId();
@@ -218,7 +212,6 @@ AINFO<<"(DMCZP) EnteringMethod: TrackObjectDistance::QueryProjectionCacheObject"
       measurement_is_lidar ? camera->GetTimestamp() : lidar->GetTimestamp();
   const int lidar_object_id = lidar->GetBaseObject()->id;
   ProjectionCacheObject* cache_object = projection_cache_.QueryObject(
-AINFO<<"(DMCZP) EnteringMethod: TrackObjectDistance::ComputeLidarCameraSimilarity";
       measurement_sensor_id, measurement_timestamp, projection_sensor_id,
       projection_timestamp, lidar_object_id);
   if (cache_object != nullptr) return cache_object;
@@ -231,7 +224,6 @@ AINFO<<"(DMCZP) EnteringMethod: TrackObjectDistance::ComputeLidarCameraSimilarit
 void TrackObjectDistance::QueryProjectedVeloCtOnCamera(
     const SensorObjectConstPtr& velodyne64, const SensorObjectConstPtr& camera,
     const Eigen::Matrix4d& lidar2camera_pose, Eigen::Vector3d* projected_ct) {
-AINFO<<"(DMCZP) EnteringMethod: TrackObjectDistance::QueryProjectedVeloCtOnCamera";
   double time_diff = camera->GetTimestamp() - velodyne64->GetTimestamp();
   Eigen::Vector3d offset =
       velodyne64->GetBaseObject()->velocity.cast<double>() * time_diff;
@@ -247,7 +239,6 @@ AINFO<<"(DMCZP) EnteringMethod: TrackObjectDistance::QueryProjectedVeloCtOnCamer
 bool TrackObjectDistance::QueryPolygonDCenter(
     const base::ObjectConstPtr& object, const Eigen::Vector3d& ref_pos,
     const int range, Eigen::Vector3d* polygon_ct) {
-AINFO<<"(DMCZP) EnteringMethod: TrackObjectDistance::QueryPolygonDCenter";
   if (object == nullptr) {
     return false;
   }
@@ -260,7 +251,6 @@ AINFO<<"(DMCZP) EnteringMethod: TrackObjectDistance::QueryPolygonDCenter";
 
 bool TrackObjectDistance::IsTrackIdConsistent(
     const SensorObjectConstPtr& object1, const SensorObjectConstPtr& object2) {
-AINFO<<"(DMCZP) EnteringMethod: TrackObjectDistance::IsTrackIdConsistent";
   if (object1 == nullptr || object2 == nullptr) {
     return false;
   }
@@ -273,7 +263,6 @@ AINFO<<"(DMCZP) EnteringMethod: TrackObjectDistance::IsTrackIdConsistent";
 
 bool TrackObjectDistance::LidarCameraCenterDistanceExceedDynamicThreshold(
     const SensorObjectConstPtr& lidar, const SensorObjectConstPtr& camera) {
-AINFO<<"(DMCZP) EnteringMethod: TrackObjectDistance::LidarCameraCenterDistanceExceedDynamicThreshold";
   double center_distance =
       (lidar->GetBaseObject()->center - camera->GetBaseObject()->center)
           .head(2)
@@ -297,7 +286,6 @@ AINFO<<"(DMCZP) EnteringMethod: TrackObjectDistance::LidarCameraCenterDistanceEx
 float TrackObjectDistance::Compute(const TrackPtr& fused_track,
                                    const SensorObjectPtr& sensor_object,
                                    const TrackObjectDistanceOptions& options) {
-AINFO<<"(DMCZP) EnteringMethod: TrackObjectDistance::Compute";
   FusedObjectPtr fused_object = fused_track->GetFusedObject();
   if (fused_object == nullptr) {
     AERROR << "fused object is nullptr";
@@ -364,14 +352,11 @@ float TrackObjectDistance::ComputeLidarLidar(
     const SensorObjectConstPtr& fused_object,
     const SensorObjectPtr& sensor_object, const Eigen::Vector3d& ref_pos,
     int range) {
-AINFO<<"(DMCZP) EnteringMethod: TrackObjectDistance::ComputeLidarLidar";
-AINFO<<"(DMCZP) EnteringMethod: TrackObjectDistance::ComputeLidarRadar";
   double center_distance = (sensor_object->GetBaseObject()->center -
                             fused_object->GetBaseObject()->center)
                                .head(2)
                                .norm();
   if (center_distance > s_lidar2lidar_association_center_dist_threshold_) {
-AINFO<<"(DMCZP) EnteringMethod: TrackObjectDistance::ComputePolygonDistance3d";
     ADEBUG << "center distance exceed lidar2lidar tight threshold: "
            << "center_dist@" << center_distance << ", "
            << "tight_threh@"
@@ -414,7 +399,6 @@ float TrackObjectDistance::ComputeLidarRadar(
 float TrackObjectDistance::ComputeRadarRadar(
     const SensorObjectPtr& fused_object, const SensorObjectPtr& sensor_object,
     const Eigen::Vector3d& ref_pos, int range) {
-AINFO<<"(DMCZP) EnteringMethod: TrackObjectDistance::ComputeRadarRadar";
   double center_distance = (sensor_object->GetBaseObject()->center -
                             fused_object->GetBaseObject()->center)
                                .head(2)
@@ -438,7 +422,6 @@ AINFO<<"(DMCZP) EnteringMethod: TrackObjectDistance::ComputeRadarRadar";
 float TrackObjectDistance::ComputeLidarCamera(
     const SensorObjectConstPtr& lidar, const SensorObjectConstPtr& camera,
     const bool measurement_is_lidar, const bool is_track_id_consistent) {
-AINFO<<"(DMCZP) EnteringMethod: TrackObjectDistance::ComputeLidarCamera";
   if (!is_track_id_consistent) {
     if (LidarCameraCenterDistanceExceedDynamicThreshold(lidar, camera)) {
       return distance_thresh_;
@@ -514,9 +497,7 @@ AINFO<<"(DMCZP) EnteringMethod: TrackObjectDistance::ComputeLidarCamera";
 // @return distance of radar vs. camera
 float TrackObjectDistance::ComputeRadarCamera(
     const SensorObjectConstPtr& radar, const SensorObjectConstPtr& camera) {
-AINFO<<"(DMCZP) EnteringMethod: TrackObjectDistance::ComputeRadarCamera";
   float distance = distance_thresh_;
-AINFO<<"(DMCZP) EnteringMethod: TrackObjectDistance::ComputeRadarCameraSimilarity";
   // 1. get camera model and pose
   base::BaseCameraModelPtr camera_model = QueryCameraModel(camera);
   if (camera_model == nullptr) {
@@ -602,7 +583,6 @@ AINFO<<"(DMCZP) EnteringMethod: TrackObjectDistance::ComputeRadarCameraSimilarit
 // @return the distance of camera vs. camera
 float TrackObjectDistance::ComputeCameraCamera(
     const SensorObjectPtr& fused_camera, const SensorObjectPtr& sensor_camera) {
-AINFO<<"(DMCZP) EnteringMethod: TrackObjectDistance::ComputeCameraCamera";
   return (std::numeric_limits<float>::max());
 }
 
@@ -748,7 +728,6 @@ float TrackObjectDistance::ComputePolygonDistance3d(
 // @return eculidean distance of input pts
 float TrackObjectDistance::ComputeEuclideanDistance(
     const Eigen::Vector3d& des, const Eigen::Vector3d& src) {
-AINFO<<"(DMCZP) EnteringMethod: TrackObjectDistance::ComputeEuclideanDistance";
   Eigen::Vector3d diff_pos = des - src;
   float distance = static_cast<float>(
       std::sqrt(diff_pos.head(2).cwiseProduct(diff_pos.head(2)).sum()));
@@ -759,8 +738,6 @@ AINFO<<"(DMCZP) EnteringMethod: TrackObjectDistance::ComputeEuclideanDistance";
 // @return true if get center successfully, otherwise return false
 bool TrackObjectDistance::ComputePolygonCenter(
     const base::PolygonDType& polygon, Eigen::Vector3d* center) {
-AINFO<<"(DMCZP) EnteringMethod: TrackObjectDistance::ComputePolygonCenter";
-AINFO<<"(DMCZP) EnteringMethod: TrackObjectDistance::ComputePolygonCenter";
   int size = static_cast<int>(polygon.size());
   if (size == 0) {
     return false;

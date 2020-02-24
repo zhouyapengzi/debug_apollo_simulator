@@ -50,13 +50,6 @@ DEFINE_int32(feed_frequency, 10,
              "Frequency with which protos are fed to control.");
 
 int main(int argc, char** argv) {
-AINFO<<"(DMCZP) EnteringMethod: DEFINE_string";
-AINFO<<"(DMCZP) EnteringMethod: DEFINE_string";
-AINFO<<"(DMCZP) EnteringMethod: DEFINE_string";
-AINFO<<"(DMCZP) EnteringMethod: DEFINE_string";
-AINFO<<"(DMCZP) EnteringMethod: DEFINE_int32";
-AINFO<<"(DMCZP) EnteringMethod: DEFINE_int32";
-AINFO<<"(DMCZP) EnteringMethod: main";
   using apollo::canbus::Chassis;
   using apollo::control::PadMessage;
   using apollo::cyber::Time;

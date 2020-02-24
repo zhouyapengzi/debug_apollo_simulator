@@ -28,12 +28,10 @@ namespace transit {
 using ::apollo::drivers::canbus::Byte;
 
 Llcvehiclestatus25::Llcvehiclestatus25() {}
-AINFO<<"(DMCZP) EnteringMethod: Llcvehiclestatus25::Llcvehiclestatus25";
 const int32_t Llcvehiclestatus25::ID = 0x25;
 
 void Llcvehiclestatus25::Parse(const std::uint8_t* bytes, int32_t length,
                                ChassisDetail* chassis) const {
-AINFO<<"(DMCZP) EnteringMethod: Llcvehiclestatus25::Parse";
   chassis->mutable_transit()
       ->mutable_llc_vehiclestatus_25()
       ->set_llc_fbk_12voltage(llc_fbk_12voltage(bytes, length));
@@ -45,7 +43,6 @@ AINFO<<"(DMCZP) EnteringMethod: Llcvehiclestatus25::Parse";
 // 'intel', 'physical_unit': 'Volt'}
 double Llcvehiclestatus25::llc_fbk_12voltage(const std::uint8_t* bytes,
                                              int32_t length) const {
-AINFO<<"(DMCZP) EnteringMethod: Llcvehiclestatus25::llc_fbk_12voltage";
   Byte t0(bytes + 0);
   int32_t x = t0.get_byte(0, 8);
 

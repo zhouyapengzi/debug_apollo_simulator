@@ -39,7 +39,6 @@ class TestableCaffeNet : public CaffeNet {
 };
 
 TEST(CaffeNetTest, init_test) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   // std::vector<std::string> file_list =
   // {"ARZ034_12_1499218335_1499218635_500",
   //                                       "ARZ034_12_1499218335_1499218635_520",
@@ -80,7 +79,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST";
 }
 
 TEST(CaffeNetTest, cpu_test) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   // std::vector<std::string> file_list =
   // {"ARZ034_12_1499218335_1499218635_500",
   //                                       "ARZ034_12_1499218335_1499218635_520",
@@ -126,7 +124,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST";
   // }
 }
 TEST(CaffeNetTest, reshape_test) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   // std::vector<std::string> file_list =
   // {"ARZ034_12_1499218335_1499218635_500",
   //                                       "ARZ034_12_1499218335_1499218635_520",

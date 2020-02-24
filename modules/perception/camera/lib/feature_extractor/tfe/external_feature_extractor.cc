@@ -32,7 +32,6 @@ using cyber::common::GetAbsolutePath;
 
 bool ExternalFeatureExtractor::Init(
     const FeatureExtractorInitOptions &options) {
-AINFO<<"(DMCZP) EnteringMethod: ExternalFeatureExtractor::Init";
   std::string efx_config = GetAbsolutePath(options.root_dir, options.conf_file);
   CHECK(cyber::common::GetProtoFromFile(efx_config, &param_))
       << "Read config failed: " << efx_config;
@@ -67,7 +66,6 @@ AINFO<<"(DMCZP) EnteringMethod: ExternalFeatureExtractor::Init";
 }
 bool ExternalFeatureExtractor::InitFeatureExtractor(
     const std::string &root_dir) {
-AINFO<<"(DMCZP) EnteringMethod: ExternalFeatureExtractor::InitFeatureExtractor";
   FeatureExtractorInitOptions feat_options;
   feat_options.conf_file = param_.feature_file();
   feat_options.root_dir = root_dir;
@@ -83,7 +81,6 @@ AINFO<<"(DMCZP) EnteringMethod: ExternalFeatureExtractor::InitFeatureExtractor";
 }
 bool ExternalFeatureExtractor::Extract(const FeatureExtractorOptions &options,
                                        CameraFrame *frame) {
-AINFO<<"(DMCZP) EnteringMethod: ExternalFeatureExtractor::Extract";
   int raw_height = frame->data_provider->src_height();
   int raw_width = frame->data_provider->src_width();
   auto input_blob = inference_->get_blob(param_.input_blob());
@@ -108,7 +105,6 @@ AINFO<<"(DMCZP) EnteringMethod: ExternalFeatureExtractor::Extract";
   return true;
 }
 std::string ExternalFeatureExtractor::Name() const {
-AINFO<<"(DMCZP) EnteringMethod: ExternalFeatureExtractor::Name";
   return "ExternalFeatureExtractor";
 }
 REGISTER_FEATURE_EXTRACTOR(ExternalFeatureExtractor);

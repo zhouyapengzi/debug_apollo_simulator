@@ -26,7 +26,6 @@ class Gearcommand114Test : public ::testing::Test {
 };
 
 TEST_F(Gearcommand114Test, simple) {
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   Gearcommand114 gearcommand;
   EXPECT_EQ(gearcommand.GetPeriod(), 20 * 1000);
   uint8_t data[8] = {0x61, 0x62, 0x63, 0x64, 0x65, 0x66, 0x67, 0x68};

@@ -21,7 +21,6 @@ namespace apollo {
 namespace perception {
 namespace camera {
 void HalfCircleAngle::SetDirection(float theta) {
-AINFO<<"(DMCZP) EnteringMethod: HalfCircleAngle::SetDirection";
   if (theta_ > M_PI) {
     theta_ = theta;
   }
@@ -42,7 +41,6 @@ float HalfCircleAngle::operator+(const float &theta) const {
   return theta_ + theta;
 }
 float HalfCircleAngle::operator*(const float &scale) const {
-AINFO<<"(DMCZP) EnteringMethod: HalfCircleAngle::operator*";
   return theta_ * scale;
 }
 HalfCircleAngle &HalfCircleAngle::operator=(const HalfCircleAngle &theta) {
@@ -56,7 +54,6 @@ bool HalfCircleAngle::operator==(const float &theta) const {
   return Equal(theta_, theta, 0.01f);
 }
 float HalfCircleAngle::value() const { return theta_; }
-AINFO<<"(DMCZP) EnteringMethod: HalfCircleAngle::value";
 }  // namespace camera
 }  // namespace perception
 }  // namespace apollo

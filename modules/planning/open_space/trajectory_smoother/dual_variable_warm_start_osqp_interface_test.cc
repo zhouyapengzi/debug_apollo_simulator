@@ -70,7 +70,6 @@ class DualVariableWarmStartOSQPInterfaceTest : public ::testing::Test {
 };
 
 void DualVariableWarmStartOSQPInterfaceTest::ProblemSetup() {
-AINFO<<"(DMCZP) EnteringMethod: DualVariableWarmStartOSQPInterfaceTest::ProblemSetup";
   obstacles_edges_num_ = Eigen::MatrixXi(obstacles_num_, 1);
   obstacles_edges_num_ << 2, 1, 2, 1;
   Eigen::MatrixXd xWS = Eigen::MatrixXd::Ones(4, horizon_ + 1);
@@ -83,12 +82,10 @@ AINFO<<"(DMCZP) EnteringMethod: DualVariableWarmStartOSQPInterfaceTest::ProblemS
 }
 
 TEST_F(DualVariableWarmStartOSQPInterfaceTest, initilization) {
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   EXPECT_NE(ptop_, nullptr);
 }
 
 TEST_F(DualVariableWarmStartOSQPInterfaceTest, optimize) {
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   int obstacles_edges_sum = obstacles_edges_num_.sum();
   Eigen::MatrixXd l_warm_up(obstacles_edges_sum, horizon_ + 1);
   Eigen::MatrixXd n_warm_up(4 * obstacles_num_, horizon_ + 1);

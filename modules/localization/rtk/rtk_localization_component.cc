@@ -24,10 +24,8 @@ using apollo::common::time::Clock;
 
 RTKLocalizationComponent::RTKLocalizationComponent()
     : localization_(new RTKLocalization()) {}
-AINFO<<"(DMCZP) EnteringMethod: RTKLocalizationComponent::RTKLocalizationComponent";
 
 bool RTKLocalizationComponent::Init() {
-AINFO<<"(DMCZP) EnteringMethod: RTKLocalizationComponent::Init";
   Clock::SetMode(Clock::CYBER);
   tf2_broadcaster_.reset(new apollo::transform::TransformBroadcaster(node_));
   if (!InitConfig()) {
@@ -44,7 +42,6 @@ AINFO<<"(DMCZP) EnteringMethod: RTKLocalizationComponent::Init";
 }
 
 bool RTKLocalizationComponent::InitConfig() {
-AINFO<<"(DMCZP) EnteringMethod: RTKLocalizationComponent::InitConfig";
   rtk_config::Config rtk_config;
   if (!apollo::cyber::common::GetProtoFromFile(config_file_path_,
                                                &rtk_config)) {
@@ -66,7 +63,6 @@ AINFO<<"(DMCZP) EnteringMethod: RTKLocalizationComponent::InitConfig";
 }
 
 bool RTKLocalizationComponent::InitIO() {
-AINFO<<"(DMCZP) EnteringMethod: RTKLocalizationComponent::InitIO";
   corrected_imu_listener_ = node_->CreateReader<localization::CorrectedImu>(
       imu_topic_, std::bind(&RTKLocalization::ImuCallback, localization_.get(),
                             std::placeholders::_1));
@@ -89,7 +85,6 @@ AINFO<<"(DMCZP) EnteringMethod: RTKLocalizationComponent::InitIO";
 
 bool RTKLocalizationComponent::Proc(
     const std::shared_ptr<localization::Gps>& gps_msg) {
-AINFO<<"(DMCZP) EnteringMethod: RTKLocalizationComponent::Proc";
   localization_->GpsCallback(gps_msg);
 
   if (localization_->IsServiceStarted()) {
@@ -110,8 +105,6 @@ AINFO<<"(DMCZP) EnteringMethod: RTKLocalizationComponent::Proc";
 
 void RTKLocalizationComponent::PublishPoseBroadcastTF(
     const LocalizationEstimate& localization) {
-AINFO<<"(DMCZP) EnteringMethod: RTKLocalizationComponent::PublishPoseBroadcastTF";
-AINFO<<"(DMCZP) EnteringMethod: RTKLocalizationComponent::PublishPoseBroadcastTopic";
   // broadcast tf message
   apollo::transform::TransformStamped tf2_msg;
 
@@ -143,7 +136,6 @@ void RTKLocalizationComponent::PublishPoseBroadcastTopic(
 
 void RTKLocalizationComponent::PublishLocalizationStatus(
     const LocalizationStatus& localization_status) {
-AINFO<<"(DMCZP) EnteringMethod: RTKLocalizationComponent::PublishLocalizationStatus";
   localization_status_talker_->Write(localization_status);
   return;
 }

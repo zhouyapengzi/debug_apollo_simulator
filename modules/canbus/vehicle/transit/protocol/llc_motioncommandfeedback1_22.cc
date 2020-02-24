@@ -28,13 +28,11 @@ namespace transit {
 using ::apollo::drivers::canbus::Byte;
 
 Llcmotioncommandfeedback122::Llcmotioncommandfeedback122() {}
-AINFO<<"(DMCZP) EnteringMethod: Llcmotioncommandfeedback122::Llcmotioncommandfeedback122";
 const int32_t Llcmotioncommandfeedback122::ID = 0x22;
 
 void Llcmotioncommandfeedback122::Parse(const std::uint8_t* bytes,
                                         int32_t length,
                                         ChassisDetail* chassis) const {
-AINFO<<"(DMCZP) EnteringMethod: Llcmotioncommandfeedback122::Parse";
   chassis->mutable_transit()
       ->mutable_llc_motioncommandfeedback1_22()
       ->set_llc_fbk_steeringanglesetpoint(
@@ -63,11 +61,6 @@ AINFO<<"(DMCZP) EnteringMethod: Llcmotioncommandfeedback122::Parse";
 // 'physical_unit': 'deg'}
 double Llcmotioncommandfeedback122::llc_fbk_steeringanglesetpoint(
     const std::uint8_t* bytes, int32_t length) const {
-AINFO<<"(DMCZP) EnteringMethod: Llcmotioncommandfeedback122::llc_fbk_steeringanglesetpoint";
-AINFO<<"(DMCZP) EnteringMethod: Llcmotioncommandfeedback122::llc_fbk_throttlesetpoint";
-AINFO<<"(DMCZP) EnteringMethod: Llcmotioncommandfeedback122::llc_fbk_brakepercentsetpoint";
-AINFO<<"(DMCZP) EnteringMethod: Llcmotioncommandfeedback122::llc_motioncommandfeedback1_count";
-AINFO<<"(DMCZP) EnteringMethod: Llcmotioncommandfeedback122::llc_motioncommandfeedback1_check";
   Byte t0(bytes + 4);
   int32_t x = t0.get_byte(0, 5);
 

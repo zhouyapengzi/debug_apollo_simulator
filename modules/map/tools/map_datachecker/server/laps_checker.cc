@@ -30,7 +30,6 @@ namespace hdmap {
 LapsChecker::LapsChecker(const std::vector<FramePose> &poses, int laps_to_check,
                          std::shared_ptr<JSonConf> sp_conf)
     : poses_(poses), sp_conf_(sp_conf) {
-AINFO<<"(DMCZP) EnteringMethod: LapsChecker::LapsChecker";
   laps_to_check_ = laps_to_check;
   maxx_ = 0.0;
   maxy_ = 0.0;
@@ -45,19 +44,15 @@ AINFO<<"(DMCZP) EnteringMethod: LapsChecker::LapsChecker";
 }
 
 int LapsChecker::SetProgress(double p) {
-AINFO<<"(DMCZP) EnteringMethod: LapsChecker::SetProgress";
   progress_ = p;
   return 0;
 }
 
 double LapsChecker::GetProgress() const { return progress_; }
-AINFO<<"(DMCZP) EnteringMethod: LapsChecker::GetProgress";
 
 size_t LapsChecker::GetLap() const { return lap_; }
-AINFO<<"(DMCZP) EnteringMethod: LapsChecker::GetLap";
 
 double LapsChecker::GetConfidence() {
-AINFO<<"(DMCZP) EnteringMethod: LapsChecker::GetConfidence";
   double res = 0.0;
   lap_ = laps_to_check_;
   for (size_t i = 0; i < confidence_.size(); ++i) {
@@ -90,7 +85,6 @@ AINFO<<"(DMCZP) EnteringMethod: LapsChecker::GetConfidence";
 }
 
 ErrorCode LapsChecker::Check() {
-AINFO<<"(DMCZP) EnteringMethod: LapsChecker::Check";
   if (poses_.size() == 0) {
     return_state_ = ErrorCode::ERROR_VERIFY_NO_GNSSPOS;
     return return_state_;
@@ -101,7 +95,6 @@ AINFO<<"(DMCZP) EnteringMethod: LapsChecker::Check";
 }
 
 void LapsChecker::DoCheck() {
-AINFO<<"(DMCZP) EnteringMethod: LapsChecker::DoCheck";
   AINFO << "do_check";
   SetProgress(0.0);
   int ret = 0;
@@ -132,7 +125,6 @@ AINFO<<"(DMCZP) EnteringMethod: LapsChecker::DoCheck";
 }
 
 int LapsChecker::CheckParams() {
-AINFO<<"(DMCZP) EnteringMethod: LapsChecker::CheckParams";
   int n_pose = static_cast<int>(poses_.size());
   if (n_pose < sp_conf_->laps_frames_thresh) {
     return -1;
@@ -141,7 +133,6 @@ AINFO<<"(DMCZP) EnteringMethod: LapsChecker::CheckParams";
 }
 
 int LapsChecker::SetupGridsMap() {
-AINFO<<"(DMCZP) EnteringMethod: LapsChecker::SetupGridsMap";
   AINFO << "setup_grids_map->get_min_max";
   GetMinMax();
   AINFO << "setup_grids_map->do_setup_grids_map";
@@ -155,7 +146,6 @@ AINFO<<"(DMCZP) EnteringMethod: LapsChecker::SetupGridsMap";
 }
 
 int LapsChecker::CheckLaps() {
-AINFO<<"(DMCZP) EnteringMethod: LapsChecker::CheckLaps";
   int height = static_cast<int>(grids_map_.size());
   if (height <= 2 || height > 1000000) {
     AINFO << "grids_map_ size error. height = " << height;
@@ -214,7 +204,6 @@ AINFO<<"(DMCZP) EnteringMethod: LapsChecker::CheckLaps";
 
 int LapsChecker::GatherTimestamps(std::vector<double> *sp_stamps, double alpha,
                                   int center_x, int center_y) {
-AINFO<<"(DMCZP) EnteringMethod: LapsChecker::GatherTimestamps";
   int search_d = sp_conf_->laps_search_diameter;
   if ((search_d & 1) == 0) {
     AINFO << "laps_search_diameter should be an odd";
@@ -253,7 +242,6 @@ AINFO<<"(DMCZP) EnteringMethod: LapsChecker::GatherTimestamps";
 }
 
 int LapsChecker::GetMinMax() {
-AINFO<<"(DMCZP) EnteringMethod: LapsChecker::GetMinMax";
   minx_ = std::numeric_limits<double>::max();
   miny_ = std::numeric_limits<double>::max();
   maxx_ = std::numeric_limits<double>::min();
@@ -279,7 +267,6 @@ AINFO<<"(DMCZP) EnteringMethod: LapsChecker::GetMinMax";
 }
 
 int LapsChecker::DoSetupGridsMap() {
-AINFO<<"(DMCZP) EnteringMethod: LapsChecker::DoSetupGridsMap";
   size_t width = size_t(maxx_ - minx_ + 1);
   size_t height = size_t(maxy_ - miny_ + 1);
   AINFO << "grid map width: " << width << ", height: " << height;
@@ -307,7 +294,6 @@ AINFO<<"(DMCZP) EnteringMethod: LapsChecker::DoSetupGridsMap";
 }
 
 double LapsChecker::CalcAlpha(int pose_index) {
-AINFO<<"(DMCZP) EnteringMethod: LapsChecker::CalcAlpha";
   double vecx = poses_[pose_index].tx - poses_[pose_index - 1].tx;
   double vecy = poses_[pose_index].ty - poses_[pose_index - 1].ty;
   double alpha = acos(vecx / sqrt(vecx * vecx + vecy * vecy)) * 180 / M_PI;
@@ -318,7 +304,6 @@ AINFO<<"(DMCZP) EnteringMethod: LapsChecker::CalcAlpha";
 }
 
 int LapsChecker::PutPoseToGrid(int pose_index, int grid_y, int grid_x) {
-AINFO<<"(DMCZP) EnteringMethod: LapsChecker::PutPoseToGrid";
   if (pose_index <= 0) {
     return 0;
   }
@@ -346,7 +331,6 @@ AINFO<<"(DMCZP) EnteringMethod: LapsChecker::PutPoseToGrid";
 }
 
 int LapsChecker::PutPoseToNeighborGrid(int pose_index) {
-AINFO<<"(DMCZP) EnteringMethod: LapsChecker::PutPoseToNeighborGrid";
   if (pose_index <= 0) {
     return 0;
   }
@@ -360,7 +344,6 @@ AINFO<<"(DMCZP) EnteringMethod: LapsChecker::PutPoseToNeighborGrid";
 
 int LapsChecker::GetPassedGrid(int pose_index, std::vector<int> *sp_grid_x,
                                std::vector<int> *sp_grid_y) {
-AINFO<<"(DMCZP) EnteringMethod: LapsChecker::GetPassedGrid";
   if (pose_index <= 0) {
     return 0;
   }
@@ -413,7 +396,6 @@ AINFO<<"(DMCZP) EnteringMethod: LapsChecker::GetPassedGrid";
 }
 
 double LapsChecker::Slope(double x1, double y1, double x2, double y2) {
-AINFO<<"(DMCZP) EnteringMethod: LapsChecker::Slope";
   if (std::abs(x1 - x2) < 1e-6) {
     return std::numeric_limits<double>::max();
   }
@@ -424,7 +406,6 @@ AINFO<<"(DMCZP) EnteringMethod: LapsChecker::Slope";
 }
 
 ErrorCode LapsChecker::GetReturnState() { return return_state_; }
-AINFO<<"(DMCZP) EnteringMethod: LapsChecker::GetReturnState";
 
 }  // namespace hdmap
 }  // namespace apollo

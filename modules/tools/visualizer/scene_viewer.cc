@@ -60,7 +60,6 @@ SceneViewer::SceneViewer(QWidget *parent)
       managed_shader_prog_(),
       tmp_renderable_obj_list_(),
       permanent_renderable_obj_list_() {
-AINFO<<"(DMCZP) EnteringMethod: SceneViewer::SceneViewer";
   current_cameraPtr_ = &target_camera_;
 }
 
@@ -97,7 +96,6 @@ SceneViewer::~SceneViewer() {
 
 void SceneViewer::setTempObjGroupEnabled(const std::string &tmpObjGroupName,
                                          bool b) {
-AINFO<<"(DMCZP) EnteringMethod: SceneViewer::setTempObjGroupEnabled";
   auto iter = tmp_renderable_obj_list_.find(tmpObjGroupName);
   if (iter != tmp_renderable_obj_list_.cend()) {
     iter->second->isEnabled_ = b;
@@ -106,7 +104,6 @@ AINFO<<"(DMCZP) EnteringMethod: SceneViewer::setTempObjGroupEnabled";
 
 bool SceneViewer::AddTempRenderableObj(const std::string &tmpObjGroupName,
                                        RenderableObject *renderObj) {
-AINFO<<"(DMCZP) EnteringMethod: SceneViewer::AddTempRenderableObj";
   bool ret = false;
   if (renderObj && renderObj->haveShaderProgram() && is_init_) {
     auto iter = tmp_renderable_obj_list_.find(tmpObjGroupName);
@@ -130,7 +127,6 @@ AINFO<<"(DMCZP) EnteringMethod: SceneViewer::AddTempRenderableObj";
 void SceneViewer::AddNewShaderProg(
     const std::string &shaderProgName,
     const std::shared_ptr<QOpenGLShaderProgram> &newShaderProg) {
-AINFO<<"(DMCZP) EnteringMethod: SceneViewer::AddNewShaderProg";
   if (newShaderProg == nullptr) {
     return;
   }
@@ -151,7 +147,6 @@ AINFO<<"(DMCZP) EnteringMethod: SceneViewer::AddNewShaderProg";
 }
 
 void SceneViewer::initializeGL() {
-AINFO<<"(DMCZP) EnteringMethod: SceneViewer::initializeGL";
   initializeOpenGLFunctions();
 
   glPointSize(1.0f);
@@ -176,7 +171,6 @@ AINFO<<"(DMCZP) EnteringMethod: SceneViewer::initializeGL";
 }
 
 void SceneViewer::resizeGL(int width, int height) {
-AINFO<<"(DMCZP) EnteringMethod: SceneViewer::resizeGL";
   glViewport(0, 0, (GLsizei)width, (GLsizei)height);
 
   if (is_init_) {
@@ -196,7 +190,6 @@ AINFO<<"(DMCZP) EnteringMethod: SceneViewer::resizeGL";
 }
 
 void SceneViewer::paintGL() {
-AINFO<<"(DMCZP) EnteringMethod: SceneViewer::paintGL";
   if (is_init_) {
     for (RenderableObject *item : permanent_renderable_obj_list_) {
       if (item->Init()) {
@@ -228,7 +221,6 @@ AINFO<<"(DMCZP) EnteringMethod: SceneViewer::paintGL";
 }
 
 void SceneViewer::ChangeCameraType(int index) {
-AINFO<<"(DMCZP) EnteringMethod: SceneViewer::ChangeCameraType";
   if (index < TARGET || index > FREE) return;
 
   if (index == FREE) {
@@ -240,7 +232,6 @@ AINFO<<"(DMCZP) EnteringMethod: SceneViewer::ChangeCameraType";
 }
 
 void SceneViewer::ResetCameraPosAttitude(void) {
-AINFO<<"(DMCZP) EnteringMethod: SceneViewer::ResetCameraPosAttitude";
   free_camera_.set_position(0.0f, 48.0f, -48.0f);
   free_camera_.SetAttitude(0.0f, 45.0f, 0.0f);
 
@@ -255,28 +246,24 @@ AINFO<<"(DMCZP) EnteringMethod: SceneViewer::ResetCameraPosAttitude";
 }
 
 void SceneViewer::UpdateCameraX(double x) {
-AINFO<<"(DMCZP) EnteringMethod: SceneViewer::UpdateCameraX";
   free_camera_.set_x(static_cast<float>(x));
   target_camera_.set_x(static_cast<float>(x));
   UpdateCameraWorld();
 }
 
 void SceneViewer::UpdateCameraY(double y) {
-AINFO<<"(DMCZP) EnteringMethod: SceneViewer::UpdateCameraY";
   free_camera_.set_y(static_cast<float>(y));
   target_camera_.set_y(static_cast<float>(y));
   UpdateCameraWorld();
 }
 
 void SceneViewer::UpdateCameraZ(double z) {
-AINFO<<"(DMCZP) EnteringMethod: SceneViewer::UpdateCameraZ";
   free_camera_.set_z(static_cast<float>(z));
   target_camera_.set_y(static_cast<float>(z));
   UpdateCameraWorld();
 }
 
 void SceneViewer::UpdateCameraYaw(double yawInDegrees) {
-AINFO<<"(DMCZP) EnteringMethod: SceneViewer::UpdateCameraYaw";
   if (yawInDegrees > 360.0) {
     yawInDegrees -= 360.0;
   }
@@ -290,7 +277,6 @@ AINFO<<"(DMCZP) EnteringMethod: SceneViewer::UpdateCameraYaw";
 }
 
 void SceneViewer::UpdateCameraPitch(double pitchInDegrees) {
-AINFO<<"(DMCZP) EnteringMethod: SceneViewer::UpdateCameraPitch";
   if (pitchInDegrees > 90.0) {
     pitchInDegrees = 90.0;
   }
@@ -303,7 +289,6 @@ AINFO<<"(DMCZP) EnteringMethod: SceneViewer::UpdateCameraPitch";
   UpdateCameraWorld();
 }
 void SceneViewer::UpdateCameraRoll(double rollInDegrees) {
-AINFO<<"(DMCZP) EnteringMethod: SceneViewer::UpdateCameraRoll";
   if (rollInDegrees > 360.0) {
     rollInDegrees -= 360.0;
   }
@@ -317,7 +302,6 @@ AINFO<<"(DMCZP) EnteringMethod: SceneViewer::UpdateCameraRoll";
 }
 
 void SceneViewer::UpdateCameraWorld(void) {
-AINFO<<"(DMCZP) EnteringMethod: SceneViewer::UpdateCameraWorld";
   free_camera_.UpdateWorld();
   target_camera_.UpdateWorld();
 
@@ -330,7 +314,6 @@ AINFO<<"(DMCZP) EnteringMethod: SceneViewer::UpdateCameraWorld";
 }
 
 void SceneViewer::UpdateAllShaderProgMVP(const QMatrix4x4 &mvp) {
-AINFO<<"(DMCZP) EnteringMethod: SceneViewer::UpdateAllShaderProgMVP";
   for (auto iter = managed_shader_prog_.begin();
        iter != managed_shader_prog_.end(); ++iter) {
     iter->second->bind();
@@ -340,19 +323,16 @@ AINFO<<"(DMCZP) EnteringMethod: SceneViewer::UpdateAllShaderProgMVP";
 }
 
 void SceneViewer::enterEvent(QEvent *event) {
-AINFO<<"(DMCZP) EnteringMethod: SceneViewer::enterEvent";
   setCursor(Qt::SizeAllCursor);
   QOpenGLWidget::enterEvent(event);
 }
 
 void SceneViewer::leaveEvent(QEvent *event) {
-AINFO<<"(DMCZP) EnteringMethod: SceneViewer::leaveEvent";
   unsetCursor();
   QOpenGLWidget::leaveEvent(event);
 }
 
 void SceneViewer::mousePressEvent(QMouseEvent *event) {
-AINFO<<"(DMCZP) EnteringMethod: SceneViewer::mousePressEvent";
   if (event->button() == Qt::LeftButton) {
     left_key_last_pos_ = QCursor::pos();
   } else if (event->button() == Qt::RightButton) {
@@ -364,7 +344,6 @@ AINFO<<"(DMCZP) EnteringMethod: SceneViewer::mousePressEvent";
 }
 
 void SceneViewer::mouseMoveEvent(QMouseEvent *mouseEvent) {
-AINFO<<"(DMCZP) EnteringMethod: SceneViewer::mouseMoveEvent";
   if (mouseEvent->buttons() == Qt::LeftButton) {
     QPoint tmp = QCursor::pos();
     QPoint dd = tmp - left_key_last_pos_;
@@ -427,7 +406,6 @@ AINFO<<"(DMCZP) EnteringMethod: SceneViewer::mouseMoveEvent";
 }
 
 void SceneViewer::wheelEvent(QWheelEvent *event) {
-AINFO<<"(DMCZP) EnteringMethod: SceneViewer::wheelEvent";
   float delta = static_cast<float>(event->angleDelta().y());
   delta *= sensitivity();
 
@@ -454,7 +432,6 @@ AINFO<<"(DMCZP) EnteringMethod: SceneViewer::wheelEvent";
 }
 
 void SceneViewer::mouseReleaseEvent(QMouseEvent *event) {
-AINFO<<"(DMCZP) EnteringMethod: SceneViewer::mouseReleaseEvent";
   if (!right_key_is_moved_ && event->button() == Qt::RightButton) {
     if (camera_dialog_ == nullptr) {
       camera_dialog_ = new SceneCameraDialog(this);

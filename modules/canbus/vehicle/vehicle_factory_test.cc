@@ -32,7 +32,6 @@ class VehicleFactoryTest : public ::testing::Test {
 };
 
 TEST_F(VehicleFactoryTest, CreateVehicle) {
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   VehicleParameter parameter;
 
   parameter.set_brand(apollo::common::GEM);

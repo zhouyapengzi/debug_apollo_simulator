@@ -27,7 +27,6 @@ class Enablestatefeedbackc3Test : public ::testing::Test {
 };
 
 TEST_F(Enablestatefeedbackc3Test, reset) {
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   Enablestatefeedbackc3 feedback_;
   int32_t length = 8;
   ChassisDetail cd;

@@ -26,7 +26,6 @@ class Brakecommand111Test : public ::testing::Test {
 };
 
 TEST_F(Brakecommand111Test, simple) {
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   Brakecommand111 brake;
   EXPECT_EQ(brake.GetPeriod(), 20 * 1000);
   uint8_t data[8] = {0x61, 0x62, 0x63, 0x64, 0x65, 0x66, 0x67, 0x68};

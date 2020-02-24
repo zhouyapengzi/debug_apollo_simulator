@@ -52,7 +52,6 @@ class ADCTrajectoryTest : public KMLMapBasedTest {
 };
 
 TEST_F(ADCTrajectoryTest, InsertionWithProtection) {
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   trajectory_.set_right_of_way_status(ADCTrajectory::PROTECTED);
   container_.Insert(trajectory_);
   Vec2d vec;
@@ -80,7 +79,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST_F";
 }
 
 TEST_F(ADCTrajectoryTest, InsertionWithoutProtection) {
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   trajectory_.set_right_of_way_status(ADCTrajectory::UNPROTECTED);
   container_.Insert(trajectory_);
   EXPECT_FALSE(container_.IsProtected());

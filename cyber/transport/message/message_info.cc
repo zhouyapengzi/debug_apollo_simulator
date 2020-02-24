@@ -27,22 +27,18 @@ namespace transport {
 const std::size_t MessageInfo::kSize = 2 * ID_SIZE + sizeof(uint64_t);
 
 MessageInfo::MessageInfo() : sender_id_(false), seq_num_(0), spare_id_(false) {}
-AINFO<<"(DMCZP) EnteringMethod: MessageInfo::MessageInfo";
 
 MessageInfo::MessageInfo(const Identity& sender_id, uint64_t seq_num)
     : sender_id_(sender_id), seq_num_(seq_num), spare_id_(false) {}
-AINFO<<"(DMCZP) EnteringMethod: MessageInfo::MessageInfo";
 
 MessageInfo::MessageInfo(const Identity& sender_id, uint64_t seq_num,
                          const Identity& spare_id)
     : sender_id_(sender_id), seq_num_(seq_num), spare_id_(spare_id) {}
-AINFO<<"(DMCZP) EnteringMethod: MessageInfo::MessageInfo";
 
 MessageInfo::MessageInfo(const MessageInfo& another)
     : sender_id_(another.sender_id_),
       seq_num_(another.seq_num_),
       spare_id_(another.spare_id_) {}
-AINFO<<"(DMCZP) EnteringMethod: MessageInfo::MessageInfo";
 
 MessageInfo::~MessageInfo() {}
 
@@ -71,7 +67,6 @@ bool MessageInfo::operator==(const MessageInfo& another) const {
 }
 
 bool MessageInfo::SerializeTo(std::string* dst) const {
-AINFO<<"(DMCZP) EnteringMethod: MessageInfo::SerializeTo";
   RETURN_VAL_IF_NULL(dst, false);
 
   dst->assign(sender_id_.data(), ID_SIZE);
@@ -83,7 +78,6 @@ AINFO<<"(DMCZP) EnteringMethod: MessageInfo::SerializeTo";
 }
 
 bool MessageInfo::SerializeTo(char* dst, std::size_t len) const {
-AINFO<<"(DMCZP) EnteringMethod: MessageInfo::SerializeTo";
   RETURN_VAL_IF_NULL(dst, false);
   if (len < kSize) {
     return false;
@@ -101,12 +95,10 @@ AINFO<<"(DMCZP) EnteringMethod: MessageInfo::SerializeTo";
 }
 
 bool MessageInfo::DeserializeFrom(const std::string& src) {
-AINFO<<"(DMCZP) EnteringMethod: MessageInfo::DeserializeFrom";
   return DeserializeFrom(src.data(), src.size());
 }
 
 bool MessageInfo::DeserializeFrom(const char* src, std::size_t len) {
-AINFO<<"(DMCZP) EnteringMethod: MessageInfo::DeserializeFrom";
   RETURN_VAL_IF_NULL(src, false);
   if (len != kSize) {
     AWARN << "src size mismatch, given[" << len << "] target[" << kSize << "]";

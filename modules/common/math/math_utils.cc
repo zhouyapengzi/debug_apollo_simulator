@@ -26,12 +26,9 @@ namespace common {
 namespace math {
 
 double Sqr(const double x) { return x * x; }
-AINFO<<"(DMCZP) EnteringMethod: Sqr";
 
 double CrossProd(const Vec2d& start_point, const Vec2d& end_point_1,
                  const Vec2d& end_point_2) {
-AINFO<<"(DMCZP) EnteringMethod: CrossProd";
-AINFO<<"(DMCZP) EnteringMethod: InnerProd";
   return (end_point_1 - start_point).CrossProd(end_point_2 - start_point);
 }
 
@@ -42,8 +39,6 @@ double InnerProd(const Vec2d& start_point, const Vec2d& end_point_1,
 
 double CrossProd(const double x0, const double y0, const double x1,
                  const double y1) {
-AINFO<<"(DMCZP) EnteringMethod: CrossProd";
-AINFO<<"(DMCZP) EnteringMethod: InnerProd";
   return x0 * y1 - x1 * y0;
 }
 
@@ -53,13 +48,11 @@ double InnerProd(const double x0, const double y0, const double x1,
 }
 
 double WrapAngle(const double angle) {
-AINFO<<"(DMCZP) EnteringMethod: WrapAngle";
   const double new_angle = std::fmod(angle, M_PI * 2.0);
   return new_angle < 0 ? new_angle + M_PI * 2.0 : new_angle;
 }
 
 double NormalizeAngle(const double angle) {
-AINFO<<"(DMCZP) EnteringMethod: NormalizeAngle";
   double a = std::fmod(angle + M_PI, 2.0 * M_PI);
   if (a < 0.0) {
     a += (2.0 * M_PI);
@@ -68,12 +61,10 @@ AINFO<<"(DMCZP) EnteringMethod: NormalizeAngle";
 }
 
 double AngleDiff(const double from, const double to) {
-AINFO<<"(DMCZP) EnteringMethod: AngleDiff";
   return NormalizeAngle(to - from);
 }
 
 int RandomInt(const int s, const int t, unsigned int rand_seed) {
-AINFO<<"(DMCZP) EnteringMethod: RandomInt";
   if (s >= t) {
     return s;
   }
@@ -81,24 +72,20 @@ AINFO<<"(DMCZP) EnteringMethod: RandomInt";
 }
 
 double RandomDouble(const double s, const double t, unsigned int rand_seed) {
-AINFO<<"(DMCZP) EnteringMethod: RandomDouble";
   return s + (t - s) / 16383.0 * (rand_r(&rand_seed) & 16383);
 }
 
 // Gaussian
 double Gaussian(const double u, const double std, const double x) {
-AINFO<<"(DMCZP) EnteringMethod: Gaussian";
   return (1.0 / std::sqrt(2 * M_PI * std * std)) *
          std::exp(-(x - u) * (x - u) / (2 * std * std));
 }
 
 // Sigmoid
 double Sigmoid(const double x) { return 1.0 / (1.0 + std::exp(-x)); }
-AINFO<<"(DMCZP) EnteringMethod: Sigmoid";
 
 Eigen::Vector2d RotateVector2d(const Eigen::Vector2d& v_in,
                                const double theta) {
-AINFO<<"(DMCZP) EnteringMethod: RotateVector2d";
   const double cos_theta = std::cos(theta);
   const double sin_theta = std::sin(theta);
 

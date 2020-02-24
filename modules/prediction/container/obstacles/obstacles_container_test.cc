@@ -37,7 +37,6 @@ class ObstaclesContainerTest : public KMLMapBasedTest {
 };
 
 TEST_F(ObstaclesContainerTest, Vehicles) {
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   Obstacle* obstacle_ptr0 = container_.GetObstacle(0);
   EXPECT_NE(nullptr, obstacle_ptr0);
   EXPECT_EQ(obstacle_ptr0->id(), 0);
@@ -61,7 +60,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST_F";
 }
 
 TEST_F(ObstaclesContainerTest, Pedestrian) {
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   Obstacle* obstacle_ptr101 = container_.GetObstacle(101);
   EXPECT_NE(nullptr, obstacle_ptr101);
   EXPECT_EQ(obstacle_ptr101->id(), 101);
@@ -77,7 +75,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST_F";
 }
 
 TEST_F(ObstaclesContainerTest, ClearAll) {
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   container_.Clear();
   EXPECT_EQ(nullptr, container_.GetObstacle(0));
   EXPECT_EQ(nullptr, container_.GetObstacle(1));

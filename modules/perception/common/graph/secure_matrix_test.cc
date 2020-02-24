@@ -24,7 +24,6 @@ namespace perception {
 namespace common {
 
 TEST(SecureMatTest, test_reserve_mat) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   SecureMat<float> test_mat;
   test_mat.Reserve(100, 100);
   test_mat.Resize(10, 20);
@@ -37,7 +36,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST";
 }
 
 TEST(SecureMatTest, test_resize_mat) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   SecureMat<float> test_mat;
   test_mat.Reserve(100, 100);
   test_mat.Resize(3, 2);
@@ -54,7 +52,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST";
 }
 
 TEST(SecureMatTest, test_fill_mat) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   SecureMat<float> test_mat;
   test_mat.Reserve(10, 10);
   test_mat.Resize(2, 2);

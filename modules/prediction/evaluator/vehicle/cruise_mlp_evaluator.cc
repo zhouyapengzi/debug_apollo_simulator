@@ -39,7 +39,6 @@ using apollo::prediction::math_util::Sigmoid;
 
 // Helper function for computing the mean value of a vector.
 double ComputeMean(const std::vector<double>& nums, size_t start, size_t end) {
-AINFO<<"(DMCZP) EnteringMethod: ComputeMean";
   int count = 0;
   double sum = 0.0;
   for (size_t i = start; i <= end && i < nums.size(); i++) {
@@ -50,16 +49,13 @@ AINFO<<"(DMCZP) EnteringMethod: ComputeMean";
 }
 
 CruiseMLPEvaluator::CruiseMLPEvaluator() : device_(torch::kCPU) {
-AINFO<<"(DMCZP) EnteringMethod: CruiseMLPEvaluator::CruiseMLPEvaluator";
   evaluator_type_ = ObstacleConf::CRUISE_MLP_EVALUATOR;
   LoadModels();
 }
 
 void CruiseMLPEvaluator::Clear() {}
-AINFO<<"(DMCZP) EnteringMethod: CruiseMLPEvaluator::Clear";
 
 bool CruiseMLPEvaluator::Evaluate(Obstacle* obstacle_ptr) {
-AINFO<<"(DMCZP) EnteringMethod: CruiseMLPEvaluator::Evaluate";
   // Sanity checks.
   omp_set_num_threads(1);
   Clear();
@@ -147,10 +143,7 @@ AINFO<<"(DMCZP) EnteringMethod: CruiseMLPEvaluator::Evaluate";
 void CruiseMLPEvaluator::ExtractFeatureValues(
     Obstacle* obstacle_ptr, LaneSequence* lane_sequence_ptr,
     std::vector<double>* feature_values) {
-AINFO<<"(DMCZP) EnteringMethod: CruiseMLPEvaluator::ExtractFeatureValues";
   // Sanity checks.
-AINFO<<"(DMCZP) EnteringMethod: CruiseMLPEvaluator::SetInteractionFeatureValues";
-AINFO<<"(DMCZP) EnteringMethod: CruiseMLPEvaluator::SetLaneFeatureValues";
   CHECK_NOTNULL(obstacle_ptr);
   CHECK_NOTNULL(lane_sequence_ptr);
   int id = obstacle_ptr->id();
@@ -185,7 +178,6 @@ AINFO<<"(DMCZP) EnteringMethod: CruiseMLPEvaluator::SetLaneFeatureValues";
 
 void CruiseMLPEvaluator::SetObstacleFeatureValues(
     const Obstacle* obstacle_ptr, std::vector<double>* feature_values) {
-AINFO<<"(DMCZP) EnteringMethod: CruiseMLPEvaluator::SetObstacleFeatureValues";
   // Sanity checks and variable declarations.
   CHECK_NOTNULL(obstacle_ptr);
   feature_values->clear();
@@ -543,7 +535,6 @@ void CruiseMLPEvaluator::SetLaneFeatureValues(
 }
 
 void CruiseMLPEvaluator::LoadModels() {
-AINFO<<"(DMCZP) EnteringMethod: CruiseMLPEvaluator::LoadModels";
   // TODO(all) uncomment the following when cuda issue is resolved
   // if (torch::cuda::is_available()) {
   //   ADEBUG << "CUDA is available";
@@ -567,7 +558,6 @@ void CruiseMLPEvaluator::ModelInference(
     const std::vector<torch::jit::IValue>& torch_inputs,
     std::shared_ptr<torch::jit::script::Module> torch_model_ptr,
     LaneSequence* lane_sequence_ptr) {
-AINFO<<"(DMCZP) EnteringMethod: CruiseMLPEvaluator::ModelInference";
   auto torch_output_tuple = torch_model_ptr->forward(torch_inputs).toTuple();
   auto probability_tensor = torch_output_tuple->elements()[0].toTensor();
   auto finish_time_tensor = torch_output_tuple->elements()[1].toTensor();

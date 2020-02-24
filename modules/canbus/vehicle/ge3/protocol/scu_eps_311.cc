@@ -26,12 +26,10 @@ namespace ge3 {
 using ::apollo::drivers::canbus::Byte;
 
 Scueps311::Scueps311() {}
-AINFO<<"(DMCZP) EnteringMethod: Scueps311::Scueps311";
 const int32_t Scueps311::ID = 0x311;
 
 void Scueps311::Parse(const std::uint8_t* bytes, int32_t length,
                       ChassisDetail* chassis) const {
-AINFO<<"(DMCZP) EnteringMethod: Scueps311::Parse";
   chassis->mutable_ge3()->mutable_scu_eps_311()->set_eps_intidx(
       eps_intidx(bytes, length));
   chassis->mutable_ge3()->mutable_scu_eps_311()->set_eps_steeranglespd(
@@ -54,7 +52,6 @@ AINFO<<"(DMCZP) EnteringMethod: Scueps311::Parse";
 // 'type': 'enum', 'order': 'motorola', 'physical_unit': ''}
 Scu_eps_311::Eps_intidxType Scueps311::eps_intidx(const std::uint8_t* bytes,
                                                   int32_t length) const {
-AINFO<<"(DMCZP) EnteringMethod: Scueps311::eps_intidx";
   Byte t0(bytes + 0);
   int32_t x = t0.get_byte(4, 3);
 
@@ -68,7 +65,6 @@ AINFO<<"(DMCZP) EnteringMethod: Scueps311::eps_intidx";
 // 'motorola', 'physical_unit': 'deg/s'}
 double Scueps311::eps_steeranglespd(const std::uint8_t* bytes,
                                     int32_t length) const {
-AINFO<<"(DMCZP) EnteringMethod: Scueps311::eps_steeranglespd";
   Byte t0(bytes + 1);
   int32_t x = t0.get_byte(0, 8);
 
@@ -82,7 +78,6 @@ AINFO<<"(DMCZP) EnteringMethod: Scueps311::eps_steeranglespd";
 // 'double', 'order': 'motorola', 'physical_unit': 'deg'}
 double Scueps311::eps_steerangle(const std::uint8_t* bytes,
                                  int32_t length) const {
-AINFO<<"(DMCZP) EnteringMethod: Scueps311::eps_steerangle";
   Byte t0(bytes + 2);
   int32_t x = t0.get_byte(0, 8);
 
@@ -102,8 +97,6 @@ AINFO<<"(DMCZP) EnteringMethod: Scueps311::eps_steerangle";
 // 'physical_unit': ''}
 Scu_eps_311::Eps_faultstType Scueps311::eps_faultst(const std::uint8_t* bytes,
                                                     int32_t length) const {
-AINFO<<"(DMCZP) EnteringMethod: Scueps311::eps_faultst";
-AINFO<<"(DMCZP) EnteringMethod: Scueps311::eps_drvmode";
   Byte t0(bytes + 0);
   int32_t x = t0.get_byte(7, 1);
 

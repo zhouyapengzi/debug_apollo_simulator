@@ -24,7 +24,6 @@ namespace prediction {
 class RoadGraphTest : public KMLMapBasedTest {};
 
 TEST_F(RoadGraphTest, General) {
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   auto lane = PredictionMap::LaneById("l9");
   EXPECT_NE(lane, nullptr);
 
@@ -60,7 +59,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST_F";
 
 /*
 TEST_F(RoadGraphTest, NegativeStartS) {
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   auto lane = PredictionMap::LaneById("l9");
   EXPECT_NE(lane, nullptr);
 
@@ -85,7 +83,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST_F";
 */
 
 TEST_F(RoadGraphTest, LengthLongerThanEnd) {
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   auto lane = PredictionMap::LaneById("l22");
   EXPECT_NE(lane, nullptr);
 
@@ -111,7 +108,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST_F";
 }
 
 TEST_F(RoadGraphTest, MultipleLaneSequence) {
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   auto lane = PredictionMap::LaneById("l20");
   EXPECT_NE(lane, nullptr);
 

@@ -28,12 +28,10 @@ PiecewiseJerkPathProblem::PiecewiseJerkPathProblem(
     const size_t num_of_knots, const double delta_s,
     const std::array<double, 3>& x_init)
     : PiecewiseJerkProblem(num_of_knots, delta_s, x_init) {}
-AINFO<<"(DMCZP) EnteringMethod: PiecewiseJerkPathProblem::PiecewiseJerkPathProblem";
 
 void PiecewiseJerkPathProblem::CalculateKernel(std::vector<c_float>* P_data,
                                                std::vector<c_int>* P_indices,
                                                std::vector<c_int>* P_indptr) {
-AINFO<<"(DMCZP) EnteringMethod: PiecewiseJerkPathProblem::CalculateKernel";
   const int n = static_cast<int>(num_of_knots_);
   const int num_of_variables = 3 * n;
   const int num_of_nonzeros = num_of_variables + (n - 1);
@@ -105,7 +103,6 @@ AINFO<<"(DMCZP) EnteringMethod: PiecewiseJerkPathProblem::CalculateKernel";
 }
 
 void PiecewiseJerkPathProblem::CalculateOffset(std::vector<c_float>* q) {
-AINFO<<"(DMCZP) EnteringMethod: PiecewiseJerkPathProblem::CalculateOffset";
   CHECK_NOTNULL(q);
   const int n = static_cast<int>(num_of_knots_);
   const int kNumParam = 3 * n;

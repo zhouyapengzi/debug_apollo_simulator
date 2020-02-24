@@ -26,12 +26,10 @@ namespace ge3 {
 using ::apollo::drivers::canbus::Byte;
 
 Scuvcu1312::Scuvcu1312() {}
-AINFO<<"(DMCZP) EnteringMethod: Scuvcu1312::Scuvcu1312";
 const int32_t Scuvcu1312::ID = 0x312;
 
 void Scuvcu1312::Parse(const std::uint8_t* bytes, int32_t length,
                        ChassisDetail* chassis) const {
-AINFO<<"(DMCZP) EnteringMethod: Scuvcu1312::Parse";
   chassis->mutable_ge3()->mutable_scu_vcu_1_312()->set_vcu_elcsysfault(
       vcu_elcsysfault(bytes, length));
   chassis->mutable_ge3()->mutable_scu_vcu_1_312()->set_vcu_brkpedst(
@@ -74,21 +72,11 @@ AINFO<<"(DMCZP) EnteringMethod: Scuvcu1312::Parse";
 // 'physical_unit': ''}
 Scu_vcu_1_312::Vcu_elcsysfaultType Scuvcu1312::vcu_elcsysfault(
     const std::uint8_t* bytes, int32_t length) const {
-AINFO<<"(DMCZP) EnteringMethod: Scuvcu1312::vcu_elcsysfault";
-AINFO<<"(DMCZP) EnteringMethod: Scuvcu1312::vcu_brkpedst";
   Byte t0(bytes + 6);
-AINFO<<"(DMCZP) EnteringMethod: Scuvcu1312::vcu_gearintidx";
-AINFO<<"(DMCZP) EnteringMethod: Scuvcu1312::vcu_geardrvmode";
   int32_t x = t0.get_byte(1, 1);
 
   Scu_vcu_1_312::Vcu_elcsysfaultType ret =
       static_cast<Scu_vcu_1_312::Vcu_elcsysfaultType>(x);
-AINFO<<"(DMCZP) EnteringMethod: Scuvcu1312::vcu_vehrdyst";
-AINFO<<"(DMCZP) EnteringMethod: Scuvcu1312::vcu_faultst";
-AINFO<<"(DMCZP) EnteringMethod: Scuvcu1312::vcu_drvmode";
-AINFO<<"(DMCZP) EnteringMethod: Scuvcu1312::vcu_gearpst";
-AINFO<<"(DMCZP) EnteringMethod: Scuvcu1312::vcu_gearfaultst";
-AINFO<<"(DMCZP) EnteringMethod: Scuvcu1312::vcu_gearact";
   return ret;
 }
 
@@ -115,7 +103,6 @@ Scu_vcu_1_312::Vcu_brkpedstType Scuvcu1312::vcu_brkpedst(
 // 'motorola', 'physical_unit': ''}
 Scu_vcu_1_312::Vcu_intidxType Scuvcu1312::vcu_intidx(const std::uint8_t* bytes,
                                                      int32_t length) const {
-AINFO<<"(DMCZP) EnteringMethod: Scuvcu1312::vcu_intidx";
   Byte t0(bytes + 7);
   int32_t x = t0.get_byte(0, 3);
 
@@ -161,10 +148,7 @@ Scu_vcu_1_312::Vcu_geardrvmodeType Scuvcu1312::vcu_geardrvmode(
 // 'double', 'order': 'motorola', 'physical_unit': '%'}
 double Scuvcu1312::vcu_accpedact(const std::uint8_t* bytes,
                                  int32_t length) const {
-AINFO<<"(DMCZP) EnteringMethod: Scuvcu1312::vcu_accpedact";
-AINFO<<"(DMCZP) EnteringMethod: Scuvcu1312::vcu_brkpedpst";
   Byte t0(bytes + 5);
-AINFO<<"(DMCZP) EnteringMethod: Scuvcu1312::vcu_accpedpst";
   int32_t x = t0.get_byte(0, 8);
 
   Byte t1(bytes + 6);
@@ -194,7 +178,6 @@ double Scuvcu1312::vcu_brkpedpst(const std::uint8_t* bytes,
 // '[0|1000]', 'bit': 9, 'type': 'int', 'order': 'motorola', 'physical_unit':
 // 'km'}
 int Scuvcu1312::vcu_vehrng(const std::uint8_t* bytes, int32_t length) const {
-AINFO<<"(DMCZP) EnteringMethod: Scuvcu1312::vcu_vehrng";
   Byte t0(bytes + 1);
   int32_t x = t0.get_byte(0, 2);
 

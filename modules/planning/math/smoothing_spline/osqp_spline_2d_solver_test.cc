@@ -32,7 +32,6 @@ using apollo::common::math::Vec2d;
 using Eigen::MatrixXd;
 
 TEST(OSQPSolverTest, solver_test_01) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   std::vector<double> t_knots{0, 1, 2, 3, 4, 5};
   uint32_t order = 5;
   OsqpSpline2dSolver spline_solver(t_knots, order);

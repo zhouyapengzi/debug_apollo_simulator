@@ -21,17 +21,14 @@ namespace perception {
 namespace camera {
 
 bool CarPose::Init(double ts, const Eigen::Matrix4d &pose) {
-AINFO<<"(DMCZP) EnteringMethod: CarPose::Init";
   timestamp_ = ts;
   pose_ = pose;
   return true;
 }
 
 const Eigen::Matrix4d CarPose::getCarPose() const { return pose_; }
-AINFO<<"(DMCZP) EnteringMethod: CarPose::getCarPose";
 
 const Eigen::Vector3d CarPose::getCarPosition() const {
-AINFO<<"(DMCZP) EnteringMethod: CarPose::getCarPosition";
   Eigen::Vector3d p;
   p[0] = pose_(0, 3);
   p[1] = pose_(1, 3);
@@ -42,13 +39,11 @@ AINFO<<"(DMCZP) EnteringMethod: CarPose::getCarPosition";
 
 void CarPose::SetCameraPose(const std::string &camera_name,
                             const Eigen::Matrix4d &c2w_pose) {
-AINFO<<"(DMCZP) EnteringMethod: CarPose::SetCameraPose";
   c2w_poses_[camera_name] = c2w_pose;
 }
 
 bool CarPose::GetCameraPose(const std::string &camera_name,
                             Eigen::Matrix4d *c2w_pose) const {
-AINFO<<"(DMCZP) EnteringMethod: CarPose::GetCameraPose";
   CHECK_NOTNULL(c2w_pose);
   if (c2w_poses_.find(camera_name) == c2w_poses_.end()) {
     return false;
@@ -63,7 +58,6 @@ std::ostream &operator<<(std::ostream &os, const CarPose &pose) {
   return os;
 }
 void CarPose::ClearCameraPose(const std::string &camera_name) {
-AINFO<<"(DMCZP) EnteringMethod: CarPose::ClearCameraPose";
   auto it = c2w_poses_.find(camera_name);
   if (it != c2w_poses_.end()) {
     c2w_poses_.erase(it);

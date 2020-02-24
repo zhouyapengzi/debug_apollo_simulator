@@ -43,7 +43,6 @@ class ConfigManagerTest : public testing::Test {
 };
 
 TEST_F(ConfigManagerTest, TestInit) {
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   config_manager_->inited_ = true;
   EXPECT_TRUE(config_manager_->Init());
   EXPECT_TRUE(config_manager_->Reset());
@@ -57,7 +56,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST_F";
 }
 
 TEST_F(ConfigManagerTest, TestGetModelConfig) {
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   std::string model_name = "FrameClassifier";
   const ModelConfig* model_config = nullptr;
 
@@ -72,7 +70,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST_F";
 }
 
 TEST_F(ConfigManagerTest, TestModelConfig) {
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   std::string model_name = "FrameClassifier";
   const ModelConfig* model_config = nullptr;
   ASSERT_TRUE(config_manager_->Init());
@@ -137,7 +134,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST_F";
 }
 
 TEST_F(ConfigManagerTest, TestConfigManagerError) {
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   ConfigManagerError error("config manager error");
   EXPECT_EQ(error.What(), "config manager error");
 }

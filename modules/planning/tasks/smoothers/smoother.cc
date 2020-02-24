@@ -34,7 +34,6 @@ using apollo::common::math::Vec2d;
 
 bool Smoother::IsCloseStop(const common::VehicleState& vehicle_state,
                            const MainStop& main_stop) {
-AINFO<<"(DMCZP) EnteringMethod: Smoother::IsCloseStop";
   if (!main_stop.has_stop_point()) {
     ADEBUG << "not close for main stop:" << main_stop.DebugString();
     return false;
@@ -55,7 +54,6 @@ AINFO<<"(DMCZP) EnteringMethod: Smoother::IsCloseStop";
 apollo::common::Status Smoother::Smooth(
     const FrameHistory* frame_history, const Frame* current_frame,
     ADCTrajectory* const current_trajectory_pb) {
-AINFO<<"(DMCZP) EnteringMethod: Smoother::Smooth";
   if (frame_history == nullptr) {
     std::string msg("frame history is null.");
     AERROR << msg;

@@ -30,12 +30,10 @@ using ::Eigen::Vector3d;
 
 RTKLocalization::RTKLocalization()
     : map_offset_{0.0, 0.0, 0.0},
-AINFO<<"(DMCZP) EnteringMethod: RTKLocalization::RTKLocalization";
       monitor_logger_(
           apollo::common::monitor::MonitorMessageItem::LOCALIZATION) {}
 
 void RTKLocalization::InitConfig(const rtk_config::Config &config) {
-AINFO<<"(DMCZP) EnteringMethod: RTKLocalization::InitConfig";
   imu_list_max_size_ = config.imu_list_max_size();
   gps_imu_time_diff_threshold_ = config.gps_imu_time_diff_threshold();
   map_offset_[0] = config.map_offset_x();
@@ -46,7 +44,6 @@ AINFO<<"(DMCZP) EnteringMethod: RTKLocalization::InitConfig";
 
 void RTKLocalization::GpsCallback(
     const std::shared_ptr<localization::Gps> &gps_msg) {
-AINFO<<"(DMCZP) EnteringMethod: RTKLocalization::GpsCallback";
   double time_delay =
       common::time::ToSecond(Clock::Now()) - last_received_timestamp_sec_;
   if (time_delay > gps_time_delay_tolerance_) {
@@ -93,7 +90,6 @@ AINFO<<"(DMCZP) EnteringMethod: RTKLocalization::GpsCallback";
 
 void RTKLocalization::GpsStatusCallback(
     const std::shared_ptr<drivers::gnss::InsStat> &status_msg) {
-AINFO<<"(DMCZP) EnteringMethod: RTKLocalization::GpsStatusCallback";
   std::unique_lock<std::mutex> lock(gps_status_list_mutex_);
   if (gps_status_list_.size() < gps_status_list_max_size_) {
     gps_status_list_.push_back(*status_msg);
@@ -105,7 +101,6 @@ AINFO<<"(DMCZP) EnteringMethod: RTKLocalization::GpsStatusCallback";
 
 void RTKLocalization::ImuCallback(
     const std::shared_ptr<localization::CorrectedImu> &imu_msg) {
-AINFO<<"(DMCZP) EnteringMethod: RTKLocalization::ImuCallback";
   std::unique_lock<std::mutex> lock(imu_list_mutex_);
   if (imu_list_.size() < imu_list_max_size_) {
     imu_list_.push_back(*imu_msg);
@@ -117,24 +112,18 @@ AINFO<<"(DMCZP) EnteringMethod: RTKLocalization::ImuCallback";
 }
 
 bool RTKLocalization::IsServiceStarted() { return service_started_; }
-AINFO<<"(DMCZP) EnteringMethod: RTKLocalization::IsServiceStarted";
 
 void RTKLocalization::GetLocalization(LocalizationEstimate *localization) {
-AINFO<<"(DMCZP) EnteringMethod: RTKLocalization::GetLocalization";
   *localization = last_localization_result_;
   return;
 }
 
 void RTKLocalization::GetLocalizationStatus(
     LocalizationStatus *localization_status) {
-AINFO<<"(DMCZP) EnteringMethod: RTKLocalization::GetLocalizationStatus";
   *localization_status = last_localization_status_result_;
-AINFO<<"(DMCZP) EnteringMethod: RTKLocalization::PrepareLocalizationMsg";
 }
-AINFO<<"(DMCZP) EnteringMethod: RTKLocalization::FillLocalizationStatusMsg";
 
 void RTKLocalization::RunWatchDog(double gps_timestamp) {
-AINFO<<"(DMCZP) EnteringMethod: RTKLocalization::RunWatchDog";
   if (!enable_watch_dog_) {
     return;
   }
@@ -197,8 +186,6 @@ void RTKLocalization::PrepareLocalizationMsg(
 
 void RTKLocalization::FillLocalizationMsgHeader(
     LocalizationEstimate *localization) {
-AINFO<<"(DMCZP) EnteringMethod: RTKLocalization::FillLocalizationMsgHeader";
-AINFO<<"(DMCZP) EnteringMethod: RTKLocalization::ComposeLocalizationMsg";
   DCHECK_NOTNULL(localization);
 
   auto *header = localization->mutable_header();
@@ -340,7 +327,6 @@ void RTKLocalization::ComposeLocalizationMsg(
 
 bool RTKLocalization::FindMatchingIMU(const double gps_timestamp_sec,
                                       CorrectedImu *imu_msg) {
-AINFO<<"(DMCZP) EnteringMethod: RTKLocalization::FindMatchingIMU";
   if (imu_msg == nullptr) {
     AERROR << "imu_msg should NOT be nullptr.";
     return false;
@@ -418,7 +404,6 @@ bool RTKLocalization::InterpolateIMU(const CorrectedImu &imu1,
                                      const CorrectedImu &imu2,
                                      const double timestamp_sec,
                                      CorrectedImu *imu_msg) {
-AINFO<<"(DMCZP) EnteringMethod: RTKLocalization::InterpolateIMU";
   DCHECK_NOTNULL(imu_msg);
   if (!(imu1.has_header() && imu1.header().has_timestamp_sec() &&
         imu2.has_header() && imu2.header().has_timestamp_sec())) {
@@ -475,7 +460,6 @@ AINFO<<"(DMCZP) EnteringMethod: RTKLocalization::InterpolateIMU";
 template <class T>
 T RTKLocalization::InterpolateXYZ(const T &p1, const T &p2,
                                   const double frac1) {
-AINFO<<"(DMCZP) EnteringMethod: RTKLocalization::InterpolateXYZ";
   T p;
   double frac2 = 1.0 - frac1;
   if (p1.has_x() && !std::isnan(p1.x()) && p2.has_x() && !std::isnan(p2.x())) {
@@ -492,7 +476,6 @@ AINFO<<"(DMCZP) EnteringMethod: RTKLocalization::InterpolateXYZ";
 
 bool RTKLocalization::FindNearestGpsStatus(const double gps_timestamp_sec,
                                            drivers::gnss::InsStat *status) {
-AINFO<<"(DMCZP) EnteringMethod: RTKLocalization::FindNearestGpsStatus";
   CHECK_NOTNULL(status);
 
   std::unique_lock<std::mutex> lock(gps_status_list_mutex_);

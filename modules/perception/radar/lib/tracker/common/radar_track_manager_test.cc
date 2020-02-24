@@ -25,7 +25,6 @@ namespace perception {
 
 namespace radar {
 TEST(RadarTrackManagerTest, radar_track_manager_test) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   base::ObjectPtr object(new base::Object);
   object->track_id = 100;
   object->center << 10.0, 20.0, 0.0;

@@ -27,21 +27,18 @@ DEFINE_string(vehicle_data_config_filename,
               "Vehicle data config file.");
 
 namespace apollo {
-AINFO<<"(DMCZP) EnteringMethod: DEFINE_string";
 namespace dreamview {
 
 using apollo::common::util::StrCat;
 using cyber::common::GetProtoFromFile;
 
 VehicleManager::VehicleManager() {
-AINFO<<"(DMCZP) EnteringMethod: VehicleManager::VehicleManager";
   CHECK(GetProtoFromFile(FLAGS_vehicle_data_config_filename, &vehicle_data_))
       << "Unable to parse VehicleData config file "
       << FLAGS_vehicle_data_config_filename;
 }
 
 bool VehicleManager::UseVehicle(const std::string &vehicle_data_path) {
-AINFO<<"(DMCZP) EnteringMethod: VehicleManager::UseVehicle";
   if (!cyber::common::DirectoryExists(vehicle_data_path)) {
     AERROR << "Cannot find vehicle data: " << vehicle_data_path;
     return false;

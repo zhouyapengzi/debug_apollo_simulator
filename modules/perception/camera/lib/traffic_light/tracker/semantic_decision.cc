@@ -32,12 +32,10 @@ std::map<base::TLColor, std::string> s_color_strs = {
     {base::TLColor::TL_BLACK, "black"}};
 
 bool compare(const SemanticTable &s1, const SemanticTable &s2) {
-AINFO<<"(DMCZP) EnteringMethod: compare";
   return s1.semantic == s2.semantic;
 }
 
 bool SemanticReviser::Init(const TrafficLightTrackerInitOptions &options) {
-AINFO<<"(DMCZP) EnteringMethod: SemanticReviser::Init";
   std::string proto_path =
       cyber::common::GetAbsolutePath(options.root_dir, options.conf_file);
   if (!cyber::common::GetProtoFromFile(proto_path, &semantic_param_)) {
@@ -62,7 +60,6 @@ AINFO<<"(DMCZP) EnteringMethod: SemanticReviser::Init";
 void SemanticReviser::UpdateHistoryAndLights(
     const SemanticTable &cur, std::vector<base::TrafficLightPtr> *lights,
     std::vector<SemanticTable>::iterator *history) {
-AINFO<<"(DMCZP) EnteringMethod: SemanticReviser::UpdateHistoryAndLights";
   (*history)->time_stamp = cur.time_stamp;
   if ((*history)->color == base::TLColor::TL_BLACK) {
     if ((*history)->hystertic_window.hysteretic_color == cur.color) {
@@ -89,7 +86,6 @@ AINFO<<"(DMCZP) EnteringMethod: SemanticReviser::UpdateHistoryAndLights";
 
 base::TLColor SemanticReviser::ReviseBySemantic(
     SemanticTable semantic_table, std::vector<base::TrafficLightPtr> *lights) {
-AINFO<<"(DMCZP) EnteringMethod: SemanticReviser::ReviseBySemantic";
   std::vector<int> vote(static_cast<int>(base::TLColor::TL_TOTAL_COLOR_NUM), 0);
   std::vector<base::TrafficLightPtr> &lights_ref = *lights;
   base::TLColor max_color = base::TLColor::TL_UNKNOWN_COLOR;
@@ -135,7 +131,6 @@ AINFO<<"(DMCZP) EnteringMethod: SemanticReviser::ReviseBySemantic";
 void SemanticReviser::ReviseLights(std::vector<base::TrafficLightPtr> *lights,
                                    const std::vector<int> &light_ids,
                                    base::TLColor dst_color) {
-AINFO<<"(DMCZP) EnteringMethod: SemanticReviser::ReviseLights";
   for (auto index : light_ids) {
     lights->at(index)->status.color = dst_color;
   }
@@ -147,7 +142,6 @@ AINFO<<"(DMCZP) EnteringMethod: SemanticReviser::ReviseLights";
 void SemanticReviser::ReviseByTimeSeries(
     double time_stamp, SemanticTable semantic_table,
     std::vector<base::TrafficLightPtr> *lights) {
-AINFO<<"(DMCZP) EnteringMethod: SemanticReviser::ReviseByTimeSeries";
   ADEBUG << "revise " << semantic_table.semantic
          << ", lights number:" << semantic_table.light_ids.size();
 
@@ -235,7 +229,6 @@ AINFO<<"(DMCZP) EnteringMethod: SemanticReviser::ReviseByTimeSeries";
 
 bool SemanticReviser::Track(const TrafficLightTrackerOptions &options,
                             CameraFrame *frame) {
-AINFO<<"(DMCZP) EnteringMethod: SemanticReviser::Track";
   double time_stamp = frame->timestamp;
   std::vector<base::TrafficLightPtr> &lights_ref = frame->traffic_lights;
   std::vector<SemanticTable> semantic_table;
@@ -286,7 +279,6 @@ AINFO<<"(DMCZP) EnteringMethod: SemanticReviser::Track";
 }
 
 std::string SemanticReviser::Name() const { return "SemanticReviser"; }
-AINFO<<"(DMCZP) EnteringMethod: SemanticReviser::Name";
 
 REGISTER_TRAFFIC_LIGHT_TRACKER(SemanticReviser);
 

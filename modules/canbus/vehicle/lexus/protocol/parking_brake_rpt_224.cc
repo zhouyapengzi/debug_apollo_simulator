@@ -28,12 +28,10 @@ namespace lexus {
 using ::apollo::drivers::canbus::Byte;
 
 Parkingbrakerpt224::Parkingbrakerpt224() {}
-AINFO<<"(DMCZP) EnteringMethod: Parkingbrakerpt224::Parkingbrakerpt224";
 const int32_t Parkingbrakerpt224::ID = 0x224;
 
 void Parkingbrakerpt224::Parse(const std::uint8_t* bytes, int32_t length,
                                ChassisDetail* chassis) const {
-AINFO<<"(DMCZP) EnteringMethod: Parkingbrakerpt224::Parse";
   chassis->mutable_lexus()->mutable_parking_brake_rpt_224()->set_vehicle_fault(
       vehicle_fault(bytes, length));
   chassis->mutable_lexus()->mutable_parking_brake_rpt_224()->set_pacmod_fault(
@@ -66,7 +64,6 @@ AINFO<<"(DMCZP) EnteringMethod: Parkingbrakerpt224::Parse";
 // 'type': 'bool', 'order': 'motorola', 'physical_unit': ''}
 bool Parkingbrakerpt224::vehicle_fault(const std::uint8_t* bytes,
                                        int32_t length) const {
-AINFO<<"(DMCZP) EnteringMethod: Parkingbrakerpt224::vehicle_fault";
   Byte t0(bytes + 0);
   int32_t x = t0.get_byte(6, 1);
 
@@ -79,27 +76,22 @@ AINFO<<"(DMCZP) EnteringMethod: Parkingbrakerpt224::vehicle_fault";
 // 'type': 'bool', 'order': 'motorola', 'physical_unit': ''}
 bool Parkingbrakerpt224::pacmod_fault(const std::uint8_t* bytes,
                                       int32_t length) const {
-AINFO<<"(DMCZP) EnteringMethod: Parkingbrakerpt224::pacmod_fault";
   Byte t0(bytes + 0);
   int32_t x = t0.get_byte(5, 1);
 
   bool ret = x;
   return ret;
-AINFO<<"(DMCZP) EnteringMethod: Parkingbrakerpt224::output_value";
 }
-AINFO<<"(DMCZP) EnteringMethod: Parkingbrakerpt224::manual_input";
 
 // config detail: {'name': 'override_active', 'offset': 0.0, 'precision': 1.0,
 // 'len': 1, 'is_signed_var': False, 'physical_range': '[0|1]', 'bit': 1,
 // 'type': 'bool', 'order': 'motorola', 'physical_unit': ''}
 bool Parkingbrakerpt224::override_active(const std::uint8_t* bytes,
                                          int32_t length) const {
-AINFO<<"(DMCZP) EnteringMethod: Parkingbrakerpt224::override_active";
   Byte t0(bytes + 0);
   int32_t x = t0.get_byte(1, 1);
 
   bool ret = x;
-AINFO<<"(DMCZP) EnteringMethod: Parkingbrakerpt224::commanded_value";
   return ret;
 }
 
@@ -108,7 +100,6 @@ AINFO<<"(DMCZP) EnteringMethod: Parkingbrakerpt224::commanded_value";
 // '[0|1]', 'bit': 4, 'type': 'bool', 'order': 'motorola', 'physical_unit': ''}
 bool Parkingbrakerpt224::output_reported_fault(const std::uint8_t* bytes,
                                                int32_t length) const {
-AINFO<<"(DMCZP) EnteringMethod: Parkingbrakerpt224::output_reported_fault";
   Byte t0(bytes + 0);
   int32_t x = t0.get_byte(4, 1);
 
@@ -121,7 +112,6 @@ AINFO<<"(DMCZP) EnteringMethod: Parkingbrakerpt224::output_reported_fault";
 // '[0|1]', 'bit': 3, 'type': 'bool', 'order': 'motorola', 'physical_unit': ''}
 bool Parkingbrakerpt224::input_output_fault(const std::uint8_t* bytes,
                                             int32_t length) const {
-AINFO<<"(DMCZP) EnteringMethod: Parkingbrakerpt224::input_output_fault";
   Byte t0(bytes + 0);
   int32_t x = t0.get_byte(3, 1);
 
@@ -134,7 +124,6 @@ AINFO<<"(DMCZP) EnteringMethod: Parkingbrakerpt224::input_output_fault";
 // 'order': 'motorola', 'physical_unit': ''}
 bool Parkingbrakerpt224::enabled(const std::uint8_t* bytes,
                                  int32_t length) const {
-AINFO<<"(DMCZP) EnteringMethod: Parkingbrakerpt224::enabled";
   Byte t0(bytes + 0);
   int32_t x = t0.get_byte(0, 1);
 
@@ -147,7 +136,6 @@ AINFO<<"(DMCZP) EnteringMethod: Parkingbrakerpt224::enabled";
 // '[0|1]', 'bit': 2, 'type': 'bool', 'order': 'motorola', 'physical_unit': ''}
 bool Parkingbrakerpt224::command_output_fault(const std::uint8_t* bytes,
                                               int32_t length) const {
-AINFO<<"(DMCZP) EnteringMethod: Parkingbrakerpt224::command_output_fault";
   Byte t0(bytes + 0);
   int32_t x = t0.get_byte(2, 1);
 

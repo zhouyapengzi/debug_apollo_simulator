@@ -20,13 +20,11 @@ namespace cyber {
 namespace class_loader {
 
 ClassLoaderManager::ClassLoaderManager() {}
-AINFO<<"(DMCZP) EnteringMethod: ClassLoaderManager::ClassLoaderManager";
 
 ClassLoaderManager::~ClassLoaderManager() {}
 
 ClassLoader* ClassLoaderManager::GetClassLoaderByLibPath(
     const std::string& library_path) {
-AINFO<<"(DMCZP) EnteringMethod: ClassLoaderManager::GetClassLoaderByLibPath";
   return libpath_loader_map_[library_path];
 }
 
@@ -49,7 +47,6 @@ std::vector<std::string> ClassLoaderManager::GetAllValidLibPath() {
 }
 
 bool ClassLoaderManager::IsLibraryValid(const std::string& library_name) {
-AINFO<<"(DMCZP) EnteringMethod: ClassLoaderManager::IsLibraryValid";
   std::vector<std::string> valid_libraries = GetAllValidLibPath();
   return (valid_libraries.end() != std::find(valid_libraries.begin(),
                                              valid_libraries.end(),
@@ -57,7 +54,6 @@ AINFO<<"(DMCZP) EnteringMethod: ClassLoaderManager::IsLibraryValid";
 }
 
 bool ClassLoaderManager::LoadLibrary(const std::string& library_path) {
-AINFO<<"(DMCZP) EnteringMethod: ClassLoaderManager::LoadLibrary";
   std::lock_guard<std::mutex> lck(libpath_loader_map_mutex_);
   if (!IsLibraryValid(library_path)) {
     libpath_loader_map_[library_path] =
@@ -67,7 +63,6 @@ AINFO<<"(DMCZP) EnteringMethod: ClassLoaderManager::LoadLibrary";
 }
 
 int ClassLoaderManager::UnloadLibrary(const std::string& library_path) {
-AINFO<<"(DMCZP) EnteringMethod: ClassLoaderManager::UnloadLibrary";
   int num_remain_unload = 0;
   if (IsLibraryValid(library_path)) {
     ClassLoader* class_loader = GetClassLoaderByLibPath(library_path);
@@ -80,7 +75,6 @@ AINFO<<"(DMCZP) EnteringMethod: ClassLoaderManager::UnloadLibrary";
 }
 
 void ClassLoaderManager::UnloadAllLibrary() {
-AINFO<<"(DMCZP) EnteringMethod: ClassLoaderManager::UnloadAllLibrary";
   std::vector<std::string> valid_libraries = GetAllValidLibPath();
   for (auto& lib : valid_libraries) {
     UnloadLibrary(lib);

@@ -24,7 +24,6 @@ namespace perception {
 namespace lib {
 
 TEST(TimerTest, Test) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   Timer timer;
   timer.Start();
   usleep(100000);
@@ -34,19 +33,16 @@ AINFO<<"(DMCZP) EnteringMethod: TEST";
 }
 
 TEST(TimerWrapperTest, Test) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   TimerWrapper wrapper("TimerWrapperTest");
   usleep(200000);
 }
 
 TEST(PerfFunctionTest, Test) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   PERCEPTION_PERF_FUNCTION();
   usleep(100000);
 }
 
 TEST(PerfBlockTest, Test) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   PERCEPTION_PERF_BLOCK_START();
   usleep(100000);
   PERCEPTION_PERF_BLOCK_END("BLOCK1");
@@ -55,7 +51,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST";
 }
 
 TEST(GetFunctionNameTest, Test) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   std::string full_name =
       "void apollo::perception::"
       "lib::Thread::set_joinable(bool)";

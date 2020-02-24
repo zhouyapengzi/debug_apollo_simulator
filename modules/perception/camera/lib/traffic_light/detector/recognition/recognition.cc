@@ -24,7 +24,6 @@ namespace camera {
 
 bool TrafficLightRecognition::Init(
     const TrafficLightDetectorInitOptions& options) {
-AINFO<<"(DMCZP) EnteringMethod: TrafficLightRecognition::Init";
 
   AINFO << "(pengzi) in method : TrafficLightRecognition::Init(
     const TrafficLightDetectorInitOptions& options) .thread: "<<std::this_thread::get_id();
@@ -57,7 +56,6 @@ AINFO<<"(DMCZP) EnteringMethod: TrafficLightRecognition::Init";
 
 bool TrafficLightRecognition::Detect(const TrafficLightDetectorOptions& options,
                                      CameraFrame* frame) {
-AINFO<<"(DMCZP) EnteringMethod: TrafficLightRecognition::Detect";
 
   AINFO << "(pengzi) in method : TrafficLightRecognition::Detect(const TrafficLightDetectorOptions& options,
                                      CameraFrame* frame) .thread: "<<std::this_thread::get_id();
@@ -92,7 +90,6 @@ AINFO<<"(DMCZP) EnteringMethod: TrafficLightRecognition::Detect";
 }
 
 std::string TrafficLightRecognition::Name() const {
-AINFO<<"(DMCZP) EnteringMethod: TrafficLightRecognition::Name";
   return "TrafficLightRecognition";
 }
 

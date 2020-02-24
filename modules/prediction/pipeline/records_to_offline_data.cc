@@ -27,7 +27,6 @@ namespace apollo {
 namespace prediction {
 
 void GenerateDataForLearning() {
-AINFO<<"(DMCZP) EnteringMethod: GenerateDataForLearning";
   apollo::hdmap::HDMapUtil::ReloadMaps();
   if (!FeatureOutput::Ready()) {
     AERROR << "Feature output is not ready.";
@@ -60,7 +59,6 @@ AINFO<<"(DMCZP) EnteringMethod: GenerateDataForLearning";
 }  // namespace apollo
 
 int main(int argc, char* argv[]) {
-AINFO<<"(DMCZP) EnteringMethod: main";
   google::ParseCommandLineFlags(&argc, &argv, true);
   apollo::prediction::GenerateDataForLearning();
   return 0;

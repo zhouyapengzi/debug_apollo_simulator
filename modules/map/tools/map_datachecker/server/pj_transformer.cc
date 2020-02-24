@@ -24,7 +24,6 @@ namespace apollo {
 namespace hdmap {
 
 PJTransformer::PJTransformer(int zone_id) {
-AINFO<<"(DMCZP) EnteringMethod: PJTransformer::PJTransformer";
   // init projPJ
   std::stringstream stream;
   stream << "+proj=utm +zone=" << zone_id << " +ellps=WGS84" << std::endl;
@@ -53,7 +52,6 @@ PJTransformer::~PJTransformer() {
 }
 int PJTransformer::LatlongToUtm(int64_t point_count, int point_offset,
                                 double *x, double *y, double *z) {
-AINFO<<"(DMCZP) EnteringMethod: PJTransformer::LatlongToUtm";
   if (!pj_latlong_ || !pj_utm_) {
     AERROR << "pj_latlong_:" << pj_latlong_ << "pj_utm_:" << pj_utm_
            << std::endl;

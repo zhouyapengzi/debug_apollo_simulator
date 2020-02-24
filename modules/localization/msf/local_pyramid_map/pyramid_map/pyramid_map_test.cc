@@ -24,7 +24,6 @@
 #include "modules/localization/msf/local_map/base_map/base_map_config.h"
 
 int main(int argc, char** argv) {
-AINFO<<"(DMCZP) EnteringMethod: main";
   testing::InitGoogleTest(&argc, argv);
   return RUN_ALL_TESTS();
 }
@@ -44,7 +43,6 @@ class PyramidMapTestSuite : public ::testing::Test {
 void CreateTestMapNode(unsigned int m, unsigned int n,
                        const MapNodeIndex& index,
                        const PyramidMapConfig* config) {
-AINFO<<"(DMCZP) EnteringMethod: CreateTestMapNode";
   // create map node
   PyramidMapNode* node = new PyramidMapNode();
   node->Init(config);
@@ -65,7 +63,6 @@ AINFO<<"(DMCZP) EnteringMethod: CreateTestMapNode";
 }
 
 TEST_F(PyramidMapTestSuite, pyramid_map_function) {
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   // init config
   PyramidMapConfig* config = new PyramidMapConfig("lossy_full_alt");
   config->SetMapNodeSize(2, 2);
@@ -183,7 +180,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST_F";
 }
 
 TEST_F(PyramidMapTestSuite, test_init) {
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   // init config
   PyramidMapConfig* config = new PyramidMapConfig("lossy_full_alt");
   config->SetMapNodeSize(2, 2);

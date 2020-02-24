@@ -36,7 +36,6 @@ class NaviPlannerDispatcherTest : public ::testing::Test {
 };
 
 TEST_F(NaviPlannerDispatcherTest, Simple) {
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   pd_.reset(new NaviPlannerDispatcher());
   pd_->Init();
   auto planner = pd_->DispatchPlanner();

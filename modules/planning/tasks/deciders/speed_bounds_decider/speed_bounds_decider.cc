@@ -44,7 +44,6 @@ using apollo::planning_internal::STGraphDebug;
 
 SpeedBoundsDecider::SpeedBoundsDecider(const TaskConfig &config)
     : Decider(config) {
-AINFO<<"(DMCZP) EnteringMethod: SpeedBoundsDecider::SpeedBoundsDecider";
   CHECK(config.has_speed_bounds_decider_config());
   speed_bounds_config_ = config.speed_bounds_decider_config();
   SetName("SpeedBoundsDecider");
@@ -52,7 +51,6 @@ AINFO<<"(DMCZP) EnteringMethod: SpeedBoundsDecider::SpeedBoundsDecider";
 
 Status SpeedBoundsDecider::Process(
     Frame *const frame, ReferenceLineInfo *const reference_line_info) {
-AINFO<<"(DMCZP) EnteringMethod: SpeedBoundsDecider::Process";
   // retrieve data from frame and reference_line_info
   const PathData &path_data = reference_line_info->path_data();
   const TrajectoryPoint &init_point = frame->PlanningStartPoint();
@@ -127,7 +125,6 @@ AINFO<<"(DMCZP) EnteringMethod: SpeedBoundsDecider::Process";
 
 double SpeedBoundsDecider::SetSpeedFallbackDistance(
     PathDecision *const path_decision) {
-AINFO<<"(DMCZP) EnteringMethod: SpeedBoundsDecider::SetSpeedFallbackDistance";
   // Set min_s_on_st_boundaries to guide speed fallback. Different stop distance
   // is taken when there is an obstacle moving in opposite direction of ADV
   constexpr double kEpsilon = 1.0e-6;
@@ -175,7 +172,6 @@ AINFO<<"(DMCZP) EnteringMethod: SpeedBoundsDecider::SetSpeedFallbackDistance";
 
 void SpeedBoundsDecider::RecordSTGraphDebug(
     const StGraphData &st_graph_data, STGraphDebug *st_graph_debug) const {
-AINFO<<"(DMCZP) EnteringMethod: SpeedBoundsDecider::RecordSTGraphDebug";
   if (!FLAGS_enable_record_debug || !st_graph_debug) {
     ADEBUG << "Skip record debug info";
     return;

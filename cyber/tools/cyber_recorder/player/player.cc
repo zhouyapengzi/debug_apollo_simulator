@@ -32,7 +32,6 @@ Player::Player(const PlayParam& play_param)
       consumer_(nullptr),
       producer_(nullptr),
       task_buffer_(nullptr) {
-AINFO<<"(DMCZP) EnteringMethod: Player::Player";
   task_buffer_ = std::make_shared<PlayTaskBuffer>();
   consumer_.reset(new PlayTaskConsumer(task_buffer_, play_param.play_rate));
   producer_.reset(new PlayTaskProducer(task_buffer_, play_param));
@@ -41,7 +40,6 @@ AINFO<<"(DMCZP) EnteringMethod: Player::Player";
 Player::~Player() { Stop(); }
 
 bool Player::Init() {
-AINFO<<"(DMCZP) EnteringMethod: Player::Init";
   if (is_initialized_.exchange(true)) {
     AERROR << "player has been initialized.";
     return false;
@@ -56,7 +54,6 @@ AINFO<<"(DMCZP) EnteringMethod: Player::Init";
 }
 
 static char Getch() {
-AINFO<<"(DMCZP) EnteringMethod: Getch";
   char buf = 0;
   struct termios old = {0};
   fflush(stdout);
@@ -74,7 +71,6 @@ AINFO<<"(DMCZP) EnteringMethod: Getch";
 }
 
 void Player::ThreadFunc_Term() {
-AINFO<<"(DMCZP) EnteringMethod: Player::ThreadFunc_Term";
   while (!is_stopped_.load()) {
     char ch = Getch();
     switch (ch) {
@@ -91,7 +87,6 @@ AINFO<<"(DMCZP) EnteringMethod: Player::ThreadFunc_Term";
 }
 
 bool Player::Start() {
-AINFO<<"(DMCZP) EnteringMethod: Player::Start";
   if (!is_initialized_.load()) {
     AERROR << "please call Init firstly.";
     return false;
@@ -177,7 +172,6 @@ AINFO<<"(DMCZP) EnteringMethod: Player::Start";
 }
 
 bool Player::Stop() {
-AINFO<<"(DMCZP) EnteringMethod: Player::Stop";
   if (is_stopped_.exchange(true)) {
     return false;
   }

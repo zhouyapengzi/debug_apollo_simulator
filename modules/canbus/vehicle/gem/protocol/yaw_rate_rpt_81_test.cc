@@ -28,7 +28,6 @@ class YawRatePrt81Test : public ::testing::Test {
 };
 
 TEST_F(YawRatePrt81Test, reset) {
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   Yawraterpt81 yaw_rate;
   int32_t length = 8;
   ChassisDetail chassis_detail;

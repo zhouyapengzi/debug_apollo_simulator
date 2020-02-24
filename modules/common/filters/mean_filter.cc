@@ -30,14 +30,12 @@ using TimedValue = std::pair<uint8, double>;
 const uint8 kMaxWindowSize = std::numeric_limits<uint8>::max() / 2;
 
 MF::MeanFilter(const uint8 window_size) : window_size_(window_size) {
-AINFO<<"(DMCZP) EnteringMethod: MF::MeanFilter";
   CHECK_GT(window_size_, 0);
   CHECK_LE(window_size_, kMaxWindowSize);
   initialized_ = true;
 }
 
 double MF::GetMin() const {
-AINFO<<"(DMCZP) EnteringMethod: MF::GetMin";
   if (min_candidates_.empty()) {
     return std::numeric_limits<double>::infinity();
   } else {
@@ -46,7 +44,6 @@ AINFO<<"(DMCZP) EnteringMethod: MF::GetMin";
 }
 
 double MF::GetMax() const {
-AINFO<<"(DMCZP) EnteringMethod: MF::GetMax";
   if (max_candidates_.empty()) {
     return -std::numeric_limits<double>::infinity();
   } else {
@@ -55,7 +52,6 @@ AINFO<<"(DMCZP) EnteringMethod: MF::GetMax";
 }
 
 double MF::Update(const double measurement) {
-AINFO<<"(DMCZP) EnteringMethod: MF::Update";
   CHECK(initialized_);
   CHECK_LE(values_.size(), window_size_);
   CHECK_LE(min_candidates_.size(), window_size_);
@@ -75,7 +71,6 @@ AINFO<<"(DMCZP) EnteringMethod: MF::Update";
 }
 
 bool MF::ShouldPopOldestCandidate(const uint8 old_time) const {
-AINFO<<"(DMCZP) EnteringMethod: MF::ShouldPopOldestCandidate";
   if (old_time < window_size_) {
     CHECK_LE(time_, old_time + window_size_);
     return old_time + window_size_ == time_;
@@ -88,7 +83,6 @@ AINFO<<"(DMCZP) EnteringMethod: MF::ShouldPopOldestCandidate";
 }
 
 void MF::RemoveEarliest() {
-AINFO<<"(DMCZP) EnteringMethod: MF::RemoveEarliest";
   CHECK_EQ(values_.size(), window_size_);
   double removed = values_.front();
   values_.pop_front();
@@ -102,7 +96,6 @@ AINFO<<"(DMCZP) EnteringMethod: MF::RemoveEarliest";
 }
 
 void MF::Insert(const double value) {
-AINFO<<"(DMCZP) EnteringMethod: MF::Insert";
   values_.push_back(value);
   sum_ += value;
   while (min_candidates_.size() > 0 && min_candidates_.back().second > value) {

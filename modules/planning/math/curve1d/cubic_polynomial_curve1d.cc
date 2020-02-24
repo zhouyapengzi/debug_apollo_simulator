@@ -29,14 +29,12 @@ namespace planning {
 CubicPolynomialCurve1d::CubicPolynomialCurve1d(
     const std::array<double, 3>& start, const double end, const double param)
     : CubicPolynomialCurve1d(start[0], start[1], start[2], end, param) {}
-AINFO<<"(DMCZP) EnteringMethod: CubicPolynomialCurve1d::CubicPolynomialCurve1d";
 
 CubicPolynomialCurve1d::CubicPolynomialCurve1d(const double x0,
                                                const double dx0,
                                                const double ddx0,
                                                const double x1,
                                                const double param) {
-AINFO<<"(DMCZP) EnteringMethod: CubicPolynomialCurve1d::CubicPolynomialCurve1d";
   ComputeCoefficients(x0, dx0, ddx0, x1, param);
   param_ = param;
   start_condition_[0] = x0;
@@ -47,7 +45,6 @@ AINFO<<"(DMCZP) EnteringMethod: CubicPolynomialCurve1d::CubicPolynomialCurve1d";
 
 void CubicPolynomialCurve1d::DerivedFromQuarticCurve(
     const PolynomialCurve1d& other) {
-AINFO<<"(DMCZP) EnteringMethod: CubicPolynomialCurve1d::DerivedFromQuarticCurve";
   CHECK_EQ(other.Order(), 4);
   param_ = other.ParamLength();
   for (size_t i = 1; i < 5; ++i) {
@@ -57,7 +54,6 @@ AINFO<<"(DMCZP) EnteringMethod: CubicPolynomialCurve1d::DerivedFromQuarticCurve"
 
 double CubicPolynomialCurve1d::Evaluate(const std::uint32_t order,
                                         const double p) const {
-AINFO<<"(DMCZP) EnteringMethod: CubicPolynomialCurve1d::Evaluate";
   switch (order) {
     case 0: {
       return ((coef_[3] * p + coef_[2]) * p + coef_[1]) * p + coef_[0];
@@ -77,7 +73,6 @@ AINFO<<"(DMCZP) EnteringMethod: CubicPolynomialCurve1d::Evaluate";
 }
 
 std::string CubicPolynomialCurve1d::ToString() const {
-AINFO<<"(DMCZP) EnteringMethod: CubicPolynomialCurve1d::ToString";
   return apollo::common::util::StrCat(
       apollo::common::util::PrintIter(coef_, "\t"), param_, "\n");
 }
@@ -87,7 +82,6 @@ void CubicPolynomialCurve1d::ComputeCoefficients(const double x0,
                                                  const double ddx0,
                                                  const double x1,
                                                  const double param) {
-AINFO<<"(DMCZP) EnteringMethod: CubicPolynomialCurve1d::ComputeCoefficients";
   DCHECK(param > 0.0);
   const double p2 = param * param;
   const double p3 = param * p2;
@@ -98,7 +92,6 @@ AINFO<<"(DMCZP) EnteringMethod: CubicPolynomialCurve1d::ComputeCoefficients";
 }
 
 double CubicPolynomialCurve1d::Coef(const size_t order) const {
-AINFO<<"(DMCZP) EnteringMethod: CubicPolynomialCurve1d::Coef";
   CHECK_GT(4, order);
   return coef_[order];
 }

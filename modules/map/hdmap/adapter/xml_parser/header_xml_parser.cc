@@ -22,7 +22,6 @@ limitations under the License.
 
 namespace {
 int GetLongZone(double longitude) {
-AINFO<<"(DMCZP) EnteringMethod: GetLongZone";
   double longZone = 0.0;
   if (longitude < 0.0) {
     longZone = ((180.0 + longitude) / 6.0) + 1;
@@ -39,7 +38,6 @@ namespace adapter {
 
 Status HeaderXmlParser::Parse(const tinyxml2::XMLElement& xml_node,
                               PbHeader* header) {
-AINFO<<"(DMCZP) EnteringMethod: HeaderXmlParser::Parse";
   auto header_node = xml_node.FirstChildElement("header");
   if (!header_node) {
     std::string err_msg = "xml data missing header";

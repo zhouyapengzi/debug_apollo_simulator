@@ -29,12 +29,10 @@ namespace hdmap {
 
 ChannelVerify::ChannelVerify(std::shared_ptr<JSonConf> sp_conf)
     : sp_conf_(sp_conf) {
-AINFO<<"(DMCZP) EnteringMethod: ChannelVerify::ChannelVerify";
   Reset();
 }
 
 void ChannelVerify::Reset() {
-AINFO<<"(DMCZP) EnteringMethod: ChannelVerify::Reset";
   return_state_ = ErrorCode::SUCCESS;
   checked_records_.clear();
   sp_vec_check_result_ =
@@ -43,7 +41,6 @@ AINFO<<"(DMCZP) EnteringMethod: ChannelVerify::Reset";
 
 ErrorCode ChannelVerify::Check(
     const std::string& record_dir_or_record_full_path) {
-AINFO<<"(DMCZP) EnteringMethod: ChannelVerify::Check";
   std::vector<std::string> records_path;
   records_path = GetRecordsPath(record_dir_or_record_full_path);
   if (records_path.size() == 0) {
@@ -58,13 +55,11 @@ AINFO<<"(DMCZP) EnteringMethod: ChannelVerify::Check";
 
 std::shared_ptr<std::vector<OneRecordChannelCheckResult>>
 ChannelVerify::get_check_result() const {
-AINFO<<"(DMCZP) EnteringMethod: ChannelVerify::get_check_result";
   return sp_vec_check_result_;
 }
 
 int ChannelVerify::IncrementalCheck(
     const std::vector<std::string>& records_path) {
-AINFO<<"(DMCZP) EnteringMethod: ChannelVerify::IncrementalCheck";
   std::vector<std::string> not_check_records_path;
   AINFO << "all records path:";
   for (size_t i = 0; i < records_path.size(); ++i) {
@@ -89,7 +84,6 @@ AINFO<<"(DMCZP) EnteringMethod: ChannelVerify::IncrementalCheck";
 }
 
 bool ChannelVerify::IsRecordFile(const std::string& record_path) const {
-AINFO<<"(DMCZP) EnteringMethod: ChannelVerify::IsRecordFile";
   if (!boost::filesystem::exists(record_path)) {
     AINFO << "path [" << record_path << "] does not exist";
     return false;
@@ -131,7 +125,6 @@ std::vector<std::string> ChannelVerify::GetRecordsPath(
 }
 
 bool ChannelVerify::IsRecordChecked(const std::string& record_path) {
-AINFO<<"(DMCZP) EnteringMethod: ChannelVerify::IsRecordChecked";
   return !checked_records_.insert(record_path).second;
 }
 
@@ -172,7 +165,6 @@ std::shared_ptr<CyberRecordInfo> ChannelVerify::GetRecordInfo(
 
 OneRecordChannelCheckResult ChannelVerify::CheckRecordChannels(
     const std::string& record_path) {
-AINFO<<"(DMCZP) EnteringMethod: ChannelVerify::CheckRecordChannels";
   OneRecordChannelCheckResult check_result;
   std::shared_ptr<CyberRecordInfo> sp_record_info = GetRecordInfo(record_path);
   if (sp_record_info == nullptr) {
@@ -220,7 +212,6 @@ AINFO<<"(DMCZP) EnteringMethod: ChannelVerify::CheckRecordChannels";
 }
 
 ErrorCode ChannelVerify::GetReturnState() const { return return_state_; }
-AINFO<<"(DMCZP) EnteringMethod: ChannelVerify::GetReturnState";
 
 }  // namespace hdmap
 }  // namespace apollo

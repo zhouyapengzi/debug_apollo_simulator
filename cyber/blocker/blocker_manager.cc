@@ -21,12 +21,10 @@ namespace cyber {
 namespace blocker {
 
 BlockerManager::BlockerManager() {}
-AINFO<<"(DMCZP) EnteringMethod: BlockerManager::BlockerManager";
 
 BlockerManager::~BlockerManager() { blockers_.clear(); }
 
 void BlockerManager::Observe() {
-AINFO<<"(DMCZP) EnteringMethod: BlockerManager::Observe";
   std::lock_guard<std::mutex> lock(blocker_mutex_);
   for (auto& item : blockers_) {
     item.second->Observe();
@@ -34,7 +32,6 @@ AINFO<<"(DMCZP) EnteringMethod: BlockerManager::Observe";
 }
 
 void BlockerManager::Reset() {
-AINFO<<"(DMCZP) EnteringMethod: BlockerManager::Reset";
   std::lock_guard<std::mutex> lock(blocker_mutex_);
   for (auto& item : blockers_) {
     item.second->Reset();

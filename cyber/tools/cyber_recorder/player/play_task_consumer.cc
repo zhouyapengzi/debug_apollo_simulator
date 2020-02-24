@@ -38,7 +38,6 @@ PlayTaskConsumer::PlayTaskConsumer(const TaskBufferPtr& task_buffer,
       base_msg_play_time_ns_(0),
       base_msg_real_time_ns_(0),
       last_played_msg_real_time_ns_(0) {
-AINFO<<"(DMCZP) EnteringMethod: PlayTaskConsumer::PlayTaskConsumer";
   if (play_rate_ <= 0) {
     AERROR << "invalid play rate: " << play_rate_
            << " , we will use default value(1.0).";
@@ -49,7 +48,6 @@ AINFO<<"(DMCZP) EnteringMethod: PlayTaskConsumer::PlayTaskConsumer";
 PlayTaskConsumer::~PlayTaskConsumer() { Stop(); }
 
 void PlayTaskConsumer::Start(uint64_t begin_time_ns) {
-AINFO<<"(DMCZP) EnteringMethod: PlayTaskConsumer::Start";
   if (!is_stopped_.exchange(false)) {
     return;
   }
@@ -58,7 +56,6 @@ AINFO<<"(DMCZP) EnteringMethod: PlayTaskConsumer::Start";
 }
 
 void PlayTaskConsumer::Stop() {
-AINFO<<"(DMCZP) EnteringMethod: PlayTaskConsumer::Stop";
   if (is_stopped_.exchange(true)) {
     return;
   }
@@ -69,7 +66,6 @@ AINFO<<"(DMCZP) EnteringMethod: PlayTaskConsumer::Stop";
 }
 
 void PlayTaskConsumer::ThreadFunc() {
-AINFO<<"(DMCZP) EnteringMethod: PlayTaskConsumer::ThreadFunc";
   uint64_t base_real_time_ns = 0;
   uint64_t accumulated_pause_time_ns = 0;
 

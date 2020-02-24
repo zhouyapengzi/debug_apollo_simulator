@@ -28,24 +28,20 @@ const int32_t Globalcmd69::ID = 0x69;
 
 // public
 Globalcmd69::Globalcmd69() { Reset(); }
-AINFO<<"(DMCZP) EnteringMethod: Globalcmd69::Globalcmd69";
 
 uint32_t Globalcmd69::GetPeriod() const {
-AINFO<<"(DMCZP) EnteringMethod: Globalcmd69::GetPeriod";
   // TODO(QiL) :modify every protocol's period manually
   static const uint32_t PERIOD = 20 * 1000;
   return PERIOD;
 }
 
 void Globalcmd69::UpdateData(uint8_t* data) {
-AINFO<<"(DMCZP) EnteringMethod: Globalcmd69::UpdateData";
   set_p_pacmod_enable(data, pacmod_enable_);
   set_p_clear_override(data, clear_override_);
   set_p_ignore_override(data, ignore_override_);
 }
 
 void Globalcmd69::Reset() {
-AINFO<<"(DMCZP) EnteringMethod: Globalcmd69::Reset";
   // TODO(QiL) :you should check this manually
   pacmod_enable_ = Global_cmd_69::PACMOD_ENABLE_CONTROL_DISABLED;
   clear_override_ = Global_cmd_69::CLEAR_OVERRIDE_DON_T_CLEAR_ACTIVE_OVERRIDES;
@@ -54,7 +50,6 @@ AINFO<<"(DMCZP) EnteringMethod: Globalcmd69::Reset";
 
 Globalcmd69* Globalcmd69::set_pacmod_enable(
     Global_cmd_69::Pacmod_enableType pacmod_enable) {
-AINFO<<"(DMCZP) EnteringMethod: Globalcmd69::set_pacmod_enable";
   pacmod_enable_ = pacmod_enable;
   return this;
 }
@@ -66,7 +61,6 @@ AINFO<<"(DMCZP) EnteringMethod: Globalcmd69::set_pacmod_enable";
 // 'physical_unit': ''}
 void Globalcmd69::set_p_pacmod_enable(
     uint8_t* data, Global_cmd_69::Pacmod_enableType pacmod_enable) {
-AINFO<<"(DMCZP) EnteringMethod: Globalcmd69::set_p_pacmod_enable";
   uint8_t x = pacmod_enable;
 
   Byte to_set(data + 0);
@@ -75,7 +69,6 @@ AINFO<<"(DMCZP) EnteringMethod: Globalcmd69::set_p_pacmod_enable";
 
 Globalcmd69* Globalcmd69::set_clear_override(
     Global_cmd_69::Clear_overrideType clear_override) {
-AINFO<<"(DMCZP) EnteringMethod: Globalcmd69::set_clear_override";
   clear_override_ = clear_override;
   return this;
 }
@@ -87,7 +80,6 @@ AINFO<<"(DMCZP) EnteringMethod: Globalcmd69::set_clear_override";
 // 'type': 'enum', 'order': 'motorola', 'physical_unit': ''}
 void Globalcmd69::set_p_clear_override(
     uint8_t* data, Global_cmd_69::Clear_overrideType clear_override) {
-AINFO<<"(DMCZP) EnteringMethod: Globalcmd69::set_p_clear_override";
   uint8_t x = clear_override;
 
   Byte to_set(data + 0);
@@ -96,7 +88,6 @@ AINFO<<"(DMCZP) EnteringMethod: Globalcmd69::set_p_clear_override";
 
 Globalcmd69* Globalcmd69::set_ignore_override(
     Global_cmd_69::Ignore_overrideType ignore_override) {
-AINFO<<"(DMCZP) EnteringMethod: Globalcmd69::set_ignore_override";
   ignore_override_ = ignore_override;
   return this;
 }
@@ -108,7 +99,6 @@ AINFO<<"(DMCZP) EnteringMethod: Globalcmd69::set_ignore_override";
 // 'type': 'enum', 'order': 'motorola', 'physical_unit': ''}
 void Globalcmd69::set_p_ignore_override(
     uint8_t* data, Global_cmd_69::Ignore_overrideType ignore_override) {
-AINFO<<"(DMCZP) EnteringMethod: Globalcmd69::set_p_ignore_override";
   uint8_t x = ignore_override;
 
   Byte to_set(data + 0);

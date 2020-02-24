@@ -22,7 +22,6 @@ namespace apollo {
 namespace image_decompress {
 
 TEST(ImageDecompressComponentTest, Init) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   cyber::Init("image_decompress_component_test");
   ImageDecompressComponent component;
 }

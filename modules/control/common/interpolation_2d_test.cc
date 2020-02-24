@@ -40,7 +40,6 @@ class Interpolation2DTest : public ::testing::Test {
 };
 
 TEST_F(Interpolation2DTest, normal) {
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   Interpolation2D::DataType xyz{std::make_tuple(0.3, 0.2, 0.6),
                                 std::make_tuple(10.1, 15.2, 5.5),
                                 std::make_tuple(20.2, 10.3, 30.5)};
@@ -72,7 +71,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST_F";
 }
 
 TEST_F(Interpolation2DTest, calibration_table) {
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   const auto &calibration_table =
       control_conf_.lon_controller_conf().calibration_table();
   AINFO << "Throttle calibration table:" << calibration_table.DebugString();

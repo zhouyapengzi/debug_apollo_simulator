@@ -33,10 +33,8 @@ namespace planning {
 // TODO(all): Add your unit test code here according to the Google Unit Testing
 // Specification.
 TEST(NaviPlannerTest, ComputeTrajectory) {}
-AINFO<<"(DMCZP) EnteringMethod: TEST";
 
 TEST(NaviPlannerTest, ErrorTest) {}
-AINFO<<"(DMCZP) EnteringMethod: TEST";
 
 }  // namespace planning
 }  // namespace apollo

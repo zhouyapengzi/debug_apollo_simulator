@@ -28,7 +28,6 @@ DECLARE_string(work_root);
 }
 
 namespace lidar {
-AINFO<<"(DMCZP) EnteringMethod: DECLARE_string";
 
 class FeatureGeneratorTest : public ::testing::Test {
  public:
@@ -113,7 +112,6 @@ class FeatureGeneratorTest : public ::testing::Test {
 };
 
 TEST_F(FeatureGeneratorTest, basic_test) {
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   char cyber_path[100] = "CYBER_PATH=";
   putenv(cyber_path);
   char module_path[100] = "MODULE_PATH=";

@@ -28,7 +28,6 @@ const int32_t Gyro6c::ID = 0x6C;
 
 void Gyro6c::Parse(const std::uint8_t *bytes, int32_t length,
                    ChassisDetail *chassis_detail) const {
-AINFO<<"(DMCZP) EnteringMethod: Gyro6c::Parse";
   chassis_detail->mutable_vehicle_spd()->set_roll_rate(
       roll_rate(bytes, length));
   chassis_detail->mutable_vehicle_spd()->set_yaw_rate(yaw_rate(bytes, length));
@@ -37,7 +36,6 @@ AINFO<<"(DMCZP) EnteringMethod: Gyro6c::Parse";
 }
 
 double Gyro6c::roll_rate(const std::uint8_t *bytes, int32_t length) const {
-AINFO<<"(DMCZP) EnteringMethod: Gyro6c::roll_rate";
   Byte high_frame(bytes + 1);
   int32_t high = high_frame.get_byte(0, 8);
   Byte low_frame(bytes + 0);
@@ -50,7 +48,6 @@ AINFO<<"(DMCZP) EnteringMethod: Gyro6c::roll_rate";
 }
 
 double Gyro6c::yaw_rate(const std::uint8_t *bytes, int32_t length) const {
-AINFO<<"(DMCZP) EnteringMethod: Gyro6c::yaw_rate";
   Byte high_frame(bytes + 3);
   int32_t high = high_frame.get_byte(0, 8);
   Byte low_frame(bytes + 2);

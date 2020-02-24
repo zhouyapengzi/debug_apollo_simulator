@@ -35,7 +35,6 @@ namespace canbus {
 namespace ch {
 
 ChMessageManager::ChMessageManager() {
-AINFO<<"(DMCZP) EnteringMethod: ChMessageManager::ChMessageManager";
   // Control Messages
   AddSendProtocolData<Brakecommand111, true>();
   AddSendProtocolData<Controlcommand115, true>();

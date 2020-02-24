@@ -33,21 +33,16 @@ using apollo::localization::LocalizationEstimate;
 using apollo::perception::PerceptionObstacles;
 
 std::string ThirdPartyPerception::Name() const {
-AINFO<<"(DMCZP) EnteringMethod: ThirdPartyPerception::Name";
   return FLAGS_third_party_perception_node_name;
 }
 
 Status ThirdPartyPerception::Init() { return Status::OK(); }
-AINFO<<"(DMCZP) EnteringMethod: ThirdPartyPerception::Init";
 
 Status ThirdPartyPerception::Start() { return Status::OK(); }
-AINFO<<"(DMCZP) EnteringMethod: ThirdPartyPerception::Start";
 
 void ThirdPartyPerception::Stop() {}
-AINFO<<"(DMCZP) EnteringMethod: ThirdPartyPerception::Stop";
 
 void ThirdPartyPerception::OnMobileye(const Mobileye& message) {
-AINFO<<"(DMCZP) EnteringMethod: ThirdPartyPerception::OnMobileye";
   ADEBUG << "Received mobileye data: run mobileye callback.";
   std::lock_guard<std::mutex> lock(third_party_perception_mutex_);
   if (FLAGS_enable_mobileye) {
@@ -57,14 +52,12 @@ AINFO<<"(DMCZP) EnteringMethod: ThirdPartyPerception::OnMobileye";
 }
 
 void ThirdPartyPerception::OnChassis(const Chassis& message) {
-AINFO<<"(DMCZP) EnteringMethod: ThirdPartyPerception::OnChassis";
   ADEBUG << "Received chassis data: run chassis callback.";
   std::lock_guard<std::mutex> lock(third_party_perception_mutex_);
   chassis_.CopyFrom(message);
 }
 
 void ThirdPartyPerception::OnDelphiESR(const DelphiESR& message) {
-AINFO<<"(DMCZP) EnteringMethod: ThirdPartyPerception::OnDelphiESR";
   ADEBUG << "Received delphi esr data: run delphi esr callback.";
   std::lock_guard<std::mutex> lock(third_party_perception_mutex_);
   last_radar_obstacles_.CopyFrom(current_radar_obstacles_);
@@ -79,7 +72,6 @@ AINFO<<"(DMCZP) EnteringMethod: ThirdPartyPerception::OnDelphiESR";
 }
 
 void ThirdPartyPerception::OnContiRadar(const ContiRadar& message) {
-AINFO<<"(DMCZP) EnteringMethod: ThirdPartyPerception::OnContiRadar";
   ADEBUG << "Received delphi esr data: run continental radar callback.";
   std::lock_guard<std::mutex> lock(third_party_perception_mutex_);
   last_radar_obstacles_.CopyFrom(current_radar_obstacles_);
@@ -94,14 +86,12 @@ AINFO<<"(DMCZP) EnteringMethod: ThirdPartyPerception::OnContiRadar";
 }
 
 void ThirdPartyPerception::OnLocalization(const LocalizationEstimate& message) {
-AINFO<<"(DMCZP) EnteringMethod: ThirdPartyPerception::OnLocalization";
   ADEBUG << "Received localization data: run localization callback.";
   std::lock_guard<std::mutex> lock(third_party_perception_mutex_);
   localization_.CopyFrom(message);
 }
 
 bool ThirdPartyPerception::Process(PerceptionObstacles* const response) {
-AINFO<<"(DMCZP) EnteringMethod: ThirdPartyPerception::Process";
   ADEBUG << "Timer is triggered: publish PerceptionObstacles";
   CHECK_NOTNULL(response);
 

@@ -26,13 +26,11 @@ namespace apollo {
 namespace planning {
 CosThetaSmoother::CosThetaSmoother(const CosThetaSmootherConfig& config)
     : config_(config) {}
-AINFO<<"(DMCZP) EnteringMethod: CosThetaSmoother::CosThetaSmoother";
 
 bool CosThetaSmoother::Solve(
     const std::vector<std::pair<double, double>>& raw_point2d,
     const std::vector<double>& bounds, std::vector<double>* opt_x,
     std::vector<double>* opt_y) {
-AINFO<<"(DMCZP) EnteringMethod: CosThetaSmoother::Solve";
   const double weight_cos_included_angle = config_.weight_cos_included_angle();
   const double weight_anchor_points = config_.weight_anchor_points();
   const double weight_length = config_.weight_length();

@@ -40,7 +40,6 @@ using apollo::common::math::Vec2d;
 
 TrajectoryPoint TrajectoryStitcher::ComputeTrajectoryPointFromVehicleState(
     const VehicleState& vehicle_state) {
-AINFO<<"(DMCZP) EnteringMethod: TrajectoryStitcher::ComputeTrajectoryPointFromVehicleState";
   TrajectoryPoint point;
   point.mutable_path_point()->set_s(0.0);
   point.mutable_path_point()->set_x(vehicle_state.x());
@@ -57,7 +56,6 @@ AINFO<<"(DMCZP) EnteringMethod: TrajectoryStitcher::ComputeTrajectoryPointFromVe
 std::vector<TrajectoryPoint>
 TrajectoryStitcher::ComputeReinitStitchingTrajectory(
     const double planning_cycle_time, const VehicleState& vehicle_state) {
-AINFO<<"(DMCZP) EnteringMethod: TrajectoryStitcher::ComputeReinitStitchingTrajectory";
   TrajectoryPoint reinit_point;
   constexpr double kEpsilon_v = 0.1;
   constexpr double kEpsilon_a = 0.4;
@@ -80,7 +78,6 @@ AINFO<<"(DMCZP) EnteringMethod: TrajectoryStitcher::ComputeReinitStitchingTrajec
 void TrajectoryStitcher::TransformLastPublishedTrajectory(
     const double x_diff, const double y_diff, const double theta_diff,
     PublishableTrajectory* prev_trajectory) {
-AINFO<<"(DMCZP) EnteringMethod: TrajectoryStitcher::TransformLastPublishedTrajectory";
   if (!prev_trajectory) {
     return;
   }

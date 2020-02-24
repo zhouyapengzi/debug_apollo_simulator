@@ -27,7 +27,6 @@ namespace apollo {
 namespace v2x {
 
 TEST(GrpcServerImplTest, Construct) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   apollo::cyber::Init("grpc_server_test");
   bool init_succ = false;
   GrpcServerImpl grpc_server;

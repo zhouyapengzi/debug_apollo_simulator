@@ -34,7 +34,6 @@ namespace {
 double PtSegDistance(double query_x, double query_y, double start_x,
                      double start_y, double end_x, double end_y,
                      double length) {
-AINFO<<"(DMCZP) EnteringMethod: PtSegDistance";
   const double x0 = query_x - start_x;
   const double y0 = query_y - start_y;
   const double dx = end_x - start_x;
@@ -61,7 +60,6 @@ Box2d::Box2d(const Vec2d &center, const double heading, const double length,
       heading_(heading),
       cos_heading_(cos(heading)),
       sin_heading_(sin(heading)) {
-AINFO<<"(DMCZP) EnteringMethod: Box2d::Box2d";
   CHECK_GT(length_, -kMathEpsilon);
   CHECK_GT(width_, -kMathEpsilon);
   InitCorners();
@@ -76,14 +74,12 @@ Box2d::Box2d(const LineSegment2d &axis, const double width)
       heading_(axis.heading()),
       cos_heading_(axis.cos_heading()),
       sin_heading_(axis.sin_heading()) {
-AINFO<<"(DMCZP) EnteringMethod: Box2d::Box2d";
   CHECK_GT(length_, -kMathEpsilon);
   CHECK_GT(width_, -kMathEpsilon);
   InitCorners();
 }
 
 void Box2d::InitCorners() {
-AINFO<<"(DMCZP) EnteringMethod: Box2d::InitCorners";
   const double dx1 = cos_heading_ * half_length_;
   const double dy1 = sin_heading_ * half_length_;
   const double dx2 = sin_heading_ * half_width_;
@@ -111,14 +107,12 @@ Box2d::Box2d(const AABox2d &aabox)
       heading_(0.0),
       cos_heading_(1.0),
       sin_heading_(0.0) {
-AINFO<<"(DMCZP) EnteringMethod: Box2d::Box2d";
   CHECK_GT(length_, -kMathEpsilon);
   CHECK_GT(width_, -kMathEpsilon);
 }
 
 Box2d Box2d::CreateAABox(const Vec2d &one_corner,
                          const Vec2d &opposite_corner) {
-AINFO<<"(DMCZP) EnteringMethod: Box2d::CreateAABox";
   const double x1 = std::min(one_corner.x(), opposite_corner.x());
   const double x2 = std::max(one_corner.x(), opposite_corner.x());
   const double y1 = std::min(one_corner.y(), opposite_corner.y());
@@ -127,7 +121,6 @@ AINFO<<"(DMCZP) EnteringMethod: Box2d::CreateAABox";
 }
 
 void Box2d::GetAllCorners(std::vector<Vec2d> *const corners) const {
-AINFO<<"(DMCZP) EnteringMethod: Box2d::GetAllCorners";
   if (corners == nullptr) {
     return;
   }
@@ -137,7 +130,6 @@ AINFO<<"(DMCZP) EnteringMethod: Box2d::GetAllCorners";
 std::vector<Vec2d> Box2d::GetAllCorners() const { return corners_; }
 
 bool Box2d::IsPointIn(const Vec2d &point) const {
-AINFO<<"(DMCZP) EnteringMethod: Box2d::IsPointIn";
   const double x0 = point.x() - center_.x();
   const double y0 = point.y() - center_.y();
   const double dx = std::abs(x0 * cos_heading_ + y0 * sin_heading_);
@@ -146,7 +138,6 @@ AINFO<<"(DMCZP) EnteringMethod: Box2d::IsPointIn";
 }
 
 bool Box2d::IsPointOnBoundary(const Vec2d &point) const {
-AINFO<<"(DMCZP) EnteringMethod: Box2d::IsPointOnBoundary";
   const double x0 = point.x() - center_.x();
   const double y0 = point.y() - center_.y();
   const double dx = std::abs(x0 * cos_heading_ + y0 * sin_heading_);
@@ -158,7 +149,6 @@ AINFO<<"(DMCZP) EnteringMethod: Box2d::IsPointOnBoundary";
 }
 
 double Box2d::DistanceTo(const Vec2d &point) const {
-AINFO<<"(DMCZP) EnteringMethod: Box2d::DistanceTo";
   const double x0 = point.x() - center_.x();
   const double y0 = point.y() - center_.y();
   const double dx =
@@ -175,7 +165,6 @@ AINFO<<"(DMCZP) EnteringMethod: Box2d::DistanceTo";
 }
 
 bool Box2d::HasOverlap(const LineSegment2d &line_segment) const {
-AINFO<<"(DMCZP) EnteringMethod: Box2d::HasOverlap";
   if (line_segment.length() <= kMathEpsilon) {
     return IsPointIn(line_segment.start());
   }
@@ -189,7 +178,6 @@ AINFO<<"(DMCZP) EnteringMethod: Box2d::HasOverlap";
 }
 
 double Box2d::DistanceTo(const LineSegment2d &line_segment) const {
-AINFO<<"(DMCZP) EnteringMethod: Box2d::DistanceTo";
   if (line_segment.length() <= kMathEpsilon) {
     return DistanceTo(line_segment.start());
   }
@@ -284,12 +272,10 @@ AINFO<<"(DMCZP) EnteringMethod: Box2d::DistanceTo";
 }
 
 double Box2d::DistanceTo(const Box2d &box) const {
-AINFO<<"(DMCZP) EnteringMethod: Box2d::DistanceTo";
   return Polygon2d(box).DistanceTo(*this);
 }
 
 bool Box2d::HasOverlap(const Box2d &box) const {
-AINFO<<"(DMCZP) EnteringMethod: Box2d::HasOverlap";
   if (box.max_x() < min_x() || box.min_x() > max_x() || box.max_y() < min_y() ||
       box.min_y() > max_y()) {
     return false;
@@ -326,7 +312,6 @@ AINFO<<"(DMCZP) EnteringMethod: Box2d::HasOverlap";
 }
 
 AABox2d Box2d::GetAABox() const {
-AINFO<<"(DMCZP) EnteringMethod: Box2d::GetAABox";
   const double dx1 = std::abs(cos_heading_ * half_length_);
   const double dy1 = std::abs(sin_heading_ * half_length_);
   const double dx2 = std::abs(sin_heading_ * half_width_);
@@ -335,7 +320,6 @@ AINFO<<"(DMCZP) EnteringMethod: Box2d::GetAABox";
 }
 
 void Box2d::RotateFromCenter(const double rotate_angle) {
-AINFO<<"(DMCZP) EnteringMethod: Box2d::RotateFromCenter";
   heading_ = NormalizeAngle(heading_ + rotate_angle);
   cos_heading_ = std::cos(heading_);
   sin_heading_ = std::sin(heading_);
@@ -343,27 +327,23 @@ AINFO<<"(DMCZP) EnteringMethod: Box2d::RotateFromCenter";
 }
 
 void Box2d::Shift(const Vec2d &shift_vec) {
-AINFO<<"(DMCZP) EnteringMethod: Box2d::Shift";
   center_ += shift_vec;
   InitCorners();
 }
 
 void Box2d::LongitudinalExtend(const double extension_length) {
-AINFO<<"(DMCZP) EnteringMethod: Box2d::LongitudinalExtend";
   length_ += extension_length;
   half_length_ += extension_length / 2.0;
   InitCorners();
 }
 
 void Box2d::LateralExtend(const double extension_length) {
-AINFO<<"(DMCZP) EnteringMethod: Box2d::LateralExtend";
   width_ += extension_length;
   half_width_ += extension_length / 2.0;
   InitCorners();
 }
 
 std::string Box2d::DebugString() const {
-AINFO<<"(DMCZP) EnteringMethod: Box2d::DebugString";
   return util::StrCat("box2d ( center = ", center_.DebugString(),
                       "  heading = ", heading_, "  length = ", length_,
                       "  width = ", width_, " )");

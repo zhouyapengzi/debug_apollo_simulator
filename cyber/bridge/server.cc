@@ -24,12 +24,6 @@ Server::Server(Node& node)
     , acceptor(io, endpoint)
     , socket(io)
 {
-AINFO<<"(DMCZP) EnteringMethod: DEFINE_int32";
-AINFO<<"(DMCZP) EnteringMethod: Server::Server";
-AINFO<<"(DMCZP) EnteringMethod: Server::run";
-AINFO<<"(DMCZP) EnteringMethod: Server::stop";
-AINFO<<"(DMCZP) EnteringMethod: Server::begin_accept";
-AINFO<<"(DMCZP) EnteringMethod: Server::end_accept";
     signals.add(SIGTERM);
     signals.add(SIGINT);
 }

@@ -20,12 +20,10 @@ namespace apollo {
 namespace prediction {
 
 ExtrapolationPredictor::ExtrapolationPredictor() {
-AINFO<<"(DMCZP) EnteringMethod: ExtrapolationPredictor::ExtrapolationPredictor";
   predictor_type_ = ObstacleConf::EXTRAPOLATION_PREDICTOR;
 }
 
 void ExtrapolationPredictor::Predict(Obstacle* obstacle) {
-AINFO<<"(DMCZP) EnteringMethod: ExtrapolationPredictor::Predict";
   Clear();
 
   CHECK_NOTNULL(obstacle);
@@ -49,7 +47,6 @@ AINFO<<"(DMCZP) EnteringMethod: ExtrapolationPredictor::Predict";
 void ExtrapolationPredictor::DrawShortTermTrajectory(
     const Feature& feature,
     std::vector<apollo::common::TrajectoryPoint>* points) {
-AINFO<<"(DMCZP) EnteringMethod: ExtrapolationPredictor::DrawShortTermTrajectory";
   for (const auto& point : feature.short_term_predicted_trajectory_points()) {
     points->push_back(point);
   }

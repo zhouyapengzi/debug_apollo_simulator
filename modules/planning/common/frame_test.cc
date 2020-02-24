@@ -43,7 +43,6 @@ class FrameTest : public ::testing::Test {
 };
 
 TEST_F(FrameTest, AlignPredictionTime) {
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   int first_traj_size = prediction_obstacles_.prediction_obstacle(0)
                             .trajectory(0)
                             .trajectory_point_size();

@@ -29,7 +29,6 @@ namespace apollo {
 namespace planning {
 
 TEST(SpeedProfileGeneratorTest, GenerateFallbackSpeedProfile) {}
-AINFO<<"(DMCZP) EnteringMethod: TEST";
 
 }  // namespace planning
 }  // namespace apollo

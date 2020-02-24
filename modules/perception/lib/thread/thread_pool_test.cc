@@ -31,7 +31,6 @@ using google::protobuf::NewCallback;
 using std::vector;
 
 void Callback(int tag, BlockingCounter* counter) {
-AINFO<<"(DMCZP) EnteringMethod: Callback";
   AINFO << "callback executed, tag: " << tag;
   counter->Decrement();
 }
@@ -45,7 +44,6 @@ class MyCallback {
 };
 
 TEST(ThreadPoolTest, Test) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   ThreadPool thread_pool(2);
   thread_pool.Start();
 

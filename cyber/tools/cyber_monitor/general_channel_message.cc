@@ -29,7 +29,6 @@ constexpr int ReaderWriterOffset = 4;
 
 const char* GeneralChannelMessage::errCode2Str(
     GeneralChannelMessage::ErrorCode errCode) {
-AINFO<<"(DMCZP) EnteringMethod: GeneralChannelMessage::errCode2Str";
   const char* ret;
   switch (errCode) {
     case GeneralChannelMessage::ErrorCode::NewSubClassFailed:
@@ -63,7 +62,6 @@ AINFO<<"(DMCZP) EnteringMethod: GeneralChannelMessage::errCode2Str";
 }
 
 bool GeneralChannelMessage::isErrorCode(void* ptr) {
-AINFO<<"(DMCZP) EnteringMethod: GeneralChannelMessage::isErrorCode";
   GeneralChannelMessage::ErrorCode err =
       (GeneralChannelMessage::ErrorCode)(reinterpret_cast<intptr_t>(ptr));
   switch (err) {
@@ -81,7 +79,6 @@ AINFO<<"(DMCZP) EnteringMethod: GeneralChannelMessage::isErrorCode";
 }
 
 double GeneralChannelMessage::frame_ratio(void) {
-AINFO<<"(DMCZP) EnteringMethod: GeneralChannelMessage::frame_ratio";
   if (!is_enabled() || !has_message_come()) return 0.0;
   auto time_now = apollo::cyber::Time::MonoTime();
   auto interval = time_now - time_last_calc_;
@@ -103,7 +100,6 @@ AINFO<<"(DMCZP) EnteringMethod: GeneralChannelMessage::frame_ratio";
 
 GeneralChannelMessage* GeneralChannelMessage::OpenChannel(
     const std::string& channelName) {
-AINFO<<"(DMCZP) EnteringMethod: GeneralChannelMessage::OpenChannel";
   if (channelName.empty() || node_name_.empty()) {
     return castErrorCode2Ptr(ErrorCode::ChannelNameOrNodeNameIsEmpty);
   }
@@ -133,7 +129,6 @@ AINFO<<"(DMCZP) EnteringMethod: GeneralChannelMessage::OpenChannel";
 }
 
 void GeneralChannelMessage::Render(const Screen* s, int key) {
-AINFO<<"(DMCZP) EnteringMethod: GeneralChannelMessage::Render";
   switch (key) {
     case 'b':
     case 'B':
@@ -176,7 +171,6 @@ AINFO<<"(DMCZP) EnteringMethod: GeneralChannelMessage::Render";
 
 void GeneralChannelMessage::RenderInfo(const Screen* s, int key,
                                        unsigned lineNo) {
-AINFO<<"(DMCZP) EnteringMethod: GeneralChannelMessage::RenderInfo";
   page_item_count_ = s->Height() - lineNo;
   pages_ = static_cast<int>(readers_.size() + writers_.size() + lineNo) /
                page_item_count_ +
@@ -223,7 +217,6 @@ AINFO<<"(DMCZP) EnteringMethod: GeneralChannelMessage::RenderInfo";
 
 void GeneralChannelMessage::RenderDebugString(const Screen* s, int key,
                                               unsigned lineNo) {
-AINFO<<"(DMCZP) EnteringMethod: GeneralChannelMessage::RenderDebugString";
   if (has_message_come()) {
     if (raw_msg_class_ == nullptr) {
       auto rawFactory = apollo::cyber::message::ProtobufFactory::Instance();

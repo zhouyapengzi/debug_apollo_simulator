@@ -42,14 +42,12 @@ PointCloudUpdater::PointCloudUpdater(WebSocketHandler *websocket)
       websocket_(websocket),
       point_cloud_str_(""),
       future_ready_(true) {
-AINFO<<"(DMCZP) EnteringMethod: PointCloudUpdater::PointCloudUpdater";
   RegisterMessageHandlers();
 }
 
 PointCloudUpdater::~PointCloudUpdater() { Stop(); }
 
 void PointCloudUpdater::LoadLidarHeight(const std::string &file_path) {
-AINFO<<"(DMCZP) EnteringMethod: PointCloudUpdater::LoadLidarHeight";
   if (!cyber::common::PathExists(file_path)) {
     AWARN << "No such file: " << FLAGS_lidar_height_yaml
           << ". Using default lidar height:" << kDefaultLidarHeight;
@@ -74,7 +72,6 @@ AINFO<<"(DMCZP) EnteringMethod: PointCloudUpdater::LoadLidarHeight";
 }
 
 void PointCloudUpdater::RegisterMessageHandlers() {
-AINFO<<"(DMCZP) EnteringMethod: PointCloudUpdater::RegisterMessageHandlers";
   // Send current point_cloud status to the new client.
   websocket_->RegisterConnectionReadyHandler(
       [this](WebSocketHandler::Connection *conn) {
@@ -121,7 +118,6 @@ AINFO<<"(DMCZP) EnteringMethod: PointCloudUpdater::RegisterMessageHandlers";
 }
 
 void PointCloudUpdater::Start() {
-AINFO<<"(DMCZP) EnteringMethod: PointCloudUpdater::Start";
   localization_reader_ = node_->CreateReader<LocalizationEstimate>(
       FLAGS_localization_topic,
       [this](const std::shared_ptr<LocalizationEstimate> &msg) {
@@ -137,7 +133,6 @@ AINFO<<"(DMCZP) EnteringMethod: PointCloudUpdater::Start";
 }
 
 void PointCloudUpdater::Stop() {
-AINFO<<"(DMCZP) EnteringMethod: PointCloudUpdater::Stop";
   if (enabled_) {
     async_future_.wait();
   }
@@ -145,7 +140,6 @@ AINFO<<"(DMCZP) EnteringMethod: PointCloudUpdater::Stop";
 
 void PointCloudUpdater::UpdatePointCloud(
     const std::shared_ptr<drivers::PointCloud> &point_cloud) {
-AINFO<<"(DMCZP) EnteringMethod: PointCloudUpdater::UpdatePointCloud";
   if (!enabled_) {
     return;
   }
@@ -182,7 +176,6 @@ AINFO<<"(DMCZP) EnteringMethod: PointCloudUpdater::UpdatePointCloud";
 
 void PointCloudUpdater::FilterPointCloud(
     pcl::PointCloud<pcl::PointXYZ>::Ptr pcl_ptr) {
-AINFO<<"(DMCZP) EnteringMethod: PointCloudUpdater::FilterPointCloud";
   pcl::VoxelGrid<pcl::PointXYZ> voxel_grid;
   voxel_grid.setInputCloud(pcl_ptr);
   voxel_grid.setLeafSize(static_cast<float>(FLAGS_voxel_filter_size),
@@ -216,7 +209,6 @@ AINFO<<"(DMCZP) EnteringMethod: PointCloudUpdater::FilterPointCloud";
 
 void PointCloudUpdater::UpdateLocalizationTime(
     const std::shared_ptr<LocalizationEstimate> &localization) {
-AINFO<<"(DMCZP) EnteringMethod: PointCloudUpdater::UpdateLocalizationTime";
   last_localization_time_ = localization->header().timestamp_sec();
 }
 

@@ -18,7 +18,6 @@
 #include "modules/map/tools/map_datachecker/client/client_gflags.h"
 
 int main(int argc, char** argv) {
-AINFO<<"(DMCZP) EnteringMethod: main";
   google::ParseCommandLineFlags(&argc, &argv, true);
 
   AINFO << "cyber init";

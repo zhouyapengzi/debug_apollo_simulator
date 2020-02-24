@@ -36,7 +36,6 @@ using apollo::common::SLPoint;
 using apollo::common::math::CartesianFrenetConverter;
 
 bool PathData::SetDiscretizedPath(const DiscretizedPath &path) {
-AINFO<<"(DMCZP) EnteringMethod: PathData::SetDiscretizedPath";
   if (reference_line_ == nullptr) {
     AERROR << "Should NOT set discretized path when reference line is nullptr. "
               "Please set reference line first.";
@@ -53,7 +52,6 @@ AINFO<<"(DMCZP) EnteringMethod: PathData::SetDiscretizedPath";
 }
 
 bool PathData::SetFrenetPath(const FrenetFramePath &frenet_path) {
-AINFO<<"(DMCZP) EnteringMethod: PathData::SetFrenetPath";
   if (reference_line_ == nullptr) {
     AERROR << "Should NOT set frenet path when reference line is nullptr. "
               "Please set reference line first.";
@@ -72,7 +70,6 @@ AINFO<<"(DMCZP) EnteringMethod: PathData::SetFrenetPath";
 bool PathData::SetPathPointDecisionGuide(
     const std::vector<std::tuple<double, PathPointType, double>>
         &path_point_decision_guide) {
-AINFO<<"(DMCZP) EnteringMethod: PathData::SetPathPointDecisionGuide";
   if (reference_line_ == nullptr) {
     AERROR << "Should NOT set path_point_decision_guide when reference line is "
               "nullptr. ";
@@ -88,12 +85,10 @@ AINFO<<"(DMCZP) EnteringMethod: PathData::SetPathPointDecisionGuide";
 }
 
 const DiscretizedPath &PathData::discretized_path() const {
-AINFO<<"(DMCZP) EnteringMethod: &PathData::discretized_path";
   return discretized_path_;
 }
 
 const FrenetFramePath &PathData::frenet_frame_path() const {
-AINFO<<"(DMCZP) EnteringMethod: &PathData::frenet_frame_path";
   return frenet_path_;
 }
 
@@ -103,7 +98,6 @@ const std::vector<std::tuple<double, PathData::PathPointType, double>>
 }
 
 bool PathData::Empty() const {
-AINFO<<"(DMCZP) EnteringMethod: PathData::Empty";
   return discretized_path_.empty() && frenet_path_.empty();
 }
 
@@ -113,19 +107,16 @@ std::list<std::pair<DiscretizedPath, FrenetFramePath>>
 }
 
 void PathData::SetReferenceLine(const ReferenceLine *reference_line) {
-AINFO<<"(DMCZP) EnteringMethod: PathData::SetReferenceLine";
   Clear();
   reference_line_ = reference_line;
 }
 
 common::PathPoint PathData::GetPathPointWithPathS(const double s) const {
-AINFO<<"(DMCZP) EnteringMethod: PathData::GetPathPointWithPathS";
   return discretized_path_.Evaluate(s);
 }
 
 bool PathData::GetPathPointWithRefS(const double ref_s,
                                     common::PathPoint *const path_point) const {
-AINFO<<"(DMCZP) EnteringMethod: PathData::GetPathPointWithRefS";
   DCHECK_NOTNULL(reference_line_);
   DCHECK_NOTNULL(path_point);
   DCHECK_EQ(discretized_path_.size(), frenet_path_.size());
@@ -163,7 +154,6 @@ AINFO<<"(DMCZP) EnteringMethod: PathData::GetPathPointWithRefS";
 }
 
 void PathData::Clear() {
-AINFO<<"(DMCZP) EnteringMethod: PathData::Clear";
   discretized_path_.clear();
   frenet_path_.clear();
   path_point_decision_guide_.clear();
@@ -171,7 +161,6 @@ AINFO<<"(DMCZP) EnteringMethod: PathData::Clear";
 }
 
 std::string PathData::DebugString() const {
-AINFO<<"(DMCZP) EnteringMethod: PathData::DebugString";
   const auto limit =
       std::min(discretized_path_.size(),
                static_cast<size_t>(FLAGS_trajectory_point_num_for_debug));
@@ -185,7 +174,6 @@ AINFO<<"(DMCZP) EnteringMethod: PathData::DebugString";
 
 bool PathData::SLToXY(const FrenetFramePath &frenet_path,
                       DiscretizedPath *const discretized_path) {
-AINFO<<"(DMCZP) EnteringMethod: PathData::SLToXY";
   DCHECK_NOTNULL(discretized_path);
   std::vector<common::PathPoint> path_points;
   for (const common::FrenetFramePoint &frenet_point : frenet_path) {
@@ -230,7 +218,6 @@ AINFO<<"(DMCZP) EnteringMethod: PathData::SLToXY";
 
 bool PathData::XYToSL(const DiscretizedPath &discretized_path,
                       FrenetFramePath *const frenet_path) {
-AINFO<<"(DMCZP) EnteringMethod: PathData::XYToSL";
   CHECK_NOTNULL(frenet_path);
   CHECK_NOTNULL(reference_line_);
   std::vector<common::FrenetFramePoint> frenet_frame_points;
@@ -260,7 +247,6 @@ AINFO<<"(DMCZP) EnteringMethod: PathData::XYToSL";
 }
 
 bool PathData::LeftTrimWithRefS(const common::FrenetFramePoint &frenet_point) {
-AINFO<<"(DMCZP) EnteringMethod: PathData::LeftTrimWithRefS";
   CHECK_NOTNULL(reference_line_);
   std::vector<common::FrenetFramePoint> frenet_frame_points;
   frenet_frame_points.emplace_back(frenet_point);
@@ -278,16 +264,13 @@ AINFO<<"(DMCZP) EnteringMethod: PathData::LeftTrimWithRefS";
 }
 
 bool PathData::UpdateFrenetFramePath(const ReferenceLine *reference_line) {
-AINFO<<"(DMCZP) EnteringMethod: PathData::UpdateFrenetFramePath";
   reference_line_ = reference_line;
   return SetDiscretizedPath(discretized_path_);
 }
 
 void PathData::set_path_label(const std::string &label) { path_label_ = label; }
-AINFO<<"(DMCZP) EnteringMethod: PathData::set_path_label";
 
 const std::string &PathData::path_label() const { return path_label_; }
-AINFO<<"(DMCZP) EnteringMethod: &PathData::path_label";
 
 }  // namespace planning
 }  // namespace apollo

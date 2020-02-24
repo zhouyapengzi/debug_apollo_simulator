@@ -58,10 +58,8 @@ STBoundaryMapper::STBoundaryMapper(const SpeedBoundsDeciderConfig& config,
       vehicle_param_(common::VehicleConfigHelper::GetConfig().vehicle_param()),
       planning_max_distance_(planning_distance),
       planning_max_time_(planning_time) {}
-AINFO<<"(DMCZP) EnteringMethod: STBoundaryMapper::STBoundaryMapper";
 
 Status STBoundaryMapper::ComputeSTBoundary(PathDecision* path_decision) const {
-AINFO<<"(DMCZP) EnteringMethod: STBoundaryMapper::ComputeSTBoundary";
   CHECK_GT(planning_max_time_, 0.0);
 
   if (path_data_.discretized_path().size() < 2) {
@@ -119,7 +117,6 @@ AINFO<<"(DMCZP) EnteringMethod: STBoundaryMapper::ComputeSTBoundary";
 
 bool STBoundaryMapper::MapStopDecision(
     Obstacle* stop_obstacle, const ObjectDecisionType& stop_decision) const {
-AINFO<<"(DMCZP) EnteringMethod: STBoundaryMapper::MapStopDecision";
   DCHECK(stop_decision.has_stop()) << "Must have stop decision";
   common::SLPoint stop_sl_point;
   reference_line_.XYToSL(stop_decision.stop().stop_point(), &stop_sl_point);
@@ -158,7 +155,6 @@ AINFO<<"(DMCZP) EnteringMethod: STBoundaryMapper::MapStopDecision";
 }
 
 void STBoundaryMapper::ComputeSTBoundary(Obstacle* obstacle) const {
-AINFO<<"(DMCZP) EnteringMethod: STBoundaryMapper::ComputeSTBoundary";
   std::vector<STPoint> lower_points;
   std::vector<STPoint> upper_points;
 
@@ -186,7 +182,6 @@ bool STBoundaryMapper::GetOverlapBoundaryPoints(
     const std::vector<PathPoint>& path_points, const Obstacle& obstacle,
     std::vector<STPoint>* upper_points,
     std::vector<STPoint>* lower_points) const {
-AINFO<<"(DMCZP) EnteringMethod: STBoundaryMapper::GetOverlapBoundaryPoints";
   DCHECK_NOTNULL(upper_points);
   DCHECK_NOTNULL(lower_points);
   DCHECK(upper_points->empty());
@@ -318,7 +313,6 @@ AINFO<<"(DMCZP) EnteringMethod: STBoundaryMapper::GetOverlapBoundaryPoints";
 
 void STBoundaryMapper::ComputeSTBoundaryWithDecision(
     Obstacle* obstacle, const ObjectDecisionType& decision) const {
-AINFO<<"(DMCZP) EnteringMethod: STBoundaryMapper::ComputeSTBoundaryWithDecision";
   DCHECK(decision.has_follow() || decision.has_yield() ||
          decision.has_overtake())
       << "decision is " << decision.DebugString()
@@ -373,7 +367,6 @@ AINFO<<"(DMCZP) EnteringMethod: STBoundaryMapper::ComputeSTBoundaryWithDecision"
 bool STBoundaryMapper::CheckOverlap(const PathPoint& path_point,
                                     const Box2d& obs_box,
                                     const double buffer) const {
-AINFO<<"(DMCZP) EnteringMethod: STBoundaryMapper::CheckOverlap";
   Vec2d ego_center_map_frame((vehicle_param_.front_edge_to_center() -
                               vehicle_param_.back_edge_to_center()) *
                                  0.5,

@@ -53,13 +53,11 @@ class WeyControllerTest : public ::testing::Test {
 };
 
 TEST_F(WeyControllerTest, Init) {
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   ErrorCode ret = controller_.Init(params_, &sender_, &msg_manager_);
   EXPECT_EQ(ret, ErrorCode::OK);
 }
 
 TEST_F(WeyControllerTest, SetDrivingMode) {
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   Chassis chassis;
   chassis.set_driving_mode(Chassis::COMPLETE_AUTO_DRIVE);
 
@@ -71,7 +69,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST_F";
 }
 
 TEST_F(WeyControllerTest, Status) {
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   controller_.Init(params_, &sender_, &msg_manager_);
 
   controller_.set_driving_mode(Chassis::COMPLETE_AUTO_DRIVE);
@@ -84,7 +81,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST_F";
 }
 
 TEST_F(WeyControllerTest, UpdateDrivingMode) {
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   controller_.Init(params_, &sender_, &msg_manager_);
 
   controller_.set_driving_mode(Chassis::COMPLETE_AUTO_DRIVE);

@@ -32,11 +32,9 @@ constexpr double kJunctionClearanceDist = 15.0;
 
 PathLaneBorrowDecider::PathLaneBorrowDecider(const TaskConfig& config)
     : Decider(config) {}
-AINFO<<"(DMCZP) EnteringMethod: PathLaneBorrowDecider::PathLaneBorrowDecider";
 
 Status PathLaneBorrowDecider::Process(
     Frame* const frame, ReferenceLineInfo* const reference_line_info) {
-AINFO<<"(DMCZP) EnteringMethod: PathLaneBorrowDecider::Process";
   // Sanity checks.
   CHECK_NOTNULL(frame);
   CHECK_NOTNULL(reference_line_info);
@@ -54,7 +52,6 @@ AINFO<<"(DMCZP) EnteringMethod: PathLaneBorrowDecider::Process";
 
 bool PathLaneBorrowDecider::IsNecessaryToBorrowLane(
     const Frame& frame, const ReferenceLineInfo& reference_line_info) {
-AINFO<<"(DMCZP) EnteringMethod: PathLaneBorrowDecider::IsNecessaryToBorrowLane";
   if (PlanningContext::Instance()
           ->path_decider_info()
           .is_in_path_lane_borrow_scenario()) {
@@ -99,17 +96,14 @@ AINFO<<"(DMCZP) EnteringMethod: PathLaneBorrowDecider::IsNecessaryToBorrowLane";
 // TODO(jiacheng): depending on our needs, may allow lane-borrowing during
 //                 lane-change.
 bool PathLaneBorrowDecider::HasSingleReferenceLine(const Frame& frame) {
-AINFO<<"(DMCZP) EnteringMethod: PathLaneBorrowDecider::HasSingleReferenceLine";
   return frame.reference_line_info().size() == 1;
 }
 
 bool PathLaneBorrowDecider::IsWithinSidePassingSpeedADC(const Frame& frame) {
-AINFO<<"(DMCZP) EnteringMethod: PathLaneBorrowDecider::IsWithinSidePassingSpeedADC";
   return frame.PlanningStartPoint().v() < FLAGS_lane_borrow_max_speed;
 }
 
 bool PathLaneBorrowDecider::IsLongTermBlockingObstacle() {
-AINFO<<"(DMCZP) EnteringMethod: PathLaneBorrowDecider::IsLongTermBlockingObstacle";
   if (PlanningContext::Instance()
           ->path_decider_info()
           .front_static_obstacle_cycle_counter() >=
@@ -124,9 +118,6 @@ AINFO<<"(DMCZP) EnteringMethod: PathLaneBorrowDecider::IsLongTermBlockingObstacl
 
 bool PathLaneBorrowDecider::IsBlockingObstacleWithinDestination(
     const ReferenceLineInfo& reference_line_info) {
-AINFO<<"(DMCZP) EnteringMethod: PathLaneBorrowDecider::IsBlockingObstacleWithinDestination";
-AINFO<<"(DMCZP) EnteringMethod: PathLaneBorrowDecider::IsBlockingObstacleFarFromIntersection";
-AINFO<<"(DMCZP) EnteringMethod: PathLaneBorrowDecider::IsSidePassableObstacle";
   std::string blocking_obstacle_id = PlanningContext::Instance()
                                          ->path_decider_info()
                                          .front_static_obstacle_id();

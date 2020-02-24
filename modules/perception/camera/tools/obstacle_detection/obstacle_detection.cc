@@ -41,21 +41,6 @@ DEFINE_string(transformer_conf, "config.pt", "transformer config");
 DEFINE_string(dist_type, "", "dist pred type: H-on-h, H-from-h");
 
 namespace apollo {
-AINFO<<"(DMCZP) EnteringMethod: DEFINE_string";
-AINFO<<"(DMCZP) EnteringMethod: DEFINE_string";
-AINFO<<"(DMCZP) EnteringMethod: DEFINE_string";
-AINFO<<"(DMCZP) EnteringMethod: DEFINE_string";
-AINFO<<"(DMCZP) EnteringMethod: DEFINE_string";
-AINFO<<"(DMCZP) EnteringMethod: DEFINE_string";
-AINFO<<"(DMCZP) EnteringMethod: DEFINE_int32";
-AINFO<<"(DMCZP) EnteringMethod: DEFINE_int32";
-AINFO<<"(DMCZP) EnteringMethod: DEFINE_string";
-AINFO<<"(DMCZP) EnteringMethod: DEFINE_string";
-AINFO<<"(DMCZP) EnteringMethod: DEFINE_string";
-AINFO<<"(DMCZP) EnteringMethod: DEFINE_string";
-AINFO<<"(DMCZP) EnteringMethod: DEFINE_string";
-AINFO<<"(DMCZP) EnteringMethod: DEFINE_string";
-AINFO<<"(DMCZP) EnteringMethod: DEFINE_string";
 namespace perception {
 namespace camera {
 
@@ -79,7 +64,6 @@ static const cv::Scalar kFaceColorMap[] = {
 };
 
 base::ObjectSubType GetObjectSubType(const std::string &type_name) {
-AINFO<<"(DMCZP) EnteringMethod: GetObjectSubType";
   if (type_name == "car") {
     return base::ObjectSubType::CAR;
   } else if (type_name == "van") {
@@ -105,7 +89,6 @@ AINFO<<"(DMCZP) EnteringMethod: GetObjectSubType";
 }
 
 bool LoadFromKitti(const std::string &kitti_path, CameraFrame *frame) {
-AINFO<<"(DMCZP) EnteringMethod: LoadFromKitti";
   frame->detected_objects.clear();
   FILE *fp = fopen(kitti_path.c_str(), "r");
   if (fp == nullptr) {
@@ -160,7 +143,6 @@ AINFO<<"(DMCZP) EnteringMethod: LoadFromKitti";
 }
 
 int main() {
-AINFO<<"(DMCZP) EnteringMethod: main";
   CameraFrame frame;
   DataProvider data_provider;
   frame.data_provider = &data_provider;
@@ -351,7 +333,6 @@ AINFO<<"(DMCZP) EnteringMethod: main";
 }  // namespace apollo
 
 int main(int argc, char *argv[]) {
-AINFO<<"(DMCZP) EnteringMethod: main";
   google::ParseCommandLineFlags(&argc, &argv, true);
   google::SetUsageMessage(
       "command line brew\n"

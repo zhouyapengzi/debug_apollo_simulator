@@ -23,7 +23,6 @@ namespace perception {
 namespace camera {
 
 TEST(MatchTest, init_test) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   Select select;
   EXPECT_FALSE(select.Init(-1, 20));
   EXPECT_FALSE(select.Init(100, -3));
@@ -31,7 +30,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST";
 }
 
 TEST(MatchTest, nvn1) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   Select select;
   std::vector<base::TrafficLightPtr> hdmap_bboxes;
   std::vector<base::TrafficLightPtr> detect_bboxes;
@@ -59,7 +57,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST";
 }
 
 TEST(MatchTest, nvn2) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   Select select;
   std::vector<base::TrafficLightPtr> hdmap_bboxes;
   std::vector<base::TrafficLightPtr> detect_bboxes;
@@ -107,7 +104,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST";
 }
 
 TEST(MatchTest, nvm12) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   Select select;
   std::vector<base::TrafficLightPtr> hdmap_bboxes;
   std::vector<base::TrafficLightPtr> detect_bboxes;
@@ -145,7 +141,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST";
 }
 
 TEST(MatchTest, nvm21) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   Select select;
   std::vector<base::TrafficLightPtr> hdmap_bboxes;
   std::vector<base::TrafficLightPtr> detect_bboxes;
@@ -186,7 +181,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST";
 }
 
 TEST(MatchTest, nvm24) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   Select select;
   std::vector<base::TrafficLightPtr> hdmap_bboxes;
   std::vector<base::TrafficLightPtr> detect_bboxes;
@@ -249,7 +243,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST";
 }
 
 TEST(MatchTest, test_outside_crop_roi) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   Select select;
   std::vector<base::TrafficLightPtr> hdmap_bboxes;
   std::vector<base::TrafficLightPtr> detect_bboxes;
@@ -293,7 +286,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST";
 }
 
 TEST(MatchTest, test_outside_image) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   Select select;
   std::vector<base::TrafficLightPtr> hdmap_bboxes;
   std::vector<base::TrafficLightPtr> detect_bboxes;

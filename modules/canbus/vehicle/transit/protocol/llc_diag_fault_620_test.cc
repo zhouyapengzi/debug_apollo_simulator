@@ -36,7 +36,6 @@ class Diag_fault_620_test : public ::testing::Test {
 };
 
 TEST_F(Diag_fault_620_test, General) {
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   const uint8_t bytes[8] = {0x8f, 0x9e, 0xad, 0xbc, 0xcb, 0xda, 0xe9, 0xf8};
   const int32_t length_disengagecounter_brake = 8;
   const int32_t length_disengagecounter_steer = 8;

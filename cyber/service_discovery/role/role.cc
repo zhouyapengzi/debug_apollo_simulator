@@ -25,14 +25,11 @@ namespace service_discovery {
 using proto::RoleAttributes;
 
 RoleBase::RoleBase() : timestamp_ns_(0) {}
-AINFO<<"(DMCZP) EnteringMethod: RoleBase::RoleBase";
 
 RoleBase::RoleBase(const RoleAttributes& attr, uint64_t timestamp_ns)
     : attributes_(attr), timestamp_ns_(timestamp_ns) {}
-AINFO<<"(DMCZP) EnteringMethod: RoleBase::RoleBase";
 
 bool RoleBase::Match(const RoleAttributes& target_attr) const {
-AINFO<<"(DMCZP) EnteringMethod: RoleBase::Match";
   if (target_attr.has_node_id() &&
       target_attr.node_id() != attributes_.node_id()) {
     return false;
@@ -52,17 +49,13 @@ AINFO<<"(DMCZP) EnteringMethod: RoleBase::Match";
 }
 
 bool RoleBase::IsEarlierThan(const RoleBase& other) const {
-AINFO<<"(DMCZP) EnteringMethod: RoleBase::IsEarlierThan";
   return timestamp_ns_ < other.timestamp_ns();
 }
 
 RoleWriter::RoleWriter(const RoleAttributes& attr, uint64_t timestamp_ns)
     : RoleBase(attr, timestamp_ns) {}
-AINFO<<"(DMCZP) EnteringMethod: RoleWriter::RoleWriter";
 
-AINFO<<"(DMCZP) EnteringMethod: RoleServer::RoleServer";
 bool RoleWriter::Match(const RoleAttributes& target_attr) const {
-AINFO<<"(DMCZP) EnteringMethod: RoleWriter::Match";
   if (target_attr.has_channel_id() &&
       target_attr.channel_id() != attributes_.channel_id()) {
     return false;
@@ -79,7 +72,6 @@ RoleServer::RoleServer(const RoleAttributes& attr, uint64_t timestamp_ns)
     : RoleBase(attr, timestamp_ns) {}
 
 bool RoleServer::Match(const RoleAttributes& target_attr) const {
-AINFO<<"(DMCZP) EnteringMethod: RoleServer::Match";
   if (target_attr.has_service_id() &&
       target_attr.service_id() != attributes_.service_id()) {
     return false;

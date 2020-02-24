@@ -36,7 +36,6 @@ namespace canbus {
 namespace wey {
 
 WeyMessageManager::WeyMessageManager() {
-AINFO<<"(DMCZP) EnteringMethod: WeyMessageManager::WeyMessageManager";
   // Control Messages
   AddSendProtocolData<Ads1111, true>();
   AddSendProtocolData<Ads338e, true>();

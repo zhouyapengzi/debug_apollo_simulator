@@ -22,7 +22,6 @@
 DECLARE_bool(reckless_change_lane);
 
 namespace apollo {
-AINFO<<"(DMCZP) EnteringMethod: DECLARE_bool";
 namespace planning {
 
 /**
@@ -53,7 +52,6 @@ class SunnyvaleLoopTest : public PlanningTestBase {
  * A cruise test case
  */
 TEST_F(SunnyvaleLoopTest, cruise) {
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   std::string seq_num = "1";
   FLAGS_test_routing_response_file = seq_num + "_routing.pb.txt";
   FLAGS_test_prediction_file = seq_num + "_prediction.pb.txt";
@@ -70,7 +68,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST_F";
 // the existing obstacle is not along reference line and gets ignored
 /*
 TEST_F(SunnyvaleLoopTest, stop) {
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   std::string seq_num = "2";
   FLAGS_test_routing_response_file = seq_num + "_routing.pb.txt";
   FLAGS_test_prediction_file = seq_num + "_prediction.pb.txt";
@@ -87,7 +84,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST_F";
  * A follow test case
  */
 TEST_F(SunnyvaleLoopTest, follow_01) {
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   std::string seq_num = "3";
   FLAGS_test_routing_response_file = seq_num + "_routing.pb.txt";
   FLAGS_test_prediction_file = seq_num + "_prediction.pb.txt";
@@ -102,7 +98,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST_F";
  * A nudge test case
  */
 TEST_F(SunnyvaleLoopTest, nudge) {
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   std::string seq_num = "4";
   FLAGS_test_routing_response_file = seq_num + "_routing.pb.txt";
   FLAGS_test_prediction_file = seq_num + "_prediction.pb.txt";
@@ -117,7 +112,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST_F";
  * A follow test case
  */
 TEST_F(SunnyvaleLoopTest, follow_02) {
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   std::string seq_num = "5";
   FLAGS_test_routing_response_file = seq_num + "_routing.pb.txt";
   FLAGS_test_prediction_file = seq_num + "_prediction.pb.txt";
@@ -132,7 +126,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST_F";
  * A follow test case
  */
 TEST_F(SunnyvaleLoopTest, follow_03) {
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   std::string seq_num = "6";
   FLAGS_test_routing_response_file = seq_num + "_routing.pb.txt";
   FLAGS_test_prediction_file = seq_num + "_prediction.pb.txt";
@@ -147,7 +140,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST_F";
  * A slowdown test case
  */
 TEST_F(SunnyvaleLoopTest, slowdown_01) {
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   std::string seq_num = "7";
   FLAGS_test_routing_response_file = seq_num + "_routing.pb.txt";
   FLAGS_test_prediction_file = seq_num + "_prediction.pb.txt";
@@ -162,7 +154,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST_F";
  * A right turn test case
  */
 TEST_F(SunnyvaleLoopTest, rightturn_01) {
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   std::string seq_num = "8";
   FLAGS_test_routing_response_file = seq_num + "_routing.pb.txt";
   FLAGS_test_prediction_file = seq_num + "_prediction.pb.txt";
@@ -179,7 +170,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST_F";
  * A traffic light test case
  */
 TEST_F(SunnyvaleLoopTest, rightturn_with_red_light) {
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   std::string seq_num = "8";
   FLAGS_test_routing_response_file = seq_num + "_routing.pb.txt";
   FLAGS_test_prediction_file = seq_num + "_prediction.pb.txt";
@@ -195,7 +185,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST_F";
  * A change lane test case
  */
 TEST_F(SunnyvaleLoopTest, change_lane) {
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   std::string seq_num = "9";
   FLAGS_test_routing_response_file = seq_num + "_routing.pb.txt";
   FLAGS_test_localization_file = seq_num + "_localization.pb.txt";
@@ -208,7 +197,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST_F";
  * test mission complete
  */
 TEST_F(SunnyvaleLoopTest, mission_complete) {
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   std::string seq_num = "10";
   FLAGS_test_routing_response_file = seq_num + "_routing.pb.txt";
   FLAGS_test_localization_file = seq_num + "_localization.pb.txt";
@@ -222,7 +210,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST_F";
  * test change lane with obstacle at target lane
  */
 TEST_F(SunnyvaleLoopTest, avoid_change_left) {
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   std::string seq_num = "11";
   FLAGS_reckless_change_lane = true;
   FLAGS_test_chassis_file = seq_num + "_chassis.pb.txt";
@@ -237,7 +224,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST_F";
  * test qp path failure
  */
 TEST_F(SunnyvaleLoopTest, qp_path_failure) {
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   std::string seq_num = "12";
   FLAGS_reckless_change_lane = true;
   FLAGS_test_chassis_file = seq_num + "_chassis.pb.txt";
@@ -254,7 +240,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST_F";
  * Expect to keep going on the current lane.
  */
 TEST_F(SunnyvaleLoopTest, change_lane_failback) {
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   // temporarily disable this test case, because a lane in routing cannot be
   // found on test map.
   auto target_lane = hdmap::HDMapUtil::BaseMapPtr()->GetLaneById(

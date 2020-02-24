@@ -30,10 +30,8 @@ PlayTask::PlayTask(const MessagePtr& msg, const WriterPtr& writer,
       writer_(writer),
       msg_real_time_ns_(msg_real_time_ns),
       msg_play_time_ns_(msg_play_time_ns) {}
-AINFO<<"(DMCZP) EnteringMethod: PlayTask::PlayTask";
 
 void PlayTask::Play() {
-AINFO<<"(DMCZP) EnteringMethod: PlayTask::Play";
   if (writer_ == nullptr) {
     AERROR << "writer is nullptr, can't write message.";
     return;

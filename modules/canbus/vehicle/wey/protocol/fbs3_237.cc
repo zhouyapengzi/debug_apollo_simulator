@@ -28,12 +28,10 @@ namespace wey {
 using ::apollo::drivers::canbus::Byte;
 
 Fbs3237::Fbs3237() {}
-AINFO<<"(DMCZP) EnteringMethod: Fbs3237::Fbs3237";
 const int32_t Fbs3237::ID = 0x237;
 
 void Fbs3237::Parse(const std::uint8_t* bytes, int32_t length,
                     ChassisDetail* chassis) const {
-AINFO<<"(DMCZP) EnteringMethod: Fbs3237::Parse";
   chassis->mutable_wey()->mutable_fbs3_237()->set_engspd(engspd(bytes, length));
   chassis->mutable_wey()->mutable_fbs3_237()->set_accpedalpos(
       accpedalpos(bytes, length));
@@ -59,7 +57,6 @@ AINFO<<"(DMCZP) EnteringMethod: Fbs3237::Parse";
 // 'physical_range': '[0|8198.875]', 'bit': 7, 'type': 'double',
 // 'order': 'motorola', 'physical_unit': 'rpm'}
 double Fbs3237::engspd(const std::uint8_t* bytes, int32_t length) const {
-AINFO<<"(DMCZP) EnteringMethod: Fbs3237::engspd";
   Byte t0(bytes + 0);
   int32_t x = t0.get_byte(0, 8);
 
@@ -77,7 +74,6 @@ AINFO<<"(DMCZP) EnteringMethod: Fbs3237::engspd";
 // 'physical_range': '[0|100.3935]', 'bit': 23, 'type': 'double',
 // 'order': 'motorola', 'physical_unit': '%'}
 double Fbs3237::accpedalpos(const std::uint8_t* bytes, int32_t length) const {
-AINFO<<"(DMCZP) EnteringMethod: Fbs3237::accpedalpos";
   Byte t0(bytes + 2);
   int32_t x = t0.get_byte(0, 8);
 
@@ -93,9 +89,7 @@ AINFO<<"(DMCZP) EnteringMethod: Fbs3237::accpedalpos";
 // 'enum', 'order': 'motorola', 'physical_unit': ''}
 Fbs3_237::EpbswtichpositionType Fbs3237::epbswtichposition(
     const std::uint8_t* bytes, int32_t length) const {
-AINFO<<"(DMCZP) EnteringMethod: Fbs3237::epbswtichposition";
   Byte t0(bytes + 3);
-AINFO<<"(DMCZP) EnteringMethod: Fbs3237::eps_streeingmode";
   int32_t x = t0.get_byte(6, 2);
 
   Fbs3_237::EpbswtichpositionType ret =
@@ -110,7 +104,6 @@ AINFO<<"(DMCZP) EnteringMethod: Fbs3237::eps_streeingmode";
 // 'type': 'enum', 'order': 'motorola', 'physical_unit': ''}
 Fbs3_237::CurrentgearType Fbs3237::currentgear(const std::uint8_t* bytes,
                                                int32_t length) const {
-AINFO<<"(DMCZP) EnteringMethod: Fbs3237::currentgear";
   Byte t0(bytes + 4);
   int32_t x = t0.get_byte(6, 2);
 
@@ -143,7 +136,6 @@ Fbs3_237::Eps_streeingmodeType Fbs3237::eps_streeingmode(
 // 'type': 'double', 'order': 'motorola', 'physical_unit': 'Nm'}
 double Fbs3237::epsdrvinputtrqvalue(const std::uint8_t* bytes,
                                     int32_t length) const {
-AINFO<<"(DMCZP) EnteringMethod: Fbs3237::epsdrvinputtrqvalue";
   Byte t0(bytes + 5);
   int32_t x = t0.get_byte(0, 8);
 
@@ -157,7 +149,6 @@ AINFO<<"(DMCZP) EnteringMethod: Fbs3237::epsdrvinputtrqvalue";
 // 'type': 'double', 'order': 'motorola', 'physical_unit': 'A'}
 double Fbs3237::epsconsumedcurrvalue(const std::uint8_t* bytes,
                                      int32_t length) const {
-AINFO<<"(DMCZP) EnteringMethod: Fbs3237::epsconsumedcurrvalue";
   Byte t0(bytes + 6);
   int32_t x = t0.get_byte(0, 8);
 
@@ -174,7 +165,6 @@ AINFO<<"(DMCZP) EnteringMethod: Fbs3237::epsconsumedcurrvalue";
 // 'type': 'enum', 'order': 'motorola', 'physical_unit': ''}
 Fbs3_237::EpscurrmodType Fbs3237::epscurrmod(const std::uint8_t* bytes,
                                              int32_t length) const {
-AINFO<<"(DMCZP) EnteringMethod: Fbs3237::epscurrmod";
   Byte t0(bytes + 7);
   int32_t x = t0.get_byte(3, 3);
 

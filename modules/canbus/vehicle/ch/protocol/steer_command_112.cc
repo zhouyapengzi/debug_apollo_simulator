@@ -27,23 +27,19 @@ const int32_t Steercommand112::ID = 0x112;
 
 // public
 Steercommand112::Steercommand112() { Reset(); }
-AINFO<<"(DMCZP) EnteringMethod: Steercommand112::Steercommand112";
 
 uint32_t Steercommand112::GetPeriod() const {
-AINFO<<"(DMCZP) EnteringMethod: Steercommand112::GetPeriod";
   // modify every protocol's period manually
   static const uint32_t PERIOD = 20 * 1000;
   return PERIOD;
 }
 
 void Steercommand112::UpdateData(uint8_t* data) {
-AINFO<<"(DMCZP) EnteringMethod: Steercommand112::UpdateData";
   set_p_steer_angle_en_ctrl(data, steer_angle_en_ctrl_);
   set_p_steer_angle_cmd(data, steer_angle_cmd_);
 }
 
 void Steercommand112::Reset() {
-AINFO<<"(DMCZP) EnteringMethod: Steercommand112::Reset";
   // you should check this manually
   steer_angle_en_ctrl_ = Steer_command_112::STEER_ANGLE_EN_CTRL_DISABLE;
   steer_angle_cmd_ = 0.0;
@@ -51,8 +47,6 @@ AINFO<<"(DMCZP) EnteringMethod: Steercommand112::Reset";
 
 Steercommand112* Steercommand112::set_steer_angle_en_ctrl(
     Steer_command_112::Steer_angle_en_ctrlType steer_angle_en_ctrl) {
-AINFO<<"(DMCZP) EnteringMethod: Steercommand112::set_steer_angle_en_ctrl";
-AINFO<<"(DMCZP) EnteringMethod: Steercommand112::set_p_steer_angle_en_ctrl";
   steer_angle_en_ctrl_ = steer_angle_en_ctrl;
   return this;
 }
@@ -72,7 +66,6 @@ void Steercommand112::set_p_steer_angle_en_ctrl(
 }
 
 Steercommand112* Steercommand112::set_steer_angle_cmd(double steer_angle_cmd) {
-AINFO<<"(DMCZP) EnteringMethod: Steercommand112::set_steer_angle_cmd";
   steer_angle_cmd_ = steer_angle_cmd;
   return this;
 }
@@ -83,7 +76,6 @@ AINFO<<"(DMCZP) EnteringMethod: Steercommand112::set_steer_angle_cmd";
 // 'double', 'order': 'intel', 'physical_unit': 'radian'}
 void Steercommand112::set_p_steer_angle_cmd(uint8_t* data,
                                             double steer_angle_cmd) {
-AINFO<<"(DMCZP) EnteringMethod: Steercommand112::set_p_steer_angle_cmd";
   steer_angle_cmd = ProtocolData::BoundedValue(-0.524, 0.524, steer_angle_cmd);
   int x = static_cast<int>(steer_angle_cmd / 0.001000);
   uint8_t t = 0;

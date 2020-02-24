@@ -22,7 +22,6 @@ namespace apollo {
 namespace planning {
 
 TEST(ComparableCost, simple) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   ComparableCost cc;
   EXPECT_FLOAT_EQ(cc.safety_cost, 0.0);
   EXPECT_FLOAT_EQ(cc.smoothness_cost, 0.0);
@@ -32,7 +31,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST";
 }
 
 TEST(ComparableCost, add_cost) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   ComparableCost cc1(true, false, false, 10.12, 2.51);
   ComparableCost cc2(false, false, true, 6.1, 3.45);
 
@@ -76,7 +74,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST";
 }
 
 TEST(ComparableCost, compare_to) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   ComparableCost cc1(true, false, false, 10.12, 2.51);
   ComparableCost cc2(false, false, true, 6.1, 3.45);
   EXPECT_GT(cc1, cc2);

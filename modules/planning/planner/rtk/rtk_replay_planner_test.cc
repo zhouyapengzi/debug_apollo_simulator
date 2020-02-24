@@ -29,7 +29,6 @@ namespace apollo {
 namespace planning {
 
 TEST(RTKReplayPlannerTest, ComputeTrajectory) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   FLAGS_rtk_trajectory_filename = "modules/planning/testdata/garage.csv";
   FLAGS_enable_map_reference_unify = false;
   RTKReplayPlanner planner;
@@ -76,7 +75,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST";
 }
 
 TEST(RTKReplayPlannerTest, ErrorTest) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   FLAGS_rtk_trajectory_filename =
       "modules/planning/testdata/garage_no_file.csv";
   FLAGS_enable_map_reference_unify = false;

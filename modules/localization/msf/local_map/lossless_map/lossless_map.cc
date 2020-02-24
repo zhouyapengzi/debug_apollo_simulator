@@ -23,13 +23,11 @@ namespace apollo {
 namespace localization {
 namespace msf {
 LosslessMap::LosslessMap(LosslessMapConfig* config) : BaseMap(config) {}
-AINFO<<"(DMCZP) EnteringMethod: LosslessMap::LosslessMap";
 
 LosslessMap::~LosslessMap() {}
 
 void LosslessMap::SetValue(const Eigen::Vector3d& coordinate, int zone_id,
                            unsigned char intensity) {
-AINFO<<"(DMCZP) EnteringMethod: LosslessMap::SetValue";
   for (size_t i = 0; i < map_config_->map_resolutions_.size(); ++i) {
     MapNodeIndex index = MapNodeIndex::GetMapNodeIndex(
         *map_config_, coordinate, static_cast<unsigned int>(i), zone_id);
@@ -41,7 +39,6 @@ AINFO<<"(DMCZP) EnteringMethod: LosslessMap::SetValue";
 
 void LosslessMap::SetValueLayer(const Eigen::Vector3d& coordinate, int zone_id,
                                 unsigned char intensity) {
-AINFO<<"(DMCZP) EnteringMethod: LosslessMap::SetValueLayer";
   for (size_t i = 0; i < map_config_->map_resolutions_.size(); ++i) {
     MapNodeIndex index = MapNodeIndex::GetMapNodeIndex(
         *map_config_, coordinate, static_cast<unsigned int>(i), zone_id);
@@ -54,7 +51,6 @@ AINFO<<"(DMCZP) EnteringMethod: LosslessMap::SetValueLayer";
 void LosslessMap::GetValue(const Eigen::Vector3d& coordinate, int zone_id,
                            unsigned int resolution_id,
                            std::vector<unsigned char>* values) {
-AINFO<<"(DMCZP) EnteringMethod: LosslessMap::GetValue";
   DCHECK_LT(resolution_id, map_config_->map_resolutions_.size());
   MapNodeIndex index = MapNodeIndex::GetMapNodeIndex(*map_config_, coordinate,
                                                      resolution_id, zone_id);
@@ -65,7 +61,6 @@ AINFO<<"(DMCZP) EnteringMethod: LosslessMap::GetValue";
 void LosslessMap::GetValueSafe(const Eigen::Vector3d& coordinate, int zone_id,
                                unsigned int resolution_id,
                                std::vector<unsigned char>* values) {
-AINFO<<"(DMCZP) EnteringMethod: LosslessMap::GetValueSafe";
   DCHECK_LT(resolution_id, map_config_->map_resolutions_.size());
   MapNodeIndex index = MapNodeIndex::GetMapNodeIndex(*map_config_, coordinate,
                                                      resolution_id, zone_id);
@@ -75,7 +70,6 @@ AINFO<<"(DMCZP) EnteringMethod: LosslessMap::GetValueSafe";
 
 void LosslessMap::GetVar(const Eigen::Vector3d& coordinate, int zone_id,
                          unsigned int resolution_id, std::vector<float>* vars) {
-AINFO<<"(DMCZP) EnteringMethod: LosslessMap::GetVar";
   DCHECK_LT(resolution_id, map_config_->map_resolutions_.size());
   MapNodeIndex index = MapNodeIndex::GetMapNodeIndex(*map_config_, coordinate,
                                                      resolution_id, zone_id);
@@ -86,7 +80,6 @@ AINFO<<"(DMCZP) EnteringMethod: LosslessMap::GetVar";
 void LosslessMap::GetVarSafe(const Eigen::Vector3d& coordinate, int zone_id,
                              unsigned int resolution_id,
                              std::vector<float>* vars) {
-AINFO<<"(DMCZP) EnteringMethod: LosslessMap::GetVarSafe";
   DCHECK_LT(resolution_id, map_config_->map_resolutions_.size());
   MapNodeIndex index = MapNodeIndex::GetMapNodeIndex(*map_config_, coordinate,
                                                      resolution_id, zone_id);
@@ -96,7 +89,6 @@ AINFO<<"(DMCZP) EnteringMethod: LosslessMap::GetVarSafe";
 
 void LosslessMap::GetAlt(const Eigen::Vector3d& coordinate, int zone_id,
                          unsigned int resolution_id, std::vector<float>* alts) {
-AINFO<<"(DMCZP) EnteringMethod: LosslessMap::GetAlt";
   DCHECK_LT(resolution_id, map_config_->map_resolutions_.size());
   MapNodeIndex index = MapNodeIndex::GetMapNodeIndex(*map_config_, coordinate,
                                                      resolution_id, zone_id);
@@ -107,7 +99,6 @@ AINFO<<"(DMCZP) EnteringMethod: LosslessMap::GetAlt";
 void LosslessMap::GetAltSafe(const Eigen::Vector3d& coordinate, int zone_id,
                              unsigned int resolution_id,
                              std::vector<float>* alts) {
-AINFO<<"(DMCZP) EnteringMethod: LosslessMap::GetAltSafe";
   DCHECK_LT(resolution_id, map_config_->map_resolutions_.size());
   MapNodeIndex index = MapNodeIndex::GetMapNodeIndex(*map_config_, coordinate,
                                                      resolution_id, zone_id);
@@ -118,7 +109,6 @@ AINFO<<"(DMCZP) EnteringMethod: LosslessMap::GetAltSafe";
 void LosslessMap::GetAltVar(const Eigen::Vector3d& coordinate, int zone_id,
                             unsigned int resolution_id,
                             std::vector<float>* alt_vars) {
-AINFO<<"(DMCZP) EnteringMethod: LosslessMap::GetAltVar";
   DCHECK_LT(resolution_id, map_config_->map_resolutions_.size());
   MapNodeIndex index = MapNodeIndex::GetMapNodeIndex(*map_config_, coordinate,
                                                      resolution_id, zone_id);
@@ -129,7 +119,6 @@ AINFO<<"(DMCZP) EnteringMethod: LosslessMap::GetAltVar";
 void LosslessMap::GetAltVarSafe(const Eigen::Vector3d& coordinate, int zone_id,
                                 unsigned int resolution_id,
                                 std::vector<float>* alt_vars) {
-AINFO<<"(DMCZP) EnteringMethod: LosslessMap::GetAltVarSafe";
   DCHECK_LT(resolution_id, map_config_->map_resolutions_.size());
   MapNodeIndex index = MapNodeIndex::GetMapNodeIndex(*map_config_, coordinate,
                                                      resolution_id, zone_id);
@@ -140,7 +129,6 @@ AINFO<<"(DMCZP) EnteringMethod: LosslessMap::GetAltVarSafe";
 void LosslessMap::GetCount(const Eigen::Vector3d& coordinate, int zone_id,
                            unsigned int resolution_id,
                            std::vector<unsigned int>* counts) {
-AINFO<<"(DMCZP) EnteringMethod: LosslessMap::GetCount";
   DCHECK_LT(resolution_id, map_config_->map_resolutions_.size());
   MapNodeIndex index = MapNodeIndex::GetMapNodeIndex(*map_config_, coordinate,
                                                      resolution_id, zone_id);
@@ -151,7 +139,6 @@ AINFO<<"(DMCZP) EnteringMethod: LosslessMap::GetCount";
 void LosslessMap::GetCountSafe(const Eigen::Vector3d& coordinate, int zone_id,
                                unsigned int resolution_id,
                                std::vector<unsigned int>* counts) {
-AINFO<<"(DMCZP) EnteringMethod: LosslessMap::GetCountSafe";
   DCHECK_LT(resolution_id, map_config_->map_resolutions_.size());
   MapNodeIndex index = MapNodeIndex::GetMapNodeIndex(*map_config_, coordinate,
                                                      resolution_id, zone_id);
@@ -161,7 +148,6 @@ AINFO<<"(DMCZP) EnteringMethod: LosslessMap::GetCountSafe";
 
 unsigned char LosslessMap::GetValue(const Eigen::Vector3d& coordinate,
                                     int zone_id, unsigned int resolution_id) {
-AINFO<<"(DMCZP) EnteringMethod: LosslessMap::GetValue";
   DCHECK_LT(resolution_id, map_config_->map_resolutions_.size());
   MapNodeIndex index = MapNodeIndex::GetMapNodeIndex(*map_config_, coordinate,
                                                      resolution_id, zone_id);
@@ -172,7 +158,6 @@ AINFO<<"(DMCZP) EnteringMethod: LosslessMap::GetValue";
 unsigned char LosslessMap::GetValueSafe(const Eigen::Vector3d& coordinate,
                                         int zone_id,
                                         unsigned int resolution_id) {
-AINFO<<"(DMCZP) EnteringMethod: LosslessMap::GetValueSafe";
   DCHECK_LT(resolution_id, map_config_->map_resolutions_.size());
   MapNodeIndex index = MapNodeIndex::GetMapNodeIndex(*map_config_, coordinate,
                                                      resolution_id, zone_id);
@@ -182,9 +167,7 @@ AINFO<<"(DMCZP) EnteringMethod: LosslessMap::GetValueSafe";
 
 float LosslessMap::GetVar(const Eigen::Vector3d& coordinate, int zone_id,
                           unsigned int resolution_id) {
-AINFO<<"(DMCZP) EnteringMethod: LosslessMap::GetVar";
   DCHECK_LT(resolution_id, map_config_->map_resolutions_.size());
-AINFO<<"(DMCZP) EnteringMethod: LosslessMap::GetAlt";
   MapNodeIndex index = MapNodeIndex::GetMapNodeIndex(*map_config_, coordinate,
                                                      resolution_id, zone_id);
   LosslessMapNode* node = static_cast<LosslessMapNode*>(GetMapNode(index));
@@ -193,8 +176,6 @@ AINFO<<"(DMCZP) EnteringMethod: LosslessMap::GetAlt";
 
 float LosslessMap::GetVarSafe(const Eigen::Vector3d& coordinate, int zone_id,
                               unsigned int resolution_id) {
-AINFO<<"(DMCZP) EnteringMethod: LosslessMap::GetVarSafe";
-AINFO<<"(DMCZP) EnteringMethod: LosslessMap::GetAltSafe";
   DCHECK_LT(resolution_id, map_config_->map_resolutions_.size());
   MapNodeIndex index = MapNodeIndex::GetMapNodeIndex(*map_config_, coordinate,
                                                      resolution_id, zone_id);
@@ -222,7 +203,6 @@ float LosslessMap::GetAltSafe(const Eigen::Vector3d& coordinate, int zone_id,
 
 float LosslessMap::GetAltVar(const Eigen::Vector3d& coordinate, int zone_id,
                              unsigned int resolution_id) {
-AINFO<<"(DMCZP) EnteringMethod: LosslessMap::GetAltVar";
   DCHECK_LT(resolution_id, map_config_->map_resolutions_.size());
   MapNodeIndex index = MapNodeIndex::GetMapNodeIndex(*map_config_, coordinate,
                                                      resolution_id, zone_id);
@@ -232,7 +212,6 @@ AINFO<<"(DMCZP) EnteringMethod: LosslessMap::GetAltVar";
 
 float LosslessMap::GetAltVarSafe(const Eigen::Vector3d& coordinate, int zone_id,
                                  unsigned int resolution_id) {
-AINFO<<"(DMCZP) EnteringMethod: LosslessMap::GetAltVarSafe";
   DCHECK_LT(resolution_id, map_config_->map_resolutions_.size());
   MapNodeIndex index = MapNodeIndex::GetMapNodeIndex(*map_config_, coordinate,
                                                      resolution_id, zone_id);
@@ -242,7 +221,6 @@ AINFO<<"(DMCZP) EnteringMethod: LosslessMap::GetAltVarSafe";
 
 unsigned int LosslessMap::GetCount(const Eigen::Vector3d& coordinate,
                                    int zone_id, unsigned int resolution_id) {
-AINFO<<"(DMCZP) EnteringMethod: LosslessMap::GetCount";
   DCHECK_LT(resolution_id, map_config_->map_resolutions_.size());
   MapNodeIndex index = MapNodeIndex::GetMapNodeIndex(*map_config_, coordinate,
                                                      resolution_id, zone_id);
@@ -253,7 +231,6 @@ AINFO<<"(DMCZP) EnteringMethod: LosslessMap::GetCount";
 unsigned int LosslessMap::GetCountSafe(const Eigen::Vector3d& coordinate,
                                        int zone_id,
                                        unsigned int resolution_id) {
-AINFO<<"(DMCZP) EnteringMethod: LosslessMap::GetCountSafe";
   DCHECK_LT(resolution_id, map_config_->map_resolutions_.size());
   MapNodeIndex index = MapNodeIndex::GetMapNodeIndex(*map_config_, coordinate,
                                                      resolution_id, zone_id);
@@ -265,7 +242,6 @@ void LosslessMap::PreloadMapArea(const Eigen::Vector3d& location,
                                  const Eigen::Vector3d& trans_diff,
                                  unsigned int resolution_id,
                                  unsigned int zone_id) {
-AINFO<<"(DMCZP) EnteringMethod: LosslessMap::PreloadMapArea";
   BaseMap::PreloadMapArea(location, trans_diff, resolution_id, zone_id);
   return;
 }
@@ -273,7 +249,6 @@ AINFO<<"(DMCZP) EnteringMethod: LosslessMap::PreloadMapArea";
 bool LosslessMap::LoadMapArea(const Eigen::Vector3d& seed_pt3d,
                               unsigned int resolution_id, unsigned int zone_id,
                               int filter_size_x, int filter_size_y) {
-AINFO<<"(DMCZP) EnteringMethod: LosslessMap::LoadMapArea";
   BaseMap::LoadMapArea(seed_pt3d, resolution_id, zone_id, filter_size_x,
                        filter_size_y);
   return true;

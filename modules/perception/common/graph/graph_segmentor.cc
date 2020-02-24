@@ -26,13 +26,11 @@ namespace common {
 
 namespace {
 float GetThreshold(const size_t sz, const float c) {
-AINFO<<"(DMCZP) EnteringMethod: GetThreshold";
   return c / static_cast<float>(sz);
 }
 }  // namespace
 
 void GraphSegmentor::Init(const float initial_threshold) {
-AINFO<<"(DMCZP) EnteringMethod: GraphSegmentor::Init";
   initial_threshold_ = initial_threshold;
   thresholds_.reserve(kMaxVerticesNum);
 
@@ -45,7 +43,6 @@ AINFO<<"(DMCZP) EnteringMethod: GraphSegmentor::Init";
 
 void GraphSegmentor::SegmentGraph(const int num_vertices, const int num_edges,
                                   Edge* edges, bool need_sort) {
-AINFO<<"(DMCZP) EnteringMethod: GraphSegmentor::SegmentGraph";
   if (edges == nullptr) {
     AERROR << "Input Null Edges.";
     return;

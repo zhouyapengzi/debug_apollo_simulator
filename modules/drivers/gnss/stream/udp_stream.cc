@@ -56,13 +56,11 @@ class UdpStream : public Stream {
 
 Stream* Stream::create_udp(const char* address, uint16_t port,
                            uint32_t timeout_usec) {
-AINFO<<"(DMCZP) EnteringMethod: Stream::create_udp";
   return new UdpStream(address, port, timeout_usec);
 }
 
 UdpStream::UdpStream(const char* address, uint16_t port, uint32_t timeout_usec)
     : sockfd_(-1), errno_(0) {
-AINFO<<"(DMCZP) EnteringMethod: UdpStream::UdpStream";
   peer_addr_ = inet_addr(address);
   peer_port_ = htons(port);
   timeout_usec_ = timeout_usec;
@@ -72,7 +70,6 @@ AINFO<<"(DMCZP) EnteringMethod: UdpStream::UdpStream";
 UdpStream::~UdpStream() { this->close(); }
 
 void UdpStream::open() {
-AINFO<<"(DMCZP) EnteringMethod: UdpStream::open";
   int fd = socket(AF_INET, SOCK_DGRAM, IPPROTO_UDP);
   if (fd < 0) {
     // error
@@ -137,7 +134,6 @@ AINFO<<"(DMCZP) EnteringMethod: UdpStream::open";
 }
 
 void UdpStream::close() {
-AINFO<<"(DMCZP) EnteringMethod: UdpStream::close";
   if (sockfd_ > 0) {
     ::close(sockfd_);
     sockfd_ = -1;
@@ -146,7 +142,6 @@ AINFO<<"(DMCZP) EnteringMethod: UdpStream::close";
 }
 
 bool UdpStream::Connect() {
-AINFO<<"(DMCZP) EnteringMethod: UdpStream::Connect";
   if (sockfd_ < 0) {
     this->open();
     if (sockfd_ < 0) {
@@ -165,7 +160,6 @@ AINFO<<"(DMCZP) EnteringMethod: UdpStream::Connect";
 }
 
 bool UdpStream::Disconnect() {
-AINFO<<"(DMCZP) EnteringMethod: UdpStream::Disconnect";
   if (sockfd_ < 0) {
     // not open
     return false;
@@ -176,7 +170,6 @@ AINFO<<"(DMCZP) EnteringMethod: UdpStream::Disconnect";
 }
 
 size_t UdpStream::read(uint8_t* buffer, size_t max_length) {
-AINFO<<"(DMCZP) EnteringMethod: UdpStream::read";
   ssize_t ret = 0;
   struct sockaddr_in peer_sockaddr;
   socklen_t socklenth = sizeof(peer_sockaddr);
@@ -205,7 +198,6 @@ AINFO<<"(DMCZP) EnteringMethod: UdpStream::read";
 }
 
 size_t UdpStream::write(const uint8_t* data, size_t length) {
-AINFO<<"(DMCZP) EnteringMethod: UdpStream::write";
   size_t total_nsent = 0;
   struct sockaddr_in peer_sockaddr;
   bzero(&peer_sockaddr, sizeof(peer_sockaddr));

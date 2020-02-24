@@ -48,12 +48,10 @@ DpRoadGraph::DpRoadGraph(const DpPolyPathConfig &config,
       reference_line_info_(reference_line_info),
       reference_line_(reference_line_info.reference_line()),
       speed_data_(speed_data) {}
-AINFO<<"(DMCZP) EnteringMethod: DpRoadGraph::DpRoadGraph";
 
 bool DpRoadGraph::FindPathTunnel(const common::TrajectoryPoint &init_point,
                                  const std::vector<const Obstacle *> &obstacles,
                                  PathData *const path_data) {
-AINFO<<"(DMCZP) EnteringMethod: DpRoadGraph::FindPathTunnel";
   CHECK_NOTNULL(path_data);
 
   init_point_ = init_point;
@@ -114,7 +112,6 @@ AINFO<<"(DMCZP) EnteringMethod: DpRoadGraph::FindPathTunnel";
 bool DpRoadGraph::GenerateMinCostPath(
     const std::vector<const Obstacle *> &obstacles,
     std::vector<DpRoadGraphNode> *min_cost_path) {
-AINFO<<"(DMCZP) EnteringMethod: DpRoadGraph::GenerateMinCostPath";
   CHECK(min_cost_path != nullptr);
 
   std::vector<std::vector<common::SLPoint>> path_waypoints;
@@ -207,7 +204,6 @@ AINFO<<"(DMCZP) EnteringMethod: DpRoadGraph::GenerateMinCostPath";
 }
 
 void DpRoadGraph::UpdateNode(const std::shared_ptr<RoadGraphMessage> &msg) {
-AINFO<<"(DMCZP) EnteringMethod: DpRoadGraph::UpdateNode";
   DCHECK_NOTNULL(msg);
   DCHECK_NOTNULL(msg->trajectory_cost);
   DCHECK_NOTNULL(msg->front);
@@ -254,7 +250,6 @@ AINFO<<"(DMCZP) EnteringMethod: DpRoadGraph::UpdateNode";
 }
 
 bool DpRoadGraph::IsValidCurve(const QuinticPolynomialCurve1d &curve) const {
-AINFO<<"(DMCZP) EnteringMethod: DpRoadGraph::IsValidCurve";
   constexpr double kMaxLateralDistance = 20.0;
   for (double s = 0.0; s < curve.ParamLength(); s += 2.0) {
     const double l = curve.Evaluate(0, s);
@@ -271,7 +266,6 @@ void DpRoadGraph::GetCurveCost(TrajectoryCost trajectory_cost,
                                const uint32_t curr_level,
                                const uint32_t total_level,
                                ComparableCost *cost) {
-AINFO<<"(DMCZP) EnteringMethod: DpRoadGraph::GetCurveCost";
   *cost =
       trajectory_cost.Calculate(curve, start_s, end_s, curr_level, total_level);
 }

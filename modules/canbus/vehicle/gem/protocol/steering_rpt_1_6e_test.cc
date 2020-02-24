@@ -28,7 +28,6 @@ class Steeringrpt16eTest : public ::testing::Test {
 };
 
 TEST_F(Steeringrpt16eTest, reset) {
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   Steeringrpt16e steeringrpt16;
   int32_t length = 8;
   ChassisDetail chassis_detail;

@@ -23,7 +23,6 @@ namespace prediction {
 
 void GetRecordFileNames(const boost::filesystem::path& p,
                         std::vector<std::string>* record_files) {
-AINFO<<"(DMCZP) EnteringMethod: GetRecordFileNames";
   CHECK(record_files);
   if (!boost::filesystem::exists(p)) {
     return;

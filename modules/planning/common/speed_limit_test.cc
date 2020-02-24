@@ -42,14 +42,12 @@ class SpeedLimitTest : public ::testing::Test {
 };
 
 TEST_F(SpeedLimitTest, SimpleSpeedLimitCreation) {
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   SpeedLimit simple_speed_limit;
   EXPECT_TRUE(simple_speed_limit.speed_limit_points().empty());
   EXPECT_EQ(speed_limit_.speed_limit_points().size(), 100);
 }
 
 TEST_F(SpeedLimitTest, GetSpeedLimitByS) {
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   EXPECT_EQ(speed_limit_.speed_limit_points().size(), 100);
   double s = 0.0;
   const double ds = 0.01;

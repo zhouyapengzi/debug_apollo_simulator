@@ -39,12 +39,10 @@ namespace fusion {
 using cyber::common::GetAbsolutePath;
 
 ProbabilisticFusion::ProbabilisticFusion() {}
-AINFO<<"(DMCZP) EnteringMethod: ProbabilisticFusion::ProbabilisticFusion";
 
 ProbabilisticFusion::~ProbabilisticFusion() {}
 
 bool ProbabilisticFusion::Init(const FusionInitOptions& init_options) {
-AINFO<<"(DMCZP) EnteringMethod: ProbabilisticFusion::Init";
   main_sensor_ = init_options.main_sensor;
 
   BaseInitOptions options;
@@ -110,7 +108,6 @@ AINFO<<"(DMCZP) EnteringMethod: ProbabilisticFusion::Init";
 bool ProbabilisticFusion::Fuse(const FusionOptions& options,
                                const base::FrameConstPtr& sensor_frame,
                                std::vector<base::ObjectPtr>* fused_objects) {
-AINFO<<"(DMCZP) EnteringMethod: ProbabilisticFusion::Fuse";
   CHECK(fused_objects != nullptr) << "fusion error: fused_objects is nullptr";
 
   auto* sensor_data_manager = SensorDataManager::Instance();
@@ -162,11 +159,9 @@ AINFO<<"(DMCZP) EnteringMethod: ProbabilisticFusion::Fuse";
 }
 
 std::string ProbabilisticFusion::Name() const { return "ProbabilisticFusion"; }
-AINFO<<"(DMCZP) EnteringMethod: ProbabilisticFusion::Name";
 
 bool ProbabilisticFusion::IsPublishSensor(
     const base::FrameConstPtr& sensor_frame) const {
-AINFO<<"(DMCZP) EnteringMethod: ProbabilisticFusion::IsPublishSensor";
   std::string sensor_id = sensor_frame->sensor_info.name;
   return sensor_id == main_sensor_;
   // const std::vector<std::string>& pub_sensors =
@@ -181,7 +176,6 @@ AINFO<<"(DMCZP) EnteringMethod: ProbabilisticFusion::IsPublishSensor";
 }
 
 void ProbabilisticFusion::FuseFrame(const SensorFramePtr& frame) {
-AINFO<<"(DMCZP) EnteringMethod: ProbabilisticFusion::FuseFrame";
   AINFO << "Fusing frame: " << frame->GetSensorId()
         << ", foreground_object_number: "
         << frame->GetForegroundObjects().size()
@@ -194,7 +188,6 @@ AINFO<<"(DMCZP) EnteringMethod: ProbabilisticFusion::FuseFrame";
 }
 
 void ProbabilisticFusion::FuseForegroundTrack(const SensorFramePtr& frame) {
-AINFO<<"(DMCZP) EnteringMethod: ProbabilisticFusion::FuseForegroundTrack";
   PERCEPTION_PERF_BLOCK_START();
   std::string indicator = "fusion_" + frame->GetSensorId();
 
@@ -223,7 +216,6 @@ AINFO<<"(DMCZP) EnteringMethod: ProbabilisticFusion::FuseForegroundTrack";
 void ProbabilisticFusion::UpdateAssignedTracks(
     const SensorFramePtr& frame,
     const std::vector<TrackMeasurmentPair>& assignments) {
-AINFO<<"(DMCZP) EnteringMethod: ProbabilisticFusion::UpdateAssignedTracks";
   // Attention: match_distance should be used
   // in ExistanceFusion to calculate existence score.
   // We set match_distance to zero if track and object are matched,
@@ -241,7 +233,6 @@ AINFO<<"(DMCZP) EnteringMethod: ProbabilisticFusion::UpdateAssignedTracks";
 void ProbabilisticFusion::UpdateUnassignedTracks(
     const SensorFramePtr& frame,
     const std::vector<size_t>& unassigned_track_inds) {
-AINFO<<"(DMCZP) EnteringMethod: ProbabilisticFusion::UpdateUnassignedTracks";
   // Attention: match_distance(min_match_distance) should be used
   // in ExistanceFusion to calculate toic score.
   // Due to it hasn't been used(mainly for front radar object pub in
@@ -260,7 +251,6 @@ AINFO<<"(DMCZP) EnteringMethod: ProbabilisticFusion::UpdateUnassignedTracks";
 void ProbabilisticFusion::CreateNewTracks(
     const SensorFramePtr& frame,
     const std::vector<size_t>& unassigned_obj_inds) {
-AINFO<<"(DMCZP) EnteringMethod: ProbabilisticFusion::CreateNewTracks";
   for (size_t i = 0; i < unassigned_obj_inds.size(); ++i) {
     size_t obj_ind = unassigned_obj_inds[i];
 
@@ -291,7 +281,6 @@ AINFO<<"(DMCZP) EnteringMethod: ProbabilisticFusion::CreateNewTracks";
 }
 
 void ProbabilisticFusion::FusebackgroundTrack(const SensorFramePtr& frame) {
-AINFO<<"(DMCZP) EnteringMethod: ProbabilisticFusion::FusebackgroundTrack";
   // 1. association
   size_t track_size = scenes_->GetBackgroundTracks().size();
   size_t obj_size = frame->GetBackgroundObjects().size();
@@ -347,7 +336,6 @@ AINFO<<"(DMCZP) EnteringMethod: ProbabilisticFusion::FusebackgroundTrack";
 }
 
 void ProbabilisticFusion::RemoveLostTrack() {
-AINFO<<"(DMCZP) EnteringMethod: ProbabilisticFusion::RemoveLostTrack";
   // need to remove tracker at the same time
   size_t foreground_track_count = 0;
   std::vector<TrackPtr>& foreground_tracks = scenes_->GetForegroundTracks();
@@ -383,7 +371,6 @@ AINFO<<"(DMCZP) EnteringMethod: ProbabilisticFusion::RemoveLostTrack";
 
 void ProbabilisticFusion::CollectFusedObjects(
     double timestamp, std::vector<base::ObjectPtr>* fused_objects) {
-AINFO<<"(DMCZP) EnteringMethod: ProbabilisticFusion::CollectFusedObjects";
   fused_objects->clear();
 
   size_t fg_obj_num = 0;
@@ -416,7 +403,6 @@ AINFO<<"(DMCZP) EnteringMethod: ProbabilisticFusion::CollectFusedObjects";
 void ProbabilisticFusion::CollectObjectsByTrack(
     double timestamp, const TrackPtr& track,
     std::vector<base::ObjectPtr>* fused_objects) {
-AINFO<<"(DMCZP) EnteringMethod: ProbabilisticFusion::CollectObjectsByTrack";
   const FusedObjectPtr& fused_object = track->GetFusedObject();
   base::ObjectPtr obj = base::ObjectPool::Instance().Get();
   *obj = *(fused_object->GetBaseObject());
@@ -467,7 +453,6 @@ AINFO<<"(DMCZP) EnteringMethod: ProbabilisticFusion::CollectObjectsByTrack";
 void ProbabilisticFusion::CollectSensorMeasurementFromObject(
     const SensorObjectConstPtr& object,
     base::SensorObjectMeasurement* measurement) {
-AINFO<<"(DMCZP) EnteringMethod: ProbabilisticFusion::CollectSensorMeasurementFromObject";
   measurement->sensor_id = object->GetSensorId();
   measurement->timestamp = object->GetTimestamp();
   measurement->track_id = object->GetBaseObject()->track_id;

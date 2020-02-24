@@ -24,43 +24,36 @@ namespace common {
 namespace time {
 
 TEST(TimeTest, DurationToMicros) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   Duration duration = std::chrono::milliseconds(12);
   EXPECT_EQ(12000, AsInt64<micros>(duration));
 }
 
 TEST(TimeTest, DurationToMillis) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   Duration duration = std::chrono::microseconds(1234567);
   EXPECT_EQ(1234, AsInt64<millis>(duration));
 }
 
 TEST(TimeTest, AsDouble) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   Duration duration = std::chrono::microseconds(123456789012);
   EXPECT_DOUBLE_EQ(123456.789012, ToSecond(duration));
 }
 
 TEST(TimeTest, TimestampAsDouble) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   Timestamp timestamp = FromInt64<nanos>(123456789012345);
   EXPECT_DOUBLE_EQ(123456.789012345, ToSecond(timestamp));
 }
 
 TEST(TimeTest, TimestampFromAndTo) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   Timestamp timestamp = FromInt64<micros>(1234567);
   EXPECT_EQ(1234, AsInt64<millis>(timestamp));
 }
 
 TEST(TimeTest, TimestampFromAndToDouble) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   Timestamp timestamp = From(1234567.889923456);
   EXPECT_DOUBLE_EQ(1234567.889923456, ToSecond(timestamp));
 }
 
 TEST(TimeTest, MockTime) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   EXPECT_EQ(Clock::SYSTEM, Clock::mode());
   Clock::SetMode(Clock::MOCK);
   EXPECT_EQ(Clock::MOCK, Clock::mode());

@@ -22,7 +22,6 @@ namespace apollo {
 namespace canbus {
 
 TEST(CanbusTest, Simple) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   CanbusComponent cb;
   EXPECT_EQ(cb.Name(), "canbus_component");
 }

@@ -19,12 +19,10 @@
 #include "gtest/gtest.h"
 
 TEST(loadTest, test) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   CHECK(!apollo::perception::inference::load_binary_data("unknown.txt"));
 }
 
 TEST(UtilTest, test) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   // std::vector<std::string> file_list =
   // {"ARZ034_12_1499218335_1499218635_500",
   //                                       "ARZ034_12_1499218335_1499218635_520",

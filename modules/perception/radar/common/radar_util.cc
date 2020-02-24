@@ -20,7 +20,6 @@ namespace perception {
 namespace radar {
 
 void MockRadarPolygon(base::ObjectPtr object) {
-AINFO<<"(DMCZP) EnteringMethod: MockRadarPolygon";
   double theta = object->theta;
   const auto& center = object->center;
   double length = object->size(0);

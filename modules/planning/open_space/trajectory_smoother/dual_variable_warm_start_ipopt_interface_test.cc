@@ -66,7 +66,6 @@ class DualVariableWarmStartIPOPTInterfaceTest : public ::testing::Test {
 };
 
 void DualVariableWarmStartIPOPTInterfaceTest::ProblemSetup() {
-AINFO<<"(DMCZP) EnteringMethod: DualVariableWarmStartIPOPTInterfaceTest::ProblemSetup";
   obstacles_edges_num_ = 4 * Eigen::MatrixXi::Ones(obstacles_num_, 1);
   Eigen::MatrixXd xWS = Eigen::MatrixXd::Ones(4, horizon_ + 1);
   ptop_.reset(new DualVariableWarmStartIPOPTInterface(
@@ -75,12 +74,10 @@ AINFO<<"(DMCZP) EnteringMethod: DualVariableWarmStartIPOPTInterfaceTest::Problem
 }
 
 TEST_F(DualVariableWarmStartIPOPTInterfaceTest, initilization) {
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   EXPECT_NE(ptop_, nullptr);
 }
 
 TEST_F(DualVariableWarmStartIPOPTInterfaceTest, get_bounds_info) {
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   int kNumOfVariables = 540;
   int kNumOfConstraints = 240;
   double x_l[kNumOfVariables];
@@ -93,7 +90,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST_F";
 }
 
 TEST_F(DualVariableWarmStartIPOPTInterfaceTest, get_starting_point) {
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   int kNumOfVariables = 540;
   int kNumOfConstraints = 240;
   bool init_x = true;
@@ -110,7 +106,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST_F";
 }
 
 TEST_F(DualVariableWarmStartIPOPTInterfaceTest, eval_f) {
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   int kNumOfVariables = 540;
   double obj_value;
   double x[kNumOfVariables];

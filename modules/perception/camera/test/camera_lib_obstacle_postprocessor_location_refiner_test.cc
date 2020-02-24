@@ -28,7 +28,6 @@ namespace camera {
 static bool load_camera_k_mat_and_ground_pitch_height(
     const std::string &fname, float k_mat[9], int *image_width,
     int *image_height, float *camera_pitch, float *camera_height) {
-AINFO<<"(DMCZP) EnteringMethod: load_camera_k_mat_and_ground_pitch_height";
   if (image_width == nullptr || image_height == nullptr ||
       camera_pitch == nullptr || camera_height == nullptr) {
     AERROR << "Null pointer input for loading this file:  " << fname;
@@ -68,7 +67,6 @@ struct ObjectInfo {
 
 static bool load_label_from_file(const std::string &filename,
                                  std::vector<ObjectInfo> *labels) {
-AINFO<<"(DMCZP) EnteringMethod: load_label_from_file";
   labels->clear();
   std::fstream fin(filename);
   if (!fin.is_open()) {
@@ -90,7 +88,6 @@ AINFO<<"(DMCZP) EnteringMethod: load_label_from_file";
 
 TEST(LocationRefinedObstaclePostProcessorTestOnlineCalibration,
      location_refiner_obstacle_postprocessor_test_onlinecalibration) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   std::string fname_k_mat =
       "/apollo/modules/perception/testdata/"
       "camera/lib/obstacle/postprocessor/location_refiner/"

@@ -46,13 +46,11 @@ Trajectory1dGenerator::Trajectory1dGenerator(
       end_condition_sampler_(lon_init_state, lat_init_state,
                              ptr_path_time_graph, ptr_prediction_querier),
       ptr_path_time_graph_(ptr_path_time_graph) {}
-AINFO<<"(DMCZP) EnteringMethod: Trajectory1dGenerator::Trajectory1dGenerator";
 
 void Trajectory1dGenerator::GenerateTrajectoryBundles(
     const PlanningTarget& planning_target,
     Trajectory1DBundle* ptr_lon_trajectory_bundle,
     Trajectory1DBundle* ptr_lat_trajectory_bundle) {
-AINFO<<"(DMCZP) EnteringMethod: Trajectory1dGenerator::GenerateTrajectoryBundles";
   GenerateLongitudinalTrajectoryBundle(planning_target,
                                        ptr_lon_trajectory_bundle);
 
@@ -63,10 +61,6 @@ AINFO<<"(DMCZP) EnteringMethod: Trajectory1dGenerator::GenerateTrajectoryBundles
 void Trajectory1dGenerator::GenerateSpeedProfilesForCruising(
     const double target_speed,
     Trajectory1DBundle* ptr_lon_trajectory_bundle) const {
-AINFO<<"(DMCZP) EnteringMethod: Trajectory1dGenerator::GenerateSpeedProfilesForCruising";
-AINFO<<"(DMCZP) EnteringMethod: Trajectory1dGenerator::GenerateSpeedProfilesForStopping";
-AINFO<<"(DMCZP) EnteringMethod: Trajectory1dGenerator::GenerateSpeedProfilesForPathTimeObstacles";
-AINFO<<"(DMCZP) EnteringMethod: Trajectory1dGenerator::GenerateLongitudinalTrajectoryBundle";
   ADEBUG << "cruise speed is  " << target_speed;
   auto end_conditions =
       end_condition_sampler_.SampleLonEndConditionsForCruising(target_speed);
@@ -126,7 +120,6 @@ void Trajectory1dGenerator::GenerateLongitudinalTrajectoryBundle(
 
 void Trajectory1dGenerator::GenerateLateralTrajectoryBundle(
     Trajectory1DBundle* ptr_lat_trajectory_bundle) const {
-AINFO<<"(DMCZP) EnteringMethod: Trajectory1dGenerator::GenerateLateralTrajectoryBundle";
   if (!FLAGS_lateral_optimization) {
     auto end_conditions = end_condition_sampler_.SampleLatEndConditions();
 

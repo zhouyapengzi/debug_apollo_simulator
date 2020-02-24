@@ -21,13 +21,11 @@ namespace perception {
 namespace lidar {
 
 bool DummyObjectFilter::Init(const ObjectFilterInitOptions& options) {
-AINFO<<"(DMCZP) EnteringMethod: DummyObjectFilter::Init";
   return true;
 }
 
 bool DummyObjectFilter::Filter(const ObjectFilterOptions& options,
                                LidarFrame* frame) {
-AINFO<<"(DMCZP) EnteringMethod: DummyObjectFilter::Filter";
   return true;
 }
 

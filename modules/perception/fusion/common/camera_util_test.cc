@@ -24,7 +24,6 @@ namespace perception {
 namespace fusion {
 
 TEST(CameraUtilTest, test_is_pt_in_frustum) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   double width = 1080;
   double height = 920;
   float x[3] = {-1, 500, 2000};
@@ -40,7 +39,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST";
 }
 
 TEST(CameraUtilTest, test_object_in_camera_view_and_is_behind_camera) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   FLAGS_work_root = "/apollo/modules/perception/testdata/fusion/base";
   FLAGS_obs_sensor_intrinsic_path =
       "/apollo/modules/perception/testdata/"

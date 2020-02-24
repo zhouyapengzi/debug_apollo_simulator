@@ -26,12 +26,10 @@ namespace data {
 using apollo::canbus::Chassis;
 
 EmergencyModeTrigger::EmergencyModeTrigger() {
-AINFO<<"(DMCZP) EnteringMethod: EmergencyModeTrigger::EmergencyModeTrigger";
   trigger_name_ = "EmergencyModeTrigger";
 }
 
 void EmergencyModeTrigger::Pull(const RecordMessage& msg) {
-AINFO<<"(DMCZP) EnteringMethod: EmergencyModeTrigger::Pull";
   if (!trigger_obj_->enabled()) {
     return;
   }

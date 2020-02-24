@@ -31,14 +31,12 @@ const double MIN_INTERNAL_FOR_NODE = 0.01;         // in meters
 const double MIN_POTENTIAL_LANE_CHANGE_LEN = 3.0;  // in meters
 
 bool IsCloseEnough(double s1, double s2) {
-AINFO<<"(DMCZP) EnteringMethod: IsCloseEnough";
   return std::fabs(s1 - s2) < MIN_DIFF_LENGTH;
 }
 
 void MergeBlockRange(const TopoNode* topo_node,
                      const std::vector<NodeSRange>& origin_range,
                      std::vector<NodeSRange>* block_range) {
-AINFO<<"(DMCZP) EnteringMethod: MergeBlockRange";
   std::vector<NodeSRange> sorted_origin_range;
   sorted_origin_range.insert(sorted_origin_range.end(), origin_range.begin(),
                              origin_range.end());
@@ -65,7 +63,6 @@ AINFO<<"(DMCZP) EnteringMethod: MergeBlockRange";
 void GetSortedValidRange(const TopoNode* topo_node,
                          const std::vector<NodeSRange>& origin_range,
                          std::vector<NodeSRange>* valid_range) {
-AINFO<<"(DMCZP) EnteringMethod: GetSortedValidRange";
   std::vector<NodeSRange> block_range;
   MergeBlockRange(topo_node, origin_range, &block_range);
   double start_s = topo_node->StartS();
@@ -84,7 +81,6 @@ AINFO<<"(DMCZP) EnteringMethod: GetSortedValidRange";
 }
 
 bool IsReachable(const TopoNode* from_node, const TopoNode* to_node) {
-AINFO<<"(DMCZP) EnteringMethod: IsReachable";
   double start_s = to_node->StartS() / to_node->Length() * from_node->Length();
   start_s = std::max(start_s, from_node->StartS());
   double end_s = to_node->EndS() / to_node->Length() * from_node->Length();
@@ -97,7 +93,6 @@ AINFO<<"(DMCZP) EnteringMethod: IsReachable";
 SubTopoGraph::SubTopoGraph(
     const std::unordered_map<const TopoNode*, std::vector<NodeSRange> >&
         black_map) {
-AINFO<<"(DMCZP) EnteringMethod: SubTopoGraph::SubTopoGraph";
   std::vector<NodeSRange> valid_range;
   for (const auto& map_iter : black_map) {
     valid_range.clear();
@@ -119,8 +114,6 @@ SubTopoGraph::~SubTopoGraph() {}
 void SubTopoGraph::GetSubInEdgesIntoSubGraph(
     const TopoEdge* edge,
     std::unordered_set<const TopoEdge*>* const sub_edges) const {
-AINFO<<"(DMCZP) EnteringMethod: SubTopoGraph::GetSubInEdgesIntoSubGraph";
-AINFO<<"(DMCZP) EnteringMethod: SubTopoGraph::GetSubOutEdgesIntoSubGraph";
   const auto* from_node = edge->FromNode();
   const auto* to_node = edge->ToNode();
   std::unordered_set<TopoNode*> sub_nodes;
@@ -160,7 +153,6 @@ void SubTopoGraph::GetSubOutEdgesIntoSubGraph(
 
 const TopoNode* SubTopoGraph::GetSubNodeWithS(const TopoNode* topo_node,
                                               double s) const {
-AINFO<<"(DMCZP) EnteringMethod: SubTopoGraph::GetSubNodeWithS";
   const auto& map_iter = sub_node_range_sorted_map_.find(topo_node);
   if (map_iter == sub_node_range_sorted_map_.end()) {
     return topo_node;
@@ -176,7 +168,6 @@ AINFO<<"(DMCZP) EnteringMethod: SubTopoGraph::GetSubNodeWithS";
 
 void SubTopoGraph::InitSubNodeByValidRange(
     const TopoNode* topo_node, const std::vector<NodeSRange>& valid_range) {
-AINFO<<"(DMCZP) EnteringMethod: SubTopoGraph::InitSubNodeByValidRange";
   // Attention: no matter topo node has valid_range or not,
   // create map value first;
   auto& sub_node_vec = sub_node_range_sorted_map_[topo_node];
@@ -214,7 +205,6 @@ AINFO<<"(DMCZP) EnteringMethod: SubTopoGraph::InitSubNodeByValidRange";
 }
 
 void SubTopoGraph::InitSubEdge(const TopoNode* topo_node) {
-AINFO<<"(DMCZP) EnteringMethod: SubTopoGraph::InitSubEdge";
   std::unordered_set<TopoNode*> sub_nodes;
   if (!GetSubNodes(topo_node, &sub_nodes)) {
     return;
@@ -229,12 +219,8 @@ AINFO<<"(DMCZP) EnteringMethod: SubTopoGraph::InitSubEdge";
 void SubTopoGraph::InitInSubNodeSubEdge(
     TopoNode* const sub_node,
     const std::unordered_set<const TopoEdge*> origin_edge) {
-AINFO<<"(DMCZP) EnteringMethod: SubTopoGraph::InitInSubNodeSubEdge";
-AINFO<<"(DMCZP) EnteringMethod: SubTopoGraph::InitOutSubNodeSubEdge";
   std::unordered_set<TopoNode*> other_sub_nodes;
   for (const auto* in_edge : origin_edge) {
-AINFO<<"(DMCZP) EnteringMethod: SubTopoGraph::AddPotentialInEdge";
-AINFO<<"(DMCZP) EnteringMethod: SubTopoGraph::AddPotentialOutEdge";
     if (GetSubNodes(in_edge->FromNode(), &other_sub_nodes)) {
       for (auto* sub_from_node : other_sub_nodes) {
         if (!sub_from_node->IsOverlapEnough(sub_node, in_edge)) {
@@ -287,7 +273,6 @@ void SubTopoGraph::InitOutSubNodeSubEdge(
 bool SubTopoGraph::GetSubNodes(
     const TopoNode* node,
     std::unordered_set<TopoNode*>* const sub_nodes) const {
-AINFO<<"(DMCZP) EnteringMethod: SubTopoGraph::GetSubNodes";
   const auto& iter = sub_node_map_.find(node);
   if (iter == sub_node_map_.end()) {
     return false;
@@ -298,7 +283,6 @@ AINFO<<"(DMCZP) EnteringMethod: SubTopoGraph::GetSubNodes";
 }
 
 void SubTopoGraph::AddPotentialEdge(const TopoNode* topo_node) {
-AINFO<<"(DMCZP) EnteringMethod: SubTopoGraph::AddPotentialEdge";
   std::unordered_set<TopoNode*> sub_nodes;
   if (!GetSubNodes(topo_node, &sub_nodes)) {
     return;

@@ -41,7 +41,6 @@ using apollo::common::time::Clock;
 QpSplineReferenceLineSmoother::QpSplineReferenceLineSmoother(
     const ReferenceLineSmootherConfig& config)
     : ReferenceLineSmoother(config) {
-AINFO<<"(DMCZP) EnteringMethod: QpSplineReferenceLineSmoother::QpSplineReferenceLineSmoother";
   if (FLAGS_use_osqp_optimizer_for_reference_line) {
     spline_solver_.reset(
         new OsqpSpline2dSolver(t_knots_, config.qp_spline().spline_order()));
@@ -52,12 +51,10 @@ AINFO<<"(DMCZP) EnteringMethod: QpSplineReferenceLineSmoother::QpSplineReference
 }
 
 void QpSplineReferenceLineSmoother::Clear() { t_knots_.clear(); }
-AINFO<<"(DMCZP) EnteringMethod: QpSplineReferenceLineSmoother::Clear";
 
 bool QpSplineReferenceLineSmoother::Smooth(
     const ReferenceLine& raw_reference_line,
     ReferenceLine* const smoothed_reference_line) {
-AINFO<<"(DMCZP) EnteringMethod: QpSplineReferenceLineSmoother::Smooth";
   Clear();
   const double kEpsilon = 1e-6;
   if (!Sampling()) {
@@ -141,7 +138,6 @@ AINFO<<"(DMCZP) EnteringMethod: QpSplineReferenceLineSmoother::Smooth";
 }
 
 bool QpSplineReferenceLineSmoother::Sampling() {
-AINFO<<"(DMCZP) EnteringMethod: QpSplineReferenceLineSmoother::Sampling";
   const double length = anchor_points_.back().path_point.s() -
                         anchor_points_.front().path_point.s();
   uint32_t num_spline =
@@ -157,7 +153,6 @@ AINFO<<"(DMCZP) EnteringMethod: QpSplineReferenceLineSmoother::Sampling";
 }
 
 bool QpSplineReferenceLineSmoother::AddConstraint() {
-AINFO<<"(DMCZP) EnteringMethod: QpSplineReferenceLineSmoother::AddConstraint";
   // Add x, y boundary constraint
   std::vector<double> headings;
   std::vector<double> longitudinal_bound;
@@ -206,7 +201,6 @@ AINFO<<"(DMCZP) EnteringMethod: QpSplineReferenceLineSmoother::AddConstraint";
 }
 
 bool QpSplineReferenceLineSmoother::AddKernel() {
-AINFO<<"(DMCZP) EnteringMethod: QpSplineReferenceLineSmoother::AddKernel";
   Spline2dKernel* kernel = spline_solver_->mutable_kernel();
 
   // add spline kernel
@@ -224,11 +218,9 @@ AINFO<<"(DMCZP) EnteringMethod: QpSplineReferenceLineSmoother::AddKernel";
 }
 
 bool QpSplineReferenceLineSmoother::Solve() { return spline_solver_->Solve(); }
-AINFO<<"(DMCZP) EnteringMethod: QpSplineReferenceLineSmoother::Solve";
 
 void QpSplineReferenceLineSmoother::SetAnchorPoints(
     const std::vector<AnchorPoint>& anchor_points) {
-AINFO<<"(DMCZP) EnteringMethod: QpSplineReferenceLineSmoother::SetAnchorPoints";
   CHECK_GE(anchor_points.size(), 2);
   anchor_points_ = anchor_points;
 }

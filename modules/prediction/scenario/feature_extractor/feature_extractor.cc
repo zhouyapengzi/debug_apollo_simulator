@@ -29,7 +29,6 @@ using LaneInfoPtr = std::shared_ptr<const LaneInfo>;
 using JunctionInfoPtr = std::shared_ptr<const JunctionInfo>;
 
 EnvironmentFeatures FeatureExtractor::ExtractEnvironmentFeatures() {
-AINFO<<"(DMCZP) EnteringMethod: FeatureExtractor::ExtractEnvironmentFeatures";
   EnvironmentFeatures environment_features;
 
   auto ego_state_container =
@@ -86,7 +85,6 @@ AINFO<<"(DMCZP) EnteringMethod: FeatureExtractor::ExtractEnvironmentFeatures";
 void FeatureExtractor::ExtractEgoLaneFeatures(
     EnvironmentFeatures* ptr_environment_features,
     const LaneInfoPtr& ptr_ego_lane, const common::math::Vec2d& ego_position) {
-AINFO<<"(DMCZP) EnteringMethod: FeatureExtractor::ExtractEgoLaneFeatures";
   if (ptr_ego_lane == nullptr) {
     ADEBUG << "Ego vehicle is not on any lane.";
     return;
@@ -120,7 +118,6 @@ AINFO<<"(DMCZP) EnteringMethod: FeatureExtractor::ExtractEgoLaneFeatures";
 void FeatureExtractor::ExtractNeighborLaneFeatures(
     EnvironmentFeatures* ptr_environment_features,
     const LaneInfoPtr& ptr_ego_lane, const Vec2d& ego_position) {
-AINFO<<"(DMCZP) EnteringMethod: FeatureExtractor::ExtractNeighborLaneFeatures";
   if (ptr_ego_lane == nullptr) {
     ADEBUG << "Ego vehicle is not on any lane.";
     return;
@@ -155,7 +152,6 @@ AINFO<<"(DMCZP) EnteringMethod: FeatureExtractor::ExtractNeighborLaneFeatures";
 
 void FeatureExtractor::ExtractFrontJunctionFeatures(
     EnvironmentFeatures* ptr_environment_features) {
-AINFO<<"(DMCZP) EnteringMethod: FeatureExtractor::ExtractFrontJunctionFeatures";
   auto ego_trajectory_container =
       ContainerManager::Instance()->GetContainer<ADCTrajectoryContainer>(
           AdapterConfig::PLANNING_TRAJECTORY);
@@ -188,7 +184,6 @@ AINFO<<"(DMCZP) EnteringMethod: FeatureExtractor::ExtractFrontJunctionFeatures";
 
 LaneInfoPtr FeatureExtractor::GetEgoLane(const common::Point3D& position,
                                          const double heading) {
-AINFO<<"(DMCZP) EnteringMethod: FeatureExtractor::GetEgoLane";
   common::PointENU position_enu;
   position_enu.set_x(position.x());
   position_enu.set_y(position.y());

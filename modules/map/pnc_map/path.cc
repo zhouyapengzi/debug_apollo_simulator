@@ -30,7 +30,6 @@
 DEFINE_double(default_lane_width, 3.048, "default lane width is about 10 feet");
 
 namespace apollo {
-AINFO<<"(DMCZP) EnteringMethod: DEFINE_double";
 namespace hdmap {
 
 using common::math::Box2d;
@@ -46,7 +45,6 @@ const double kSampleDistance = 0.25;
 
 bool FindLaneSegment(const MapPathPoint& p1, const MapPathPoint& p2,
                      LaneSegment* const lane_segment) {
-AINFO<<"(DMCZP) EnteringMethod: FindLaneSegment";
   for (const auto& wp1 : p1.lane_waypoints()) {
     for (const auto& wp2 : p2.lane_waypoints()) {
       if (wp1.lane->id().id() == wp2.lane->id().id() && wp1.s < wp2.s) {
@@ -61,7 +59,6 @@ AINFO<<"(DMCZP) EnteringMethod: FindLaneSegment";
 }  // namespace
 
 std::string LaneWaypoint::DebugString() const {
-AINFO<<"(DMCZP) EnteringMethod: LaneWaypoint::DebugString";
   if (lane == nullptr) {
     return "(lane is null)";
   }
@@ -69,7 +66,6 @@ AINFO<<"(DMCZP) EnteringMethod: LaneWaypoint::DebugString";
 }
 
 LaneBoundaryType::Type LeftBoundaryType(const LaneWaypoint& waypoint) {
-AINFO<<"(DMCZP) EnteringMethod: LeftBoundaryType";
   if (!waypoint.lane) {
     return LaneBoundaryType::UNKNOWN;
   }
@@ -87,7 +83,6 @@ AINFO<<"(DMCZP) EnteringMethod: LeftBoundaryType";
 }
 
 LaneBoundaryType::Type RightBoundaryType(const LaneWaypoint& waypoint) {
-AINFO<<"(DMCZP) EnteringMethod: RightBoundaryType";
   if (!waypoint.lane) {
     return LaneBoundaryType::UNKNOWN;
   }
@@ -105,7 +100,6 @@ AINFO<<"(DMCZP) EnteringMethod: RightBoundaryType";
 }
 
 LaneWaypoint LeftNeighborWaypoint(const LaneWaypoint& waypoint) {
-AINFO<<"(DMCZP) EnteringMethod: LeftNeighborWaypoint";
   LaneWaypoint neighbor;
   if (!waypoint.lane) {
     return neighbor;
@@ -135,7 +129,6 @@ AINFO<<"(DMCZP) EnteringMethod: LeftNeighborWaypoint";
 }
 
 void LaneSegment::Join(std::vector<LaneSegment>* segments) {
-AINFO<<"(DMCZP) EnteringMethod: LaneSegment::Join";
   constexpr double kSegmentDelta = 0.5;
   std::size_t k = 0;
   std::size_t i = 0;
@@ -163,7 +156,6 @@ AINFO<<"(DMCZP) EnteringMethod: LaneSegment::Join";
 }
 
 LaneWaypoint RightNeighborWaypoint(const LaneWaypoint& waypoint) {
-AINFO<<"(DMCZP) EnteringMethod: RightNeighborWaypoint";
   LaneWaypoint neighbor;
   if (!waypoint.lane) {
     return neighbor;
@@ -192,7 +184,6 @@ AINFO<<"(DMCZP) EnteringMethod: RightNeighborWaypoint";
 }
 
 std::string LaneSegment::DebugString() const {
-AINFO<<"(DMCZP) EnteringMethod: LaneSegment::DebugString";
   if (lane == nullptr) {
     return "(lane is null)";
   }
@@ -246,7 +237,6 @@ std::vector<MapPathPoint> MapPathPoint::GetPointsFromLane(LaneInfoConstPtr lane,
 }
 
 void MapPathPoint::RemoveDuplicates(std::vector<MapPathPoint>* points) {
-AINFO<<"(DMCZP) EnteringMethod: MapPathPoint::RemoveDuplicates";
   constexpr double kDuplicatedPointsEpsilon = 1e-7;
   constexpr double limit = kDuplicatedPointsEpsilon * kDuplicatedPointsEpsilon;
   CHECK_NOTNULL(points);
@@ -263,7 +253,6 @@ AINFO<<"(DMCZP) EnteringMethod: MapPathPoint::RemoveDuplicates";
 }
 
 std::string MapPathPoint::DebugString() const {
-AINFO<<"(DMCZP) EnteringMethod: MapPathPoint::DebugString";
   return common::util::StrCat(
       "x = ", x_, "  y = ", y_, "  heading = ", heading_,
       "  lwp = "
@@ -272,7 +261,6 @@ AINFO<<"(DMCZP) EnteringMethod: MapPathPoint::DebugString";
 }
 
 std::string Path::DebugString() const {
-AINFO<<"(DMCZP) EnteringMethod: Path::DebugString";
   return common::util::StrCat(
       "num_points = ", num_points_,
       "  points = "
@@ -287,38 +275,31 @@ AINFO<<"(DMCZP) EnteringMethod: Path::DebugString";
 }
 
 std::string PathOverlap::DebugString() const {
-AINFO<<"(DMCZP) EnteringMethod: PathOverlap::DebugString";
   return common::util::StrCat(object_id, " ", start_s, " ", end_s);
 }
 
 Path::Path(const std::vector<MapPathPoint>& path_points)
     : path_points_(path_points) {
-AINFO<<"(DMCZP) EnteringMethod: Path::Path";
   Init();
 }
 
 Path::Path(std::vector<MapPathPoint>&& path_points)
     : path_points_(std::move(path_points)) {
-AINFO<<"(DMCZP) EnteringMethod: Path::Path";
   Init();
 }
 
 Path::Path(const std::vector<MapPathPoint>& path_points,
            const std::vector<LaneSegment>& lane_segments)
     : path_points_(path_points), lane_segments_(lane_segments) {
-AINFO<<"(DMCZP) EnteringMethod: Path::Path";
   Init();
-AINFO<<"(DMCZP) EnteringMethod: Path::Path";
 }
 
 Path::Path(std::vector<MapPathPoint>&& path_points,
            std::vector<LaneSegment>&& lane_segments)
     : path_points_(std::move(path_points)),
       lane_segments_(std::move(lane_segments)) {
-AINFO<<"(DMCZP) EnteringMethod: Path::Path";
   Init();
 }
-AINFO<<"(DMCZP) EnteringMethod: Path::Path";
 
 Path::Path(const std::vector<MapPathPoint>& path_points,
            const std::vector<LaneSegment>& lane_segments,
@@ -333,7 +314,6 @@ Path::Path(const std::vector<MapPathPoint>& path_points,
 
 Path::Path(const std::vector<LaneSegment>& segments)
     : lane_segments_(segments) {
-AINFO<<"(DMCZP) EnteringMethod: Path::Path";
   for (const auto& segment : lane_segments_) {
     const auto points = MapPathPoint::GetPointsFromLane(
         segment.lane, segment.start_s, segment.end_s);
@@ -346,7 +326,6 @@ AINFO<<"(DMCZP) EnteringMethod: Path::Path";
 
 Path::Path(std::vector<LaneSegment>&& segments)
     : lane_segments_(std::move(segments)) {
-AINFO<<"(DMCZP) EnteringMethod: Path::Path";
   for (const auto& segment : lane_segments_) {
     const auto points = MapPathPoint::GetPointsFromLane(
         segment.lane, segment.start_s, segment.end_s);
@@ -370,7 +349,6 @@ Path::Path(std::vector<MapPathPoint>&& path_points,
 }
 
 void Path::Init() {
-AINFO<<"(DMCZP) EnteringMethod: Path::Init";
   InitPoints();
   InitLaneSegments();
   InitPointIndex();
@@ -379,7 +357,6 @@ AINFO<<"(DMCZP) EnteringMethod: Path::Init";
 }
 
 void Path::InitPoints() {
-AINFO<<"(DMCZP) EnteringMethod: Path::InitPoints";
   num_points_ = static_cast<int>(path_points_.size());
   CHECK_GE(num_points_, 2);
 
@@ -415,7 +392,6 @@ AINFO<<"(DMCZP) EnteringMethod: Path::InitPoints";
 }
 
 void Path::InitLaneSegments() {
-AINFO<<"(DMCZP) EnteringMethod: Path::InitLaneSegments";
   if (lane_segments_.empty()) {
     for (int i = 0; i + 1 < num_points_; ++i) {
       LaneSegment lane_segment;
@@ -450,7 +426,6 @@ AINFO<<"(DMCZP) EnteringMethod: Path::InitLaneSegments";
 }
 
 void Path::InitWidth() {
-AINFO<<"(DMCZP) EnteringMethod: Path::InitWidth";
   lane_left_width_.clear();
   lane_left_width_.reserve(num_sample_points_);
   lane_right_width_.clear();
@@ -498,7 +473,6 @@ AINFO<<"(DMCZP) EnteringMethod: Path::InitWidth";
 }
 
 void Path::InitPointIndex() {
-AINFO<<"(DMCZP) EnteringMethod: Path::InitPointIndex";
   last_point_index_.clear();
   last_point_index_.reserve(num_sample_points_);
   double s = 0.0;
@@ -516,7 +490,6 @@ AINFO<<"(DMCZP) EnteringMethod: Path::InitPointIndex";
 
 void Path::GetAllOverlaps(GetOverlapFromLaneFunc GetOverlaps_from_lane,
                           std::vector<PathOverlap>* const overlaps) const {
-AINFO<<"(DMCZP) EnteringMethod: Path::GetAllOverlaps";
   if (overlaps == nullptr) {
     return;
   }
@@ -576,7 +549,6 @@ AINFO<<"(DMCZP) EnteringMethod: Path::GetAllOverlaps";
 }
 
 const PathOverlap* Path::NextLaneOverlap(double s) const {
-AINFO<<"(DMCZP) EnteringMethod: Path::NextLaneOverlap";
   auto next = std::upper_bound(
       lane_overlaps_.begin(), lane_overlaps_.end(), s,
       [](double s, const PathOverlap& o) { return s < o.start_s; });
@@ -588,7 +560,6 @@ AINFO<<"(DMCZP) EnteringMethod: Path::NextLaneOverlap";
 }
 
 void Path::InitOverlaps() {
-AINFO<<"(DMCZP) EnteringMethod: Path::InitOverlaps";
   GetAllOverlaps(std::bind(&LaneInfo::cross_lanes, _1), &lane_overlaps_);
   GetAllOverlaps(std::bind(&LaneInfo::signals, _1), &signal_overlaps_);
   GetAllOverlaps(std::bind(&LaneInfo::yield_signs, _1), &yield_sign_overlaps_);
@@ -604,7 +575,6 @@ AINFO<<"(DMCZP) EnteringMethod: Path::InitOverlaps";
 }
 
 MapPathPoint Path::GetSmoothPoint(const InterpolatedIndex& index) const {
-AINFO<<"(DMCZP) EnteringMethod: Path::GetSmoothPoint";
   CHECK_GE(index.id, 0);
   CHECK_LT(index.id, num_points_);
 
@@ -638,12 +608,10 @@ AINFO<<"(DMCZP) EnteringMethod: Path::GetSmoothPoint";
 }
 
 MapPathPoint Path::GetSmoothPoint(double s) const {
-AINFO<<"(DMCZP) EnteringMethod: Path::GetSmoothPoint";
   return GetSmoothPoint(GetIndexFromS(s));
 }
 
 double Path::GetSFromIndex(const InterpolatedIndex& index) const {
-AINFO<<"(DMCZP) EnteringMethod: Path::GetSFromIndex";
   if (index.id < 0) {
     return 0.0;
   }
@@ -654,7 +622,6 @@ AINFO<<"(DMCZP) EnteringMethod: Path::GetSFromIndex";
 }
 
 InterpolatedIndex Path::GetIndexFromS(double s) const {
-AINFO<<"(DMCZP) EnteringMethod: Path::GetIndexFromS";
   if (s <= 0.0) {
     return {0, 0.0};
   }
@@ -683,7 +650,6 @@ AINFO<<"(DMCZP) EnteringMethod: Path::GetIndexFromS";
 }
 
 InterpolatedIndex Path::GetLaneIndexFromS(double s) const {
-AINFO<<"(DMCZP) EnteringMethod: Path::GetLaneIndexFromS";
   if (s <= 0.0) {
     return {0, 0.0};
   }
@@ -737,8 +703,6 @@ std::vector<hdmap::LaneSegment> Path::GetLaneSegments(
 
 bool Path::GetNearestPoint(const Vec2d& point, double* accumulate_s,
                            double* lateral) const {
-AINFO<<"(DMCZP) EnteringMethod: Path::GetNearestPoint";
-AINFO<<"(DMCZP) EnteringMethod: Path::GetNearestPoint";
   double distance = 0.0;
   return GetNearestPoint(point, accumulate_s, lateral, &distance);
 }
@@ -760,7 +724,6 @@ bool Path::GetNearestPoint(const Vec2d& point, double* accumulate_s,
 
 bool Path::GetProjection(const common::math::Vec2d& point, double* accumulate_s,
                          double* lateral) const {
-AINFO<<"(DMCZP) EnteringMethod: Path::GetProjection";
   double distance = 0.0;
   return GetProjection(point, accumulate_s, lateral, &distance);
 }
@@ -771,7 +734,6 @@ bool Path::GetProjectionWithHueristicParams(const Vec2d& point,
                                             double* accumulate_s,
                                             double* lateral,
                                             double* min_distance) const {
-AINFO<<"(DMCZP) EnteringMethod: Path::GetProjectionWithHueristicParams";
   if (segments_.empty()) {
     return false;
   }
@@ -821,7 +783,6 @@ AINFO<<"(DMCZP) EnteringMethod: Path::GetProjectionWithHueristicParams";
 
 bool Path::GetProjection(const Vec2d& point, double* accumulate_s,
                          double* lateral, double* min_distance) const {
-AINFO<<"(DMCZP) EnteringMethod: Path::GetProjection";
   if (segments_.empty()) {
     return false;
   }
@@ -870,7 +831,6 @@ AINFO<<"(DMCZP) EnteringMethod: Path::GetProjection";
 }
 
 bool Path::GetHeadingAlongPath(const Vec2d& point, double* heading) const {
-AINFO<<"(DMCZP) EnteringMethod: Path::GetHeadingAlongPath";
   if (heading == nullptr) {
     return false;
   }
@@ -884,18 +844,15 @@ AINFO<<"(DMCZP) EnteringMethod: Path::GetHeadingAlongPath";
 }
 
 double Path::GetLaneLeftWidth(const double s) const {
-AINFO<<"(DMCZP) EnteringMethod: Path::GetLaneLeftWidth";
   return GetSample(lane_left_width_, s);
 }
 
 double Path::GetLaneRightWidth(const double s) const {
-AINFO<<"(DMCZP) EnteringMethod: Path::GetLaneRightWidth";
   return GetSample(lane_right_width_, s);
 }
 
 bool Path::GetLaneWidth(const double s, double* lane_left_width,
                         double* lane_right_width) const {
-AINFO<<"(DMCZP) EnteringMethod: Path::GetLaneWidth";
   CHECK_NOTNULL(lane_left_width);
   CHECK_NOTNULL(lane_right_width);
 
@@ -908,18 +865,15 @@ AINFO<<"(DMCZP) EnteringMethod: Path::GetLaneWidth";
 }
 
 double Path::GetRoadLeftWidth(const double s) const {
-AINFO<<"(DMCZP) EnteringMethod: Path::GetRoadLeftWidth";
   return GetSample(road_left_width_, s);
 }
 
 double Path::GetRoadRightWidth(const double s) const {
-AINFO<<"(DMCZP) EnteringMethod: Path::GetRoadRightWidth";
   return GetSample(road_right_width_, s);
 }
 
 bool Path::GetRoadWidth(const double s, double* road_left_width,
                         double* road_right_width) const {
-AINFO<<"(DMCZP) EnteringMethod: Path::GetRoadWidth";
   CHECK_NOTNULL(road_left_width);
   CHECK_NOTNULL(road_right_width);
 
@@ -934,7 +888,6 @@ AINFO<<"(DMCZP) EnteringMethod: Path::GetRoadWidth";
 
 double Path::GetSample(const std::vector<double>& samples,
                        const double s) const {
-AINFO<<"(DMCZP) EnteringMethod: Path::GetSample";
   if (samples.empty()) {
     return 0.0;
   }
@@ -950,7 +903,6 @@ AINFO<<"(DMCZP) EnteringMethod: Path::GetSample";
 }
 
 bool Path::IsOnPath(const Vec2d& point) const {
-AINFO<<"(DMCZP) EnteringMethod: Path::IsOnPath";
   double accumulate_s = 0.0;
   double lateral = 0.0;
   if (!GetProjection(point, &accumulate_s, &lateral)) {
@@ -968,7 +920,6 @@ AINFO<<"(DMCZP) EnteringMethod: Path::IsOnPath";
 }
 
 bool Path::OverlapWith(const common::math::Box2d& box, double width) const {
-AINFO<<"(DMCZP) EnteringMethod: Path::OverlapWith";
   if (use_path_approximation_) {
     return approximation_.OverlapWith(*this, box, width);
   }
@@ -987,8 +938,6 @@ AINFO<<"(DMCZP) EnteringMethod: Path::OverlapWith";
 
 double PathApproximation::compute_max_error(const Path& path, const int s,
                                             const int t) {
-AINFO<<"(DMCZP) EnteringMethod: PathApproximation::compute_max_error";
-AINFO<<"(DMCZP) EnteringMethod: PathApproximation::is_within_max_error";
   if (s + 1 >= t) {
     return 0.0;
   }
@@ -1018,13 +967,11 @@ bool PathApproximation::is_within_max_error(const Path& path, const int s,
 }
 
 void PathApproximation::Init(const Path& path) {
-AINFO<<"(DMCZP) EnteringMethod: PathApproximation::Init";
   InitDilute(path);
   InitProjections(path);
 }
 
 void PathApproximation::InitDilute(const Path& path) {
-AINFO<<"(DMCZP) EnteringMethod: PathApproximation::InitDilute";
   const int num_original_points = path.num_points();
   original_ids_.clear();
   int last_idx = 0;
@@ -1067,7 +1014,6 @@ AINFO<<"(DMCZP) EnteringMethod: PathApproximation::InitDilute";
 }
 
 void PathApproximation::InitProjections(const Path& path) {
-AINFO<<"(DMCZP) EnteringMethod: PathApproximation::InitProjections";
   if (num_points_ == 0) {
     return;
   }
@@ -1143,7 +1089,6 @@ bool PathApproximation::GetProjection(const Path& path,
                                       const common::math::Vec2d& point,
                                       double* accumulate_s, double* lateral,
                                       double* min_distance) const {
-AINFO<<"(DMCZP) EnteringMethod: PathApproximation::GetProjection";
   if (num_points_ == 0) {
     return false;
   }
@@ -1277,7 +1222,6 @@ AINFO<<"(DMCZP) EnteringMethod: PathApproximation::GetProjection";
 
 bool PathApproximation::OverlapWith(const Path& path, const Box2d& box,
                                     double width) const {
-AINFO<<"(DMCZP) EnteringMethod: PathApproximation::OverlapWith";
   if (num_points_ == 0) {
     return false;
   }

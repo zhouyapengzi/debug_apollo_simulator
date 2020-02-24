@@ -20,22 +20,18 @@ namespace localization {
 namespace msf {
 // =================PyramidMapMatrixHandlerSelector=================
 NdtMapMatrixHandlerSelector::NdtMapMatrixHandlerSelector() {}
-AINFO<<"(DMCZP) EnteringMethod: NdtMapMatrixHandlerSelector::NdtMapMatrixHandlerSelector";
 
 NdtMapMatrixHandlerSelector::~NdtMapMatrixHandlerSelector() {}
 
 BaseMapMatrixHandler* NdtMapMatrixHandlerSelector::AllocNdtMapMatrixHandler() {
-AINFO<<"(DMCZP) EnteringMethod: NdtMapMatrixHandlerSelector::AllocNdtMapMatrixHandler";
   return new NdtMapMatrixHandler();
 }
 
 NdtMapMatrixHandler::NdtMapMatrixHandler() {}
-AINFO<<"(DMCZP) EnteringMethod: NdtMapMatrixHandler::NdtMapMatrixHandler";
 NdtMapMatrixHandler::~NdtMapMatrixHandler() {}
 
 size_t NdtMapMatrixHandler::LoadBinary(const unsigned char* buf,
                                        BaseMapMatrix* matrix) {
-AINFO<<"(DMCZP) EnteringMethod: NdtMapMatrixHandler::LoadBinary";
   if (!matrix) {
     return 0;
   }
@@ -49,7 +45,6 @@ AINFO<<"(DMCZP) EnteringMethod: NdtMapMatrixHandler::LoadBinary";
  */
 size_t NdtMapMatrixHandler::CreateBinary(const BaseMapMatrix* matrix,
                                          unsigned char* buf, size_t buf_size) {
-AINFO<<"(DMCZP) EnteringMethod: NdtMapMatrixHandler::CreateBinary";
   if (!matrix) {
     return 0;
   }
@@ -58,7 +53,6 @@ AINFO<<"(DMCZP) EnteringMethod: NdtMapMatrixHandler::CreateBinary";
 }
 /**@brief Get the binary size of the object. */
 size_t NdtMapMatrixHandler::GetBinarySize(const BaseMapMatrix* matrix) {
-AINFO<<"(DMCZP) EnteringMethod: NdtMapMatrixHandler::GetBinarySize";
   const NdtMapMatrix* ndt_matrix = dynamic_cast<const NdtMapMatrix*>(matrix);
   return ndt_matrix->GetBinarySize();
 }

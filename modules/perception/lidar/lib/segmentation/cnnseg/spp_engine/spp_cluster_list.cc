@@ -23,14 +23,12 @@ namespace perception {
 namespace lidar {
 
 void SppClusterList::Init(size_t size, const std::string& sensor_name) {
-AINFO<<"(DMCZP) EnteringMethod: SppClusterList::Init";
   sensor_name_ = sensor_name;
   clusters_.clear();
   SppClusterPool::Instance(sensor_name_).BatchGet(size, &clusters_);
 }
 
 void SppClusterList::resize(size_t size) {
-AINFO<<"(DMCZP) EnteringMethod: SppClusterList::resize";
   if (clusters_.size() < size) {
     SppClusterPool::Instance(sensor_name_)
         .BatchGet(size - clusters_.size(), &clusters_);
@@ -42,7 +40,6 @@ AINFO<<"(DMCZP) EnteringMethod: SppClusterList::resize";
 void SppClusterList::AddPointSample(size_t cluster_id,
                                     const base::PointF& point, float height,
                                     uint32_t point_id) {
-AINFO<<"(DMCZP) EnteringMethod: SppClusterList::AddPointSample";
   if (clusters_.size() <= cluster_id) {
     resize(cluster_id + 1);
   }
@@ -50,7 +47,6 @@ AINFO<<"(DMCZP) EnteringMethod: SppClusterList::AddPointSample";
 }
 
 void SppClusterList::Merge(SppClusterList* rhs) {
-AINFO<<"(DMCZP) EnteringMethod: SppClusterList::Merge";
   clusters_.reserve(clusters_.size() + rhs->clusters_.size());
   for (size_t i = 0; i < rhs->size(); ++i) {
     clusters_.push_back((*rhs)[static_cast<int>(i)]);
@@ -58,7 +54,6 @@ AINFO<<"(DMCZP) EnteringMethod: SppClusterList::Merge";
 }
 
 size_t SppClusterList::HeightCut(float max_gap, size_t start_id) {
-AINFO<<"(DMCZP) EnteringMethod: SppClusterList::HeightCut";
   size_t size = clusters_.size();
   size_t count = 0;
   for (size_t i = start_id; i < size; ++i) {
@@ -73,7 +68,6 @@ AINFO<<"(DMCZP) EnteringMethod: SppClusterList::HeightCut";
 }
 
 bool SppClusterList::ComputeHeightAndSplitCluster(size_t id, float max_gap) {
-AINFO<<"(DMCZP) EnteringMethod: SppClusterList::ComputeHeightAndSplitCluster";
   if (id >= clusters_.size()) {
     return false;
   }
@@ -117,7 +111,6 @@ AINFO<<"(DMCZP) EnteringMethod: SppClusterList::ComputeHeightAndSplitCluster";
 }
 
 void SppClusterList::RemoveEmptyClusters() {
-AINFO<<"(DMCZP) EnteringMethod: SppClusterList::RemoveEmptyClusters";
   size_t current = 0;
   for (size_t i = 0; i < clusters_.size(); ++i) {
     if (clusters_[i]->points.size() > 0) {
@@ -131,7 +124,6 @@ AINFO<<"(DMCZP) EnteringMethod: SppClusterList::RemoveEmptyClusters";
 }
 
 void SppClusterList::EraseCluster(size_t id) {
-AINFO<<"(DMCZP) EnteringMethod: SppClusterList::EraseCluster";
   if (clusters_.size() <= id) {
     return;
   }

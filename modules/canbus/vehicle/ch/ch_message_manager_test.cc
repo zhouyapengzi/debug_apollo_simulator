@@ -43,7 +43,6 @@ class ChMessageManagerTest : public ::testing::Test {
 };
 
 TEST_F(ChMessageManagerTest, Brakecommand111) {
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   ChMessageManager manager;
   ProtocolData<ChassisDetail> *pd =
       manager.GetMutableProtocolDataById(Brakecommand111::ID);
@@ -52,7 +51,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST_F";
 }
 
 TEST_F(ChMessageManagerTest, Brakestatus511) {
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   ChMessageManager manager;
   ProtocolData<ChassisDetail> *pd =
       manager.GetMutableProtocolDataById(Brakestatus511::ID);
@@ -61,7 +59,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST_F";
 }
 
 TEST_F(ChMessageManagerTest, Controlcommand115) {
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   ChMessageManager manager;
   ProtocolData<ChassisDetail> *pd =
       manager.GetMutableProtocolDataById(Controlcommand115::ID);
@@ -70,7 +67,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST_F";
 }
 
 TEST_F(ChMessageManagerTest, Ecustatus1515) {
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   ChMessageManager manager;
   ProtocolData<ChassisDetail> *pd =
       manager.GetMutableProtocolDataById(Ecustatus1515::ID);
@@ -79,7 +75,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST_F";
 }
 
 TEST_F(ChMessageManagerTest, Ecustatus2516) {
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   ChMessageManager manager;
   ProtocolData<ChassisDetail> *pd =
       manager.GetMutableProtocolDataById(Ecustatus2516::ID);
@@ -88,7 +83,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST_F";
 }
 
 TEST_F(ChMessageManagerTest, Ecustatus3517) {
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   ChMessageManager manager;
   ProtocolData<ChassisDetail> *pd =
       manager.GetMutableProtocolDataById(Ecustatus3517::ID);
@@ -97,7 +91,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST_F";
 }
 
 TEST_F(ChMessageManagerTest, Gearcommand114) {
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   ChMessageManager manager;
   ProtocolData<ChassisDetail> *pd =
       manager.GetMutableProtocolDataById(Gearcommand114::ID);
@@ -106,7 +99,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST_F";
 }
 
 TEST_F(ChMessageManagerTest, Gearstatus514) {
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   ChMessageManager manager;
   ProtocolData<ChassisDetail> *pd =
       manager.GetMutableProtocolDataById(Gearstatus514::ID);
@@ -115,7 +107,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST_F";
 }
 
 TEST_F(ChMessageManagerTest, Steercommand112) {
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   ChMessageManager manager;
   ProtocolData<ChassisDetail> *pd =
       manager.GetMutableProtocolDataById(Steercommand112::ID);
@@ -124,7 +115,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST_F";
 }
 
 TEST_F(ChMessageManagerTest, Steerstatus512) {
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   ChMessageManager manager;
   ProtocolData<ChassisDetail> *pd =
       manager.GetMutableProtocolDataById(Steerstatus512::ID);
@@ -133,7 +123,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST_F";
 }
 
 TEST_F(ChMessageManagerTest, Throttlecommand110) {
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   ChMessageManager manager;
   ProtocolData<ChassisDetail> *pd =
       manager.GetMutableProtocolDataById(Throttlecommand110::ID);
@@ -142,7 +131,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST_F";
 }
 
 TEST_F(ChMessageManagerTest, Throttlestatus510) {
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   ChMessageManager manager;
   ProtocolData<ChassisDetail> *pd =
       manager.GetMutableProtocolDataById(Throttlestatus510::ID);
@@ -151,7 +139,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST_F";
 }
 
 TEST_F(ChMessageManagerTest, Turnsignalcommand113) {
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   ChMessageManager manager;
   ProtocolData<ChassisDetail> *pd =
       manager.GetMutableProtocolDataById(Turnsignalcommand113::ID);
@@ -161,7 +148,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST_F";
 }
 
 TEST_F(ChMessageManagerTest, Turnsignalstatus513) {
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   ChMessageManager manager;
   ProtocolData<ChassisDetail> *pd =
       manager.GetMutableProtocolDataById(Turnsignalstatus513::ID);

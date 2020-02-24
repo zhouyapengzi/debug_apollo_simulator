@@ -53,7 +53,6 @@ TrajectoryCost::TrajectoryCost(const DpPolyPathConfig &config,
       heuristic_speed_data_(heuristic_speed_data),
       init_sl_point_(init_sl_point),
       adc_sl_boundary_(adc_sl_boundary) {
-AINFO<<"(DMCZP) EnteringMethod: TrajectoryCost::TrajectoryCost";
   const double total_time =
       std::min(heuristic_speed_data_.TotalTime(), FLAGS_prediction_total_time);
 
@@ -110,7 +109,6 @@ AINFO<<"(DMCZP) EnteringMethod: TrajectoryCost::TrajectoryCost";
 ComparableCost TrajectoryCost::CalculatePathCost(
     const QuinticPolynomialCurve1d &curve, const double start_s,
     const double end_s, const uint32_t curr_level, const uint32_t total_level) {
-AINFO<<"(DMCZP) EnteringMethod: TrajectoryCost::CalculatePathCost";
   ComparableCost cost;
   double path_cost = 0.0;
   std::function<double(const double)> quasi_softmax = [this](const double x) {
@@ -150,7 +148,6 @@ AINFO<<"(DMCZP) EnteringMethod: TrajectoryCost::CalculatePathCost";
 bool TrajectoryCost::IsOffRoad(const double ref_s, const double l,
                                const double dl,
                                const bool is_change_lane_path) {
-AINFO<<"(DMCZP) EnteringMethod: TrajectoryCost::IsOffRoad";
   constexpr double kIgnoreDistance = 5.0;
   if (ref_s - init_sl_point_.s() < kIgnoreDistance) {
     return false;
@@ -193,7 +190,6 @@ AINFO<<"(DMCZP) EnteringMethod: TrajectoryCost::IsOffRoad";
 ComparableCost TrajectoryCost::CalculateStaticObstacleCost(
     const QuinticPolynomialCurve1d &curve, const double start_s,
     const double end_s) {
-AINFO<<"(DMCZP) EnteringMethod: TrajectoryCost::CalculateStaticObstacleCost";
   ComparableCost obstacle_cost;
   for (double curr_s = start_s; curr_s <= end_s;
        curr_s += config_.path_resolution()) {
@@ -209,7 +205,6 @@ AINFO<<"(DMCZP) EnteringMethod: TrajectoryCost::CalculateStaticObstacleCost";
 ComparableCost TrajectoryCost::CalculateDynamicObstacleCost(
     const QuinticPolynomialCurve1d &curve, const double start_s,
     const double end_s) const {
-AINFO<<"(DMCZP) EnteringMethod: TrajectoryCost::CalculateDynamicObstacleCost";
   ComparableCost obstacle_cost;
   if (dynamic_obstacle_boxes_.empty()) {
     return obstacle_cost;
@@ -247,7 +242,6 @@ AINFO<<"(DMCZP) EnteringMethod: TrajectoryCost::CalculateDynamicObstacleCost";
 
 ComparableCost TrajectoryCost::GetCostFromObsSL(
     const double adc_s, const double adc_l, const SLBoundary &obs_sl_boundary) {
-AINFO<<"(DMCZP) EnteringMethod: TrajectoryCost::GetCostFromObsSL";
   const auto &vehicle_param =
       common::VehicleConfigHelper::Instance()->GetConfig().vehicle_param();
 
@@ -301,7 +295,6 @@ AINFO<<"(DMCZP) EnteringMethod: TrajectoryCost::GetCostFromObsSL";
 // Simple version: calculate obstacle cost by distance
 ComparableCost TrajectoryCost::GetCostBetweenObsBoxes(
     const Box2d &ego_box, const Box2d &obstacle_box) const {
-AINFO<<"(DMCZP) EnteringMethod: TrajectoryCost::GetCostBetweenObsBoxes";
   ComparableCost obstacle_cost;
 
   const double distance = obstacle_box.DistanceTo(ego_box);
@@ -319,7 +312,6 @@ AINFO<<"(DMCZP) EnteringMethod: TrajectoryCost::GetCostBetweenObsBoxes";
 
 Box2d TrajectoryCost::GetBoxFromSLPoint(const common::SLPoint &sl,
                                         const double dl) const {
-AINFO<<"(DMCZP) EnteringMethod: TrajectoryCost::GetBoxFromSLPoint";
   Vec2d xy_point;
   reference_line_->SLToXY(sl, &xy_point);
 
@@ -339,7 +331,6 @@ ComparableCost TrajectoryCost::Calculate(const QuinticPolynomialCurve1d &curve,
                                          const double end_s,
                                          const uint32_t curr_level,
                                          const uint32_t total_level) {
-AINFO<<"(DMCZP) EnteringMethod: TrajectoryCost::Calculate";
   ComparableCost total_cost;
   // path cost
   total_cost +=

@@ -34,7 +34,6 @@ namespace hdmap {
 
 ChannelChecker::ChannelChecker(const std::string& stop_flag_file)
     : stop_flag_file_(stop_flag_file) {
-AINFO<<"(DMCZP) EnteringMethod: ChannelChecker::ChannelChecker";
   YAML::Node node = YAML::LoadFile(FLAGS_client_conf_yaml);
   std::string server_addr =
       node["grpc_host_port"]["grpc_host"].as<std::string>() + ":" +
@@ -45,7 +44,6 @@ AINFO<<"(DMCZP) EnteringMethod: ChannelChecker::ChannelChecker";
 }
 
 int ChannelChecker::SyncStart(const std::string& record_path) {
-AINFO<<"(DMCZP) EnteringMethod: ChannelChecker::SyncStart";
   if (!boost::filesystem::exists(record_path)) {
     AERROR << "record_path [" << record_path << "]does not exist";
     return -1;
@@ -59,7 +57,6 @@ AINFO<<"(DMCZP) EnteringMethod: ChannelChecker::SyncStart";
 }
 
 int ChannelChecker::SyncStop() {
-AINFO<<"(DMCZP) EnteringMethod: ChannelChecker::SyncStop";
   // stop client
   std::ofstream ofs(stop_flag_file_);
   if (!ofs) {
@@ -72,7 +69,6 @@ AINFO<<"(DMCZP) EnteringMethod: ChannelChecker::SyncStop";
 }
 
 int ChannelChecker::PeriodicCheck() {
-AINFO<<"(DMCZP) EnteringMethod: ChannelChecker::PeriodicCheck";
   int ret = 0;
   while (!boost::filesystem::exists(stop_flag_file_)) {
     ret = Check();
@@ -92,7 +88,6 @@ AINFO<<"(DMCZP) EnteringMethod: ChannelChecker::PeriodicCheck";
 
 int ChannelChecker::GrpcStub(ChannelVerifyRequest* request,
                              ChannelVerifyResponse* response) {
-AINFO<<"(DMCZP) EnteringMethod: ChannelChecker::GrpcStub";
   grpc::ClientContext context;
   grpc::Status status;
   status = service_stub_->ServiceChannelVerify(&context, *request, response);
@@ -109,7 +104,6 @@ AINFO<<"(DMCZP) EnteringMethod: ChannelChecker::GrpcStub";
 }
 
 int ChannelChecker::Start(const std::string& record_path) {
-AINFO<<"(DMCZP) EnteringMethod: ChannelChecker::Start";
   ChannelVerifyRequest request;
   request.set_path(record_path);
   request.set_cmd(CmdType::START);
@@ -121,7 +115,6 @@ AINFO<<"(DMCZP) EnteringMethod: ChannelChecker::Start";
 }
 
 int ChannelChecker::Check() {
-AINFO<<"(DMCZP) EnteringMethod: ChannelChecker::Check";
   ChannelVerifyRequest request;
   request.set_cmd(CmdType::CHECK);
   AINFO << "channel check request: "
@@ -135,7 +128,6 @@ AINFO<<"(DMCZP) EnteringMethod: ChannelChecker::Check";
 }
 
 int ChannelChecker::Stop() {
-AINFO<<"(DMCZP) EnteringMethod: ChannelChecker::Stop";
   ChannelVerifyRequest request;
   request.set_cmd(CmdType::STOP);
   AINFO << "channel check request: "
@@ -145,7 +137,6 @@ AINFO<<"(DMCZP) EnteringMethod: ChannelChecker::Stop";
 }
 
 int ChannelChecker::ProcessAbnormal(ChannelVerifyResponse* response) {
-AINFO<<"(DMCZP) EnteringMethod: ChannelChecker::ProcessAbnormal";
   ErrorCode code = response->code();
   if (code == ErrorCode::ERROR_CHANNEL_VERIFY_RATES_ABNORMAL) {
     if (response->has_result()) {

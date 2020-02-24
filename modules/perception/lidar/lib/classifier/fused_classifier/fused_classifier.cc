@@ -29,7 +29,6 @@ using apollo::cyber::common::GetAbsolutePath;
 using apollo::perception::base::ObjectType;
 
 bool FusedClassifier::Init(const ClassifierInitOptions& options) {
-AINFO<<"(DMCZP) EnteringMethod: FusedClassifier::Init";
   auto config_manager = lib::ConfigManager::Instance();
   const lib::ModelConfig* model_config = nullptr;
   CHECK(config_manager->GetModelConfig(Name(), &model_config));
@@ -60,7 +59,6 @@ AINFO<<"(DMCZP) EnteringMethod: FusedClassifier::Init";
 
 bool FusedClassifier::Classify(const ClassifierOptions& options,
                                LidarFrame* frame) {
-AINFO<<"(DMCZP) EnteringMethod: FusedClassifier::Classify";
   if (frame == nullptr) {
     return false;
   }

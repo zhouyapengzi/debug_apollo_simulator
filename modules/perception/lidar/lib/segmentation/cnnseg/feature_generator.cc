@@ -24,7 +24,6 @@ namespace lidar {
 
 bool FeatureGenerator::Init(const FeatureParam& feature_param,
                             base::Blob<float>* out_blob) {
-AINFO<<"(DMCZP) EnteringMethod: FeatureGenerator::Init";
   // set output feature blob
   out_blob_ = out_blob;
 
@@ -113,7 +112,6 @@ AINFO<<"(DMCZP) EnteringMethod: FeatureGenerator::Init";
 
 void FeatureGenerator::GenerateCPU(const base::PointFCloudPtr& pc_ptr,
                                    const std::vector<int>& point2grid) {
-AINFO<<"(DMCZP) EnteringMethod: FeatureGenerator::GenerateCPU";
   // DO NOT remove this line!!!
   // Otherwise, the gpu_data will not be updated for the later frames.
   // It marks the head at cpu for blob.

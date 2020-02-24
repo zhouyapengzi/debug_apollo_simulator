@@ -22,7 +22,6 @@ namespace localization {
 namespace msf {
 
 NdtMapSingleCell::NdtMapSingleCell() {
-AINFO<<"(DMCZP) EnteringMethod: NdtMapSingleCell::NdtMapSingleCell";
   intensity_ = 0.0;
   intensity_var_ = 0.0;
   road_pt_count_ = 0;
@@ -34,7 +33,6 @@ AINFO<<"(DMCZP) EnteringMethod: NdtMapSingleCell::NdtMapSingleCell";
 }
 
 unsigned int NdtMapSingleCell::LoadBinary(unsigned char* buf) {
-AINFO<<"(DMCZP) EnteringMethod: NdtMapSingleCell::LoadBinary";
   float* f_buf = reinterpret_cast<float*>(buf);
   intensity_ = *f_buf;
   ++f_buf;
@@ -78,7 +76,6 @@ AINFO<<"(DMCZP) EnteringMethod: NdtMapSingleCell::LoadBinary";
 
 unsigned int NdtMapSingleCell::CreateBinary(unsigned char* buf,
                                             unsigned int buf_size) const {
-AINFO<<"(DMCZP) EnteringMethod: NdtMapSingleCell::CreateBinary";
   unsigned int target_size = GetBinarySize();
   if (buf_size >= target_size) {
     float* p = reinterpret_cast<float*>(buf);
@@ -121,7 +118,6 @@ AINFO<<"(DMCZP) EnteringMethod: NdtMapSingleCell::CreateBinary";
 }
 
 unsigned int NdtMapSingleCell::GetBinarySize() const {
-AINFO<<"(DMCZP) EnteringMethod: NdtMapSingleCell::GetBinarySize";
   unsigned int sz =
       static_cast<unsigned int>(sizeof(float) * 2 + sizeof(unsigned int) * 2 +
                                 sizeof(float) * 3 + sizeof(float) * 9);
@@ -146,18 +142,15 @@ NdtMapSingleCell& NdtMapSingleCell::operator=(const NdtMapSingleCell& ref) {
 
 void NdtMapSingleCell::Reduce(NdtMapSingleCell* cell,
                               const NdtMapSingleCell& cell_new) {
-AINFO<<"(DMCZP) EnteringMethod: NdtMapSingleCell::Reduce";
   cell->MergeCell(cell_new);
 }
 
 NdtMapCells::NdtMapCells() {
-AINFO<<"(DMCZP) EnteringMethod: NdtMapCells::NdtMapCells";
   max_altitude_index_ = static_cast<int>(-1e10);
   min_altitude_index_ = static_cast<int>(1e10);
 }
 
 void NdtMapCells::Reset() {
-AINFO<<"(DMCZP) EnteringMethod: NdtMapCells::Reset";
   max_altitude_index_ = static_cast<int>(-1e10);
   min_altitude_index_ = static_cast<int>(1e10);
   cells_.clear();
@@ -167,7 +160,6 @@ AINFO<<"(DMCZP) EnteringMethod: NdtMapCells::Reset";
 int NdtMapCells::AddSample(const float intensity, const float altitude,
                            const float resolution,
                            const Eigen::Vector3f centroid, bool is_road) {
-AINFO<<"(DMCZP) EnteringMethod: NdtMapCells::AddSample";
   int altitude_index = CalAltitudeIndex(resolution, altitude);
   NdtMapSingleCell& cell = cells_[altitude_index];
   cell.AddSample(intensity, altitude, centroid, is_road);
@@ -189,7 +181,6 @@ AINFO<<"(DMCZP) EnteringMethod: NdtMapCells::AddSample";
 }
 
 unsigned int NdtMapCells::LoadBinary(unsigned char* buf) {
-AINFO<<"(DMCZP) EnteringMethod: NdtMapCells::LoadBinary";
   unsigned int* p = reinterpret_cast<unsigned int*>(buf);
   unsigned int size = *p;
   ++p;
@@ -227,7 +218,6 @@ AINFO<<"(DMCZP) EnteringMethod: NdtMapCells::LoadBinary";
 
 unsigned int NdtMapCells::CreateBinary(unsigned char* buf,
                                        unsigned int buf_size) const {
-AINFO<<"(DMCZP) EnteringMethod: NdtMapCells::CreateBinary";
   unsigned int target_size = GetBinarySize();
   if (buf_size >= target_size) {
     unsigned int* p = reinterpret_cast<unsigned int*>(buf);
@@ -268,7 +258,6 @@ AINFO<<"(DMCZP) EnteringMethod: NdtMapCells::CreateBinary";
 }
 
 unsigned int NdtMapCells::GetBinarySize() const {
-AINFO<<"(DMCZP) EnteringMethod: NdtMapCells::GetBinarySize";
   unsigned int target_size = sizeof(unsigned int);
   for (auto it = cells_.begin(); it != cells_.end(); ++it) {
     target_size += static_cast<unsigned int>(sizeof(int));
@@ -286,19 +275,16 @@ AINFO<<"(DMCZP) EnteringMethod: NdtMapCells::GetBinarySize";
 
 int NdtMapCells::CalAltitudeIndex(const float resolution,
                                   const float altitude) {
-AINFO<<"(DMCZP) EnteringMethod: NdtMapCells::CalAltitudeIndex";
   return static_cast<int>(altitude / resolution);
 }
 
 float NdtMapCells::CalAltitude(const float resolution,
                                const int altitude_index) {
-AINFO<<"(DMCZP) EnteringMethod: NdtMapCells::CalAltitude";
   return static_cast<float>(resolution *
                             (static_cast<float>(altitude_index) + 0.5));
 }
 
 void NdtMapCells::Reduce(NdtMapCells* cell, const NdtMapCells& cell_new) {
-AINFO<<"(DMCZP) EnteringMethod: NdtMapCells::Reduce";
   // Reduce cells
   for (auto it = cell_new.cells_.begin(); it != cell_new.cells_.end(); ++it) {
     int altitude_index = it->first;
@@ -331,7 +317,6 @@ AINFO<<"(DMCZP) EnteringMethod: NdtMapCells::Reduce";
 }
 
 NdtMapMatrix::NdtMapMatrix() {
-AINFO<<"(DMCZP) EnteringMethod: NdtMapMatrix::NdtMapMatrix";
   rows_ = 0;
   cols_ = 0;
   map3d_cells_ = nullptr;
@@ -340,7 +325,6 @@ AINFO<<"(DMCZP) EnteringMethod: NdtMapMatrix::NdtMapMatrix";
 NdtMapMatrix::~NdtMapMatrix() {}
 
 NdtMapMatrix::NdtMapMatrix(const NdtMapMatrix& cells) {
-AINFO<<"(DMCZP) EnteringMethod: NdtMapMatrix::NdtMapMatrix";
   Init(cells.rows_, cells.cols_);
   for (unsigned int y = 0; y < rows_; ++y) {
     for (unsigned int x = 0; x < cols_; ++x) {
@@ -352,25 +336,21 @@ AINFO<<"(DMCZP) EnteringMethod: NdtMapMatrix::NdtMapMatrix";
 }
 
 void NdtMapMatrix::Init(const BaseMapConfig* config) {
-AINFO<<"(DMCZP) EnteringMethod: NdtMapMatrix::Init";
   Init(config->map_node_size_y_, config->map_node_size_x_);
   return;
 }
 
 void NdtMapMatrix::Reset(const BaseMapConfig* config) {
-AINFO<<"(DMCZP) EnteringMethod: NdtMapMatrix::Reset";
   Reset(config->map_node_size_y_, config->map_node_size_x_);
 }
 
 void NdtMapMatrix::Init(unsigned int rows, unsigned int cols) {
-AINFO<<"(DMCZP) EnteringMethod: NdtMapMatrix::Init";
   map3d_cells_.reset(new NdtMapCells[rows * cols]);
   rows_ = rows;
   cols_ = cols;
 }
 
 void NdtMapMatrix::Reset(unsigned int rows, unsigned int cols) {
-AINFO<<"(DMCZP) EnteringMethod: NdtMapMatrix::Reset";
   unsigned int length = rows * cols;
   for (unsigned int i = 0; i < length; ++i) {
     map3d_cells_[i].Reset();
@@ -378,7 +358,6 @@ AINFO<<"(DMCZP) EnteringMethod: NdtMapMatrix::Reset";
 }
 
 unsigned int NdtMapMatrix::LoadBinary(unsigned char* buf) {
-AINFO<<"(DMCZP) EnteringMethod: NdtMapMatrix::LoadBinary";
   unsigned int* p = reinterpret_cast<unsigned int*>(buf);
   rows_ = *p;
   ++p;
@@ -398,7 +377,6 @@ AINFO<<"(DMCZP) EnteringMethod: NdtMapMatrix::LoadBinary";
 
 unsigned int NdtMapMatrix::CreateBinary(unsigned char* buf,
                                         unsigned int buf_size) const {
-AINFO<<"(DMCZP) EnteringMethod: NdtMapMatrix::CreateBinary";
   unsigned int target_size = GetBinarySize();
   if (buf_size >= target_size) {
     unsigned int* p = reinterpret_cast<unsigned int*>(buf);
@@ -422,7 +400,6 @@ AINFO<<"(DMCZP) EnteringMethod: NdtMapMatrix::CreateBinary";
 }
 
 unsigned int NdtMapMatrix::GetBinarySize() const {
-AINFO<<"(DMCZP) EnteringMethod: NdtMapMatrix::GetBinarySize";
   unsigned int target_size =
       static_cast<unsigned int>(sizeof(unsigned int) * 2);
   for (unsigned int y = 0; y < rows_; ++y) {
@@ -435,7 +412,6 @@ AINFO<<"(DMCZP) EnteringMethod: NdtMapMatrix::GetBinarySize";
 }
 
 void NdtMapMatrix::Reduce(NdtMapMatrix* cells, const NdtMapMatrix& cells_new) {
-AINFO<<"(DMCZP) EnteringMethod: NdtMapMatrix::Reduce";
   for (unsigned int y = 0; y < cells->GetRows(); ++y) {
     for (unsigned int x = 0; x < cells->GetCols(); ++x) {
       NdtMapCells& cell = cells->GetMapCell(y, x);
@@ -446,7 +422,6 @@ AINFO<<"(DMCZP) EnteringMethod: NdtMapMatrix::Reduce";
 }
 
 void NdtMapMatrix::GetIntensityImg(cv::Mat* intensity_img) const {
-AINFO<<"(DMCZP) EnteringMethod: NdtMapMatrix::GetIntensityImg";
   *intensity_img = cv::Mat(cv::Size(cols_, rows_), CV_8UC1);
   for (unsigned int y = 0; y < rows_; ++y) {
     for (unsigned int x = 0; x < cols_; ++x) {

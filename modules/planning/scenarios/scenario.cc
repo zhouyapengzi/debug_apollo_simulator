@@ -31,18 +31,15 @@ namespace scenario {
 
 Scenario::Scenario(const ScenarioConfig& config, const ScenarioContext* context)
     : config_(config), scenario_context_(context) {
-AINFO<<"(DMCZP) EnteringMethod: Scenario::Scenario";
   name_ = ScenarioConfig::ScenarioType_Name(config.scenario_type());
 }
 
 bool Scenario::LoadConfig(const std::string& config_file,
                           ScenarioConfig* config) {
-AINFO<<"(DMCZP) EnteringMethod: Scenario::LoadConfig";
   return apollo::cyber::common::GetProtoFromFile(config_file, config);
 }
 
 void Scenario::Init() {
-AINFO<<"(DMCZP) EnteringMethod: Scenario::Init";
   CHECK(!config_.stage_type().empty());
 
   // set scenario_type in PlanningContext
@@ -68,7 +65,6 @@ AINFO<<"(DMCZP) EnteringMethod: Scenario::Init";
 
 Scenario::ScenarioStatus Scenario::Process(
     const common::TrajectoryPoint& planning_init_point, Frame* frame) {
-AINFO<<"(DMCZP) EnteringMethod: Scenario::Process";
   if (current_stage_ == nullptr) {
     AWARN << "Current stage is a null pointer.";
     return STATUS_UNKNOWN;
@@ -125,7 +121,6 @@ AINFO<<"(DMCZP) EnteringMethod: Scenario::Process";
 }
 
 const std::string& Scenario::Name() const { return name_; }
-AINFO<<"(DMCZP) EnteringMethod: Scenario::Name";
 
 }  // namespace scenario
 }  // namespace planning

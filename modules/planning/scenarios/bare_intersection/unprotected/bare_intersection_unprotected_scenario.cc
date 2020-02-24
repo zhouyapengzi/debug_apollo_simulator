@@ -36,7 +36,6 @@ namespace bare_intersection {
 using hdmap::HDMapUtil;
 
 void BareIntersectionUnprotectedScenario::Init() {
-AINFO<<"(DMCZP) EnteringMethod: BareIntersectionUnprotectedScenario::Init";
   if (init_) {
     return;
   }
@@ -76,7 +75,6 @@ apollo::common::util::Factory<
     BareIntersectionUnprotectedScenario::s_stage_factory_;
 
 void BareIntersectionUnprotectedScenario::RegisterStages() {
-AINFO<<"(DMCZP) EnteringMethod: BareIntersectionUnprotectedScenario::RegisterStages";
   if (!s_stage_factory_.Empty()) {
     s_stage_factory_.Clear();
   }
@@ -109,7 +107,6 @@ std::unique_ptr<Stage> BareIntersectionUnprotectedScenario::CreateStage(
  * read scenario specific configs and set in context_ for stages to read
  */
 bool BareIntersectionUnprotectedScenario::GetScenarioConfig() {
-AINFO<<"(DMCZP) EnteringMethod: BareIntersectionUnprotectedScenario::GetScenarioConfig";
   if (!config_.has_bare_intersection_unprotected_config()) {
     AERROR << "miss scenario specific config";
     return false;

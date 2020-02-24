@@ -23,7 +23,6 @@ namespace fusion {
 // @return bounded & scaled prob
 // @NOTE: original method name is bound_scale_probability
 double BoundedScalePositiveProbability(double p, double max_p, double min_p) {
-AINFO<<"(DMCZP) EnteringMethod: BoundedScalePositiveProbability";
   p = std::max(p, min_p);
   p = (p - min_p) * (max_p - min_p) / (1 - min_p) + min_p;
   return p;
@@ -32,7 +31,6 @@ AINFO<<"(DMCZP) EnteringMethod: BoundedScalePositiveProbability";
 // @return scaled prob
 // @NOTE: original method name is scale_positive_probability
 double ScalePositiveProbability(double p, double max_p, double th_p) {
-AINFO<<"(DMCZP) EnteringMethod: ScalePositiveProbability";
   if (p <= th_p) {
     return p;
   }
@@ -43,7 +41,6 @@ AINFO<<"(DMCZP) EnteringMethod: ScalePositiveProbability";
 // @return Welsh Loss of input dist
 // @NOTE: original method name is welsh_var_loss_fun
 double WelshVarLossFun(double dist, double th, double scale) {
-AINFO<<"(DMCZP) EnteringMethod: WelshVarLossFun";
   double p = 1e-6;
   if (dist < th) {
     p = 1 - 1e-6;
@@ -60,7 +57,6 @@ AINFO<<"(DMCZP) EnteringMethod: WelshVarLossFun";
 // @return fused prob of input prob pair
 // @NOTE: original method name is fused_tow_probabilities
 double FuseTwoProbabilities(double prob1, double prob2) {
-AINFO<<"(DMCZP) EnteringMethod: FuseTwoProbabilities";
   double prob = (prob1 * prob2) / (2 * prob1 * prob2 + 1 - prob1 - prob2);
   return prob;
 }
@@ -68,7 +64,6 @@ AINFO<<"(DMCZP) EnteringMethod: FuseTwoProbabilities";
 // @return fsued probability of input multiple probabilities
 // @NOTE: original method name is fused_multiple_probabilities
 double FuseMultipleProbabilities(const std::vector<double>& probs) {
-AINFO<<"(DMCZP) EnteringMethod: FuseMultipleProbabilities";
   std::vector<double> log_odd_probs = probs;
   auto prob_to_log_odd = [](double p) {
     p = std::max(std::min(p, 1 - 1e-6), 1e-6);

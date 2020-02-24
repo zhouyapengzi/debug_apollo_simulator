@@ -27,7 +27,6 @@ namespace perception {
 namespace camera {
 
 TEST(darkSCNNLaneDetector, darkSCNN_lane_detector_test) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   LaneDetectorInitOptions init_options;
   LaneDetectorOptions detetor_options;
   CameraFrame frame;

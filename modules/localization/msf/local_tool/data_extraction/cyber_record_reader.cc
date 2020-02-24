@@ -26,20 +26,17 @@ namespace msf {
 using cyber::record::RecordReader;
 
 CyberRecordReader::CyberRecordReader() {}
-AINFO<<"(DMCZP) EnteringMethod: CyberRecordReader::CyberRecordReader";
 
 CyberRecordReader::~CyberRecordReader() {}
 
 void CyberRecordReader::Subscribe(
     const std::string &topic,
     const std::function<void(const std::string &)> call_back) {
-AINFO<<"(DMCZP) EnteringMethod: CyberRecordReader::Subscribe";
   call_back_map_[topic] = call_back;
   topics_.push_back(topic);
 }
 
 void CyberRecordReader::Read(const std::string &file_name) {
-AINFO<<"(DMCZP) EnteringMethod: CyberRecordReader::Read";
   RecordReader reader(file_name);
   cyber::record::RecordMessage message;
   while (reader.ReadMessage(&message)) {

@@ -28,7 +28,6 @@ using apollo::perception::PerceptionObstacle;
 using Point = apollo::common::Point3D;
 
 void PoseContainer::Insert(const ::google::protobuf::Message& message) {
-AINFO<<"(DMCZP) EnteringMethod: PoseContainer::Insert";
   localization::LocalizationEstimate localization;
   localization.CopyFrom(dynamic_cast<const LocalizationEstimate&>(message));
   Update(localization);
@@ -36,7 +35,6 @@ AINFO<<"(DMCZP) EnteringMethod: PoseContainer::Insert";
 
 void PoseContainer::Update(
     const localization::LocalizationEstimate& localization) {
-AINFO<<"(DMCZP) EnteringMethod: PoseContainer::Update";
   if (!localization.has_header() ||
       !localization.header().has_timestamp_sec()) {
     AERROR << "Localization message has no timestamp ["
@@ -92,7 +90,6 @@ AINFO<<"(DMCZP) EnteringMethod: PoseContainer::Update";
 }
 
 double PoseContainer::GetTimestamp() {
-AINFO<<"(DMCZP) EnteringMethod: PoseContainer::GetTimestamp";
   if (obstacle_ptr_ != nullptr) {
     return obstacle_ptr_->timestamp();
   } else {
@@ -101,7 +98,6 @@ AINFO<<"(DMCZP) EnteringMethod: PoseContainer::GetTimestamp";
 }
 
 const PerceptionObstacle* PoseContainer::ToPerceptionObstacle() {
-AINFO<<"(DMCZP) EnteringMethod: PoseContainer::ToPerceptionObstacle";
   return obstacle_ptr_.get();
 }
 

@@ -24,10 +24,8 @@ namespace apollo {
 namespace prediction {
 
 ScenarioFeatures::ScenarioFeatures() { scenario_.set_type(Scenario::UNKNOWN); }
-AINFO<<"(DMCZP) EnteringMethod: ScenarioFeatures::ScenarioFeatures";
 
 const Scenario& ScenarioFeatures::scenario() const { return scenario_; }
-AINFO<<"(DMCZP) EnteringMethod: ScenarioFeatures::scenario";
 
 }  // namespace prediction
 }  // namespace apollo

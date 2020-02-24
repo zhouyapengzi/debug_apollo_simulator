@@ -26,10 +26,8 @@ namespace data {
 using apollo::common::DriveEvent;
 
 DriveEventTrigger::DriveEventTrigger() { trigger_name_ = "DriveEventTrigger"; }
-AINFO<<"(DMCZP) EnteringMethod: DriveEventTrigger::DriveEventTrigger";
 
 void DriveEventTrigger::Pull(const RecordMessage& msg) {
-AINFO<<"(DMCZP) EnteringMethod: DriveEventTrigger::Pull";
   if (!trigger_obj_->enabled()) {
     return;
   }

@@ -26,7 +26,6 @@ namespace perception {
 namespace lidar {
 
 bool LoadPCDFile(const std::string& file_path, base::PointFCloudPtr cloud_out) {
-AINFO<<"(DMCZP) EnteringMethod: LoadPCDFile";
   int ret = 0;
   pcl::PointCloud<pcl::PointXYZI> org_cloud;
   if ((ret = pcl::io::loadPCDFile(file_path, org_cloud)) < 0) {
@@ -53,7 +52,6 @@ AINFO<<"(DMCZP) EnteringMethod: LoadPCDFile";
 }
 
 void PrintObjects(const std::vector<base::ObjectPtr>& objects) {
-AINFO<<"(DMCZP) EnteringMethod: PrintObjects";
   AINFO << "Total objects num: " << objects.size();
   int obj_id = 0;
   for (auto object : objects) {
@@ -71,7 +69,6 @@ AINFO<<"(DMCZP) EnteringMethod: PrintObjects";
 /*
  * TODO(perception): enable this test.
 TEST(CNNSegmentationTest, cnn_segmentation_sequence_test) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   char cyber_path[100] = "CYBER_PATH=";
   putenv(cyber_path);
   char module_path[100] = "MODULE_PATH=";
@@ -120,7 +117,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST";
 }
 
 TEST(CNNSegmentationTest, cnn_segmentation_test) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   char cyber_path[100] = "CYBER_PATH=";
   putenv(cyber_path);
   char module_path[100] = "MODULE_PATH=";

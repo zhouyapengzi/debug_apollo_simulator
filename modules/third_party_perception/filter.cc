@@ -32,7 +32,6 @@ namespace third_party_perception {
 namespace filter {
 
 bool IsPreserved(const RadarObstacle& radar_obstacle) {
-AINFO<<"(DMCZP) EnteringMethod: IsPreserved";
   if (!radar_obstacle.movable()) {
     return false;
   }
@@ -48,7 +47,6 @@ AINFO<<"(DMCZP) EnteringMethod: IsPreserved";
 }
 
 RadarObstacles FilterRadarObstacles(const RadarObstacles& radar_obstacles) {
-AINFO<<"(DMCZP) EnteringMethod: FilterRadarObstacles";
   RadarObstacles filtered_radar_obstacles;
   for (const auto& iter : radar_obstacles.radar_obstacle()) {
     if (IsPreserved(iter.second)) {

@@ -42,7 +42,6 @@ ErrorCode ChController::Init(
     const VehicleParameter& params,
     CanSender<::apollo::canbus::ChassisDetail>* const can_sender,
     MessageManager<::apollo::canbus::ChassisDetail>* const message_manager) {
-AINFO<<"(DMCZP) EnteringMethod: ChController::Init";
   if (is_initialized_) {
     AINFO << "ChController has already been initiated.";
     return ErrorCode::CANBUS_ERROR;
@@ -120,7 +119,6 @@ AINFO<<"(DMCZP) EnteringMethod: ChController::Init";
 ChController::~ChController() {}
 
 bool ChController::Start() {
-AINFO<<"(DMCZP) EnteringMethod: ChController::Start";
   if (!is_initialized_) {
     AERROR << "ChController has NOT been initiated.";
     return false;
@@ -132,7 +130,6 @@ AINFO<<"(DMCZP) EnteringMethod: ChController::Start";
 }
 
 void ChController::Stop() {
-AINFO<<"(DMCZP) EnteringMethod: ChController::Stop";
   if (!is_initialized_) {
     AERROR << "ChController stops or starts improperly!";
     return;
@@ -146,7 +143,6 @@ AINFO<<"(DMCZP) EnteringMethod: ChController::Stop";
 }
 
 Chassis ChController::chassis() {
-AINFO<<"(DMCZP) EnteringMethod: ChController::chassis";
   chassis_.Clear();
 
   ChassisDetail chassis_detail;
@@ -254,13 +250,11 @@ AINFO<<"(DMCZP) EnteringMethod: ChController::chassis";
 }
 
 void ChController::Emergency() {
-AINFO<<"(DMCZP) EnteringMethod: ChController::Emergency";
   set_driving_mode(Chassis::EMERGENCY_MODE);
   ResetProtocol();
 }
 
 ErrorCode ChController::EnableAutoMode() {
-AINFO<<"(DMCZP) EnteringMethod: ChController::EnableAutoMode";
   if (driving_mode() == Chassis::COMPLETE_AUTO_DRIVE) {
     AINFO << "already in COMPLETE_AUTO_DRIVE mode";
     return ErrorCode::OK;
@@ -289,7 +283,6 @@ AINFO<<"(DMCZP) EnteringMethod: ChController::EnableAutoMode";
 }
 
 ErrorCode ChController::DisableAutoMode() {
-AINFO<<"(DMCZP) EnteringMethod: ChController::DisableAutoMode";
   ResetProtocol();
   can_sender_->Update();
   set_driving_mode(Chassis::COMPLETE_MANUAL);
@@ -299,20 +292,17 @@ AINFO<<"(DMCZP) EnteringMethod: ChController::DisableAutoMode";
 }
 
 ErrorCode ChController::EnableSteeringOnlyMode() {
-AINFO<<"(DMCZP) EnteringMethod: ChController::EnableSteeringOnlyMode";
   AFATAL << "SteeringOnlyMode Not supported!";
   return ErrorCode::OK;
 }
 
 ErrorCode ChController::EnableSpeedOnlyMode() {
-AINFO<<"(DMCZP) EnteringMethod: ChController::EnableSpeedOnlyMode";
   AFATAL << "SpeedOnlyMode Not supported!";
   return ErrorCode::OK;
 }
 
 // NEUTRAL, REVERSE, DRIVE
 void ChController::Gear(Chassis::GearPosition gear_position) {
-AINFO<<"(DMCZP) EnteringMethod: ChController::Gear";
   if (!(driving_mode() == Chassis::COMPLETE_AUTO_DRIVE ||
         driving_mode() == Chassis::AUTO_SPEED_ONLY)) {
     AINFO << "this drive mode no need to set gear.";
@@ -354,7 +344,6 @@ AINFO<<"(DMCZP) EnteringMethod: ChController::Gear";
 // acceleration:0.0 ~ 7.0, unit:m/s^2
 // acceleration_spd:60 ~ 100, suggest: 90
 void ChController::Brake(double pedal) {
-AINFO<<"(DMCZP) EnteringMethod: ChController::Brake";
   // Update brake value based on mode
   if (!(driving_mode() == Chassis::COMPLETE_AUTO_DRIVE ||
         driving_mode() == Chassis::AUTO_SPEED_ONLY)) {
@@ -368,7 +357,6 @@ AINFO<<"(DMCZP) EnteringMethod: ChController::Brake";
 // drive with old acceleration
 // gas:0.00~99.99 unit:
 void ChController::Throttle(double pedal) {
-AINFO<<"(DMCZP) EnteringMethod: ChController::Throttle";
   if (driving_mode() != Chassis::COMPLETE_AUTO_DRIVE &&
       driving_mode() != Chassis::AUTO_SPEED_ONLY) {
     AINFO << "The current drive mode does not need to set acceleration.";
@@ -379,14 +367,12 @@ AINFO<<"(DMCZP) EnteringMethod: ChController::Throttle";
 }
 
 void ChController::Acceleration(double acc) {}
-AINFO<<"(DMCZP) EnteringMethod: ChController::Acceleration";
 
 // ch default, -23 ~ 23, left:+, right:-
 // need to be compatible with control module, so reverse
 // steering with old angle speed
 // angle:-99.99~0.00~99.99, unit:, left:-, right:+
 void ChController::Steer(double angle) {
-AINFO<<"(DMCZP) EnteringMethod: ChController::Steer";
   if (!(driving_mode() == Chassis::COMPLETE_AUTO_DRIVE ||
         driving_mode() == Chassis::AUTO_STEER_ONLY)) {
     AINFO << "The current driving mode does not need to set steer.";
@@ -402,7 +388,6 @@ AINFO<<"(DMCZP) EnteringMethod: ChController::Steer";
 // angle:-99.99~0.00~99.99, unit:, left:-, right:+
 // angle_spd:0.00~99.99, unit:deg/s
 void ChController::Steer(double angle, double angle_spd) {
-AINFO<<"(DMCZP) EnteringMethod: ChController::Steer";
   if (!(driving_mode() == Chassis::COMPLETE_AUTO_DRIVE ||
         driving_mode() == Chassis::AUTO_STEER_ONLY)) {
     AINFO << "The current driving mode does not need to set steer.";
@@ -414,25 +399,18 @@ AINFO<<"(DMCZP) EnteringMethod: ChController::Steer";
 }
 
 void ChController::SetEpbBreak(const ControlCommand& command) {}
-AINFO<<"(DMCZP) EnteringMethod: ChController::SetEpbBreak";
 
 void ChController::SetBeam(const ControlCommand& command) {}
-AINFO<<"(DMCZP) EnteringMethod: ChController::SetBeam";
 
 void ChController::SetHorn(const ControlCommand& command) {}
-AINFO<<"(DMCZP) EnteringMethod: ChController::SetHorn";
 
 void ChController::SetTurningSignal(const ControlCommand& command) {}
-AINFO<<"(DMCZP) EnteringMethod: ChController::SetTurningSignal";
 
 void ChController::ResetProtocol() { message_manager_->ResetSendMessages(); }
-AINFO<<"(DMCZP) EnteringMethod: ChController::ResetProtocol";
 
 bool ChController::CheckChassisError() { return false; }
-AINFO<<"(DMCZP) EnteringMethod: ChController::CheckChassisError";
 
 void ChController::SecurityDogThreadFunc() {
-AINFO<<"(DMCZP) EnteringMethod: ChController::SecurityDogThreadFunc";
   int32_t vertical_ctrl_fail = 0;
   int32_t horizontal_ctrl_fail = 0;
 
@@ -500,7 +478,6 @@ AINFO<<"(DMCZP) EnteringMethod: ChController::SecurityDogThreadFunc";
   }
 }
 bool ChController::CheckResponse(const int32_t flags, bool need_wait) {
-AINFO<<"(DMCZP) EnteringMethod: ChController::CheckResponse";
   int32_t retry_num = 20;
   ChassisDetail chassis_detail;
   bool is_eps_online = false;
@@ -549,26 +526,22 @@ AINFO<<"(DMCZP) EnteringMethod: ChController::CheckResponse";
 }
 
 void ChController::set_chassis_error_mask(const int32_t mask) {
-AINFO<<"(DMCZP) EnteringMethod: ChController::set_chassis_error_mask";
   std::lock_guard<std::mutex> lock(chassis_mask_mutex_);
   chassis_error_mask_ = mask;
 }
 
 int32_t ChController::chassis_error_mask() {
-AINFO<<"(DMCZP) EnteringMethod: ChController::chassis_error_mask";
   std::lock_guard<std::mutex> lock(chassis_mask_mutex_);
   return chassis_error_mask_;
 }
 
 Chassis::ErrorCode ChController::chassis_error_code() {
-AINFO<<"(DMCZP) EnteringMethod: ChController::chassis_error_code";
   std::lock_guard<std::mutex> lock(chassis_error_code_mutex_);
   return chassis_error_code_;
 }
 
 void ChController::set_chassis_error_code(
     const Chassis::ErrorCode& error_code) {
-AINFO<<"(DMCZP) EnteringMethod: ChController::set_chassis_error_code";
   std::lock_guard<std::mutex> lock(chassis_error_code_mutex_);
   chassis_error_code_ = error_code;
 }

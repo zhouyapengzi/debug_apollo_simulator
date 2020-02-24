@@ -35,7 +35,6 @@ CyberTopologyMessage::CyberTopologyMessage(const std::string& channel)
       col1_width_(8),
       specified_channel_(channel),
       all_channels_map_() {}
-AINFO<<"(DMCZP) EnteringMethod: CyberTopologyMessage::CyberTopologyMessage";
 
 CyberTopologyMessage::~CyberTopologyMessage(void) {
   for (auto item : all_channels_map_) {
@@ -46,7 +45,6 @@ CyberTopologyMessage::~CyberTopologyMessage(void) {
 }
 
 bool CyberTopologyMessage::isFromHere(const std::string& nodeName) {
-AINFO<<"(DMCZP) EnteringMethod: CyberTopologyMessage::isFromHere";
   std::ostringstream outStr;
   outStr << "MonitorReader" << pid_;
 
@@ -57,7 +55,6 @@ AINFO<<"(DMCZP) EnteringMethod: CyberTopologyMessage::isFromHere";
 }
 
 RenderableMessage* CyberTopologyMessage::Child(int lineNo) const {
-AINFO<<"(DMCZP) EnteringMethod: CyberTopologyMessage::Child";
   RenderableMessage* ret = nullptr;
   auto iter = findChild(lineNo);
   if (iter != all_channels_map_.cend() &&
@@ -70,7 +67,6 @@ AINFO<<"(DMCZP) EnteringMethod: CyberTopologyMessage::Child";
 
 std::map<std::string, GeneralChannelMessage*>::const_iterator
 CyberTopologyMessage::findChild(int lineNo) const {
-AINFO<<"(DMCZP) EnteringMethod: CyberTopologyMessage::findChild";
   --lineNo;
 
   std::map<std::string, GeneralChannelMessage*>::const_iterator ret =
@@ -98,7 +94,6 @@ AINFO<<"(DMCZP) EnteringMethod: CyberTopologyMessage::findChild";
 
 void CyberTopologyMessage::TopologyChanged(
     const apollo::cyber::proto::ChangeMsg& changeMsg) {
-AINFO<<"(DMCZP) EnteringMethod: CyberTopologyMessage::TopologyChanged";
   if (::apollo::cyber::proto::OperateType::OPT_JOIN ==
       changeMsg.operate_type()) {
     bool isWriter = true;
@@ -123,7 +118,6 @@ AINFO<<"(DMCZP) EnteringMethod: CyberTopologyMessage::TopologyChanged";
 
 void CyberTopologyMessage::AddReaderWriter(
     const apollo::cyber::proto::RoleAttributes& role, bool isWriter) {
-AINFO<<"(DMCZP) EnteringMethod: CyberTopologyMessage::AddReaderWriter";
   const std::string& channelName = role.channel_name();
 
   if (!specified_channel_.empty() && specified_channel_ != channelName) {
@@ -180,7 +174,6 @@ AINFO<<"(DMCZP) EnteringMethod: CyberTopologyMessage::AddReaderWriter";
 }
 
 void CyberTopologyMessage::ChangeState(const Screen* s, int key) {
-AINFO<<"(DMCZP) EnteringMethod: CyberTopologyMessage::ChangeState";
   switch (key) {
     case 'f':
     case 'F':
@@ -215,7 +208,6 @@ AINFO<<"(DMCZP) EnteringMethod: CyberTopologyMessage::ChangeState";
 }
 
 void CyberTopologyMessage::Render(const Screen* s, int key) {
-AINFO<<"(DMCZP) EnteringMethod: CyberTopologyMessage::Render";
   page_item_count_ = s->Height() - 1;
   pages_ = static_cast<int>(all_channels_map_.size()) / page_item_count_ + 1;
   ChangeState(s, key);

@@ -46,7 +46,6 @@ class WeyMessageManagerTest : public ::testing::Test {
 };
 
 TEST_F(WeyMessageManagerTest, GetSendProtocols) {
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   EXPECT_NE(manager_.GetMutableProtocolDataById(Ads1111::ID), nullptr);
   EXPECT_NE(manager_.GetMutableProtocolDataById(Ads338e::ID), nullptr);
   EXPECT_NE(manager_.GetMutableProtocolDataById(Adseps113::ID), nullptr);
@@ -55,7 +54,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST_F";
 }
 
 TEST_F(WeyMessageManagerTest, GetRecvProtocols) {
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   EXPECT_NE(manager_.GetMutableProtocolDataById(Fail241::ID), nullptr);
   EXPECT_NE(manager_.GetMutableProtocolDataById(Fbs1243::ID), nullptr);
   EXPECT_NE(manager_.GetMutableProtocolDataById(Fbs2240::ID), nullptr);

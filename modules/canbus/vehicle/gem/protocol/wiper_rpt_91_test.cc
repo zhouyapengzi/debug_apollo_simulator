@@ -28,7 +28,6 @@ class Wiperrpt91Test : public ::testing::Test {
 };
 
 TEST_F(Wiperrpt91Test, reset) {
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   Wiperrpt91 wiper;
   int32_t length = 8;
   ChassisDetail chassis_detail;

@@ -25,7 +25,6 @@ namespace camera {
 
 bool TransformServer::Init(const std::vector<std::string> &camera_names,
                            const std::string &params_path) {
-AINFO<<"(DMCZP) EnteringMethod: TransformServer::Init";
   const std::string params_dir = params_path;
   // 1. Init lidar height
   try {
@@ -103,7 +102,6 @@ AINFO<<"(DMCZP) EnteringMethod: TransformServer::Init";
 
 bool TransformServer::LoadFromFile(const std::string &tf_input,
                                    float frequency) {
-AINFO<<"(DMCZP) EnteringMethod: TransformServer::LoadFromFile";
   if (frequency <= 0) {
     AERROR << "Error frequency value:" << frequency;
     return false;
@@ -130,7 +128,6 @@ AINFO<<"(DMCZP) EnteringMethod: TransformServer::LoadFromFile";
 }
 
 bool TransformServer::QueryPos(double timestamp, Eigen::Affine3d *pose) {
-AINFO<<"(DMCZP) EnteringMethod: TransformServer::QueryPos";
   for (auto &&tf : tf_) {
     if (Equal(timestamp, tf.timestamp, error_limit_)) {
       Eigen::Quaterniond rotation(tf.qw, tf.qx, tf.qy, tf.qz);
@@ -146,7 +143,6 @@ AINFO<<"(DMCZP) EnteringMethod: TransformServer::QueryPos";
 bool TransformServer::AddTransform(const std::string &child_frame_id,
                                    const std::string &frame_id,
                                    const Eigen::Affine3d &transform) {
-AINFO<<"(DMCZP) EnteringMethod: TransformServer::AddTransform";
   vertices_.insert(child_frame_id);
   vertices_.insert(frame_id);
 
@@ -178,7 +174,6 @@ AINFO<<"(DMCZP) EnteringMethod: TransformServer::AddTransform";
 bool TransformServer::QueryTransform(const std::string &child_frame_id,
                                      const std::string &frame_id,
                                      Eigen::Affine3d *transform) {
-AINFO<<"(DMCZP) EnteringMethod: TransformServer::QueryTransform";
   *transform = Eigen::Affine3d::Identity();
 
   if (child_frame_id == frame_id) {
@@ -203,7 +198,6 @@ bool TransformServer::FindTransform(const std::string &child_frame_id,
                                     const std::string &frame_id,
                                     Eigen::Affine3d *transform,
                                     std::map<std::string, bool> *visited) {
-AINFO<<"(DMCZP) EnteringMethod: TransformServer::FindTransform";
   Eigen::Affine3d loc_transform = Eigen::Affine3d::Identity();
 
   auto begin = edges_.lower_bound(child_frame_id);
@@ -239,7 +233,6 @@ AINFO<<"(DMCZP) EnteringMethod: TransformServer::FindTransform";
 }
 
 void TransformServer::print() {
-AINFO<<"(DMCZP) EnteringMethod: TransformServer::print";
   for (auto item : edges_) {
     AINFO << "----------------" << std::endl;
     AINFO << item.first << std::endl;

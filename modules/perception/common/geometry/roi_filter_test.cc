@@ -35,7 +35,6 @@ using ObjectConstPtr = std::shared_ptr<const apollo::perception::base::Object>;
 using ObjectPtr = std::shared_ptr<apollo::perception::base::Object>;
 
 TEST(IsPtInRoiTest, test_roi) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   HdmapStructPtr hdmap = HdmapStructPtr(new HdmapStruct());
   hdmap->junction_polygons.resize(1);
   PointD pt;
@@ -66,7 +65,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST";
 }
 
 TEST(IsObjectInRoiTest, test_roi) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   HdmapStructPtr hdmap = HdmapStructPtr(new HdmapStruct());
   hdmap->junction_polygons.resize(1);
   PointD pt;
@@ -90,7 +88,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST";
 }
 
 TEST(IsObjectBboxInRoiTest, test_roi) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   HdmapStructPtr hdmap = HdmapStructPtr(new HdmapStruct());
   hdmap->junction_polygons.resize(1);
   PointD pt;
@@ -128,7 +125,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST";
 }
 
 TEST(ObjectInRoiTest, test_roi) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   HdmapStructPtr hdmap = nullptr;
   std::vector<ObjectPtr> objects;
   std::vector<ObjectPtr> valid_objects;

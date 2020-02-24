@@ -27,7 +27,6 @@ namespace planning {
 
 AffineConstraint::AffineConstraint(const bool is_equality)
     : is_equality_(is_equality) {}
-AINFO<<"(DMCZP) EnteringMethod: AffineConstraint::AffineConstraint";
 
 AffineConstraint::AffineConstraint(const Eigen::MatrixXd& constraint_matrix,
                                    const Eigen::MatrixXd& constraint_boundary,
@@ -35,29 +34,24 @@ AffineConstraint::AffineConstraint(const Eigen::MatrixXd& constraint_matrix,
     : constraint_matrix_(constraint_matrix),
       constraint_boundary_(constraint_boundary),
       is_equality_(is_equality) {
-AINFO<<"(DMCZP) EnteringMethod: AffineConstraint::AffineConstraint";
   CHECK_EQ(constraint_boundary.rows(), constraint_matrix.rows());
 }
 
 void AffineConstraint::SetIsEquality(const double is_equality) {
-AINFO<<"(DMCZP) EnteringMethod: AffineConstraint::SetIsEquality";
   is_equality_ = is_equality;
 }
 
 const Eigen::MatrixXd& AffineConstraint::constraint_matrix() const {
-AINFO<<"(DMCZP) EnteringMethod: AffineConstraint::constraint_matrix";
   return constraint_matrix_;
 }
 
 const Eigen::MatrixXd& AffineConstraint::constraint_boundary() const {
-AINFO<<"(DMCZP) EnteringMethod: AffineConstraint::constraint_boundary";
   return constraint_boundary_;
 }
 
 bool AffineConstraint::AddConstraint(
     const Eigen::MatrixXd& constraint_matrix,
     const Eigen::MatrixXd& constraint_boundary) {
-AINFO<<"(DMCZP) EnteringMethod: AffineConstraint::AddConstraint";
   if (constraint_matrix.rows() != constraint_boundary.rows()) {
     AERROR << "Fail to add constraint because constraint matrix rows != "
               "constraint boundary rows.";

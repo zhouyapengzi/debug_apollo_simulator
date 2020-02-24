@@ -38,7 +38,6 @@ std::vector<int> Base64CodeTable() {
 }
 
 const char* tripletBase64(const int triplet) {
-AINFO<<"(DMCZP) EnteringMethod: tripletBase64";
   static char result[4];
   result[0] = kBase64Array[(triplet >> 18) & 0x3f];
   result[1] = kBase64Array[(triplet >> 12) & 0x3f];
@@ -50,7 +49,6 @@ AINFO<<"(DMCZP) EnteringMethod: tripletBase64";
 }  // namespace
 
 int Split(const std::string& str, char ch, std::vector<std::string>* result) {
-AINFO<<"(DMCZP) EnteringMethod: Split";
   std::stringstream ss(str);
   std::string segment;
   int count = 0;
@@ -62,7 +60,6 @@ AINFO<<"(DMCZP) EnteringMethod: Split";
 }
 
 std::string DecodeBase64(const std::string& base64_str) {
-AINFO<<"(DMCZP) EnteringMethod: DecodeBase64";
   static const std::vector<int> kBase64CodeTable = Base64CodeTable();
 
   std::string bytes;
@@ -86,7 +83,6 @@ AINFO<<"(DMCZP) EnteringMethod: DecodeBase64";
 }
 
 std::string EncodeBase64(const std::string& in) {
-AINFO<<"(DMCZP) EnteringMethod: EncodeBase64";
   std::string out;
   if (in.empty()) {
     return out;

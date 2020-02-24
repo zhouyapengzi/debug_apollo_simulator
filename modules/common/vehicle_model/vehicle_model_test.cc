@@ -57,7 +57,6 @@ class VehicleModelTest : public ::testing::Test {
 };
 
 TEST_F(VehicleModelTest, RearCenteredKinematicBicycleModel) {
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   double predicted_time_horizon = localization_post_.measurement_time() -
                                   localization_pre_.measurement_time();
 

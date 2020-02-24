@@ -58,7 +58,6 @@ class AutotuningRawFeatureGeneratorTest : public ::testing::Test {
 };
 
 TEST_F(AutotuningRawFeatureGeneratorTest, generate_input_trajectory) {
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   // init trajectory
   std::vector<common::TrajectoryPoint> trajectory;
   ASSERT_TRUE(generator_ != nullptr);
@@ -67,7 +66,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST_F";
 }
 
 TEST_F(AutotuningRawFeatureGeneratorTest, generate_input_trajectory_pointwise) {
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   common::TrajectoryPoint trajectory_point;
   ASSERT_TRUE(generator_ != nullptr);
   auto result = generator_->EvaluateTrajectoryPoint(trajectory_point, nullptr);

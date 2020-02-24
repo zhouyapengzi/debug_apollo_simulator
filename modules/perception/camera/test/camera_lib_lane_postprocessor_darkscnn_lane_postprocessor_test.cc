@@ -34,7 +34,6 @@ namespace camera {
 // @description: load camera extrinsics from yaml file
 static bool LoadExtrinsics(const std::string &yaml_file,
                            Eigen::Matrix4d *camera_extrinsic) {
-AINFO<<"(DMCZP) EnteringMethod: LoadExtrinsics";
   if (!apollo::cyber::common::PathExists(yaml_file)) {
     AINFO << yaml_file << " not exist!";
     return false;
@@ -87,7 +86,6 @@ AINFO<<"(DMCZP) EnteringMethod: LoadExtrinsics";
 }
 
 TEST(darkSCNNLanePostprocessor, camera_lane_postprocessor_point_test) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   unsetenv("MODULE_PATH");
   unsetenv("CYBER_PATH");
   // turn on this flag to output visualization results

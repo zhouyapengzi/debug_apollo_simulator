@@ -19,13 +19,11 @@
 
 void MessageCallback(
     const std::shared_ptr<apollo::cyber::examples::proto::Chatter>& msg) {
-AINFO<<"(DMCZP) EnteringMethod: MessageCallback";
   AINFO << "Received message seq-> " << msg->seq();
   AINFO << "msgcontent->" << msg->content();
 }
 
 int main(int argc, char* argv[]) {
-AINFO<<"(DMCZP) EnteringMethod: main";
   // init cyber framework
   apollo::cyber::Init(argv[0]);
   // create listener node

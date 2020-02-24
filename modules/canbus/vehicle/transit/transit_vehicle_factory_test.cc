@@ -37,12 +37,10 @@ class TransitVehicleFactoryTest : public ::testing::Test {
 };
 
 TEST_F(TransitVehicleFactoryTest, InitVehicleController) {
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   EXPECT_NE(transit_factory_.CreateVehicleController(), nullptr);
 }
 
 TEST_F(TransitVehicleFactoryTest, InitMessageManager) {
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   EXPECT_NE(transit_factory_.CreateMessageManager(), nullptr);
 }
 

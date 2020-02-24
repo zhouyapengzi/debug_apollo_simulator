@@ -48,7 +48,6 @@ class NavigationModeTest : public PlanningTestBase {
  * A cruise test case
  */
 TEST_F(NavigationModeTest, cruise) {
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   std::string seq_num = "1";
   FLAGS_test_localization_file = seq_num + "_localization.pb.txt";
   FLAGS_test_chassis_file = seq_num + "_chassis.pb.txt";

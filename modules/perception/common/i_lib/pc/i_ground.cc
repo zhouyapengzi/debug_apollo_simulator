@@ -22,7 +22,6 @@ namespace apollo {
 namespace perception {
 namespace common {
 void PlaneFitGroundDetectorParam::SetDefault() {
-AINFO<<"(DMCZP) EnteringMethod: PlaneFitGroundDetectorParam::SetDefault";
   nr_points_max = 320000;  // assume max 320000 points
   nr_grids_fine = 256;     // must be 2 and above
   nr_grids_coarse = 16;    // must be 2 and above
@@ -48,7 +47,6 @@ AINFO<<"(DMCZP) EnteringMethod: PlaneFitGroundDetectorParam::SetDefault";
 }
 
 bool PlaneFitGroundDetectorParam::Validate() const {
-AINFO<<"(DMCZP) EnteringMethod: PlaneFitGroundDetectorParam::Validate";
   if (nr_grids_coarse < 2 || nr_grids_fine < 2 ||
       nr_grids_coarse > nr_grids_fine || nr_points_max == 0 ||
       nr_samples_min_threshold == 0 || nr_samples_max_threshold == 0 ||
@@ -64,7 +62,6 @@ AINFO<<"(DMCZP) EnteringMethod: PlaneFitGroundDetectorParam::Validate";
 
 int PlaneFitPointCandIndices::Prune(unsigned int min_nr_samples,
                                     unsigned int max_nr_samples) {
-AINFO<<"(DMCZP) EnteringMethod: PlaneFitPointCandIndices::Prune";
   assert(min_nr_samples < max_nr_samples);
   unsigned int size = static_cast<unsigned int>(indices.size());
   unsigned int half = 0;
@@ -97,7 +94,6 @@ AINFO<<"(DMCZP) EnteringMethod: PlaneFitPointCandIndices::Prune";
 PlaneFitGroundDetector::PlaneFitGroundDetector(
     const PlaneFitGroundDetectorParam &param)
     : BaseGroundDetector(param) {
-AINFO<<"(DMCZP) EnteringMethod: PlaneFitGroundDetector::PlaneFitGroundDetector";
   assert(Init());
 }
 
@@ -106,7 +102,6 @@ PlaneFitGroundDetector::~PlaneFitGroundDetector() { CleanUp(); }
 // Init the order lookup table
 void PlaneFitGroundDetector::InitOrderTable(const VoxelGridXY<float> *vg,
                                             std::pair<int, int> *order) {
-AINFO<<"(DMCZP) EnteringMethod: PlaneFitGroundDetector::InitOrderTable";
   std::vector<std::pair<float, int> > map_dist;
   float cx = 0.f;
   float cy = 0.f;
@@ -135,7 +130,6 @@ AINFO<<"(DMCZP) EnteringMethod: PlaneFitGroundDetector::InitOrderTable";
 }
 
 bool PlaneFitGroundDetector::Init() {
-AINFO<<"(DMCZP) EnteringMethod: PlaneFitGroundDetector::Init";
   unsigned int r = 0;
   unsigned int c = 0;
   unsigned int pr = 0;
@@ -268,7 +262,6 @@ AINFO<<"(DMCZP) EnteringMethod: PlaneFitGroundDetector::Init";
 }
 
 void PlaneFitGroundDetector::CleanUp() {
-AINFO<<"(DMCZP) EnteringMethod: PlaneFitGroundDetector::CleanUp";
   if (vg_fine_) {
     delete vg_fine_;
   }
@@ -295,7 +288,6 @@ int PlaneFitGroundDetector::CompareZ(const float *point_cloud,
                                      unsigned int nr_points,
                                      unsigned int nr_point_element,
                                      unsigned int nr_compares) {
-AINFO<<"(DMCZP) EnteringMethod: PlaneFitGroundDetector::CompareZ";
   int pos = 0;
   int nr_candis = 0;
   unsigned int i = 0;
@@ -343,7 +335,6 @@ AINFO<<"(DMCZP) EnteringMethod: PlaneFitGroundDetector::CompareZ";
 }
 
 void PlaneFitGroundDetector::ComputeAdaptiveThreshold() {
-AINFO<<"(DMCZP) EnteringMethod: PlaneFitGroundDetector::ComputeAdaptiveThreshold";
   unsigned int r = 0;
   unsigned int c = 0;
   float dr = 0.0f;
@@ -396,7 +387,6 @@ AINFO<<"(DMCZP) EnteringMethod: PlaneFitGroundDetector::ComputeAdaptiveThreshold
 void PlaneFitGroundDetector::ComputeSignedGroundHeight(
     const float *point_cloud, float *height_above_ground,
     unsigned int nr_points, unsigned int nr_point_elements) {
-AINFO<<"(DMCZP) EnteringMethod: PlaneFitGroundDetector::ComputeSignedGroundHeight";
   unsigned int r = 0;
   unsigned int nm1 = param_.nr_grids_coarse - 1;
   for (r = 0; r < nr_points; ++r) {
@@ -422,7 +412,6 @@ void PlaneFitGroundDetector::ComputeSignedGroundHeightLine(
     const GroundPlaneLiDAR *cn, const GroundPlaneLiDAR *dn,
     float *height_above_ground, unsigned int r, unsigned int nr_points,
     unsigned int nr_point_elements) {
-AINFO<<"(DMCZP) EnteringMethod: PlaneFitGroundDetector::ComputeSignedGroundHeightLine";
   unsigned int i = 0;
   unsigned int c = 0;
   unsigned int id = 0;
@@ -555,7 +544,6 @@ int PlaneFitGroundDetector::FilterGrid(const Voxel<float> &vx,
                                        PlaneFitPointCandIndices *candi,
                                        unsigned int nr_points,
                                        unsigned int nr_point_element) {
-AINFO<<"(DMCZP) EnteringMethod: PlaneFitGroundDetector::FilterGrid";
   int pos = 0;
   int rseed = I_DEFAULT_SEED;
   int nr_candis = 0;
@@ -590,7 +578,6 @@ AINFO<<"(DMCZP) EnteringMethod: PlaneFitGroundDetector::FilterGrid";
 }
 
 int PlaneFitGroundDetector::FilterLine(unsigned int r) {
-AINFO<<"(DMCZP) EnteringMethod: PlaneFitGroundDetector::FilterLine";
   int nr_candis = 0;
   unsigned int c = 0;
   const float *point_cloud = vg_fine_->const_data();
@@ -608,7 +595,6 @@ AINFO<<"(DMCZP) EnteringMethod: PlaneFitGroundDetector::FilterLine";
 }
 
 int PlaneFitGroundDetector::Filter() {
-AINFO<<"(DMCZP) EnteringMethod: PlaneFitGroundDetector::Filter";
   int nr_candis = 0;
   unsigned int i = 0;
   unsigned int r = 0;
@@ -631,7 +617,6 @@ int PlaneFitGroundDetector::FitGrid(const float *point_cloud,
                                     unsigned int nr_points,
                                     unsigned int nr_point_element,
                                     float dist_thre) {
-AINFO<<"(DMCZP) EnteringMethod: PlaneFitGroundDetector::FitGrid";
   // initialize the best plane
   groundplane->ForceInvalid();
   // not enough samples, failed and return
@@ -747,7 +732,6 @@ AINFO<<"(DMCZP) EnteringMethod: PlaneFitGroundDetector::FitGrid";
 }
 
 int PlaneFitGroundDetector::FitLine(unsigned int r) {
-AINFO<<"(DMCZP) EnteringMethod: PlaneFitGroundDetector::FitLine";
   int nr_grids = 0;
   unsigned int c = 0;
   GroundPlaneLiDAR gp;
@@ -769,7 +753,6 @@ AINFO<<"(DMCZP) EnteringMethod: PlaneFitGroundDetector::FitLine";
 }
 
 int PlaneFitGroundDetector::Fit() {
-AINFO<<"(DMCZP) EnteringMethod: PlaneFitGroundDetector::Fit";
   int nr_grids = 0;
   for (unsigned int r = 0; r < param_.nr_grids_coarse; ++r) {
     nr_grids += FitLine(r);
@@ -782,7 +765,6 @@ int PlaneFitGroundDetector::FilterCandidates(
     int r, int c, const float *point_cloud, PlaneFitPointCandIndices *candi,
     std::vector<std::pair<int, int> > *neighbors,
     unsigned int nr_point_element) {
-AINFO<<"(DMCZP) EnteringMethod: PlaneFitGroundDetector::FilterCandidates";
   float avg_z = 0.f;
   int count = 0;
   unsigned int i = 0;
@@ -821,7 +803,6 @@ AINFO<<"(DMCZP) EnteringMethod: PlaneFitGroundDetector::FilterCandidates";
 
 inline float calculate_two_angles(const GroundPlaneLiDAR &p1,
                                   const GroundPlaneLiDAR &p2) {
-AINFO<<"(DMCZP) EnteringMethod: calculate_two_angles";
   float numerator = IDot3(p1.params, p2.params);
   float denominator = IL2Norm(p1.params, 3) * IL2Norm(p2.params, 3);
   return IAcos(numerator * IRec(denominator));
@@ -830,7 +811,6 @@ AINFO<<"(DMCZP) EnteringMethod: calculate_two_angles";
 int PlaneFitGroundDetector::FitGridWithNeighbors(
     int r, int c, const float *point_cloud, GroundPlaneLiDAR *groundplane,
     unsigned int nr_points, unsigned int nr_point_element, float dist_thre) {
-AINFO<<"(DMCZP) EnteringMethod: PlaneFitGroundDetector::FitGridWithNeighbors";
   // initialize the best plane
   groundplane->ForceInvalid();
   // not enough samples, failed and return
@@ -1010,7 +990,6 @@ AINFO<<"(DMCZP) EnteringMethod: PlaneFitGroundDetector::FitGridWithNeighbors";
 float PlaneFitGroundDetector::CalculateAngleDist(
     const GroundPlaneLiDAR &plane,
     const std::vector<std::pair<int, int> > &neighbors) {
-AINFO<<"(DMCZP) EnteringMethod: PlaneFitGroundDetector::CalculateAngleDist";
   float angle_dist = 0.0f;
   int count = 0;
   unsigned int j = 0;
@@ -1031,7 +1010,6 @@ AINFO<<"(DMCZP) EnteringMethod: PlaneFitGroundDetector::CalculateAngleDist";
 }
 
 int PlaneFitGroundDetector::FitInOrder() {
-AINFO<<"(DMCZP) EnteringMethod: PlaneFitGroundDetector::FitInOrder";
   int nr_grids = 0;
   unsigned int i = 0;
   unsigned int j = 0;
@@ -1065,7 +1043,6 @@ AINFO<<"(DMCZP) EnteringMethod: PlaneFitGroundDetector::FitInOrder";
 void PlaneFitGroundDetector::GetNeighbors(
     int r, int c, int rows, int cols,
     std::vector<std::pair<int, int> > *neighbors) {
-AINFO<<"(DMCZP) EnteringMethod: PlaneFitGroundDetector::GetNeighbors";
   int left = IMax(0, c - 1);
   int right = IMin(cols - 1, c + 1);
   int up = IMax(0, r - 1);
@@ -1085,7 +1062,6 @@ AINFO<<"(DMCZP) EnteringMethod: PlaneFitGroundDetector::GetNeighbors";
 
 int PlaneFitGroundDetector::SmoothLine(unsigned int up, unsigned int r,
                                        unsigned int dn) {
-AINFO<<"(DMCZP) EnteringMethod: PlaneFitGroundDetector::SmoothLine";
   int nr_grids = 0;
   unsigned int c = 0;
   unsigned int nm1 = param_.nr_grids_coarse - 1;
@@ -1144,7 +1120,6 @@ int PlaneFitGroundDetector::CompleteGrid(const GroundPlaneSpherical &lt,
                                          const GroundPlaneSpherical &up,
                                          const GroundPlaneSpherical &dn,
                                          GroundPlaneSpherical *gp) {
-AINFO<<"(DMCZP) EnteringMethod: PlaneFitGroundDetector::CompleteGrid";
   int supports[] = {0, 0, 0, 0};
   float weights[] = {0.f, 0.f, 0.f, 0.f};
   gp->ForceInvalid();
@@ -1184,7 +1159,6 @@ int PlaneFitGroundDetector::SmoothGrid(const GroundPlaneSpherical &g,
                                        const GroundPlaneSpherical &up,
                                        const GroundPlaneSpherical &dn,
                                        GroundPlaneSpherical *gp) {
-AINFO<<"(DMCZP) EnteringMethod: PlaneFitGroundDetector::SmoothGrid";
   int supports[] = {0, 0, 0, 0, 0};
   float weights[] = {0.f, 0.f, 0.f, 0.f, 0.f};
   gp->ForceInvalid();
@@ -1240,7 +1214,6 @@ AINFO<<"(DMCZP) EnteringMethod: PlaneFitGroundDetector::SmoothGrid";
 }
 
 int PlaneFitGroundDetector::Smooth() {
-AINFO<<"(DMCZP) EnteringMethod: PlaneFitGroundDetector::Smooth";
   int nr_grids = 0;
   unsigned int r = 0;
   unsigned int c = 0;
@@ -1263,7 +1236,6 @@ bool PlaneFitGroundDetector::Detect(const float *point_cloud,
                                     float *height_above_ground,
                                     unsigned int nr_points,
                                     unsigned int nr_point_elements) {
-AINFO<<"(DMCZP) EnteringMethod: PlaneFitGroundDetector::Detect";
   assert(point_cloud != nullptr);
   assert(height_above_ground != nullptr);
   assert(nr_points <= param_.nr_points_max);
@@ -1312,7 +1284,6 @@ AINFO<<"(DMCZP) EnteringMethod: PlaneFitGroundDetector::Detect";
 }
 
 const char *PlaneFitGroundDetector::GetLabel() const { return labels_; }
-AINFO<<"(DMCZP) EnteringMethod: *PlaneFitGroundDetector::GetLabel";
 
 const VoxelGridXY<float> *PlaneFitGroundDetector::GetGrid() const {
   return vg_coarse_;
@@ -1320,33 +1291,27 @@ const VoxelGridXY<float> *PlaneFitGroundDetector::GetGrid() const {
 
 const GroundPlaneLiDAR *PlaneFitGroundDetector::GetGroundPlane(int r,
                                                                int c) const {
-AINFO<<"(DMCZP) EnteringMethod: *PlaneFitGroundDetector::GetGroundPlane";
   assert(r >= 0 && r < static_cast<int>(param_.nr_grids_coarse));
   assert(c >= 0 && c < static_cast<int>(param_.nr_grids_coarse));
   return ground_planes_ != nullptr ? ground_planes_[r] + c : nullptr;
 }
 
 const unsigned int PlaneFitGroundDetector::GetGridDimX() const {
-AINFO<<"(DMCZP) EnteringMethod: PlaneFitGroundDetector::GetGridDimX";
   return vg_coarse_->NrVoxelX();
 }
 
 const unsigned int PlaneFitGroundDetector::GetGridDimY() const {
-AINFO<<"(DMCZP) EnteringMethod: PlaneFitGroundDetector::GetGridDimY";
   return vg_coarse_->NrVoxelY();
 }
 
 float PlaneFitGroundDetector::GetUnknownHeight() { return FLT_MAX; }
-AINFO<<"(DMCZP) EnteringMethod: PlaneFitGroundDetector::GetUnknownHeight";
 
 PlaneFitPointCandIndices **PlaneFitGroundDetector::GetCandis() const {
-AINFO<<"(DMCZP) EnteringMethod: **PlaneFitGroundDetector::GetCandis";
   return local_candis_;
 }
 
 void IPlaneEucliToSpher(const GroundPlaneLiDAR &src,
                         GroundPlaneSpherical *dst) {
-AINFO<<"(DMCZP) EnteringMethod: IPlaneEucliToSpher";
   if (!src.IsValid()) {
     dst->ForceInvalid();
   } else {
@@ -1364,7 +1329,6 @@ AINFO<<"(DMCZP) EnteringMethod: IPlaneEucliToSpher";
 
 void IPlaneSpherToEucli(const GroundPlaneSpherical &src,
                         GroundPlaneLiDAR *dst) {
-AINFO<<"(DMCZP) EnteringMethod: IPlaneSpherToEucli";
   if (!src.IsValid()) {
     dst->ForceInvalid();
   } else {

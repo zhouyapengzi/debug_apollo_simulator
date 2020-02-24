@@ -32,9 +32,6 @@ DECLARE_string(test_chassis_file);
  */
 
 class GarageTest : public PlanningTestBase {
-AINFO<<"(DMCZP) EnteringMethod: DECLARE_string";
-AINFO<<"(DMCZP) EnteringMethod: DECLARE_string";
-AINFO<<"(DMCZP) EnteringMethod: DECLARE_string";
  public:
   virtual void SetUp() {
     FLAGS_use_multi_thread_to_add_obstacles = false;
@@ -61,7 +58,6 @@ AINFO<<"(DMCZP) EnteringMethod: DECLARE_string";
  * test stop for not-nudgable obstacle
  */
 TEST_F(GarageTest, stop_obstacle) {
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   FLAGS_test_prediction_file = "stop_obstacle_prediction.pb.txt";
   FLAGS_test_localization_file = "stop_obstacle_localization.pb.txt";
   FLAGS_test_chassis_file = "stop_obstacle_chassis.pb.txt";
@@ -75,7 +71,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST_F";
  * test follow head_vehicle
  */
 TEST_F(GarageTest, follow) {
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   FLAGS_test_prediction_file = "follow_prediction.pb.txt";
   FLAGS_test_localization_file = "follow_localization.pb.txt";
   FLAGS_test_chassis_file = "follow_chassis.pb.txt";
@@ -89,7 +84,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST_F";
  * test destination stop
  */
 TEST_F(GarageTest, dest_stop_01) {
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   FLAGS_test_prediction_file = "stop_dest_prediction.pb.txt";
   FLAGS_test_localization_file = "stop_dest_localization.pb.txt";
   FLAGS_test_chassis_file = "stop_dest_chassis.pb.txt";
@@ -103,7 +97,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST_F";
  * planning should fail in this case, but the module should not core.
  */
 TEST_F(GarageTest, out_of_map) {
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   FLAGS_test_prediction_file = "out_of_map_prediction.pb.txt";
   FLAGS_test_localization_file = "out_of_map_localization.pb.txt";
   FLAGS_test_chassis_file = "out_of_map_chassis.pb.txt";

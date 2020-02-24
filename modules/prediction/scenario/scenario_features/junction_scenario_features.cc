@@ -20,7 +20,6 @@ namespace apollo {
 namespace prediction {
 
 JunctionScenarioFeatures::JunctionScenarioFeatures() {
-AINFO<<"(DMCZP) EnteringMethod: JunctionScenarioFeatures::JunctionScenarioFeatures";
   scenario_.set_type(Scenario::JUNCTION);
 }
 
@@ -28,7 +27,6 @@ JunctionScenarioFeatures::~JunctionScenarioFeatures() {}
 
 void JunctionScenarioFeatures::BuildJunctionScenarioFeatures(
     const EnvironmentFeatures& environment_features) {
-AINFO<<"(DMCZP) EnteringMethod: JunctionScenarioFeatures::BuildJunctionScenarioFeatures";
   // CHECK(environment_features.has_front_junction());
   scenario_.set_junction_id(environment_features.GetFrontJunction().first);
 }

@@ -28,12 +28,10 @@ namespace gem {
 using ::apollo::drivers::canbus::Byte;
 
 Latlonheadingrpt82::Latlonheadingrpt82() {}
-AINFO<<"(DMCZP) EnteringMethod: Latlonheadingrpt82::Latlonheadingrpt82";
 const int32_t Latlonheadingrpt82::ID = 0x82;
 
 void Latlonheadingrpt82::Parse(const std::uint8_t* bytes, int32_t length,
                                ChassisDetail* chassis) const {
-AINFO<<"(DMCZP) EnteringMethod: Latlonheadingrpt82::Parse";
   chassis->mutable_gem()->mutable_lat_lon_heading_rpt_82()->set_heading(
       heading(bytes, length));
   chassis->mutable_gem()
@@ -61,7 +59,6 @@ AINFO<<"(DMCZP) EnteringMethod: Latlonheadingrpt82::Parse";
 // 'type': 'double', 'order': 'motorola', 'physical_unit': 'deg'}
 double Latlonheadingrpt82::heading(const std::uint8_t* bytes,
                                    int32_t length) const {
-AINFO<<"(DMCZP) EnteringMethod: Latlonheadingrpt82::heading";
   Byte t0(bytes + 6);
   int32_t x = t0.get_byte(0, 8);
 
@@ -82,9 +79,6 @@ AINFO<<"(DMCZP) EnteringMethod: Latlonheadingrpt82::heading";
 // 'type': 'int', 'order': 'motorola', 'physical_unit': 'sec'}
 int Latlonheadingrpt82::longitude_seconds(const std::uint8_t* bytes,
                                           int32_t length) const {
-AINFO<<"(DMCZP) EnteringMethod: Latlonheadingrpt82::longitude_seconds";
-AINFO<<"(DMCZP) EnteringMethod: Latlonheadingrpt82::longitude_minutes";
-AINFO<<"(DMCZP) EnteringMethod: Latlonheadingrpt82::longitude_degrees";
   Byte t0(bytes + 5);
   int32_t x = t0.get_byte(0, 8);
 
@@ -130,9 +124,6 @@ int Latlonheadingrpt82::longitude_degrees(const std::uint8_t* bytes,
 // 'type': 'int', 'order': 'motorola', 'physical_unit': 'sec'}
 int Latlonheadingrpt82::latitude_seconds(const std::uint8_t* bytes,
                                          int32_t length) const {
-AINFO<<"(DMCZP) EnteringMethod: Latlonheadingrpt82::latitude_seconds";
-AINFO<<"(DMCZP) EnteringMethod: Latlonheadingrpt82::latitude_minutes";
-AINFO<<"(DMCZP) EnteringMethod: Latlonheadingrpt82::latitude_degrees";
   Byte t0(bytes + 2);
   int32_t x = t0.get_byte(0, 8);
 

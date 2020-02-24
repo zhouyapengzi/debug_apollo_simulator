@@ -25,7 +25,6 @@ namespace localization {
 namespace msf {
 
 bool OnlineLocalizationExpert::Init(const LocalizationIntegParam &param) {
-AINFO<<"(DMCZP) EnteringMethod: OnlineLocalizationExpert::Init";
   msf_status_.set_local_lidar_consistency(MSF_LOCAL_LIDAR_CONSISTENCY_03);
   msf_status_.set_gnss_consistency(MSF_GNSS_CONSISTENCY_03);
   msf_status_.set_local_lidar_status(MSF_LOCAL_LIDAR_UNDEFINED_STATUS);
@@ -54,7 +53,6 @@ AINFO<<"(DMCZP) EnteringMethod: OnlineLocalizationExpert::Init";
 }
 
 void OnlineLocalizationExpert::AddImu(const ImuData &data) {
-AINFO<<"(DMCZP) EnteringMethod: OnlineLocalizationExpert::AddImu";
   double cur_imu_time = data.measurement_time;
   CheckImuDelayStatus(cur_imu_time);
   CheckImuMissingStatus(cur_imu_time);
@@ -64,13 +62,10 @@ AINFO<<"(DMCZP) EnteringMethod: OnlineLocalizationExpert::AddImu";
 
 void OnlineLocalizationExpert::AddFusionLocalization(
     const LocalizationEstimate &data) {
-AINFO<<"(DMCZP) EnteringMethod: OnlineLocalizationExpert::AddFusionLocalization";
-AINFO<<"(DMCZP) EnteringMethod: OnlineLocalizationExpert::AddLidarLocalization";
   SetLocalizationStatus(data);
   return;
 }
 
-AINFO<<"(DMCZP) EnteringMethod: OnlineLocalizationExpert::SetLocalizationStatus";
 void OnlineLocalizationExpert::AddLidarLocalization(
     const LocalizationEstimate &data) {
   msf_status_mutex_.lock();
@@ -85,7 +80,6 @@ void OnlineLocalizationExpert::AddLidarLocalization(
 
 void OnlineLocalizationExpert::AddGnssBestPose(
     const drivers::gnss::GnssBestPose &msg, const MeasureData &data) {
-AINFO<<"(DMCZP) EnteringMethod: OnlineLocalizationExpert::AddGnssBestPose";
   int gnss_solution_status = static_cast<int>(msg.sol_status());
   int gnss_position_type = static_cast<int>(msg.sol_type());
 
@@ -109,7 +103,6 @@ AINFO<<"(DMCZP) EnteringMethod: OnlineLocalizationExpert::AddGnssBestPose";
 }
 
 void OnlineLocalizationExpert::CheckImuDelayStatus(const double &cur_imu_time) {
-AINFO<<"(DMCZP) EnteringMethod: OnlineLocalizationExpert::CheckImuDelayStatus";
   sensor_status_.set_imu_delay_status(apollo::localization::IMU_DELAY_NORMAL);
   double cur_system_time = apollo::common::time::Clock::NowInSeconds();
   double delta_system_time = cur_system_time - cur_imu_time;
@@ -134,8 +127,6 @@ AINFO<<"(DMCZP) EnteringMethod: OnlineLocalizationExpert::CheckImuDelayStatus";
 
 void OnlineLocalizationExpert::CheckImuMissingStatus(
     const double &cur_imu_time) {
-AINFO<<"(DMCZP) EnteringMethod: OnlineLocalizationExpert::CheckImuMissingStatus";
-AINFO<<"(DMCZP) EnteringMethod: OnlineLocalizationExpert::CheckGnssLidarMsfStatus";
   sensor_status_.set_imu_missing_status(
       ImuMsgMissingStatus::IMU_MISSING_NORMAL);
   static double pre_imu_time = cur_imu_time;
@@ -443,7 +434,6 @@ void OnlineLocalizationExpert::SetLocalizationStatus(
 void OnlineLocalizationExpert::GetFusionStatus(
     MsfStatus *msf_status, MsfSensorMsgStatus *sensor_status,
     LocalizationIntegStatus *integ_status) {
-AINFO<<"(DMCZP) EnteringMethod: OnlineLocalizationExpert::GetFusionStatus";
   {
     std::unique_lock<std::mutex> lock(msf_status_mutex_);
     msf_status->set_local_lidar_consistency(
@@ -463,7 +453,6 @@ AINFO<<"(DMCZP) EnteringMethod: OnlineLocalizationExpert::GetFusionStatus";
 }
 
 void OnlineLocalizationExpert::GetGnssStatus(MsfStatus *msf_status) {
-AINFO<<"(DMCZP) EnteringMethod: OnlineLocalizationExpert::GetGnssStatus";
   std::unique_lock<std::mutex> lock(msf_status_mutex_);
   msf_status->set_gnsspos_position_type(msf_status_.gnsspos_position_type());
 }

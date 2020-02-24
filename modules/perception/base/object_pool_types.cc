@@ -23,7 +23,6 @@ namespace base {
 
 // @brief call pool instance once to initialize memory
 __attribute__((constructor)) void PoolInitialize() {
-AINFO<<"(DMCZP) EnteringMethod: __attribute__";
   ObjectPool::Instance();
   PointFCloudPool::Instance();
   PointDCloudPool::Instance();

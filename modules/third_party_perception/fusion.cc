@@ -47,7 +47,6 @@ std::vector<Vec2d> PerceptionObstacleToVectorVec2d(
 
 bool HasOverlap(const PerceptionObstacle& obstacle_1,
                 const PerceptionObstacle& obstacle_2) {
-AINFO<<"(DMCZP) EnteringMethod: HasOverlap";
   common::math::Polygon2d polygon_1(
       PerceptionObstacleToVectorVec2d(obstacle_1));
   common::math::Polygon2d polygon_2(
@@ -57,7 +56,6 @@ AINFO<<"(DMCZP) EnteringMethod: HasOverlap";
 
 bool HasOverlap(const PerceptionObstacle& obstacle,
                 const PerceptionObstacles& obstacles) {
-AINFO<<"(DMCZP) EnteringMethod: HasOverlap";
   for (const auto& current_obstacle : obstacles.perception_obstacle()) {
     if (HasOverlap(obstacle, current_obstacle)) {
       return true;
@@ -69,7 +67,6 @@ AINFO<<"(DMCZP) EnteringMethod: HasOverlap";
 PerceptionObstacles MobileyeRadarFusion(
     const PerceptionObstacles& mobileye_obstacles,
     const PerceptionObstacles& radar_obstacles) {
-AINFO<<"(DMCZP) EnteringMethod: MobileyeRadarFusion";
   PerceptionObstacles mobileye_obstacles_fusion = mobileye_obstacles;
   PerceptionObstacles radar_obstacles_fusion = radar_obstacles;
 

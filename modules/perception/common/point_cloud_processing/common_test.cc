@@ -26,7 +26,6 @@ using base::AttributePointCloud;
 using base::PointF;
 
 TEST(PointCloudProcessingCommonTest, transform_point_test) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   PointF pt_in;
   pt_in.x = 10.f;
   pt_in.y = 10.f;
@@ -40,7 +39,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST";
 }
 
 TEST(PointCloudProcessingCommonTest, transform_point_cloud_test1) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   AttributePointCloud<PointF> cloud_in, cloud_out;
   PointF temp;
   temp.x = 10.f;
@@ -62,7 +60,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST";
 }
 
 TEST(PointCloudProcessingCommonTest, transform_point_cloud_test2) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   std::shared_ptr<AttributePointCloud<PointF>> cloud_in(
       new AttributePointCloud<PointF>);
   std::shared_ptr<AttributePointCloud<PointF>> cloud_out(
@@ -87,7 +84,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST";
 }
 
 TEST(PointCloudProcessingCommonTest, transform_point_cloud_test3) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   AttributePointCloud<PointF> cloud_in_out;
   PointF temp;
   temp.x = 10.f;
@@ -109,7 +105,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST";
 }
 
 TEST(PointCloudProcessingCommonTest, transform_point_cloud_test4) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   std::shared_ptr<AttributePointCloud<PointF>> cloud_in_out(
       new AttributePointCloud<PointF>);
   PointF temp;
@@ -138,7 +133,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST";
 }
 
 TEST(PointCloudProcessingCommonTest, extract_indiced_cloud_test) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   std::shared_ptr<AttributePointCloud<PointF>> cloud_in(
       new AttributePointCloud<PointF>);
   std::shared_ptr<AttributePointCloud<PointF>> cloud_out(
@@ -162,7 +156,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST";
 }
 
 TEST(PointCloudProcessingCommonTest, get_min_max_in_3d_test) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   PointF temp;
   std::shared_ptr<AttributePointCloud<PointF>> cloud(
       new AttributePointCloud<PointF>);
@@ -218,7 +211,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST";
 }
 
 TEST(PointCloudProcessingCommonTest, get_min_max_in_3d_test2) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   PointF temp;
   std::shared_ptr<AttributePointCloud<PointF>> cloud(
       new AttributePointCloud<PointF>);
@@ -271,7 +263,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST";
 }
 
 TEST(PointCloudProcessingCommonTest, get_min_max_in_3d_test3) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   PointF temp;
   AttributePointCloud<PointF> cloud;
   temp.x = 10.f;
@@ -326,7 +317,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST";
 }
 
 TEST(PointCloudProcessingCommonTest, get_min_max_in_3d_test4) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   PointF temp;
   AttributePointCloud<PointF> cloud;
   temp.x = 10.f;
@@ -378,7 +368,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST";
 }
 
 TEST(PointCloudProcessingCommonTest, calculate_centroid_test) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   std::shared_ptr<AttributePointCloud<PointF>> cloud(
       new AttributePointCloud<PointF>);
   PointF temp;

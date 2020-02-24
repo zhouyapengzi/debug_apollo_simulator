@@ -32,18 +32,15 @@ using apollo::common::Status;
 using apollo::hdmap::PathOverlap;
 
 StopSign::StopSign(const TrafficRuleConfig& config) : TrafficRule(config) {}
-AINFO<<"(DMCZP) EnteringMethod: StopSign::StopSign";
 
 Status StopSign::ApplyRule(Frame* const frame,
                            ReferenceLineInfo* const reference_line_info) {
-AINFO<<"(DMCZP) EnteringMethod: StopSign::ApplyRule";
   MakeDecisions(frame, reference_line_info);
   return Status::OK();
 }
 
 void StopSign::MakeDecisions(Frame* const frame,
                              ReferenceLineInfo* const reference_line_info) {
-AINFO<<"(DMCZP) EnteringMethod: StopSign::MakeDecisions";
   CHECK_NOTNULL(frame);
   CHECK_NOTNULL(reference_line_info);
 

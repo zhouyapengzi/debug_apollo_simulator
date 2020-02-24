@@ -26,7 +26,6 @@ namespace valet_parking {
 
 Stage::StageStatus StageParking::Process(
     const common::TrajectoryPoint& planning_init_point, Frame* frame) {
-AINFO<<"(DMCZP) EnteringMethod: StageParking::Process";
   // Open space planning doesn't use planning_init_point from upstream because
   // of different stitching strategy
   frame->mutable_open_space_info()->set_is_on_open_space_trajectory(true);
@@ -39,7 +38,6 @@ AINFO<<"(DMCZP) EnteringMethod: StageParking::Process";
 }
 
 Stage::StageStatus StageParking::FinishStage() { return Stage::FINISHED; }
-AINFO<<"(DMCZP) EnteringMethod: StageParking::FinishStage";
 
 }  // namespace valet_parking
 }  // namespace scenario

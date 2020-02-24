@@ -33,7 +33,6 @@ namespace camera {
  */
 int ImageGpuPreprocessHandler::init(const std::string &intrinsics_path,
                                     int dev) {
-AINFO<<"(DMCZP) EnteringMethod: ImageGpuPreprocessHandler::init";
   if (_inited) {
     return 0;
   }
@@ -101,7 +100,6 @@ AINFO<<"(DMCZP) EnteringMethod: ImageGpuPreprocessHandler::init";
  *
  */
 int ImageGpuPreprocessHandler::handle(uint8_t *src, uint8_t *dst) {
-AINFO<<"(DMCZP) EnteringMethod: ImageGpuPreprocessHandler::handle";
   if (!_inited) {
     return -1;
   }
@@ -135,7 +133,6 @@ AINFO<<"(DMCZP) EnteringMethod: ImageGpuPreprocessHandler::handle";
  *
  */
 int ImageGpuPreprocessHandler::release(void) {
-AINFO<<"(DMCZP) EnteringMethod: ImageGpuPreprocessHandler::release";
   if (_d_mapy) {
     BASE_CUDA_CHECK(cudaFree(_d_mapy));
     _d_mapy = nullptr;
@@ -159,7 +156,6 @@ AINFO<<"(DMCZP) EnteringMethod: ImageGpuPreprocessHandler::release";
 int ImageGpuPreprocessHandler::load_camera_intrinsics(
     const std::string &intrinsics_path, int *width, int *height,
     std::vector<double> *D, std::vector<double> *K) {
-AINFO<<"(DMCZP) EnteringMethod: ImageGpuPreprocessHandler::load_camera_intrinsics";
   if (!(boost::filesystem::exists(intrinsics_path))) {
     return -1;
   }

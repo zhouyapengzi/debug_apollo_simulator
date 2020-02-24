@@ -22,7 +22,6 @@ namespace perception {
 namespace camera {
 
 TEST(HistogramEstimatorTest, histogram_estimator_test) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   HistogramEstimator estimator;
   HistogramEstimatorParams params1;
   HistogramEstimatorParams params2;

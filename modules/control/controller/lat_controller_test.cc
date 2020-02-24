@@ -90,7 +90,6 @@ class LatControllerTest : public ::testing::Test, LatController {
 };
 
 TEST_F(LatControllerTest, ComputeLateralErrors) {
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   auto localization_pb = LoadLocalizaionPb(
       "/apollo/modules/control/testdata/lateral_controller_test/"
       "1_localization.pb.txt");

@@ -26,7 +26,6 @@ namespace math {
 
 double IntegrateBySimpson(const std::vector<double>& func, const double dx,
                           const std::size_t nsteps) {
-AINFO<<"(DMCZP) EnteringMethod: IntegrateBySimpson";
   CHECK_EQ(1, nsteps & 1);
   double sum1 = 0.0;
   double sum2 = 0.0;
@@ -42,7 +41,6 @@ AINFO<<"(DMCZP) EnteringMethod: IntegrateBySimpson";
 
 double IntegrateByTrapezoidal(const std::vector<double>& func, const double dx,
                               const std::size_t nsteps) {
-AINFO<<"(DMCZP) EnteringMethod: IntegrateByTrapezoidal";
   double sum = 0;
   for (std::size_t i = 1; i + 1 < nsteps; ++i) {
     sum += func[i];

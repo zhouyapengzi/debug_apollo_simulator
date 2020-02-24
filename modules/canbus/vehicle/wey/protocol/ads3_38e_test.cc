@@ -27,7 +27,6 @@ class Ads338eTest : public ::testing::Test {
 };
 
 TEST_F(Ads338eTest, reset) {
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   uint8_t data[8] = {0x67, 0x62, 0x63, 0x64, 0x51, 0x52, 0x53, 0x54};
   Ads338e ads3;
   EXPECT_EQ(ads3.GetPeriod(), 20 * 1000);

@@ -53,7 +53,6 @@ class LincolnMessageManagerTest : public ::testing::Test {
 };
 
 TEST_F(LincolnMessageManagerTest, Accel6b) {
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   LincolnMessageManager manager;
   ProtocolData<ChassisDetail> *pd =
       manager.GetMutableProtocolDataById(Accel6b::ID);
@@ -62,7 +61,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST_F";
 }
 
 TEST_F(LincolnMessageManagerTest, Brake60) {
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   LincolnMessageManager manager;
   ProtocolData<ChassisDetail> *pd =
       manager.GetMutableProtocolDataById(Brake60::ID);
@@ -71,7 +69,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST_F";
 }
 
 TEST_F(LincolnMessageManagerTest, Brake61) {
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   LincolnMessageManager manager;
   ProtocolData<ChassisDetail> *pd =
       manager.GetMutableProtocolDataById(Brake61::ID);
@@ -80,7 +77,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST_F";
 }
 
 TEST_F(LincolnMessageManagerTest, Brakeinfo74) {
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   LincolnMessageManager manager;
   ProtocolData<ChassisDetail> *pd =
       manager.GetMutableProtocolDataById(Brakeinfo74::ID);
@@ -89,7 +85,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST_F";
 }
 
 TEST_F(LincolnMessageManagerTest, Fuellevel72) {
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   LincolnMessageManager manager;
   ProtocolData<ChassisDetail> *pd =
       manager.GetMutableProtocolDataById(Fuellevel72::ID);
@@ -98,7 +93,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST_F";
 }
 
 TEST_F(LincolnMessageManagerTest, Gear66) {
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   LincolnMessageManager manager;
   ProtocolData<ChassisDetail> *pd =
       manager.GetMutableProtocolDataById(Gear66::ID);
@@ -107,7 +101,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST_F";
 }
 
 TEST_F(LincolnMessageManagerTest, Gear67) {
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   LincolnMessageManager manager;
   ProtocolData<ChassisDetail> *pd =
       manager.GetMutableProtocolDataById(Gear67::ID);
@@ -116,7 +109,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST_F";
 }
 
 TEST_F(LincolnMessageManagerTest, Gps6d) {
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   LincolnMessageManager manager;
   ProtocolData<ChassisDetail> *pd =
       manager.GetMutableProtocolDataById(Gps6d::ID);
@@ -125,7 +117,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST_F";
 }
 
 TEST_F(LincolnMessageManagerTest, Gps6e) {
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   LincolnMessageManager manager;
   ProtocolData<ChassisDetail> *pd =
       manager.GetMutableProtocolDataById(Gps6e::ID);
@@ -134,7 +125,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST_F";
 }
 
 TEST_F(LincolnMessageManagerTest, Gps6f) {
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   LincolnMessageManager manager;
   ProtocolData<ChassisDetail> *pd =
       manager.GetMutableProtocolDataById(Gps6f::ID);
@@ -143,7 +133,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST_F";
 }
 
 TEST_F(LincolnMessageManagerTest, Gyro6c) {
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   LincolnMessageManager manager;
   ProtocolData<ChassisDetail> *pd =
       manager.GetMutableProtocolDataById(Gyro6c::ID);
@@ -152,7 +141,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST_F";
 }
 
 TEST_F(LincolnMessageManagerTest, Misc69) {
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   LincolnMessageManager manager;
   ProtocolData<ChassisDetail> *pd =
       manager.GetMutableProtocolDataById(Misc69::ID);
@@ -161,7 +149,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST_F";
 }
 
 TEST_F(LincolnMessageManagerTest, Steering64) {
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   LincolnMessageManager manager;
   ProtocolData<ChassisDetail> *pd =
       manager.GetMutableProtocolDataById(Steering64::ID);
@@ -170,7 +157,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST_F";
 }
 
 TEST_F(LincolnMessageManagerTest, Steering65) {
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   LincolnMessageManager manager;
   ProtocolData<ChassisDetail> *pd =
       manager.GetMutableProtocolDataById(Steering65::ID);
@@ -179,7 +165,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST_F";
 }
 
 TEST_F(LincolnMessageManagerTest, Throttle62) {
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   LincolnMessageManager manager;
   ProtocolData<ChassisDetail> *pd =
       manager.GetMutableProtocolDataById(Throttle62::ID);
@@ -188,7 +173,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST_F";
 }
 
 TEST_F(LincolnMessageManagerTest, Throttle63) {
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   LincolnMessageManager manager;
   ProtocolData<ChassisDetail> *pd =
       manager.GetMutableProtocolDataById(Throttle63::ID);
@@ -197,7 +181,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST_F";
 }
 
 TEST_F(LincolnMessageManagerTest, Throttleinfo75) {
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   LincolnMessageManager manager;
   ProtocolData<ChassisDetail> *pd =
       manager.GetMutableProtocolDataById(Throttleinfo75::ID);
@@ -206,7 +189,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST_F";
 }
 
 TEST_F(LincolnMessageManagerTest, Tirepressure71) {
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   LincolnMessageManager manager;
   ProtocolData<ChassisDetail> *pd =
       manager.GetMutableProtocolDataById(Tirepressure71::ID);
@@ -215,7 +197,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST_F";
 }
 
 TEST_F(LincolnMessageManagerTest, Turnsignal68) {
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   LincolnMessageManager manager;
   ProtocolData<ChassisDetail> *pd =
       manager.GetMutableProtocolDataById(Turnsignal68::ID);
@@ -224,7 +205,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST_F";
 }
 
 TEST_F(LincolnMessageManagerTest, Version7f) {
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   LincolnMessageManager manager;
   ProtocolData<ChassisDetail> *pd =
       manager.GetMutableProtocolDataById(Version7f::ID);
@@ -233,7 +213,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST_F";
 }
 
 TEST_F(LincolnMessageManagerTest, Wheelspeed6a) {
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   LincolnMessageManager manager;
   ProtocolData<ChassisDetail> *pd =
       manager.GetMutableProtocolDataById(Wheelspeed6a::ID);

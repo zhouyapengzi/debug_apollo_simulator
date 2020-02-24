@@ -22,7 +22,6 @@ namespace perception {
 namespace camera {
 
 TEST(PatchIndicatorTest, PatchIndicator_test) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   // Init object template
   ObjectTemplateManagerInitOptions object_template_init_options;
   object_template_init_options.root_dir =
@@ -46,7 +45,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST";
 }
 
 TEST(SimilarMapTest, SimilarMap_test) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   // Init object template
   ObjectTemplateManagerInitOptions object_template_init_options;
   object_template_init_options.root_dir =
@@ -90,7 +88,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST";
 }
 
 TEST(FrameListTest, FrameList_test) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   // Init object template
   ObjectTemplateManagerInitOptions object_template_init_options;
   object_template_init_options.root_dir =

@@ -28,7 +28,6 @@ namespace lidar {
 using cyber::common::GetAbsolutePath;
 
 bool MlfShapeFilter::Init(const MlfFilterInitOptions& options) {
-AINFO<<"(DMCZP) EnteringMethod: MlfShapeFilter::Init";
   auto config_manager = lib::ConfigManager::Instance();
   const lib::ModelConfig* model_config = nullptr;
   CHECK(config_manager->GetModelConfig(Name(), &model_config));
@@ -49,7 +48,6 @@ AINFO<<"(DMCZP) EnteringMethod: MlfShapeFilter::Init";
 void MlfShapeFilter::UpdateWithObject(const MlfFilterOptions& options,
                                       const MlfTrackDataConstPtr& track_data,
                                       TrackedObjectPtr new_object) {
-AINFO<<"(DMCZP) EnteringMethod: MlfShapeFilter::UpdateWithObject";
   // compute tight object polygon
   auto& obj = new_object->object_ptr;
   if (new_object->is_background) {
@@ -92,7 +90,6 @@ AINFO<<"(DMCZP) EnteringMethod: MlfShapeFilter::UpdateWithObject";
 void MlfShapeFilter::UpdateWithoutObject(const MlfFilterOptions& options,
                                          double timestamp,
                                          MlfTrackDataPtr track_data) {
-AINFO<<"(DMCZP) EnteringMethod: MlfShapeFilter::UpdateWithoutObject";
   // TODO(.)
   return;
 }

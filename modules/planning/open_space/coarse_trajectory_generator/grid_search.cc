@@ -24,7 +24,6 @@ namespace apollo {
 namespace planning {
 
 GridSearch::GridSearch(const PlannerOpenSpaceConfig& open_space_conf) {
-AINFO<<"(DMCZP) EnteringMethod: GridSearch::GridSearch";
   xy_grid_resolution_ =
       open_space_conf.warm_start_config().grid_a_star_xy_resolution();
   node_radius_ = open_space_conf.warm_start_config().node_radius();
@@ -32,12 +31,10 @@ AINFO<<"(DMCZP) EnteringMethod: GridSearch::GridSearch";
 
 double GridSearch::EuclidDistance(const double x1, const double y1,
                                   const double x2, const double y2) {
-AINFO<<"(DMCZP) EnteringMethod: GridSearch::EuclidDistance";
   return std::sqrt((x1 - x2) * (x1 - x2) + (y1 - y2) * (y1 - y2));
 }
 
 bool GridSearch::CheckConstraints(std::shared_ptr<Node2d> node) {
-AINFO<<"(DMCZP) EnteringMethod: GridSearch::CheckConstraints";
   if (obstacles_linesegments_vec_.empty()) {
     return true;
   }
@@ -108,7 +105,6 @@ bool GridSearch::GenerateAStarPath(
     const std::vector<std::vector<common::math::LineSegment2d>>&
         obstacles_linesegments_vec,
     GridAStartResult* result) {
-AINFO<<"(DMCZP) EnteringMethod: GridSearch::GenerateAStarPath";
   std::priority_queue<std::pair<std::string, double>,
                       std::vector<std::pair<std::string, double>>, cmp>
       open_pq;
@@ -171,7 +167,6 @@ bool GridSearch::GenerateDpMap(
     const double ex, const double ey, const std::vector<double>& XYbounds,
     const std::vector<std::vector<common::math::LineSegment2d>>&
         obstacles_linesegments_vec) {
-AINFO<<"(DMCZP) EnteringMethod: GridSearch::GenerateDpMap";
   std::priority_queue<std::pair<std::string, double>,
                       std::vector<std::pair<std::string, double>>, cmp>
       open_pq;
@@ -222,7 +217,6 @@ AINFO<<"(DMCZP) EnteringMethod: GridSearch::GenerateDpMap";
 }
 
 double GridSearch::CheckDpMap(const double sx, const double sy) {
-AINFO<<"(DMCZP) EnteringMethod: GridSearch::CheckDpMap";
   std::string index = Node2d::CalcIndex(sx, sy, xy_grid_resolution_, XYbounds_);
   if (dp_map_.find(index) != dp_map_.end()) {
     return dp_map_[index]->GetCost() * xy_grid_resolution_;
@@ -232,7 +226,6 @@ AINFO<<"(DMCZP) EnteringMethod: GridSearch::CheckDpMap";
 }
 
 void GridSearch::LoadGridAStarResult(GridAStartResult* result) {
-AINFO<<"(DMCZP) EnteringMethod: GridSearch::LoadGridAStarResult";
   (*result).path_cost = final_node_->GetPathCost() * xy_grid_resolution_;
   std::shared_ptr<Node2d> current_node = final_node_;
   std::vector<double> grid_a_x;

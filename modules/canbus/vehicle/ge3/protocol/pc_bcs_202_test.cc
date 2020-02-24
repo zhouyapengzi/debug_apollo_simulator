@@ -27,7 +27,6 @@ class Pcbcs202Test : public ::testing::Test {
 };
 
 TEST_F(Pcbcs202Test, reset) {
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   uint8_t data[8] = {0x01, 0x02, 0x63, 0x64, 0x51, 0x52, 0x53, 0x54};
   Pcbcs202 pcbcs202;
   EXPECT_EQ(pcbcs202.GetPeriod(), 20 * 1000);

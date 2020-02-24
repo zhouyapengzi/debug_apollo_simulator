@@ -42,10 +42,8 @@ DstExistanceFusion::DstExistanceFusion(TrackPtr track)
     : BaseExistanceFusion(track),
       fused_toic_(toic_name_),
       fused_existance_(name_) {}
-AINFO<<"(DMCZP) EnteringMethod: DstExistanceFusion::DstExistanceFusion";
 
 bool DstExistanceFusion::Init() {
-AINFO<<"(DMCZP) EnteringMethod: DstExistanceFusion::Init";
   BaseInitOptions options;
   if (!GetFusionInitOptions("DstExistanceFusion", &options)) {
     AERROR << "GetFusionInitOptions failed ";
@@ -88,7 +86,6 @@ AINFO<<"(DMCZP) EnteringMethod: DstExistanceFusion::Init";
 void DstExistanceFusion::UpdateWithMeasurement(
     const SensorObjectPtr measurement, double target_timestamp,
     double match_dist) {
-AINFO<<"(DMCZP) EnteringMethod: DstExistanceFusion::UpdateWithMeasurement";
   std::string sensor_id = measurement->GetSensorId();
   double timestamp = measurement->GetTimestamp();
   double max_match_distance = options_.track_object_max_match_distance_;
@@ -128,7 +125,6 @@ void DstExistanceFusion::UpdateWithoutMeasurement(const std::string &sensor_id,
                                                   double measurement_timestamp,
                                                   double target_timestamp,
                                                   double min_match_dist) {
-AINFO<<"(DMCZP) EnteringMethod: DstExistanceFusion::UpdateWithoutMeasurement";
   SensorObjectConstPtr camera_object = nullptr;
   if (common::SensorManager::Instance()->IsCamera(sensor_id)) {
     camera_object = track_ref_->GetSensorObject(sensor_id);
@@ -175,7 +171,6 @@ AINFO<<"(DMCZP) EnteringMethod: DstExistanceFusion::UpdateWithoutMeasurement";
 double DstExistanceFusion::ComputeDistDecay(base::ObjectConstPtr obj,
                                             const std::string &sensor_id,
                                             double timestamp) {
-AINFO<<"(DMCZP) EnteringMethod: DstExistanceFusion::ComputeDistDecay";
   double distance = (std::numeric_limits<float>::max)();
   double dist_decay = 1.0;
   Eigen::Affine3d sensor2world_pose;
@@ -205,8 +200,6 @@ AINFO<<"(DMCZP) EnteringMethod: DstExistanceFusion::ComputeDistDecay";
 
 double DstExistanceFusion::ComputeFeatureInfluence(
     const SensorObjectPtr measurement) {
-AINFO<<"(DMCZP) EnteringMethod: DstExistanceFusion::ComputeFeatureInfluence";
-AINFO<<"(DMCZP) EnteringMethod: DstExistanceFusion::GetExistReliability";
   double velocity = measurement->GetBaseObject()->velocity.norm();
   auto sigmoid_fun = [](double velocity) {
     return 1.0 / (1.0 + exp(-velocity));
@@ -238,7 +231,6 @@ double DstExistanceFusion::GetExistReliability(
 }
 
 double DstExistanceFusion::GetUnexistReliability(const std::string &sensor_id) {
-AINFO<<"(DMCZP) EnteringMethod: DstExistanceFusion::GetUnexistReliability";
   common::SensorManager *sensor_manager = common::SensorManager::Instance();
   CHECK_NOTNULL(sensor_manager);
   if (sensor_manager->IsCamera(sensor_id)) {
@@ -253,7 +245,6 @@ AINFO<<"(DMCZP) EnteringMethod: DstExistanceFusion::GetUnexistReliability";
 void DstExistanceFusion::UpdateToicWithoutCameraMeasurement(
     const std::string &sensor_id, double measurement_timestamp,
     double min_match_dist) {
-AINFO<<"(DMCZP) EnteringMethod: DstExistanceFusion::UpdateToicWithoutCameraMeasurement";
   double dist_score = min_match_dist;
   double in_view_ratio = 0.0;
   // 1.get camera intrinsic and pose
@@ -300,7 +291,6 @@ AINFO<<"(DMCZP) EnteringMethod: DstExistanceFusion::UpdateToicWithoutCameraMeasu
 
 void DstExistanceFusion::UpdateToicWithCameraMeasurement(
     const SensorObjectPtr &camera_obj, double match_dist) {
-AINFO<<"(DMCZP) EnteringMethod: DstExistanceFusion::UpdateToicWithCameraMeasurement";
   std::string sensor_id = camera_obj->GetSensorId();
   double timestamp = camera_obj->GetTimestamp();
   double in_view_ratio = 0.0;
@@ -351,10 +341,8 @@ AINFO<<"(DMCZP) EnteringMethod: DstExistanceFusion::UpdateToicWithCameraMeasurem
 }
 
 std::string DstExistanceFusion::Name() const { return name_; }
-AINFO<<"(DMCZP) EnteringMethod: DstExistanceFusion::Name";
 
 double DstExistanceFusion::GetExistanceProbability() const {
-AINFO<<"(DMCZP) EnteringMethod: DstExistanceFusion::GetExistanceProbability";
   size_t toic_ind = DstManager::Instance()->FodSubsetToInd(
       fused_existance_.Name(), ExistanceDstMaps::EXIST);
   fused_existance_.ComputeProbability();
@@ -364,7 +352,6 @@ AINFO<<"(DMCZP) EnteringMethod: DstExistanceFusion::GetExistanceProbability";
 }
 
 double DstExistanceFusion::GetToicProbability() const {
-AINFO<<"(DMCZP) EnteringMethod: DstExistanceFusion::GetToicProbability";
   size_t toic_ind = DstManager::Instance()->FodSubsetToInd(fused_toic_.Name(),
                                                            ToicDstMaps::TOIC);
   fused_toic_.ComputeProbability();
@@ -373,7 +360,6 @@ AINFO<<"(DMCZP) EnteringMethod: DstExistanceFusion::GetToicProbability";
 }
 
 void DstExistanceFusion::UpdateExistanceState() {
-AINFO<<"(DMCZP) EnteringMethod: DstExistanceFusion::UpdateExistanceState";
   double toic_p = GetToicProbability();
   track_ref_->SetToicProb(toic_p);
   double existance_p = GetExistanceProbability();

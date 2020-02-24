@@ -27,7 +27,6 @@ class EnvironmentFeaturesTest : public ::testing::Test {
 };
 
 TEST_F(EnvironmentFeaturesTest, EgoPosition) {
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   EnvironmentFeatures environment_features;
   environment_features.set_ego_position(1.0, 2.0);
   const auto& ego_position = environment_features.get_ego_position();
@@ -36,28 +35,24 @@ AINFO<<"(DMCZP) EnteringMethod: TEST_F";
 }
 
 TEST_F(EnvironmentFeaturesTest, EgoSpeed) {
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   EnvironmentFeatures environment_features;
   environment_features.set_ego_speed(1.0);
   EXPECT_DOUBLE_EQ(environment_features.get_ego_speed(), 1.0);
 }
 
 TEST_F(EnvironmentFeaturesTest, EgoAcceleration) {
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   EnvironmentFeatures environment_features;
   environment_features.set_ego_acceleration(1.0);
   EXPECT_DOUBLE_EQ(environment_features.get_ego_acceleration(), 1.0);
 }
 
 TEST_F(EnvironmentFeaturesTest, EgoHeading) {
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   EnvironmentFeatures environment_features;
   environment_features.set_ego_heading(1.0);
   EXPECT_DOUBLE_EQ(environment_features.get_ego_heading(), 1.0);
 }
 
 TEST_F(EnvironmentFeaturesTest, EgoLane) {
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   EnvironmentFeatures environment_features;
   EXPECT_FALSE(environment_features.has_ego_lane());
   environment_features.SetEgoLane("1-1", 1.0);
@@ -70,7 +65,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST_F";
 }
 
 TEST_F(EnvironmentFeaturesTest, LeftLane) {
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   EnvironmentFeatures environment_features;
   EXPECT_FALSE(environment_features.has_left_neighbor_lane());
   environment_features.SetLeftNeighborLane("1-1", 1.0);
@@ -83,7 +77,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST_F";
 }
 
 TEST_F(EnvironmentFeaturesTest, RightLane) {
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   EnvironmentFeatures environment_features;
   EXPECT_FALSE(environment_features.has_right_neighbor_lane());
   environment_features.SetRightNeighborLane("1-1", 1.0);
@@ -96,7 +89,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST_F";
 }
 
 TEST_F(EnvironmentFeaturesTest, FrontJunction) {
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   EnvironmentFeatures environment_features;
   EXPECT_FALSE(environment_features.has_front_junction());
   environment_features.SetFrontJunction("2-1", 1.0);
@@ -109,7 +101,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST_F";
 }
 
 TEST_F(EnvironmentFeaturesTest, Obstacles) {
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   EnvironmentFeatures environment_features;
   environment_features.AddObstacleId(1);
   environment_features.AddObstacleId(2);

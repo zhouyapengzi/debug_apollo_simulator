@@ -31,7 +31,6 @@ class MSFLocalizationTest : public ::testing::Test {
 };
 
 TEST_F(MSFLocalizationTest, InitParams) {
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   FLAGS_imu_delay_time_threshold_1 = 5;
   msf_localizatoin_->InitParams();
   double imu_delay_time_threshold =

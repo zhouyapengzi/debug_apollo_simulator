@@ -21,7 +21,6 @@ namespace localization {
 namespace msf {
 
 BaseMapNodeConfig::BaseMapNodeConfig() {}
-AINFO<<"(DMCZP) EnteringMethod: BaseMapNodeConfig::BaseMapNodeConfig";
 
 BaseMapNodeConfig::~BaseMapNodeConfig() {}
 
@@ -38,7 +37,6 @@ std::shared_ptr<BaseMapNodeConfig> BaseMapNodeConfig::Clone() {
 }
 
 unsigned int BaseMapNodeConfig::LoadBinary(const unsigned char *buf) {
-AINFO<<"(DMCZP) EnteringMethod: BaseMapNodeConfig::LoadBinary";
   size_t binary_size = 0;
 
   // map_version
@@ -86,7 +84,6 @@ AINFO<<"(DMCZP) EnteringMethod: BaseMapNodeConfig::LoadBinary";
 
 unsigned int BaseMapNodeConfig::CreateBinary(unsigned char *buf,
                                              size_t buf_size) const {
-AINFO<<"(DMCZP) EnteringMethod: BaseMapNodeConfig::CreateBinary";
   unsigned int target_size = GetBinarySize();
 
   if (buf_size < target_size) {
@@ -133,7 +130,6 @@ AINFO<<"(DMCZP) EnteringMethod: BaseMapNodeConfig::CreateBinary";
 }
 
 unsigned int BaseMapNodeConfig::GetBinarySize() const {
-AINFO<<"(DMCZP) EnteringMethod: BaseMapNodeConfig::GetBinarySize";
   size_t binary_size = 0;
 
   // map_version

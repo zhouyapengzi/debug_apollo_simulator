@@ -28,12 +28,10 @@ namespace zhongyun {
 using ::apollo::drivers::canbus::Byte;
 
 Errorstatee1::Errorstatee1() {}
-AINFO<<"(DMCZP) EnteringMethod: Errorstatee1::Errorstatee1";
 const int32_t Errorstatee1::ID = 0xE1;
 
 void Errorstatee1::Parse(const std::uint8_t* bytes, int32_t length,
                          ChassisDetail* chassis) const {
-AINFO<<"(DMCZP) EnteringMethod: Errorstatee1::Parse";
   chassis->mutable_zhongyun()->mutable_error_state_e1()->set_brake_error_code(
       brake_error_code(bytes, length));
   chassis->mutable_zhongyun()->mutable_error_state_e1()->set_driven_error_code(
@@ -53,11 +51,6 @@ AINFO<<"(DMCZP) EnteringMethod: Errorstatee1::Parse";
 // 'bit': 32, 'type': 'enum', 'order': 'intel', 'physical_unit': 'bit'}
 Error_state_e1::Brake_error_codeType Errorstatee1::brake_error_code(
     const std::uint8_t* bytes, int32_t length) const {
-AINFO<<"(DMCZP) EnteringMethod: Errorstatee1::brake_error_code";
-AINFO<<"(DMCZP) EnteringMethod: Errorstatee1::driven_error_code";
-AINFO<<"(DMCZP) EnteringMethod: Errorstatee1::steering_error_code";
-AINFO<<"(DMCZP) EnteringMethod: Errorstatee1::parking_error_code";
-AINFO<<"(DMCZP) EnteringMethod: Errorstatee1::gear_error_msg";
   Byte t0(bytes + 4);
   int32_t x = t0.get_byte(0, 8);
 

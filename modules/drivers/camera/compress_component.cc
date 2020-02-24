@@ -28,7 +28,6 @@ namespace drivers {
 namespace camera {
 
 bool CompressComponent::Init() {
-AINFO<<"(DMCZP) EnteringMethod: CompressComponent::Init";
   if (!GetProtoConfig(&config_)) {
     AERROR << "Parse config file failed: " << ConfigFilePath();
     return false;
@@ -49,7 +48,6 @@ AINFO<<"(DMCZP) EnteringMethod: CompressComponent::Init";
 }
 
 bool CompressComponent::Proc(const std::shared_ptr<Image>& image) {
-AINFO<<"(DMCZP) EnteringMethod: CompressComponent::Proc";
   ADEBUG << "procing compressed";
   auto compressed_image = image_pool_->GetObject();
   compressed_image->mutable_header()->CopyFrom(image->header());

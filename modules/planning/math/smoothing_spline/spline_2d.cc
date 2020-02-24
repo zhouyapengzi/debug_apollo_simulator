@@ -27,7 +27,6 @@ namespace planning {
 
 Spline2d::Spline2d(const std::vector<double>& t_knots, const uint32_t order)
     : t_knots_(t_knots), spline_order_(order) {
-AINFO<<"(DMCZP) EnteringMethod: Spline2d::Spline2d";
   if (t_knots.size() > 1) {
     for (uint32_t i = 1; i < t_knots_.size(); ++i) {
       splines_.emplace_back(spline_order_);
@@ -44,7 +43,6 @@ std::pair<double, double> Spline2d::operator()(const double t) const {
 }
 
 double Spline2d::x(const double t) const {
-AINFO<<"(DMCZP) EnteringMethod: Spline2d::x";
   if (splines_.empty()) {
     return 0.0;
   }
@@ -53,7 +51,6 @@ AINFO<<"(DMCZP) EnteringMethod: Spline2d::x";
 }
 
 double Spline2d::y(const double t) const {
-AINFO<<"(DMCZP) EnteringMethod: Spline2d::y";
   if (splines_.empty()) {
     return 0.0;
   }
@@ -62,7 +59,6 @@ AINFO<<"(DMCZP) EnteringMethod: Spline2d::y";
 }
 
 double Spline2d::DerivativeX(const double t) const {
-AINFO<<"(DMCZP) EnteringMethod: Spline2d::DerivativeX";
   // zero order spline
   if (splines_.empty()) {
     return 0.0;
@@ -72,7 +68,6 @@ AINFO<<"(DMCZP) EnteringMethod: Spline2d::DerivativeX";
 }
 
 double Spline2d::DerivativeY(const double t) const {
-AINFO<<"(DMCZP) EnteringMethod: Spline2d::DerivativeY";
   // zero order spline
   if (splines_.empty()) {
     return 0.0;
@@ -82,7 +77,6 @@ AINFO<<"(DMCZP) EnteringMethod: Spline2d::DerivativeY";
 }
 
 double Spline2d::SecondDerivativeX(const double t) const {
-AINFO<<"(DMCZP) EnteringMethod: Spline2d::SecondDerivativeX";
   if (splines_.empty()) {
     return 0.0;
   }
@@ -91,7 +85,6 @@ AINFO<<"(DMCZP) EnteringMethod: Spline2d::SecondDerivativeX";
 }
 
 double Spline2d::SecondDerivativeY(const double t) const {
-AINFO<<"(DMCZP) EnteringMethod: Spline2d::SecondDerivativeY";
   if (splines_.empty()) {
     return 0.0;
   }
@@ -100,7 +93,6 @@ AINFO<<"(DMCZP) EnteringMethod: Spline2d::SecondDerivativeY";
 }
 
 double Spline2d::ThirdDerivativeX(const double t) const {
-AINFO<<"(DMCZP) EnteringMethod: Spline2d::ThirdDerivativeX";
   if (splines_.empty()) {
     return 0.0;
   }
@@ -109,7 +101,6 @@ AINFO<<"(DMCZP) EnteringMethod: Spline2d::ThirdDerivativeX";
 }
 
 double Spline2d::ThirdDerivativeY(const double t) const {
-AINFO<<"(DMCZP) EnteringMethod: Spline2d::ThirdDerivativeY";
   if (splines_.empty()) {
     return 0.0;
   }
@@ -121,7 +112,6 @@ AINFO<<"(DMCZP) EnteringMethod: Spline2d::ThirdDerivativeY";
  **/
 bool Spline2d::set_splines(const Eigen::MatrixXd& params,
                            const uint32_t order) {
-AINFO<<"(DMCZP) EnteringMethod: Spline2d::set_splines";
   const uint32_t num_params = order + 1;
   // check if the parameter size fit
   if (2 * t_knots_.size() * num_params !=
@@ -142,17 +132,14 @@ AINFO<<"(DMCZP) EnteringMethod: Spline2d::set_splines";
 }
 
 const Spline2dSeg& Spline2d::smoothing_spline(const uint32_t index) const {
-AINFO<<"(DMCZP) EnteringMethod: Spline2d::smoothing_spline";
   return splines_[index];
 }
 
 const std::vector<double>& Spline2d::t_knots() const { return t_knots_; }
 
 uint32_t Spline2d::spline_order() const { return spline_order_; }
-AINFO<<"(DMCZP) EnteringMethod: Spline2d::spline_order";
 
 uint32_t Spline2d::find_index(const double t) const {
-AINFO<<"(DMCZP) EnteringMethod: Spline2d::find_index";
   auto upper_bound = std::upper_bound(t_knots_.begin() + 1, t_knots_.end(), t);
   return std::min(static_cast<uint32_t>(t_knots_.size() - 1),
                   static_cast<uint32_t>(upper_bound - t_knots_.begin())) -

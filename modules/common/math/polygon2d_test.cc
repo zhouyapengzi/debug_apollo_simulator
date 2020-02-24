@@ -33,7 +33,6 @@ namespace {
 
 bool ProjectByXSlow(const std::vector<Vec2d> &points, double x,
                     double *const min_y, double *const max_y) {
-AINFO<<"(DMCZP) EnteringMethod: ProjectByXSlow";
   *min_y = std::numeric_limits<double>::infinity();
   *max_y = -std::numeric_limits<double>::infinity();
   for (const Vec2d &p1 : points) {
@@ -54,7 +53,6 @@ AINFO<<"(DMCZP) EnteringMethod: ProjectByXSlow";
 }  // namespace
 
 TEST(Polygon2dTest, polygon_IsPointIn) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   const Polygon2d poly1(Box2d::CreateAABox({0, 0}, {1, 1}));
   EXPECT_EQ(poly1.DebugString(),
             "polygon2d (  num_points = 4  points = (vec2d ( x = 1  y = 0 ) "
@@ -131,7 +129,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST";
 }
 
 TEST(Polygon2dTest, DistanceToPoint) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   const Box2d box1(Box2d::CreateAABox({0, 0}, {1, 1}));
   const Polygon2d poly1(box1);
   EXPECT_NEAR(poly1.DistanceTo({0.5, 0.5}), 0.0, 1e-5);
@@ -201,7 +198,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST";
 }
 
 TEST(Polygon2dTest, DistanceToLineSegment) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   const Polygon2d poly1(Box2d::CreateAABox({0, 0}, {1, 1}));
   EXPECT_NEAR(poly1.DistanceTo({{0.5, 0.5}, {1.0, 1.0}}), 0.0, 1e-5);
   EXPECT_NEAR(poly1.DistanceTo({{-0.2, 0.5}, {1.2, 0.5}}), 0.0, 1e-5);
@@ -251,7 +247,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST";
 }
 
 TEST(Polygon2dTest, DistanceToPolygon) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   const Polygon2d poly1(Box2d::CreateAABox({0, 0}, {1, 1}));
   const Polygon2d poly2({{0, 1}, {1, 0}, {0, -1}, {-1, 0}});
   const Polygon2d poly3(Box2d::CreateAABox({2, 2}, {3, 3}));
@@ -266,7 +261,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST";
 }
 
 TEST(Polygon2dTest, ContainPolygon) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   const Polygon2d poly1(Box2d::CreateAABox({0, 0}, {3, 3}));
   const Polygon2d poly2(Box2d::CreateAABox({1, 1}, {2, 2}));
   const Polygon2d poly3(Box2d::CreateAABox({1.5, 1.5}, {4, 4}));
@@ -296,7 +290,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST";
 }
 
 TEST(Polygon2dTest, ConvexHull) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   Polygon2d polygon;
   EXPECT_FALSE(Polygon2d::ComputeConvexHull({}, &polygon));
   EXPECT_FALSE(Polygon2d::ComputeConvexHull({{1, 2}}, &polygon));
@@ -350,7 +343,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST";
 }
 
 TEST(Polygon2dTest, Overlap) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   const Polygon2d poly1(Box2d::CreateAABox({0, 0}, {2, 2}));
   const Polygon2d poly2(Box2d::CreateAABox({1, 1}, {3, 3}));
   const Polygon2d poly3(Box2d::CreateAABox({2, 0}, {4, 2}));
@@ -604,7 +596,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST";
 }
 
 TEST(Polygon2dTest, BoundingBox) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   Polygon2d poly1(Box2d::CreateAABox({0, 0}, {2, 2}));
   Box2d box = poly1.BoundingBoxWithHeading(0.0);
   EXPECT_NEAR(1.0, box.center().x(), 1e-5);
@@ -681,7 +672,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST";
 }
 
 TEST(Polygon2dTest, Expand) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   {
     const Polygon2d poly(Box2d::CreateAABox({0, 0}, {2, 2}));
     const Polygon2d exp_poly = poly.ExpandByDistance(1.0);

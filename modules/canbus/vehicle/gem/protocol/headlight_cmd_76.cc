@@ -28,29 +28,24 @@ const int32_t Headlightcmd76::ID = 0x76;
 
 // public
 Headlightcmd76::Headlightcmd76() { Reset(); }
-AINFO<<"(DMCZP) EnteringMethod: Headlightcmd76::Headlightcmd76";
 
 uint32_t Headlightcmd76::GetPeriod() const {
-AINFO<<"(DMCZP) EnteringMethod: Headlightcmd76::GetPeriod";
   // TODO(QiL) :modify every protocol's period manually
   static const uint32_t PERIOD = 20 * 1000;
   return PERIOD;
 }
 
 void Headlightcmd76::UpdateData(uint8_t* data) {
-AINFO<<"(DMCZP) EnteringMethod: Headlightcmd76::UpdateData";
   set_p_headlight_cmd(data, headlight_cmd_);
 }
 
 void Headlightcmd76::Reset() {
-AINFO<<"(DMCZP) EnteringMethod: Headlightcmd76::Reset";
   // TODO(QiL) :you should check this manually
   headlight_cmd_ = Headlight_cmd_76::HEADLIGHT_CMD_HEADLIGHTS_OFF;
 }
 
 Headlightcmd76* Headlightcmd76::set_headlight_cmd(
     Headlight_cmd_76::Headlight_cmdType headlight_cmd) {
-AINFO<<"(DMCZP) EnteringMethod: Headlightcmd76::set_headlight_cmd";
   headlight_cmd_ = headlight_cmd;
   return this;
 }
@@ -62,7 +57,6 @@ AINFO<<"(DMCZP) EnteringMethod: Headlightcmd76::set_headlight_cmd";
 // 'order': 'motorola', 'physical_unit': ''}
 void Headlightcmd76::set_p_headlight_cmd(
     uint8_t* data, Headlight_cmd_76::Headlight_cmdType headlight_cmd) {
-AINFO<<"(DMCZP) EnteringMethod: Headlightcmd76::set_p_headlight_cmd";
   uint8_t x = headlight_cmd;
 
   Byte to_set(data + 0);

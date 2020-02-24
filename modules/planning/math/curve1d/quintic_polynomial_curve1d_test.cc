@@ -23,7 +23,6 @@ namespace apollo {
 namespace planning {
 
 TEST(QuinticPolynomialCurve1dTest, basic_test) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   double x0 = 0.0;
   double dx0 = 1.0;
   double ddx0 = 0.8;
@@ -57,7 +56,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST";
 }
 
 TEST(QuinticPolynomialCurve1dTest, IntegratedFromQuarticCurve) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   QuarticPolynomialCurve1d quartic_curve(2, 1, 4, 3, 2, 4);
   QuinticPolynomialCurve1d quintic_curve;
   quintic_curve.IntegratedFromQuarticCurve(quartic_curve, 1);

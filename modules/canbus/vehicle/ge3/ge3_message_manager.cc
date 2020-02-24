@@ -36,7 +36,6 @@ namespace canbus {
 namespace ge3 {
 
 Ge3MessageManager::Ge3MessageManager() {
-AINFO<<"(DMCZP) EnteringMethod: Ge3MessageManager::Ge3MessageManager";
   // Control Messages
   AddSendProtocolData<Pcbcm201, true>();
   AddSendProtocolData<Pcbcs202, true>();

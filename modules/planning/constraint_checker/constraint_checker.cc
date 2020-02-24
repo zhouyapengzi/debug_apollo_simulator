@@ -29,14 +29,12 @@ namespace planning {
 namespace {
 template <typename T>
 bool WithinRange(const T v, const T lower, const T upper) {
-AINFO<<"(DMCZP) EnteringMethod: WithinRange";
   return lower <= v && v <= upper;
 }
 }  // namespace
 
 ConstraintChecker::Result ConstraintChecker::ValidTrajectory(
     const DiscretizedTrajectory& trajectory) {
-AINFO<<"(DMCZP) EnteringMethod: ConstraintChecker::ValidTrajectory";
   const double kMaxCheckRelativeTime = FLAGS_trajectory_time_length;
   for (const auto& p : trajectory) {
     double t = p.relative_time();

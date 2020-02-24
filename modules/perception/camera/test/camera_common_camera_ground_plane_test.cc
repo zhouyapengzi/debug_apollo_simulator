@@ -24,7 +24,6 @@ namespace perception {
 namespace camera {
 
 TEST(CameraGroundPlaneTest, CameraGroundPlaneDetectorTest) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   base::BrownCameraDistortionModel model;
   common::LoadBrownCameraIntrinsic(
       "/apollo/modules/perception/testdata/camera/common/params/"

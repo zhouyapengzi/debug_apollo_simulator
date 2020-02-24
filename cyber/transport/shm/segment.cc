@@ -35,7 +35,6 @@ Segment::Segment(uint64_t channel_id, const ReadWriteMode& mode)
       managed_shm_(nullptr),
       block_buf_lock_(),
       block_buf_addrs_() {
-AINFO<<"(DMCZP) EnteringMethod: Segment::Segment";
   id_ = static_cast<key_t>(channel_id);
 }
 
@@ -43,7 +42,6 @@ Segment::~Segment() { Destroy(); }
 
 bool Segment::AcquireBlockToWrite(std::size_t msg_size,
                                   WritableBlock* writable_block) {
-AINFO<<"(DMCZP) EnteringMethod: Segment::AcquireBlockToWrite";
   RETURN_VAL_IF_NULL(writable_block, false);
   if (!init_ && !Init()) {
     AERROR << "init failed, can't write now.";
@@ -73,7 +71,6 @@ AINFO<<"(DMCZP) EnteringMethod: Segment::AcquireBlockToWrite";
 }
 
 void Segment::ReleaseWrittenBlock(const WritableBlock& writable_block) {
-AINFO<<"(DMCZP) EnteringMethod: Segment::ReleaseWrittenBlock";
   auto index = writable_block.index;
   if (index >= conf_.block_num()) {
     return;
@@ -82,7 +79,6 @@ AINFO<<"(DMCZP) EnteringMethod: Segment::ReleaseWrittenBlock";
 }
 
 bool Segment::AcquireBlockToRead(ReadableBlock* readable_block) {
-AINFO<<"(DMCZP) EnteringMethod: Segment::AcquireBlockToRead";
   RETURN_VAL_IF_NULL(readable_block, false);
 
   if (!init_ && !Init()) {
@@ -114,7 +110,6 @@ AINFO<<"(DMCZP) EnteringMethod: Segment::AcquireBlockToRead";
 }
 
 void Segment::ReleaseReadBlock(const ReadableBlock& readable_block) {
-AINFO<<"(DMCZP) EnteringMethod: Segment::ReleaseReadBlock";
   auto index = readable_block.index;
   if (index >= conf_.block_num()) {
     return;
@@ -123,7 +118,6 @@ AINFO<<"(DMCZP) EnteringMethod: Segment::ReleaseReadBlock";
 }
 
 bool Segment::Init() {
-AINFO<<"(DMCZP) EnteringMethod: Segment::Init";
   if (mode_ == READ_ONLY) {
     return OpenOnly();
   } else {
@@ -132,7 +126,6 @@ AINFO<<"(DMCZP) EnteringMethod: Segment::Init";
 }
 
 bool Segment::OpenOrCreate() {
-AINFO<<"(DMCZP) EnteringMethod: Segment::OpenOrCreate";
   if (init_) {
     return true;
   }
@@ -230,7 +223,6 @@ AINFO<<"(DMCZP) EnteringMethod: Segment::OpenOrCreate";
 }
 
 bool Segment::OpenOnly() {
-AINFO<<"(DMCZP) EnteringMethod: Segment::OpenOnly";
   if (init_) {
     return true;
   }
@@ -308,7 +300,6 @@ AINFO<<"(DMCZP) EnteringMethod: Segment::OpenOnly";
 }
 
 bool Segment::Remove() {
-AINFO<<"(DMCZP) EnteringMethod: Segment::Remove";
   int shmid = shmget(id_, 0, 0644);
   if (shmid == -1 || shmctl(shmid, IPC_RMID, 0) == -1) {
     AERROR << "remove shm failed, error code: " << strerror(errno);
@@ -320,7 +311,6 @@ AINFO<<"(DMCZP) EnteringMethod: Segment::Remove";
 }
 
 bool Segment::Destroy() {
-AINFO<<"(DMCZP) EnteringMethod: Segment::Destroy";
   if (!init_) {
     return true;
   }
@@ -341,7 +331,6 @@ AINFO<<"(DMCZP) EnteringMethod: Segment::Destroy";
 }
 
 void Segment::Reset() {
-AINFO<<"(DMCZP) EnteringMethod: Segment::Reset";
   state_ = nullptr;
   blocks_ = nullptr;
   {
@@ -356,7 +345,6 @@ AINFO<<"(DMCZP) EnteringMethod: Segment::Reset";
 }
 
 bool Segment::Remap() {
-AINFO<<"(DMCZP) EnteringMethod: Segment::Remap";
   init_ = false;
   ADEBUG << "before reset.";
   Reset();
@@ -365,7 +353,6 @@ AINFO<<"(DMCZP) EnteringMethod: Segment::Remap";
 }
 
 bool Segment::Recreate() {
-AINFO<<"(DMCZP) EnteringMethod: Segment::Recreate";
   init_ = false;
   state_->set_need_remap(true);
   Reset();
@@ -374,7 +361,6 @@ AINFO<<"(DMCZP) EnteringMethod: Segment::Recreate";
 }
 
 uint32_t Segment::GetNextWritableBlockIndex() {
-AINFO<<"(DMCZP) EnteringMethod: Segment::GetNextWritableBlockIndex";
   uint32_t try_idx = state_->wrote_num();
 
   auto max_mod_num = conf_.block_num() - 1;

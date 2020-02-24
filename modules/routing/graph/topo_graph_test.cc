@@ -23,7 +23,6 @@ namespace apollo {
 namespace routing {
 
 TEST(TopoGraphTestSuit, test_graph_1) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   Graph graph;
   GetGraphForTest(&graph);
 

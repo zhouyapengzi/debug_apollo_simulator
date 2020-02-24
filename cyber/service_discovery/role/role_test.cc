@@ -25,7 +25,6 @@ namespace service_discovery {
 using proto::RoleAttributes;
 
 TEST(RoleTest, constructor_getter_setter) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   RoleBase role_a;
   EXPECT_EQ(role_a.timestamp_ns(), 0);
   role_a.set_timestamp_ns(123);
@@ -55,7 +54,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST";
 }
 
 TEST(RoleTest, is_earlier_than) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   RoleBase role_a;
   role_a.set_timestamp_ns(123);
   RoleBase role_b;
@@ -65,7 +63,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST";
 }
 
 TEST(RoleTest, rolebase_match) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   RoleAttributes attr;
   attr.set_host_name("caros");
   attr.set_process_id(12345);
@@ -96,7 +93,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST";
 }
 
 TEST(RoleTest, rolewriter_match) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   RoleAttributes attr;
   attr.set_host_name("caros");
   attr.set_process_id(12345);
@@ -125,7 +121,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST";
 }
 
 TEST(RoleTest, roleserver_match) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   RoleAttributes attr;
   attr.set_host_name("caros");
   attr.set_process_id(12345);

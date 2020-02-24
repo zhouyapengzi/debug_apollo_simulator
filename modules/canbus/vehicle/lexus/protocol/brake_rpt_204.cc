@@ -28,12 +28,10 @@ namespace lexus {
 using ::apollo::drivers::canbus::Byte;
 
 Brakerpt204::Brakerpt204() {}
-AINFO<<"(DMCZP) EnteringMethod: Brakerpt204::Brakerpt204";
 const int32_t Brakerpt204::ID = 0x204;
 
 void Brakerpt204::Parse(const std::uint8_t* bytes, int32_t length,
                         ChassisDetail* chassis) const {
-AINFO<<"(DMCZP) EnteringMethod: Brakerpt204::Parse";
   chassis->mutable_lexus()->mutable_brake_rpt_204()->set_command_output_fault(
       command_output_fault(bytes, length));
   chassis->mutable_lexus()->mutable_brake_rpt_204()->set_vehicle_fault(
@@ -61,7 +59,6 @@ AINFO<<"(DMCZP) EnteringMethod: Brakerpt204::Parse";
 // '[0|1]', 'bit': 2, 'type': 'bool', 'order': 'motorola', 'physical_unit': ''}
 bool Brakerpt204::command_output_fault(const std::uint8_t* bytes,
                                        int32_t length) const {
-AINFO<<"(DMCZP) EnteringMethod: Brakerpt204::command_output_fault";
   Byte t0(bytes + 0);
   int32_t x = t0.get_byte(2, 1);
 
@@ -74,7 +71,6 @@ AINFO<<"(DMCZP) EnteringMethod: Brakerpt204::command_output_fault";
 // 'type': 'bool', 'order': 'motorola', 'physical_unit': ''}
 bool Brakerpt204::vehicle_fault(const std::uint8_t* bytes,
                                 int32_t length) const {
-AINFO<<"(DMCZP) EnteringMethod: Brakerpt204::vehicle_fault";
   Byte t0(bytes + 0);
   int32_t x = t0.get_byte(6, 1);
 
@@ -87,7 +83,6 @@ AINFO<<"(DMCZP) EnteringMethod: Brakerpt204::vehicle_fault";
 // 'type': 'bool', 'order': 'motorola', 'physical_unit': ''}
 bool Brakerpt204::pacmod_fault(const std::uint8_t* bytes,
                                int32_t length) const {
-AINFO<<"(DMCZP) EnteringMethod: Brakerpt204::pacmod_fault";
   Byte t0(bytes + 0);
   int32_t x = t0.get_byte(5, 1);
 
@@ -100,7 +95,6 @@ AINFO<<"(DMCZP) EnteringMethod: Brakerpt204::pacmod_fault";
 // 'type': 'bool', 'order': 'motorola', 'physical_unit': ''}
 bool Brakerpt204::override_active(const std::uint8_t* bytes,
                                   int32_t length) const {
-AINFO<<"(DMCZP) EnteringMethod: Brakerpt204::override_active";
   Byte t0(bytes + 0);
   int32_t x = t0.get_byte(1, 1);
 
@@ -113,7 +107,6 @@ AINFO<<"(DMCZP) EnteringMethod: Brakerpt204::override_active";
 // '[0|1]', 'bit': 4, 'type': 'bool', 'order': 'motorola', 'physical_unit': ''}
 bool Brakerpt204::output_reported_fault(const std::uint8_t* bytes,
                                         int32_t length) const {
-AINFO<<"(DMCZP) EnteringMethod: Brakerpt204::output_reported_fault";
   Byte t0(bytes + 0);
   int32_t x = t0.get_byte(4, 1);
 
@@ -126,7 +119,6 @@ AINFO<<"(DMCZP) EnteringMethod: Brakerpt204::output_reported_fault";
 // '[0|1]', 'bit': 3, 'type': 'bool', 'order': 'motorola', 'physical_unit': ''}
 bool Brakerpt204::input_output_fault(const std::uint8_t* bytes,
                                      int32_t length) const {
-AINFO<<"(DMCZP) EnteringMethod: Brakerpt204::input_output_fault";
   Byte t0(bytes + 0);
   int32_t x = t0.get_byte(3, 1);
 
@@ -138,7 +130,6 @@ AINFO<<"(DMCZP) EnteringMethod: Brakerpt204::input_output_fault";
 // 'is_signed_var': False, 'physical_range': '[0|1]', 'bit': 0, 'type': 'bool',
 // 'order': 'motorola', 'physical_unit': ''}
 bool Brakerpt204::enabled(const std::uint8_t* bytes, int32_t length) const {
-AINFO<<"(DMCZP) EnteringMethod: Brakerpt204::enabled";
   Byte t0(bytes + 0);
   int32_t x = t0.get_byte(0, 1);
 
@@ -151,9 +142,7 @@ AINFO<<"(DMCZP) EnteringMethod: Brakerpt204::enabled";
 // 'type': 'double', 'order': 'motorola', 'physical_unit': ''}
 double Brakerpt204::manual_input(const std::uint8_t* bytes,
                                  int32_t length) const {
-AINFO<<"(DMCZP) EnteringMethod: Brakerpt204::manual_input";
   Byte t0(bytes + 1);
-AINFO<<"(DMCZP) EnteringMethod: Brakerpt204::output_value";
   int32_t x = t0.get_byte(0, 8);
 
   Byte t1(bytes + 2);
@@ -170,7 +159,6 @@ AINFO<<"(DMCZP) EnteringMethod: Brakerpt204::output_value";
 // 'type': 'double', 'order': 'motorola', 'physical_unit': ''}
 double Brakerpt204::commanded_value(const std::uint8_t* bytes,
                                     int32_t length) const {
-AINFO<<"(DMCZP) EnteringMethod: Brakerpt204::commanded_value";
   Byte t0(bytes + 3);
   int32_t x = t0.get_byte(0, 8);
 

@@ -41,7 +41,6 @@ DualVariableWarmStartIPOPTInterface::DualVariableWarmStartIPOPTInterface(
       obstacles_A_(obstacles_A),
       obstacles_b_(obstacles_b),
       xWS_(xWS) {
-AINFO<<"(DMCZP) EnteringMethod: DualVariableWarmStartIPOPTInterface::DualVariableWarmStartIPOPTInterface";
   CHECK(horizon < std::numeric_limits<int>::max())
       << "Invalid cast on horizon in open space planner";
   horizon_ = static_cast<int>(horizon);
@@ -65,7 +64,6 @@ AINFO<<"(DMCZP) EnteringMethod: DualVariableWarmStartIPOPTInterface::DualVariabl
 bool DualVariableWarmStartIPOPTInterface::get_nlp_info(
     int& n, int& m, int& nnz_jac_g, int& nnz_h_lag,
     IndexStyleEnum& index_style) {
-AINFO<<"(DMCZP) EnteringMethod: DualVariableWarmStartIPOPTInterface::get_nlp_info";
   lambda_horizon_ = obstacles_edges_sum_ * (horizon_ + 1);
 
   miu_horizon_ = obstacles_num_ * 4 * (horizon_ + 1);
@@ -103,7 +101,6 @@ AINFO<<"(DMCZP) EnteringMethod: DualVariableWarmStartIPOPTInterface::get_nlp_inf
 bool DualVariableWarmStartIPOPTInterface::get_starting_point(
     int n, bool init_x, double* x, bool init_z, double* z_L, double* z_U, int m,
     bool init_lambda, double* lambda) {
-AINFO<<"(DMCZP) EnteringMethod: DualVariableWarmStartIPOPTInterface::get_starting_point";
   ADEBUG << "get_starting_point";
   CHECK(init_x) << "Warm start init_x setting failed";
   CHECK(!init_z) << "Warm start init_z setting failed";
@@ -145,7 +142,6 @@ bool DualVariableWarmStartIPOPTInterface::get_bounds_info(int n, double* x_l,
                                                           double* x_u, int m,
                                                           double* g_l,
                                                           double* g_u) {
-AINFO<<"(DMCZP) EnteringMethod: DualVariableWarmStartIPOPTInterface::get_bounds_info";
   int variable_index = 0;
   // 1. lagrange constraint l, [0, obstacles_edges_sum_ - 1] * [0,
   // horizon_]
@@ -231,7 +227,6 @@ AINFO<<"(DMCZP) EnteringMethod: DualVariableWarmStartIPOPTInterface::get_bounds_
 bool DualVariableWarmStartIPOPTInterface::eval_f(int n, const double* x,
                                                  bool new_x,
                                                  double& obj_value) {
-AINFO<<"(DMCZP) EnteringMethod: DualVariableWarmStartIPOPTInterface::eval_f";
   eval_obj(n, x, &obj_value);
   return true;
 }
@@ -239,7 +234,6 @@ AINFO<<"(DMCZP) EnteringMethod: DualVariableWarmStartIPOPTInterface::eval_f";
 bool DualVariableWarmStartIPOPTInterface::eval_grad_f(int n, const double* x,
                                                       bool new_x,
                                                       double* grad_f) {
-AINFO<<"(DMCZP) EnteringMethod: DualVariableWarmStartIPOPTInterface::eval_grad_f";
   // gradient(tag_f, n, x, grad_f);
   // return true;
   std::fill(grad_f, grad_f + n, 0.0);
@@ -255,7 +249,6 @@ AINFO<<"(DMCZP) EnteringMethod: DualVariableWarmStartIPOPTInterface::eval_grad_f
 
 bool DualVariableWarmStartIPOPTInterface::eval_g(int n, const double* x,
                                                  bool new_x, int m, double* g) {
-AINFO<<"(DMCZP) EnteringMethod: DualVariableWarmStartIPOPTInterface::eval_g";
   eval_constraints(n, x, m, g);
   return true;
 }
@@ -265,7 +258,6 @@ bool DualVariableWarmStartIPOPTInterface::eval_jac_g(int n, const double* x,
                                                      int nele_jac, int* iRow,
                                                      int* jCol,
                                                      double* values) {
-AINFO<<"(DMCZP) EnteringMethod: DualVariableWarmStartIPOPTInterface::eval_jac_g";
   // if (values == nullptr) {
   //   // return the structure of the jacobian
 
@@ -532,7 +524,6 @@ bool DualVariableWarmStartIPOPTInterface::eval_h(int n, const double* x,
                                                  bool new_lambda, int nele_hess,
                                                  int* iRow, int* jCol,
                                                  double* values) {
-AINFO<<"(DMCZP) EnteringMethod: DualVariableWarmStartIPOPTInterface::eval_h";
   if (values == nullptr) {
     // return the structure. This is a symmetric matrix, fill the lower left
     // triangle only.
@@ -563,7 +554,6 @@ void DualVariableWarmStartIPOPTInterface::finalize_solution(
     const double* z_U, int m, const double* g, const double* lambda,
     double obj_value, const Ipopt::IpoptData* ip_data,
     Ipopt::IpoptCalculatedQuantities* ip_cq) {
-AINFO<<"(DMCZP) EnteringMethod: DualVariableWarmStartIPOPTInterface::finalize_solution";
   int variable_index = 0;
   // 1. lagrange constraint l, [0, obstacles_edges_sum_ - 1] * [0,
   // horizon_]
@@ -593,7 +583,6 @@ AINFO<<"(DMCZP) EnteringMethod: DualVariableWarmStartIPOPTInterface::finalize_so
 
 void DualVariableWarmStartIPOPTInterface::get_optimization_results(
     Eigen::MatrixXd* l_warm_up, Eigen::MatrixXd* n_warm_up) const {
-AINFO<<"(DMCZP) EnteringMethod: DualVariableWarmStartIPOPTInterface::get_optimization_results";
   *l_warm_up = l_warm_up_;
   *n_warm_up = n_warm_up_;
 }
@@ -603,7 +592,6 @@ AINFO<<"(DMCZP) EnteringMethod: DualVariableWarmStartIPOPTInterface::get_optimiz
 template <class T>
 bool DualVariableWarmStartIPOPTInterface::eval_obj(int n, const T* x,
                                                    T* obj_value) {
-AINFO<<"(DMCZP) EnteringMethod: DualVariableWarmStartIPOPTInterface::eval_obj";
   ADEBUG << "eval_obj";
   *obj_value = 0.0;
   int d_index = d_start_index_;
@@ -620,7 +608,6 @@ AINFO<<"(DMCZP) EnteringMethod: DualVariableWarmStartIPOPTInterface::eval_obj";
 template <class T>
 bool DualVariableWarmStartIPOPTInterface::eval_constraints(int n, const T* x,
                                                            int m, T* g) {
-AINFO<<"(DMCZP) EnteringMethod: DualVariableWarmStartIPOPTInterface::eval_constraints";
   ADEBUG << "eval_constraints";
   // state start index
 
@@ -709,7 +696,6 @@ AINFO<<"(DMCZP) EnteringMethod: DualVariableWarmStartIPOPTInterface::eval_constr
 /** Method to generate the required tapes */
 void DualVariableWarmStartIPOPTInterface::generate_tapes(int n, int m,
                                                          int* nnz_h_lag) {
-AINFO<<"(DMCZP) EnteringMethod: DualVariableWarmStartIPOPTInterface::generate_tapes";
   std::vector<double> xp(n);
   std::vector<double> lamp(m);
   std::vector<double> zl(m);

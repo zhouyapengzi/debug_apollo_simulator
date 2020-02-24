@@ -22,7 +22,6 @@ namespace perception {
 namespace common {
 
 TEST(HoughTransferTest, image_no_line_test) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   int iarray[] = {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1};
   std::vector<int> image(iarray, iarray + 16);
   std::vector<HoughLine> lines;
@@ -65,7 +64,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST";
 }
 
 TEST(HoughTransferTest, image_one_line_test) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   int iarray[] = {0, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 0};
   std::vector<int> image(iarray, iarray + 16);
   std::vector<HoughLine> lines;

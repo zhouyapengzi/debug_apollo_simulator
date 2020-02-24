@@ -36,13 +36,6 @@
 
 TEST(tf2, setTransformFail)
 {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
-AINFO<<"(DMCZP) EnteringMethod: TEST";
-AINFO<<"(DMCZP) EnteringMethod: TEST";
-AINFO<<"(DMCZP) EnteringMethod: TEST";
-AINFO<<"(DMCZP) EnteringMethod: TEST";
-AINFO<<"(DMCZP) EnteringMethod: TEST";
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   tf2::BufferCore tfc;
   geometry_msgs::TransformStamped st;
   EXPECT_FALSE(tfc.setTransform(st, "authority1"));
@@ -118,7 +111,6 @@ TEST(tf2_canTransform, One_Exists)
 
 
 int main(int argc, char **argv){
-AINFO<<"(DMCZP) EnteringMethod: main";
   testing::InitGoogleTest(&argc, argv);
   // ros::Time::init(); //needed for ros::TIme::now()
   return RUN_ALL_TESTS();

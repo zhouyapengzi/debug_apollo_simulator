@@ -43,13 +43,6 @@ DEFINE_string(test_planning_file, "", "planning input file");
 DEFINE_bool(test_update_golden_log, false, "true to update golden log file.");
 
 class ControlComponentTest : public ::testing::Test {
-AINFO<<"(DMCZP) EnteringMethod: DEFINE_string";
-AINFO<<"(DMCZP) EnteringMethod: DEFINE_string";
-AINFO<<"(DMCZP) EnteringMethod: DEFINE_string";
-AINFO<<"(DMCZP) EnteringMethod: DEFINE_string";
-AINFO<<"(DMCZP) EnteringMethod: DEFINE_string";
-AINFO<<"(DMCZP) EnteringMethod: DEFINE_string";
-AINFO<<"(DMCZP) EnteringMethod: DEFINE_bool";
  public:
   virtual void SetUp() {
     FLAGS_control_conf_file =
@@ -87,7 +80,6 @@ AINFO<<"(DMCZP) EnteringMethod: DEFINE_bool";
 };
 
 void ControlComponentTest::SetupCyber() {
-AINFO<<"(DMCZP) EnteringMethod: ControlComponentTest::SetupCyber";
   if (is_cyber_initialized_) {
     return;
   }
@@ -123,7 +115,6 @@ AINFO<<"(DMCZP) EnteringMethod: ControlComponentTest::SetupCyber";
 }
 
 bool ControlComponentTest::FeedTestData() {
-AINFO<<"(DMCZP) EnteringMethod: ControlComponentTest::FeedTestData";
   // Pad message
   if (!FLAGS_test_pad_file.empty()) {
     if (!cyber::common::GetProtoFromFile(
@@ -179,7 +170,6 @@ AINFO<<"(DMCZP) EnteringMethod: ControlComponentTest::FeedTestData";
 }
 
 bool ControlComponentTest::RunControl(const std::string& test_case_name) {
-AINFO<<"(DMCZP) EnteringMethod: ControlComponentTest::RunControl";
   CHECK(FeedTestData()) << "Failed to feed test data";
 
   control_component_.reset(new ControlComponent());
@@ -233,7 +223,6 @@ AINFO<<"(DMCZP) EnteringMethod: ControlComponentTest::RunControl";
 }
 
 void ControlComponentTest::TrimControlCommand(ControlCommand* origin) {
-AINFO<<"(DMCZP) EnteringMethod: ControlComponentTest::TrimControlCommand";
   origin->mutable_header()->clear_radar_timestamp();
   origin->mutable_header()->clear_lidar_timestamp();
   origin->mutable_header()->clear_timestamp_sec();
@@ -241,7 +230,6 @@ AINFO<<"(DMCZP) EnteringMethod: ControlComponentTest::TrimControlCommand";
 }
 
 TEST_F(ControlComponentTest, simple_test) {
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   FLAGS_test_data_dir = "/apollo/modules/control/testdata/simple_control_test/";
   FLAGS_enable_csv_debug = true;
   FLAGS_test_localization_file = "1_localization.pb.txt";

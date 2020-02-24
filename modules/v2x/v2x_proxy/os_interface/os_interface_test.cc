@@ -27,7 +27,6 @@ namespace apollo {
 namespace v2x {
 
 TEST(OsInterFaceTest, Construct) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   apollo::cyber::Init("os_inteface_test");
   OsInterFace os_interface;
   EXPECT_TRUE(os_interface.InitFlag());

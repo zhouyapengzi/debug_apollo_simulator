@@ -25,12 +25,10 @@ namespace perception {
 namespace inference {
 
 TEST(loadTest, test) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   CHECK(!apollo::perception::inference::load_binary_data("unknow.txt"));
 }
 
 TEST(UtilTest, GemmTest) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   base::Blob<float> a;
   base::Blob<float> b;
   base::Blob<float> c;
@@ -74,7 +72,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST";
 }
 
 TEST(UtilTest, NormTest) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   inference::CudaUtil::set_device_id(0);
   {
     inference::GPUL2Norm norm;
@@ -116,7 +113,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST";
 const int thread_count = 3;
 std::vector<cublasHandle_t> handlers(thread_count, nullptr);
 void CudaUtilFun(int gpu_count, int thread_id) {
-AINFO<<"(DMCZP) EnteringMethod: CudaUtilFun";
   EXPECT_TRUE(inference::CudaUtil::set_device_id(0));
   for (int i = 1; i < gpu_count; ++i) {
     EXPECT_TRUE(inference::CudaUtil::set_device_id(i));
@@ -125,7 +121,6 @@ AINFO<<"(DMCZP) EnteringMethod: CudaUtilFun";
 }
 
 TEST(UtilTest, CudaUtilTest) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   int gpu_count = 0;
   cudaGetDeviceCount(&gpu_count);
   EXPECT_GT(gpu_count, 0);
@@ -139,7 +134,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST";
 }
 
 TEST(UtilTest, test_resize_gpu) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   cv::Mat img = cv::imread("inference_test_data/images/test.jpg");
   base::Image8U src_image(img.rows, img.cols, base::Color::BGR);
 

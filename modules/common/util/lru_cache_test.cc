@@ -28,7 +28,6 @@ static const int TEST_NUM = 10;
 static const int CAPACITY = 4;
 
 TEST(LRUCache, General) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   int ids[] = {0, 1, 2, 3, 2, 1, 4, 3, 5, 6};
   int timestamps[] = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
 
@@ -56,7 +55,6 @@ AINFO<<"(DMCZP) EnteringMethod: TEST";
 }
 
 TEST(LRUCache, UAF) {
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   LRUCache<int, int> cache;
   std::vector<int> keys = {1, 3, 5};
   std::vector<int> vals = {2, 4, 6};

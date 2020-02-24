@@ -21,11 +21,9 @@ namespace routing {
 
 NodeWithRange::NodeWithRange(const TopoNode* node, const NodeSRange& range)
     : NodeSRange(range), topo_node_(node) {}
-AINFO<<"(DMCZP) EnteringMethod: NodeWithRange::NodeWithRange";
 
 NodeWithRange::NodeWithRange(const TopoNode* node, double start_s, double end_s)
     : NodeSRange(start_s, end_s), topo_node_(node) {}
-AINFO<<"(DMCZP) EnteringMethod: NodeWithRange::NodeWithRange";
 
 NodeWithRange::~NodeWithRange() {}
 
@@ -34,23 +32,18 @@ bool NodeWithRange::operator<(const NodeWithRange& other) const {
 }
 
 const TopoNode* NodeWithRange::GetTopoNode() const { return topo_node_; }
-AINFO<<"(DMCZP) EnteringMethod: NodeWithRange::GetTopoNode";
 
 bool NodeWithRange::IsVirtual() const { return topo_node_->IsVirtual(); }
-AINFO<<"(DMCZP) EnteringMethod: NodeWithRange::IsVirtual";
 
 const std::string& NodeWithRange::RoadId() const {
-AINFO<<"(DMCZP) EnteringMethod: NodeWithRange::RoadId";
   return topo_node_->RoadId();
 }
 
 const std::string& NodeWithRange::LaneId() const {
-AINFO<<"(DMCZP) EnteringMethod: NodeWithRange::LaneId";
   return topo_node_->LaneId();
 }
 
 double NodeWithRange::FullLength() const { return topo_node_->Length(); }
-AINFO<<"(DMCZP) EnteringMethod: NodeWithRange::FullLength";
 
 }  // namespace routing
 }  // namespace apollo

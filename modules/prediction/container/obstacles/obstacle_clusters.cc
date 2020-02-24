@@ -33,20 +33,16 @@ std::unordered_map<std::string, StopSign>
     ObstacleClusters::lane_id_stop_sign_map_;
 
 void ObstacleClusters::Clear() {
-AINFO<<"(DMCZP) EnteringMethod: ObstacleClusters::Clear";
   lane_graphs_.clear();
   lane_obstacles_.clear();
   lane_id_stop_sign_map_.clear();
 }
 
 void ObstacleClusters::Init() { Clear(); }
-AINFO<<"(DMCZP) EnteringMethod: ObstacleClusters::Init";
 
 const LaneGraph& ObstacleClusters::GetLaneGraph(
     const double start_s, const double length, const bool is_on_lane,
     std::shared_ptr<const LaneInfo> lane_info_ptr) {
-AINFO<<"(DMCZP) EnteringMethod: ObstacleClusters::GetLaneGraph";
-AINFO<<"(DMCZP) EnteringMethod: ObstacleClusters::GetLaneGraphWithoutMemorizing";
   std::string lane_id = lane_info_ptr->id().id();
   if (lane_graphs_.find(lane_id) != lane_graphs_.end()) {
     // If this lane_segment has been used for constructing LaneGraph,
@@ -87,7 +83,6 @@ LaneGraph ObstacleClusters::GetLaneGraphWithoutMemorizing(
 void ObstacleClusters::AddObstacle(const int obstacle_id,
                                    const std::string& lane_id,
                                    const double lane_s, const double lane_l) {
-AINFO<<"(DMCZP) EnteringMethod: ObstacleClusters::AddObstacle";
   LaneObstacle lane_obstacle;
   lane_obstacle.set_obstacle_id(obstacle_id);
   lane_obstacle.set_lane_id(lane_id);
@@ -97,7 +92,6 @@ AINFO<<"(DMCZP) EnteringMethod: ObstacleClusters::AddObstacle";
 }
 
 void ObstacleClusters::SortObstacles() {
-AINFO<<"(DMCZP) EnteringMethod: ObstacleClusters::SortObstacles";
   for (auto iter = lane_obstacles_.begin(); iter != lane_obstacles_.end();
        ++iter) {
     std::sort(iter->second.begin(), iter->second.end(),
@@ -111,8 +105,6 @@ bool ObstacleClusters::ForwardNearbyObstacle(
     const LaneSequence& lane_sequence, const int obstacle_id,
     const double obstacle_s, const double obstacle_l,
     NearbyObstacle* const nearby_obstacle_ptr) {
-AINFO<<"(DMCZP) EnteringMethod: ObstacleClusters::ForwardNearbyObstacle";
-AINFO<<"(DMCZP) EnteringMethod: ObstacleClusters::BackwardNearbyObstacle";
   double accumulated_s = 0.0;
   for (const LaneSegment& lane_segment : lane_sequence.lane_segment()) {
     std::string lane_id = lane_segment.lane_id();
@@ -202,7 +194,6 @@ bool ObstacleClusters::BackwardNearbyObstacle(
 }
 
 StopSign ObstacleClusters::QueryStopSignByLaneId(const std::string& lane_id) {
-AINFO<<"(DMCZP) EnteringMethod: ObstacleClusters::QueryStopSignByLaneId";
   StopSign stop_sign;
   // Find the stop_sign by lane_id in the hashtable
   if (lane_id_stop_sign_map_.find(lane_id) != lane_id_stop_sign_map_.end()) {

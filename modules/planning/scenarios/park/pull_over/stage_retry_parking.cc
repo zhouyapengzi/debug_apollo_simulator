@@ -36,11 +36,9 @@ using common::TrajectoryPoint;
 PullOverStageRetryParking::PullOverStageRetryParking(
     const ScenarioConfig::StageConfig& config)
     : Stage(config) {}
-AINFO<<"(DMCZP) EnteringMethod: PullOverStageRetryParking::PullOverStageRetryParking";
 
 Stage::StageStatus PullOverStageRetryParking::Process(
     const TrajectoryPoint& planning_init_point, Frame* frame) {
-AINFO<<"(DMCZP) EnteringMethod: PullOverStageRetryParking::Process";
   ADEBUG << "stage: RetryParking";
   CHECK_NOTNULL(frame);
 
@@ -73,7 +71,6 @@ AINFO<<"(DMCZP) EnteringMethod: PullOverStageRetryParking::Process";
 }
 
 Stage::StageStatus PullOverStageRetryParking::FinishStage() {
-AINFO<<"(DMCZP) EnteringMethod: PullOverStageRetryParking::FinishStage";
   return FinishScenario();
 }
 

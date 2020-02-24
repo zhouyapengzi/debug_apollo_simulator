@@ -29,7 +29,6 @@ namespace {
 using common::ErrorCode;
 
 bool ShowRequestInfo(const RoutingRequest& request, const TopoGraph* graph) {
-AINFO<<"(DMCZP) EnteringMethod: ShowRequestInfo";
   for (const auto& wp : request.waypoint()) {
     const auto* node = graph->GetNode(wp.id());
     if (node == nullptr) {
@@ -58,7 +57,6 @@ AINFO<<"(DMCZP) EnteringMethod: ShowRequestInfo";
 bool GetWayNodes(const RoutingRequest& request, const TopoGraph* graph,
                  std::vector<const TopoNode*>* const way_nodes,
                  std::vector<double>* const way_s) {
-AINFO<<"(DMCZP) EnteringMethod: GetWayNodes";
   for (const auto& point : request.waypoint()) {
     const auto* cur_node = graph->GetNode(point.id());
     if (cur_node == nullptr) {
@@ -74,7 +72,6 @@ AINFO<<"(DMCZP) EnteringMethod: GetWayNodes";
 void SetErrorCode(const common::ErrorCode& error_code_id,
                   const std::string& error_string,
                   common::StatusPb* const error_code) {
-AINFO<<"(DMCZP) EnteringMethod: SetErrorCode";
   error_code->set_error_code(error_code_id);
   error_code->set_msg(error_string);
   if (error_code_id == common::ErrorCode::OK) {
@@ -85,7 +82,6 @@ AINFO<<"(DMCZP) EnteringMethod: SetErrorCode";
 }
 
 void PrintDebugData(const std::vector<NodeWithRange>& nodes) {
-AINFO<<"(DMCZP) EnteringMethod: PrintDebugData";
   AINFO << "Route lane id\tis virtual\tstart s\tend s";
   for (const auto& node : nodes) {
     AINFO << node.GetTopoNode()->LaneId() << "\t"
@@ -97,7 +93,6 @@ AINFO<<"(DMCZP) EnteringMethod: PrintDebugData";
 }  // namespace
 
 Navigator::Navigator(const std::string& topo_file_path) {
-AINFO<<"(DMCZP) EnteringMethod: Navigator::Navigator";
   Graph graph;
   if (!cyber::common::GetProtoFromFile(topo_file_path, &graph)) {
     AERROR << "Failed to read topology graph from " << topo_file_path;
@@ -119,15 +114,12 @@ AINFO<<"(DMCZP) EnteringMethod: Navigator::Navigator";
 Navigator::~Navigator() {}
 
 bool Navigator::IsReady() const { return is_ready_; }
-AINFO<<"(DMCZP) EnteringMethod: Navigator::IsReady";
 
 void Navigator::Clear() { topo_range_manager_.Clear(); }
-AINFO<<"(DMCZP) EnteringMethod: Navigator::Clear";
 
 bool Navigator::Init(const RoutingRequest& request, const TopoGraph* graph,
                      std::vector<const TopoNode*>* const way_nodes,
                      std::vector<double>* const way_s) {
-AINFO<<"(DMCZP) EnteringMethod: Navigator::Init";
   Clear();
   if (!GetWayNodes(request, graph_.get(), way_nodes, way_s)) {
     AERROR << "Failed to find search terminal point in graph!";
@@ -141,7 +133,6 @@ AINFO<<"(DMCZP) EnteringMethod: Navigator::Init";
 bool Navigator::MergeRoute(
     const std::vector<NodeWithRange>& node_vec,
     std::vector<NodeWithRange>* const result_node_vec) const {
-AINFO<<"(DMCZP) EnteringMethod: Navigator::MergeRoute";
   for (const auto& node : node_vec) {
     if (result_node_vec->empty() ||
         result_node_vec->back().GetTopoNode() != node.GetTopoNode()) {
@@ -161,7 +152,6 @@ bool Navigator::SearchRouteByStrategy(
     const TopoGraph* graph, const std::vector<const TopoNode*>& way_nodes,
     const std::vector<double>& way_s,
     std::vector<NodeWithRange>* const result_nodes) const {
-AINFO<<"(DMCZP) EnteringMethod: Navigator::SearchRouteByStrategy";
   std::unique_ptr<Strategy> strategy_ptr;
   strategy_ptr.reset(new AStarStrategy(FLAGS_enable_change_lane_in_result));
 
@@ -212,7 +202,6 @@ AINFO<<"(DMCZP) EnteringMethod: Navigator::SearchRouteByStrategy";
 
 bool Navigator::SearchRoute(const RoutingRequest& request,
                             RoutingResponse* const response) {
-AINFO<<"(DMCZP) EnteringMethod: Navigator::SearchRoute";
   if (!ShowRequestInfo(request, graph_.get())) {
     SetErrorCode(ErrorCode::ROUTING_ERROR_REQUEST,
                  "Error encountered when reading request point!",

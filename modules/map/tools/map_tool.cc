@@ -29,10 +29,6 @@ DEFINE_string(output_dir, "/tmp/", "output map directory");
 using apollo::hdmap::Map;
 
 static void ShiftMap(Map* map_pb) {
-AINFO<<"(DMCZP) EnteringMethod: DEFINE_double";
-AINFO<<"(DMCZP) EnteringMethod: DEFINE_double";
-AINFO<<"(DMCZP) EnteringMethod: DEFINE_string";
-AINFO<<"(DMCZP) EnteringMethod: ShiftMap";
   for (auto& lane : *(map_pb->mutable_lane())) {
     for (auto& segment : *(lane.mutable_central_curve()->mutable_segment())) {
       for (auto& point : *(segment.mutable_line_segment()->mutable_point())) {
@@ -68,7 +64,6 @@ AINFO<<"(DMCZP) EnteringMethod: ShiftMap";
 }
 
 static void OutputMap(const Map& map_pb) {
-AINFO<<"(DMCZP) EnteringMethod: OutputMap";
   const std::string txt_file = FLAGS_output_dir + "/base_map.txt";
   const std::string bin_file = FLAGS_output_dir + "/base_map.bin";
   CHECK(apollo::cyber::common::SetProtoToASCIIFile(map_pb, txt_file));
@@ -76,7 +71,6 @@ AINFO<<"(DMCZP) EnteringMethod: OutputMap";
 }
 
 int main(int32_t argc, char** argv) {
-AINFO<<"(DMCZP) EnteringMethod: main";
   google::InitGoogleLogging(argv[0]);
   FLAGS_alsologtostderr = true;
   FLAGS_v = 3;
