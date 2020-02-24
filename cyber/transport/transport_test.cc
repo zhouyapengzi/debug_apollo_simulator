@@ -1,3 +1,4 @@
+#include "cyber/common/log.h"
 /******************************************************************************
  * Copyright 2018 The Apollo Authors. All Rights Reserved.
  *
@@ -33,12 +34,14 @@ using ReceiverPtr = std::shared_ptr<Receiver<proto::UnitTest>>;
 
 TEST(TransportTest, constructor) {
 AINFO<<"(DMCZP) EnteringMethod: TEST";
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   auto transport_a = Transport::Instance();
   auto transport_b = Transport::Instance();
   EXPECT_EQ(transport_a->participant(), transport_b->participant());
 }
 
 TEST(TransportTest, create_transmitter) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
 AINFO<<"(DMCZP) EnteringMethod: TEST";
   QosProfileConf qos_conf;
   (void)qos_conf;
@@ -60,6 +63,7 @@ AINFO<<"(DMCZP) EnteringMethod: TEST";
 }
 
 TEST(TransportTest, create_receiver) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
 AINFO<<"(DMCZP) EnteringMethod: TEST";
   RoleAttributes attr;
   attr.set_channel_name("create_receiver");
@@ -83,6 +87,7 @@ AINFO<<"(DMCZP) EnteringMethod: TEST";
 }  // namespace apollo
 
 int main(int argc, char** argv) {
+AINFO<<"(DMCZP) EnteringMethod: main";
 AINFO<<"(DMCZP) EnteringMethod: main";
   testing::InitGoogleTest(&argc, argv);
   apollo::cyber::Init(argv[0]);

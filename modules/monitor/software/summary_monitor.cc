@@ -30,11 +30,14 @@ DEFINE_double(system_status_publish_interval, 10,
 namespace apollo {
 AINFO<<"(DMCZP) EnteringMethod: DEFINE_string";
 AINFO<<"(DMCZP) EnteringMethod: DEFINE_double";
+AINFO<<"(DMCZP) EnteringMethod: DEFINE_string";
+AINFO<<"(DMCZP) EnteringMethod: DEFINE_double";
 namespace monitor {
 
 void SummaryMonitor::EscalateStatus(const ComponentStatus::Status new_status,
                                     const std::string& message,
                                     ComponentStatus* current_status) {
+AINFO<<"(DMCZP) EnteringMethod: SummaryMonitor::EscalateStatus";
 AINFO<<"(DMCZP) EnteringMethod: SummaryMonitor::EscalateStatus";
   // Overwrite priority: FATAL > ERROR > WARN > OK > UNKNOWN.
   if (new_status > current_status->status()) {
@@ -51,8 +54,10 @@ AINFO<<"(DMCZP) EnteringMethod: SummaryMonitor::EscalateStatus";
 SummaryMonitor::SummaryMonitor()
     : RecurrentRunner(FLAGS_summary_monitor_name, 0) {}
 AINFO<<"(DMCZP) EnteringMethod: SummaryMonitor::SummaryMonitor";
+AINFO<<"(DMCZP) EnteringMethod: SummaryMonitor::SummaryMonitor";
 
 void SummaryMonitor::RunOnce(const double current_time) {
+AINFO<<"(DMCZP) EnteringMethod: SummaryMonitor::RunOnce";
 AINFO<<"(DMCZP) EnteringMethod: SummaryMonitor::RunOnce";
   auto manager = MonitorManager::Instance();
   auto* status = manager->GetStatus();

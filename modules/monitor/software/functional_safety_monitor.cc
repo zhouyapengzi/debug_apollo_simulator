@@ -1,3 +1,4 @@
+#include "cyber/common/log.h"
 /******************************************************************************
  * Copyright 2018 The Apollo Authors. All Rights Reserved.
  *
@@ -30,10 +31,13 @@ DEFINE_double(safety_mode_seconds_before_estop, 10.0,
 namespace apollo {
 AINFO<<"(DMCZP) EnteringMethod: DEFINE_string";
 AINFO<<"(DMCZP) EnteringMethod: DEFINE_double";
+AINFO<<"(DMCZP) EnteringMethod: DEFINE_string";
+AINFO<<"(DMCZP) EnteringMethod: DEFINE_double";
 namespace monitor {
 namespace {
 
 bool IsSafe(const std::string& name, const ComponentStatus& status) {
+AINFO<<"(DMCZP) EnteringMethod: IsSafe";
 AINFO<<"(DMCZP) EnteringMethod: IsSafe";
   if (status.status() == ComponentStatus::ERROR ||
       status.status() == ComponentStatus::FATAL) {
@@ -49,8 +53,10 @@ AINFO<<"(DMCZP) EnteringMethod: IsSafe";
 FunctionalSafetyMonitor::FunctionalSafetyMonitor()
     : RecurrentRunner(FLAGS_functional_safety_monitor_name, 0) {}
 AINFO<<"(DMCZP) EnteringMethod: FunctionalSafetyMonitor::FunctionalSafetyMonitor";
+AINFO<<"(DMCZP) EnteringMethod: FunctionalSafetyMonitor::FunctionalSafetyMonitor";
 
 void FunctionalSafetyMonitor::RunOnce(const double current_time) {
+AINFO<<"(DMCZP) EnteringMethod: FunctionalSafetyMonitor::RunOnce";
 AINFO<<"(DMCZP) EnteringMethod: FunctionalSafetyMonitor::RunOnce";
   auto* system_status = MonitorManager::Instance()->GetStatus();
   // Everything looks good or has been handled properly.
@@ -81,6 +87,7 @@ AINFO<<"(DMCZP) EnteringMethod: FunctionalSafetyMonitor::RunOnce";
 }
 
 bool FunctionalSafetyMonitor::CheckSafety() {
+AINFO<<"(DMCZP) EnteringMethod: FunctionalSafetyMonitor::CheckSafety";
 AINFO<<"(DMCZP) EnteringMethod: FunctionalSafetyMonitor::CheckSafety";
   // We only check safety in self driving mode.
   auto manager = MonitorManager::Instance();

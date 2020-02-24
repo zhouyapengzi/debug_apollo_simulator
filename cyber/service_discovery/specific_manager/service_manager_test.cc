@@ -1,3 +1,4 @@
+#include "cyber/common/log.h"
 /******************************************************************************
  * Copyright 2018 The Apollo Authors. All Rights Reserved.
  *
@@ -43,6 +44,7 @@ class ServiceManagerTest : public ::testing::Test {
 
 TEST_F(ServiceManagerTest, server_operation) {
 AINFO<<"(DMCZP) EnteringMethod: TEST_F";
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   // join
   RoleAttributes role_attr;
   EXPECT_FALSE(service_manager_->Join(role_attr, RoleType::ROLE_SERVER));
@@ -81,6 +83,7 @@ AINFO<<"(DMCZP) EnteringMethod: TEST_F";
 
 TEST_F(ServiceManagerTest, client_operation) {
 AINFO<<"(DMCZP) EnteringMethod: TEST_F";
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   // join
   RoleAttributes role_attr;
   role_attr.set_host_name(common::GlobalData::Instance()->HostName());
@@ -111,6 +114,7 @@ AINFO<<"(DMCZP) EnteringMethod: TEST_F";
 }
 
 TEST_F(ServiceManagerTest, topo_module_leave) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
 AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   RoleAttributes role_attr;
   role_attr.set_host_name(common::GlobalData::Instance()->HostName());

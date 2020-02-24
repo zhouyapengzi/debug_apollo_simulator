@@ -1,3 +1,4 @@
+#include "cyber/common/log.h"
 /******************************************************************************
  * Copyright 2018 The Apollo Authors. All Rights Reserved.
  *
@@ -28,6 +29,7 @@ using apollo::drivers::Image;
 
 bool ImageDecompressComponent::Init() {
 AINFO<<"(DMCZP) EnteringMethod: ImageDecompressComponent::Init";
+AINFO<<"(DMCZP) EnteringMethod: ImageDecompressComponent::Init";
   if (!GetProtoConfig(&config_)) {
     AERROR << "Parse config file failed: " << ConfigFilePath();
     return false;
@@ -39,6 +41,7 @@ AINFO<<"(DMCZP) EnteringMethod: ImageDecompressComponent::Init";
 
 bool ImageDecompressComponent::Proc(
     const std::shared_ptr<apollo::drivers::CompressedImage>& compressed_image) {
+AINFO<<"(DMCZP) EnteringMethod: ImageDecompressComponent::Proc";
 AINFO<<"(DMCZP) EnteringMethod: ImageDecompressComponent::Proc";
   auto image = std::make_shared<Image>();
   image->mutable_header()->CopyFrom(compressed_image->header());

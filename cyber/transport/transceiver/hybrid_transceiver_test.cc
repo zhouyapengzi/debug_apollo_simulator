@@ -1,3 +1,4 @@
+#include "cyber/common/log.h"
 /******************************************************************************
  * Copyright 2018 The Apollo Authors. All Rights Reserved.
  *
@@ -71,6 +72,7 @@ class HybridTransceiverTest : public ::testing::Test {
 
 TEST_F(HybridTransceiverTest, constructor) {
 AINFO<<"(DMCZP) EnteringMethod: TEST_F";
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   RoleAttributes attr;
   TransmitterPtr transmitter =
       std::make_shared<HybridTransmitter<proto::UnitTest>>(
@@ -87,6 +89,7 @@ AINFO<<"(DMCZP) EnteringMethod: TEST_F";
 }
 
 TEST_F(HybridTransceiverTest, enable_and_disable_with_param_no_relation) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
 AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   RoleAttributes attr;
   attr.set_host_name(common::GlobalData::Instance()->HostName());
@@ -141,6 +144,7 @@ AINFO<<"(DMCZP) EnteringMethod: TEST_F";
 }
 
 TEST_F(HybridTransceiverTest, enable_and_disable_with_param_same_process) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
 AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   RoleAttributes attr;
   attr.set_host_name(common::GlobalData::Instance()->HostName());
@@ -214,6 +218,7 @@ AINFO<<"(DMCZP) EnteringMethod: TEST_F";
 TEST_F(HybridTransceiverTest,
        enable_and_disable_with_param_same_host_diff_proc) {
 AINFO<<"(DMCZP) EnteringMethod: TEST_F";
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   RoleAttributes attr;
   attr.set_host_name(common::GlobalData::Instance()->HostName());
   attr.set_process_id(1);
@@ -282,6 +287,7 @@ AINFO<<"(DMCZP) EnteringMethod: TEST_F";
 
 TEST_F(HybridTransceiverTest, enable_and_disable_with_param_diff_host) {
 AINFO<<"(DMCZP) EnteringMethod: TEST_F";
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   RoleAttributes attr;
   attr.set_host_name("sorac");
   attr.set_process_id(12345);
@@ -348,6 +354,7 @@ AINFO<<"(DMCZP) EnteringMethod: TEST_F";
 }  // namespace apollo
 
 int main(int argc, char** argv) {
+AINFO<<"(DMCZP) EnteringMethod: main";
 AINFO<<"(DMCZP) EnteringMethod: main";
   testing::InitGoogleTest(&argc, argv);
   apollo::cyber::Init(argv[0]);

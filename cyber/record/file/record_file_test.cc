@@ -1,3 +1,4 @@
+#include "cyber/common/log.h"
 /******************************************************************************
  * Copyright 2018 The Apollo Authors. All Rights Reserved.
  *
@@ -35,6 +36,7 @@ const char STR_10B[] = "1234567890";
 const char TEST_FILE[] = "test.record";
 
 TEST(ChunkTest, TestAll) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
 AINFO<<"(DMCZP) EnteringMethod: TEST";
   Chunk* ck = new Chunk();
   ASSERT_EQ(0, ck->header_.begin_time());
@@ -76,6 +78,7 @@ AINFO<<"(DMCZP) EnteringMethod: TEST";
 }
 
 TEST(RecordFileTest, TestOneMessageFile) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
 AINFO<<"(DMCZP) EnteringMethod: TEST";
   // writer open one message file
   RecordFileWriter* rfw = new RecordFileWriter();
@@ -163,6 +166,7 @@ AINFO<<"(DMCZP) EnteringMethod: TEST";
 
 TEST(RecordFileTest, TestOneChunkFile) {
 AINFO<<"(DMCZP) EnteringMethod: TEST";
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   RecordFileWriter* rfw = new RecordFileWriter();
 
   ASSERT_TRUE(rfw->Open(TEST_FILE));
@@ -220,6 +224,7 @@ AINFO<<"(DMCZP) EnteringMethod: TEST";
 }  // namespace apollo
 
 int main(int argc, char** argv) {
+AINFO<<"(DMCZP) EnteringMethod: main";
 AINFO<<"(DMCZP) EnteringMethod: main";
   testing::GTEST_FLAG(catch_exceptions) = 1;
   testing::InitGoogleTest(&argc, argv);

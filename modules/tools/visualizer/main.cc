@@ -1,3 +1,4 @@
+#include "cyber/common/log.h"
 /******************************************************************************
  * Copyright 2018 The Apollo Authors. All Rights Reserved.
  *
@@ -21,6 +22,7 @@
 #include "modules/tools/visualizer/main_window.h"
 
 int main(int argc, char* argv[]) {
+AINFO<<"(DMCZP) EnteringMethod: main";
 AINFO<<"(DMCZP) EnteringMethod: main";
   QApplication a(argc, argv);
   int major, minor;

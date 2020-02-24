@@ -1,3 +1,4 @@
+#include "cyber/common/log.h"
 /******************************************************************************
  * Copyright 2018 The Apollo Authors. All Rights Reserved.
  *
@@ -41,6 +42,8 @@ bool SetProtoToASCIIFile(const google::protobuf::Message &message,
                          int file_descriptor) {
 AINFO<<"(DMCZP) EnteringMethod: SetProtoToASCIIFile";
 AINFO<<"(DMCZP) EnteringMethod: SetProtoToASCIIFile";
+AINFO<<"(DMCZP) EnteringMethod: SetProtoToASCIIFile";
+AINFO<<"(DMCZP) EnteringMethod: SetProtoToASCIIFile";
   using google::protobuf::TextFormat;
   using google::protobuf::io::FileOutputStream;
   using google::protobuf::io::ZeroCopyOutputStream;
@@ -68,6 +71,7 @@ bool SetProtoToASCIIFile(const google::protobuf::Message &message,
 bool GetProtoFromASCIIFile(const std::string &file_name,
                            google::protobuf::Message *message) {
 AINFO<<"(DMCZP) EnteringMethod: GetProtoFromASCIIFile";
+AINFO<<"(DMCZP) EnteringMethod: GetProtoFromASCIIFile";
   using google::protobuf::TextFormat;
   using google::protobuf::io::FileInputStream;
   using google::protobuf::io::ZeroCopyInputStream;
@@ -91,6 +95,7 @@ AINFO<<"(DMCZP) EnteringMethod: GetProtoFromASCIIFile";
 bool SetProtoToBinaryFile(const google::protobuf::Message &message,
                           const std::string &file_name) {
 AINFO<<"(DMCZP) EnteringMethod: SetProtoToBinaryFile";
+AINFO<<"(DMCZP) EnteringMethod: SetProtoToBinaryFile";
   std::fstream output(file_name,
                       std::ios::out | std::ios::trunc | std::ios::binary);
   return message.SerializeToOstream(&output);
@@ -98,6 +103,7 @@ AINFO<<"(DMCZP) EnteringMethod: SetProtoToBinaryFile";
 
 bool GetProtoFromBinaryFile(const std::string &file_name,
                             google::protobuf::Message *message) {
+AINFO<<"(DMCZP) EnteringMethod: GetProtoFromBinaryFile";
 AINFO<<"(DMCZP) EnteringMethod: GetProtoFromBinaryFile";
   std::fstream input(file_name, std::ios::in | std::ios::binary);
   if (!input.good()) {
@@ -114,6 +120,7 @@ AINFO<<"(DMCZP) EnteringMethod: GetProtoFromBinaryFile";
 bool GetProtoFromFile(const std::string &file_name,
                       google::protobuf::Message *message) {
 AINFO<<"(DMCZP) EnteringMethod: GetProtoFromFile";
+AINFO<<"(DMCZP) EnteringMethod: GetProtoFromFile";
   // Try the binary parser first if it's much likely a binary proto.
   static const std::string kBinExt = ".bin";
   if (std::equal(kBinExt.rbegin(), kBinExt.rend(), file_name.rbegin())) {
@@ -126,6 +133,7 @@ AINFO<<"(DMCZP) EnteringMethod: GetProtoFromFile";
 }
 
 bool GetContent(const std::string &file_name, std::string *content) {
+AINFO<<"(DMCZP) EnteringMethod: GetContent";
 AINFO<<"(DMCZP) EnteringMethod: GetContent";
   std::ifstream fin(file_name);
   if (!fin) {
@@ -140,6 +148,7 @@ AINFO<<"(DMCZP) EnteringMethod: GetContent";
 
 std::string GetAbsolutePath(const std::string &prefix,
                             const std::string &relative_path) {
+AINFO<<"(DMCZP) EnteringMethod: GetAbsolutePath";
 AINFO<<"(DMCZP) EnteringMethod: GetAbsolutePath";
   if (relative_path.empty()) {
     return prefix;
@@ -157,11 +166,13 @@ AINFO<<"(DMCZP) EnteringMethod: GetAbsolutePath";
 
 bool PathExists(const std::string &path) {
 AINFO<<"(DMCZP) EnteringMethod: PathExists";
+AINFO<<"(DMCZP) EnteringMethod: PathExists";
   struct stat info;
   return stat(path.c_str(), &info) == 0;
 }
 
 bool DirectoryExists(const std::string &directory_path) {
+AINFO<<"(DMCZP) EnteringMethod: DirectoryExists";
 AINFO<<"(DMCZP) EnteringMethod: DirectoryExists";
   struct stat info;
   return stat(directory_path.c_str(), &info) == 0 && (info.st_mode & S_IFDIR);
@@ -180,6 +191,7 @@ std::vector<std::string> Glob(const std::string &pattern) {
 }
 
 bool CopyFile(const std::string &from, const std::string &to) {
+AINFO<<"(DMCZP) EnteringMethod: CopyFile";
 AINFO<<"(DMCZP) EnteringMethod: CopyFile";
   std::ifstream src(from, std::ios::binary);
   if (!src) {
@@ -207,6 +219,7 @@ AINFO<<"(DMCZP) EnteringMethod: CopyFile";
 }
 
 bool CopyDir(const std::string &from, const std::string &to) {
+AINFO<<"(DMCZP) EnteringMethod: CopyDir";
 AINFO<<"(DMCZP) EnteringMethod: CopyDir";
   DIR *directory = opendir(from.c_str());
   if (directory == nullptr) {
@@ -240,10 +253,12 @@ AINFO<<"(DMCZP) EnteringMethod: CopyDir";
 
 bool Copy(const std::string &from, const std::string &to) {
 AINFO<<"(DMCZP) EnteringMethod: Copy";
+AINFO<<"(DMCZP) EnteringMethod: Copy";
   return DirectoryExists(from) ? CopyDir(from, to) : CopyFile(from, to);
 }
 
 bool EnsureDirectory(const std::string &directory_path) {
+AINFO<<"(DMCZP) EnteringMethod: EnsureDirectory";
 AINFO<<"(DMCZP) EnteringMethod: EnsureDirectory";
   std::string path = directory_path;
   for (size_t i = 1; i < directory_path.size(); ++i) {
@@ -274,6 +289,7 @@ AINFO<<"(DMCZP) EnteringMethod: EnsureDirectory";
 }
 
 bool RemoveAllFiles(const std::string &directory_path) {
+AINFO<<"(DMCZP) EnteringMethod: RemoveAllFiles";
 AINFO<<"(DMCZP) EnteringMethod: RemoveAllFiles";
   DIR *directory = opendir(directory_path.c_str());
   if (directory == nullptr) {
@@ -322,6 +338,7 @@ std::vector<std::string> ListSubPaths(const std::string &directory_path,
 
 std::string GetFileName(const std::string &path, const bool remove_extension) {
 AINFO<<"(DMCZP) EnteringMethod: GetFileName";
+AINFO<<"(DMCZP) EnteringMethod: GetFileName";
   std::string::size_type start = path.rfind('/');
   if (start == std::string::npos) {
     start = 0;
@@ -344,11 +361,13 @@ AINFO<<"(DMCZP) EnteringMethod: GetFileName";
 
 std::string GetCurrentPath() {
 AINFO<<"(DMCZP) EnteringMethod: GetCurrentPath";
+AINFO<<"(DMCZP) EnteringMethod: GetCurrentPath";
   char tmp[PATH_MAX];
   return getcwd(tmp, sizeof(tmp)) ? std::string(tmp) : std::string("");
 }
 
 bool GetType(const string &filename, FileType *type) {
+AINFO<<"(DMCZP) EnteringMethod: GetType";
 AINFO<<"(DMCZP) EnteringMethod: GetType";
   struct stat stat_buf;
   if (lstat(filename.c_str(), &stat_buf) != 0) {
@@ -366,6 +385,7 @@ AINFO<<"(DMCZP) EnteringMethod: GetType";
 }
 
 bool DeleteFile(const string &filename) {
+AINFO<<"(DMCZP) EnteringMethod: DeleteFile";
 AINFO<<"(DMCZP) EnteringMethod: DeleteFile";
   if (!PathExists(filename)) {
     return true;
@@ -410,6 +430,7 @@ AINFO<<"(DMCZP) EnteringMethod: DeleteFile";
 }
 
 bool CreateDir(const string &dir) {
+AINFO<<"(DMCZP) EnteringMethod: CreateDir";
 AINFO<<"(DMCZP) EnteringMethod: CreateDir";
   int ret = mkdir(dir.c_str(), S_IRWXU | S_IRWXG | S_IRWXO);
   if (ret != 0) {

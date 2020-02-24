@@ -1,3 +1,4 @@
+#include "cyber/common/log.h"
 /******************************************************************************
  * Copyright 2018 The Apollo Authors. All Rights Reserved.
  *
@@ -21,6 +22,7 @@
 
 static PyObject *cyber_py_init(PyObject *self, PyObject *args) {
 AINFO<<"(DMCZP) EnteringMethod: *cyber_py_init";
+AINFO<<"(DMCZP) EnteringMethod: *cyber_py_init";
   char *data = nullptr;
   Py_ssize_t len = 0;
   if (!PyArg_ParseTuple(args, const_cast<char *>("s#:cyber_py_init"), &data,
@@ -39,6 +41,7 @@ AINFO<<"(DMCZP) EnteringMethod: *cyber_py_init";
 
 static PyObject *cyber_py_ok(PyObject *self, PyObject *args) {
 AINFO<<"(DMCZP) EnteringMethod: *cyber_py_ok";
+AINFO<<"(DMCZP) EnteringMethod: *cyber_py_ok";
   bool is_ok = apollo::cyber::py_ok();
   if (is_ok) {
     Py_RETURN_TRUE;
@@ -49,12 +52,14 @@ AINFO<<"(DMCZP) EnteringMethod: *cyber_py_ok";
 
 static PyObject *cyber_py_shutdown(PyObject *self, PyObject *args) {
 AINFO<<"(DMCZP) EnteringMethod: *cyber_py_shutdown";
+AINFO<<"(DMCZP) EnteringMethod: *cyber_py_shutdown";
   apollo::cyber::py_shutdown();
   Py_INCREF(Py_None);
   return Py_None;
 }
 
 static PyObject *cyber_py_is_shutdown(PyObject *self, PyObject *args) {
+AINFO<<"(DMCZP) EnteringMethod: *cyber_py_is_shutdown";
 AINFO<<"(DMCZP) EnteringMethod: *cyber_py_is_shutdown";
   bool is_shutdown = apollo::cyber::py_is_shutdown();
   if (is_shutdown) {
@@ -65,6 +70,7 @@ AINFO<<"(DMCZP) EnteringMethod: *cyber_py_is_shutdown";
 }
 
 static PyObject *cyber_py_waitforshutdown(PyObject *self, PyObject *args) {
+AINFO<<"(DMCZP) EnteringMethod: *cyber_py_waitforshutdown";
 AINFO<<"(DMCZP) EnteringMethod: *cyber_py_waitforshutdown";
   apollo::cyber::py_waitforshutdown();
   Py_INCREF(Py_None);
@@ -87,6 +93,7 @@ static PyMethodDef _cyber_init_methods[] = {
 
 /// Init function of this module
 PyMODINIT_FUNC init_cyber_init(void) {
+AINFO<<"(DMCZP) EnteringMethod: init_cyber_init";
 AINFO<<"(DMCZP) EnteringMethod: init_cyber_init";
   Py_InitModule("_cyber_init", _cyber_init_methods);
 }

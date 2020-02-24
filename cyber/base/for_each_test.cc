@@ -1,3 +1,4 @@
+#include "cyber/common/log.h"
 /******************************************************************************
  * Copyright 2018 The Apollo Authors. All Rights Reserved.
  *
@@ -25,6 +26,7 @@ namespace cyber {
 namespace base {
 
 TEST(ForEachTest, base) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
 AINFO<<"(DMCZP) EnteringMethod: TEST";
   std::vector<int> vec;
   FOR_EACH(i, 0, 100) { vec.push_back(i); }

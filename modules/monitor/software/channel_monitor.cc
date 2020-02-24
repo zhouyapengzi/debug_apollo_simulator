@@ -44,6 +44,8 @@ DEFINE_double(channel_monitor_interval, 5,
 namespace apollo {
 AINFO<<"(DMCZP) EnteringMethod: DEFINE_string";
 AINFO<<"(DMCZP) EnteringMethod: DEFINE_double";
+AINFO<<"(DMCZP) EnteringMethod: DEFINE_string";
+AINFO<<"(DMCZP) EnteringMethod: DEFINE_double";
 namespace monitor {
 namespace {
 using apollo::common::util::StrCat;
@@ -82,8 +84,10 @@ ChannelMonitor::ChannelMonitor()
     : RecurrentRunner(FLAGS_channel_monitor_name,
                       FLAGS_channel_monitor_interval) {}
 AINFO<<"(DMCZP) EnteringMethod: ChannelMonitor::ChannelMonitor";
+AINFO<<"(DMCZP) EnteringMethod: ChannelMonitor::ChannelMonitor";
 
 void ChannelMonitor::RunOnce(const double current_time) {
+AINFO<<"(DMCZP) EnteringMethod: ChannelMonitor::RunOnce";
 AINFO<<"(DMCZP) EnteringMethod: ChannelMonitor::RunOnce";
   auto manager = MonitorManager::Instance();
   const auto& mode = manager->GetHMIMode();
@@ -101,6 +105,7 @@ AINFO<<"(DMCZP) EnteringMethod: ChannelMonitor::RunOnce";
 void ChannelMonitor::UpdateStatus(
     const apollo::dreamview::ChannelMonitorConfig& config,
     ComponentStatus* status) {
+AINFO<<"(DMCZP) EnteringMethod: ChannelMonitor::UpdateStatus";
 AINFO<<"(DMCZP) EnteringMethod: ChannelMonitor::UpdateStatus";
   status->clear_status();
   auto reader = GetReader(config.name());

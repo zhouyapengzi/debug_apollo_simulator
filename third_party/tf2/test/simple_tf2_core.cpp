@@ -1,3 +1,4 @@
+#include "cyber/common/log.h"
 /*
  * Copyright (c) 2008, Willow Garage, Inc.
  * All rights reserved.
@@ -36,6 +37,13 @@
 
 TEST(tf2, setTransformFail)
 {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
+AINFO<<"(DMCZP) EnteringMethod: TEST";
+AINFO<<"(DMCZP) EnteringMethod: TEST";
+AINFO<<"(DMCZP) EnteringMethod: TEST";
+AINFO<<"(DMCZP) EnteringMethod: TEST";
+AINFO<<"(DMCZP) EnteringMethod: TEST";
+AINFO<<"(DMCZP) EnteringMethod: TEST";
 AINFO<<"(DMCZP) EnteringMethod: TEST";
 AINFO<<"(DMCZP) EnteringMethod: TEST";
 AINFO<<"(DMCZP) EnteringMethod: TEST";
@@ -118,6 +126,7 @@ TEST(tf2_canTransform, One_Exists)
 
 
 int main(int argc, char **argv){
+AINFO<<"(DMCZP) EnteringMethod: main";
 AINFO<<"(DMCZP) EnteringMethod: main";
   testing::InitGoogleTest(&argc, argv);
   // ros::Time::init(); //needed for ros::TIme::now()

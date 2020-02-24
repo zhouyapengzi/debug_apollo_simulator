@@ -1,3 +1,4 @@
+#include "cyber/common/log.h"
 /**************Scheduler::****************************************************************
  * Copyright 2018 The Apollo Authors. All Rights Reserved.
  *
@@ -31,6 +32,7 @@ TaskManager::TaskManager()
     : task_queue_size_(1000),
       task_queue_(new base::BoundedQueue<std::function<void()>>()) {
 AINFO<<"(DMCZP) EnteringMethod: TaskManager::TaskManager";
+AINFO<<"(DMCZP) EnteringMethod: TaskManager::TaskManager";
   if (!task_queue_->Init(task_queue_size_, new base::BlockWaitStrategy())) {
     AERROR << "Task queue init failed";
     throw std::runtime_error("Task queue init failed");
@@ -60,6 +62,7 @@ AINFO<<"(DMCZP) EnteringMethod: TaskManager::TaskManager";
 TaskManager::~TaskManager() { Shutdown(); }
 
 void TaskManager::Shutdown() {
+AINFO<<"(DMCZP) EnteringMethod: TaskManager::Shutdown";
 AINFO<<"(DMCZP) EnteringMethod: TaskManager::Shutdown";
   if (stop_.exchange(true)) {
     return;

@@ -1,3 +1,4 @@
+#include "cyber/common/log.h"
 /******************************************************************************
  * Copyright 2018 The Apollo Authors. All Rights Reserved.
  *
@@ -27,6 +28,7 @@ namespace apollo {
 namespace v2x {
 
 TEST(ObuInterFaceGrpcImplTest, Construct) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
 AINFO<<"(DMCZP) EnteringMethod: TEST";
   apollo::cyber::Init("obu_interface_grpc_impl_test");
   ObuInterFaceGrpcImpl obuinteface;

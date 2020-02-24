@@ -1,3 +1,4 @@
+#include "cyber/common/log.h"
 /******************************************************************************
  * Copyright 2018 The Apollo Authors. All Rights Reserved.
  *
@@ -33,6 +34,7 @@ Player::Player(const PlayParam& play_param)
       producer_(nullptr),
       task_buffer_(nullptr) {
 AINFO<<"(DMCZP) EnteringMethod: Player::Player";
+AINFO<<"(DMCZP) EnteringMethod: Player::Player";
   task_buffer_ = std::make_shared<PlayTaskBuffer>();
   consumer_.reset(new PlayTaskConsumer(task_buffer_, play_param.play_rate));
   producer_.reset(new PlayTaskProducer(task_buffer_, play_param));
@@ -41,6 +43,7 @@ AINFO<<"(DMCZP) EnteringMethod: Player::Player";
 Player::~Player() { Stop(); }
 
 bool Player::Init() {
+AINFO<<"(DMCZP) EnteringMethod: Player::Init";
 AINFO<<"(DMCZP) EnteringMethod: Player::Init";
   if (is_initialized_.exchange(true)) {
     AERROR << "player has been initialized.";
@@ -56,6 +59,7 @@ AINFO<<"(DMCZP) EnteringMethod: Player::Init";
 }
 
 static char Getch() {
+AINFO<<"(DMCZP) EnteringMethod: Getch";
 AINFO<<"(DMCZP) EnteringMethod: Getch";
   char buf = 0;
   struct termios old = {0};
@@ -75,6 +79,7 @@ AINFO<<"(DMCZP) EnteringMethod: Getch";
 
 void Player::ThreadFunc_Term() {
 AINFO<<"(DMCZP) EnteringMethod: Player::ThreadFunc_Term";
+AINFO<<"(DMCZP) EnteringMethod: Player::ThreadFunc_Term";
   while (!is_stopped_.load()) {
     char ch = Getch();
     switch (ch) {
@@ -91,6 +96,7 @@ AINFO<<"(DMCZP) EnteringMethod: Player::ThreadFunc_Term";
 }
 
 bool Player::Start() {
+AINFO<<"(DMCZP) EnteringMethod: Player::Start";
 AINFO<<"(DMCZP) EnteringMethod: Player::Start";
   if (!is_initialized_.load()) {
     AERROR << "please call Init firstly.";
@@ -177,6 +183,7 @@ AINFO<<"(DMCZP) EnteringMethod: Player::Start";
 }
 
 bool Player::Stop() {
+AINFO<<"(DMCZP) EnteringMethod: Player::Stop";
 AINFO<<"(DMCZP) EnteringMethod: Player::Stop";
   if (is_stopped_.exchange(true)) {
     return false;

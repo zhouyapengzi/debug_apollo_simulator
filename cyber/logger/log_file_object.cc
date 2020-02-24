@@ -86,6 +86,7 @@ LogFileObject::LogFileObject(google::LogSeverity severity,
       rollover_attempt_(kRolloverAttemptFrequency - 1),
       next_flush_time_(0) {}
 AINFO<<"(DMCZP) EnteringMethod: LogFileObject::LogFileObject";
+AINFO<<"(DMCZP) EnteringMethod: LogFileObject::LogFileObject";
 
 LogFileObject::~LogFileObject() {
   std::lock_guard<std::mutex> lock(lock_);
@@ -96,6 +97,7 @@ LogFileObject::~LogFileObject() {
 }
 
 void LogFileObject::SetBasename(const char* basename) {
+AINFO<<"(DMCZP) EnteringMethod: LogFileObject::SetBasename";
 AINFO<<"(DMCZP) EnteringMethod: LogFileObject::SetBasename";
   std::lock_guard<std::mutex> lock(lock_);
   base_filename_selected_ = true;
@@ -112,6 +114,7 @@ AINFO<<"(DMCZP) EnteringMethod: LogFileObject::SetBasename";
 
 void LogFileObject::SetExtension(const char* ext) {
 AINFO<<"(DMCZP) EnteringMethod: LogFileObject::SetExtension";
+AINFO<<"(DMCZP) EnteringMethod: LogFileObject::SetExtension";
   std::lock_guard<std::mutex> lock(lock_);
   if (filename_extension_ != ext) {
     // Get rid of old log file since we are changing names
@@ -126,17 +129,20 @@ AINFO<<"(DMCZP) EnteringMethod: LogFileObject::SetExtension";
 
 void LogFileObject::SetSymlinkBasename(const char* symlink_basename) {
 AINFO<<"(DMCZP) EnteringMethod: LogFileObject::SetSymlinkBasename";
+AINFO<<"(DMCZP) EnteringMethod: LogFileObject::SetSymlinkBasename";
   std::lock_guard<std::mutex> lock(lock_);
   symlink_basename_ = symlink_basename;
 }
 
 void LogFileObject::Flush() {
 AINFO<<"(DMCZP) EnteringMethod: LogFileObject::Flush";
+AINFO<<"(DMCZP) EnteringMethod: LogFileObject::Flush";
   std::lock_guard<std::mutex> lock(lock_);
   FlushUnlocked();
 }
 
 void LogFileObject::FlushUnlocked() {
+AINFO<<"(DMCZP) EnteringMethod: LogFileObject::FlushUnlocked";
 AINFO<<"(DMCZP) EnteringMethod: LogFileObject::FlushUnlocked";
   if (file_ != nullptr) {
     fflush(file_);
@@ -148,6 +154,7 @@ AINFO<<"(DMCZP) EnteringMethod: LogFileObject::FlushUnlocked";
 }
 
 bool LogFileObject::CreateLogfile(const std::string& time_pid_string) {
+AINFO<<"(DMCZP) EnteringMethod: LogFileObject::CreateLogfile";
 AINFO<<"(DMCZP) EnteringMethod: LogFileObject::CreateLogfile";
   std::string string_filename =
       base_filepath_ + filename_extension_ + time_pid_string;
@@ -196,6 +203,7 @@ AINFO<<"(DMCZP) EnteringMethod: LogFileObject::CreateLogfile";
 
 void LogFileObject::Write(bool force_flush, time_t timestamp,
                           const char* message, int message_len) {
+AINFO<<"(DMCZP) EnteringMethod: LogFileObject::Write";
 AINFO<<"(DMCZP) EnteringMethod: LogFileObject::Write";
   std::lock_guard<std::mutex> lock(lock_);
 

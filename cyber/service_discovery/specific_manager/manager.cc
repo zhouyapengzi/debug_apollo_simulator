@@ -42,6 +42,7 @@ Manager::Manager()
       subscriber_(nullptr),
       listener_(nullptr) {
 AINFO<<"(DMCZP) EnteringMethod: Manager::Manager";
+AINFO<<"(DMCZP) EnteringMethod: Manager::Manager";
   host_name_ = common::GlobalData::Instance()->HostName();
   process_id_ = common::GlobalData::Instance()->ProcessId();
 }
@@ -49,6 +50,7 @@ AINFO<<"(DMCZP) EnteringMethod: Manager::Manager";
 Manager::~Manager() { Shutdown(); }
 
 bool Manager::StartDiscovery(RtpsParticipant* participant) {
+AINFO<<"(DMCZP) EnteringMethod: Manager::StartDiscovery";
 AINFO<<"(DMCZP) EnteringMethod: Manager::StartDiscovery";
   if (participant == nullptr) {
     return false;
@@ -65,6 +67,7 @@ AINFO<<"(DMCZP) EnteringMethod: Manager::StartDiscovery";
 }
 
 void Manager::StopDiscovery() {
+AINFO<<"(DMCZP) EnteringMethod: Manager::StopDiscovery";
 AINFO<<"(DMCZP) EnteringMethod: Manager::StopDiscovery";
   if (!is_discovery_started_.exchange(false)) {
     return;
@@ -88,6 +91,7 @@ AINFO<<"(DMCZP) EnteringMethod: Manager::StopDiscovery";
 
 void Manager::Shutdown() {
 AINFO<<"(DMCZP) EnteringMethod: Manager::Shutdown";
+AINFO<<"(DMCZP) EnteringMethod: Manager::Shutdown";
   if (is_shutdown_.exchange(true)) {
     return;
   }
@@ -98,6 +102,7 @@ AINFO<<"(DMCZP) EnteringMethod: Manager::Shutdown";
 
 bool Manager::Join(const RoleAttributes& attr, RoleType role,
                    bool need_publish) {
+AINFO<<"(DMCZP) EnteringMethod: Manager::Join";
 AINFO<<"(DMCZP) EnteringMethod: Manager::Join";
   if (is_shutdown_.load()) {
     ADEBUG << "the manager has been shut down.";
@@ -116,6 +121,7 @@ AINFO<<"(DMCZP) EnteringMethod: Manager::Join";
 
 bool Manager::Leave(const RoleAttributes& attr, RoleType role) {
 AINFO<<"(DMCZP) EnteringMethod: Manager::Leave";
+AINFO<<"(DMCZP) EnteringMethod: Manager::Leave";
   if (is_shutdown_.load()) {
     ADEBUG << "the manager has been shut down.";
     return false;
@@ -133,16 +139,19 @@ AINFO<<"(DMCZP) EnteringMethod: Manager::Leave";
 
 Manager::ChangeConnection Manager::AddChangeListener(const ChangeFunc& func) {
 AINFO<<"(DMCZP) EnteringMethod: Manager::AddChangeListener";
+AINFO<<"(DMCZP) EnteringMethod: Manager::AddChangeListener";
   return signal_.Connect(func);
 }
 
 void Manager::RemoveChangeListener(const ChangeConnection& conn) {
+AINFO<<"(DMCZP) EnteringMethod: Manager::RemoveChangeListener";
 AINFO<<"(DMCZP) EnteringMethod: Manager::RemoveChangeListener";
   auto local_conn = conn;
   local_conn.Disconnect();
 }
 
 bool Manager::CreatePublisher(RtpsParticipant* participant) {
+AINFO<<"(DMCZP) EnteringMethod: Manager::CreatePublisher";
 AINFO<<"(DMCZP) EnteringMethod: Manager::CreatePublisher";
   RtpsPublisherAttr pub_attr;
   RETURN_VAL_IF(
@@ -155,6 +164,7 @@ AINFO<<"(DMCZP) EnteringMethod: Manager::CreatePublisher";
 }
 
 bool Manager::CreateSubscriber(RtpsParticipant* participant) {
+AINFO<<"(DMCZP) EnteringMethod: Manager::CreateSubscriber";
 AINFO<<"(DMCZP) EnteringMethod: Manager::CreateSubscriber";
   RtpsSubscriberAttr sub_attr;
   RETURN_VAL_IF(
@@ -171,12 +181,14 @@ AINFO<<"(DMCZP) EnteringMethod: Manager::CreateSubscriber";
 
 bool Manager::NeedPublish(const ChangeMsg& msg) const {
 AINFO<<"(DMCZP) EnteringMethod: Manager::NeedPublish";
+AINFO<<"(DMCZP) EnteringMethod: Manager::NeedPublish";
   (void)msg;
   return true;
 }
 
 void Manager::Convert(const RoleAttributes& attr, RoleType role,
                       OperateType opt, ChangeMsg* msg) {
+AINFO<<"(DMCZP) EnteringMethod: Manager::Convert";
 AINFO<<"(DMCZP) EnteringMethod: Manager::Convert";
   msg->set_timestamp(cyber::Time::Now().ToNanosecond());
   msg->set_change_type(change_type_);
@@ -194,8 +206,10 @@ AINFO<<"(DMCZP) EnteringMethod: Manager::Convert";
 
 void Manager::Notify(const ChangeMsg& msg) { signal_(msg); }
 AINFO<<"(DMCZP) EnteringMethod: Manager::Notify";
+AINFO<<"(DMCZP) EnteringMethod: Manager::Notify";
 
 void Manager::OnRemoteChange(const std::string& msg_str) {
+AINFO<<"(DMCZP) EnteringMethod: Manager::OnRemoteChange";
 AINFO<<"(DMCZP) EnteringMethod: Manager::OnRemoteChange";
   if (is_shutdown_.load()) {
     ADEBUG << "the manager has been shut down.";
@@ -213,6 +227,7 @@ AINFO<<"(DMCZP) EnteringMethod: Manager::OnRemoteChange";
 
 bool Manager::Publish(const ChangeMsg& msg) {
 AINFO<<"(DMCZP) EnteringMethod: Manager::Publish";
+AINFO<<"(DMCZP) EnteringMethod: Manager::Publish";
   if (!is_discovery_started_.load()) {
     ADEBUG << "discovery is not started.";
     return true;
@@ -227,6 +242,7 @@ AINFO<<"(DMCZP) EnteringMethod: Manager::Publish";
 }
 
 bool Manager::IsFromSameProcess(const ChangeMsg& msg) {
+AINFO<<"(DMCZP) EnteringMethod: Manager::IsFromSameProcess";
 AINFO<<"(DMCZP) EnteringMethod: Manager::IsFromSameProcess";
   auto& host_name = msg.role_attr().host_name();
   int process_id = msg.role_attr().process_id();

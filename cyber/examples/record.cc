@@ -1,3 +1,4 @@
+#include "cyber/common/log.h"
 /******************************************************************************
  * Copyright 2018 The Apollo Authors. All Rights Reserved.
  *
@@ -38,6 +39,7 @@ const char TEST_FILE[] = "test.record";
 
 void test_write(const std::string &writefile) {
 AINFO<<"(DMCZP) EnteringMethod: test_write";
+AINFO<<"(DMCZP) EnteringMethod: test_write";
   RecordWriter writer;
   writer.SetSizeOfFileSegmentation(0);
   writer.SetIntervalOfFileSegmentation(0);
@@ -51,6 +53,7 @@ AINFO<<"(DMCZP) EnteringMethod: test_write";
 }
 
 void test_read(const std::string &readfile) {
+AINFO<<"(DMCZP) EnteringMethod: test_read";
 AINFO<<"(DMCZP) EnteringMethod: test_read";
   RecordReader reader(readfile);
   RecordMessage message;
@@ -77,6 +80,7 @@ AINFO<<"(DMCZP) EnteringMethod: test_read";
 }
 
 int main(int argc, char *argv[]) {
+AINFO<<"(DMCZP) EnteringMethod: main";
 AINFO<<"(DMCZP) EnteringMethod: main";
   apollo::cyber::Init(argv[0]);
   test_write(TEST_FILE);

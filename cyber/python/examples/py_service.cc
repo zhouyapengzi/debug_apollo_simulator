@@ -1,3 +1,4 @@
+#include "cyber/common/log.h"
 /******************************************************************************
  * Copyright 2019 The Apollo Authors. All Rights Reserved.
  *
@@ -31,6 +32,7 @@ using apollo::cyber::message::PyMessageWrap;
 apollo::cyber::PyService *server = nullptr;
 int service_callback(const char *channel_name) {
 AINFO<<"(DMCZP) EnteringMethod: service_callback";
+AINFO<<"(DMCZP) EnteringMethod: service_callback";
   if (server == nullptr) {
     AERROR << "server is null.";
     return -1;
@@ -55,6 +57,7 @@ AINFO<<"(DMCZP) EnteringMethod: service_callback";
 }
 
 int main(int argc, char *argv[]) {
+AINFO<<"(DMCZP) EnteringMethod: main";
 AINFO<<"(DMCZP) EnteringMethod: main";
   apollo::cyber::Init(argv[0]);
   apollo::cyber::PyNode node("start_node");

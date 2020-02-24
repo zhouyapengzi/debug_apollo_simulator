@@ -1,3 +1,4 @@
+#include "cyber/common/log.h"
 /******************************************************************************
  * Copyright 2018 The Apollo Authors. All Rights Reserved.
  *
@@ -26,6 +27,7 @@ namespace common {
 
 TEST(EnvironmentTest, get_env) {
 AINFO<<"(DMCZP) EnteringMethod: TEST";
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   unsetenv("EnvironmentTest_get_env");
   std::string env_value = GetEnv("EnvironmentTest_get_env");
   EXPECT_EQ(env_value, "");
@@ -39,6 +41,7 @@ AINFO<<"(DMCZP) EnteringMethod: TEST";
 }
 
 TEST(EnvironmentTest, work_root) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
 AINFO<<"(DMCZP) EnteringMethod: TEST";
   std::string before = WorkRoot();
   unsetenv("CYBER_PATH");

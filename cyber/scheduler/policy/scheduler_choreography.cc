@@ -1,3 +1,4 @@
+#include "cyber/common/log.h"
 /******************************************************************************
  * Copyright 2018 The Apollo Authors. All Rights Reserved.
  *
@@ -43,6 +44,7 @@ using apollo::cyber::event::PerfEventCache;
 using apollo::cyber::event::SchedPerf;
 
 SchedulerChoreography::SchedulerChoreography() {
+AINFO<<"(DMCZP) EnteringMethod: SchedulerChoreography::SchedulerChoreography";
 AINFO<<"(DMCZP) EnteringMethod: SchedulerChoreography::SchedulerChoreography";
   std::string conf("conf/");
   conf.append(GlobalData::Instance()->ProcessGroup()).append(".conf");
@@ -97,6 +99,7 @@ AINFO<<"(DMCZP) EnteringMethod: SchedulerChoreography::SchedulerChoreography";
 
 void SchedulerChoreography::CreateProcessor() {
 AINFO<<"(DMCZP) EnteringMethod: SchedulerChoreography::CreateProcessor";
+AINFO<<"(DMCZP) EnteringMethod: SchedulerChoreography::CreateProcessor";
   for (uint32_t i = 0; i < proc_num_; i++) {
     auto proc = std::make_shared<Processor>();
     auto ctx = std::make_shared<ChoreographyContext>();
@@ -122,6 +125,7 @@ AINFO<<"(DMCZP) EnteringMethod: SchedulerChoreography::CreateProcessor";
 }
 
 bool SchedulerChoreography::DispatchTask(const std::shared_ptr<CRoutine>& cr) {
+AINFO<<"(DMCZP) EnteringMethod: SchedulerChoreography::DispatchTask";
 AINFO<<"(DMCZP) EnteringMethod: SchedulerChoreography::DispatchTask";
   // we use multi-key mutex to prevent race condition
   // when del && add cr with same crid
@@ -183,6 +187,7 @@ AINFO<<"(DMCZP) EnteringMethod: SchedulerChoreography::DispatchTask";
 
 bool SchedulerChoreography::RemoveTask(const std::string& name) {
 AINFO<<"(DMCZP) EnteringMethod: SchedulerChoreography::RemoveTask";
+AINFO<<"(DMCZP) EnteringMethod: SchedulerChoreography::RemoveTask";
   if (unlikely(stop_)) {
     return true;
   }
@@ -192,6 +197,7 @@ AINFO<<"(DMCZP) EnteringMethod: SchedulerChoreography::RemoveTask";
 }
 
 bool SchedulerChoreography::RemoveCRoutine(uint64_t crid) {
+AINFO<<"(DMCZP) EnteringMethod: SchedulerChoreography::RemoveCRoutine";
 AINFO<<"(DMCZP) EnteringMethod: SchedulerChoreography::RemoveCRoutine";
   // we use multi-key mutex to prevent race condition
   // when del && add cr with same crid
@@ -251,6 +257,7 @@ AINFO<<"(DMCZP) EnteringMethod: SchedulerChoreography::RemoveCRoutine";
 }
 
 bool SchedulerChoreography::NotifyProcessor(uint64_t crid) {
+AINFO<<"(DMCZP) EnteringMethod: SchedulerChoreography::NotifyProcessor";
 AINFO<<"(DMCZP) EnteringMethod: SchedulerChoreography::NotifyProcessor";
   if (unlikely(stop_)) {
     return true;

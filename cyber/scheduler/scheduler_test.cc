@@ -1,3 +1,4 @@
+#include "cyber/common/log.h"
 /******************************************************************************
  * Copyright 2018 The Apollo Authors. All Rights Reserved.
  *
@@ -32,8 +33,10 @@ namespace scheduler {
 
 void proc() {}
 AINFO<<"(DMCZP) EnteringMethod: proc";
+AINFO<<"(DMCZP) EnteringMethod: proc";
 
 TEST(SchedulerTest, create_task) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
 AINFO<<"(DMCZP) EnteringMethod: TEST";
   GlobalData::Instance()->SetProcessGroup("example_sched_classic");
   auto sched = Instance();
@@ -55,6 +58,7 @@ AINFO<<"(DMCZP) EnteringMethod: TEST";
 }
 
 TEST(SchedulerTest, notify_task) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
 AINFO<<"(DMCZP) EnteringMethod: TEST";
   auto sched = Instance();
   cyber::Init("scheduler_test");

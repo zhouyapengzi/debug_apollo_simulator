@@ -1,3 +1,4 @@
+#include "cyber/common/log.h"
 /******************************************************************************
  * Copyright 2018 The Apollo Authors. All Rights Reserved.
  *
@@ -26,6 +27,7 @@ namespace cyber {
 namespace message {
 
 TEST(ProtobufFactory, register_and_generate) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
 AINFO<<"(DMCZP) EnteringMethod: TEST";
   // register
   auto factory = ProtobufFactory::Instance();

@@ -34,8 +34,10 @@ namespace canbus {
 
 CanClientFactory::CanClientFactory() {}
 AINFO<<"(DMCZP) EnteringMethod: CanClientFactory::CanClientFactory";
+AINFO<<"(DMCZP) EnteringMethod: CanClientFactory::CanClientFactory";
 
 void CanClientFactory::RegisterCanClients() {
+AINFO<<"(DMCZP) EnteringMethod: CanClientFactory::RegisterCanClients";
 AINFO<<"(DMCZP) EnteringMethod: CanClientFactory::RegisterCanClients";
   AINFO << "CanClientFactory::RegisterCanClients";
   Register(CANCardParameter::FAKE_CAN,

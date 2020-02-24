@@ -1,3 +1,4 @@
+#include "cyber/common/log.h"
 /******************************************************************************
  * Copyright 2018 The Apollo Authors. All Rights Reserved.
  *
@@ -31,7 +32,7 @@ namespace camera {
 using cyber::common::GetAbsolutePath;
 
 bool DenselineLaneDetector::Init(const LaneDetectorInitOptions &options) {
-AINFO<<"(DMCZP) EnteringMethod: DenselineLaneDetector::Init";
+  AINFO<<"(DMCZP) EnteringMethod: DenselineLaneDetector::Init";
   std::string proto_path = GetAbsolutePath(options.root_dir, options.conf_file);
   if (!cyber::common::GetProtoFromFile(proto_path, &denseline_param_)) {
     AINFO << "load proto param failed, root dir: " << options.root_dir;

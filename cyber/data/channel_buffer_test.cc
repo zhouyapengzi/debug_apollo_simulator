@@ -1,3 +1,4 @@
+#include "cyber/common/log.h"
 /******************************************************************************
  * Copyright 2018 The Apollo Authors. All Rights Reserved.
  *
@@ -30,6 +31,7 @@ auto channel0 = common::Hash("/channel0");
 
 TEST(ChannelBufferTest, Fetch) {
 AINFO<<"(DMCZP) EnteringMethod: TEST";
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   auto cache_buffer = new CacheBuffer<std::shared_ptr<int>>(2);
   auto buffer = std::make_shared<ChannelBuffer<int>>(channel0, cache_buffer);
   std::shared_ptr<int> msg;
@@ -54,6 +56,7 @@ AINFO<<"(DMCZP) EnteringMethod: TEST";
 
 TEST(ChannelBufferTest, Latest) {
 AINFO<<"(DMCZP) EnteringMethod: TEST";
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   auto cache_buffer = new CacheBuffer<std::shared_ptr<int>>(10);
   auto buffer = std::make_shared<ChannelBuffer<int>>(channel0, cache_buffer);
   std::shared_ptr<int> msg;
@@ -71,6 +74,7 @@ AINFO<<"(DMCZP) EnteringMethod: TEST";
 }
 
 TEST(ChannelBufferTest, FetchMulti) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
 AINFO<<"(DMCZP) EnteringMethod: TEST";
   auto cache_buffer = new CacheBuffer<std::shared_ptr<int>>(2);
   auto buffer = std::make_shared<ChannelBuffer<int>>(channel0, cache_buffer);

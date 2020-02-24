@@ -23,13 +23,16 @@ namespace transport {
 
 ShmConf::ShmConf() { Update(MESSAGE_SIZE_16K); }
 AINFO<<"(DMCZP) EnteringMethod: ShmConf::ShmConf";
+AINFO<<"(DMCZP) EnteringMethod: ShmConf::ShmConf";
 
 ShmConf::ShmConf(const uint64_t& real_msg_size) { Update(real_msg_size); }
+AINFO<<"(DMCZP) EnteringMethod: ShmConf::ShmConf";
 AINFO<<"(DMCZP) EnteringMethod: ShmConf::ShmConf";
 
 ShmConf::~ShmConf() {}
 
 void ShmConf::Update(const uint64_t& real_msg_size) {
+AINFO<<"(DMCZP) EnteringMethod: ShmConf::Update";
 AINFO<<"(DMCZP) EnteringMethod: ShmConf::Update";
   ceiling_msg_size_ = GetCeilingMessageSize(real_msg_size);
   block_buf_size_ = GetBlockBufSize(ceiling_msg_size_);
@@ -63,6 +66,7 @@ const uint64_t ShmConf::MESSAGE_SIZE_MORE = 1024 * 1024 * 32;
 
 uint64_t ShmConf::GetCeilingMessageSize(const uint64_t& real_msg_size) {
 AINFO<<"(DMCZP) EnteringMethod: ShmConf::GetCeilingMessageSize";
+AINFO<<"(DMCZP) EnteringMethod: ShmConf::GetCeilingMessageSize";
   uint64_t ceiling_msg_size = MESSAGE_SIZE_16K;
   if (real_msg_size <= MESSAGE_SIZE_16K) {
     ceiling_msg_size = MESSAGE_SIZE_16K;
@@ -82,10 +86,12 @@ AINFO<<"(DMCZP) EnteringMethod: ShmConf::GetCeilingMessageSize";
 
 uint64_t ShmConf::GetBlockBufSize(const uint64_t& ceiling_msg_size) {
 AINFO<<"(DMCZP) EnteringMethod: ShmConf::GetBlockBufSize";
+AINFO<<"(DMCZP) EnteringMethod: ShmConf::GetBlockBufSize";
   return ceiling_msg_size + MESSAGE_INFO_SIZE;
 }
 
 uint32_t ShmConf::GetBlockNum(const uint64_t& ceiling_msg_size) {
+AINFO<<"(DMCZP) EnteringMethod: ShmConf::GetBlockNum";
 AINFO<<"(DMCZP) EnteringMethod: ShmConf::GetBlockNum";
   uint32_t num = 0;
   switch (ceiling_msg_size) {

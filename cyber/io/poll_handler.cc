@@ -28,8 +28,10 @@ using croutine::RoutineState;
 PollHandler::PollHandler(int fd)
     : fd_(fd), is_read_(false), is_blocking_(false), routine_(nullptr) {}
 AINFO<<"(DMCZP) EnteringMethod: PollHandler::PollHandler";
+AINFO<<"(DMCZP) EnteringMethod: PollHandler::PollHandler";
 
 bool PollHandler::Block(int timeout_ms, bool is_read) {
+AINFO<<"(DMCZP) EnteringMethod: PollHandler::Block";
 AINFO<<"(DMCZP) EnteringMethod: PollHandler::Block";
   if (!Check(timeout_ms)) {
     return false;
@@ -60,11 +62,13 @@ AINFO<<"(DMCZP) EnteringMethod: PollHandler::Block";
 
 bool PollHandler::Unblock() {
 AINFO<<"(DMCZP) EnteringMethod: PollHandler::Unblock";
+AINFO<<"(DMCZP) EnteringMethod: PollHandler::Unblock";
   is_blocking_.exchange(false);
   return Poller::Instance()->Unregister(request_);
 }
 
 bool PollHandler::Check(int timeout_ms) {
+AINFO<<"(DMCZP) EnteringMethod: PollHandler::Check";
 AINFO<<"(DMCZP) EnteringMethod: PollHandler::Check";
   if (timeout_ms == 0) {
     AINFO << "timeout[" << timeout_ms
@@ -88,6 +92,7 @@ AINFO<<"(DMCZP) EnteringMethod: PollHandler::Check";
 
 void PollHandler::Fill(int timeout_ms, bool is_read) {
 AINFO<<"(DMCZP) EnteringMethod: PollHandler::Fill";
+AINFO<<"(DMCZP) EnteringMethod: PollHandler::Fill";
   is_read_.exchange(is_read);
 
   request_.fd = fd_;
@@ -103,6 +108,7 @@ AINFO<<"(DMCZP) EnteringMethod: PollHandler::Fill";
 }
 
 void PollHandler::ResponseCallback(const PollResponse& rsp) {
+AINFO<<"(DMCZP) EnteringMethod: PollHandler::ResponseCallback";
 AINFO<<"(DMCZP) EnteringMethod: PollHandler::ResponseCallback";
   if (!is_blocking_.load() || routine_ == nullptr) {
     return;

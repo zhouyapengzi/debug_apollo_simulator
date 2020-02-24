@@ -1,3 +1,4 @@
+#include "cyber/common/log.h"
 /******************************************************************************
  * Copyright 2019 The Apollo Authors. All Rights Reserved.
  *
@@ -31,8 +32,10 @@ namespace scheduler {
 
 void func() {}
 AINFO<<"(DMCZP) EnteringMethod: func";
+AINFO<<"(DMCZP) EnteringMethod: func";
 
 TEST(SchedulerChoreoTest, choreo) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
 AINFO<<"(DMCZP) EnteringMethod: TEST";
   auto processor = std::make_shared<Processor>();
   auto ctx = std::make_shared<ChoreographyContext>();
@@ -46,6 +49,7 @@ AINFO<<"(DMCZP) EnteringMethod: TEST";
 }
 
 TEST(SchedulerChoreoTest, sched_choreo) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
 AINFO<<"(DMCZP) EnteringMethod: TEST";
   GlobalData::Instance()->SetProcessGroup("example_sched_choreography");
   auto sched = dynamic_cast<SchedulerChoreography*>(scheduler::Instance());

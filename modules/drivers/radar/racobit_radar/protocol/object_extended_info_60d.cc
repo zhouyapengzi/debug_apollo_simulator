@@ -1,3 +1,4 @@
+#include "cyber/common/log.h"
 /******************************************************************************
  * Copyright 2018 The Apollo Authors. All Rights Reserved.
  *
@@ -29,10 +30,12 @@ using apollo::drivers::canbus::Byte;
 
 ObjectExtendedInfo60D::ObjectExtendedInfo60D() {}
 AINFO<<"(DMCZP) EnteringMethod: ObjectExtendedInfo60D::ObjectExtendedInfo60D";
+AINFO<<"(DMCZP) EnteringMethod: ObjectExtendedInfo60D::ObjectExtendedInfo60D";
 const uint32_t ObjectExtendedInfo60D::ID = 0x60D;
 
 void ObjectExtendedInfo60D::Parse(const std::uint8_t* bytes, int32_t length,
                                   RacobitRadar* racobit_radar) const {
+AINFO<<"(DMCZP) EnteringMethod: ObjectExtendedInfo60D::Parse";
 AINFO<<"(DMCZP) EnteringMethod: ObjectExtendedInfo60D::Parse";
   int obj_id = object_id(bytes, length);
   for (int i = 0; i < racobit_radar->contiobs_size(); ++i) {
@@ -53,6 +56,7 @@ AINFO<<"(DMCZP) EnteringMethod: ObjectExtendedInfo60D::Parse";
 int ObjectExtendedInfo60D::object_id(const std::uint8_t* bytes,
                                      int32_t length) const {
 AINFO<<"(DMCZP) EnteringMethod: ObjectExtendedInfo60D::object_id";
+AINFO<<"(DMCZP) EnteringMethod: ObjectExtendedInfo60D::object_id";
   Byte t0(bytes);
   int32_t x = t0.get_byte(0, 8);
 
@@ -63,7 +67,9 @@ AINFO<<"(DMCZP) EnteringMethod: ObjectExtendedInfo60D::object_id";
 double ObjectExtendedInfo60D::longitude_accel(const std::uint8_t* bytes,
                                               int32_t length) const {
 AINFO<<"(DMCZP) EnteringMethod: ObjectExtendedInfo60D::longitude_accel";
+AINFO<<"(DMCZP) EnteringMethod: ObjectExtendedInfo60D::longitude_accel";
   Byte t0(bytes + 1);
+AINFO<<"(DMCZP) EnteringMethod: ObjectExtendedInfo60D::oritation_angle";
   int32_t x = t0.get_byte(0, 8);
 AINFO<<"(DMCZP) EnteringMethod: ObjectExtendedInfo60D::oritation_angle";
 
@@ -80,6 +86,8 @@ AINFO<<"(DMCZP) EnteringMethod: ObjectExtendedInfo60D::oritation_angle";
 double ObjectExtendedInfo60D::lateral_accel(const std::uint8_t* bytes,
                                             int32_t length) const {
 AINFO<<"(DMCZP) EnteringMethod: ObjectExtendedInfo60D::lateral_accel";
+AINFO<<"(DMCZP) EnteringMethod: ObjectExtendedInfo60D::lateral_accel";
+AINFO<<"(DMCZP) EnteringMethod: ObjectExtendedInfo60D::object_length";
   Byte t0(bytes + 2);
 AINFO<<"(DMCZP) EnteringMethod: ObjectExtendedInfo60D::object_length";
   int32_t x = t0.get_byte(0, 5);
@@ -96,6 +104,7 @@ AINFO<<"(DMCZP) EnteringMethod: ObjectExtendedInfo60D::object_length";
 
 int ObjectExtendedInfo60D::obstacle_class(const std::uint8_t* bytes,
                                           int32_t length) const {
+AINFO<<"(DMCZP) EnteringMethod: ObjectExtendedInfo60D::obstacle_class";
 AINFO<<"(DMCZP) EnteringMethod: ObjectExtendedInfo60D::obstacle_class";
   Byte t0(bytes + 3);
   int32_t x = t0.get_byte(0, 3);
@@ -130,6 +139,7 @@ double ObjectExtendedInfo60D::object_length(const std::uint8_t* bytes,
 
 double ObjectExtendedInfo60D::object_width(const std::uint8_t* bytes,
                                            int32_t length) const {
+AINFO<<"(DMCZP) EnteringMethod: ObjectExtendedInfo60D::object_width";
 AINFO<<"(DMCZP) EnteringMethod: ObjectExtendedInfo60D::object_width";
   Byte t0(bytes + 7);
   int32_t x = t0.get_byte(0, 8);

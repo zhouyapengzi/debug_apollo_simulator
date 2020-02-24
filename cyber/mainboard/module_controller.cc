@@ -1,3 +1,4 @@
+#include "cyber/common/log.h"
 /******************************************************************************
  * Copyright 2018 The Apollo Authors. All Rights Reserved.
  *
@@ -28,6 +29,7 @@ namespace mainboard {
 
 void ModuleController::Clear() {
 AINFO<<"(DMCZP) EnteringMethod: ModuleController::Clear";
+AINFO<<"(DMCZP) EnteringMethod: ModuleController::Clear";
   for (auto& component : component_list_) {
     component->Shutdown();
   }
@@ -36,6 +38,7 @@ AINFO<<"(DMCZP) EnteringMethod: ModuleController::Clear";
 }
 
 bool ModuleController::LoadAll() {
+AINFO<<"(DMCZP) EnteringMethod: ModuleController::LoadAll";
 AINFO<<"(DMCZP) EnteringMethod: ModuleController::LoadAll";
   const std::string work_root = common::WorkRoot();
   const std::string current_path = common::GetCurrentPath();
@@ -66,6 +69,7 @@ AINFO<<"(DMCZP) EnteringMethod: ModuleController::LoadAll";
 }
 
 bool ModuleController::LoadModule(const DagConfig& dag_config) {
+AINFO<<"(DMCZP) EnteringMethod: ModuleController::LoadModule";
 AINFO<<"(DMCZP) EnteringMethod: ModuleController::LoadModule";
   const std::string work_root = common::WorkRoot();
 
@@ -109,6 +113,7 @@ AINFO<<"(DMCZP) EnteringMethod: ModuleController::LoadModule";
 }
 
 bool ModuleController::LoadModule(const std::string& path) {
+AINFO<<"(DMCZP) EnteringMethod: ModuleController::LoadModule";
 AINFO<<"(DMCZP) EnteringMethod: ModuleController::LoadModule";
   DagConfig dag_config;
   if (!common::GetProtoFromFile(path, &dag_config)) {

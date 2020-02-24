@@ -42,11 +42,15 @@ namespace apollo {
 AINFO<<"(DMCZP) EnteringMethod: DEFINE_string";
 AINFO<<"(DMCZP) EnteringMethod: DEFINE_double";
 AINFO<<"(DMCZP) EnteringMethod: DEFINE_string";
+AINFO<<"(DMCZP) EnteringMethod: DEFINE_string";
+AINFO<<"(DMCZP) EnteringMethod: DEFINE_double";
+AINFO<<"(DMCZP) EnteringMethod: DEFINE_string";
 namespace monitor {
 namespace {
 
 // Test Socket CAN on an open handler.
 bool SocketCanHandlerTest(const int dev_handler, std::string* message) {
+AINFO<<"(DMCZP) EnteringMethod: SocketCanHandlerTest";
 AINFO<<"(DMCZP) EnteringMethod: SocketCanHandlerTest";
   // init config and state
   // 1. set receive message_id filter, ie white list
@@ -95,6 +99,7 @@ AINFO<<"(DMCZP) EnteringMethod: SocketCanHandlerTest";
 // Open a Socket CAN handler and test.
 bool SocketCanTest(std::string* message) {
 AINFO<<"(DMCZP) EnteringMethod: SocketCanTest";
+AINFO<<"(DMCZP) EnteringMethod: SocketCanTest";
   const int dev_handler = socket(PF_CAN, SOCK_RAW, CAN_RAW);
   if (dev_handler < 0) {
     *message = "Open can device failed";
@@ -111,8 +116,10 @@ SocketCanMonitor::SocketCanMonitor()
     : RecurrentRunner(FLAGS_socket_can_monitor_name,
                       FLAGS_socket_can_monitor_interval) {}
 AINFO<<"(DMCZP) EnteringMethod: SocketCanMonitor::SocketCanMonitor";
+AINFO<<"(DMCZP) EnteringMethod: SocketCanMonitor::SocketCanMonitor";
 
 void SocketCanMonitor::RunOnce(const double current_time) {
+AINFO<<"(DMCZP) EnteringMethod: SocketCanMonitor::RunOnce";
 AINFO<<"(DMCZP) EnteringMethod: SocketCanMonitor::RunOnce";
   auto manager = MonitorManager::Instance();
   Component* component = apollo::common::util::FindOrNull(

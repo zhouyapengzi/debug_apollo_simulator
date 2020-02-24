@@ -1,3 +1,4 @@
+#include "cyber/common/log.h"
 /******************************************************************************
  * Copyright 2018 The Apollo Authors. All Rights Reserved.
  *
@@ -26,8 +27,10 @@ namespace croutine {
 
 void function() { CRoutine::Yield(RoutineState::IO_WAIT); }
 AINFO<<"(DMCZP) EnteringMethod: function";
+AINFO<<"(DMCZP) EnteringMethod: function";
 
 TEST(Croutine, croutinetest) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
 AINFO<<"(DMCZP) EnteringMethod: TEST";
   apollo::cyber::Init("croutine_test");
   std::shared_ptr<CRoutine> cr = std::make_shared<CRoutine>(function);

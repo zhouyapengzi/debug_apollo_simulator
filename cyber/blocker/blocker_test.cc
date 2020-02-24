@@ -1,3 +1,4 @@
+#include "cyber/common/log.h"
 /******************************************************************************
  * Copyright 2018 The Apollo Authors. All Rights Reserved.
  *
@@ -29,6 +30,7 @@ using apollo::cyber::proto::UnitTest;
 
 TEST(BlockerTest, constructor) {
 AINFO<<"(DMCZP) EnteringMethod: TEST";
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   BlockerAttr attr(10, "channel");
   Blocker<UnitTest> blocker(attr);
   EXPECT_EQ(blocker.capacity(), 10);
@@ -39,6 +41,7 @@ AINFO<<"(DMCZP) EnteringMethod: TEST";
 }
 
 TEST(BlockerTest, publish) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
 AINFO<<"(DMCZP) EnteringMethod: TEST";
   BlockerAttr attr(10, "channel");
   Blocker<UnitTest> blocker(attr);
@@ -79,6 +82,7 @@ AINFO<<"(DMCZP) EnteringMethod: TEST";
 }
 
 TEST(BlockerTest, subscribe) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
 AINFO<<"(DMCZP) EnteringMethod: TEST";
   BlockerAttr attr(10, "channel");
   Blocker<UnitTest> blocker(attr);

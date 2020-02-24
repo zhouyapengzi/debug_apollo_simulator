@@ -1,3 +1,4 @@
+#include "cyber/common/log.h"
 /******************************************************************************
  * Copyright 2018 The Apollo Authors. All Rights Reserved.
  *
@@ -22,10 +23,12 @@ namespace record {
 
 Info::Info() {}
 AINFO<<"(DMCZP) EnteringMethod: Info::Info";
+AINFO<<"(DMCZP) EnteringMethod: Info::Info";
 
 Info::~Info() {}
 
 bool Info::Display(const std::string& file) {
+AINFO<<"(DMCZP) EnteringMethod: Info::Display";
 AINFO<<"(DMCZP) EnteringMethod: Info::Display";
   RecordFileReader file_reader;
   if (!file_reader.Open(file)) {

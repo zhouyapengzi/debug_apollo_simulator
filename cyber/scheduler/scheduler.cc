@@ -1,3 +1,4 @@
+#include "cyber/common/log.h"
 /******************************************************************************
  * Copyright 2018 The Apollo Authors. All Rights Reserved.
  *
@@ -37,12 +38,14 @@ using apollo::cyber::common::GlobalData;
 bool Scheduler::CreateTask(const RoutineFactory& factory,
                            const std::string& name) {
 AINFO<<"(DMCZP) EnteringMethod: Scheduler::CreateTask";
+AINFO<<"(DMCZP) EnteringMethod: Scheduler::CreateTask";
   return CreateTask(factory.create_routine(), name, factory.GetDataVisitor());
 }
 
 bool Scheduler::CreateTask(std::function<void()>&& func,
                            const std::string& name,
                            std::shared_ptr<DataVisitorBase> visitor) {
+AINFO<<"(DMCZP) EnteringMethod: Scheduler::CreateTask";
 AINFO<<"(DMCZP) EnteringMethod: Scheduler::CreateTask";
   if (unlikely(stop_.load())) {
     ADEBUG << "scheduler is stoped, cannot create task!";
@@ -73,6 +76,7 @@ AINFO<<"(DMCZP) EnteringMethod: Scheduler::CreateTask";
 
 bool Scheduler::NotifyTask(uint64_t crid) {
 AINFO<<"(DMCZP) EnteringMethod: Scheduler::NotifyTask";
+AINFO<<"(DMCZP) EnteringMethod: Scheduler::NotifyTask";
   if (unlikely(stop_.load())) {
     return true;
   }
@@ -80,6 +84,7 @@ AINFO<<"(DMCZP) EnteringMethod: Scheduler::NotifyTask";
 }
 
 void Scheduler::ParseCpuset(const std::string& str, std::vector<int>* cpuset) {
+AINFO<<"(DMCZP) EnteringMethod: Scheduler::ParseCpuset";
 AINFO<<"(DMCZP) EnteringMethod: Scheduler::ParseCpuset";
   std::vector<std::string> lines;
   std::stringstream ss(str);
@@ -112,6 +117,7 @@ AINFO<<"(DMCZP) EnteringMethod: Scheduler::ParseCpuset";
 
 void Scheduler::ProcessLevelResourceControl() {
 AINFO<<"(DMCZP) EnteringMethod: Scheduler::ProcessLevelResourceControl";
+AINFO<<"(DMCZP) EnteringMethod: Scheduler::ProcessLevelResourceControl";
   std::vector<int> cpus;
   ParseCpuset(process_level_cpuset_, &cpus);
   cpu_set_t set;
@@ -123,6 +129,7 @@ AINFO<<"(DMCZP) EnteringMethod: Scheduler::ProcessLevelResourceControl";
 }
 
 void Scheduler::SetInnerThreadAttr(const std::string& name, std::thread* thr) {
+AINFO<<"(DMCZP) EnteringMethod: Scheduler::SetInnerThreadAttr";
 AINFO<<"(DMCZP) EnteringMethod: Scheduler::SetInnerThreadAttr";
   if (thr != nullptr && inner_thr_confs_.find(name) != inner_thr_confs_.end()) {
     auto th_conf = inner_thr_confs_[name];
@@ -157,6 +164,7 @@ AINFO<<"(DMCZP) EnteringMethod: Scheduler::SetInnerThreadAttr";
 }
 
 void Scheduler::Shutdown() {
+AINFO<<"(DMCZP) EnteringMethod: Scheduler::Shutdown";
 AINFO<<"(DMCZP) EnteringMethod: Scheduler::Shutdown";
   if (unlikely(stop_.exchange(true))) {
     return;

@@ -1,3 +1,4 @@
+#include "cyber/common/log.h"
 /******************************************************************************
  * Copyright 2018 The Apollo Authors. All Rights Reserved.
  *
@@ -48,6 +49,7 @@ logger::AsyncLogger* async_logger = nullptr;
 
 void InitLogger(const char* binary_name) {
 AINFO<<"(DMCZP) EnteringMethod: InitLogger";
+AINFO<<"(DMCZP) EnteringMethod: InitLogger";
   const char* slash = strrchr(binary_name, '/');
   if (slash) {
     ::apollo::cyber::Binary::SetName(slash + 1);
@@ -71,6 +73,7 @@ AINFO<<"(DMCZP) EnteringMethod: InitLogger";
 
 void StopLogger() {
 AINFO<<"(DMCZP) EnteringMethod: StopLogger";
+AINFO<<"(DMCZP) EnteringMethod: StopLogger";
   if (async_logger != nullptr) {
     async_logger->Stop();
   }
@@ -80,6 +83,7 @@ AINFO<<"(DMCZP) EnteringMethod: StopLogger";
 
 void OnShutdown(int sig) {
 AINFO<<"(DMCZP) EnteringMethod: OnShutdown";
+AINFO<<"(DMCZP) EnteringMethod: OnShutdown";
   (void)sig;
   if (GetState() != STATE_SHUTDOWN) {
     SetState(STATE_SHUTTING_DOWN);
@@ -88,8 +92,10 @@ AINFO<<"(DMCZP) EnteringMethod: OnShutdown";
 
 void ExitHandle() { Clear(); }
 AINFO<<"(DMCZP) EnteringMethod: ExitHandle";
+AINFO<<"(DMCZP) EnteringMethod: ExitHandle";
 
 bool Init(const char* binary_name) {
+AINFO<<"(DMCZP) EnteringMethod: Init";
 AINFO<<"(DMCZP) EnteringMethod: Init";
   std::lock_guard<std::mutex> lg(g_mutex);
   if (GetState() != STATE_UNINITIALIZED) {
@@ -114,6 +120,7 @@ AINFO<<"(DMCZP) EnteringMethod: Init";
 }
 
 void Clear() {
+AINFO<<"(DMCZP) EnteringMethod: Clear";
 AINFO<<"(DMCZP) EnteringMethod: Clear";
   std::lock_guard<std::mutex> lg(g_mutex);
   if (GetState() == STATE_SHUTDOWN || GetState() == STATE_UNINITIALIZED) {

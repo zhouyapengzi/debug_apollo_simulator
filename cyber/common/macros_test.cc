@@ -1,3 +1,4 @@
+#include "cyber/common/log.h"
 /******************************************************************************
  * Copyright 2018 The Apollo Authors. All Rights Reserved.
  *
@@ -37,6 +38,7 @@ class ClassWithShutdown {
 int ClassWithShutdown::foo_ = 0;
 inline ClassWithShutdown::ClassWithShutdown() {}
 AINFO<<"(DMCZP) EnteringMethod: ClassWithShutdown::ClassWithShutdown";
+AINFO<<"(DMCZP) EnteringMethod: ClassWithShutdown::ClassWithShutdown";
 
 class ClassWithoutShutdown {
  private:
@@ -45,14 +47,17 @@ class ClassWithoutShutdown {
 
 inline ClassWithoutShutdown::ClassWithoutShutdown() {}
 AINFO<<"(DMCZP) EnteringMethod: ClassWithoutShutdown::ClassWithoutShutdown";
+AINFO<<"(DMCZP) EnteringMethod: ClassWithoutShutdown::ClassWithoutShutdown";
 
 TEST(MacrosTest, has_shut_down_test) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
 AINFO<<"(DMCZP) EnteringMethod: TEST";
   EXPECT_TRUE(HasShutdown<ClassWithShutdown>::value);
   EXPECT_FALSE(HasShutdown<ClassWithoutShutdown>::value);
 }
 
 TEST(MacrosTest, shut_down_test) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
 AINFO<<"(DMCZP) EnteringMethod: TEST";
   EXPECT_EQ(ClassWithShutdown::foo(), 0);
   ClassWithShutdown::CleanUp();

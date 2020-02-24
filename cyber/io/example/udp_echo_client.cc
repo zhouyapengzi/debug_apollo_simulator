@@ -1,3 +1,4 @@
+#include "cyber/common/log.h"
 /******************************************************************************
  * Copyright 2018 The Apollo Authors. All Rights Reserved.
  *
@@ -30,6 +31,7 @@
 using apollo::cyber::io::Session;
 
 int main(int argc, char* argv[]) {
+AINFO<<"(DMCZP) EnteringMethod: main";
 AINFO<<"(DMCZP) EnteringMethod: main";
   if (argc != 2) {
     std::cout << "Usage: " << argv[0] << " <server port>" << std::endl;

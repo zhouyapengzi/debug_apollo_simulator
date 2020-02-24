@@ -39,11 +39,16 @@ AINFO<<"(DMCZP) EnteringMethod: DEFINE_int32";
 AINFO<<"(DMCZP) EnteringMethod: DEFINE_string";
 AINFO<<"(DMCZP) EnteringMethod: DEFINE_double";
 AINFO<<"(DMCZP) EnteringMethod: DEFINE_string";
+AINFO<<"(DMCZP) EnteringMethod: DEFINE_int32";
+AINFO<<"(DMCZP) EnteringMethod: DEFINE_string";
+AINFO<<"(DMCZP) EnteringMethod: DEFINE_double";
+AINFO<<"(DMCZP) EnteringMethod: DEFINE_string";
 namespace monitor {
 namespace {
 
 #if USE_ESD_CAN
 std::string StatusString(const NTCAN_RESULT ntstatus) {
+AINFO<<"(DMCZP) EnteringMethod: StatusString";
 AINFO<<"(DMCZP) EnteringMethod: StatusString";
   switch (ntstatus) {
     case NTCAN_SUCCESS:
@@ -154,6 +159,7 @@ AINFO<<"(DMCZP) EnteringMethod: StatusString";
 
 NTCAN_RESULT EsdCanTest(const int can_id, NTCAN_HANDLE* handle) {
 AINFO<<"(DMCZP) EnteringMethod: EsdCanTest";
+AINFO<<"(DMCZP) EnteringMethod: EsdCanTest";
   NTCAN_RESULT ret = canOpen(can_id, 0, 1, 1, 0, 0, handle);
   if (ret == NTCAN_SUCCESS) {
     AINFO << "Successfully opened ESD-CAN device " << can_id;
@@ -200,6 +206,8 @@ AINFO<<"(DMCZP) EnteringMethod: EsdCanTest";
 void EsdCanTest(const int can_id, ComponentStatus* status) {
 AINFO<<"(DMCZP) EnteringMethod: EsdCanTest";
 AINFO<<"(DMCZP) EnteringMethod: EsdCanTest";
+AINFO<<"(DMCZP) EnteringMethod: EsdCanTest";
+AINFO<<"(DMCZP) EnteringMethod: EsdCanTest";
   NTCAN_HANDLE handle;
   const NTCAN_RESULT ret = EsdCanTest(can_id, &handle);
   canClose(handle);
@@ -223,8 +231,10 @@ EsdCanMonitor::EsdCanMonitor()
     : RecurrentRunner(FLAGS_esdcan_monitor_name,
                       FLAGS_esdcan_monitor_interval) {}
 AINFO<<"(DMCZP) EnteringMethod: EsdCanMonitor::EsdCanMonitor";
+AINFO<<"(DMCZP) EnteringMethod: EsdCanMonitor::EsdCanMonitor";
 
 void EsdCanMonitor::RunOnce(const double current_time) {
+AINFO<<"(DMCZP) EnteringMethod: EsdCanMonitor::RunOnce";
 AINFO<<"(DMCZP) EnteringMethod: EsdCanMonitor::RunOnce";
   Component* component = apollo::common::util::FindOrNull(
       *MonitorManager::Instance()->GetStatus()->mutable_components(),

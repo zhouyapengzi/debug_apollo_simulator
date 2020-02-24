@@ -1,3 +1,4 @@
+#include "cyber/common/log.h"
 /******************************************************************************
  * Copyright 2018 The Apollo Authors. All Rights Reserved.
  *
@@ -58,6 +59,7 @@ class ParameterClientTest : public ::testing::Test {
 
 TEST_F(ParameterClientTest, set_parameter) {
 AINFO<<"(DMCZP) EnteringMethod: TEST_F";
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   EXPECT_TRUE(pc_->SetParameter(Parameter("int", 1)));
   usleep(100000);
 
@@ -66,6 +68,7 @@ AINFO<<"(DMCZP) EnteringMethod: TEST_F";
 }
 
 TEST_F(ParameterClientTest, get_parameter) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
 AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   ps_->SetParameter(Parameter("int", 1));
   Parameter parameter;
@@ -79,6 +82,7 @@ AINFO<<"(DMCZP) EnteringMethod: TEST_F";
 }
 
 TEST_F(ParameterClientTest, list_parameter) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
 AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   ps_->SetParameter(Parameter("int", 1));
   std::vector<Parameter> parameters;
@@ -95,6 +99,7 @@ AINFO<<"(DMCZP) EnteringMethod: TEST_F";
 }  // namespace apollo
 
 int main(int argc, char** argv) {
+AINFO<<"(DMCZP) EnteringMethod: main";
 AINFO<<"(DMCZP) EnteringMethod: main";
   apollo::cyber::Init(argv[0]);
   testing::InitGoogleTest(&argc, argv);

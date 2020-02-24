@@ -1,3 +1,4 @@
+#include "cyber/common/log.h"
 /******************************************************************************
  * Copyright 2018 The Apollo Authors. All Rights Reserved.
  *
@@ -38,6 +39,7 @@ struct TestNode {
 
 TEST(CCObjectPoolTest, base) {
 AINFO<<"(DMCZP) EnteringMethod: TEST";
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   const uint32_t capacity = 1024;
   std::vector<std::shared_ptr<TestNode>> vec;
   vec.reserve(capacity);
@@ -58,6 +60,7 @@ AINFO<<"(DMCZP) EnteringMethod: TEST";
 }
 
 TEST(CCObjectPoolTest, multi_thread) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
 AINFO<<"(DMCZP) EnteringMethod: TEST";
   const uint32_t capacity = 1024;
   std::vector<std::shared_ptr<TestNode>> vec;
@@ -85,6 +88,7 @@ AINFO<<"(DMCZP) EnteringMethod: TEST";
 }
 
 TEST(CCObjectPoolTest, construct_object) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
 AINFO<<"(DMCZP) EnteringMethod: TEST";
   const uint32_t capacity = 1024;
   auto pool = std::make_shared<CCObjectPool<TestNode>>(capacity);
@@ -118,6 +122,7 @@ AINFO<<"(DMCZP) EnteringMethod: TEST";
 
 TEST(CCObjectPoolTest, construct_all) {
 AINFO<<"(DMCZP) EnteringMethod: TEST";
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   const uint32_t capacity = 1024;
   std::vector<std::shared_ptr<TestNode>> vec;
   auto pool = std::make_shared<CCObjectPool<TestNode>>(capacity);
@@ -132,6 +137,7 @@ AINFO<<"(DMCZP) EnteringMethod: TEST";
 }
 
 TEST(ObjectPoolTest, get_object) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
 AINFO<<"(DMCZP) EnteringMethod: TEST";
   auto pool = std::make_shared<ObjectPool<TestNode>>(100, 10);
   FOR_EACH(i, 0, 10) { EXPECT_EQ(10, pool->GetObject()->value); }

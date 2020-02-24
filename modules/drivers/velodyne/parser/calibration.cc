@@ -1,3 +1,4 @@
+#include "cyber/common/log.h"
 /******************************************************************************
  * Copyright 2017 The Apollo Authors. All Rights Reserved.
  *
@@ -200,6 +201,7 @@ YAML::Emitter& operator<<(YAML::Emitter& out, const Calibration& calibration) {
 
 void Calibration::read(const std::string& calibration_file) {
 AINFO<<"(DMCZP) EnteringMethod: Calibration::read";
+AINFO<<"(DMCZP) EnteringMethod: Calibration::read";
   std::ifstream fin(calibration_file.c_str());
 
   if (!fin.is_open()) {
@@ -223,6 +225,7 @@ AINFO<<"(DMCZP) EnteringMethod: Calibration::read";
 }
 
 void Calibration::write(const std::string& calibration_file) {
+AINFO<<"(DMCZP) EnteringMethod: Calibration::write";
 AINFO<<"(DMCZP) EnteringMethod: Calibration::write";
   std::ofstream fout(calibration_file.c_str());
   YAML::Emitter out;

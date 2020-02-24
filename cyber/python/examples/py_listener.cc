@@ -1,3 +1,4 @@
+#include "cyber/common/log.h"
 /******************************************************************************
  * Copyright 2018 The Apollo Authors. All Rights Reserved.
  *
@@ -22,12 +23,14 @@ apollo::cyber::PyReader *pr = nullptr;
 
 int cbfun(const char *channel_name) {
 AINFO<<"(DMCZP) EnteringMethod: cbfun";
+AINFO<<"(DMCZP) EnteringMethod: cbfun";
   AINFO << "recv->[ " << channel_name << " ]";
   if (pr) AINFO << "read->[ " << pr->read() << " ]";
   return 1;
 }
 
 int main(int argc, char *argv[]) {
+AINFO<<"(DMCZP) EnteringMethod: main";
 AINFO<<"(DMCZP) EnteringMethod: main";
   apollo::cyber::Init("cyber_python");
   apollo::cyber::proto::Chatter chat;

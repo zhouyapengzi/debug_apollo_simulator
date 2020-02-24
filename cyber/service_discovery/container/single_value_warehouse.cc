@@ -30,6 +30,7 @@ using proto::RoleAttributes;
 bool SingleValueWarehouse::Add(uint64_t key, const RolePtr& role,
                                bool ignore_if_exist) {
 AINFO<<"(DMCZP) EnteringMethod: SingleValueWarehouse::Add";
+AINFO<<"(DMCZP) EnteringMethod: SingleValueWarehouse::Add";
   WriteLockGuard<AtomicRWLock> lock(rw_lock_);
   if (!ignore_if_exist) {
     if (roles_.find(key) != roles_.end()) {
@@ -42,11 +43,13 @@ AINFO<<"(DMCZP) EnteringMethod: SingleValueWarehouse::Add";
 
 void SingleValueWarehouse::Clear() {
 AINFO<<"(DMCZP) EnteringMethod: SingleValueWarehouse::Clear";
+AINFO<<"(DMCZP) EnteringMethod: SingleValueWarehouse::Clear";
   WriteLockGuard<AtomicRWLock> lock(rw_lock_);
   roles_.clear();
 }
 
 std::size_t SingleValueWarehouse::Size() {
+AINFO<<"(DMCZP) EnteringMethod: SingleValueWarehouse::Size";
 AINFO<<"(DMCZP) EnteringMethod: SingleValueWarehouse::Size";
   ReadLockGuard<AtomicRWLock> lock(rw_lock_);
   return roles_.size();
@@ -54,11 +57,13 @@ AINFO<<"(DMCZP) EnteringMethod: SingleValueWarehouse::Size";
 
 void SingleValueWarehouse::Remove(uint64_t key) {
 AINFO<<"(DMCZP) EnteringMethod: SingleValueWarehouse::Remove";
+AINFO<<"(DMCZP) EnteringMethod: SingleValueWarehouse::Remove";
   WriteLockGuard<AtomicRWLock> lock(rw_lock_);
   roles_.erase(key);
 }
 
 void SingleValueWarehouse::Remove(uint64_t key, const RolePtr& role) {
+AINFO<<"(DMCZP) EnteringMethod: SingleValueWarehouse::Remove";
 AINFO<<"(DMCZP) EnteringMethod: SingleValueWarehouse::Remove";
   WriteLockGuard<AtomicRWLock> lock(rw_lock_);
   auto search = roles_.find(key);
@@ -73,6 +78,7 @@ AINFO<<"(DMCZP) EnteringMethod: SingleValueWarehouse::Remove";
 
 void SingleValueWarehouse::Remove(const RoleAttributes& target_attr) {
 AINFO<<"(DMCZP) EnteringMethod: SingleValueWarehouse::Remove";
+AINFO<<"(DMCZP) EnteringMethod: SingleValueWarehouse::Remove";
   WriteLockGuard<AtomicRWLock> lock(rw_lock_);
   for (auto it = roles_.begin(); it != roles_.end();) {
     auto curr_role = it->second;
@@ -86,11 +92,13 @@ AINFO<<"(DMCZP) EnteringMethod: SingleValueWarehouse::Remove";
 
 bool SingleValueWarehouse::Search(uint64_t key) {
 AINFO<<"(DMCZP) EnteringMethod: SingleValueWarehouse::Search";
+AINFO<<"(DMCZP) EnteringMethod: SingleValueWarehouse::Search";
   RolePtr role;
   return Search(key, &role);
 }
 
 bool SingleValueWarehouse::Search(uint64_t key, RolePtr* first_matched_role) {
+AINFO<<"(DMCZP) EnteringMethod: SingleValueWarehouse::Search";
 AINFO<<"(DMCZP) EnteringMethod: SingleValueWarehouse::Search";
   RETURN_VAL_IF_NULL(first_matched_role, false);
   ReadLockGuard<AtomicRWLock> lock(rw_lock_);
@@ -104,6 +112,8 @@ AINFO<<"(DMCZP) EnteringMethod: SingleValueWarehouse::Search";
 
 bool SingleValueWarehouse::Search(uint64_t key,
                                   RoleAttributes* first_matched_role_attr) {
+AINFO<<"(DMCZP) EnteringMethod: SingleValueWarehouse::Search";
+AINFO<<"(DMCZP) EnteringMethod: SingleValueWarehouse::Search";
 AINFO<<"(DMCZP) EnteringMethod: SingleValueWarehouse::Search";
 AINFO<<"(DMCZP) EnteringMethod: SingleValueWarehouse::Search";
   RETURN_VAL_IF_NULL(first_matched_role_attr, false);
@@ -129,9 +139,11 @@ bool SingleValueWarehouse::Search(uint64_t key,
 bool SingleValueWarehouse::Search(
     uint64_t key, std::vector<RoleAttributes>* matched_roles_attr) {
 AINFO<<"(DMCZP) EnteringMethod: SingleValueWarehouse::Search";
+AINFO<<"(DMCZP) EnteringMethod: SingleValueWarehouse::Search";
   RETURN_VAL_IF_NULL(matched_roles_attr, false);
   RolePtr role;
   if (!Search(key, &role)) {
+AINFO<<"(DMCZP) EnteringMethod: SingleValueWarehouse::Search";
     return false;
 AINFO<<"(DMCZP) EnteringMethod: SingleValueWarehouse::Search";
   }
@@ -141,12 +153,16 @@ AINFO<<"(DMCZP) EnteringMethod: SingleValueWarehouse::Search";
 
 bool SingleValueWarehouse::Search(const RoleAttributes& target_attr) {
 AINFO<<"(DMCZP) EnteringMethod: SingleValueWarehouse::Search";
+AINFO<<"(DMCZP) EnteringMethod: SingleValueWarehouse::Search";
   RolePtr role;
   return Search(target_attr, &role);
 }
 
 bool SingleValueWarehouse::Search(const RoleAttributes& target_attr,
                                   RolePtr* first_matched_role) {
+AINFO<<"(DMCZP) EnteringMethod: SingleValueWarehouse::Search";
+AINFO<<"(DMCZP) EnteringMethod: SingleValueWarehouse::Search";
+AINFO<<"(DMCZP) EnteringMethod: SingleValueWarehouse::Search";
 AINFO<<"(DMCZP) EnteringMethod: SingleValueWarehouse::Search";
 AINFO<<"(DMCZP) EnteringMethod: SingleValueWarehouse::Search";
 AINFO<<"(DMCZP) EnteringMethod: SingleValueWarehouse::Search";
@@ -203,6 +219,7 @@ bool SingleValueWarehouse::Search(
 
 void SingleValueWarehouse::GetAllRoles(std::vector<RolePtr>* roles) {
 AINFO<<"(DMCZP) EnteringMethod: SingleValueWarehouse::GetAllRoles";
+AINFO<<"(DMCZP) EnteringMethod: SingleValueWarehouse::GetAllRoles";
   RETURN_IF_NULL(roles);
   ReadLockGuard<AtomicRWLock> lock(rw_lock_);
   for (auto& item : roles_) {
@@ -212,6 +229,7 @@ AINFO<<"(DMCZP) EnteringMethod: SingleValueWarehouse::GetAllRoles";
 
 void SingleValueWarehouse::GetAllRoles(
     std::vector<RoleAttributes>* roles_attr) {
+AINFO<<"(DMCZP) EnteringMethod: SingleValueWarehouse::GetAllRoles";
 AINFO<<"(DMCZP) EnteringMethod: SingleValueWarehouse::GetAllRoles";
   RETURN_IF_NULL(roles_attr);
   ReadLockGuard<AtomicRWLock> lock(rw_lock_);

@@ -1,3 +1,4 @@
+#include "cyber/common/log.h"
 /******************************************************************************
  * Copyright 2018 The Apollo Authors. All Rights Reserved.
  *
@@ -26,6 +27,7 @@ namespace message {
 
 TEST(RawMessageTest, constructor) {
 AINFO<<"(DMCZP) EnteringMethod: TEST";
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   RawMessage msg_a;
   EXPECT_EQ(msg_a.message, "");
 
@@ -34,6 +36,7 @@ AINFO<<"(DMCZP) EnteringMethod: TEST";
 }
 
 TEST(RawMessageTest, serialize_to_array) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
 AINFO<<"(DMCZP) EnteringMethod: TEST";
   RawMessage msg("serialize_to_array");
   EXPECT_FALSE(msg.SerializeToArray(nullptr, 128));
@@ -46,6 +49,7 @@ AINFO<<"(DMCZP) EnteringMethod: TEST";
 
 TEST(RawMessageTest, serialize_to_string) {
 AINFO<<"(DMCZP) EnteringMethod: TEST";
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   RawMessage msg("serialize_to_string");
   std::string str("");
   EXPECT_FALSE(msg.SerializeToString(nullptr));
@@ -55,12 +59,14 @@ AINFO<<"(DMCZP) EnteringMethod: TEST";
 
 TEST(RawMessageTest, parse_from_string) {
 AINFO<<"(DMCZP) EnteringMethod: TEST";
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   RawMessage msg;
   EXPECT_TRUE(msg.ParseFromString("parse_from_string"));
   EXPECT_EQ(msg.message, "parse_from_string");
 }
 
 TEST(RawMessageTest, parse_from_array) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
 AINFO<<"(DMCZP) EnteringMethod: TEST";
   RawMessage msg;
   std::string str("parse_from_array");
@@ -72,6 +78,7 @@ AINFO<<"(DMCZP) EnteringMethod: TEST";
 }
 
 TEST(RawMessageTest, message_type) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
 AINFO<<"(DMCZP) EnteringMethod: TEST";
   RawMessage msg;
   std::string msg_type = RawMessage::TypeName();

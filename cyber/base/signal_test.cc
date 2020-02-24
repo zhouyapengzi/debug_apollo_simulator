@@ -1,3 +1,4 @@
+#include "cyber/common/log.h"
 /******************************************************************************
  * Copyright 2018 The Apollo Authors. All Rights Reserved.
  *
@@ -24,6 +25,7 @@ namespace cyber {
 namespace base {
 
 TEST(SlotTest, zero_input_param) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
 AINFO<<"(DMCZP) EnteringMethod: TEST";
   char ch = '0';
   Slot<> slot_a([&ch]() { ch = 'a'; });
@@ -52,6 +54,7 @@ AINFO<<"(DMCZP) EnteringMethod: TEST";
 
 TEST(SlotTest, two_input_params) {
 AINFO<<"(DMCZP) EnteringMethod: TEST";
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   int sum = 0;
   Slot<int, int> slot_a([&sum](int lhs, int rhs) { sum = lhs + rhs; });
   EXPECT_TRUE(slot_a.connected());
@@ -78,6 +81,7 @@ AINFO<<"(DMCZP) EnteringMethod: TEST";
 
 TEST(ConnectionTest, null_signal) {
 AINFO<<"(DMCZP) EnteringMethod: TEST";
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   Connection<> conn_a;
   EXPECT_FALSE(conn_a.IsConnected());
   EXPECT_FALSE(conn_a.Disconnect());
@@ -103,6 +107,7 @@ AINFO<<"(DMCZP) EnteringMethod: TEST";
 }
 
 TEST(SignalTest, module) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
 AINFO<<"(DMCZP) EnteringMethod: TEST";
   Signal<int, int> sig;
 

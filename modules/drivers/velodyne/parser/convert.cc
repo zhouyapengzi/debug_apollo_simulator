@@ -1,3 +1,4 @@
+#include "cyber/common/log.h"
 /******************************************************************************
  * Copyright 2017 The Apollo Authors. All Rights Reserved.
  *
@@ -25,6 +26,7 @@ using apollo::drivers::velodyne::VelodyneScan;
 
 void Convert::init(const Config& velodyne_config) {
 AINFO<<"(DMCZP) EnteringMethod: Convert::init";
+AINFO<<"(DMCZP) EnteringMethod: Convert::init";
   config_ = velodyne_config;
   // we use Beijing time by default
 
@@ -40,6 +42,7 @@ AINFO<<"(DMCZP) EnteringMethod: Convert::init";
 void Convert::ConvertPacketsToPointcloud(
     const std::shared_ptr<VelodyneScan>& scan_msg,
     std::shared_ptr<PointCloud> point_cloud) {
+AINFO<<"(DMCZP) EnteringMethod: Convert::ConvertPacketsToPointcloud";
 AINFO<<"(DMCZP) EnteringMethod: Convert::ConvertPacketsToPointcloud";
   ADEBUG << "Convert scan msg seq " << scan_msg->header().sequence_num();
 

@@ -1,3 +1,4 @@
+#include "cyber/common/log.h"
 /******************************************************************************
  * Copyright 2017 The Apollo Authors. All Rights Reserved.
  *
@@ -31,10 +32,12 @@ using apollo::drivers::canbus::Byte;
 
 ObjectGeneralInfo60B::ObjectGeneralInfo60B() {}
 AINFO<<"(DMCZP) EnteringMethod: ObjectGeneralInfo60B::ObjectGeneralInfo60B";
+AINFO<<"(DMCZP) EnteringMethod: ObjectGeneralInfo60B::ObjectGeneralInfo60B";
 const uint32_t ObjectGeneralInfo60B::ID = 0x60B;
 
 void ObjectGeneralInfo60B::Parse(const std::uint8_t* bytes, int32_t length,
                                  ContiRadar* conti_radar) const {
+AINFO<<"(DMCZP) EnteringMethod: ObjectGeneralInfo60B::Parse";
 AINFO<<"(DMCZP) EnteringMethod: ObjectGeneralInfo60B::Parse";
   int obj_id = object_id(bytes, length);
   auto conti_obs = conti_radar->add_contiobs();
@@ -55,6 +58,7 @@ AINFO<<"(DMCZP) EnteringMethod: ObjectGeneralInfo60B::Parse";
 int ObjectGeneralInfo60B::object_id(const std::uint8_t* bytes,
                                     int32_t length) const {
 AINFO<<"(DMCZP) EnteringMethod: ObjectGeneralInfo60B::object_id";
+AINFO<<"(DMCZP) EnteringMethod: ObjectGeneralInfo60B::object_id";
   Byte t0(bytes);
   int32_t x = t0.get_byte(0, 8);
 
@@ -64,6 +68,7 @@ AINFO<<"(DMCZP) EnteringMethod: ObjectGeneralInfo60B::object_id";
 
 double ObjectGeneralInfo60B::longitude_dist(const std::uint8_t* bytes,
                                             int32_t length) const {
+AINFO<<"(DMCZP) EnteringMethod: ObjectGeneralInfo60B::longitude_dist";
 AINFO<<"(DMCZP) EnteringMethod: ObjectGeneralInfo60B::longitude_dist";
   Byte t0(bytes + 1);
   int32_t x = t0.get_byte(0, 8);
@@ -81,6 +86,7 @@ AINFO<<"(DMCZP) EnteringMethod: ObjectGeneralInfo60B::longitude_dist";
 double ObjectGeneralInfo60B::lateral_dist(const std::uint8_t* bytes,
                                           int32_t length) const {
 AINFO<<"(DMCZP) EnteringMethod: ObjectGeneralInfo60B::lateral_dist";
+AINFO<<"(DMCZP) EnteringMethod: ObjectGeneralInfo60B::lateral_dist";
   Byte t0(bytes + 2);
   int32_t x = t0.get_byte(0, 3);
 
@@ -97,6 +103,7 @@ AINFO<<"(DMCZP) EnteringMethod: ObjectGeneralInfo60B::lateral_dist";
 double ObjectGeneralInfo60B::longitude_vel(const std::uint8_t* bytes,
                                            int32_t length) const {
 AINFO<<"(DMCZP) EnteringMethod: ObjectGeneralInfo60B::longitude_vel";
+AINFO<<"(DMCZP) EnteringMethod: ObjectGeneralInfo60B::longitude_vel";
   Byte t0(bytes + 4);
   int32_t x = t0.get_byte(0, 8);
   Byte t1(bytes + 5);
@@ -110,6 +117,7 @@ AINFO<<"(DMCZP) EnteringMethod: ObjectGeneralInfo60B::longitude_vel";
 
 double ObjectGeneralInfo60B::lateral_vel(const std::uint8_t* bytes,
                                          int32_t length) const {
+AINFO<<"(DMCZP) EnteringMethod: ObjectGeneralInfo60B::lateral_vel";
 AINFO<<"(DMCZP) EnteringMethod: ObjectGeneralInfo60B::lateral_vel";
   Byte t0(bytes + 5);
   int32_t x = t0.get_byte(0, 6);
@@ -127,6 +135,7 @@ AINFO<<"(DMCZP) EnteringMethod: ObjectGeneralInfo60B::lateral_vel";
 double ObjectGeneralInfo60B::rcs(const std::uint8_t* bytes,
                                  int32_t length) const {
 AINFO<<"(DMCZP) EnteringMethod: ObjectGeneralInfo60B::rcs";
+AINFO<<"(DMCZP) EnteringMethod: ObjectGeneralInfo60B::rcs";
   Byte t0(bytes + 7);
   int32_t x = t0.get_byte(0, 8);
 
@@ -136,6 +145,7 @@ AINFO<<"(DMCZP) EnteringMethod: ObjectGeneralInfo60B::rcs";
 
 int ObjectGeneralInfo60B::dynprop(const std::uint8_t* bytes,
                                   int32_t length) const {
+AINFO<<"(DMCZP) EnteringMethod: ObjectGeneralInfo60B::dynprop";
 AINFO<<"(DMCZP) EnteringMethod: ObjectGeneralInfo60B::dynprop";
   Byte t0(bytes + 6);
   int32_t x = t0.get_byte(0, 3);

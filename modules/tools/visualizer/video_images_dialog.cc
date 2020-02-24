@@ -1,3 +1,4 @@
+#include "cyber/common/log.h"
 /******************************************************************************
  * Copyright 2018 The Apollo Authors. All Rights Reserved.
  *
@@ -20,10 +21,12 @@
 VideoImagesDialog::VideoImagesDialog(QWidget *parent)
     : QDialog(parent), ui(new Ui::VideoImagesDialog) {
 AINFO<<"(DMCZP) EnteringMethod: VideoImagesDialog::VideoImagesDialog";
+AINFO<<"(DMCZP) EnteringMethod: VideoImagesDialog::VideoImagesDialog";
   ui->setupUi(this);
 }
 
 VideoImagesDialog::~VideoImagesDialog() { delete ui; }
 
 int VideoImagesDialog::count(void) const { return ui->spinBox->value(); }
+AINFO<<"(DMCZP) EnteringMethod: VideoImagesDialog::count";
 AINFO<<"(DMCZP) EnteringMethod: VideoImagesDialog::count";

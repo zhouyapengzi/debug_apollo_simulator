@@ -1,3 +1,4 @@
+#include "cyber/common/log.h"
 /******************************************************************************
  * Copyright 2017 The Apollo Authors. All Rights Reserved.
  *
@@ -25,6 +26,7 @@ namespace velodyne {
 
 bool CompensatorComponent::Init() {
 AINFO<<"(DMCZP) EnteringMethod: CompensatorComponent::Init";
+AINFO<<"(DMCZP) EnteringMethod: CompensatorComponent::Init";
   CompensatorConfig config;
   if (!GetProtoConfig(&config)) {
     AWARN << "Load config failed, config file" << ConfigFilePath();
@@ -49,6 +51,7 @@ AINFO<<"(DMCZP) EnteringMethod: CompensatorComponent::Init";
 
 bool CompensatorComponent::Proc(
     const std::shared_ptr<PointCloud>& point_cloud) {
+AINFO<<"(DMCZP) EnteringMethod: CompensatorComponent::Proc";
 AINFO<<"(DMCZP) EnteringMethod: CompensatorComponent::Proc";
   uint64_t start = cyber::Time().Now().ToNanosecond();
   std::shared_ptr<PointCloud> point_cloud_compensated =

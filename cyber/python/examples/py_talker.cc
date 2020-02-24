@@ -1,3 +1,4 @@
+#include "cyber/common/log.h"
 /******************************************************************************
  * Copyright 2018 The Apollo Authors. All Rights Reserved.
  *
@@ -30,6 +31,7 @@ using apollo::cyber::proto::Chatter;
 using apollo::cyber::message::PyMessageWrap;
 
 int main(int argc, char *argv[]) {
+AINFO<<"(DMCZP) EnteringMethod: main";
 AINFO<<"(DMCZP) EnteringMethod: main";
   // init cyber framework
   apollo::cyber::Init("cyber_python");

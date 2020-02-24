@@ -1,3 +1,4 @@
+#include "cyber/common/log.h"
 /******************************************************************************
  * Copyright 2017 The Apollo Authors. All Rights Reserved.
  *
@@ -33,9 +34,11 @@ DEFINE_bool(enable_functional_safety, true,
 
 namespace apollo {
 AINFO<<"(DMCZP) EnteringMethod: DEFINE_bool";
+AINFO<<"(DMCZP) EnteringMethod: DEFINE_bool";
 namespace monitor {
 
 bool Monitor::Init() {
+AINFO<<"(DMCZP) EnteringMethod: Monitor::Init";
 AINFO<<"(DMCZP) EnteringMethod: Monitor::Init";
   MonitorManager::Instance()->Init(node_);
 
@@ -67,6 +70,7 @@ AINFO<<"(DMCZP) EnteringMethod: Monitor::Init";
 }
 
 bool Monitor::Proc() {
+AINFO<<"(DMCZP) EnteringMethod: Monitor::Proc";
 AINFO<<"(DMCZP) EnteringMethod: Monitor::Proc";
   const double current_time = apollo::common::time::Clock::NowInSeconds();
   if (!MonitorManager::Instance()->StartFrame(current_time)) {

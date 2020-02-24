@@ -18,6 +18,7 @@
 int main(int argc, char* argv[])
 {
 AINFO<<"(DMCZP) EnteringMethod: main";
+AINFO<<"(DMCZP) EnteringMethod: main";
     google::ParseCommandLineFlags(&argc, &argv, true);
 
     apollo::cyber::Init(argv[0]);

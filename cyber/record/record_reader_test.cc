@@ -1,3 +1,4 @@
+#include "cyber/common/log.h"
 /******************************************************************************
  * Copyright 2018 The Apollo Authors. All Rights Reserved.
  *
@@ -39,6 +40,7 @@ const uint64_t TIME_3 = 1020 * 1e6;
 const uint32_t MESSAGE_NUM = 16;
 
 TEST(RecordTest, TestSingleRecordFile) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
 AINFO<<"(DMCZP) EnteringMethod: TEST";
   RecordWriter writer;
   writer.SetSizeOfFileSegmentation(0);

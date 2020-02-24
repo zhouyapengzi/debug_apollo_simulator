@@ -1,3 +1,4 @@
+#include "cyber/common/log.h"
 /******************************************************************************
  * Copyright 2018 The Apollo Authors. All Rights Reserved.
  *
@@ -30,6 +31,7 @@ namespace common {
 
 TEST(FileTest, proto_set_get_test) {
 AINFO<<"(DMCZP) EnteringMethod: TEST";
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   apollo::cyber::proto::UnitTest message;
   message.set_class_name("FileTest");
   apollo::cyber::proto::UnitTest read_message;
@@ -53,6 +55,7 @@ AINFO<<"(DMCZP) EnteringMethod: TEST";
 }
 
 TEST(FileTest, file_utils_test) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
 AINFO<<"(DMCZP) EnteringMethod: TEST";
   apollo::cyber::proto::UnitTest message;
   message.set_class_name("FileTest");
@@ -101,6 +104,7 @@ AINFO<<"(DMCZP) EnteringMethod: TEST";
 
 TEST(FileTest, ListSubPaths) {
 AINFO<<"(DMCZP) EnteringMethod: TEST";
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   const auto root_subdirs = ListSubPaths("/");
 
   // Some common root subdirs should exist.
@@ -114,6 +118,7 @@ AINFO<<"(DMCZP) EnteringMethod: TEST";
 }
 
 TEST(FileTest, Glob) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
 AINFO<<"(DMCZP) EnteringMethod: TEST";
   // Match none.
   EXPECT_TRUE(Glob("/path/impossible/*").empty());
@@ -131,6 +136,7 @@ AINFO<<"(DMCZP) EnteringMethod: TEST";
 
 TEST(FileTest, GetAbsolutePath) {
 AINFO<<"(DMCZP) EnteringMethod: TEST";
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   EXPECT_EQ("./xx.txt", GetAbsolutePath("", "./xx.txt"));
   EXPECT_EQ("/abc", GetAbsolutePath("/abc", ""));
   EXPECT_EQ("/home/work/xx.txt", GetAbsolutePath("/home/work", "xx.txt"));
@@ -140,6 +146,7 @@ AINFO<<"(DMCZP) EnteringMethod: TEST";
 }
 
 TEST(FileTest, GetFileName) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
 AINFO<<"(DMCZP) EnteringMethod: TEST";
   EXPECT_EQ("xx.txt", GetFileName("xx.txt"));
   EXPECT_EQ("xx", GetFileName("./xx.txt", true));

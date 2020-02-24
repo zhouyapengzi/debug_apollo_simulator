@@ -1,3 +1,4 @@
+#include "cyber/common/log.h"
 // Copyright 2016 Proyectos y Sistemas de Mantenimiento SL (eProsima).
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -38,6 +39,7 @@ namespace transport {
 
 UnderlayMessage::UnderlayMessage() {
 AINFO<<"(DMCZP) EnteringMethod: UnderlayMessage::UnderlayMessage";
+AINFO<<"(DMCZP) EnteringMethod: UnderlayMessage::UnderlayMessage";
   m_timestamp = 0;
   m_seq = 0;
 }
@@ -46,6 +48,7 @@ UnderlayMessage::~UnderlayMessage() {}
 
 UnderlayMessage::UnderlayMessage(const UnderlayMessage& x) {
 AINFO<<"(DMCZP) EnteringMethod: UnderlayMessage::UnderlayMessage";
+AINFO<<"(DMCZP) EnteringMethod: UnderlayMessage::UnderlayMessage";
   m_timestamp = x.m_timestamp;
   m_seq = x.m_seq;
   m_data = x.m_data;
@@ -53,6 +56,7 @@ AINFO<<"(DMCZP) EnteringMethod: UnderlayMessage::UnderlayMessage";
 }
 
 UnderlayMessage::UnderlayMessage(UnderlayMessage&& x) {
+AINFO<<"(DMCZP) EnteringMethod: UnderlayMessage::UnderlayMessage";
 AINFO<<"(DMCZP) EnteringMethod: UnderlayMessage::UnderlayMessage";
   m_timestamp = x.m_timestamp;
   m_seq = x.m_seq;
@@ -80,6 +84,7 @@ UnderlayMessage& UnderlayMessage::operator=(UnderlayMessage&& x) {
 
 size_t UnderlayMessage::getMaxCdrSerializedSize(size_t current_alignment) {
 AINFO<<"(DMCZP) EnteringMethod: UnderlayMessage::getMaxCdrSerializedSize";
+AINFO<<"(DMCZP) EnteringMethod: UnderlayMessage::getMaxCdrSerializedSize";
   size_t initial_alignment = current_alignment;
 
   current_alignment +=
@@ -99,6 +104,7 @@ AINFO<<"(DMCZP) EnteringMethod: UnderlayMessage::getMaxCdrSerializedSize";
 
 size_t UnderlayMessage::getCdrSerializedSize(const UnderlayMessage& data,
                                              size_t current_alignment) {
+AINFO<<"(DMCZP) EnteringMethod: UnderlayMessage::getCdrSerializedSize";
 AINFO<<"(DMCZP) EnteringMethod: UnderlayMessage::getCdrSerializedSize";
   size_t initial_alignment = current_alignment;
 
@@ -121,6 +127,7 @@ AINFO<<"(DMCZP) EnteringMethod: UnderlayMessage::getCdrSerializedSize";
 
 void UnderlayMessage::serialize(eprosima::fastcdr::Cdr& scdr) const {
 AINFO<<"(DMCZP) EnteringMethod: UnderlayMessage::serialize";
+AINFO<<"(DMCZP) EnteringMethod: UnderlayMessage::serialize";
   scdr << m_timestamp;
 
   scdr << m_seq;
@@ -131,6 +138,7 @@ AINFO<<"(DMCZP) EnteringMethod: UnderlayMessage::serialize";
 
 void UnderlayMessage::deserialize(eprosima::fastcdr::Cdr& dcdr) {
 AINFO<<"(DMCZP) EnteringMethod: UnderlayMessage::deserialize";
+AINFO<<"(DMCZP) EnteringMethod: UnderlayMessage::deserialize";
   dcdr >> m_timestamp;
   dcdr >> m_seq;
   dcdr >> m_data;
@@ -139,14 +147,17 @@ AINFO<<"(DMCZP) EnteringMethod: UnderlayMessage::deserialize";
 
 size_t UnderlayMessage::getKeyMaxCdrSerializedSize(size_t current_alignment) {
 AINFO<<"(DMCZP) EnteringMethod: UnderlayMessage::getKeyMaxCdrSerializedSize";
+AINFO<<"(DMCZP) EnteringMethod: UnderlayMessage::getKeyMaxCdrSerializedSize";
   size_t current_align = current_alignment;
   return current_align;
 }
 
 bool UnderlayMessage::isKeyDefined() { return false; }
 AINFO<<"(DMCZP) EnteringMethod: UnderlayMessage::isKeyDefined";
+AINFO<<"(DMCZP) EnteringMethod: UnderlayMessage::isKeyDefined";
 
 void UnderlayMessage::serializeKey(eprosima::fastcdr::Cdr& scdr) const {
+AINFO<<"(DMCZP) EnteringMethod: UnderlayMessage::serializeKey";
 AINFO<<"(DMCZP) EnteringMethod: UnderlayMessage::serializeKey";
   (void)scdr;
 }

@@ -1,3 +1,4 @@
+#include "cyber/common/log.h"
 /******************************************************************************
  * Copyright 2017 The Apollo Authors. All Rights Reserved.
  *
@@ -50,11 +51,13 @@ namespace velodyne {
  */
 SocketInput::SocketInput() : sockfd_(-1), port_(0) {}
 AINFO<<"(DMCZP) EnteringMethod: SocketInput::SocketInput";
+AINFO<<"(DMCZP) EnteringMethod: SocketInput::SocketInput";
 
 /** @brief destructor */
 SocketInput::~SocketInput(void) { (void)close(sockfd_); }
 
 void SocketInput::init(const int &port) {
+AINFO<<"(DMCZP) EnteringMethod: SocketInput::init";
 AINFO<<"(DMCZP) EnteringMethod: SocketInput::init";
   if (sockfd_ != -1) {
     (void)close(sockfd_);
@@ -94,6 +97,7 @@ AINFO<<"(DMCZP) EnteringMethod: SocketInput::init";
 /** @brief Get one velodyne packet. */
 int SocketInput::get_firing_data_packet(VelodynePacket *pkt) {
 AINFO<<"(DMCZP) EnteringMethod: SocketInput::get_firing_data_packet";
+AINFO<<"(DMCZP) EnteringMethod: SocketInput::get_firing_data_packet";
   // double time1 = ros::Time::now().toSec();
   double time1 = apollo::cyber::Time().Now().ToSecond();
   while (true) {
@@ -130,6 +134,7 @@ AINFO<<"(DMCZP) EnteringMethod: SocketInput::get_firing_data_packet";
 
 int SocketInput::get_positioning_data_packet(NMEATimePtr nmea_time) {
 AINFO<<"(DMCZP) EnteringMethod: SocketInput::get_positioning_data_packet";
+AINFO<<"(DMCZP) EnteringMethod: SocketInput::get_positioning_data_packet";
   while (true) {
     if (!input_available(POLL_TIMEOUT)) {
       return 1;
@@ -165,6 +170,7 @@ AINFO<<"(DMCZP) EnteringMethod: SocketInput::get_positioning_data_packet";
 }
 
 bool SocketInput::input_available(int timeout) {
+AINFO<<"(DMCZP) EnteringMethod: SocketInput::input_available";
 AINFO<<"(DMCZP) EnteringMethod: SocketInput::input_available";
   struct pollfd fds[1];
   fds[0].fd = sockfd_;

@@ -1,3 +1,4 @@
+#include "cyber/common/log.h"
 /*
  * Copyright (c) 2008, Willow Garage, Inc.
  * All rights reserved.
@@ -45,7 +46,21 @@ TransformStorage::TransformStorage()
 {
 AINFO<<"(DMCZP) EnteringMethod: TransformStorage::TransformStorage";
 AINFO<<"(DMCZP) EnteringMethod: TransformStorage::TransformStorage";
+AINFO<<"(DMCZP) EnteringMethod: TransformStorage::TransformStorage";
+AINFO<<"(DMCZP) EnteringMethod: createExtrapolationException1";
+AINFO<<"(DMCZP) EnteringMethod: createExtrapolationException2";
+AINFO<<"(DMCZP) EnteringMethod: createExtrapolationException3";
+AINFO<<"(DMCZP) EnteringMethod: TimeCache::findClosest";
+AINFO<<"(DMCZP) EnteringMethod: TimeCache::interpolate";
+AINFO<<"(DMCZP) EnteringMethod: TimeCache::getData";
+AINFO<<"(DMCZP) EnteringMethod: TimeCache::getParent";
+AINFO<<"(DMCZP) EnteringMethod: TimeCache::insertData";
+AINFO<<"(DMCZP) EnteringMethod: TimeCache::clearList";
+AINFO<<"(DMCZP) EnteringMethod: TimeCache::getListLength";
+AINFO<<"(DMCZP) EnteringMethod: TimeCache::getLatestTimeAndParent";
+AINFO<<"(DMCZP) EnteringMethod: TransformStorage::TransformStorage";
 }
+AINFO<<"(DMCZP) EnteringMethod: TimeCache::pruneList";
 AINFO<<"(DMCZP) EnteringMethod: createExtrapolationException1";
 AINFO<<"(DMCZP) EnteringMethod: createExtrapolationException2";
 AINFO<<"(DMCZP) EnteringMethod: createExtrapolationException3";
@@ -74,6 +89,7 @@ AINFO<<"(DMCZP) EnteringMethod: TimeCache::pruneList";
 TimeCache::TimeCache(Duration max_storage_time)
 : max_storage_time_(max_storage_time)
 {}
+AINFO<<"(DMCZP) EnteringMethod: TimeCache::TimeCache";
 AINFO<<"(DMCZP) EnteringMethod: TimeCache::TimeCache";
 
 namespace cache { // Avoid ODR collisions https://github.com/ros/geometry2/issues/175 
@@ -310,6 +326,8 @@ P_TimeAndFrameID TimeCache::getLatestTimeAndParent()
 
 Time TimeCache::getLatestTimestamp() 
 {   
+AINFO<<"(DMCZP) EnteringMethod: TimeCache::getLatestTimestamp";
+AINFO<<"(DMCZP) EnteringMethod: TimeCache::getOldestTimestamp";
 AINFO<<"(DMCZP) EnteringMethod: TimeCache::getLatestTimestamp";
 AINFO<<"(DMCZP) EnteringMethod: TimeCache::getOldestTimestamp";
   if (storage_.empty()) return Time(); //empty list case

@@ -1,3 +1,4 @@
+#include "cyber/common/log.h"
 /******************************************************************************
  * Copyright 2018 The Apollo Authors. All Rights Reserved.
  *
@@ -25,6 +26,7 @@
 template <typename T>
 T PyObjectToPtr(PyObject *pyobj, const std::string &type_ptr) {
 AINFO<<"(DMCZP) EnteringMethod: PyObjectToPtr";
+AINFO<<"(DMCZP) EnteringMethod: PyObjectToPtr";
   T obj_ptr = (T)PyCapsule_GetPointer(pyobj, type_ptr.c_str());
   if (obj_ptr == nullptr) {
     AERROR << "PyObjectToPtr failed,type->" << type_ptr << "pyobj: " << pyobj;
@@ -33,6 +35,7 @@ AINFO<<"(DMCZP) EnteringMethod: PyObjectToPtr";
 }
 
 PyObject *cyber_new_PyRecordReader(PyObject *self, PyObject *args) {
+AINFO<<"(DMCZP) EnteringMethod: *cyber_new_PyRecordReader";
 AINFO<<"(DMCZP) EnteringMethod: *cyber_new_PyRecordReader";
   char *filepath = nullptr;
   Py_ssize_t len = 0;
@@ -51,6 +54,7 @@ AINFO<<"(DMCZP) EnteringMethod: *cyber_new_PyRecordReader";
 }
 
 PyObject *cyber_delete_PyRecordReader(PyObject *self, PyObject *args) {
+AINFO<<"(DMCZP) EnteringMethod: *cyber_delete_PyRecordReader";
 AINFO<<"(DMCZP) EnteringMethod: *cyber_delete_PyRecordReader";
   PyObject *pyobj_rec_reader = nullptr;
   if (!PyArg_ParseTuple(args, const_cast<char *>("O:delete_PyRecordReader"),
@@ -72,6 +76,7 @@ AINFO<<"(DMCZP) EnteringMethod: *cyber_delete_PyRecordReader";
 }
 
 PyObject *cyber_PyRecordReader_ReadMessage(PyObject *self, PyObject *args) {
+AINFO<<"(DMCZP) EnteringMethod: *cyber_PyRecordReader_ReadMessage";
 AINFO<<"(DMCZP) EnteringMethod: *cyber_PyRecordReader_ReadMessage";
   PyObject *pyobj_reader = nullptr;
   uint64_t begin_time = 0;
@@ -122,6 +127,7 @@ AINFO<<"(DMCZP) EnteringMethod: *cyber_PyRecordReader_ReadMessage";
 PyObject *cyber_PyRecordReader_GetMessageNumber(PyObject *self,
                                                 PyObject *args) {
 AINFO<<"(DMCZP) EnteringMethod: *cyber_PyRecordReader_GetMessageNumber";
+AINFO<<"(DMCZP) EnteringMethod: *cyber_PyRecordReader_GetMessageNumber";
   PyObject *pyobj_reader = nullptr;
   char *channel_name = nullptr;
   if (!PyArg_ParseTuple(
@@ -134,6 +140,7 @@ AINFO<<"(DMCZP) EnteringMethod: *cyber_PyRecordReader_GetMessageNumber";
   auto reader = (apollo::cyber::record::PyRecordReader *)PyCapsule_GetPointer(
       pyobj_reader, "apollo_cyber_record_pyrecordfilereader");
   if (nullptr == reader) {
+AINFO<<"(DMCZP) EnteringMethod: *cyber_PyRecordWriter_GetMessageNumber";
     AINFO << "PyRecordReader_GetMessageNumber ptr is null!";
 AINFO<<"(DMCZP) EnteringMethod: *cyber_PyRecordWriter_GetMessageNumber";
     return PyLong_FromUnsignedLongLong(0);
@@ -144,6 +151,7 @@ AINFO<<"(DMCZP) EnteringMethod: *cyber_PyRecordWriter_GetMessageNumber";
 }
 
 PyObject *cyber_PyRecordReader_GetMessageType(PyObject *self, PyObject *args) {
+AINFO<<"(DMCZP) EnteringMethod: *cyber_PyRecordReader_GetMessageType";
 AINFO<<"(DMCZP) EnteringMethod: *cyber_PyRecordReader_GetMessageType";
   PyObject *pyobj_reader = nullptr;
   char *channel_name = nullptr;
@@ -167,6 +175,7 @@ AINFO<<"(DMCZP) EnteringMethod: *cyber_PyRecordReader_GetMessageType";
 
 PyObject *cyber_PyRecordReader_GetProtoDesc(PyObject *self, PyObject *args) {
 AINFO<<"(DMCZP) EnteringMethod: *cyber_PyRecordReader_GetProtoDesc";
+AINFO<<"(DMCZP) EnteringMethod: *cyber_PyRecordReader_GetProtoDesc";
   PyObject *pyobj_reader = nullptr;
   char *channel_name = nullptr;
   if (!PyArg_ParseTuple(args,
@@ -189,6 +198,7 @@ AINFO<<"(DMCZP) EnteringMethod: *cyber_PyRecordReader_GetProtoDesc";
 
 PyObject *cyber_PyRecordReader_GetHeaderString(PyObject *self, PyObject *args) {
 AINFO<<"(DMCZP) EnteringMethod: *cyber_PyRecordReader_GetHeaderString";
+AINFO<<"(DMCZP) EnteringMethod: *cyber_PyRecordReader_GetHeaderString";
   PyObject *pyobj_reader = nullptr;
   if (!PyArg_ParseTuple(
           args, const_cast<char *>("O:cyber_PyRecordReader_GetHeaderString"),
@@ -209,6 +219,7 @@ AINFO<<"(DMCZP) EnteringMethod: *cyber_PyRecordReader_GetHeaderString";
 }
 
 PyObject *cyber_PyRecordReader_Reset(PyObject *self, PyObject *args) {
+AINFO<<"(DMCZP) EnteringMethod: *cyber_PyRecordReader_Reset";
 AINFO<<"(DMCZP) EnteringMethod: *cyber_PyRecordReader_Reset";
   PyObject *pyobj_reader = nullptr;
   if (!PyArg_ParseTuple(args,
@@ -233,6 +244,7 @@ AINFO<<"(DMCZP) EnteringMethod: *cyber_PyRecordReader_Reset";
 }
 
 PyObject *cyber_PyRecordReader_GetChannelList(PyObject *self, PyObject *args) {
+AINFO<<"(DMCZP) EnteringMethod: *cyber_PyRecordReader_GetChannelList";
 AINFO<<"(DMCZP) EnteringMethod: *cyber_PyRecordReader_GetChannelList";
   PyObject *pyobj_reader = nullptr;
   if (!PyArg_ParseTuple(
@@ -264,6 +276,7 @@ AINFO<<"(DMCZP) EnteringMethod: *cyber_PyRecordReader_GetChannelList";
 
 PyObject *cyber_new_PyRecordWriter(PyObject *self, PyObject *args) {
 AINFO<<"(DMCZP) EnteringMethod: *cyber_new_PyRecordWriter";
+AINFO<<"(DMCZP) EnteringMethod: *cyber_new_PyRecordWriter";
   apollo::cyber::record::PyRecordWriter *writer =
       new apollo::cyber::record::PyRecordWriter();
   PyObject *pyobj_rec_writer =
@@ -272,6 +285,7 @@ AINFO<<"(DMCZP) EnteringMethod: *cyber_new_PyRecordWriter";
 }
 
 PyObject *cyber_delete_PyRecordWriter(PyObject *self, PyObject *args) {
+AINFO<<"(DMCZP) EnteringMethod: *cyber_delete_PyRecordWriter";
 AINFO<<"(DMCZP) EnteringMethod: *cyber_delete_PyRecordWriter";
   PyObject *pyobj_rec_writer = nullptr;
   if (!PyArg_ParseTuple(args, const_cast<char *>("O:delete_PyRecordWriter"),
@@ -293,6 +307,7 @@ AINFO<<"(DMCZP) EnteringMethod: *cyber_delete_PyRecordWriter";
 }
 
 PyObject *cyber_PyRecordWriter_Open(PyObject *self, PyObject *args) {
+AINFO<<"(DMCZP) EnteringMethod: *cyber_PyRecordWriter_Open";
 AINFO<<"(DMCZP) EnteringMethod: *cyber_PyRecordWriter_Open";
   PyObject *pyobj_rec_writer = nullptr;
   char *path = nullptr;
@@ -322,6 +337,7 @@ AINFO<<"(DMCZP) EnteringMethod: *cyber_PyRecordWriter_Open";
 
 PyObject *cyber_PyRecordWriter_Close(PyObject *self, PyObject *args) {
 AINFO<<"(DMCZP) EnteringMethod: *cyber_PyRecordWriter_Close";
+AINFO<<"(DMCZP) EnteringMethod: *cyber_PyRecordWriter_Close";
   PyObject *pyobj_rec_writer = nullptr;
   if (!PyArg_ParseTuple(args, const_cast<char *>("O:delete_PyRecordWriter"),
                         &pyobj_rec_writer)) {
@@ -342,6 +358,7 @@ AINFO<<"(DMCZP) EnteringMethod: *cyber_PyRecordWriter_Close";
 }
 
 PyObject *cyber_PyRecordWriter_WriteChannel(PyObject *self, PyObject *args) {
+AINFO<<"(DMCZP) EnteringMethod: *cyber_PyRecordWriter_WriteChannel";
 AINFO<<"(DMCZP) EnteringMethod: *cyber_PyRecordWriter_WriteChannel";
   PyObject *pyobj_rec_writer = nullptr;
   char *channel = nullptr;
@@ -371,6 +388,7 @@ AINFO<<"(DMCZP) EnteringMethod: *cyber_PyRecordWriter_WriteChannel";
 }
 
 PyObject *cyber_PyRecordWriter_WriteMessage(PyObject *self, PyObject *args) {
+AINFO<<"(DMCZP) EnteringMethod: *cyber_PyRecordWriter_WriteMessage";
 AINFO<<"(DMCZP) EnteringMethod: *cyber_PyRecordWriter_WriteMessage";
   PyObject *pyobj_rec_writer = nullptr;
   char *channel_name = nullptr;
@@ -408,6 +426,7 @@ AINFO<<"(DMCZP) EnteringMethod: *cyber_PyRecordWriter_WriteMessage";
 PyObject *cyber_PyRecordWriter_SetSizeOfFileSegmentation(PyObject *self,
                                                          PyObject *args) {
 AINFO<<"(DMCZP) EnteringMethod: *cyber_PyRecordWriter_SetSizeOfFileSegmentation";
+AINFO<<"(DMCZP) EnteringMethod: *cyber_PyRecordWriter_SetSizeOfFileSegmentation";
   PyObject *pyobj_rec_writer = nullptr;
   uint64_t size_kilobytes = 0;
 
@@ -439,6 +458,7 @@ AINFO<<"(DMCZP) EnteringMethod: *cyber_PyRecordWriter_SetSizeOfFileSegmentation"
 
 PyObject *cyber_PyRecordWriter_SetIntervalOfFileSegmentation(PyObject *self,
                                                              PyObject *args) {
+AINFO<<"(DMCZP) EnteringMethod: *cyber_PyRecordWriter_SetIntervalOfFileSegmentation";
 AINFO<<"(DMCZP) EnteringMethod: *cyber_PyRecordWriter_SetIntervalOfFileSegmentation";
   PyObject *pyobj_rec_writer = nullptr;
   uint64_t time_sec = 0;
@@ -494,6 +514,7 @@ PyObject *cyber_PyRecordWriter_GetMessageNumber(PyObject *self,
 
 PyObject *cyber_PyRecordWriter_GetMessageType(PyObject *self, PyObject *args) {
 AINFO<<"(DMCZP) EnteringMethod: *cyber_PyRecordWriter_GetMessageType";
+AINFO<<"(DMCZP) EnteringMethod: *cyber_PyRecordWriter_GetMessageType";
   PyObject *pyobj_rec_writer = nullptr;
   char *channel_name = nullptr;
   if (!PyArg_ParseTuple(args,
@@ -515,6 +536,7 @@ AINFO<<"(DMCZP) EnteringMethod: *cyber_PyRecordWriter_GetMessageType";
 }
 
 PyObject *cyber_PyRecordWriter_GetProtoDesc(PyObject *self, PyObject *args) {
+AINFO<<"(DMCZP) EnteringMethod: *cyber_PyRecordWriter_GetProtoDesc";
 AINFO<<"(DMCZP) EnteringMethod: *cyber_PyRecordWriter_GetProtoDesc";
   PyObject *pyobj_rec_writer = nullptr;
   char *channel_name = nullptr;
@@ -580,6 +602,7 @@ static PyMethodDef _cyber_record_methods[] = {
 
 /// Init function of this module
 PyMODINIT_FUNC init_cyber_record(void) {
+AINFO<<"(DMCZP) EnteringMethod: init_cyber_record";
 AINFO<<"(DMCZP) EnteringMethod: init_cyber_record";
   AINFO << "init _cyber_record";
   Py_InitModule("_cyber_record", _cyber_record_methods);

@@ -1,3 +1,4 @@
+#include "cyber/common/log.h"
 /******************************************************************************
  * Copyright 2017 The Apollo Authors. All Rights Reserved.
  *
@@ -35,8 +36,10 @@ RtcmParser::RtcmParser(const config::Config& config,
                        const std::shared_ptr<apollo::cyber::Node>& node)
     : config_(config), node_(node) {}
 AINFO<<"(DMCZP) EnteringMethod: RtcmParser::RtcmParser";
+AINFO<<"(DMCZP) EnteringMethod: RtcmParser::RtcmParser";
 
 bool RtcmParser::Init() {
+AINFO<<"(DMCZP) EnteringMethod: RtcmParser::Init";
 AINFO<<"(DMCZP) EnteringMethod: RtcmParser::Init";
   rtcm_parser_.reset(new Rtcm3Parser(true));
 
@@ -55,6 +58,7 @@ AINFO<<"(DMCZP) EnteringMethod: RtcmParser::Init";
 
 void RtcmParser::ParseRtcmData(const std::string& msg) {
 AINFO<<"(DMCZP) EnteringMethod: RtcmParser::ParseRtcmData";
+AINFO<<"(DMCZP) EnteringMethod: RtcmParser::ParseRtcmData";
   if (!init_flag_) {
     return;
   }
@@ -72,6 +76,7 @@ AINFO<<"(DMCZP) EnteringMethod: RtcmParser::ParseRtcmData";
 
 void RtcmParser::DispatchMessage(Parser::MessageType type, MessagePtr message) {
 AINFO<<"(DMCZP) EnteringMethod: RtcmParser::DispatchMessage";
+AINFO<<"(DMCZP) EnteringMethod: RtcmParser::DispatchMessage";
   switch (type) {
     case Parser::MessageType::EPHEMERIDES:
       PublishEphemeris(message);
@@ -88,11 +93,13 @@ AINFO<<"(DMCZP) EnteringMethod: RtcmParser::DispatchMessage";
 
 void RtcmParser::PublishEphemeris(const MessagePtr& message) {
 AINFO<<"(DMCZP) EnteringMethod: RtcmParser::PublishEphemeris";
+AINFO<<"(DMCZP) EnteringMethod: RtcmParser::PublishEphemeris";
   auto eph = std::make_shared<GnssEphemeris>(*As<GnssEphemeris>(message));
   gnssephemeris_writer_->Write(eph);
 }
 
 void RtcmParser::PublishObservation(const MessagePtr& message) {
+AINFO<<"(DMCZP) EnteringMethod: RtcmParser::PublishObservation";
 AINFO<<"(DMCZP) EnteringMethod: RtcmParser::PublishObservation";
   auto observation =
       std::make_shared<EpochObservation>(*As<EpochObservation>(message));

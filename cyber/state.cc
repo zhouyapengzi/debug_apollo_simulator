@@ -1,3 +1,4 @@
+#include "cyber/common/log.h"
 /******************************************************************************
  * Copyright 2018 The Apollo Authors. All Rights Reserved.
  *
@@ -27,8 +28,10 @@ std::atomic<State> g_cyber_state;
 
 State GetState() { return g_cyber_state.load(); }
 AINFO<<"(DMCZP) EnteringMethod: GetState";
+AINFO<<"(DMCZP) EnteringMethod: GetState";
 
 void SetState(const State& state) { g_cyber_state.store(state); }
+AINFO<<"(DMCZP) EnteringMethod: SetState";
 AINFO<<"(DMCZP) EnteringMethod: SetState";
 
 }  // namespace cyber

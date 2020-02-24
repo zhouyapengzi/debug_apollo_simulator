@@ -29,6 +29,17 @@ AINFO<<"(DMCZP) EnteringMethod: Client::handle_add_writer";
 AINFO<<"(DMCZP) EnteringMethod: Client::handle_publish";
 AINFO<<"(DMCZP) EnteringMethod: Client::publish";
 AINFO<<"(DMCZP) EnteringMethod: Client::get32le";
+AINFO<<"(DMCZP) EnteringMethod: Client::Client";
+AINFO<<"(DMCZP) EnteringMethod: Client::start";
+AINFO<<"(DMCZP) EnteringMethod: Client::stop";
+AINFO<<"(DMCZP) EnteringMethod: Client::handle_read";
+AINFO<<"(DMCZP) EnteringMethod: Client::handle_write";
+AINFO<<"(DMCZP) EnteringMethod: Client::handle_register_desc";
+AINFO<<"(DMCZP) EnteringMethod: Client::handle_add_reader";
+AINFO<<"(DMCZP) EnteringMethod: Client::handle_add_writer";
+AINFO<<"(DMCZP) EnteringMethod: Client::handle_publish";
+AINFO<<"(DMCZP) EnteringMethod: Client::publish";
+AINFO<<"(DMCZP) EnteringMethod: Client::get32le";
     OP_REGISTER_DESC = 1,
     OP_ADD_READER    = 2,
     OP_ADD_WRITER    = 3,

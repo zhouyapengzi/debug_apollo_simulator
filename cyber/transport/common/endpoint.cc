@@ -1,3 +1,4 @@
+#include "cyber/common/log.h"
 /******************************************************************************
  * Copyright 2018 The Apollo Authors. All Rights Reserved.
  *
@@ -23,6 +24,7 @@ namespace transport {
 
 Endpoint::Endpoint(const RoleAttributes& attr)
     : enabled_(false), id_(), attr_(attr) {
+AINFO<<"(DMCZP) EnteringMethod: Endpoint::Endpoint";
 AINFO<<"(DMCZP) EnteringMethod: Endpoint::Endpoint";
   if (!attr_.has_host_name()) {
     attr_.set_host_name(common::GlobalData::Instance()->HostName());

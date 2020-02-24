@@ -1,3 +1,4 @@
+#include "cyber/common/log.h"
 /******************************************************************************
  * Copyright 2018 The Apollo Authors. All Rights Reserved.
  *
@@ -22,10 +23,12 @@ namespace cyber {
 
 TimerComponent::TimerComponent() {}
 AINFO<<"(DMCZP) EnteringMethod: TimerComponent::TimerComponent";
+AINFO<<"(DMCZP) EnteringMethod: TimerComponent::TimerComponent";
 
 TimerComponent::~TimerComponent() {}
 
 bool TimerComponent::Process() {
+AINFO<<"(DMCZP) EnteringMethod: TimerComponent::Process";
 AINFO<<"(DMCZP) EnteringMethod: TimerComponent::Process";
   if (is_shutdown_.load()) {
     return true;
@@ -34,6 +37,7 @@ AINFO<<"(DMCZP) EnteringMethod: TimerComponent::Process";
 }
 
 bool TimerComponent::Initialize(const TimerComponentConfig& config) {
+AINFO<<"(DMCZP) EnteringMethod: TimerComponent::Initialize";
 AINFO<<"(DMCZP) EnteringMethod: TimerComponent::Initialize";
   if (!config.has_name() || !config.has_interval()) {
     AERROR << "Missing required field in config file.";

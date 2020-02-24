@@ -1,3 +1,4 @@
+#include "cyber/common/log.h"
 /******************************************************************************
  * Copyright 2018 The Apollo Authors. All Rights Reserved.
  *
@@ -23,6 +24,7 @@ ClassLoader::ClassLoader(const std::string& library_path)
       loadlib_ref_count_(0),
       classobj_ref_count_(0) {
 AINFO<<"(DMCZP) EnteringMethod: ClassLoader::ClassLoader";
+AINFO<<"(DMCZP) EnteringMethod: ClassLoader::ClassLoader";
   LoadLibrary();
 }
 
@@ -30,10 +32,12 @@ ClassLoader::~ClassLoader() { UnloadLibrary(); }
 
 bool ClassLoader::IsLibraryLoaded() {
 AINFO<<"(DMCZP) EnteringMethod: ClassLoader::IsLibraryLoaded";
+AINFO<<"(DMCZP) EnteringMethod: ClassLoader::IsLibraryLoaded";
   return utility::IsLibraryLoaded(library_path_, this);
 }
 
 bool ClassLoader::LoadLibrary() {
+AINFO<<"(DMCZP) EnteringMethod: ClassLoader::LoadLibrary";
 AINFO<<"(DMCZP) EnteringMethod: ClassLoader::LoadLibrary";
   std::lock_guard<std::mutex> lck(loadlib_ref_count_mutex_);
   ++loadlib_ref_count_;
@@ -42,6 +46,7 @@ AINFO<<"(DMCZP) EnteringMethod: ClassLoader::LoadLibrary";
 }
 
 int ClassLoader::UnloadLibrary() {
+AINFO<<"(DMCZP) EnteringMethod: ClassLoader::UnloadLibrary";
 AINFO<<"(DMCZP) EnteringMethod: ClassLoader::UnloadLibrary";
   std::lock_guard<std::mutex> lckLib(loadlib_ref_count_mutex_);
   std::lock_guard<std::mutex> lckObj(classobj_ref_count_mutex_);
@@ -64,6 +69,7 @@ AINFO<<"(DMCZP) EnteringMethod: ClassLoader::UnloadLibrary";
 }
 
 const std::string ClassLoader::GetLibraryPath() const { return library_path_; }
+AINFO<<"(DMCZP) EnteringMethod: ClassLoader::GetLibraryPath";
 AINFO<<"(DMCZP) EnteringMethod: ClassLoader::GetLibraryPath";
 
 }  // namespace class_loader

@@ -1,3 +1,4 @@
+#include "cyber/common/log.h"
 /******************************************************************************
  * Copyright 2018 The Apollo Authors. All Rights Reserved.
  *
@@ -36,6 +37,7 @@ class Component_Timer : public TimerComponent {
 
 TEST(TimerComponent, timertest) {
 AINFO<<"(DMCZP) EnteringMethod: TEST";
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   ret_proc = true;
   ret_init = true;
   cyber::Init("timer component test");
@@ -49,6 +51,7 @@ AINFO<<"(DMCZP) EnteringMethod: TEST";
 }
 
 TEST(TimerComponentFalse, timerfail) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
 AINFO<<"(DMCZP) EnteringMethod: TEST";
   ret_proc = false;
   ret_init = false;

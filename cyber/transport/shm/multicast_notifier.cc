@@ -36,6 +36,7 @@ using common::GlobalData;
 
 MulticastNotifier::MulticastNotifier() {
 AINFO<<"(DMCZP) EnteringMethod: MulticastNotifier::MulticastNotifier";
+AINFO<<"(DMCZP) EnteringMethod: MulticastNotifier::MulticastNotifier";
   if (!Init()) {
     Shutdown();
   }
@@ -44,6 +45,7 @@ AINFO<<"(DMCZP) EnteringMethod: MulticastNotifier::MulticastNotifier";
 MulticastNotifier::~MulticastNotifier() { Shutdown(); }
 
 void MulticastNotifier::Shutdown() {
+AINFO<<"(DMCZP) EnteringMethod: MulticastNotifier::Shutdown";
 AINFO<<"(DMCZP) EnteringMethod: MulticastNotifier::Shutdown";
   if (is_shutdown_.exchange(true)) {
     return;
@@ -64,6 +66,7 @@ AINFO<<"(DMCZP) EnteringMethod: MulticastNotifier::Shutdown";
 
 bool MulticastNotifier::Notify(const ReadableInfo& info) {
 AINFO<<"(DMCZP) EnteringMethod: MulticastNotifier::Notify";
+AINFO<<"(DMCZP) EnteringMethod: MulticastNotifier::Notify";
   if (is_shutdown_.load()) {
     return false;
   }
@@ -77,6 +80,7 @@ AINFO<<"(DMCZP) EnteringMethod: MulticastNotifier::Notify";
 }
 
 bool MulticastNotifier::Listen(int timeout_ms, ReadableInfo* info) {
+AINFO<<"(DMCZP) EnteringMethod: MulticastNotifier::Listen";
 AINFO<<"(DMCZP) EnteringMethod: MulticastNotifier::Listen";
   if (is_shutdown_.load()) {
     return false;
@@ -112,6 +116,7 @@ AINFO<<"(DMCZP) EnteringMethod: MulticastNotifier::Listen";
 }
 
 bool MulticastNotifier::Init() {
+AINFO<<"(DMCZP) EnteringMethod: MulticastNotifier::Init";
 AINFO<<"(DMCZP) EnteringMethod: MulticastNotifier::Init";
   std::string mcast_ip("239.255.0.100");
   uint16_t mcast_port = 8888;

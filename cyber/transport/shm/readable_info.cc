@@ -28,10 +28,12 @@ const size_t ReadableInfo::kSize = sizeof(uint64_t) * 2 + sizeof(uint32_t);
 
 ReadableInfo::ReadableInfo() : host_id_(0), block_index_(0), channel_id_(0) {}
 AINFO<<"(DMCZP) EnteringMethod: ReadableInfo::ReadableInfo";
+AINFO<<"(DMCZP) EnteringMethod: ReadableInfo::ReadableInfo";
 
 ReadableInfo::ReadableInfo(uint64_t host_id, uint32_t block_index,
                            uint64_t channel_id)
     : host_id_(host_id), block_index_(block_index), channel_id_(channel_id) {}
+AINFO<<"(DMCZP) EnteringMethod: ReadableInfo::ReadableInfo";
 AINFO<<"(DMCZP) EnteringMethod: ReadableInfo::ReadableInfo";
 
 ReadableInfo::~ReadableInfo() {}
@@ -47,6 +49,7 @@ ReadableInfo& ReadableInfo::operator=(const ReadableInfo& other) {
 
 bool ReadableInfo::SerializeTo(std::string* dst) const {
 AINFO<<"(DMCZP) EnteringMethod: ReadableInfo::SerializeTo";
+AINFO<<"(DMCZP) EnteringMethod: ReadableInfo::SerializeTo";
   RETURN_VAL_IF_NULL(dst, false);
 
   dst->assign(reinterpret_cast<char*>(const_cast<uint64_t*>(&host_id_)),
@@ -60,10 +63,12 @@ AINFO<<"(DMCZP) EnteringMethod: ReadableInfo::SerializeTo";
 
 bool ReadableInfo::DeserializeFrom(const std::string& src) {
 AINFO<<"(DMCZP) EnteringMethod: ReadableInfo::DeserializeFrom";
+AINFO<<"(DMCZP) EnteringMethod: ReadableInfo::DeserializeFrom";
   return DeserializeFrom(src.data(), src.size());
 }
 
 bool ReadableInfo::DeserializeFrom(const char* src, std::size_t len) {
+AINFO<<"(DMCZP) EnteringMethod: ReadableInfo::DeserializeFrom";
 AINFO<<"(DMCZP) EnteringMethod: ReadableInfo::DeserializeFrom";
   RETURN_VAL_IF_NULL(src, false);
   if (len != kSize) {

@@ -1,3 +1,4 @@
+#include "cyber/common/log.h"
 /******************************************************************************
  * Copyright 2019 The Apollo Authors. All Rights Reserved.
  *
@@ -25,6 +26,7 @@
 template <typename T>
 T PyObjectToPtr(PyObject* pyobj, const std::string& type_ptr) {
 AINFO<<"(DMCZP) EnteringMethod: PyObjectToPtr";
+AINFO<<"(DMCZP) EnteringMethod: PyObjectToPtr";
   T obj_ptr = (T)PyCapsule_GetPointer(pyobj, type_ptr.c_str());
   if (obj_ptr == nullptr) {
     AINFO << "PyObjectToPtr failed,type->" << type_ptr << "pyobj: " << pyobj;
@@ -33,6 +35,7 @@ AINFO<<"(DMCZP) EnteringMethod: PyObjectToPtr";
 }
 
 PyObject* cyber_new_PyTimer(PyObject* self, PyObject* args) {
+AINFO<<"(DMCZP) EnteringMethod: cyber_new_PyTimer";
 AINFO<<"(DMCZP) EnteringMethod: cyber_new_PyTimer";
   uint32_t period = 0;
   PyObject* pyobj_regist_fun = 0;
@@ -55,6 +58,7 @@ AINFO<<"(DMCZP) EnteringMethod: cyber_new_PyTimer";
 
 PyObject* cyber_new_PyTimer_noparam(PyObject* self, PyObject* args) {
 AINFO<<"(DMCZP) EnteringMethod: cyber_new_PyTimer_noparam";
+AINFO<<"(DMCZP) EnteringMethod: cyber_new_PyTimer_noparam";
   apollo::cyber::PyTimer* pytimer = new apollo::cyber::PyTimer();
   PyObject* pyobj_timer =
       PyCapsule_New(pytimer, "apollo_cybertron_pytimer", nullptr);
@@ -62,6 +66,7 @@ AINFO<<"(DMCZP) EnteringMethod: cyber_new_PyTimer_noparam";
 }
 
 PyObject* cyber_delete_PyTimer(PyObject* self, PyObject* args) {
+AINFO<<"(DMCZP) EnteringMethod: cyber_delete_PyTimer";
 AINFO<<"(DMCZP) EnteringMethod: cyber_delete_PyTimer";
   PyObject* pyobj_timer = nullptr;
   if (!PyArg_ParseTuple(args, const_cast<char*>("O:cyber_delete_PyTimer"),
@@ -84,6 +89,7 @@ AINFO<<"(DMCZP) EnteringMethod: cyber_delete_PyTimer";
 
 PyObject* cyber_PyTimer_start(PyObject* self, PyObject* args) {
 AINFO<<"(DMCZP) EnteringMethod: cyber_PyTimer_start";
+AINFO<<"(DMCZP) EnteringMethod: cyber_PyTimer_start";
   PyObject* pyobj_timer = nullptr;
   if (!PyArg_ParseTuple(args, const_cast<char*>("O:cyber_delete_PyTimer"),
                         &pyobj_timer)) {
@@ -105,6 +111,7 @@ AINFO<<"(DMCZP) EnteringMethod: cyber_PyTimer_start";
 
 PyObject* cyber_PyTimer_stop(PyObject* self, PyObject* args) {
 AINFO<<"(DMCZP) EnteringMethod: cyber_PyTimer_stop";
+AINFO<<"(DMCZP) EnteringMethod: cyber_PyTimer_stop";
   PyObject* pyobj_timer = nullptr;
   if (!PyArg_ParseTuple(args, const_cast<char*>("O:cyber_delete_PyTimer"),
                         &pyobj_timer)) {
@@ -125,6 +132,7 @@ AINFO<<"(DMCZP) EnteringMethod: cyber_PyTimer_stop";
 }
 
 PyObject* cyber_PyTimer_set_option(PyObject* self, PyObject* args) {
+AINFO<<"(DMCZP) EnteringMethod: cyber_PyTimer_set_option";
 AINFO<<"(DMCZP) EnteringMethod: cyber_PyTimer_set_option";
   PyObject* pyobj_timer = 0;
   uint32_t period = 0;
@@ -168,6 +176,7 @@ static PyMethodDef _cyber_timer_methods[] = {
 
 /// Init function of this module
 PyMODINIT_FUNC init_cyber_timer(void) {
+AINFO<<"(DMCZP) EnteringMethod: init_cyber_timer";
 AINFO<<"(DMCZP) EnteringMethod: init_cyber_timer";
   AINFO << "init _cyber_timer";
   Py_InitModule("_cyber_timer", _cyber_timer_methods);

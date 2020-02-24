@@ -1,3 +1,4 @@
+#include "cyber/common/log.h"
 /******************************************************************************
  * Copyright 2018 The Apollo Authors. All Rights Reserved.
  *
@@ -30,6 +31,7 @@ Transport::Transport()
       shm_dispatcher_(nullptr),
       rtps_dispatcher_(nullptr) {
 AINFO<<"(DMCZP) EnteringMethod: Transport::Transport";
+AINFO<<"(DMCZP) EnteringMethod: Transport::Transport";
   CreateParticipant();
   notifier_ = NotifierFactory::CreateNotifier();
   intra_dispatcher_ = IntraDispatcher::Instance();
@@ -41,6 +43,7 @@ AINFO<<"(DMCZP) EnteringMethod: Transport::Transport";
 Transport::~Transport() { Shutdown(); }
 
 void Transport::Shutdown() {
+AINFO<<"(DMCZP) EnteringMethod: Transport::Shutdown";
 AINFO<<"(DMCZP) EnteringMethod: Transport::Shutdown";
   if (is_shutdown_.exchange(true)) {
     return;
@@ -58,6 +61,7 @@ AINFO<<"(DMCZP) EnteringMethod: Transport::Shutdown";
 }
 
 void Transport::CreateParticipant() {
+AINFO<<"(DMCZP) EnteringMethod: Transport::CreateParticipant";
 AINFO<<"(DMCZP) EnteringMethod: Transport::CreateParticipant";
   std::string participant_name =
       common::GlobalData::Instance()->HostName() + "+" +

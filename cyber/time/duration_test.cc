@@ -1,3 +1,4 @@
+#include "cyber/common/log.h"
 /******************************************************************************
  * Copyright 2018 The Apollo Authors. All Rights Reserved.
  *
@@ -26,6 +27,7 @@ namespace cyber {
 
 TEST(DurationTest, constructor) {
 AINFO<<"(DMCZP) EnteringMethod: TEST";
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   Duration duration(100);
   EXPECT_EQ(100, duration.ToNanosecond());
 
@@ -42,6 +44,7 @@ AINFO<<"(DMCZP) EnteringMethod: TEST";
 }
 
 TEST(DurationTest, operators) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
 AINFO<<"(DMCZP) EnteringMethod: TEST";
   Duration d1(100);
   Duration d2(200);
@@ -62,6 +65,7 @@ AINFO<<"(DMCZP) EnteringMethod: TEST";
 }
 
 TEST(DurationTest, is_zero) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
 AINFO<<"(DMCZP) EnteringMethod: TEST";
   Duration duration;
   EXPECT_TRUE(duration.IsZero());

@@ -1,3 +1,4 @@
+#include "cyber/common/log.h"
 /******************************************************************************
  * Copyright 2018 The Apollo Authors. All Rights Reserved.
  *
@@ -20,12 +21,14 @@
 
 bool CommonComponentSample::Init() {
 AINFO<<"(DMCZP) EnteringMethod: CommonComponentSample::Init";
+AINFO<<"(DMCZP) EnteringMethod: CommonComponentSample::Init";
   AINFO << "Commontest component init";
   return true;
 }
 
 bool CommonComponentSample::Proc(const std::shared_ptr<Driver>& msg0,
                                  const std::shared_ptr<Driver>& msg1) {
+AINFO<<"(DMCZP) EnteringMethod: CommonComponentSample::Proc";
 AINFO<<"(DMCZP) EnteringMethod: CommonComponentSample::Proc";
   AINFO << "Start common component Proc [" << msg0->msg_id() << "] ["
         << msg1->msg_id() << "]";

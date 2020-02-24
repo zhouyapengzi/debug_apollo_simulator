@@ -24,8 +24,10 @@ namespace monitor {
 RecurrentRunner::RecurrentRunner(const std::string &name, const double interval)
     : name_(name), interval_(interval) {}
 AINFO<<"(DMCZP) EnteringMethod: RecurrentRunner::RecurrentRunner";
+AINFO<<"(DMCZP) EnteringMethod: RecurrentRunner::RecurrentRunner";
 
 void RecurrentRunner::Tick(const double current_time) {
+AINFO<<"(DMCZP) EnteringMethod: RecurrentRunner::Tick";
 AINFO<<"(DMCZP) EnteringMethod: RecurrentRunner::Tick";
   if (next_round_ <= current_time) {
     ++round_count_;

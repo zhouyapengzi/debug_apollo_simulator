@@ -1,3 +1,4 @@
+#include "cyber/common/log.h"
 /******************************************************************************
  * Copyright 2018 The Apollo Authors. All Rights Reserved.
  *
@@ -79,6 +80,7 @@ class WarehouseTest : public ::testing::Test {
 
 TEST_F(WarehouseTest, size) {
 AINFO<<"(DMCZP) EnteringMethod: TEST_F";
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   EXPECT_EQ(single_.Size(), key_num_);
   EXPECT_EQ(multi_.Size(), 2 * key_num_);
 
@@ -91,6 +93,7 @@ AINFO<<"(DMCZP) EnteringMethod: TEST_F";
 
 TEST_F(WarehouseTest, add) {
 AINFO<<"(DMCZP) EnteringMethod: TEST_F";
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   auto role = std::make_shared<RoleBase>();
   EXPECT_TRUE(single_.Add(key_num_, role, false));
   EXPECT_FALSE(single_.Add(key_num_, role, false));
@@ -100,6 +103,7 @@ AINFO<<"(DMCZP) EnteringMethod: TEST_F";
 }
 
 TEST_F(WarehouseTest, remove) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
 AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   // key
   single_.Remove(0);
@@ -153,6 +157,7 @@ AINFO<<"(DMCZP) EnteringMethod: TEST_F";
 }
 
 TEST_F(WarehouseTest, search) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
 AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   // key
   for (int i = 0; i < key_num_; ++i) {
@@ -259,6 +264,7 @@ AINFO<<"(DMCZP) EnteringMethod: TEST_F";
 }
 
 TEST_F(WarehouseTest, get_all_roles) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
 AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   // role vec
   std::vector<RolePtr> role_vec;

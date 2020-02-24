@@ -1,3 +1,4 @@
+#include "cyber/common/log.h"
 /******************************************************************************
  * Copyright 2017 The Apollo Authors. All Rights Reserved.
  *
@@ -23,6 +24,7 @@ namespace velodyne {
 Velodyne16Parser::Velodyne16Parser(const Config& config)
     : VelodyneParser(config), previous_packet_stamp_(0), gps_base_usec_(0) {
 AINFO<<"(DMCZP) EnteringMethod: Velodyne16Parser::Velodyne16Parser";
+AINFO<<"(DMCZP) EnteringMethod: Velodyne16Parser::Velodyne16Parser";
   inner_time_ = &velodyne::INNER_TIME_16;
   need_two_pt_correction_ = false;
 }
@@ -30,6 +32,7 @@ AINFO<<"(DMCZP) EnteringMethod: Velodyne16Parser::Velodyne16Parser";
 void Velodyne16Parser::GeneratePointcloud(
     const std::shared_ptr<VelodyneScan>& scan_msg,
     std::shared_ptr<PointCloud> out_msg) {
+AINFO<<"(DMCZP) EnteringMethod: Velodyne16Parser::GeneratePointcloud";
 AINFO<<"(DMCZP) EnteringMethod: Velodyne16Parser::GeneratePointcloud";
   // allocate a point cloud with same time and frame ID as raw data
   out_msg->mutable_header()->set_frame_id(scan_msg->header().frame_id());
@@ -57,6 +60,7 @@ AINFO<<"(DMCZP) EnteringMethod: Velodyne16Parser::GeneratePointcloud";
 uint64_t Velodyne16Parser::GetTimestamp(double base_time, float time_offset,
                                         uint16_t block_id) {
 AINFO<<"(DMCZP) EnteringMethod: Velodyne16Parser::GetTimestamp";
+AINFO<<"(DMCZP) EnteringMethod: Velodyne16Parser::GetTimestamp";
   double t = base_time - time_offset;
   uint64_t timestamp = Velodyne16Parser::GetGpsStamp(t, &previous_packet_stamp_,
                                                      &gps_base_usec_);
@@ -70,6 +74,7 @@ AINFO<<"(DMCZP) EnteringMethod: Velodyne16Parser::GetTimestamp";
  */
 void Velodyne16Parser::Unpack(const VelodynePacket& pkt,
                               std::shared_ptr<PointCloud> pc) {
+AINFO<<"(DMCZP) EnteringMethod: Velodyne16Parser::Unpack";
 AINFO<<"(DMCZP) EnteringMethod: Velodyne16Parser::Unpack";
   float azimuth_diff = 0.0f;
   float last_azimuth_diff = 0.0f;
@@ -162,6 +167,7 @@ AINFO<<"(DMCZP) EnteringMethod: Velodyne16Parser::Unpack";
 }
 
 void Velodyne16Parser::Order(std::shared_ptr<PointCloud> cloud) {
+AINFO<<"(DMCZP) EnteringMethod: Velodyne16Parser::Order";
 AINFO<<"(DMCZP) EnteringMethod: Velodyne16Parser::Order";
   int width = 16;
   cloud->set_width(width);

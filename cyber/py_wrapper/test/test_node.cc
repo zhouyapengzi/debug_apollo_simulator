@@ -1,3 +1,4 @@
+#include "cyber/common/log.h"
 /******************************************************************************
  * Copyright 2018 The Apollo Authors. All Rights Reserved.
  *
@@ -30,11 +31,13 @@ apollo::cyber::PyReader *pr = nullptr;
 
 int cbfun(const char *channel_name) {
 AINFO<<"(DMCZP) EnteringMethod: cbfun";
+AINFO<<"(DMCZP) EnteringMethod: cbfun";
   AINFO << "recv->[ " << channel_name << " ]";
   if (pr) AINFO << "read->[ " << pr->read() << " ]";
 }
 
 TEST(CyberNodeTest, create_reader) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
 AINFO<<"(DMCZP) EnteringMethod: TEST";
   EXPECT_TRUE(apollo::cyber::OK());
   apollo::cyber::proto::Chatter chat;
@@ -48,6 +51,7 @@ AINFO<<"(DMCZP) EnteringMethod: TEST";
 }
 
 TEST(CyberNodeTest, create_writer) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
 AINFO<<"(DMCZP) EnteringMethod: TEST";
   EXPECT_TRUE(apollo::cyber::OK());
   auto msgChat = std::make_shared<apollo::cyber::proto::Chatter>();
@@ -72,6 +76,7 @@ AINFO<<"(DMCZP) EnteringMethod: TEST";
 }
 
 int main(int argc, char **argv) {
+AINFO<<"(DMCZP) EnteringMethod: main";
 AINFO<<"(DMCZP) EnteringMethod: main";
   apollo::cyber::Init(argv[0]);
   testing::InitGoogleTest(&argc, argv);

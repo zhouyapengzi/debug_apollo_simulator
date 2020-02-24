@@ -1,3 +1,4 @@
+#include "cyber/common/log.h"
 /******************************************************************************
  * Copyright 2018 The Apollo Authors. All Rights Reserved.
  *
@@ -31,17 +32,20 @@ UltrasonicRadarMessageManager::UltrasonicRadarMessageManager(
     const std::shared_ptr<::apollo::cyber::Writer<Ultrasonic>> &writer)
     : entrance_num_(entrance_num), ultrasonic_radar_writer_(writer) {
 AINFO<<"(DMCZP) EnteringMethod: UltrasonicRadarMessageManager::UltrasonicRadarMessageManager";
+AINFO<<"(DMCZP) EnteringMethod: UltrasonicRadarMessageManager::UltrasonicRadarMessageManager";
   sensor_data_.mutable_ranges()->Resize(entrance_num_, 0.0);
 }
 
 void UltrasonicRadarMessageManager::set_can_client(
     std::shared_ptr<CanClient> can_client) {
 AINFO<<"(DMCZP) EnteringMethod: UltrasonicRadarMessageManager::set_can_client";
+AINFO<<"(DMCZP) EnteringMethod: UltrasonicRadarMessageManager::set_can_client";
   can_client_ = can_client;
 }
 
 void UltrasonicRadarMessageManager::Parse(const uint32_t message_id,
                                           const uint8_t *data, int32_t length) {
+AINFO<<"(DMCZP) EnteringMethod: UltrasonicRadarMessageManager::Parse";
 AINFO<<"(DMCZP) EnteringMethod: UltrasonicRadarMessageManager::Parse";
   if (message_id == 0x301) {
     sensor_data_.set_ranges(0, data[1]);

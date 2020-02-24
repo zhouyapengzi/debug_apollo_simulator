@@ -1,3 +1,4 @@
+#include "cyber/common/log.h"
 /******************************************************************************
  * Copyright 2018 The Apollo Authors. All Rights Reserved.
  *
@@ -48,6 +49,7 @@ std::mutex mutex;
 
 Scheduler* Instance() {
 AINFO<<"(DMCZP) EnteringMethod: Instance";
+AINFO<<"(DMCZP) EnteringMethod: Instance";
   Scheduler* obj = instance.load(std::memory_order_acquire);
   if (obj == nullptr) {
     std::lock_guard<std::mutex> lock(mutex);
@@ -78,6 +80,7 @@ AINFO<<"(DMCZP) EnteringMethod: Instance";
 }
 
 void CleanUp() {
+AINFO<<"(DMCZP) EnteringMethod: CleanUp";
 AINFO<<"(DMCZP) EnteringMethod: CleanUp";
   Scheduler* obj = instance.load(std::memory_order_acquire);
   if (obj != nullptr) {

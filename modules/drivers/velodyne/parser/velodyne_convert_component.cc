@@ -1,3 +1,4 @@
+#include "cyber/common/log.h"
 /******************************************************************************
  * Copyright 2017 The Apollo Authors. All Rights Reserved.
  *
@@ -28,6 +29,7 @@ namespace velodyne {
 
 bool VelodyneConvertComponent::Init() {
 AINFO<<"(DMCZP) EnteringMethod: VelodyneConvertComponent::Init";
+AINFO<<"(DMCZP) EnteringMethod: VelodyneConvertComponent::Init";
   Config velodyne_config;
   if (!GetProtoConfig(&velodyne_config)) {
     AWARN << "Load config failed, config file" << config_file_path_;
@@ -54,6 +56,7 @@ AINFO<<"(DMCZP) EnteringMethod: VelodyneConvertComponent::Init";
 
 bool VelodyneConvertComponent::Proc(
     const std::shared_ptr<VelodyneScan>& scan_msg) {
+AINFO<<"(DMCZP) EnteringMethod: VelodyneConvertComponent::Proc";
 AINFO<<"(DMCZP) EnteringMethod: VelodyneConvertComponent::Proc";
   std::shared_ptr<PointCloud> point_cloud_out = point_cloud_pool_->GetObject();
   if (point_cloud_out == nullptr) {

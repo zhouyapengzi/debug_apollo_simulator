@@ -1,3 +1,4 @@
+#include "cyber/common/log.h"
 #include "tf2/time.h"
 
 namespace tf2 {

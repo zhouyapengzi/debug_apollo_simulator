@@ -43,6 +43,7 @@ const char TEST_FILE[] = "viewer_test.record";
 void ConstructRecord(uint64_t msg_num, uint64_t begin_time,
                      uint64_t time_step) {
 AINFO<<"(DMCZP) EnteringMethod: ConstructRecord";
+AINFO<<"(DMCZP) EnteringMethod: ConstructRecord";
   RecordWriter writer;
   writer.SetSizeOfFileSegmentation(0);
   writer.SetIntervalOfFileSegmentation(0);
@@ -58,6 +59,7 @@ AINFO<<"(DMCZP) EnteringMethod: ConstructRecord";
 
 uint64_t CheckCount(RecordViewer viewer) {
 AINFO<<"(DMCZP) EnteringMethod: CheckCount";
+AINFO<<"(DMCZP) EnteringMethod: CheckCount";
   int i = 0;
   for (auto& msg : viewer) {
     if (msg.time >= 0) {
@@ -68,6 +70,7 @@ AINFO<<"(DMCZP) EnteringMethod: CheckCount";
 }
 
 TEST(RecordTest, iterator_test) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
 AINFO<<"(DMCZP) EnteringMethod: TEST";
   uint64_t msg_num = 200;
   uint64_t begin_time = 100000000;
@@ -110,6 +113,7 @@ AINFO<<"(DMCZP) EnteringMethod: TEST";
 }
 
 TEST(RecordTest, filter_test) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
 AINFO<<"(DMCZP) EnteringMethod: TEST";
   uint64_t msg_num = 200;
   uint64_t begin_time = 100000000;
@@ -161,6 +165,7 @@ AINFO<<"(DMCZP) EnteringMethod: TEST";
 }
 
 TEST(RecordTest, mult_iterator_test) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
 AINFO<<"(DMCZP) EnteringMethod: TEST";
   uint64_t msg_num = 200;
   uint64_t begin_time = 100000000;

@@ -1,3 +1,4 @@
+#include "cyber/common/log.h"
 /******************************************************************************
  * Copyright 2019 The Apollo Authors. All Rights Reserved.
  *
@@ -24,6 +25,7 @@ namespace message {
 
 TEST(MessageHeaderTest, magic_num) {
 AINFO<<"(DMCZP) EnteringMethod: TEST";
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   MessageHeader header;
   EXPECT_FALSE(header.is_magic_num_match(nullptr, 0));
   EXPECT_FALSE(header.is_magic_num_match("ABCD", 4));
@@ -33,6 +35,7 @@ AINFO<<"(DMCZP) EnteringMethod: TEST";
 }
 
 TEST(MessageHeaderTest, seq) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
 AINFO<<"(DMCZP) EnteringMethod: TEST";
   MessageHeader header;
   EXPECT_EQ(header.seq(), 0);
@@ -44,6 +47,7 @@ AINFO<<"(DMCZP) EnteringMethod: TEST";
 
 TEST(MessageHeaderTest, timestamp_ns) {
 AINFO<<"(DMCZP) EnteringMethod: TEST";
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   MessageHeader header;
   EXPECT_EQ(header.timestamp_ns(), 0);
   header.set_timestamp_ns(0xffffffff00000001UL);
@@ -53,6 +57,7 @@ AINFO<<"(DMCZP) EnteringMethod: TEST";
 }
 
 TEST(MessageHeaderTest, src_id) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
 AINFO<<"(DMCZP) EnteringMethod: TEST";
   MessageHeader header;
   EXPECT_EQ(header.src_id(), 0);
@@ -64,6 +69,7 @@ AINFO<<"(DMCZP) EnteringMethod: TEST";
 
 TEST(MessageHeaderTest, dst_id) {
 AINFO<<"(DMCZP) EnteringMethod: TEST";
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   MessageHeader header;
   EXPECT_EQ(header.dst_id(), 0);
   header.set_dst_id(0xffffffff00000001UL);
@@ -73,6 +79,7 @@ AINFO<<"(DMCZP) EnteringMethod: TEST";
 }
 
 TEST(MessageHeaderTest, msg_type) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
 AINFO<<"(DMCZP) EnteringMethod: TEST";
   MessageHeader header;
   std::string msg_type = header.msg_type();
@@ -86,6 +93,7 @@ AINFO<<"(DMCZP) EnteringMethod: TEST";
 }
 
 TEST(MessageHeaderTest, content_size) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
 AINFO<<"(DMCZP) EnteringMethod: TEST";
   MessageHeader header;
   EXPECT_EQ(header.content_size(), 0);
