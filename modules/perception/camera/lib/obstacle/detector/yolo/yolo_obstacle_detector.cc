@@ -152,11 +152,11 @@ AINFO<<"(DMCZP) EnteringMethod: YoloObstacleDetector::InitNet";
     return false;
   }
 
-AINFO<<"(pengzi) begin YOLO infer"<< std::this_thread::get_id();
+AINFO<<"(pengzi) begin YOLO infer. thread:"<< std::this_thread::get_id();
 
   inference_->Infer();
 
-  AINFO<<"(pengzi) finish YOLO infer" << std::this_thread::get_id();
+  AINFO<<"(pengzi) end YOLO infer. thread:" << std::this_thread::get_id();
   return true;
 }
 
@@ -359,13 +359,11 @@ AINFO<<"(DMCZP) EnteringMethod: YoloObstacleDetector::Detect";
 
   /////////////////////////// detection part ///////////////////////////
 
-  AINFO << "(pengzi) YOLO object detector begin infer"
-        << " thread: " << std::this_thread::get_id();
+  AINFO << "(pengzi) YOLO object detector begin infer. thread: " << std::this_thread::get_id();
 
   inference_->Infer();
 
-  AINFO << "(pengzi) YOLO object detector finish infer"
-        << " thread: " << std::this_thread::get_id();
+  AINFO << "(pengzi) YOLO object detector finish infer. thread: " << std::this_thread::get_id();
 
   AINFO << "Network Forward: " << static_cast<double>(timer.Toc()) * 0.001
         << "ms";
@@ -385,8 +383,7 @@ AINFO<<"(DMCZP) EnteringMethod: YoloObstacleDetector::Detect";
                &frame->detected_objects);
 
   // post processing
-    AINFO << "(pengzi) YOLO object detector post processing begin "
-        << " thread: " << std::this_thread::get_id();
+    AINFO << "(pengzi) YOLO object detector post processing begin thread: " << std::this_thread::get_id();
 
   int left_boundary =
       static_cast<int>(border_ratio_ * static_cast<float>(image_->cols()));
@@ -411,14 +408,11 @@ AINFO<<"(DMCZP) EnteringMethod: YoloObstacleDetector::Detect";
   }
   AINFO << "Post2: " << static_cast<double>(timer.Toc()) * 0.001 << "ms";
 
-   AINFO << "(pengzi) YOLO object detector post processing finish"
-        << " thread: " << std::this_thread::get_id();
+   AINFO << "(pengzi) YOLO object detector post processing finish. thread: " << std::this_thread::get_id();
 
   return true;
 }
 
- AINFO << "(pengzi) Register obstacle detector. "
-        << " thread: " << std::this_thread::get_id();
 
 REGISTER_OBSTACLE_DETECTOR(YoloObstacleDetector);
 

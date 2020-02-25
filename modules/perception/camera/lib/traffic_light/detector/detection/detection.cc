@@ -37,8 +37,7 @@ bool TrafficLightDetection::Init(
     const camera::TrafficLightDetectorInitOptions &options) {
 AINFO<<"(DMCZP) EnteringMethod: TrafficLightDetection::Init";
 
-   AINFO<< "(pengzi) traffic light detection ini. in method: TrafficLightDetection::Init(
-    const camera::TrafficLightDetectorInitOptions &options).. thread:"<<std::this_thread::get_id();
+   AINFO<< "(pengzi) traffic light detection ini. in method: TrafficLightDetection::Init(const camera::TrafficLightDetectorInitOptions &options).. thread:"<<std::this_thread::get_id();
 
   std::string proto_path = GetAbsolutePath(options.root_dir, options.conf_file);
   AINFO << "proto_path " << proto_path;
@@ -168,8 +167,7 @@ bool TrafficLightDetection::Inference(
     std::vector<base::TrafficLightPtr> *lights, DataProvider *data_provider) {
 AINFO<<"(DMCZP) EnteringMethod: TrafficLightDetection::Inference";
 
- AINFO<< "(pengzi) traffic light detection inference. in method: TrafficLightDetection::Inference(
-    std::vector<base::TrafficLightPtr> *lights, DataProvider *data_provider). thread:"<<std::this_thread::get_id();
+ AINFO<< "(pengzi) traffic light detection inference. in method: TrafficLightDetection::Inference(std::vector<base::TrafficLightPtr> *lights, DataProvider *data_provider). thread:"<<std::this_thread::get_id();
 
   if (cudaSetDevice(gpu_id_) != cudaSuccess) {
     AERROR << "Failed to set device to " << gpu_id_;
@@ -304,8 +302,7 @@ AINFO<<"(DMCZP) EnteringMethod: TrafficLightDetection::Detect";
 
   AINFO << "detection success";
 
-   AINFO << "(pengzi) traffic light detector: detection success. select box number:"
-        << detected_bboxes_.size() << std::this_thread::get_id();
+   AINFO << "(pengzi) traffic light detector: detection success. select box number:"<< detected_bboxes_.size() << std::this_thread::get_id();
 
   return true;
 }
@@ -317,11 +314,7 @@ bool TrafficLightDetection::SelectOutputBoxes(
     std::vector<base::TrafficLightPtr> *lights) {
 AINFO<<"(DMCZP) EnteringMethod: TrafficLightDetection::SelectOutputBoxes";
 
-       AINFO << "(pengzi) in method TrafficLightDetection::SelectOutputBoxes(
-    const std::vector<base::RectI> &crop_box_list,
-    const std::vector<float> &resize_scale_list_col,
-    const std::vector<float> &resize_scale_list_row,
-    std::vector<base::TrafficLightPtr> *lights). thread: " << std::this_thread::get_id();
+       AINFO << "(pengzi) in method TrafficLightDetection::SelectOutputBoxes(const std::vector<base::RectI> &crop_box_list,const std::vector<float> &resize_scale_list_col,const std::vector<float> &resize_scale_list_row,std::vector<base::TrafficLightPtr> *lights). thread: " << std::this_thread::get_id();
 
 
   auto output_blob = rt_net_->get_blob(net_outputs_[0]);

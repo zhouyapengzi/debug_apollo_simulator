@@ -61,8 +61,7 @@ void ObstacleReference::UpdateReference(const CameraFrame *frame,
                                         const std::vector<Target> &targets) {
 AINFO<<"(DMCZP) EnteringMethod: ObstacleReference::UpdateReference";
 
-  AINFO<<"(pengzi) void ObstacleReference::UpdateReference(const CameraFrame *frame,
-                                        const std::vector<Target> &targets). thread:"<< std::this_thread::get_id();  
+  AINFO<<"(pengzi) void ObstacleReference::UpdateReference(const CameraFrame *frame, const std::vector<Target> &targets). thread:"<< std::this_thread::get_id();  
 
   std::string sensor = frame->data_provider->sensor_name();
   SyncGroundEstimator(sensor, frame->camera_k_matrix,

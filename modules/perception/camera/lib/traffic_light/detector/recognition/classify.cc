@@ -119,8 +119,7 @@ void ClassifyBySimple::Perform(const CameraFrame* frame,
                                std::vector<base::TrafficLightPtr>* lights) {
 AINFO<<"(DMCZP) EnteringMethod: ClassifyBySimple::Perform";
 
-   AINFO<<"(pengzi) in method: ClassifyBySimple::Perform(const CameraFrame* frame,
-                               std::vector<base::TrafficLightPtr>* lights)"  << ". thread:"<<std::this_thread::get_id();
+   AINFO<<"(pengzi) in method: ClassifyBySimple::Perform(const CameraFrame* frame,std::vector<base::TrafficLightPtr>* lights)"  << ". thread:"<<std::this_thread::get_id();
 
   if (cudaSetDevice(gpu_id_) != cudaSuccess) {
     AERROR << "Failed to set device to " << gpu_id_;

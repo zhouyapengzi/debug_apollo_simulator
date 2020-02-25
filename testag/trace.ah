@@ -1,0 +1,50 @@
+#ifndef __trace_ah__
+ #define __trace_ah__
+
+#include <cstdio>
+#include <iostream>
+using namespace std;
+
+template <int I> struct ArgPrinter 
+{
+  template <class JP> static inline void work (JP &tjp) {
+    ArgPrinter<I - 1>::work (tjp);
+    cout << "Arg " << I << ": " << *tjp.template arg<I - 1> () << endl;
+  }
+};    
+
+template <> struct ArgPrinter<0> 
+{
+  template <class JP> static inline void work (JP &tjp) {}
+};
+
+// Control flow tracing example
+
+    aspect trace {
+
+
+            pointcut virtual methods() = "% ...::%(...)";
+
+    template <class JP> void print_args (JP &tjp) 
+        {
+             ArgPrinter<JP::ARGS>::work (tjp);
+        }
+
+        advice execution (methods()) : before () 
+    {
+                cout << "entering: " << JoinPoint::signature() << endl;
+            tjp->arg(0);
+        print_args (*tjp);
+
+
+        }
+
+    advice execution("% ...::%(...)" && !"void ...::%(...)") : after() 
+    {   
+            JoinPoint::Result res = *tjp->result();
+            cout << "leaving " << tjp->signature()<< " << returning value--" << res<<endl;
+    }
+
+
+};
+  #endif
