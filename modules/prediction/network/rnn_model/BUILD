@@ -12,7 +12,8 @@ cc_library(
     ],
     deps = [
         "//modules/prediction/network:net_model",
-    ],
+"//cyber/common:log",    
+],
 )
 
 cc_test(
@@ -25,6 +26,7 @@ cc_test(
         "//modules/prediction:prediction_data",
     ],
     deps = [
+"//cyber/common:log",
         "//modules/prediction/network/rnn_model",
         "@gtest//:main",
     ],

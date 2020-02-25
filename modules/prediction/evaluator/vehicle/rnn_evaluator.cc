@@ -135,7 +135,7 @@ void RNNEvaluator::LoadModel(const std::string& model_file) {
   model_ptr_ = network::RnnModel::Instance();
   model_ptr_->LoadModel(net_parameter);
 
-  AINFO << "(pengzi) RNN. model parameter: " << net_parameter  << " thread:"<<std::this_thread::get_id();  
+  AINFO << "(pengzi) RNN. store model to message and pointed with model_ptr_.  thread:"<<std::this_thread::get_id();  
 }
 
 int RNNEvaluator::ExtractFeatureValues(
@@ -180,7 +180,6 @@ int RNNEvaluator::ExtractFeatureValues(
 
    AINFO<<"(pengzi) RNN. extract feature. obstacle feature size:"
         << obstacle_features.size()
-        << "obstacle feature: " << obstacle_features
         << " thread:"<<std::this_thread::get_id();
 
   return 0;

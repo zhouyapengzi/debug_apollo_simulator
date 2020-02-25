@@ -181,7 +181,7 @@ void JunctionMapEvaluator::LoadModel() {
   //   ADEBUG << "CUDA is available for JunctionMapEvaluator!";
   //   device_ = torch::Device(torch::kCUDA);
   // }
-  AINFO<<"(pengzi) junction map evaluator. begin load moodel. "
+  AINFO<<"(pengzi) junction map evaluator. begin load moodel. ";
   torch::set_num_threads(1);
   torch_model_ptr_ =
       torch::jit::load(FLAGS_torch_vehicle_junction_map_file, device_);

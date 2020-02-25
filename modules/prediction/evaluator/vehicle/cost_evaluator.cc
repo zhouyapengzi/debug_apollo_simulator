@@ -16,7 +16,7 @@
 
 #include "modules/prediction/evaluator/vehicle/cost_evaluator.h"
 #include "modules/prediction/common/prediction_util.h"
-
+#include<thread>
 namespace apollo {
 namespace prediction {
 
