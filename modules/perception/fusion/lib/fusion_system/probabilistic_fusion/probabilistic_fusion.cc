@@ -40,7 +40,6 @@ namespace fusion {
 using cyber::common::GetAbsolutePath;
 
 ProbabilisticFusion::ProbabilisticFusion() {}
-AINFO<<"(DMCZP) EnteringMethod: ProbabilisticFusion::ProbabilisticFusion";
 
 ProbabilisticFusion::~ProbabilisticFusion() {}
 
@@ -163,7 +162,6 @@ AINFO<<"(DMCZP) EnteringMethod: ProbabilisticFusion::Fuse";
 }
 
 std::string ProbabilisticFusion::Name() const { return "ProbabilisticFusion"; }
-AINFO<<"(DMCZP) EnteringMethod: ProbabilisticFusion::Name";
 
 bool ProbabilisticFusion::IsPublishSensor(
     const base::FrameConstPtr& sensor_frame) const {

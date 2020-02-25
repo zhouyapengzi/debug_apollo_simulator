@@ -22,7 +22,6 @@ namespace fusion {
 
 InformationFilter::InformationFilter()
     : BaseFilter("InformationFilter"), last_observation_init_(false) {}
-AINFO<<"(DMCZP) EnteringMethod: InformationFilter::InformationFilter";
 
 bool InformationFilter::Init(const Eigen::VectorXd &global_states,
                              const Eigen::MatrixXd &global_uncertainty) {

@@ -21,7 +21,6 @@ namespace perception {
 namespace base {
 
 Polynomial::Polynomial() { coeff_[0] = 0.0; }
-AINFO<<"(DMCZP) EnteringMethod: Polynomial::Polynomial";
 Polynomial::~Polynomial() {}
 
 const std::map<uint32_t, double>& Polynomial::getCoeff() const {

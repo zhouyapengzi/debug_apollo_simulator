@@ -91,7 +91,6 @@ AINFO<<"(DMCZP) EnteringMethod: ProjectFeature::Extract";
 }
 
 std::string ProjectFeature::Name() const { return "ProjectFeature"; }
-AINFO<<"(DMCZP) EnteringMethod: ProjectFeature::Name";
 
 REGISTER_FEATURE_EXTRACTOR(ProjectFeature);
 }  // namespace camera

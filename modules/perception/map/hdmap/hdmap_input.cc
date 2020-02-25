@@ -43,7 +43,6 @@ using base::RoadBoundary;
 // HDMapInput
 
 HDMapInput::HDMapInput() {}
-AINFO<<"(DMCZP) EnteringMethod: HDMapInput::HDMapInput";
 
 bool HDMapInput::Init() {
 AINFO<<"(DMCZP) EnteringMethod: HDMapInput::Init";

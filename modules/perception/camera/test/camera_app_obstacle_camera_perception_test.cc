@@ -23,16 +23,12 @@ DEFINE_int32(height, 1080, "image height");
 DEFINE_int32(width, 1920, "image width");
 
 namespace apollo {
-AINFO<<"(DMCZP) EnteringMethod: DEFINE_int32";
-AINFO<<"(DMCZP) EnteringMethod: DEFINE_int32";
 namespace perception {
 namespace common {
 DECLARE_string(obs_sensor_meta_path);
 DECLARE_string(obs_sensor_intrinsic_path);
 }  // namespace common
 namespace camera {
-AINFO<<"(DMCZP) EnteringMethod: DECLARE_string";
-AINFO<<"(DMCZP) EnteringMethod: DECLARE_string";
 TEST(ObstacleCameraPerceptionTest, init_all_test) {
 AINFO<<"(DMCZP) EnteringMethod: TEST";
   unsetenv("MODULE_PATH");

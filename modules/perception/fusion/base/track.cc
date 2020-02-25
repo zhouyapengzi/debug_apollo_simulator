@@ -26,7 +26,6 @@ double Track::s_max_radar_invisible_period_ = 0.50;   // in second
 double Track::s_max_camera_invisible_period_ = 0.75;  // in second
 
 Track::Track() { fused_object_.reset(new FusedObject()); }
-AINFO<<"(DMCZP) EnteringMethod: Track::Track";
 
 bool Track::Initialize(SensorObjectPtr obj, bool is_background) {
 AINFO<<"(DMCZP) EnteringMethod: Track::Initialize";
@@ -310,7 +309,6 @@ AINFO<<"(DMCZP) EnteringMethod: Track::UpdateWithSensorObjectForBackground";
 
 void Track::UpdateWithoutSensorObjectForBackground(
     const std::string& sensor_id, double measurement_timestamp) {}
-AINFO<<"(DMCZP) EnteringMethod: Track::UpdateWithoutSensorObjectForBackground";
 
 std::string Track::DebugString() const {
 AINFO<<"(DMCZP) EnteringMethod: Track::DebugString";

@@ -41,8 +41,6 @@ namespace inference {
 void RTNet::ConstructMap(const LayerParameter &layer_param,
                          nvinfer1::ILayer *layer, TensorMap *tensor_map,
                          TensorModifyMap *tensor_modify_map) {
-AINFO<<"(DMCZP) EnteringMethod: RTNet::ConstructMap";
-AINFO<<"(DMCZP) EnteringMethod: RTNet::addConvLayer";
   for (int i = 0; i < layer_param.top_size(); i++) {
     std::string top_name = layer_param.top(i);
     TensorModifyMap::iterator it;
@@ -123,9 +121,6 @@ void RTNet::addDeconvLayer(const LayerParameter &layer_param,
                            nvinfer1::INetworkDefinition *net,
                            TensorMap *tensor_map,
                            TensorModifyMap *tensor_modify_map) {
-AINFO<<"(DMCZP) EnteringMethod: RTNet::addDeconvLayer";
-AINFO<<"(DMCZP) EnteringMethod: RTNet::addActiveLayer";
-AINFO<<"(DMCZP) EnteringMethod: RTNet::addConcatLayer";
 
   AINFO << "(pengzi)RTNet::addDeconvLayer. thread:" << std::this_thread::get_id(); 
 
@@ -133,7 +128,6 @@ AINFO<<"(DMCZP) EnteringMethod: RTNet::addConcatLayer";
   ConvParam param;
   ParserConvParam(conv, &param);
   nvinfer1::IDeconvolutionLayer *deconvLayer = nullptr;
-AINFO<<"(DMCZP) EnteringMethod: RTNet::addArgmaxLayer";
   if ((*weight_map)[layer_param.name().c_str()].size() == 2) {
     deconvLayer =
         net->addDeconvolution(*inputs[0], conv.num_output(),
@@ -219,11 +213,6 @@ AINFO<<"(DMCZP) EnteringMethod: RTNet::addPoolingLayer";
   nvinfer1::PoolingType pool_type =
       (pool.pool() == PoolingParameter_PoolMethod_MAX)
           ? nvinfer1::PoolingType::kMAX
-AINFO<<"(DMCZP) EnteringMethod: RTNet::addSoftmaxLayer";
-AINFO<<"(DMCZP) EnteringMethod: RTNet::addEltwiseLayer";
-AINFO<<"(DMCZP) EnteringMethod: RTNet::addPermuteLayer";
-AINFO<<"(DMCZP) EnteringMethod: RTNet::addReshapeLayer";
-AINFO<<"(DMCZP) EnteringMethod: RTNet::addPaddingLayer";
           : nvinfer1::PoolingType::kAVERAGE;
   CHECK(modify_pool_param(&pool));
   nvinfer1::IPoolingLayer *poolLayer = net->addPooling(
@@ -570,8 +559,6 @@ RTNet::RTNet(const std::string &net_file, const std::string &model_file,
              const std::vector<std::string> &outputs,
              const std::vector<std::string> &inputs)
     : output_names_(outputs), input_names_(inputs) {
-AINFO<<"(DMCZP) EnteringMethod: RTNet::RTNet";
-AINFO<<"(DMCZP) EnteringMethod: RTNet::RTNet";
 AINFO<<"(DMCZP) EnteringMethod: RTNet::RTNet";
   loadWeights(model_file, &weight_map_);
   net_param_.reset(new NetParameter);

@@ -49,14 +49,6 @@ DEFINE_bool(use_tracking_info, false, "option to use tracking info");
 DEFINE_string(sensor_name, "velodyne64", "sensor name");
 
 namespace apollo {
-AINFO<<"(DMCZP) EnteringMethod: DEFINE_string";
-AINFO<<"(DMCZP) EnteringMethod: DEFINE_string";
-AINFO<<"(DMCZP) EnteringMethod: DEFINE_string";
-AINFO<<"(DMCZP) EnteringMethod: DEFINE_bool";
-AINFO<<"(DMCZP) EnteringMethod: DEFINE_double";
-AINFO<<"(DMCZP) EnteringMethod: DEFINE_bool";
-AINFO<<"(DMCZP) EnteringMethod: DEFINE_bool";
-AINFO<<"(DMCZP) EnteringMethod: DEFINE_string";
 namespace perception {
 namespace lidar {
 

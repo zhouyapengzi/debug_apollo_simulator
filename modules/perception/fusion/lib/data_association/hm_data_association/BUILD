@@ -36,7 +36,7 @@ cc_library(
     hdrs = [
         "probabilities.h",
     ],
-    dep=[
+    deps=[
         "//cyber/common:log",
     ],
 )
@@ -46,7 +46,7 @@ cc_library(
     hdrs = [
         "projection_cache.h",
     ],
-    dep = [
+    deps = [
         "//cyber/common:log",
     ],
     

@@ -21,7 +21,6 @@ namespace perception {
 namespace fusion {
 
 SensorFrame::SensorFrame() { header_.reset(new SensorFrameHeader()); }
-AINFO<<"(DMCZP) EnteringMethod: SensorFrame::SensorFrame";
 
 SensorFrame::SensorFrame(const base::FrameConstPtr& base_frame_ptr) {
 AINFO<<"(DMCZP) EnteringMethod: SensorFrame::SensorFrame";

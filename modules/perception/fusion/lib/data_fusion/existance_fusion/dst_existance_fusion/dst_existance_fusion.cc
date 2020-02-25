@@ -43,7 +43,6 @@ DstExistanceFusion::DstExistanceFusion(TrackPtr track)
     : BaseExistanceFusion(track),
       fused_toic_(toic_name_),
       fused_existance_(name_) {}
-AINFO<<"(DMCZP) EnteringMethod: DstExistanceFusion::DstExistanceFusion";
 
 bool DstExistanceFusion::Init() {
 AINFO<<"(DMCZP) EnteringMethod: DstExistanceFusion::Init";
@@ -206,8 +205,6 @@ AINFO<<"(DMCZP) EnteringMethod: DstExistanceFusion::ComputeDistDecay";
 
 double DstExistanceFusion::ComputeFeatureInfluence(
     const SensorObjectPtr measurement) {
-AINFO<<"(DMCZP) EnteringMethod: DstExistanceFusion::ComputeFeatureInfluence";
-AINFO<<"(DMCZP) EnteringMethod: DstExistanceFusion::GetExistReliability";
   double velocity = measurement->GetBaseObject()->velocity.norm();
   auto sigmoid_fun = [](double velocity) {
     return 1.0 / (1.0 + exp(-velocity));
@@ -352,7 +349,6 @@ AINFO<<"(DMCZP) EnteringMethod: DstExistanceFusion::UpdateToicWithCameraMeasurem
 }
 
 std::string DstExistanceFusion::Name() const { return name_; }
-AINFO<<"(DMCZP) EnteringMethod: DstExistanceFusion::Name";
 
 double DstExistanceFusion::GetExistanceProbability() const {
 AINFO<<"(DMCZP) EnteringMethod: DstExistanceFusion::GetExistanceProbability";

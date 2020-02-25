@@ -38,7 +38,6 @@ AINFO<<"(DMCZP) EnteringMethod: RadarTrackManager::RemoveLostTracks";
 }
 
 void RadarTrackManager::ClearTracks() { tracks_.clear(); }
-AINFO<<"(DMCZP) EnteringMethod: RadarTrackManager::ClearTracks";
 
 }  // namespace radar
 }  // namespace perception

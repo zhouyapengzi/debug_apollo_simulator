@@ -34,20 +34,6 @@ DEFINE_string(camera_intrinsics_yaml, "params/front_6mm_intrinsics.yaml",
               "camera intrinsics_yaml");
 
 namespace apollo {
-AINFO<<"(DMCZP) EnteringMethod: DEFINE_string";
-AINFO<<"(DMCZP) EnteringMethod: DEFINE_string";
-AINFO<<"(DMCZP) EnteringMethod: DEFINE_string";
-AINFO<<"(DMCZP) EnteringMethod: DEFINE_string";
-AINFO<<"(DMCZP) EnteringMethod: DEFINE_string";
-AINFO<<"(DMCZP) EnteringMethod: DEFINE_string";
-AINFO<<"(DMCZP) EnteringMethod: DEFINE_bool";
-AINFO<<"(DMCZP) EnteringMethod: DEFINE_bool";
-AINFO<<"(DMCZP) EnteringMethod: DEFINE_bool";
-AINFO<<"(DMCZP) EnteringMethod: DEFINE_bool";
-AINFO<<"(DMCZP) EnteringMethod: DEFINE_bool";
-AINFO<<"(DMCZP) EnteringMethod: DEFINE_bool";
-AINFO<<"(DMCZP) EnteringMethod: DEFINE_string";
-AINFO<<"(DMCZP) EnteringMethod: DEFINE_string";
 namespace perception {
 namespace camera {
 // show detect point_set
@@ -61,9 +47,7 @@ AINFO<<"(DMCZP) EnteringMethod: show_detect_point_set";
 
   cv::Mat draw_mat = image.clone();
   for (size_t line_idx = 0; line_idx < detect_laneline_point_set.size();
-AINFO<<"(DMCZP) EnteringMethod: show_detect_point_set";
        ++line_idx) {
-AINFO<<"(DMCZP) EnteringMethod: show_detect_point_set";
     if (line_idx == 0) {
       color = cv::Scalar(0, 255, 0);
     } else if (line_idx == 1) {

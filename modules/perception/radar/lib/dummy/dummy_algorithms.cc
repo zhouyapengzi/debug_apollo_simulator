@@ -23,7 +23,6 @@ namespace radar {
 void DummyDetector::ContiObs2Frame(
     const drivers::ContiRadar& corrected_obstacles,
     base::FramePtr radar_frame) {
-AINFO<<"(DMCZP) EnteringMethod: DummyDetector::ContiObs2Frame";
   for (const auto& radar_obs : corrected_obstacles.contiobs()) {
     base::ObjectPtr radar_object(new base::Object);
     radar_object->id = radar_obs.obstacle_id();
@@ -76,7 +75,6 @@ AINFO<<"(DMCZP) EnteringMethod: DummyDetector::ContiObs2Frame";
 }
 
 bool DummyPreprocessor::Init() { return true; }
-AINFO<<"(DMCZP) EnteringMethod: DummyPreprocessor::Init";
 bool DummyPreprocessor::Preprocess(const drivers::ContiRadar& raw_obstacles,
                                    const PreprocessorOptions& options,
                                    drivers::ContiRadar* corrected_obstacles) {
@@ -86,10 +84,8 @@ AINFO<<"(DMCZP) EnteringMethod: DummyPreprocessor::Preprocess";
   return true;
 }
 std::string DummyPreprocessor::Name() const { return "DummyPreprocessor"; }
-AINFO<<"(DMCZP) EnteringMethod: DummyPreprocessor::Name";
 
 bool DummyDetector::Init() { return true; }
-AINFO<<"(DMCZP) EnteringMethod: DummyDetector::Init";
 bool DummyDetector::Detect(const drivers::ContiRadar& corrected_obstacles,
                            const DetectorOptions& options,
                            base::FramePtr detected_frame) {
@@ -98,17 +94,14 @@ AINFO<<"(DMCZP) EnteringMethod: DummyDetector::Detect";
   return true;
 }
 std::string DummyDetector::Name() const { return "DummyDetector"; }
-AINFO<<"(DMCZP) EnteringMethod: DummyDetector::Name";
 
 bool DummyRoiFilter::Init() { return true; }
-AINFO<<"(DMCZP) EnteringMethod: DummyRoiFilter::Init";
 bool DummyRoiFilter::RoiFilter(const RoiFilterOptions& options,
                                base::FramePtr radar_frame) {
 AINFO<<"(DMCZP) EnteringMethod: DummyRoiFilter::RoiFilter";
   return true;
 }
 std::string DummyRoiFilter::Name() const { return "DummyRoiFilter"; }
-AINFO<<"(DMCZP) EnteringMethod: DummyRoiFilter::Name";
 
 PERCEPTION_REGISTER_PREPROCESSOR(DummyPreprocessor);
 PERCEPTION_REGISTER_ROI_FILTER(DummyRoiFilter);

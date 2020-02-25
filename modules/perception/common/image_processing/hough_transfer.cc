@@ -32,7 +32,6 @@ HoughTransfer::HoughTransfer()
       vote_map_(),
       query_map_(),
       distribute_map_() {}
-AINFO<<"(DMCZP) EnteringMethod: HoughTransfer::HoughTransfer";
 
 // step1
 // @brief: initiate

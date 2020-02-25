@@ -21,7 +21,6 @@ namespace perception {
 namespace fusion {
 
 KalmanFilter::KalmanFilter() : BaseFilter("KalmanFilter") {}
-AINFO<<"(DMCZP) EnteringMethod: KalmanFilter::KalmanFilter";
 
 bool KalmanFilter::Init(const Eigen::VectorXd &initial_belief_states,
                         const Eigen::MatrixXd &initial_uncertainty) {
@@ -148,7 +147,6 @@ AINFO<<"(DMCZP) EnteringMethod: KalmanFilter::SetControlMatrix";
 }
 
 Eigen::VectorXd KalmanFilter::GetStates() const { return global_states_; }
-AINFO<<"(DMCZP) EnteringMethod: KalmanFilter::GetStates";
 
 Eigen::MatrixXd KalmanFilter::GetUncertainty() const {
 AINFO<<"(DMCZP) EnteringMethod: KalmanFilter::GetUncertainty";

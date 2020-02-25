@@ -27,8 +27,6 @@ DECLARE_string(obs_sensor_intrinsic_path);
 }  // namespace common
 
 namespace camera {
-AINFO<<"(DMCZP) EnteringMethod: DECLARE_string";
-AINFO<<"(DMCZP) EnteringMethod: DECLARE_string";
 
 TEST(DataProvider, test_image_options) {
 AINFO<<"(DMCZP) EnteringMethod: TEST";

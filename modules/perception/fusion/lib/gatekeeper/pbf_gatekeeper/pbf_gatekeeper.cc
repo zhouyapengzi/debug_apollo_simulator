@@ -29,7 +29,6 @@ namespace fusion {
 using cyber::common::GetAbsolutePath;
 
 PbfGatekeeper::PbfGatekeeper() {}
-AINFO<<"(DMCZP) EnteringMethod: PbfGatekeeper::PbfGatekeeper";
 
 PbfGatekeeper::~PbfGatekeeper() {}
 
@@ -67,7 +66,6 @@ AINFO<<"(DMCZP) EnteringMethod: PbfGatekeeper::Init";
 }
 
 std::string PbfGatekeeper::Name() const { return "PbfGatekeeper"; }
-AINFO<<"(DMCZP) EnteringMethod: PbfGatekeeper::Name";
 
 bool PbfGatekeeper::AbleToPublish(const TrackPtr &track) {
 AINFO<<"(DMCZP) EnteringMethod: PbfGatekeeper::AbleToPublish";

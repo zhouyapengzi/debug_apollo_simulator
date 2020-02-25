@@ -287,7 +287,6 @@ AINFO<<"(DMCZP) EnteringMethod: SemanticReviser::Track";
 }
 
 std::string SemanticReviser::Name() const { return "SemanticReviser"; }
-AINFO<<"(DMCZP) EnteringMethod: SemanticReviser::Name";
 
 REGISTER_TRAFFIC_LIGHT_TRACKER(SemanticReviser);
 

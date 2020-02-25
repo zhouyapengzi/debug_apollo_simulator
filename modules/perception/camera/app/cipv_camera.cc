@@ -27,7 +27,6 @@ namespace apollo {
 namespace perception {
 
 Cipv::Cipv() {}
-AINFO<<"(DMCZP) EnteringMethod: Cipv::Cipv";
 
 Cipv::~Cipv() {}
 
@@ -37,7 +36,6 @@ bool Cipv::Init(const Eigen::Matrix3d &homography_im2car,
                 const float max_vehicle_width_in_meter,
                 const float average_frame_rate, const bool image_based_cipv,
                 const int debug_devel) {
-AINFO<<"(DMCZP) EnteringMethod: Cipv::Init";
   b_image_based_cipv_ = image_based_cipv;
   debug_level_ =
       debug_devel;  // 0: no debug message
@@ -170,7 +168,6 @@ AINFO<<"(DMCZP) EnteringMethod: Cipv::MakeVirtualLane";
 float Cipv::VehicleDynamics(const uint32_t tick, const float yaw_rate,
                             const float velocity, const float time_unit,
                             float *x, float *y) {
-AINFO<<"(DMCZP) EnteringMethod: Cipv::VehicleDynamics";
 AINFO<<"(DMCZP) EnteringMethod: Cipv::VehicleDynamics";
   // Option 1. Straight model;
   // *x = time_unit * velocity * static_cast<float>(tick);
@@ -1124,7 +1121,6 @@ AINFO<<"(DMCZP) EnteringMethod: Cipv::ground2image";
 }
 
 std::string Cipv::Name() const { return "Cipv"; }
-AINFO<<"(DMCZP) EnteringMethod: Cipv::Name";
 
 // Register plugin.
 // REGISTER_CIPV(Cipv);

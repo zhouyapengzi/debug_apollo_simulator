@@ -30,10 +30,8 @@ namespace camera {
 
 int Target::global_track_id = 0;
 int Target::Size() const { return static_cast<int>(tracked_objects.size()); }
-AINFO<<"(DMCZP) EnteringMethod: Target::Size";
 
 void Target::Clear() { tracked_objects.clear(); }
-AINFO<<"(DMCZP) EnteringMethod: Target::Clear";
 
 TrackObjectPtr Target::operator[](int index) const { return get_object(index); }
 TrackObjectPtr Target::get_object(int index) const {
@@ -108,10 +106,8 @@ AINFO<<"(DMCZP) EnteringMethod: Target::Init";
   object_template_manager_ = ObjectTemplateManager::Instance();
 }
 Target::Target(const omt::TargetParam &param) { Init(param); }
-AINFO<<"(DMCZP) EnteringMethod: Target::Target";
 
 void Target::Predict(CameraFrame *frame) {
-AINFO<<"(DMCZP) EnteringMethod: Target::Predict";
 
    AINFO<<"(pengzi) predict target. in method: Target::Predict(CameraFrame *frame). thread:"<< std::this_thread::get_id();
 
@@ -510,7 +506,6 @@ AINFO<<"(DMCZP) EnteringMethod: Target::isTracked";
   return Size() >= target_param_.tracked_life();
 }
 bool Target::isLost() const { return lost_age > 0; }
-AINFO<<"(DMCZP) EnteringMethod: Target::isLost";
 
 }  // namespace camera
 }  // namespace perception

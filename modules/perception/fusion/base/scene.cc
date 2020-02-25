@@ -21,7 +21,6 @@ namespace perception {
 namespace fusion {
 
 Scene::Scene() {}
-AINFO<<"(DMCZP) EnteringMethod: Scene::Scene";
 
 Scene::~Scene() {}
 

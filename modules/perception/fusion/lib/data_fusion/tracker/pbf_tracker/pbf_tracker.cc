@@ -39,7 +39,6 @@ std::string PbfTracker::s_motion_fusion_method_ =  // NOLINT
 std::string PbfTracker::s_shape_fusion_method_ = "PbfShapeFusion";  // NOLINT
 
 PbfTracker::PbfTracker() {}
-AINFO<<"(DMCZP) EnteringMethod: PbfTracker::PbfTracker";
 
 PbfTracker::~PbfTracker() {}
 
@@ -150,7 +149,6 @@ AINFO<<"(DMCZP) EnteringMethod: PbfTracker::UpdateWithoutMeasurement";
 }
 
 std::string PbfTracker::Name() const { return "PbfTracker"; }
-AINFO<<"(DMCZP) EnteringMethod: PbfTracker::Name";
 
 }  // namespace fusion
 }  // namespace perception

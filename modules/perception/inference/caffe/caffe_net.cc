@@ -26,9 +26,7 @@ namespace inference {
 CaffeNet::CaffeNet(const std::string &net_file, const std::string &model_file,
                    const std::vector<std::string> &outputs)
     : net_file_(net_file), model_file_(model_file), output_names_(outputs) {}
-AINFO<<"(DMCZP) EnteringMethod: CaffeNet::CaffeNet";
 
-AINFO<<"(DMCZP) EnteringMethod: CaffeNet::CaffeNet";
 bool CaffeNet::Init(const std::map<std::string, std::vector<int>> &shapes) {
 AINFO<<"(DMCZP) EnteringMethod: CaffeNet::Init";
 

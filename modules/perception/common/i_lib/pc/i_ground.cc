@@ -1313,7 +1313,6 @@ AINFO<<"(DMCZP) EnteringMethod: PlaneFitGroundDetector::Detect";
 }
 
 const char *PlaneFitGroundDetector::GetLabel() const { return labels_; }
-AINFO<<"(DMCZP) EnteringMethod: *PlaneFitGroundDetector::GetLabel";
 
 const VoxelGridXY<float> *PlaneFitGroundDetector::GetGrid() const {
   return vg_coarse_;
@@ -1333,12 +1332,10 @@ AINFO<<"(DMCZP) EnteringMethod: PlaneFitGroundDetector::GetGridDimX";
 }
 
 const unsigned int PlaneFitGroundDetector::GetGridDimY() const {
-AINFO<<"(DMCZP) EnteringMethod: PlaneFitGroundDetector::GetGridDimY";
   return vg_coarse_->NrVoxelY();
 }
 
 float PlaneFitGroundDetector::GetUnknownHeight() { return FLT_MAX; }
-AINFO<<"(DMCZP) EnteringMethod: PlaneFitGroundDetector::GetUnknownHeight";
 
 PlaneFitPointCandIndices **PlaneFitGroundDetector::GetCandis() const {
 AINFO<<"(DMCZP) EnteringMethod: **PlaneFitGroundDetector::GetCandis";

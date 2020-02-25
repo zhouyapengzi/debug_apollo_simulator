@@ -22,10 +22,11 @@ cc_library(
     ],
     hdrs = [
         "disjoint_set.h",
-        "//cyber/common:log",
-    ],
+],
+    deps =[
+   "//cyber/common:log",
+],
 )
-
 cc_test(
     name = "disjoint_set_test",
     size = "small",

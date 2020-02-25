@@ -26,7 +26,8 @@ cc_library(
     ],
     deps = [
         "//modules/perception/base:point_cloud",
-    ],
+"//cyber/common:log",    
+],
 )
 
 cc_test(
@@ -38,6 +39,7 @@ cc_test(
     deps = [
         ":cloud_mask",
         "@gtest//:main",
+"//cyber/common:log",
     ],
 )
 
@@ -74,7 +76,7 @@ cc_library(
     deps = [
         ":lidar_log",
         "//modules/perception/base",
-    ],
+"//cyber/common:log",    ],
 )
 
 cc_library(
@@ -88,7 +90,8 @@ cc_library(
     deps = [
         ":lidar_log",
         "//modules/perception/base",
-    ],
+"//cyber/common:log",    
+],
 )
 
 cc_library(

@@ -142,7 +142,6 @@ AINFO<<"(DMCZP) EnteringMethod: ContiArsTracker::UpdateUnassignedTracks";
 }
 
 void ContiArsTracker::DeleteLostTracks() { track_manager_->RemoveLostTracks(); }
-AINFO<<"(DMCZP) EnteringMethod: ContiArsTracker::DeleteLostTracks";
 
 void ContiArsTracker::CreateNewTracks(
     const base::Frame &radar_frame,

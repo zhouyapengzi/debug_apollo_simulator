@@ -34,7 +34,6 @@ using apollo::perception::base::SensorOrientation;
 using apollo::perception::base::SensorType;
 
 SensorManager::SensorManager() { CHECK_EQ(this->Init(), true); }
-AINFO<<"(DMCZP) EnteringMethod: SensorManager::SensorManager";
 
 bool SensorManager::Init() {
 AINFO<<"(DMCZP) EnteringMethod: SensorManager::Init";

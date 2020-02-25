@@ -28,7 +28,6 @@ AINFO<<"(DMCZP) EnteringMethod: CarPose::Init";
 }
 
 const Eigen::Matrix4d CarPose::getCarPose() const { return pose_; }
-AINFO<<"(DMCZP) EnteringMethod: CarPose::getCarPose";
 
 const Eigen::Vector3d CarPose::getCarPosition() const {
 AINFO<<"(DMCZP) EnteringMethod: CarPose::getCarPosition";

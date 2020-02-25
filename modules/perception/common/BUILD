@@ -12,6 +12,7 @@ cc_library(
     ],
     deps = [
         "//external:gflags",
+        "//cyber/common:log",
     ],
 )
 

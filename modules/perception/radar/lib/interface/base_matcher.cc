@@ -29,7 +29,6 @@ AINFO<<"(DMCZP) EnteringMethod: BaseMatcher::SetMaxMatchDistance";
 }
 
 double BaseMatcher::GetMaxMatchDistance() { return s_max_match_distance_; }
-AINFO<<"(DMCZP) EnteringMethod: BaseMatcher::GetMaxMatchDistance";
 
 void BaseMatcher::SetBoundMatchDistance(double dist) {
 AINFO<<"(DMCZP) EnteringMethod: BaseMatcher::SetBoundMatchDistance";
@@ -37,7 +36,6 @@ AINFO<<"(DMCZP) EnteringMethod: BaseMatcher::SetBoundMatchDistance";
 }
 
 double BaseMatcher::GetBoundMatchDistance() { return s_bound_match_distance_; }
-AINFO<<"(DMCZP) EnteringMethod: BaseMatcher::GetBoundMatchDistance";
 
 void BaseMatcher::IDMatch(const std::vector<RadarTrackPtr> &radar_tracks,
                           const base::Frame &radar_frame,

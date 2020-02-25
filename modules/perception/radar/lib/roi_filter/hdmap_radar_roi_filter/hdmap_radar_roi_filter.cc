@@ -31,7 +31,6 @@ AINFO<<"(DMCZP) EnteringMethod: HdmapRadarRoiFilter::RoiFilter";
 }
 
 std::string HdmapRadarRoiFilter::Name() const { return "HdmapRadarRoiFilter"; }
-AINFO<<"(DMCZP) EnteringMethod: HdmapRadarRoiFilter::Name";
 
 PERCEPTION_REGISTER_ROI_FILTER(HdmapRadarRoiFilter);
 

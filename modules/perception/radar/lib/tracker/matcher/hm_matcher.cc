@@ -29,7 +29,6 @@ namespace radar {
 using cyber::common::GetAbsolutePath;
 
 HMMatcher::HMMatcher() { name_ = "HMMatcher"; }
-AINFO<<"(DMCZP) EnteringMethod: HMMatcher::HMMatcher";
 
 HMMatcher::~HMMatcher() {}
 

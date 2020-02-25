@@ -46,7 +46,6 @@ std::vector<base::ObjectSubType> kTypeRefinedByRef = {
     base::ObjectSubType::TRICYCLIST};
 
 ObjectTemplateManager::ObjectTemplateManager() {}
-AINFO<<"(DMCZP) EnteringMethod: ObjectTemplateManager::ObjectTemplateManager";
 
 bool ObjectTemplateManager::Init(
     const ObjectTemplateManagerInitOptions &options) {

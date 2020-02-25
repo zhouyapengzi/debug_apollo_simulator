@@ -42,21 +42,6 @@ DEFINE_string(transformer_conf, "config.pt", "transformer config");
 DEFINE_string(dist_type, "", "dist pred type: H-on-h, H-from-h");
 
 namespace apollo {
-AINFO<<"(DMCZP) EnteringMethod: DEFINE_string";
-AINFO<<"(DMCZP) EnteringMethod: DEFINE_string";
-AINFO<<"(DMCZP) EnteringMethod: DEFINE_string";
-AINFO<<"(DMCZP) EnteringMethod: DEFINE_string";
-AINFO<<"(DMCZP) EnteringMethod: DEFINE_string";
-AINFO<<"(DMCZP) EnteringMethod: DEFINE_string";
-AINFO<<"(DMCZP) EnteringMethod: DEFINE_int32";
-AINFO<<"(DMCZP) EnteringMethod: DEFINE_int32";
-AINFO<<"(DMCZP) EnteringMethod: DEFINE_string";
-AINFO<<"(DMCZP) EnteringMethod: DEFINE_string";
-AINFO<<"(DMCZP) EnteringMethod: DEFINE_string";
-AINFO<<"(DMCZP) EnteringMethod: DEFINE_string";
-AINFO<<"(DMCZP) EnteringMethod: DEFINE_string";
-AINFO<<"(DMCZP) EnteringMethod: DEFINE_string";
-AINFO<<"(DMCZP) EnteringMethod: DEFINE_string";
 namespace perception {
 namespace camera {
 

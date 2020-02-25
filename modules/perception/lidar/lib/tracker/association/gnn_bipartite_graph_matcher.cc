@@ -27,16 +27,12 @@ namespace lidar {
 
 MatchCost::MatchCost(size_t ridx, size_t cidx, double cost)
     : row_idx_(ridx), col_idx_(cidx), cost_(cost) {}
-AINFO<<"(DMCZP) EnteringMethod: MatchCost::MatchCost";
 
 size_t MatchCost::RowIdx() const { return row_idx_; }
-AINFO<<"(DMCZP) EnteringMethod: MatchCost::RowIdx";
 
 size_t MatchCost::ColIdx() const { return col_idx_; }
-AINFO<<"(DMCZP) EnteringMethod: MatchCost::ColIdx";
 
 double MatchCost::Cost() const { return cost_; }
-AINFO<<"(DMCZP) EnteringMethod: MatchCost::Cost";
 
 bool operator<(const MatchCost& m1, const MatchCost& m2) {
   return m1.cost_ < m2.cost_;

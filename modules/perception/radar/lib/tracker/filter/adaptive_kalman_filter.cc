@@ -23,7 +23,6 @@ namespace radar {
 double AdaptiveKalmanFilter::s_q_matrix_ratio_ = 0.074;
 
 AdaptiveKalmanFilter::AdaptiveKalmanFilter() { name_ = "AdaptiveKalmanFilter"; }
-AINFO<<"(DMCZP) EnteringMethod: AdaptiveKalmanFilter::AdaptiveKalmanFilter";
 AdaptiveKalmanFilter::~AdaptiveKalmanFilter() {}
 void AdaptiveKalmanFilter::Init(const base::Object& object) {
 AINFO<<"(DMCZP) EnteringMethod: AdaptiveKalmanFilter::Init";

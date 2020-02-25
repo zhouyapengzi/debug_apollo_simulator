@@ -24,7 +24,6 @@ namespace perception {
 namespace fusion {
 
 SensorDataManager::SensorDataManager() { CHECK_EQ(this->Init(), true); }
-AINFO<<"(DMCZP) EnteringMethod: SensorDataManager::SensorDataManager";
 
 bool SensorDataManager::Init() {
 AINFO<<"(DMCZP) EnteringMethod: SensorDataManager::Init";

@@ -34,7 +34,6 @@ PERCEPTION_REGISTER_REGISTERER(BaseClass);
   PERCEPTION_REGISTER_CLASS(BaseClass, name)
 
 class DerivedClass1 : BaseClass {
-AINFO<<"(DMCZP) EnteringMethod: PERCEPTION_REGISTER_REGISTERER";
  public:
   DerivedClass1() = default;
   ~DerivedClass1() = default;
@@ -44,7 +43,6 @@ PERCEPTION_REGISTER_TEST(DerivedClass1);
 
 TEST(RegistererTest, Test) {
 AINFO<<"(DMCZP) EnteringMethod: PERCEPTION_REGISTER_TEST";
-AINFO<<"(DMCZP) EnteringMethod: TEST";
   BaseClass* ptr = nullptr;
   ptr = BaseClassRegisterer::GetInstanceByName("DerivedClass1");
   ASSERT_TRUE(ptr != nullptr);

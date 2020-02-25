@@ -23,7 +23,6 @@ namespace perception {
 namespace radar {
 
 bool ContiArsDetector::Init() { return true; }
-AINFO<<"(DMCZP) EnteringMethod: ContiArsDetector::Init";
 
 bool ContiArsDetector::Detect(const drivers::ContiRadar& corrected_obstacles,
                               const DetectorOptions& options,
@@ -36,7 +35,6 @@ AINFO<<"(DMCZP) EnteringMethod: ContiArsDetector::Detect";
 }
 
 std::string ContiArsDetector::Name() const { return "ContiArsDetector"; }
-AINFO<<"(DMCZP) EnteringMethod: ContiArsDetector::Name";
 
 void ContiArsDetector::RawObs2Frame(
     const drivers::ContiRadar& corrected_obstacles,

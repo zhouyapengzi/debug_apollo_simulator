@@ -22,10 +22,8 @@ namespace perception {
 namespace lidar {
 const int TrackData::kMaxHistorySize = 40;
 TrackData::TrackData() { Reset(); }
-AINFO<<"(DMCZP) EnteringMethod: TrackData::TrackData";
 
 TrackData::TrackData(TrackedObjectPtr obj, int track_id) {}
-AINFO<<"(DMCZP) EnteringMethod: TrackData::TrackData";
 
 TrackData::~TrackData() {}
 

@@ -47,10 +47,8 @@ AINFO<<"(DMCZP) EnteringMethod: TEST";
 }
 
 TEST(DummyDataAssociationTest, test) {}
-AINFO<<"(DMCZP) EnteringMethod: TEST";
 
 TEST(DummyTrackerTest, test) {}
-AINFO<<"(DMCZP) EnteringMethod: TEST";
 
 }  // namespace fusion
 }  // namespace perception

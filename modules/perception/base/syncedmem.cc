@@ -64,8 +64,6 @@ license and copyright terms herein.
 #include "modules/perception/base/syncedmem.h"
 
 namespace apollo {
-AINFO<<"(DMCZP) EnteringMethod: Copyright";
-AINFO<<"(DMCZP) EnteringMethod: Copyright";
 namespace perception {
 namespace base {
 
@@ -78,7 +76,6 @@ SyncedMemory::SyncedMemory(bool use_cuda)
       cpu_malloc_use_cuda_(use_cuda),
       own_gpu_data_(false),
       device_(-1) {
-AINFO<<"(DMCZP) EnteringMethod: SyncedMemory::SyncedMemory";
 AINFO<<"(DMCZP) EnteringMethod: SyncedMemory::SyncedMemory";
 #ifndef PERCEPTION_CPU_ONLY
 #ifdef PERCEPTION_DEBUG

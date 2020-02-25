@@ -83,19 +83,14 @@ AINFO<<"(DMCZP) EnteringMethod: RadarTrack::SetObsRadarNullptr";
 }
 
 base::ObjectPtr RadarTrack::GetObsRadar() { return obs_radar_; }
-AINFO<<"(DMCZP) EnteringMethod: RadarTrack::GetObsRadar";
 
 base::ObjectPtr RadarTrack::GetObs() { return obs_; }
-AINFO<<"(DMCZP) EnteringMethod: RadarTrack::GetObs";
 
 int RadarTrack::GetObsId() const { return obs_id_; }
-AINFO<<"(DMCZP) EnteringMethod: RadarTrack::GetObsId";
 
 double RadarTrack::GetTimestamp() { return timestamp_; }
-AINFO<<"(DMCZP) EnteringMethod: RadarTrack::GetTimestamp";
 
 double RadarTrack::GetTrackingTime() { return tracking_time_; }
-AINFO<<"(DMCZP) EnteringMethod: RadarTrack::GetTrackingTime";
 }  // namespace radar
 }  // namespace perception
 }  // namespace apollo

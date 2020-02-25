@@ -79,7 +79,6 @@ AINFO<<"(DMCZP) EnteringMethod: OMTObstacleTracker::Init";
 }
 
 std::string OMTObstacleTracker::Name() const { return "OMTObstacleTracker"; }
-AINFO<<"(DMCZP) EnteringMethod: OMTObstacleTracker::Name";
 
 // @description combine targets using iou after association
 bool OMTObstacleTracker::CombineDuplicateTargets() {
@@ -369,7 +368,6 @@ bool OMTObstacleTracker::Associate2D(const ObstacleTrackerOptions &options,
                                      CameraFrame *frame) {
 AINFO<<"(DMCZP) EnteringMethod: OMTObstacleTracker::Associate2D";
   AINFO<<"(pengzi) OMTObstacleTracker::Associate2D(). thread:"<< std::this_thread::get_id();                                     
-AINFO<<"(DMCZP) EnteringMethod: OMTObstacleTracker::Associate3D";
   inference::CudaUtil::set_device_id(gpu_id_);
   frame_list_.Add(frame);
   for (int t = 0; t < frame_list_.Size(); t++) {

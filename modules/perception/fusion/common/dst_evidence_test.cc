@@ -171,13 +171,9 @@ class DSTEvidenceTest : public ::testing::Test {
   std::vector<double> fused_prob_vec_;
 };
 TEST_F(DSTEvidenceTest, assign_dst_test) { DSTEvidenceTest::assign_dst_test(); }
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
 TEST_F(DSTEvidenceTest, add_dst_test1) { DSTEvidenceTest::add_dst_test1(); }
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
 TEST_F(DSTEvidenceTest, add_dst_test2) { DSTEvidenceTest::add_dst_test2(); }
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
 TEST_F(DSTEvidenceTest, multipy_dst_test) {
-AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   DSTEvidenceTest::multipy_dst_test();
 }
 

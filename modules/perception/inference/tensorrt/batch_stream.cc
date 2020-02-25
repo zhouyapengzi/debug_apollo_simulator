@@ -42,7 +42,6 @@ AINFO<<"(DMCZP) EnteringMethod: BatchStream::BatchStream";
 }
 
 BatchStream::BatchStream() : mPath("") {}
-AINFO<<"(DMCZP) EnteringMethod: BatchStream::BatchStream";
 
 void BatchStream::reset(int firstBatch) {
 AINFO<<"(DMCZP) EnteringMethod: BatchStream::reset";

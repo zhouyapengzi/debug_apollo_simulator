@@ -85,7 +85,6 @@ AINFO<<"(DMCZP) EnteringMethod: KalmanFilterConstVelocity::Correct";
 }
 
 Eigen::Vector4d KalmanFilterConstVelocity::get_state() const { return state_; }
-AINFO<<"(DMCZP) EnteringMethod: KalmanFilterConstVelocity::get_state";
 void KalmanFilterConstVelocity::MagicPosition(const Eigen::VectorXd &pos) {
 AINFO<<"(DMCZP) EnteringMethod: KalmanFilterConstVelocity::MagicPosition";
   state_(0) = pos(0);
@@ -150,7 +149,6 @@ AINFO<<"(DMCZP) EnteringMethod: ExtendedKalmanFilter::Correct";
 }
 
 Eigen::Vector4d ExtendedKalmanFilter::get_state() const { return state_; }
-AINFO<<"(DMCZP) EnteringMethod: ExtendedKalmanFilter::get_state";
 
 void MeanFilter::SetWindow(int window) {
 AINFO<<"(DMCZP) EnteringMethod: MeanFilter::SetWindow";
@@ -188,10 +186,8 @@ AINFO<<"(DMCZP) EnteringMethod: MeanFilter::AddMeasure";
 }
 
 const Eigen::VectorXd &MeanFilter::get_state() const { return state_; }
-AINFO<<"(DMCZP) EnteringMethod: &MeanFilter::get_state";
 
 const Eigen::MatrixXd &MeanFilter::get_variance() const { return variance_; }
-AINFO<<"(DMCZP) EnteringMethod: &MeanFilter::get_variance";
 
 void FirstOrderRCLowPassFilter::SetAlpha(float alpha) {
 AINFO<<"(DMCZP) EnteringMethod: FirstOrderRCLowPassFilter::SetAlpha";
@@ -211,7 +207,6 @@ AINFO<<"(DMCZP) EnteringMethod: FirstOrderRCLowPassFilter::AddMeasure";
 }
 
 Eigen::VectorXd FirstOrderRCLowPassFilter::get_state() const { return state_; }
-AINFO<<"(DMCZP) EnteringMethod: FirstOrderRCLowPassFilter::get_state";
 
 struct {
   bool operator()(Eigen::VectorXd a, Eigen::VectorXd b) const {
@@ -244,7 +239,6 @@ AINFO<<"(DMCZP) EnteringMethod: MaxNMeanFilter::get_state";
   return x;
 }
 void MaxNMeanFilter::Clear() { measures_.clear(); }
-AINFO<<"(DMCZP) EnteringMethod: MaxNMeanFilter::Clear";
 }  // namespace camera
 }  // namespace perception
 }  // namespace apollo

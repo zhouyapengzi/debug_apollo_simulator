@@ -49,12 +49,10 @@ bool TLPreprocessor::UpdateCameraSelection(
     std::vector<base::TrafficLightPtr> *lights) {
 AINFO<<"(DMCZP) EnteringMethod: TLPreprocessor::UpdateCameraSelection";
   const double &timestamp = pose.getTimestamp();
-AINFO<<"(DMCZP) EnteringMethod: TLPreprocessor::UpdateLightsProjection";
   selected_camera_name_.first = timestamp;
   selected_camera_name_.second = GetMaxFocalLenWorkingCameraName();
 
   AINFO << "TLPreprocessor Got signal number: " << lights->size()
-AINFO<<"(DMCZP) EnteringMethod: TLPreprocessor::ProjectLightsAndSelectCamera";
         << ", ts: " << std::to_string(timestamp);
   if (lights->empty()) {
     AINFO << "No signals, select camera with max focal length: "
@@ -335,7 +333,6 @@ AINFO<<"(DMCZP) EnteringMethod: TLPreprocessor::GetAlllightsOutsideFlag";
 }
 
 std::string TLPreprocessor::Name() const { return "TLPreprocessor"; }
-AINFO<<"(DMCZP) EnteringMethod: TLPreprocessor::Name";
 
 std::string TLPreprocessor::GetMinFocalLenWorkingCameraName() const {
 AINFO<<"(DMCZP) EnteringMethod: TLPreprocessor::GetMinFocalLenWorkingCameraName";

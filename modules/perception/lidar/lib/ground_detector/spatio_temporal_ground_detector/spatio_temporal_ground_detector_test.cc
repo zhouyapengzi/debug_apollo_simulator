@@ -31,8 +31,6 @@ DECLARE_string(config_manager_path);
 }  // namespace lib
 
 namespace lidar {
-AINFO<<"(DMCZP) EnteringMethod: DECLARE_string";
-AINFO<<"(DMCZP) EnteringMethod: DECLARE_string";
 
 bool LoadPCDFile(const std::string& file_path, base::PointFCloudPtr cloud_out) {
 AINFO<<"(DMCZP) EnteringMethod: LoadPCDFile";

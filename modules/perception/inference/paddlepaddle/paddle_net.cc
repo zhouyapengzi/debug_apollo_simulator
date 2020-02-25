@@ -30,9 +30,7 @@ PaddleNet::PaddleNet(const std::string &model_file,
     : model_file_(model_file),
       param_file_(param_file),
       output_names_(outputs) {}
-AINFO<<"(DMCZP) EnteringMethod: PaddleNet::PaddleNet";
 
-AINFO<<"(DMCZP) EnteringMethod: PaddleNet::PaddleNet";
 bool PaddleNet::Init(const std::map<std::string, std::vector<int>> &shapes) {
 AINFO<<"(DMCZP) EnteringMethod: PaddleNet::Init";
   paddle::AnalysisConfig config;

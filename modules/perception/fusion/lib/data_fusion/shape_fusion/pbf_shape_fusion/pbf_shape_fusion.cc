@@ -24,7 +24,6 @@ bool PbfShapeFusion::s_use_camera_3d_ = true;
 float PbfShapeFusion::s_camera_radar_time_diff_th_ = 0.3f;
 
 bool PbfShapeFusion::Init() { return true; }
-AINFO<<"(DMCZP) EnteringMethod: PbfShapeFusion::Init";
 
 void PbfShapeFusion::UpdateWithMeasurement(const SensorObjectPtr measurement,
                                            double target_timestamp) {
@@ -70,7 +69,6 @@ AINFO<<"(DMCZP) EnteringMethod: PbfShapeFusion::UpdateWithoutMeasurement";
 }
 
 std::string PbfShapeFusion::Name() const { return "PbfShapeFusion"; }
-AINFO<<"(DMCZP) EnteringMethod: PbfShapeFusion::Name";
 
 void PbfShapeFusion::UpdateState(const SensorObjectConstPtr& measurement) {
 AINFO<<"(DMCZP) EnteringMethod: PbfShapeFusion::UpdateState";

@@ -69,8 +69,6 @@ license and copyright terms herein.
 #include "modules/perception/base/test/test_helper.h"
 
 namespace apollo {
-AINFO<<"(DMCZP) EnteringMethod: Copyright";
-AINFO<<"(DMCZP) EnteringMethod: Copyright";
 namespace perception {
 namespace base {
 

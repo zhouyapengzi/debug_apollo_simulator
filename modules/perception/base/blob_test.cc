@@ -69,8 +69,6 @@ license and copyright terms herein.
 #include "modules/perception/base/test/test_helper.h"
 
 namespace apollo {
-AINFO<<"(DMCZP) EnteringMethod: Copyright";
-AINFO<<"(DMCZP) EnteringMethod: Copyright";
 namespace perception {
 namespace base {
 
@@ -148,7 +146,6 @@ class BlobSimpleTest : public ::testing::Test {
 TYPED_TEST_CASE(BlobSimpleTest, TestDtypes);
 
 TYPED_TEST(BlobSimpleTest, TestInitialization) {
-AINFO<<"(DMCZP) EnteringMethod: TYPED_TEST_CASE";
 AINFO<<"(DMCZP) EnteringMethod: TYPED_TEST";
   EXPECT_TRUE(this->blob_);
   EXPECT_TRUE(this->blob_preshaped_);

@@ -47,7 +47,6 @@ using apollo::cyber::common::GetProtoFromFile;
 using Eigen::MatrixXf;
 
 NCut::NCut() {}
-AINFO<<"(DMCZP) EnteringMethod: NCut::NCut";
 NCut::~NCut() { ADEBUG << "NCut destructor done"; }
 
 bool NCut::Init(const NCutParam &param) {

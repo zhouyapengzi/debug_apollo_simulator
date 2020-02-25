@@ -206,7 +206,6 @@ AINFO<<"(DMCZP) EnteringMethod: DstTypeFusion::UpdateWithoutMeasurement";
 }
 
 std::string DstTypeFusion::Name() const { return name_; }
-AINFO<<"(DMCZP) EnteringMethod: DstTypeFusion::Name";
 
 bool DstTypeFusion::TypToHyp(size_t object_type,
                              uint64_t *hypothesis_type) const {

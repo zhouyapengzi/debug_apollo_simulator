@@ -30,7 +30,6 @@ ThreadPool::ThreadPool(int num_workers)
       num_available_workers_(num_workers),
       task_queue_(num_workers),
       started_(false) {
-AINFO<<"(DMCZP) EnteringMethod: ThreadPool::ThreadPool";
   workers_.reserve(num_workers_);
   for (int idx = 0; idx < num_workers_; ++idx) {
     ThreadPoolWorker *worker = new ThreadPoolWorker(this);
@@ -62,7 +61,6 @@ AINFO<<"(DMCZP) EnteringMethod: ThreadPool::Start";
 }
 
 void ThreadPool::Add(Closure *closure) { task_queue_.Push(closure); }
-AINFO<<"(DMCZP) EnteringMethod: ThreadPool::Add";
 
 void ThreadPool::Add(const vector<Closure *> &closures) {
 AINFO<<"(DMCZP) EnteringMethod: ThreadPool::Add";

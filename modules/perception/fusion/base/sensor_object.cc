@@ -28,9 +28,6 @@ namespace fusion {
 SensorObject::SensorObject(
     const std::shared_ptr<const base::Object>& object_ptr)
     : object_(object_ptr), frame_header_(nullptr) {}
-AINFO<<"(DMCZP) EnteringMethod: SensorObject::SensorObject";
-AINFO<<"(DMCZP) EnteringMethod: SensorObject::SensorObject";
-AINFO<<"(DMCZP) EnteringMethod: SensorObject::SensorObject";
 
 SensorObject::SensorObject(
     const std::shared_ptr<const base::Object>& object_ptr,

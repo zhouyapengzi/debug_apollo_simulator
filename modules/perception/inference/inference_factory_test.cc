@@ -27,7 +27,6 @@ namespace perception {
 namespace inference {
 
 TEST(Inference_Factory, default) {}
-AINFO<<"(DMCZP) EnteringMethod: TEST";
 
 }  // namespace inference
 }  // namespace perception
