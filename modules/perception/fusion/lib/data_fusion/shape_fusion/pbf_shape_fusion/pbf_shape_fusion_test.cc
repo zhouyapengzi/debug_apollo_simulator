@@ -1,3 +1,4 @@
+#include "cyber/common/log.h"
 /******************************************************************************
  * Copyright 2018 The Apollo Authors. All Rights Reserved.
  *
@@ -31,6 +32,7 @@ using SensorInfoPtr = std::shared_ptr<perception::base::SensorInfo>;
 using FramePtr = std::shared_ptr<perception::base::Frame>;
 
 TEST(PbfShapeFusion, lidar_track) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   FLAGS_work_root =
       "/apollo/modules/perception/testdata/fusion/pbf_shape_fusion";
   FLAGS_obs_sensor_meta_path = "./data/sensor_meta.pt";
@@ -165,6 +167,7 @@ TEST(PbfShapeFusion, lidar_track) {
 }
 
 TEST(PbfShapeFusion, radar_track) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   FLAGS_work_root =
       "/apollo/modules/perception/testdata/fusion/pbf_shape_fusion";
   FLAGS_obs_sensor_meta_path = "./conf/sensor_meta.config";
@@ -341,6 +344,7 @@ TEST(PbfShapeFusion, radar_track) {
 }
 
 TEST(PbfShapeFusion, camera_track) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   FLAGS_work_root =
       "/apollo/modules/perception/testdata/fusion/pbf_shape_fusion";
   FLAGS_obs_sensor_meta_path = "./conf/sensor_meta.config";

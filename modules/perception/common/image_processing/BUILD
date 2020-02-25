@@ -6,6 +6,9 @@ cc_library(
     name = "hough_transfer",
     srcs = ["hough_transfer.cc"],
     hdrs = ["hough_transfer.h"],
+    deps = [
+        "//cyber/common:log",
+    ],
 )
 
 cc_test(
@@ -17,6 +20,7 @@ cc_test(
     deps = [
         ":hough_transfer",
         "@gtest//:main",
+        "//cyber/common:log",
     ],
 )
 

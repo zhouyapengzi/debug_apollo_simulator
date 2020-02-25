@@ -32,6 +32,7 @@ cc_test(
     deps = [
         ":config_manager",
         "@gtest//:main",
+        "//cyber/common:log",
     ],
 )
 

@@ -33,6 +33,7 @@ cc_library(
         "//modules/perception/camera/lib/lane/common:darkSCNN_proto",
         "//modules/perception/lib/registerer",
         "//modules/perception/lib/utils",
+        "//cyber/common:log",
     ],
 )
 

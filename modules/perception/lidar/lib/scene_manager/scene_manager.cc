@@ -1,3 +1,4 @@
+#include "cyber/common/log.h"
 /******************************************************************************
  * Copyright 2018 The Apollo Authors. All Rights Reserved.
  *
@@ -28,6 +29,7 @@ namespace lidar {
 using cyber::common::GetAbsolutePath;
 
 bool SceneManager::InitInternal(const SceneManagerInitOptions& options) {
+AINFO<<"(DMCZP) EnteringMethod: SceneManager::InitInternal";
   if (initialized_) {
     return true;
   }
@@ -62,12 +64,14 @@ bool SceneManager::InitInternal(const SceneManagerInitOptions& options) {
 }
 
 bool SceneManager::Init(const SceneManagerInitOptions& options) {
+AINFO<<"(DMCZP) EnteringMethod: SceneManager::Init";
   std::lock_guard<std::mutex> lock(mutex_);
   bool status = InitInternal(options);
   return status;
 }
 
 bool SceneManager::Reset(const SceneManagerInitOptions& options) {
+AINFO<<"(DMCZP) EnteringMethod: SceneManager::Reset";
   std::lock_guard<std::mutex> lock(mutex_);
   initialized_ = false;
   bool status = InitInternal(options);
@@ -75,6 +79,7 @@ bool SceneManager::Reset(const SceneManagerInitOptions& options) {
 }
 
 SceneServicePtr SceneManager::Service(const std::string& name) {
+AINFO<<"(DMCZP) EnteringMethod: SceneManager::Service";
   auto iter = services_.find(name);
   if (iter == services_.end()) {
     return nullptr;

@@ -34,6 +34,7 @@ cc_library(
         "//modules/perception/camera/lib/lane/common:denseline_proto",
         "//modules/perception/lib/registerer",
         "//modules/perception/lib/utils",
+        "//cyber/common:log",
     ],
 )
 

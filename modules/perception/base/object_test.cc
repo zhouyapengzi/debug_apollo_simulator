@@ -1,3 +1,4 @@
+#include "cyber/common/log.h"
 /******************************************************************************
  * Copyright 2018 The Apollo Authors. All Rights Reserved.
  *
@@ -22,6 +23,7 @@ namespace perception {
 namespace base {
 
 TEST(ObjectTest, object_construct_test) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   Object object;
 
   EXPECT_EQ(object.id, -1);
@@ -49,6 +51,7 @@ TEST(ObjectTest, object_construct_test) {
 }
 
 TEST(ObjectTest, object_reset_test) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   Object object;
   std::string str_obj = object.ToString();
 

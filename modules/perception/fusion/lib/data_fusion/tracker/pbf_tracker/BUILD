@@ -18,6 +18,7 @@ cc_library(
         "//modules/perception/fusion/lib/data_fusion/type_fusion/dst_type_fusion",
         "//modules/perception/fusion/lib/interface",
         "//modules/perception/proto:pbf_tracker_config_proto",
+        "//cyber/common:log",
     ],
 )
 
@@ -31,6 +32,7 @@ cc_test(
         ":pbf_tracker",
         "//modules/perception/common:perception_gflags",
         "@gtest//:main",
+        "//cyber/common:log",
     ],
 )
 

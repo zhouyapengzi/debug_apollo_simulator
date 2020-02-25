@@ -1,3 +1,4 @@
+#include "cyber/common/log.h"
 /******************************************************************************
  * Copyright 2018 The Apollo Authors. All Rights Reserved.
  *
@@ -22,6 +23,7 @@ namespace perception {
 namespace lib {
 
 TEST(ThreadWorkerTest, ThreadWorkerTest1) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   int count = 0;
   ThreadWorker worker;
   worker.Bind([&]() {
@@ -39,6 +41,7 @@ TEST(ThreadWorkerTest, ThreadWorkerTest1) {
 }
 
 TEST(ThreadWorkerTest, ThreadWorkerTest2) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   int count = 0;
   ThreadWorker worker;
   worker.Bind([&]() {

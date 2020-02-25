@@ -20,6 +20,7 @@ cc_library(
         "//modules/perception/fusion/common:kalman_filter",
         "//modules/perception/fusion/lib/interface",
         "//modules/perception/lib/registerer",
+        "//cyber/common:log",
     ],
 )
 

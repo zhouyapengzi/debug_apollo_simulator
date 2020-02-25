@@ -21,6 +21,7 @@ cc_library(
         "//modules/perception/fusion/lib/interface",
         "//modules/perception/lib/config_manager",
         "//modules/perception/proto:dst_type_fusion_config_proto",
+        "//cyber/common:log",
     ],
 )
 
@@ -36,6 +37,7 @@ cc_test(
         "//modules/perception/base:frame",
         "//modules/perception/common:perception_gflags",
         "@gtest//:main",
+        "//cyber/common:log",
     ],
 )
 

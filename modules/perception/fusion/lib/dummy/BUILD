@@ -27,6 +27,7 @@ cc_test(
     deps = [
         ":dummy_algorithms",
         "@gtest//:main",
+        "//cyber/common:log",
     ],
 )
 

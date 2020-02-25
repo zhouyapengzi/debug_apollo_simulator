@@ -26,6 +26,7 @@ namespace inference {
 
 bool ReadProtoFromTextFile(const std::string &filename,
                            google::protobuf::Message *proto) {
+AINFO<<"(DMCZP) EnteringMethod: ReadProtoFromTextFile";
   int fd = open(filename.c_str(), O_RDONLY);
   if (fd < 0) {
     AERROR << "cannot open file " << filename;
@@ -41,6 +42,7 @@ bool ReadProtoFromTextFile(const std::string &filename,
 
 bool ReadProtoFromBinaryFile(const std::string &filename,
                              google::protobuf::Message *proto) {
+AINFO<<"(DMCZP) EnteringMethod: ReadProtoFromBinaryFile";
   int fd = open(filename.c_str(), O_RDONLY);
   if (fd < 0) {
     AERROR << "cannot open file " << filename;
@@ -56,9 +58,11 @@ bool ReadProtoFromBinaryFile(const std::string &filename,
   return success;
 }
 bool loadNetParams(const std::string &param_file, NetParameter *param) {
+AINFO<<"(DMCZP) EnteringMethod: loadNetParams";
   return ReadProtoFromTextFile(param_file, param);
 }
 std::string locateFile(const std::string &network, const std::string &input) {
+AINFO<<"(DMCZP) EnteringMethod: locateFile";
   return network + "/" + input;
 }
 }  // namespace inference

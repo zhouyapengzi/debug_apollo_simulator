@@ -1,3 +1,4 @@
+#include "cyber/common/log.h"
 /******************************************************************************
  * Copyright 2018 The Apollo Authors. All Rights Reserved.
  *
@@ -24,6 +25,7 @@ namespace perception {
 namespace camera {
 
 TEST(CameraGroundPlaneTest, CameraGroundPlaneDetectorTest) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   base::BrownCameraDistortionModel model;
   common::LoadBrownCameraIntrinsic(
       "/apollo/modules/perception/testdata/camera/common/params/"

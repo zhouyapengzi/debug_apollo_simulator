@@ -37,6 +37,7 @@ cc_test(
     deps = [
         ":thread",
         "@gtest//:main",
+        "//cyber/common:log",
     ],
 )
 
@@ -50,6 +51,7 @@ cc_test(
         ":thread",
         "@com_google_protobuf//:protobuf",
         "@gtest//:main",
+        "//cyber/common:log",
     ],
 )
 
@@ -62,6 +64,7 @@ cc_test(
     deps = [
         ":thread",
         "@gtest//:main",
+        "//cyber/common:log",
     ],
 )
 
@@ -74,6 +77,7 @@ cc_test(
     deps = [
         ":thread",
         "@gtest//:main",
+        "//cyber/common:log",
     ],
 )
 

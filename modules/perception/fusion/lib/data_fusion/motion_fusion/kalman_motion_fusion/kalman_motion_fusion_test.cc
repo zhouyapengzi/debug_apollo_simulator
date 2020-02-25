@@ -1,3 +1,4 @@
+#include "cyber/common/log.h"
 /******************************************************************************
  * Copyright 2018 The Apollo Authors. All Rights Reserved.
  *
@@ -28,6 +29,7 @@ const double SHAPE_FUSION_PI = 3.1415926;
 
 /* TODO(all): not compiling. to be fixed
 TEST(MotionFusionTest, lidar_test) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   FLAGS_work_root = "/apollo/modules/perception/testdata/"
       "fusion/kalman_motion_fusion";
   FLAGS_obs_sensor_meta_path = "./data/sensor_meta.pt";
@@ -193,6 +195,7 @@ TEST(MotionFusionTest, lidar_test) {
 
 /* TODO(all): Initialize() not compiling. to be fixed
 TEST(MotionFusionTest, radar_test) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   FLAGS_work_root = "/apollo/modules/perception/testdata/"
       "fusion/kalman_motion_fusion";
   FLAGS_obs_sensor_meta_path = "./conf/sensor_meta.config";
@@ -344,6 +347,7 @@ TEST(MotionFusionTest, radar_test) {
 
 /* TODO(all): Initialize() not compiling. to be fixed
 TEST(MotionFusionTest, get_history_test) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   FLAGS_work_root = "/apollo/modules/perception/testdata/"
       "fusion/kalman_motion_fusion";
   FLAGS_obs_sensor_meta_path = "./conf/sensor_meta.config";

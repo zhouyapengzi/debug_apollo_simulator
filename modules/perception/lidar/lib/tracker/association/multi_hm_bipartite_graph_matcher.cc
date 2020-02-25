@@ -24,6 +24,7 @@ namespace perception {
 namespace lidar {
 
 MultiHmBipartiteGraphMatcher::MultiHmBipartiteGraphMatcher() {
+AINFO<<"(DMCZP) EnteringMethod: MultiHmBipartiteGraphMatcher::MultiHmBipartiteGraphMatcher";
   cost_matrix_ = optimizer_.mutable_global_costs();
 }
 
@@ -36,6 +37,7 @@ void MultiHmBipartiteGraphMatcher::Match(
     std::vector<NodeNodePair> *assignments,
     std::vector<size_t> *unassigned_rows,
     std::vector<size_t> *unassigned_cols) {
+AINFO<<"(DMCZP) EnteringMethod: MultiHmBipartiteGraphMatcher::Match";
   common::GatedHungarianMatcher<float>::OptimizeFlag opt_flag =
       common::GatedHungarianMatcher<float>::OptimizeFlag::OPTMIN;
   optimizer_.Match(options.cost_thresh, options.bound_value, opt_flag,

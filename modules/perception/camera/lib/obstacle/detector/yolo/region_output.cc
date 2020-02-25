@@ -25,6 +25,7 @@ namespace camera {
 void get_intersect_bbox(const NormalizedBBox &bbox1,
                         const NormalizedBBox &bbox2,
                         NormalizedBBox *intersect_bbox) {
+AINFO<<"(DMCZP) EnteringMethod: get_intersect_bbox";
 
   AINFO<<"(pengzi). get_intersect_bbox" << std::this_thread::get_id();
 
@@ -44,6 +45,7 @@ void get_intersect_bbox(const NormalizedBBox &bbox1,
 }
 
 float get_bbox_size(const NormalizedBBox &bbox) {
+AINFO<<"(DMCZP) EnteringMethod: get_bbox_size";
   AINFO<<"(pengzi). get bbox size" << std::this_thread::get_id();
   if (bbox.xmax < bbox.xmin || bbox.ymax < bbox.ymin) {
     // If bbox is invalid (e.g. xmax < xmin or ymax < ymin), return 0.
@@ -61,6 +63,7 @@ float get_bbox_size(const NormalizedBBox &bbox) {
 
 float get_jaccard_overlap(const NormalizedBBox &bbox1,
                           const NormalizedBBox &bbox2) {
+AINFO<<"(DMCZP) EnteringMethod: get_jaccard_overlap";
   NormalizedBBox intersect_bbox;
   get_intersect_bbox(bbox1, bbox2, &intersect_bbox);
   float intersect_width = 0.f;
@@ -81,6 +84,7 @@ float get_jaccard_overlap(const NormalizedBBox &bbox1,
 void get_max_score_index(const std::vector<float> &scores,
                          const float threshold, const int top_k,
                          std::vector<std::pair<float, int> > *score_index_vec) {
+AINFO<<"(DMCZP) EnteringMethod: get_max_score_index";
   // Generate index score pairs.
   AINFO<<"(pengzi). Generate index score pairs. thread: " << std::this_thread::get_id();
   for (int i = 0; i < static_cast<int>(scores.size()); ++i) {
@@ -104,6 +108,7 @@ void apply_softnms_fast(const std::vector<NormalizedBBox> &bboxes,
                         const float nms_threshold, const int top_k,
                         std::vector<int> *indices, bool is_linear,
                         const float sigma) {
+AINFO<<"(DMCZP) EnteringMethod: apply_softnms_fast";
   // Sanity check.
   CHECK_EQ(bboxes.size(), scores->size())
       << "bboxes and scores have different size.";
@@ -144,6 +149,7 @@ void apply_boxvoting_fast(std::vector<NormalizedBBox> *bboxes,
                           std::vector<float> *scores,
                           const float conf_threshold, const float nms_threshold,
                           const float sigma, std::vector<int> *indices) {
+AINFO<<"(DMCZP) EnteringMethod: apply_boxvoting_fast";
   if (bboxes->size() == 0) {
     return;
   }
@@ -214,6 +220,7 @@ void apply_nms_fast(const std::vector<NormalizedBBox> &bboxes,
                     const float score_threshold, const float nms_threshold,
                     const float eta, const int top_k,
                     std::vector<int> *indices) {
+AINFO<<"(DMCZP) EnteringMethod: apply_nms_fast";
   // Sanity check.
   CHECK_EQ(bboxes.size(), scores.size())
       << "bboxes and scores have different size.";
@@ -249,6 +256,7 @@ void apply_nms_fast(const std::vector<NormalizedBBox> &bboxes,
 
 void filter_bbox(const MinDims &min_dims,
                  std::vector<base::ObjectPtr> *objects) {
+AINFO<<"(DMCZP) EnteringMethod: filter_bbox";
   int valid_obj_idx = 0;
   int total_obj_idx = 0;
   while (total_obj_idx < static_cast<int>(objects->size())) {
@@ -271,6 +279,7 @@ void filter_bbox(const MinDims &min_dims,
 }
 void recover_bbox(int roi_w, int roi_h, int offset_y,
                   std::vector<base::ObjectPtr> *objects) {
+AINFO<<"(DMCZP) EnteringMethod: recover_bbox";
   for (auto &obj : *objects) {
     float xmin = obj->camera_supplement.box.xmin;
     float ymin = obj->camera_supplement.box.ymin;
@@ -319,6 +328,7 @@ void recover_bbox(int roi_w, int roi_h, int offset_y,
 }
 
 void fill_base(base::ObjectPtr obj, const float *bbox) {
+AINFO<<"(DMCZP) EnteringMethod: fill_base";
   obj->camera_supplement.box.xmin = bbox[0];
   obj->camera_supplement.box.ymin = bbox[1];
   obj->camera_supplement.box.xmax = bbox[2];
@@ -326,6 +336,7 @@ void fill_base(base::ObjectPtr obj, const float *bbox) {
 }
 
 void fill_bbox3d(bool with_box3d, base::ObjectPtr obj, const float *bbox) {
+AINFO<<"(DMCZP) EnteringMethod: fill_bbox3d";
   if (with_box3d) {
     obj->camera_supplement.alpha = bbox[0];
     obj->size[2] = bbox[1];
@@ -335,6 +346,7 @@ void fill_bbox3d(bool with_box3d, base::ObjectPtr obj, const float *bbox) {
 }
 
 void fill_frbox(bool with_frbox, base::ObjectPtr obj, const float *bbox) {
+AINFO<<"(DMCZP) EnteringMethod: fill_frbox";
   if (with_frbox) {
     obj->camera_supplement.front_box.xmin = bbox[0];
     obj->camera_supplement.front_box.ymin = bbox[1];
@@ -349,6 +361,7 @@ void fill_frbox(bool with_frbox, base::ObjectPtr obj, const float *bbox) {
 }
 
 void fill_lights(bool with_lights, base::ObjectPtr obj, const float *bbox) {
+AINFO<<"(DMCZP) EnteringMethod: fill_lights";
   if (with_lights) {
     obj->car_light.brake_visible = bbox[0];
     obj->car_light.brake_switch_on = bbox[1];
@@ -360,6 +373,7 @@ void fill_lights(bool with_lights, base::ObjectPtr obj, const float *bbox) {
 }
 
 void fill_ratios(bool with_ratios, base::ObjectPtr obj, const float *bbox) {
+AINFO<<"(DMCZP) EnteringMethod: fill_ratios";
   if (with_ratios) {
     // visible ratios of face a/b/c/d
     obj->camera_supplement.visible_ratios[0] = bbox[0];
@@ -377,6 +391,7 @@ void fill_ratios(bool with_ratios, base::ObjectPtr obj, const float *bbox) {
 }
 
 void fill_area_id(bool with_flag, base::ObjectPtr obj, const float *data) {
+AINFO<<"(DMCZP) EnteringMethod: fill_area_id";
   if (with_flag) {
     obj->camera_supplement.area_id = static_cast<int>(data[0]);
     // obj->camera_supplement.area_id_prob = data[1];
@@ -384,6 +399,7 @@ void fill_area_id(bool with_flag, base::ObjectPtr obj, const float *data) {
 }
 
 int get_area_id(float visible_ratios[4]) {
+AINFO<<"(DMCZP) EnteringMethod: get_area_id";
   int area_id = 0;
   int max_face = 0;
   for (int i = 1; i < 4; i++) {

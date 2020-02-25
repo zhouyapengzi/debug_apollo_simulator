@@ -19,6 +19,7 @@ cc_binary(
         "//modules/perception/camera/lib/interface",
         "//modules/perception/common/io:io_util",
         "@gtest",
+        "//cyber/common:log",
     ],
 )
 

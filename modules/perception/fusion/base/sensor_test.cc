@@ -1,3 +1,4 @@
+#include "cyber/common/log.h"
 /******************************************************************************
  * Copyright 2018 The Apollo Authors. All Rights Reserved.
  *
@@ -22,6 +23,7 @@ namespace perception {
 namespace fusion {
 
 TEST(SensorTest, test) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   base::SensorInfo sensor_info;
   sensor_info.name = "test";
   sensor_info.type = base::SensorType::VELODYNE_64;

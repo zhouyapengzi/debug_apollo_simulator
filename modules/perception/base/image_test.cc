@@ -1,3 +1,4 @@
+#include "cyber/common/log.h"
 /******************************************************************************
  * Copyright 2018 The Apollo Authors. All Rights Reserved.
  *
@@ -20,6 +21,7 @@ namespace perception {
 namespace base {
 
 TEST(ImageTest, image8u_test) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   {
     Image8U image;
     EXPECT_EQ(image.rows(), 0);

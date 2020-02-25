@@ -1,3 +1,4 @@
+#include "cyber/common/log.h"
 /******************************************************************************
  * Copyright 2018 The Apollo Authors. All Rights Reserved.
  *
@@ -22,6 +23,7 @@ namespace perception {
 namespace base {
 
 TEST(CommonTest, GPUAssertTest) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
 #ifndef PERCEPTION_CPU_ONLY
   GPUAssert(cudaSetDevice(-1), __FILE__, __LINE__, false);
 #endif

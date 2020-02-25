@@ -23,6 +23,7 @@ namespace fusion {
 
 // @brief call pool instance once to initialize memory
 __attribute__((constructor)) void FusionPoolInitialize() {
+AINFO<<"(DMCZP) EnteringMethod: __attribute__";
   TrackPool::Instance();
   AINFO << "Initialize FusionPool";
 }

@@ -29,6 +29,7 @@ cc_library(
         "@paddlepaddle",
         "@snappystream",
         "@xxhash",
+        "//cyber/common:log",
     ],
 )
 

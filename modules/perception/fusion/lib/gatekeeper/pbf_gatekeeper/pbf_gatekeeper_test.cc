@@ -1,3 +1,4 @@
+#include "cyber/common/log.h"
 /******************************************************************************
  * Copyright 2018 The Apollo Authors. All Rights Reserved.
  *
@@ -29,6 +30,8 @@ namespace fusion {
 TODO(all): not compiling. to be fixed
 
 TEST(PbfGatekeeperTest, test) {
+AINFO<<"(DMCZP) EnteringMethod: TODO";
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   FLAGS_work_root = "/apollo/modules/perception/testdata/"
       "fusion/pbf_gatekeeper";
   FLAGS_obs_sensor_meta_path = "./data/sensor_meta.pt";

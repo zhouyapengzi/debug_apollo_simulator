@@ -29,6 +29,7 @@ cc_library(
         "//modules/perception/base",
         "//modules/perception/inference/utils:inference_cuda_util_lib",
         "//modules/perception/inference/utils:inference_util_lib",
+        "//cyber/common:log",
     ],
 )
 
@@ -47,6 +48,7 @@ cc_library(
         "//modules/perception/base",
         "//modules/perception/camera/common",
         "//modules/perception/camera/lib/obstacle/tracker/common",
+        "//cyber/common:log",
     ],
 )
 
@@ -61,6 +63,7 @@ cc_library(
         "//modules/perception/camera/lib/interface",
         "//modules/perception/inference/utils:inference_cuda_util_lib",
         "//modules/perception/inference/utils:inference_util_lib",
+        "//cyber/common:log",
     ],
 )
 
@@ -81,6 +84,7 @@ cc_library(
         "//modules/perception/camera/common",
         "//modules/perception/camera/lib/interface",
         "//modules/perception/camera/lib/obstacle/tracker/common",
+        "//cyber/common:log",
     ],
 )
 
@@ -99,6 +103,7 @@ cc_library(
         "//cyber",
         "//modules/perception/camera/common",
         "//modules/perception/camera/lib/interface",
+        "//cyber/common:log",
     ],
 )
 

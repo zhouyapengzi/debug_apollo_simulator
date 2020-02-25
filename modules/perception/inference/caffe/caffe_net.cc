@@ -26,8 +26,11 @@ namespace inference {
 CaffeNet::CaffeNet(const std::string &net_file, const std::string &model_file,
                    const std::vector<std::string> &outputs)
     : net_file_(net_file), model_file_(model_file), output_names_(outputs) {}
+AINFO<<"(DMCZP) EnteringMethod: CaffeNet::CaffeNet";
 
+AINFO<<"(DMCZP) EnteringMethod: CaffeNet::CaffeNet";
 bool CaffeNet::Init(const std::map<std::string, std::vector<int>> &shapes) {
+AINFO<<"(DMCZP) EnteringMethod: CaffeNet::Init";
 
   AINFO << "(pengzi)in method: CaffeNet::Init(const std::map<std::string, std::vector<int>> &shapes). thread:" << std::this_thread::get_id();
 
@@ -98,6 +101,7 @@ std::shared_ptr<apollo::perception::base::Blob<float>> CaffeNet::get_blob(
 }
 
 bool CaffeNet::reshape() {
+AINFO<<"(DMCZP) EnteringMethod: CaffeNet::reshape";
   for (auto name : input_names_) {
     auto blob = this->get_blob(name);
     auto caffe_blob = net_->blob_by_name(name);
@@ -113,6 +117,7 @@ bool CaffeNet::reshape() {
 }
 
 void CaffeNet::Infer() {
+AINFO<<"(DMCZP) EnteringMethod: CaffeNet::Infer";
 
   AINFO << "(pengzi)begin Caffe net infer. in method: CaffeNet::Infer()  thread:" << std::this_thread::get_id();
 
@@ -149,6 +154,7 @@ void CaffeNet::Infer() {
 }
 
 bool CaffeNet::shape(const std::string &name, std::vector<int> *res) {
+AINFO<<"(DMCZP) EnteringMethod: CaffeNet::shape";
   AINFO << "(pengzi)in method: CaffeNet::shape(const std::string &name, std::vector<int> *res) thread:" << std::this_thread::get_id();
 
   auto blob = net_->blob_by_name(name);

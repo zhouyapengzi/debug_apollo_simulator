@@ -1,3 +1,4 @@
+#include "cyber/common/log.h"
 /******************************************************************************
  * Copyright 2018 The Apollo Authors. All Rights Reserved.
  *
@@ -24,6 +25,7 @@ int ContiArsPreprocessor::current_idx_ = 0;
 int ContiArsPreprocessor::local2global_[ORIGIN_CONTI_MAX_ID_NUM] = {0};
 
 bool ContiArsPreprocessor::Init() {
+AINFO<<"(DMCZP) EnteringMethod: ContiArsPreprocessor::Init";
   std::string model_name = "ContiArsPreprocessor";
   const lib::ModelConfig* model_config = nullptr;
   CHECK(lib::ConfigManager::Instance()->GetModelConfig(model_name,
@@ -36,14 +38,18 @@ bool ContiArsPreprocessor::Preprocess(
     const drivers::ContiRadar& raw_obstacles,
     const PreprocessorOptions& options,
     drivers::ContiRadar* corrected_obstacles) {
+AINFO<<"(DMCZP) EnteringMethod: ContiArsPreprocessor::Preprocess";
   PERCEPTION_PERF_FUNCTION();
+AINFO<<"(DMCZP) EnteringMethod: ContiArsPreprocessor::SkipObjects";
   SkipObjects(raw_obstacles, corrected_obstacles);
+AINFO<<"(DMCZP) EnteringMethod: ContiArsPreprocessor::CorrectTime";
   ExpandIds(corrected_obstacles);
   CorrectTime(corrected_obstacles);
   return true;
 }
 
 std::string ContiArsPreprocessor::Name() const {
+AINFO<<"(DMCZP) EnteringMethod: ContiArsPreprocessor::Name";
   return "ContiArsPreprocessor";
 }
 
@@ -67,6 +73,7 @@ void ContiArsPreprocessor::SkipObjects(
 }
 
 void ContiArsPreprocessor::ExpandIds(drivers::ContiRadar* corrected_obstacles) {
+AINFO<<"(DMCZP) EnteringMethod: ContiArsPreprocessor::ExpandIds";
   for (int iobj = 0; iobj < corrected_obstacles->contiobs_size(); ++iobj) {
     const auto& contiobs = corrected_obstacles->contiobs(iobj);
     int id = contiobs.obstacle_id();
@@ -90,6 +97,7 @@ void ContiArsPreprocessor::CorrectTime(
 }
 
 int ContiArsPreprocessor::GetNextId() {
+AINFO<<"(DMCZP) EnteringMethod: ContiArsPreprocessor::GetNextId";
   ++current_idx_;
   if (MAX_RADAR_IDX == current_idx_) {
     current_idx_ = 1;

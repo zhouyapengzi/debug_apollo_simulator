@@ -1,3 +1,4 @@
+#include "cyber/common/log.h"
 /******************************************************************************
  * Copyright 2018 The Apollo Authors. All Rights Reserved.
  *
@@ -31,6 +32,7 @@ class DummyAlgorithmsTest : public testing::Test {
 };
 
 ContiRadar MockContiObs() {
+AINFO<<"(DMCZP) EnteringMethod: MockContiObs";
   ContiRadar raw_obs;
 
   drivers::ContiRadarObs conti_obs;
@@ -70,6 +72,7 @@ ContiRadar MockContiObs() {
 }
 
 TEST_F(DummyAlgorithmsTest, dummy_test) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   ContiRadar raw_obs = MockContiObs();
   ContiRadar corrected_obs;
   PreprocessorOptions preprocessor_options;

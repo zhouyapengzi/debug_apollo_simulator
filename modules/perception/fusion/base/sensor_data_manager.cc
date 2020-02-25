@@ -24,8 +24,10 @@ namespace perception {
 namespace fusion {
 
 SensorDataManager::SensorDataManager() { CHECK_EQ(this->Init(), true); }
+AINFO<<"(DMCZP) EnteringMethod: SensorDataManager::SensorDataManager";
 
 bool SensorDataManager::Init() {
+AINFO<<"(DMCZP) EnteringMethod: SensorDataManager::Init";
   if (inited_) {
     return true;
   }
@@ -35,6 +37,7 @@ bool SensorDataManager::Init() {
 }
 
 void SensorDataManager::Reset() {
+AINFO<<"(DMCZP) EnteringMethod: SensorDataManager::Reset";
   inited_ = false;
   sensor_manager_ = nullptr;
   sensors_.clear();
@@ -42,6 +45,7 @@ void SensorDataManager::Reset() {
 
 void SensorDataManager::AddSensorMeasurements(
     const base::FrameConstPtr& frame_ptr) {
+AINFO<<"(DMCZP) EnteringMethod: SensorDataManager::AddSensorMeasurements";
   const base::SensorInfo& sensor_info = frame_ptr->sensor_info;
   std::string sensor_id = sensor_info.name;
   const auto it = sensors_.find(sensor_id);
@@ -61,16 +65,19 @@ void SensorDataManager::AddSensorMeasurements(
 }
 
 bool SensorDataManager::IsLidar(const base::FrameConstPtr& frame_ptr) {
+AINFO<<"(DMCZP) EnteringMethod: SensorDataManager::IsLidar";
   base::SensorType type = frame_ptr->sensor_info.type;
   return sensor_manager_->IsLidar(type);
 }
 
 bool SensorDataManager::IsRadar(const base::FrameConstPtr& frame_ptr) {
+AINFO<<"(DMCZP) EnteringMethod: SensorDataManager::IsRadar";
   base::SensorType type = frame_ptr->sensor_info.type;
   return sensor_manager_->IsRadar(type);
 }
 
 bool SensorDataManager::IsCamera(const base::FrameConstPtr& frame_ptr) {
+AINFO<<"(DMCZP) EnteringMethod: SensorDataManager::IsCamera";
   base::SensorType type = frame_ptr->sensor_info.type;
   return sensor_manager_->IsCamera(type);
 }
@@ -78,6 +85,7 @@ bool SensorDataManager::IsCamera(const base::FrameConstPtr& frame_ptr) {
 void SensorDataManager::GetLatestSensorFrames(
     double timestamp, const std::string& sensor_id,
     std::vector<SensorFramePtr>* frames) const {
+AINFO<<"(DMCZP) EnteringMethod: SensorDataManager::GetLatestSensorFrames";
   if (frames == nullptr) {
     AERROR << "Nullptr error.";
     return;
@@ -91,6 +99,7 @@ void SensorDataManager::GetLatestSensorFrames(
 
 void SensorDataManager::GetLatestFrames(
     double timestamp, std::vector<SensorFramePtr>* frames) const {
+AINFO<<"(DMCZP) EnteringMethod: SensorDataManager::GetLatestFrames";
   if (frames == nullptr) {
     AERROR << "Nullptr error.";
     return;
@@ -119,6 +128,7 @@ void SensorDataManager::GetLatestFrames(
 
 bool SensorDataManager::GetPose(const std::string& sensor_id, double timestamp,
                                 Eigen::Affine3d* pose) const {
+AINFO<<"(DMCZP) EnteringMethod: SensorDataManager::GetPose";
   if (pose == nullptr) {
     AERROR << "Nullptr error.";
     return false;
@@ -135,6 +145,7 @@ bool SensorDataManager::GetPose(const std::string& sensor_id, double timestamp,
 
 base::BaseCameraModelPtr SensorDataManager::GetCameraIntrinsic(
     const std::string& sensor_id) const {
+AINFO<<"(DMCZP) EnteringMethod: SensorDataManager::GetCameraIntrinsic";
   return sensor_manager_->GetUndistortCameraModel(sensor_id);
 }
 

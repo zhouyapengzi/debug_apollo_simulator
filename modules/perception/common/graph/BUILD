@@ -22,6 +22,7 @@ cc_library(
     ],
     hdrs = [
         "disjoint_set.h",
+        "//cyber/common:log",
     ],
 )
 
@@ -34,6 +35,7 @@ cc_test(
     deps = [
         ":disjoint_set",
         "@gtest//:main",
+        "//cyber/common:log",
     ],
 )
 
@@ -48,6 +50,7 @@ cc_library(
     deps = [
         ":disjoint_set",
         "//cyber",
+        "//cyber/common:log",
     ],
 )
 
@@ -60,6 +63,7 @@ cc_test(
     deps = [
         ":graph_segmentor",
         "@gtest//:main",
+        "//cyber/common:log",
     ],
 )
 
@@ -83,6 +87,7 @@ cc_test(
         ":secure_matrix",
         "@eigen",
         "@gtest//:main",
+        "//cyber/common:log",
     ],
 )
 
@@ -106,6 +111,7 @@ cc_test(
         ":hungarian_optimizer",
         ":secure_matrix",
         "@gtest//:main",
+        "//cyber/common:log",
     ],
 )
 
@@ -129,6 +135,7 @@ cc_test(
         ":connected_component_analysis",
         "@eigen",
         "@gtest//:main",
+        "//cyber/common:log",
     ],
 )
 
@@ -153,6 +160,7 @@ cc_test(
     deps = [
         ":conditional_clustering",
         "@gtest//:main",
+        "//cyber/common:log",
     ],
 )
 
@@ -178,6 +186,7 @@ cc_test(
     deps = [
         ":gated_hungarian_bigraph_matcher",
         "@gtest//:main",
+        "//cyber/common:log",
     ],
 )
 

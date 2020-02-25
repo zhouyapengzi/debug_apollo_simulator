@@ -1,3 +1,4 @@
+#include "cyber/common/log.h"
 /******************************************************************************
  * Copyright 2018 The Apollo Authors. All Rights Reserved.
  *
@@ -32,6 +33,7 @@ const float PointCloudPreprocessor::kPointInfThreshold = 1e3;
 
 bool PointCloudPreprocessor::Init(
     const PointCloudPreprocessorInitOptions& options) {
+AINFO<<"(DMCZP) EnteringMethod: PointCloudPreprocessor::Init";
   auto config_manager = lib::ConfigManager::Instance();
   const lib::ModelConfig* model_config = nullptr;
   CHECK(config_manager->GetModelConfig(Name(), &model_config));
@@ -65,6 +67,8 @@ bool PointCloudPreprocessor::Preprocess(
     const PointCloudPreprocessorOptions& options,
     const std::shared_ptr<apollo::drivers::PointCloud const>& message,
     LidarFrame* frame) const {
+AINFO<<"(DMCZP) EnteringMethod: PointCloudPreprocessor::Preprocess";
+AINFO<<"(DMCZP) EnteringMethod: PointCloudPreprocessor::Preprocess";
   if (frame == nullptr) {
     return false;
   }
@@ -165,6 +169,7 @@ bool PointCloudPreprocessor::Preprocess(
 bool PointCloudPreprocessor::TransformCloud(
     const base::PointFCloudPtr& local_cloud, const Eigen::Affine3d& pose,
     base::PointDCloudPtr world_cloud) const {
+AINFO<<"(DMCZP) EnteringMethod: PointCloudPreprocessor::TransformCloud";
   if (local_cloud == nullptr) {
     return false;
   }

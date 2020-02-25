@@ -38,6 +38,7 @@ using apollo::cyber::common::GetAbsolutePath;
 
 static void fill_lane_msg(const base::LaneLineCubicCurve &curve_coord,
                           apollo::perception::LaneMarker *lane_marker) {
+AINFO<<"(DMCZP) EnteringMethod: fill_lane_msg";
   lane_marker->set_c0_position(curve_coord.d);
   lane_marker->set_c1_heading_angle(curve_coord.c);
   lane_marker->set_c2_curvature(curve_coord.b);
@@ -47,6 +48,7 @@ static void fill_lane_msg(const base::LaneLineCubicCurve &curve_coord,
 }
 
 static int GetGpuId(const camera::CameraPerceptionInitOptions &options) {
+AINFO<<"(DMCZP) EnteringMethod: GetGpuId";
   camera::app::PerceptionParam perception_param;
   std::string work_root = camera::GetCyberWorkRoot();
   std::string config_file =
@@ -66,6 +68,7 @@ static int GetGpuId(const camera::CameraPerceptionInitOptions &options) {
 bool SetCameraHeight(const std::string &sensor_name,
                      const std::string &params_dir, float default_camera_height,
                      float *camera_height) {
+AINFO<<"(DMCZP) EnteringMethod: SetCameraHeight";
   float base_h = default_camera_height;
   float camera_offset = 0.0f;
   try {
@@ -96,6 +99,7 @@ bool SetCameraHeight(const std::string &sensor_name,
 // @description: load camera extrinsics from yaml file
 bool LoadExtrinsics(const std::string &yaml_file,
                     Eigen::Matrix4d *camera_extrinsic) {
+AINFO<<"(DMCZP) EnteringMethod: LoadExtrinsics";
   if (!apollo::cyber::common::PathExists(yaml_file)) {
     AINFO << yaml_file << " does not exist!";
     return false;
@@ -153,6 +157,7 @@ bool GetProjectMatrix(
     const std::map<std::string, Eigen::Matrix4d> &extrinsic_map,
     const std::map<std::string, Eigen::Matrix3f> &intrinsic_map,
     Eigen::Matrix3d *project_matrix, double *pitch_diff = nullptr) {
+AINFO<<"(DMCZP) EnteringMethod: GetProjectMatrix";
   // TODO(techoe): This condition should be removed.
   if (camera_names.size() != 2) {
     AINFO << "camera number must be 2!";
@@ -178,6 +183,7 @@ bool GetProjectMatrix(
 FusionCameraDetectionComponent::~FusionCameraDetectionComponent() {}
 
 bool FusionCameraDetectionComponent::Init() {
+AINFO<<"(DMCZP) EnteringMethod: FusionCameraDetectionComponent::Init";
   if (InitConfig() != cyber::SUCC) {
     AERROR << "InitConfig() failed.";
     return false;
@@ -261,6 +267,7 @@ bool FusionCameraDetectionComponent::Init() {
 void FusionCameraDetectionComponent::OnReceiveImage(
     const std::shared_ptr<apollo::drivers::Image> &message,
     const std::string &camera_name) {
+AINFO<<"(DMCZP) EnteringMethod: FusionCameraDetectionComponent::OnReceiveImage";
   std::lock_guard<std::mutex> lock(mutex_);
   const double msg_timestamp = message->measurement_time() + timestamp_offset_;
   AINFO << "Enter FusionCameraDetectionComponent::Proc(), "
@@ -330,6 +337,7 @@ void FusionCameraDetectionComponent::OnReceiveImage(
 }
 
 int FusionCameraDetectionComponent::InitConfig() {
+AINFO<<"(DMCZP) EnteringMethod: FusionCameraDetectionComponent::InitConfig";
   // the macro READ_CONF would return cyber::FAIL if config not exists
   apollo::perception::onboard::FusionCameraDetection
       fusion_camera_detection_param;
@@ -449,6 +457,7 @@ int FusionCameraDetectionComponent::InitConfig() {
 }
 
 int FusionCameraDetectionComponent::InitSensorInfo() {
+AINFO<<"(DMCZP) EnteringMethod: FusionCameraDetectionComponent::InitSensorInfo";
   if (camera_names_.size() != 2) {
     AERROR << "invalid camera_names_.size(): " << camera_names_.size();
     return cyber::FAIL;
@@ -499,6 +508,7 @@ int FusionCameraDetectionComponent::InitSensorInfo() {
 }
 
 int FusionCameraDetectionComponent::InitAlgorithmPlugin() {
+AINFO<<"(DMCZP) EnteringMethod: FusionCameraDetectionComponent::InitAlgorithmPlugin";
   camera_obstacle_pipeline_.reset(new camera::ObstacleCameraPerception);
   if (!camera_obstacle_pipeline_->Init(camera_perception_init_options_)) {
     AERROR << "camera_obstacle_pipeline_->Init() failed";
@@ -509,6 +519,7 @@ int FusionCameraDetectionComponent::InitAlgorithmPlugin() {
 }
 
 int FusionCameraDetectionComponent::InitCameraFrames() {
+AINFO<<"(DMCZP) EnteringMethod: FusionCameraDetectionComponent::InitCameraFrames";
   if (camera_names_.size() != 2) {
     AERROR << "invalid camera_names_.size(): " << camera_names_.size();
     return cyber::FAIL;
@@ -578,6 +589,7 @@ int FusionCameraDetectionComponent::InitCameraFrames() {
 }
 
 int FusionCameraDetectionComponent::InitProjectMatrix() {
+AINFO<<"(DMCZP) EnteringMethod: FusionCameraDetectionComponent::InitProjectMatrix";
   if (!GetProjectMatrix(camera_names_, extrinsic_map_, intrinsic_map_,
                         &project_matrix_, &pitch_diff_)) {
     AERROR << "GetProjectMatrix failed";
@@ -593,6 +605,7 @@ int FusionCameraDetectionComponent::InitProjectMatrix() {
 }
 
 int FusionCameraDetectionComponent::InitCameraListeners() {
+AINFO<<"(DMCZP) EnteringMethod: FusionCameraDetectionComponent::InitCameraListeners";
   for (size_t i = 0; i < camera_names_.size(); ++i) {
     const std::string &camera_name = camera_names_[i];
     const std::string &channel_name = input_camera_channel_names_[i];
@@ -609,6 +622,7 @@ int FusionCameraDetectionComponent::InitCameraListeners() {
 }
 
 int FusionCameraDetectionComponent::InitMotionService() {
+AINFO<<"(DMCZP) EnteringMethod: FusionCameraDetectionComponent::InitMotionService";
   const std::string &channel_name_local = "/apollo/perception/motion_service";
   std::function<void(const MotionServiceMsgType &)> motion_service_callback =
       std::bind(&FusionCameraDetectionComponent::OnMotionService, this,
@@ -627,6 +641,7 @@ int FusionCameraDetectionComponent::InitMotionService() {
 // On receiving motion service input, convert it to motion_buff_
 void FusionCameraDetectionComponent::OnMotionService(
     const MotionServiceMsgType &message) {
+AINFO<<"(DMCZP) EnteringMethod: FusionCameraDetectionComponent::OnMotionService";
   // Comment: use the circular buff to do it smartly, only push the latest
   // circular_buff only saves only the incremental motion between frames.
   // motion_service is now hard-coded for camera front 6mm
@@ -665,6 +680,7 @@ void FusionCameraDetectionComponent::OnMotionService(
 }
 
 void FusionCameraDetectionComponent::SetCameraHeightAndPitch() {
+AINFO<<"(DMCZP) EnteringMethod: FusionCameraDetectionComponent::SetCameraHeightAndPitch";
   camera_obstacle_pipeline_->SetCameraHeightAndPitch(
       camera_height_map_, name_camera_pitch_angle_diff_map_,
       default_camera_pitch_);
@@ -675,6 +691,7 @@ int FusionCameraDetectionComponent::InternalProc(
     const std::string &camera_name, apollo::common::ErrorCode *error_code,
     SensorFrameMessage *prefused_message,
     apollo::perception::PerceptionObstacles *out_message) {
+AINFO<<"(DMCZP) EnteringMethod: FusionCameraDetectionComponent::InternalProc";
   const double msg_timestamp =
       in_message->measurement_time() + timestamp_offset_;
   const int frame_size = static_cast<int>(camera_frames_.size());
@@ -860,6 +877,7 @@ int FusionCameraDetectionComponent::MakeProtobufMsg(
     const std::vector<base::LaneLine> &lane_objects,
     const apollo::common::ErrorCode error_code,
     apollo::perception::PerceptionObstacles *obstacles) {
+AINFO<<"(DMCZP) EnteringMethod: FusionCameraDetectionComponent::MakeProtobufMsg";
 
   AINFO << "(pengzi) FusionCameraDetectionComponent::MakeProtobufMsg";
   double publish_time = apollo::cyber::Time::Now().ToSecond();
@@ -923,6 +941,7 @@ int FusionCameraDetectionComponent::MakeProtobufMsg(
 int FusionCameraDetectionComponent::ConvertObjectToPb(
     const base::ObjectPtr &object_ptr,
     apollo::perception::PerceptionObstacle *pb_msg) {
+AINFO<<"(DMCZP) EnteringMethod: FusionCameraDetectionComponent::ConvertObjectToPb";
   if (!object_ptr || !pb_msg) {
     return cyber::FAIL;
   }
@@ -1002,6 +1021,7 @@ int FusionCameraDetectionComponent::ConvertObjectToPb(
 int FusionCameraDetectionComponent::ConvertObjectToCameraObstacle(
     const base::ObjectPtr &object_ptr,
     apollo::perception::camera::CameraObstacle *camera_obstacle) {
+AINFO<<"(DMCZP) EnteringMethod: FusionCameraDetectionComponent::ConvertObjectToCameraObstacle";
   CHECK_NOTNULL(camera_obstacle);
   apollo::perception::PerceptionObstacle *obstacle =
       camera_obstacle->mutable_obstacle();
@@ -1035,6 +1055,7 @@ int FusionCameraDetectionComponent::ConvertObjectToCameraObstacle(
 int FusionCameraDetectionComponent::ConvertLaneToCameraLaneline(
     const base::LaneLine &lane_line,
     apollo::perception::camera::CameraLaneLine *camera_laneline) {
+AINFO<<"(DMCZP) EnteringMethod: FusionCameraDetectionComponent::ConvertLaneToCameraLaneline";
   CHECK_NOTNULL(camera_laneline);
   // fill the lane line attribute
   apollo::perception::camera::LaneLineType line_type =
@@ -1110,6 +1131,7 @@ int FusionCameraDetectionComponent::MakeCameraDebugMsg(
     double msg_timestamp, const std::string &camera_name,
     const camera::CameraFrame &camera_frame,
     apollo::perception::camera::CameraDebug *camera_debug_msg) {
+AINFO<<"(DMCZP) EnteringMethod: FusionCameraDetectionComponent::MakeCameraDebugMsg";
   CHECK_NOTNULL(camera_debug_msg);
   auto itr = std::find(camera_names_.begin(), camera_names_.end(), camera_name);
   if (itr == camera_names_.end()) {

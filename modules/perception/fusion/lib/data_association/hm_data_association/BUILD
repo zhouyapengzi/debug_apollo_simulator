@@ -24,6 +24,7 @@ cc_library(
         "//modules/perception/common/graph:secure_matrix",
         "//modules/perception/fusion/base:scene",
         "//modules/perception/fusion/lib/interface",
+        "//cyber/common:log",
     ],
 )
 
@@ -35,6 +36,9 @@ cc_library(
     hdrs = [
         "probabilities.h",
     ],
+    dep=[
+        "//cyber/common:log",
+    ],
 )
 
 cc_library(
@@ -42,6 +46,10 @@ cc_library(
     hdrs = [
         "projection_cache.h",
     ],
+    dep = [
+        "//cyber/common:log",
+    ],
+    
 )
 
 cc_library(
@@ -67,6 +75,7 @@ cc_library(
         "//modules/perception/fusion/base:sensor_data_manager",
         "//modules/perception/fusion/base:track",
         "//modules/perception/fusion/common:camera_util",
+        "//cyber/common:log",
     ],
 )
 
@@ -85,6 +94,7 @@ cc_library(
         "//modules/perception/fusion/base:fusion_log",
         "//modules/perception/fusion/base:sensor",
         "//modules/perception/fusion/common:camera_util",
+        "//cyber/common:log",
     ],
 )
 
@@ -104,6 +114,7 @@ cc_test(
         "//modules/perception/fusion/base:sensor",
         "//modules/perception/fusion/base:track",
         "@gtest//:main",
+        "//cyber/common:log",
     ],
 )
 
@@ -123,6 +134,7 @@ cc_test(
         "//modules/perception/fusion/base:sensor",
         "//modules/perception/fusion/base:track",
         "@gtest//:main",
+        "//cyber/common:log",
     ],
 )
 
@@ -140,6 +152,7 @@ cc_test(
         "//modules/perception/fusion/base:sensor",
         "//modules/perception/fusion/base:track",
         "@gtest//:main",
+        "//cyber/common:log",
     ],
 )
 

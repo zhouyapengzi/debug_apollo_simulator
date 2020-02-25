@@ -1,3 +1,4 @@
+#include "cyber/common/log.h"
 /******************************************************************************
  * Copyright 2018 The Apollo Authors. All Rights Reserved.
  *
@@ -23,6 +24,7 @@ namespace perception {
 namespace base {
 
 TEST(ImageCoreTest, operator_test) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   {
     BBox2D<int> bbox(1, 2, 3, 4);
     Rect<int> rect = static_cast<Rect<int>>(bbox);

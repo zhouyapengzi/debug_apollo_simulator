@@ -1,3 +1,4 @@
+#include "cyber/common/log.h"
 /******************************************************************************
  * Copyright 2018 The Apollo Authors. All Rights Reserved.
  *
@@ -20,6 +21,7 @@ namespace perception {
 namespace base {
 
 Polynomial::Polynomial() { coeff_[0] = 0.0; }
+AINFO<<"(DMCZP) EnteringMethod: Polynomial::Polynomial";
 Polynomial::~Polynomial() {}
 
 const std::map<uint32_t, double>& Polynomial::getCoeff() const {
@@ -32,6 +34,7 @@ double& Polynomial::operator[](const uint32_t& order) {
 }
 
 double Polynomial::operator()(const double& x) {
+AINFO<<"(DMCZP) EnteringMethod: Polynomial::operator";
   if (!initialized_) {
     index_gap_.resize(coeff_.size() - 1, 0);
     auto it = coeff_.begin();

@@ -18,6 +18,7 @@ cc_library(
         "//modules/perception/fusion/lib/interface",
         "//modules/perception/lib/registerer",
         "//modules/perception/proto:dst_existance_fusion_config_proto",
+        "//cyber/common:log",
     ],
 )
 

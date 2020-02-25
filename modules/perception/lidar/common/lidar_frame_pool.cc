@@ -1,3 +1,4 @@
+#include "cyber/common/log.h"
 /******************************************************************************
  * Copyright 2018 The Apollo Authors. All Rights Reserved.
  *
@@ -23,6 +24,7 @@ namespace lidar {
 
 // @brief call pool instance once to initialize memory
 __attribute__((constructor)) void LidarFramePoolInitialize() {
+AINFO<<"(DMCZP) EnteringMethod: __attribute__";
   LidarFramePool::Instance();
   AINFO << "Initialize lidar frame pool.";
 }

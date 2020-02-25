@@ -1,3 +1,4 @@
+#include "cyber/common/log.h"
 /******************************************************************************
  * Copyright 2018 The Apollo Authors. All Rights Reserved.
  *
@@ -24,6 +25,7 @@ namespace perception {
 namespace lib {
 
 TEST(TimerTest, Test) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   Timer timer;
   timer.Start();
   usleep(100000);
@@ -33,16 +35,19 @@ TEST(TimerTest, Test) {
 }
 
 TEST(TimerWrapperTest, Test) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   TimerWrapper wrapper("TimerWrapperTest");
   usleep(200000);
 }
 
 TEST(PerfFunctionTest, Test) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   PERCEPTION_PERF_FUNCTION();
   usleep(100000);
 }
 
 TEST(PerfBlockTest, Test) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   PERCEPTION_PERF_BLOCK_START();
   usleep(100000);
   PERCEPTION_PERF_BLOCK_END("BLOCK1");
@@ -51,6 +56,7 @@ TEST(PerfBlockTest, Test) {
 }
 
 TEST(GetFunctionNameTest, Test) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   std::string full_name =
       "void apollo::perception::"
       "lib::Thread::set_joinable(bool)";

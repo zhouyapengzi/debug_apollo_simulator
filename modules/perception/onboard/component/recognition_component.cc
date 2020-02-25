@@ -1,3 +1,4 @@
+#include "cyber/common/log.h"
 /******************************************************************************
  * Copyright 2018 The Apollo Authors. All Rights Reserved.
  *
@@ -28,6 +29,7 @@ namespace perception {
 namespace onboard {
 
 bool RecognitionComponent::Init() {
+AINFO<<"(DMCZP) EnteringMethod: RecognitionComponent::Init";
   AINFO<<"(pengzi) Lidar RecognitionComponent::Init()";
 
   LidarRecognitionComponentConfig comp_config;
@@ -47,6 +49,7 @@ bool RecognitionComponent::Init() {
 
 bool RecognitionComponent::Proc(
     const std::shared_ptr<LidarFrameMessage>& message) {
+AINFO<<"(DMCZP) EnteringMethod: RecognitionComponent::Proc";
   AINFO << "Enter Tracking component, message timestamp: "
         << std::to_string(message->timestamp_) << " current timestamp: "
         << std::to_string(lib::TimeUtil::GetCurrentTime());
@@ -63,6 +66,7 @@ bool RecognitionComponent::Proc(
 }
 
 bool RecognitionComponent::InitAlgorithmPlugin() {
+AINFO<<"(DMCZP) EnteringMethod: RecognitionComponent::InitAlgorithmPlugin";
   tracker_.reset(new lidar::LidarObstacleTracking);
   if (tracker_ == nullptr) {
     AERROR << "Failed to get tracking instance.";
@@ -81,6 +85,7 @@ bool RecognitionComponent::InitAlgorithmPlugin() {
 bool RecognitionComponent::InternalProc(
     const std::shared_ptr<const LidarFrameMessage>& in_message,
     const std::shared_ptr<SensorFrameMessage>& out_message) {
+AINFO<<"(DMCZP) EnteringMethod: RecognitionComponent::InternalProc";
   auto& sensor_name = in_message->lidar_frame_->sensor_info.name;
   PERCEPTION_PERF_FUNCTION_WITH_INDICATOR(sensor_name);
   out_message->timestamp_ = in_message->timestamp_;

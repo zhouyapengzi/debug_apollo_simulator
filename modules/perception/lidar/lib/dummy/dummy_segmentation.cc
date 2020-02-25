@@ -1,3 +1,4 @@
+#include "cyber/common/log.h"
 /******************************************************************************
  * Copyright 2018 The Apollo Authors. All Rights Reserved.
  *
@@ -21,11 +22,13 @@ namespace perception {
 namespace lidar {
 
 bool DummySegmentation::Init(const SegmentationInitOptions& options) {
+AINFO<<"(DMCZP) EnteringMethod: DummySegmentation::Init";
   return true;
 }
 
 bool DummySegmentation::Segment(const SegmentationOptions& options,
                                 LidarFrame* frame) {
+AINFO<<"(DMCZP) EnteringMethod: DummySegmentation::Segment";
   return true;
 }
 

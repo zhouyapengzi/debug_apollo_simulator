@@ -14,6 +14,7 @@ cc_library(
         ":lane_struct_for_calib",
         "//modules/perception/camera/lib/calibrator/common:histogram_estimator",
         "//modules/perception/common/i_lib/core",
+        "//cyber/common:log",
     ],
 )
 
@@ -39,6 +40,7 @@ cc_library(
         ":lane_based_calibrator",
         "//modules/perception/camera/lib/interface",
         "//modules/perception/common/i_lib/core",
+        "//cyber/common:log",
     ],
 )
 

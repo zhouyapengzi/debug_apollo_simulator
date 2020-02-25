@@ -27,6 +27,7 @@ namespace perception {
 namespace camera {
 
 TEST(DenselineLaneDetector, denseline_lane_detector_test) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   LaneDetectorInitOptions init_options;
   LaneDetectorOptions detetor_options;
   CameraFrame frame;

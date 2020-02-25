@@ -1,3 +1,4 @@
+#include "cyber/common/log.h"
 /******************************************************************************
  * Copyright 2018 The Apollo Authors. All Rights Reserved.
  *
@@ -20,6 +21,7 @@ namespace perception {
 namespace radar {
 
 int RadarTrackManager::RemoveLostTracks() {
+AINFO<<"(DMCZP) EnteringMethod: RadarTrackManager::RemoveLostTracks";
   size_t track_count = 0;
   for (size_t i = 0; i < tracks_.size(); ++i) {
     if (!tracks_[i]->IsDead()) {
@@ -36,6 +38,7 @@ int RadarTrackManager::RemoveLostTracks() {
 }
 
 void RadarTrackManager::ClearTracks() { tracks_.clear(); }
+AINFO<<"(DMCZP) EnteringMethod: RadarTrackManager::ClearTracks";
 
 }  // namespace radar
 }  // namespace perception

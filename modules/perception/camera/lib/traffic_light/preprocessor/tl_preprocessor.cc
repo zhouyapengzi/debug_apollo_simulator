@@ -26,6 +26,7 @@ namespace perception {
 namespace camera {
 
 bool TLPreprocessor::Init(const TrafficLightPreprocessorInitOptions &options) {
+AINFO<<"(DMCZP) EnteringMethod: TLPreprocessor::Init";
   camera::MultiCamerasInitOption projection_init_option;
   projection_init_option.camera_names = options.camera_names;
   if (!projection_.Init(projection_init_option)) {
@@ -46,11 +47,14 @@ bool TLPreprocessor::Init(const TrafficLightPreprocessorInitOptions &options) {
 bool TLPreprocessor::UpdateCameraSelection(
     const CarPose &pose, const TLPreprocessorOption &option,
     std::vector<base::TrafficLightPtr> *lights) {
+AINFO<<"(DMCZP) EnteringMethod: TLPreprocessor::UpdateCameraSelection";
   const double &timestamp = pose.getTimestamp();
+AINFO<<"(DMCZP) EnteringMethod: TLPreprocessor::UpdateLightsProjection";
   selected_camera_name_.first = timestamp;
   selected_camera_name_.second = GetMaxFocalLenWorkingCameraName();
 
   AINFO << "TLPreprocessor Got signal number: " << lights->size()
+AINFO<<"(DMCZP) EnteringMethod: TLPreprocessor::ProjectLightsAndSelectCamera";
         << ", ts: " << std::to_string(timestamp);
   if (lights->empty()) {
     AINFO << "No signals, select camera with max focal length: "
@@ -71,6 +75,7 @@ bool TLPreprocessor::UpdateCameraSelection(
 
 bool TLPreprocessor::SyncInformation(const double image_timestamp,
                                      const std::string &cam_name) {
+AINFO<<"(DMCZP) EnteringMethod: TLPreprocessor::SyncInformation";
   const double &proj_ts = selected_camera_name_.first;
   const std::string &proj_camera_name = selected_camera_name_.second;
   AINFO << "ready to sync information";
@@ -153,6 +158,7 @@ bool TLPreprocessor::UpdateLightsProjection(
 
 bool TLPreprocessor::SetCameraWorkingFlag(const std::string &camera_name,
                                           bool is_working) {
+AINFO<<"(DMCZP) EnteringMethod: TLPreprocessor::SetCameraWorkingFlag";
   if (!projection_.HasCamera(camera_name)) {
     AERROR << "SetCameraWorkingFlag failed, "
            << "get invalid camera_name: " << camera_name;
@@ -166,6 +172,7 @@ bool TLPreprocessor::SetCameraWorkingFlag(const std::string &camera_name,
 
 bool TLPreprocessor::GetCameraWorkingFlag(const std::string &camera_name,
                                           bool *is_working) const {
+AINFO<<"(DMCZP) EnteringMethod: TLPreprocessor::GetCameraWorkingFlag";
   if (!projection_.HasCamera(camera_name)) {
     AERROR << "GetCameraWorkingFlag failed, "
            << "get invalid camera_name: " << camera_name;
@@ -186,6 +193,7 @@ void TLPreprocessor::SelectCamera(
     std::vector<base::TrafficLightPtrs> *lights_on_image_array,
     std::vector<base::TrafficLightPtrs> *lights_outside_image_array,
     const TLPreprocessorOption &option, std::string *selected_camera_name) {
+AINFO<<"(DMCZP) EnteringMethod: TLPreprocessor::SelectCamera";
   // do not check boundary if this is min focal camera
   auto min_focal_len_working_camera = GetMinFocalLenWorkingCameraName();
   AINFO << "working camera with minimum focal length: "
@@ -243,6 +251,7 @@ bool TLPreprocessor::ProjectLights(
     std::vector<base::TrafficLightPtr> *lights,
     base::TrafficLightPtrs *lights_on_image,
     base::TrafficLightPtrs *lights_outside_image) {
+AINFO<<"(DMCZP) EnteringMethod: TLPreprocessor::ProjectLights";
   if (lights->empty()) {
     AINFO << "project_lights get empty signals.";
     return true;
@@ -321,12 +330,15 @@ bool TLPreprocessor::ProjectLightsAndSelectCamera(
 }
 
 bool TLPreprocessor::GetAlllightsOutsideFlag() const {
+AINFO<<"(DMCZP) EnteringMethod: TLPreprocessor::GetAlllightsOutsideFlag";
   return projections_outside_all_images_;
 }
 
 std::string TLPreprocessor::Name() const { return "TLPreprocessor"; }
+AINFO<<"(DMCZP) EnteringMethod: TLPreprocessor::Name";
 
 std::string TLPreprocessor::GetMinFocalLenWorkingCameraName() const {
+AINFO<<"(DMCZP) EnteringMethod: TLPreprocessor::GetMinFocalLenWorkingCameraName";
   const auto &camera_names = projection_.getCameraNamesByDescendingFocalLen();
   for (auto itr = camera_names.crbegin(); itr != camera_names.crend(); ++itr) {
     bool is_working = false;
@@ -339,6 +351,7 @@ std::string TLPreprocessor::GetMinFocalLenWorkingCameraName() const {
 }
 
 std::string TLPreprocessor::GetMaxFocalLenWorkingCameraName() const {
+AINFO<<"(DMCZP) EnteringMethod: TLPreprocessor::GetMaxFocalLenWorkingCameraName";
   const auto &camera_names = projection_.getCameraNamesByDescendingFocalLen();
   for (const auto &camera_name : camera_names) {
     bool is_working = false;

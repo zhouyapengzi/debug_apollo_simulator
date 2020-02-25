@@ -18,6 +18,7 @@ cuda_library(
         "//modules/perception/inference:layer_lib",
         "@cuda",
         "@eigen",
+        "//cyber/common:log",
     ],
 )
 
@@ -33,6 +34,7 @@ cc_library(
     deps = [
         "//modules/perception/base:blob",
         "//modules/perception/inference:layer_lib",
+        "//cyber/common:log",
     ],
 )
 

@@ -36,6 +36,7 @@ cc_test(
     deps = [
         ":sensor_manager",
         "@gtest//:main",
+        "//cyber/common:log",
     ],
 )
 

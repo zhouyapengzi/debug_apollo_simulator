@@ -38,6 +38,7 @@ using base::Object;
 using base::PointF;
 
 bool CNNSegmentation::Init(const SegmentationInitOptions& options) {
+AINFO<<"(DMCZP) EnteringMethod: CNNSegmentation::Init";
   // get configs
   std::string param_file;
   std::string proto_file;
@@ -130,6 +131,7 @@ bool CNNSegmentation::Init(const SegmentationInitOptions& options) {
 }
 
 bool CNNSegmentation::InitClusterAndBackgroundSegmentation() {
+AINFO<<"(DMCZP) EnteringMethod: CNNSegmentation::InitClusterAndBackgroundSegmentation";
   // init ground detector
   ground_detector_.reset(BaseGroundDetectorRegisterer::GetInstanceByName(
       cnnseg_param_.ground_detector()));
@@ -223,6 +225,7 @@ bool CNNSegmentation::InitClusterAndBackgroundSegmentation() {
 
 void CNNSegmentation::MapPointToGrid(
     const std::shared_ptr<AttributePointCloud<PointF>>& pc_ptr) {
+AINFO<<"(DMCZP) EnteringMethod: CNNSegmentation::MapPointToGrid";
   float inv_res_x = 0.5f * static_cast<float>(width_) / range_;
   // float inv_res_y = 0.5 * static_cast<float>(height_) / range_;
   point2grid_.assign(pc_ptr->size(), -1);
@@ -248,6 +251,7 @@ void CNNSegmentation::MapPointToGrid(
 
 bool CNNSegmentation::Segment(const SegmentationOptions& options,
                               LidarFrame* frame) {
+AINFO<<"(DMCZP) EnteringMethod: CNNSegmentation::Segment";
   // check input
   if (frame == nullptr) {
     AERROR << "Input null frame ptr.";
@@ -311,6 +315,7 @@ bool CNNSegmentation::Segment(const SegmentationOptions& options,
 
 void CNNSegmentation::GetObjectsFromSppEngine(
     std::vector<std::shared_ptr<Object>>* objects) {
+AINFO<<"(DMCZP) EnteringMethod: CNNSegmentation::GetObjectsFromSppEngine";
   Timer timer;
   spp_engine_.GetSppData().grid_indices = point2grid_.data();
   size_t num_foreground =
@@ -441,6 +446,7 @@ bool CNNSegmentation::GetConfigs(std::string* param_file,
                                  std::string* proto_file,
                                  std::string* weight_file,
                                  std::string* engine_file) {
+AINFO<<"(DMCZP) EnteringMethod: CNNSegmentation::GetConfigs";
   auto config_manager = lib::ConfigManager::Instance();
   const lib::ModelConfig* model_config = nullptr;
   CHECK(config_manager->GetModelConfig("CNNSegmentation", &model_config))

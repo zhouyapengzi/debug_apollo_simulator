@@ -96,6 +96,7 @@ class ConcurrentQueueTest : public testing::Test {
 };
 
 TEST_F(ConcurrentQueueTest, TestAll) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   push_thread_->Start();
   pop_thread_->Start();
 

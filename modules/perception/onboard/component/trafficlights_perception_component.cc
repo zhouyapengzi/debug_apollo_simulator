@@ -62,6 +62,7 @@ std::map<base::TLColor, TLInfo> s_tl_infos = {
 
 static int GetGpuId(
     const apollo::perception::camera::CameraPerceptionInitOptions& options) {
+AINFO<<"(DMCZP) EnteringMethod: GetGpuId";
   apollo::perception::camera::app::TrafficLightParam trafficlight_param;
   std::string work_root = apollo::perception::camera::GetCyberWorkRoot();
   std::string config_file =
@@ -83,6 +84,7 @@ static int GetGpuId(
 }
 
 bool TrafficLightsPerceptionComponent::Init() {
+AINFO<<"(DMCZP) EnteringMethod: TrafficLightsPerceptionComponent::Init";
   writer_ = node_->CreateWriter<apollo::perception::TrafficLightDetection>(
       "/apollo/perception/traffic_light");
 
@@ -124,6 +126,7 @@ bool TrafficLightsPerceptionComponent::Init() {
 }
 
 int TrafficLightsPerceptionComponent::InitConfig() {
+AINFO<<"(DMCZP) EnteringMethod: TrafficLightsPerceptionComponent::InitConfig";
   apollo::perception::onboard::TrafficLight traffic_light_param;
   if (!GetProtoConfig(&traffic_light_param)) {
     AINFO << "load trafficlights perception component proto param failed";
@@ -186,6 +189,7 @@ int TrafficLightsPerceptionComponent::InitConfig() {
 }
 
 int TrafficLightsPerceptionComponent::InitAlgorithmPlugin() {
+AINFO<<"(DMCZP) EnteringMethod: TrafficLightsPerceptionComponent::InitAlgorithmPlugin";
   // init preprocessor
   preprocessor_.reset(new camera::TLPreprocessor);
   AINFO << "(pengzi) New preprocessor for trafficlights perception component";
@@ -256,6 +260,7 @@ int TrafficLightsPerceptionComponent::InitAlgorithmPlugin() {
 }
 
 int TrafficLightsPerceptionComponent::InitCameraListeners() {
+AINFO<<"(DMCZP) EnteringMethod: TrafficLightsPerceptionComponent::InitCameraListeners";
   // init camera listeners
   for (size_t i = 0; i < camera_names_.size(); ++i) {
     const auto& camera_name = camera_names_[i];
@@ -275,6 +280,7 @@ int TrafficLightsPerceptionComponent::InitCameraListeners() {
 }
 
 int TrafficLightsPerceptionComponent::InitV2XListener() {
+AINFO<<"(DMCZP) EnteringMethod: TrafficLightsPerceptionComponent::InitV2XListener";
   typedef const std::shared_ptr<apollo::v2x::IntersectionTrafficLightData>
       V2XTrafficLightsMsgType;
   std::function<void(const V2XTrafficLightsMsgType&)> sub_v2x_tl_callback =
@@ -286,6 +292,7 @@ int TrafficLightsPerceptionComponent::InitV2XListener() {
 }
 
 int TrafficLightsPerceptionComponent::InitCameraFrame() {
+AINFO<<"(DMCZP) EnteringMethod: TrafficLightsPerceptionComponent::InitCameraFrame";
   data_provider_init_options_.image_height = image_height_;
   data_provider_init_options_.image_width = image_width_;
   int gpu_id = GetGpuId(camera_perception_init_options_);
@@ -316,6 +323,7 @@ int TrafficLightsPerceptionComponent::InitCameraFrame() {
 void TrafficLightsPerceptionComponent::OnReceiveImage(
     const std::shared_ptr<apollo::drivers::Image> msg,
     const std::string& camera_name) {
+AINFO<<"(DMCZP) EnteringMethod: TrafficLightsPerceptionComponent::OnReceiveImage";
   std::lock_guard<std::mutex> lck(mutex_);
   double receive_img_timestamp = lib::TimeUtil::GetCurrentTime();
   double image_msg_ts = msg->measurement_time();
@@ -481,6 +489,7 @@ void TrafficLightsPerceptionComponent::OnReceiveImage(
 
 void TrafficLightsPerceptionComponent::OnReceiveV2XMsg(
     const std::shared_ptr<apollo::v2x::IntersectionTrafficLightData> v2x_msg) {
+AINFO<<"(DMCZP) EnteringMethod: TrafficLightsPerceptionComponent::OnReceiveV2XMsg";
   std::lock_guard<std::mutex> lck(mutex_);
   v2x_msg_buffer_.push_back(*v2x_msg);
 }
@@ -488,6 +497,7 @@ void TrafficLightsPerceptionComponent::OnReceiveV2XMsg(
 void TrafficLightsPerceptionComponent::GenerateTrafficLights(
     const std::vector<apollo::hdmap::Signal>& signals,
     std::vector<base::TrafficLightPtr>* traffic_lights) {
+AINFO<<"(DMCZP) EnteringMethod: TrafficLightsPerceptionComponent::GenerateTrafficLights";
   traffic_lights->clear();
   for (auto signal : signals) {
     base::TrafficLightPtr light;
@@ -514,6 +524,7 @@ void TrafficLightsPerceptionComponent::GenerateTrafficLights(
 bool TrafficLightsPerceptionComponent::QueryPoseAndSignals(
     const double ts, camera::CarPose* pose,
     std::vector<apollo::hdmap::Signal>* signals) {
+AINFO<<"(DMCZP) EnteringMethod: TrafficLightsPerceptionComponent::QueryPoseAndSignals";
   PERCEPTION_PERF_FUNCTION();
   // get pose
   if (!GetCarPose(ts, pose)) {
@@ -556,6 +567,7 @@ bool TrafficLightsPerceptionComponent::QueryPoseAndSignals(
 bool TrafficLightsPerceptionComponent::VerifyLightsProjection(
     const double& ts, const camera::TLPreprocessorOption& option,
     const std::string& camera_name, camera::CameraFrame* frame) {
+AINFO<<"(DMCZP) EnteringMethod: TrafficLightsPerceptionComponent::VerifyLightsProjection";
   PERCEPTION_PERF_FUNCTION();
   camera::CarPose pose;
   std::vector<apollo::hdmap::Signal> signals;
@@ -582,6 +594,7 @@ bool TrafficLightsPerceptionComponent::VerifyLightsProjection(
 bool TrafficLightsPerceptionComponent::UpdateCameraSelection(
     double timestamp, const camera::TLPreprocessorOption& option,
     camera::CameraFrame* frame) {
+AINFO<<"(DMCZP) EnteringMethod: TrafficLightsPerceptionComponent::UpdateCameraSelection";
   PERCEPTION_PERF_FUNCTION();
   const double current_ts = lib::TimeUtil::GetCurrentTime();
   if (last_query_tf_ts_ > 0.0 &&
@@ -590,6 +603,7 @@ bool TrafficLightsPerceptionComponent::UpdateCameraSelection(
           << " , last_query_tf_ts_: " << std::to_string(last_query_tf_ts_);
     return true;
   }
+AINFO<<"(DMCZP) EnteringMethod: TrafficLightsPerceptionComponent::SyncV2XTrafficLights";
   AINFO << "start select camera";
 
   camera::CarPose pose;
@@ -623,6 +637,7 @@ bool TrafficLightsPerceptionComponent::UpdateCameraSelection(
 
 bool TrafficLightsPerceptionComponent::CheckCameraImageStatus(
     double timestamp, double interval, const std::string& camera_name) {
+AINFO<<"(DMCZP) EnteringMethod: TrafficLightsPerceptionComponent::CheckCameraImageStatus";
   PERCEPTION_PERF_FUNCTION();
   bool camera_ok = true;
   std::string no_image_camera_names = "";
@@ -660,6 +675,7 @@ bool TrafficLightsPerceptionComponent::CheckCameraImageStatus(
 
 bool TrafficLightsPerceptionComponent::GetCarPose(const double timestamp,
                                                   camera::CarPose* pose) {
+AINFO<<"(DMCZP) EnteringMethod: TrafficLightsPerceptionComponent::GetCarPose";
   PERCEPTION_PERF_FUNCTION();
   Eigen::Matrix4d pose_matrix;
   // get pose car(gps) to world
@@ -696,6 +712,7 @@ bool TrafficLightsPerceptionComponent::GetCarPose(const double timestamp,
 bool TrafficLightsPerceptionComponent::GetPoseFromTF(
     const double timestamp, const std::string& frame_id,
     const std::string& child_frame_id, Eigen::Matrix4d* pose_matrix) {
+AINFO<<"(DMCZP) EnteringMethod: TrafficLightsPerceptionComponent::GetPoseFromTF";
   PERCEPTION_PERF_FUNCTION();
   // apollo::cyber::Time query_time(timestamp);
   apollo::cyber::Time query_time(0);
@@ -732,6 +749,7 @@ bool TrafficLightsPerceptionComponent::GetPoseFromTF(
 bool TrafficLightsPerceptionComponent::TransformOutputMessage(
     camera::CameraFrame* frame, const std::string& camera_name,
     std::shared_ptr<TrafficLightDetection>* out_msg) {
+AINFO<<"(DMCZP) EnteringMethod: TrafficLightsPerceptionComponent::TransformOutputMessage";
   PERCEPTION_PERF_FUNCTION();
   const std::map<std::string, TLCamID> CAMERA_ID_TO_TLCAMERA_ID = {
       {"front_24mm", TrafficLightDetection::CAMERA_FRONT_LONG},
@@ -872,6 +890,7 @@ bool TrafficLightsPerceptionComponent::TransformOutputMessage(
 
 void TrafficLightsPerceptionComponent::TransRect2Box(
     const base::RectI& rect, apollo::perception::TrafficLightBox* box) {
+AINFO<<"(DMCZP) EnteringMethod: TrafficLightsPerceptionComponent::TransRect2Box";
   box->set_x(rect.x);
   box->set_y(rect.y);
   box->set_width(rect.width);
@@ -880,6 +899,7 @@ void TrafficLightsPerceptionComponent::TransRect2Box(
 
 double TrafficLightsPerceptionComponent::stopline_distance(
     const Eigen::Matrix4d& cam_pose) {
+AINFO<<"(DMCZP) EnteringMethod: TrafficLightsPerceptionComponent::stopline_distance";
   if (stoplines_.empty()) {
     AWARN << "compute car to stopline's distance failed(no stopline). "
           << "cam_pose:" << cam_pose;
@@ -923,6 +943,7 @@ double TrafficLightsPerceptionComponent::stopline_distance(
 bool TrafficLightsPerceptionComponent::TransformDebugMessage(
     const camera::CameraFrame* frame,
     std::shared_ptr<apollo::perception::TrafficLightDetection>* out_msg) {
+AINFO<<"(DMCZP) EnteringMethod: TrafficLightsPerceptionComponent::TransformDebugMessage";
   PERCEPTION_PERF_FUNCTION();
   const auto& lights = frame->traffic_lights;
   // add traffic light debug info
@@ -987,6 +1008,7 @@ bool TrafficLightsPerceptionComponent::TransformDebugMessage(
 void TrafficLightsPerceptionComponent::Visualize(
     const camera::CameraFrame& frame,
     const std::vector<base::TrafficLightPtr>& lights) const {
+AINFO<<"(DMCZP) EnteringMethod: TrafficLightsPerceptionComponent::Visualize";
   char str[100];
   cv::string tl_string;
   cv::Scalar tl_color;
@@ -1139,6 +1161,7 @@ void TrafficLightsPerceptionComponent::SyncV2XTrafficLights(
 }
 
 void TrafficLightsPerceptionComponent::SendSimulationMsg() {
+AINFO<<"(DMCZP) EnteringMethod: TrafficLightsPerceptionComponent::SendSimulationMsg";
   auto out_msg = std::make_shared<TrafficLightDetection>();
   writer_->Write(out_msg);
 }

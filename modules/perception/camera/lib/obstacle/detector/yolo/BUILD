@@ -60,6 +60,7 @@ cc_library(
         "//modules/perception/inference/utils:inference_resize_lib",
         "//modules/perception/inference/utils:inference_util_lib",
         "//modules/perception/lib/utils",
+        "//cyber/common:log",
     ],
 )
 

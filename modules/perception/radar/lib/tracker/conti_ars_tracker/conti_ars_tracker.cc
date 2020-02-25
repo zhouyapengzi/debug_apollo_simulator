@@ -1,3 +1,4 @@
+#include "cyber/common/log.h"
 /******************************************************************************
  * Copyright 2018 The Apollo Authors. All Rights Reserved.
  *
@@ -22,6 +23,7 @@ namespace radar {
 double ContiArsTracker::s_tracking_time_win_ = 0.06;
 ContiArsTracker::ContiArsTracker()
     : BaseTracker(), matcher_(nullptr), track_manager_(nullptr) {
+AINFO<<"(DMCZP) EnteringMethod: ContiArsTracker::ContiArsTracker";
   name_ = "ContiArsTracker";
 }
 
@@ -35,6 +37,7 @@ ContiArsTracker::~ContiArsTracker() {
 }
 
 bool ContiArsTracker::Init() {
+AINFO<<"(DMCZP) EnteringMethod: ContiArsTracker::Init";
   std::string model_name = name_;
   const lib::ModelConfig *model_config = nullptr;
   bool state = true;
@@ -88,12 +91,14 @@ bool ContiArsTracker::Init() {
 bool ContiArsTracker::Track(const base::Frame &detected_frame,
                             const TrackerOptions &options,
                             base::FramePtr tracked_frame) {
+AINFO<<"(DMCZP) EnteringMethod: ContiArsTracker::Track";
   TrackObjects(detected_frame);
   CollectTrackedFrame(tracked_frame);
   return true;
 }
 
 void ContiArsTracker::TrackObjects(const base::Frame &radar_frame) {
+AINFO<<"(DMCZP) EnteringMethod: ContiArsTracker::TrackObjects";
   std::vector<TrackObjectPair> assignments;
   std::vector<size_t> unassigned_tracks;
   std::vector<size_t> unassigned_objects;
@@ -109,6 +114,7 @@ void ContiArsTracker::TrackObjects(const base::Frame &radar_frame) {
 
 void ContiArsTracker::UpdateAssignedTracks(
     const base::Frame &radar_frame, std::vector<TrackObjectPair> assignments) {
+AINFO<<"(DMCZP) EnteringMethod: ContiArsTracker::UpdateAssignedTracks";
   auto &radar_tracks = track_manager_->mutable_tracks();
   for (size_t i = 0; i < assignments.size(); ++i) {
     radar_tracks[assignments[i].first]->UpdataObsRadar(
@@ -119,6 +125,7 @@ void ContiArsTracker::UpdateAssignedTracks(
 void ContiArsTracker::UpdateUnassignedTracks(
     const base::Frame &radar_frame,
     const std::vector<size_t> &unassigned_tracks) {
+AINFO<<"(DMCZP) EnteringMethod: ContiArsTracker::UpdateUnassignedTracks";
   double timestamp = radar_frame.timestamp;
   auto &radar_tracks = track_manager_->mutable_tracks();
   for (size_t i = 0; i < unassigned_tracks.size(); ++i) {
@@ -135,10 +142,12 @@ void ContiArsTracker::UpdateUnassignedTracks(
 }
 
 void ContiArsTracker::DeleteLostTracks() { track_manager_->RemoveLostTracks(); }
+AINFO<<"(DMCZP) EnteringMethod: ContiArsTracker::DeleteLostTracks";
 
 void ContiArsTracker::CreateNewTracks(
     const base::Frame &radar_frame,
     const std::vector<size_t> &unassigned_objects) {
+AINFO<<"(DMCZP) EnteringMethod: ContiArsTracker::CreateNewTracks";
   for (size_t i = 0; i < unassigned_objects.size(); ++i) {
     RadarTrackPtr radar_track;
     radar_track.reset(new RadarTrack(radar_frame.objects[unassigned_objects[i]],
@@ -148,6 +157,7 @@ void ContiArsTracker::CreateNewTracks(
 }
 
 void ContiArsTracker::CollectTrackedFrame(base::FramePtr tracked_frame) {
+AINFO<<"(DMCZP) EnteringMethod: ContiArsTracker::CollectTrackedFrame";
   CHECK(tracked_frame != nullptr) << "tracked_frame is nullptr";
   auto &objects = tracked_frame->objects;
   const auto &radar_tracks = track_manager_->GetTracks();

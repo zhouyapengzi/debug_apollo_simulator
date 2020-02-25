@@ -1,3 +1,4 @@
+#include "cyber/common/log.h"
 /******************************************************************************
  * Copyright 2018 The Apollo Authors. All Rights Reserved.
  *
@@ -23,9 +24,11 @@ bool PbfShapeFusion::s_use_camera_3d_ = true;
 float PbfShapeFusion::s_camera_radar_time_diff_th_ = 0.3f;
 
 bool PbfShapeFusion::Init() { return true; }
+AINFO<<"(DMCZP) EnteringMethod: PbfShapeFusion::Init";
 
 void PbfShapeFusion::UpdateWithMeasurement(const SensorObjectPtr measurement,
                                            double target_timestamp) {
+AINFO<<"(DMCZP) EnteringMethod: PbfShapeFusion::UpdateWithMeasurement";
   // base::SensorType sensor_type = measurement->GetSensorType();
   SensorObjectConstPtr latest_lidar = track_ref_->GetLatestLidarObject();
   SensorObjectConstPtr latest_radar = track_ref_->GetLatestRadarObject();
@@ -62,17 +65,21 @@ void PbfShapeFusion::UpdateWithMeasurement(const SensorObjectPtr measurement,
 void PbfShapeFusion::UpdateWithoutMeasurement(const std::string& sensor_id,
                                               double measurement_timestamp,
                                               double target_timestamp) {
+AINFO<<"(DMCZP) EnteringMethod: PbfShapeFusion::UpdateWithoutMeasurement";
   return;
 }
 
 std::string PbfShapeFusion::Name() const { return "PbfShapeFusion"; }
+AINFO<<"(DMCZP) EnteringMethod: PbfShapeFusion::Name";
 
 void PbfShapeFusion::UpdateState(const SensorObjectConstPtr& measurement) {
+AINFO<<"(DMCZP) EnteringMethod: PbfShapeFusion::UpdateState";
   UpdateShape(measurement);
   UpdateCenter(measurement);
 }
 
 void PbfShapeFusion::UpdateShape(const SensorObjectConstPtr& measurement) {
+AINFO<<"(DMCZP) EnteringMethod: PbfShapeFusion::UpdateShape";
   base::ObjectPtr dst_obj = track_ref_->GetFusedObject()->GetBaseObject();
   base::ObjectConstPtr src_obj = measurement->GetBaseObject();
 
@@ -83,6 +90,7 @@ void PbfShapeFusion::UpdateShape(const SensorObjectConstPtr& measurement) {
 }
 
 void PbfShapeFusion::UpdateCenter(const SensorObjectConstPtr& measurement) {
+AINFO<<"(DMCZP) EnteringMethod: PbfShapeFusion::UpdateCenter";
   base::ObjectPtr dst_obj = track_ref_->GetFusedObject()->GetBaseObject();
   base::ObjectConstPtr src_obj = measurement->GetBaseObject();
 

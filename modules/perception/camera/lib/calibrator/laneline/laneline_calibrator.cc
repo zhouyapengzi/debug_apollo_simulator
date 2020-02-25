@@ -1,3 +1,4 @@
+#include "cyber/common/log.h"
 /******************************************************************************
  * Copyright 2018 The Apollo Authors. All Rights Reserved.
  *
@@ -20,6 +21,7 @@ namespace perception {
 namespace camera {
 
 bool LaneLineCalibrator::Init(const CalibratorInitOptions &options) {
+AINFO<<"(DMCZP) EnteringMethod: LaneLineCalibrator::Init";
   LocalCalibratorInitOptions local_options;
   local_options.cx = options.cx;
   local_options.cy = options.cy;
@@ -33,6 +35,7 @@ bool LaneLineCalibrator::Init(const CalibratorInitOptions &options) {
 
 bool LaneLineCalibrator::Calibrate(const CalibratorOptions &options,
                                    float *pitch_angle) {
+AINFO<<"(DMCZP) EnteringMethod: LaneLineCalibrator::Calibrate";
   CHECK(pitch_angle != nullptr);
   EgoLane ego_lane;
   if (!LoadEgoLaneline(*options.lane_objects, &ego_lane)) {
@@ -94,6 +97,7 @@ bool LaneLineCalibrator::Calibrate(const CalibratorOptions &options,
 
 bool LaneLineCalibrator::LoadEgoLaneline(
     const std::vector<base::LaneLine> &lane_objects, EgoLane *ego_lane) {
+AINFO<<"(DMCZP) EnteringMethod: LaneLineCalibrator::LoadEgoLaneline";
   CHECK(ego_lane != nullptr);
   bool found_ego_left = false;
   bool found_ego_right = false;

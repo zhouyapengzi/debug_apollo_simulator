@@ -18,6 +18,7 @@ cc_library(
         "//modules/perception/fusion/lib/gatekeeper/pbf_gatekeeper/proto:pbf_gatekeeper_config_proto",
         "//modules/perception/fusion/lib/interface",
         "//modules/perception/lib/config_manager",
+        "//cyber/common:log",
     ],
 )
 
@@ -33,6 +34,7 @@ cc_test(
         "//modules/perception/fusion/base:sensor",
         "//modules/perception/fusion/base:track",
         "@gtest//:main",
+        "//cyber/common:log",
     ],
 )
 

@@ -1,3 +1,4 @@
+#include "cyber/common/log.h"
 /******************************************************************************
  * Copyright 2018 The Apollo Authors. All Rights Reserved.
  *
@@ -27,6 +28,7 @@ namespace perception {
 namespace camera {
 
 TEST(MultiCueObstacleTransformerTest, multicue_obstacle_transformer_test) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   // Init object template
   ObjectTemplateManagerInitOptions object_template_init_options;
   object_template_init_options.root_dir =

@@ -11,6 +11,7 @@ cc_library(
         "//modules/perception/inference:inference_lib",
         "@caffe",
         "@com_google_protobuf//:protobuf",
+        "//cyber/common:log",
     ],
 )
 
@@ -22,6 +23,7 @@ cc_test(
         ":caffe_net_lib",
         "//modules/perception/inference/utils:inference_util_lib",
         "@gtest//:main",
+        "//cyber/common:log",
     ],
 )
 

@@ -1,3 +1,4 @@
+#include "cyber/common/log.h"
 /******************************************************************************
  * Copyright 2018 The Apollo Authors. All Rights Reserved.
  *
@@ -30,6 +31,7 @@ int KalmanMotionFusion::s_eval_window_ = 3;
 size_t KalmanMotionFusion::s_history_size_maximum_ = 20;
 
 bool KalmanMotionFusion::Init() {
+AINFO<<"(DMCZP) EnteringMethod: KalmanMotionFusion::Init";
   if (track_ref_ == nullptr) {
     return false;
   }
@@ -42,6 +44,7 @@ bool KalmanMotionFusion::Init() {
 }
 
 bool KalmanMotionFusion::InitFilter(const SensorObjectConstPtr& sensor_object) {
+AINFO<<"(DMCZP) EnteringMethod: KalmanMotionFusion::InitFilter";
   const std::vector<bool> gain_break_down = {0, 0, 0, 0, 1, 1};
   const std::vector<bool> value_break_down = {0, 0, 1, 1, 0, 0};
   const float gain_break_down_threshold = 2.0f;
@@ -97,6 +100,7 @@ bool KalmanMotionFusion::InitFilter(const SensorObjectConstPtr& sensor_object) {
 
 void KalmanMotionFusion::GetStates(Eigen::Vector3d* anchor_point,
                                    Eigen::Vector3d* velocity) {
+AINFO<<"(DMCZP) EnteringMethod: KalmanMotionFusion::GetStates";
   *anchor_point = fused_anchor_point_;
   *velocity = fused_velocity_;
 }
@@ -104,6 +108,7 @@ void KalmanMotionFusion::GetStates(Eigen::Vector3d* anchor_point,
 void KalmanMotionFusion::UpdateWithoutMeasurement(const std::string& sensor_id,
                                                   double measurement_timestamp,
                                                   double target_timestamp) {
+AINFO<<"(DMCZP) EnteringMethod: KalmanMotionFusion::UpdateWithoutMeasurement";
   SensorObjectConstPtr lidar_ptr = track_ref_->GetLatestLidarObject();
   SensorObjectConstPtr radar_ptr = track_ref_->GetLatestRadarObject();
   SensorObjectConstPtr camera_ptr = track_ref_->GetLatestCameraObject();
@@ -128,6 +133,7 @@ void KalmanMotionFusion::UpdateWithoutMeasurement(const std::string& sensor_id,
 
 void KalmanMotionFusion::UpdateWithMeasurement(
     const SensorObjectConstPtr& measurement, double target_timestamp) {
+AINFO<<"(DMCZP) EnteringMethod: KalmanMotionFusion::UpdateWithMeasurement";
   fused_anchor_point_ =
       measurement->GetBaseObject()->anchor_point.cast<double>();
   fused_velocity_ = measurement->GetBaseObject()->velocity.cast<double>();
@@ -213,6 +219,7 @@ void KalmanMotionFusion::UpdateWithMeasurement(
 
 void KalmanMotionFusion::MotionFusionWithoutMeasurement(
     const double time_diff) {
+AINFO<<"(DMCZP) EnteringMethod: KalmanMotionFusion::MotionFusionWithoutMeasurement";
   Eigen::MatrixXd transform_matrix;
   Eigen::MatrixXd env_uncertainty;
   transform_matrix.setIdentity(6, 6);
@@ -224,6 +231,7 @@ void KalmanMotionFusion::MotionFusionWithoutMeasurement(
 
 void KalmanMotionFusion::MotionFusionWithMeasurement(
     const SensorObjectConstPtr& measurement, double time_diff) {
+AINFO<<"(DMCZP) EnteringMethod: KalmanMotionFusion::MotionFusionWithMeasurement";
   // we use kalman filter to update our tracker.
   // The pipeline is detailed as follows:
   // 1) compute the time diff to predict the tracker
@@ -329,6 +337,7 @@ void KalmanMotionFusion::MotionFusionWithMeasurement(
 }
 
 void KalmanMotionFusion::UpdateMotionState() {
+AINFO<<"(DMCZP) EnteringMethod: KalmanMotionFusion::UpdateMotionState";
   base::ObjectPtr obj = track_ref_->GetFusedObject()->GetBaseObject();
   obj->velocity = fused_velocity_.cast<float>();
   obj->acceleration = fused_acceleration_.cast<float>();
@@ -348,11 +357,13 @@ void KalmanMotionFusion::UpdateMotionState() {
 Eigen::VectorXd KalmanMotionFusion::ComputeAccelerationMeasurement(
     const base::SensorType& sensor_type, const Eigen::Vector3d& velocity,
     const double& timestamp) {
+AINFO<<"(DMCZP) EnteringMethod: KalmanMotionFusion::ComputeAccelerationMeasurement";
   Eigen::Vector3d acceleration_measurement = Eigen::Vector3d::Zero();
   if (common::SensorManager::Instance()->IsCamera(sensor_type)) {
     acceleration_measurement(0) = kalman_filter_.GetStates()(4);
     acceleration_measurement(1) = kalman_filter_.GetStates()(5);
     return acceleration_measurement;
+AINFO<<"(DMCZP) EnteringMethod: KalmanMotionFusion::UpdateSensorHistory";
   }
   if (GetSensorHistoryLength(sensor_type) >= s_eval_window_) {
     size_t history_index = GetSensorHistoryIndex(sensor_type, s_eval_window_);
@@ -369,6 +380,7 @@ Eigen::VectorXd KalmanMotionFusion::ComputeAccelerationMeasurement(
 void KalmanMotionFusion::RewardRMatrix(const base::SensorType& sensor_type,
                                        const bool& converged,
                                        Eigen::MatrixXd* r_matrix) {
+AINFO<<"(DMCZP) EnteringMethod: KalmanMotionFusion::RewardRMatrix";
   common::SensorManager* sensor_manager = common::SensorManager::Instance();
   const float converged_scale = 0.01f;
   const float unconverged_scale = 1000.0f;
@@ -396,6 +408,7 @@ void KalmanMotionFusion::RewardRMatrix(const base::SensorType& sensor_type,
 
 Eigen::Vector4d KalmanMotionFusion::ComputePseudoMeasurement(
     const Eigen::Vector4d& measurement, const base::SensorType& sensor_type) {
+AINFO<<"(DMCZP) EnteringMethod: KalmanMotionFusion::ComputePseudoMeasurement";
   // What is a pseudo-lidar estimation? if given lidar estimation could trace
   // a good radar estimation within a short window, then project radar
   // estimation on given lidar one. otherwise, use original lidar estimation.
@@ -419,6 +432,9 @@ Eigen::Vector4d KalmanMotionFusion::ComputePseudoMeasurement(
 
 Eigen::Vector4d KalmanMotionFusion::ComputePseudoLidarMeasurement(
     const Eigen::Vector4d& measurement) {
+AINFO<<"(DMCZP) EnteringMethod: KalmanMotionFusion::ComputePseudoLidarMeasurement";
+AINFO<<"(DMCZP) EnteringMethod: KalmanMotionFusion::ComputePseudoCameraMeasurement";
+AINFO<<"(DMCZP) EnteringMethod: KalmanMotionFusion::ComputePseudoRadarMeasurement";
   // Initialize status variables
   int trace_count = 0;
   const float velocity_angle_change_thresh_ = static_cast<float>(M_PI / 20.0);
@@ -701,6 +717,7 @@ void KalmanMotionFusion::UpdateSensorHistory(
 
 int KalmanMotionFusion::GetSensorHistoryLength(
     const base::SensorType& sensor_type) {
+AINFO<<"(DMCZP) EnteringMethod: KalmanMotionFusion::GetSensorHistoryLength";
   int sensor_history_length = 0;
   for (size_t i = 0; i < history_sensor_type_.size(); ++i) {
     if (history_sensor_type_[i] == sensor_type) {
@@ -712,6 +729,7 @@ int KalmanMotionFusion::GetSensorHistoryLength(
 
 int KalmanMotionFusion::GetSensorHistoryIndex(
     const base::SensorType& sensor_type, const int& trace_length) {
+AINFO<<"(DMCZP) EnteringMethod: KalmanMotionFusion::GetSensorHistoryIndex";
   int history_index = 0;
   int history_count = 0;
   for (size_t i = 1; i <= history_sensor_type_.size(); ++i) {

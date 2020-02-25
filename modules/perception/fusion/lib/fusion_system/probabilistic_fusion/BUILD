@@ -46,6 +46,7 @@ cc_test(
     deps = [
         ":probabilistic_fusion",
         "@gtest//:main",
+        "//cyber/common:log",
     ],
 )
 

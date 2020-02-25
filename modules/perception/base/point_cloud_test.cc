@@ -1,3 +1,4 @@
+#include "cyber/common/log.h"
 /******************************************************************************
  * Copyright 2018 The Apollo Authors. All Rights Reserved.
  *
@@ -23,6 +24,7 @@ namespace perception {
 namespace base {
 
 TEST(PointTest, point_test) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   {
     PointF point;
     EXPECT_EQ(point.x, 0.f);
@@ -92,11 +94,13 @@ TEST(PointTest, point_test) {
 }
 
 TEST(PointIndicesTest, point_test) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   PointIndices indices;
   EXPECT_EQ(indices.indices.capacity(), kDefaultReservePointNum);
 }
 
 TEST(PointCloudTest, point_cloud_constructor_test) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   {
     using TestPointCloud = PointCloud<PointF>;
     TestPointCloud cloud1;
@@ -161,6 +165,7 @@ TEST(PointCloudTest, point_cloud_constructor_test) {
 }
 
 TEST(PointCloudTest, point_cloud_interface_test) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   typedef PointCloud<PointF> TestPointCloud;
   TestPointCloud cloud;
   cloud.reserve(2);
@@ -238,6 +243,7 @@ TEST(PointCloudTest, point_cloud_interface_test) {
 }
 
 TEST(PointCloudTest, attribute_point_cloud_interface_test) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   using TestPointCloud = AttributePointCloud<PointF>;
   TestPointCloud cloud;
   cloud.reserve(2);
@@ -349,6 +355,7 @@ TEST(PointCloudTest, attribute_point_cloud_interface_test) {
 }
 
 TEST(PointCloudTest, transform_test) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   Eigen::Affine3d affine = Eigen::Affine3d::Identity();
   affine.rotate(Eigen::AngleAxisd(M_PI / 2, Eigen::Vector3d(1, 0, 0)));
   affine.translate(Eigen::Vector3d(1, 1, 1));
@@ -381,6 +388,7 @@ TEST(PointCloudTest, transform_test) {
 
 template <typename PointT>
 void CloudCheck(const std::shared_ptr<const PointCloud<PointT>> cloud) {
+AINFO<<"(DMCZP) EnteringMethod: CloudCheck";
   for (const auto& point : cloud->points()) {
     EXPECT_EQ(point.x, 0.f);
     EXPECT_EQ(point.y, 0.f);
@@ -390,10 +398,12 @@ void CloudCheck(const std::shared_ptr<const PointCloud<PointT>> cloud) {
 
 template <typename PointT>
 void ResizeCloud(const std::shared_ptr<PointCloud<PointT>> cloud) {
+AINFO<<"(DMCZP) EnteringMethod: ResizeCloud";
   cloud->resize(cloud->size() * 2);
 }
 
 TEST(PointCloudTest, dynamic_binding_test) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   std::shared_ptr<PointCloud<PointF>> cloud;
   cloud.reset(new PointCloud<PointF>);
   cloud->resize(10);

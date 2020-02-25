@@ -1,3 +1,4 @@
+#include "cyber/common/log.h"
 /******************************************************************************
  * Copyright 2018 The Apollo Authors. All Rights Reserved.
  *
@@ -28,6 +29,7 @@ namespace apollo {
 namespace perception {
 namespace camera {
 TEST(RefTest, update_test) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   // Init object template
   ObjectTemplateManagerInitOptions object_template_init_options;
   object_template_init_options.root_dir =

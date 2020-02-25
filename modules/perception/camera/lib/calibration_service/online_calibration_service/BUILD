@@ -14,6 +14,7 @@ cc_library(
         "//modules/perception/camera/lib/interface",
         "//modules/perception/common/i_lib/core",
         "//modules/perception/common/i_lib/geometry:i_plane",
+        "//cyber/common:log",
     ],
 )
 

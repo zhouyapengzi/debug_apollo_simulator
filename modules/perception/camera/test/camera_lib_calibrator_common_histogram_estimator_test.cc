@@ -1,3 +1,4 @@
+#include "cyber/common/log.h"
 /******************************************************************************
  * Copyright 2018 The Apollo Authors. All Rights Reserved.
  *
@@ -22,6 +23,7 @@ namespace perception {
 namespace camera {
 
 TEST(HistogramEstimatorTest, histogram_estimator_test) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   HistogramEstimator estimator;
   HistogramEstimatorParams params1;
   HistogramEstimatorParams params2;

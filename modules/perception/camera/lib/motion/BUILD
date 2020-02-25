@@ -16,6 +16,7 @@ cc_library(
     deps = [
         "//modules/common",
         "//modules/perception/base",
+        "//cyber/common:log",
     ],
 )
 

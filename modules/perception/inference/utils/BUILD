@@ -60,6 +60,7 @@ cc_library(
         "//modules/perception/base:image",
         "//modules/perception/base:point_cloud",
         "@caffe",
+        "//cyber/common:log",
     ],
 )
 
@@ -135,6 +136,7 @@ cc_test(
     deps = [
         ":inference_util_lib",
         "@gtest//:main",
+        "//cyber/common:log",
     ],
 )
 
@@ -148,6 +150,7 @@ cc_library(
     deps = [
         "//modules/perception/base:blob",
         "@caffe",
+        "//cyber/common:log",
     ],
 )
 
@@ -161,6 +164,7 @@ cc_test(
     deps = [
         ":inference_binary_data_lib",
         "@gtest//:main",
+        "//cyber/common:log",
     ],
 )
 

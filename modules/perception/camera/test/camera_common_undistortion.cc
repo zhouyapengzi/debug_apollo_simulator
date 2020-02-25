@@ -1,3 +1,4 @@
+#include "cyber/common/log.h"
 /******************************************************************************
  * Copyright 2018 The Apollo Authors. All Rights Reserved.
  *
@@ -33,6 +34,7 @@ namespace camera {
  */
 int ImageGpuPreprocessHandler::init(const std::string &intrinsics_path,
                                     int dev) {
+AINFO<<"(DMCZP) EnteringMethod: ImageGpuPreprocessHandler::init";
   if (_inited) {
     return 0;
   }
@@ -100,6 +102,7 @@ int ImageGpuPreprocessHandler::init(const std::string &intrinsics_path,
  *
  */
 int ImageGpuPreprocessHandler::handle(uint8_t *src, uint8_t *dst) {
+AINFO<<"(DMCZP) EnteringMethod: ImageGpuPreprocessHandler::handle";
   if (!_inited) {
     return -1;
   }
@@ -133,6 +136,7 @@ int ImageGpuPreprocessHandler::handle(uint8_t *src, uint8_t *dst) {
  *
  */
 int ImageGpuPreprocessHandler::release(void) {
+AINFO<<"(DMCZP) EnteringMethod: ImageGpuPreprocessHandler::release";
   if (_d_mapy) {
     BASE_CUDA_CHECK(cudaFree(_d_mapy));
     _d_mapy = nullptr;
@@ -156,6 +160,7 @@ int ImageGpuPreprocessHandler::release(void) {
 int ImageGpuPreprocessHandler::load_camera_intrinsics(
     const std::string &intrinsics_path, int *width, int *height,
     std::vector<double> *D, std::vector<double> *K) {
+AINFO<<"(DMCZP) EnteringMethod: ImageGpuPreprocessHandler::load_camera_intrinsics";
   if (!(boost::filesystem::exists(intrinsics_path))) {
     return -1;
   }

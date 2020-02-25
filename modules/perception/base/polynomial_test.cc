@@ -1,3 +1,4 @@
+#include "cyber/common/log.h"
 /******************************************************************************
  * Copyright 2018 The Apollo Authors. All Rights Reserved.
  *
@@ -22,6 +23,7 @@ namespace perception {
 namespace base {
 
 TEST(BaseTest, polynomial_test) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   // f(x) = 1 + 2 * x^2 + 3 * x^3 + 5 * x^5
   Polynomial poly;
   poly[0] = 1.0;

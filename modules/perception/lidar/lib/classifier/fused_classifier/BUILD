@@ -77,6 +77,7 @@ cc_library(
         ":fused_classifier",
         ":util",
         "@gtest//:main",
+         "//cyber/common:log",
     ],
 )
 

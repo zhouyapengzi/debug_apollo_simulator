@@ -1,3 +1,4 @@
+#include "cyber/common/log.h"
 /******************************************************************************
  * Copyright 2018 The Apollo Authors. All Rights Reserved.
  *
@@ -35,6 +36,8 @@ DECLARE_string(work_root);
 }  // namespace lib
 
 namespace lidar {
+AINFO<<"(DMCZP) EnteringMethod: DECLARE_string";
+AINFO<<"(DMCZP) EnteringMethod: DECLARE_string";
 
 class LidarLibROIServiceFilterTest : public testing::Test {
  protected:
@@ -57,6 +60,7 @@ class LidarLibROIServiceFilterTest : public testing::Test {
 };
 
 void MockData(LidarFrame* frame) {
+AINFO<<"(DMCZP) EnteringMethod: MockData";
   std::string pcd =
       "/apollo/modules/perception/testdata/lidar/lib/roi_filter/"
       "roi_service_filter/data/pcd/1532063882.176900.pcd";
@@ -99,6 +103,7 @@ void MockData(LidarFrame* frame) {
 }
 
 TEST_F(LidarLibROIServiceFilterTest, lidar_lib_roi_service_filter_test) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   ROIServiceFilter roi_service_filter;
   EXPECT_EQ(roi_service_filter.Name(), "ROIServiceFilter");
   EXPECT_FALSE(roi_service_filter.Init(ROIFilterInitOptions()));

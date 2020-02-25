@@ -1,3 +1,4 @@
+#include "cyber/common/log.h"
 /******************************************************************************
  * Copyright 2018 The Apollo Authors. All Rights Reserved.
  *
@@ -20,6 +21,7 @@ namespace perception {
 namespace camera {
 
 bool ParseOneLaneLine(const std::string &s, LaneLine *lane_line) {
+AINFO<<"(DMCZP) EnteringMethod: ParseOneLaneLine";
   assert(lane_line != nullptr);
   int len = static_cast<int>(s.size());
   if (len == 0) {
@@ -58,6 +60,7 @@ bool ParseOneLaneLine(const std::string &s, LaneLine *lane_line) {
 }
 
 bool LoadLaneDet(const std::string &filename, EgoLane *ego_lane) {
+AINFO<<"(DMCZP) EnteringMethod: LoadLaneDet";
   std::ifstream fin;
   fin.open(filename.c_str());
   if (!fin) {
@@ -130,6 +133,7 @@ bool LoadCamera2WorldTfs(const std::string &filename,
                          std::vector<std::string> *frame_list,
                          std::vector<double> *time_stamps,
                          std::vector<Eigen::Matrix4d> *camera2world) {
+AINFO<<"(DMCZP) EnteringMethod: LoadCamera2WorldTfs";
   frame_list->clear();
   camera2world->clear();
   std::ifstream fin;

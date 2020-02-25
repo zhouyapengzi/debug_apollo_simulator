@@ -1,3 +1,4 @@
+#include "cyber/common/log.h"
 /******************************************************************************
  * Copyright 2018 The Apollo Authors. All Rights Reserved.
  *
@@ -27,6 +28,7 @@ namespace camera {
 
 bool OnlineCalibrationService::Init(
     const CalibrationServiceInitOptions &options) {
+AINFO<<"(DMCZP) EnteringMethod: OnlineCalibrationService::Init";
   master_sensor_name_ = options.calibrator_working_sensor_name;
   sensor_name_ = options.calibrator_working_sensor_name;
   // Init k_matrix
@@ -66,12 +68,14 @@ bool OnlineCalibrationService::Init(
 }
 
 bool OnlineCalibrationService::BuildIndex() {
+AINFO<<"(DMCZP) EnteringMethod: OnlineCalibrationService::BuildIndex";
   is_service_ready_ = HasSetIntrinsics() && HasSetGroundPlane();
   return is_service_ready_;
 }
 
 bool OnlineCalibrationService::QueryDepthOnGroundPlane(int x, int y,
                                                        double *depth) const {
+AINFO<<"(DMCZP) EnteringMethod: OnlineCalibrationService::QueryDepthOnGroundPlane";
   if (!is_service_ready_) {
     return false;
   }
@@ -94,6 +98,7 @@ bool OnlineCalibrationService::QueryDepthOnGroundPlane(int x, int y,
 
 bool OnlineCalibrationService::QueryPoint3dOnGroundPlane(
     int x, int y, Eigen::Vector3d *point3d) const {
+AINFO<<"(DMCZP) EnteringMethod: OnlineCalibrationService::QueryPoint3dOnGroundPlane";
   if (!is_service_ready_) {
     return false;
   }
@@ -117,6 +122,7 @@ bool OnlineCalibrationService::QueryPoint3dOnGroundPlane(
 
 bool OnlineCalibrationService::QueryGroundPlaneInCameraFrame(
     Eigen::Vector4d *plane_param) const {
+AINFO<<"(DMCZP) EnteringMethod: OnlineCalibrationService::QueryGroundPlaneInCameraFrame";
   CHECK(plane_param != nullptr);
   if (!is_service_ready_) {
     (*plane_param)(0) = (*plane_param)(1) = (*plane_param)(2) =
@@ -133,6 +139,7 @@ bool OnlineCalibrationService::QueryGroundPlaneInCameraFrame(
 
 bool OnlineCalibrationService::QueryCameraToGroundHeightAndPitchAngle(
     float *height, float *pitch) const {
+AINFO<<"(DMCZP) EnteringMethod: OnlineCalibrationService::QueryCameraToGroundHeightAndPitchAngle";
   CHECK(height != nullptr);
   CHECK(pitch != nullptr);
   if (!is_service_ready_) {
@@ -146,6 +153,7 @@ bool OnlineCalibrationService::QueryCameraToGroundHeightAndPitchAngle(
 }
 
 void OnlineCalibrationService::Update(CameraFrame *frame) {
+AINFO<<"(DMCZP) EnteringMethod: OnlineCalibrationService::Update";
   CHECK(frame != nullptr);
   sensor_name_ = frame->data_provider->sensor_name();
   if (sensor_name_ == master_sensor_name_) {
@@ -184,6 +192,7 @@ void OnlineCalibrationService::SetCameraHeightAndPitch(
     const std::map<std::string, float> &name_camera_ground_height_map,
     const std::map<std::string, float> &name_camera_pitch_angle_diff_map,
     const float &pitch_angle_master_sensor) {
+AINFO<<"(DMCZP) EnteringMethod: OnlineCalibrationService::SetCameraHeightAndPitch";
   name_camera_status_map_[master_sensor_name_].pitch_angle =
       pitch_angle_master_sensor;
   for (auto iter = name_camera_status_map_.begin();
@@ -213,6 +222,7 @@ void OnlineCalibrationService::SetCameraHeightAndPitch(
 }
 
 std::string OnlineCalibrationService::Name() const {
+AINFO<<"(DMCZP) EnteringMethod: OnlineCalibrationService::Name";
   return "OnlineCalibrationService";
 }
 REGISTER_CALIBRATION_SERVICE(OnlineCalibrationService);

@@ -1,3 +1,4 @@
+#include "cyber/common/log.h"
 /******************************************************************************
  * Copyright 2018 The Apollo Authors. All Rights Reserved.
  *
@@ -21,6 +22,7 @@ namespace perception {
 namespace onboard {
 
 bool LidarOutputComponent::Init() {
+AINFO<<"(DMCZP) EnteringMethod: LidarOutputComponent::Init";
   writer_ =
       node_->CreateWriter<PerceptionObstacles>("/apollo/perception/obstacles");
   return true;
@@ -28,6 +30,7 @@ bool LidarOutputComponent::Init() {
 
 bool LidarOutputComponent::Proc(
     const std::shared_ptr<SensorFrameMessage>& message) {
+AINFO<<"(DMCZP) EnteringMethod: LidarOutputComponent::Proc";
   std::shared_ptr<PerceptionObstacles> out_message(new PerceptionObstacles);
 
   if (message->frame_ == nullptr) {

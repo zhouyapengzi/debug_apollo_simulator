@@ -1,3 +1,4 @@
+#include "cyber/common/log.h"
 /******************************************************************************
 COPYRIGHT
 
@@ -68,10 +69,13 @@ license and copyright terms herein.
 #include "modules/perception/base/test/test_helper.h"
 
 namespace apollo {
+AINFO<<"(DMCZP) EnteringMethod: Copyright";
+AINFO<<"(DMCZP) EnteringMethod: Copyright";
 namespace perception {
 namespace base {
 
 TEST(BlobTest, header_test) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   Blob<float> blob_empty;
   EXPECT_EQ(blob_empty.shape_string(), "(0)");
   EXPECT_EQ(blob_empty.count(), 0);
@@ -104,6 +108,7 @@ TEST(BlobTest, header_test) {
 }
 
 TEST(BlobTest, source_test) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   Blob<float> blob_4d(1, 2, 3, 4);
   Blob<float> blob_2d;
   blob_2d.Reshape({2, 3});
@@ -143,6 +148,8 @@ class BlobSimpleTest : public ::testing::Test {
 TYPED_TEST_CASE(BlobSimpleTest, TestDtypes);
 
 TYPED_TEST(BlobSimpleTest, TestInitialization) {
+AINFO<<"(DMCZP) EnteringMethod: TYPED_TEST_CASE";
+AINFO<<"(DMCZP) EnteringMethod: TYPED_TEST";
   EXPECT_TRUE(this->blob_);
   EXPECT_TRUE(this->blob_preshaped_);
   EXPECT_EQ(this->blob_preshaped_->num(), 2);
@@ -155,6 +162,7 @@ TYPED_TEST(BlobSimpleTest, TestInitialization) {
 }
 
 TYPED_TEST(BlobSimpleTest, TestPointersCPUGPU) {
+AINFO<<"(DMCZP) EnteringMethod: TYPED_TEST";
   EXPECT_TRUE(this->blob_preshaped_->gpu_data());
   EXPECT_TRUE(this->blob_preshaped_->cpu_data());
   EXPECT_TRUE(this->blob_preshaped_->mutable_gpu_data());
@@ -162,6 +170,7 @@ TYPED_TEST(BlobSimpleTest, TestPointersCPUGPU) {
 }
 
 TYPED_TEST(BlobSimpleTest, TestReshape) {
+AINFO<<"(DMCZP) EnteringMethod: TYPED_TEST";
   this->blob_->Reshape(2, 3, 4, 5);
   EXPECT_EQ(this->blob_->num(), 2);
   EXPECT_EQ(this->blob_->channels(), 3);
@@ -171,6 +180,7 @@ TYPED_TEST(BlobSimpleTest, TestReshape) {
 }
 
 TYPED_TEST(BlobSimpleTest, TestReshapeZero) {
+AINFO<<"(DMCZP) EnteringMethod: TYPED_TEST";
   std::vector<int> shape(2);
   shape[0] = 0;
   shape[1] = 5;
@@ -180,6 +190,7 @@ TYPED_TEST(BlobSimpleTest, TestReshapeZero) {
 
 #if 0
 TYPED_TEST(BlobSimpleTest, TestLegacyBlobProtoShapeEquals) {
+AINFO<<"(DMCZP) EnteringMethod: TYPED_TEST";
   BlobProto blob_proto;
 
   // Reshape to (3 x 2).

@@ -1,3 +1,4 @@
+#include "cyber/common/log.h"
 /******************************************************************************
  * Copyright 2018 The Apollo Authors. All Rights Reserved.
  *
@@ -23,6 +24,7 @@ using base::AttributePointCloud;
 using base::PointF;
 
 size_t CloudMask::ValidIndicesCount() const {
+AINFO<<"(DMCZP) EnteringMethod: CloudMask::ValidIndicesCount";
   size_t count = 0;
   for (auto& i : mask_) {
     if (i > 0) {
@@ -34,6 +36,7 @@ size_t CloudMask::ValidIndicesCount() const {
 
 void CloudMask::GetValidCloud(const AttributePointCloud<PointF>& source_cloud,
                               AttributePointCloud<PointF>* target_cloud) const {
+AINFO<<"(DMCZP) EnteringMethod: CloudMask::GetValidCloud";
   if (target_cloud == nullptr) {
     return;
   }
@@ -48,36 +51,42 @@ void CloudMask::GetValidCloud(const AttributePointCloud<PointF>& source_cloud,
 }
 
 void CloudMask::Flip() {
+AINFO<<"(DMCZP) EnteringMethod: CloudMask::Flip";
   for (auto& i : mask_) {
     i = i > 0 ? 0 : 1;
   }
 }
 
 void CloudMask::AddIndices(const base::PointIndices& indices, int value) {
+AINFO<<"(DMCZP) EnteringMethod: CloudMask::AddIndices";
   AddIndices(indices.indices, value);
 }
 
 void CloudMask::AddIndicesOfIndices(
     const base::PointIndices& indices,
     const base::PointIndices& indices_of_indices, int value) {
+AINFO<<"(DMCZP) EnteringMethod: CloudMask::AddIndicesOfIndices";
   for (auto& id : indices_of_indices.indices) {
     mask_[indices.indices[id]] = value;
   }
 }
 
 void CloudMask::RemoveIndices(const base::PointIndices& indices) {
+AINFO<<"(DMCZP) EnteringMethod: CloudMask::RemoveIndices";
   RemoveIndices(indices.indices);
 }
 
 void CloudMask::RemoveIndicesOfIndices(
     const base::PointIndices& indices,
     const base::PointIndices& indices_of_indices) {
+AINFO<<"(DMCZP) EnteringMethod: CloudMask::RemoveIndicesOfIndices";
   for (auto& id : indices_of_indices.indices) {
     mask_[indices.indices[id]] = 0;
   }
 }
 
 void CloudMask::GetValidMask(CloudMask* rhs) const {
+AINFO<<"(DMCZP) EnteringMethod: CloudMask::GetValidMask";
   if (rhs == nullptr) {
     return;
   }
@@ -90,6 +99,7 @@ void CloudMask::GetValidMask(CloudMask* rhs) const {
 }
 
 void CloudMask::ResetValue(int source_value, int target_value) {
+AINFO<<"(DMCZP) EnteringMethod: CloudMask::ResetValue";
   for (auto& i : mask_) {
     if (i == source_value) {
       i = target_value;

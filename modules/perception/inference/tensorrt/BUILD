@@ -25,6 +25,7 @@ cc_test(
     deps = [
         ":rt_common",
         "@gtest//:main",
+        "//cyber/common:log",
     ],
 )
 
@@ -40,6 +41,7 @@ cc_library(
         "//cyber",
         "//modules/perception/proto:rt_proto",
         "@tensorrt",
+        "//cyber/common:log",
     ],
 )
 
@@ -50,6 +52,7 @@ cc_test(
     deps = [
         ":rt_utils",
         "@gtest//:main",
+        "//cyber/common:log",
     ],
 )
 
@@ -76,6 +79,7 @@ cc_library(
         "@caffe",
         "@com_google_protobuf//:protobuf",
         "@tensorrt",
+        "//cyber/common:log",
     ],
 )
 
@@ -90,6 +94,7 @@ cc_test(
         ":rt_net",
         "//modules/perception/inference:inference_factory_lib",
         "@gtest//:main",
+        "//cyber/common:log",
     ],
 )
 
@@ -119,6 +124,7 @@ cc_test(
     deps = [
         ":entropy_calibrator",
         "@gtest//:main",
+        "//cyber/common:log",
     ],
 )
 
@@ -150,6 +156,7 @@ cc_test(
     deps = [
         ":batch_stream",
         "@gtest//:main",
+        "//cyber/common:log",
     ],
 )
 

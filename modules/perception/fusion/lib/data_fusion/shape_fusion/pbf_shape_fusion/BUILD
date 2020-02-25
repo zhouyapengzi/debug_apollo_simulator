@@ -15,6 +15,7 @@ cc_library(
         "//modules/perception/fusion/base:sensor_data_manager",
         "//modules/perception/fusion/base:track",
         "//modules/perception/fusion/lib/interface",
+        "//cyber/common:log",
     ],
 )
 
@@ -30,6 +31,7 @@ cc_test(
         "//modules/perception/base:frame",
         "//modules/perception/common:perception_gflags",
         "@gtest//:main",
+        "//cyber/common:log",
     ],
 )
 

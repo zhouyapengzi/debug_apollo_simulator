@@ -1,3 +1,4 @@
+#include "cyber/common/log.h"
 /******************************************************************************
  * Copyright 2018 The Apollo Authors. All Rights Reserved.
  *
@@ -31,6 +32,7 @@ namespace fusion {
 
 /* TODO(all): Initialize() not compiling. to be fixed
 TEST(PbfTrackerTest, test_initialize) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   FLAGS_work_root = "/apollo/modules/perception/testdata/fusion/pbf_tracker";
   FLAGS_obs_sensor_meta_path = "./data/sensor_meta.pt";
   FLAGS_obs_sensor_intrinsic_path =

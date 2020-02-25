@@ -29,6 +29,7 @@ using cyber::common::GetAbsolutePath;
 using cyber::common::GetProtoFromASCIIFile;
 
 ConfigManager::ConfigManager() {
+AINFO<<"(DMCZP) EnteringMethod: ConfigManager::ConfigManager";
   work_root_ = FLAGS_work_root;
 
   // For start at arbitrary path
@@ -41,11 +42,13 @@ ConfigManager::ConfigManager() {
 }
 
 bool ConfigManager::Init() {
+AINFO<<"(DMCZP) EnteringMethod: ConfigManager::Init";
   MutexLock lock(&mutex_);
   return InitInternal();
 }
 
 bool ConfigManager::InitInternal() {
+AINFO<<"(DMCZP) EnteringMethod: ConfigManager::InitInternal";
   if (inited_) {
     return true;
   }
@@ -113,6 +116,7 @@ bool ConfigManager::InitInternal() {
 }
 
 bool ConfigManager::Reset() {
+AINFO<<"(DMCZP) EnteringMethod: ConfigManager::Reset";
   MutexLock lock(&mutex_);
   inited_ = false;
   return InitInternal();
@@ -120,6 +124,7 @@ bool ConfigManager::Reset() {
 
 bool ConfigManager::GetModelConfig(const std::string &model_name,
                                    const ModelConfig **model_config) {
+AINFO<<"(DMCZP) EnteringMethod: ConfigManager::GetModelConfig";
   if (!inited_ && !Init()) {
     return false;
   }
@@ -140,6 +145,7 @@ ConfigManager::~ConfigManager() {
 }
 
 bool ModelConfig::Reset(const ModelConfigProto &proto) {
+AINFO<<"(DMCZP) EnteringMethod: ModelConfig::Reset";
   name_ = proto.name();
   version_ = proto.version();
 

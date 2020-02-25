@@ -1,3 +1,4 @@
+#include "cyber/common/log.h"
 /******************************************************************************
  * Copyright 2018 The Apollo Authors. All Rights Reserved.
  *
@@ -20,6 +21,7 @@ namespace perception {
 namespace lidar {
 
 void SppData::MakeReference(size_t width, size_t height, float range) {
+AINFO<<"(DMCZP) EnteringMethod: SppData::MakeReference";
   obs_prob_data = category_pt_blob->mutable_cpu_data();
   offset_data = instance_pt_blob->mutable_cpu_data();
   confidence_data = confidence_pt_blob->mutable_cpu_data();

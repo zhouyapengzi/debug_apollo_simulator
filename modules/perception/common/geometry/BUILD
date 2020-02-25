@@ -48,6 +48,7 @@ cc_library(
         "//modules/perception/base:object",
         "//modules/perception/base:point_cloud",
         "@eigen",
+        "//cyber/common:log",
     ],
 )
 
@@ -62,6 +63,7 @@ cc_library(
     deps = [
         "//modules/perception/base:camera",
         "@eigen",
+        "//cyber/common:log",
     ],
 )
 
@@ -74,6 +76,7 @@ cc_test(
     deps = [
         ":basic",
         "@gtest//:main",
+        "//cyber/common:log",
     ],
 )
 
@@ -86,6 +89,7 @@ cc_test(
     deps = [
         ":camera_homography",
         "@gtest//:main",
+        "//cyber/common:log",
     ],
 )
 
@@ -98,6 +102,7 @@ cc_test(
     deps = [
         ":roi_filter",
         "@gtest//:main",
+        "//cyber/common:log",
     ],
 )
 
@@ -111,6 +116,7 @@ cc_test(
         ":convex_hull_2d",
         "//modules/perception/base:point_cloud",
         "@gtest//:main",
+        "//cyber/common:log",
     ],
 )
 

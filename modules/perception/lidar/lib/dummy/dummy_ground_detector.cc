@@ -1,3 +1,4 @@
+#include "cyber/common/log.h"
 /******************************************************************************
  * Copyright 2018 The Apollo Authors. All Rights Reserved.
  *
@@ -21,11 +22,13 @@ namespace perception {
 namespace lidar {
 
 bool DummyGroundDetector::Init(const GroundDetectorInitOptions& options) {
+AINFO<<"(DMCZP) EnteringMethod: DummyGroundDetector::Init";
   return true;
 }
 
 bool DummyGroundDetector::Detect(const GroundDetectorOptions& options,
                                  LidarFrame* frame) {
+AINFO<<"(DMCZP) EnteringMethod: DummyGroundDetector::Detect";
   if (!frame) {
     return false;
   }

@@ -24,6 +24,7 @@ cc_library(
         "//modules/perception/base:camera",
         "//modules/perception/common/geometry:common",
         "//modules/perception/fusion/base:sensor",
+        "//cyber/common:log",
     ],
 )
 
@@ -37,6 +38,7 @@ cc_test(
         ":camera_util",
         "//modules/perception/fusion/base",
         "@gtest//:main",
+        "//cyber/common:log",
     ],
 )
 
@@ -63,6 +65,7 @@ cc_test(
         ":dst_evidence",
         "//modules/perception/fusion/base",
         "@gtest//:main",
+        "//cyber/common:log",
     ],
 )
 
@@ -76,6 +79,7 @@ cc_library(
     ],
     deps = [
         ":base_filter",
+        "//cyber/common:log",
     ],
 )
 
@@ -89,6 +93,7 @@ cc_test(
         ":information_filter",
         "//modules/perception/fusion/base",
         "@gtest//:main",
+        "//cyber/common:log",
     ],
 )
 
@@ -103,6 +108,7 @@ cc_library(
     deps = [
         ":base_filter",
         "//cyber",
+        "//cyber/common:log",
     ],
 )
 
@@ -116,6 +122,7 @@ cc_test(
         ":kalman_filter",
         "//modules/perception/fusion/base",
         "@gtest//:main",
+        "//cyber/common:log",
     ],
 )
 

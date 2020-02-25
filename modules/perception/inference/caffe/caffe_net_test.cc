@@ -1,3 +1,4 @@
+#include "cyber/common/log.h"
 /******************************************************************************
  * Copyright 2018 The Apollo Authors. All Rights Reserved.
  *
@@ -39,6 +40,7 @@ class TestableCaffeNet : public CaffeNet {
 };
 
 TEST(CaffeNetTest, init_test) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   // std::vector<std::string> file_list =
   // {"ARZ034_12_1499218335_1499218635_500",
   //                                       "ARZ034_12_1499218335_1499218635_520",
@@ -79,6 +81,7 @@ TEST(CaffeNetTest, init_test) {
 }
 
 TEST(CaffeNetTest, cpu_test) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   // std::vector<std::string> file_list =
   // {"ARZ034_12_1499218335_1499218635_500",
   //                                       "ARZ034_12_1499218335_1499218635_520",
@@ -124,6 +127,7 @@ TEST(CaffeNetTest, cpu_test) {
   // }
 }
 TEST(CaffeNetTest, reshape_test) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   // std::vector<std::string> file_list =
   // {"ARZ034_12_1499218335_1499218635_500",
   //                                       "ARZ034_12_1499218335_1499218635_520",

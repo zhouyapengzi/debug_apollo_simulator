@@ -1,3 +1,4 @@
+#include "cyber/common/log.h"
 /******************************************************************************
  * Copyright 2018 The Apollo Authors. All Rights Reserved.
  *
@@ -26,6 +27,7 @@ namespace perception {
 namespace inference {
 
 TEST(Inference_Factory, default) {}
+AINFO<<"(DMCZP) EnteringMethod: TEST";
 
 }  // namespace inference
 }  // namespace perception

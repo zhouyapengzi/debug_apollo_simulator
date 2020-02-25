@@ -24,6 +24,7 @@ cc_library(
     deps = [
         ":point_cloud_processing",
         "@gtest//:main",
+        "//cyber/common:log",
     ],
 )
 

@@ -1,3 +1,4 @@
+#include "cyber/common/log.h"
 /******************************************************************************
 COPYRIGHT
 
@@ -64,6 +65,8 @@ license and copyright terms herein.
 #include "modules/perception/base/blob.h"
 
 namespace apollo {
+AINFO<<"(DMCZP) EnteringMethod: Copyright";
+AINFO<<"(DMCZP) EnteringMethod: Copyright";
 namespace perception {
 namespace base {
 

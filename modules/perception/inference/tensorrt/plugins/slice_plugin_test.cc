@@ -1,3 +1,4 @@
+#include "cyber/common/log.h"
 /******************************************************************************
  * Copyright 2018 The Apollo Authors. All Rights Reserved.
  *
@@ -20,6 +21,7 @@
 #include "modules/perception/proto/rt.pb.h"
 
 TEST(SlicePluginsTest, test) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   apollo::perception::inference::SliceParameter slice_param;
   slice_param.add_slice_point(3);
   nvinfer1::Dims in_dims;

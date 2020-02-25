@@ -1,3 +1,4 @@
+#include "cyber/common/log.h"
 /******************************************************************************
  * Copyright 2018 The Apollo Authors. All Rights Reserved.
  *
@@ -40,6 +41,7 @@ class ROIBoundaryFilterTest : public testing::Test {
 };
 
 void MockLidarFrame(LidarFrame* frame) {
+AINFO<<"(DMCZP) EnteringMethod: MockLidarFrame";
   frame->hdmap_struct.reset(new base::HdmapStruct);
   frame->hdmap_struct->road_polygons.resize(1);
   frame->hdmap_struct->road_boundary.resize(1);
@@ -118,6 +120,7 @@ void MockLidarFrame(LidarFrame* frame) {
 }
 
 void ExtendLidarFrame(LidarFrame* frame) {
+AINFO<<"(DMCZP) EnteringMethod: ExtendLidarFrame";
   frame->segmented_objects.resize(6);
   frame->segmented_objects[3].reset(new base::Object);
   base::PolygonDType::PointType point;
@@ -170,6 +173,7 @@ void ExtendLidarFrame(LidarFrame* frame) {
 }
 
 TEST_F(ROIBoundaryFilterTest, roi_boundary_filter_test) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   EXPECT_TRUE(filter_.Init());
   LidarFrame frame;
   MockLidarFrame(&frame);

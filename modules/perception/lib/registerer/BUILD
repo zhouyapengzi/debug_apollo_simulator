@@ -20,6 +20,7 @@ cc_test(
     deps = [
         ":registerer",
         "@gtest//:main",
+        "//cyber/common:log",
     ],
 )
 

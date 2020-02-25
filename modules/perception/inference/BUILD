@@ -27,6 +27,7 @@ cc_library(
     hdrs = ["inference.h"],
     deps = [
         "//modules/perception/base:blob",
+        "//cyber/common:log",
     ],
 )
 
@@ -50,6 +51,7 @@ cc_library(
         "//modules/perception/inference/paddlepaddle:paddle_net_lib",
         "//modules/perception/inference/tensorrt:rt_net",
         "//modules/perception/inference/utils:inference_util_lib",
+        "//cyber/common:log",
     ],
 )
 
@@ -60,6 +62,7 @@ cc_test(
     deps = [
         ":inference_factory_lib",
         "@gtest//:main",
+        "//cyber/common:log",
     ],
 )
 

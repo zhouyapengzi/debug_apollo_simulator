@@ -1,3 +1,4 @@
+#include "cyber/common/log.h"
 /******************************************************************************
  * Copyright 2018 The Apollo Authors. All Rights Reserved.
  *
@@ -28,6 +29,7 @@ namespace fusion {
 
 void GetObjectEightVertices(std::shared_ptr<const base::Object> obj,
                             std::vector<Eigen::Vector3d>* vertices) {
+AINFO<<"(DMCZP) EnteringMethod: GetObjectEightVertices";
   vertices->clear();
   vertices->resize(8);
   Eigen::Vector3d center = obj->center;
@@ -54,6 +56,7 @@ bool Pt3dToCamera2d(const Eigen::Vector3d& pt3d,
                     const Eigen::Matrix4d& world2camera_pose,
                     base::BaseCameraModelPtr camera_model,
                     Eigen::Vector2d* pt2d) {
+AINFO<<"(DMCZP) EnteringMethod: Pt3dToCamera2d";
   Eigen::Vector4d local_pt = static_cast<Eigen::Matrix<double, 4, 1, 0, 4, 1>>(
       world2camera_pose * Eigen::Vector4d(pt3d(0), pt3d(1), pt3d(2), 1));
   if (local_pt[2] > 0) {
@@ -71,6 +74,7 @@ bool IsObjectEightVerticesAllBehindCamera(
     const std::shared_ptr<const base::Object>& obj,
     const Eigen::Matrix4d& world2camera_pose,
     base::BaseCameraModelPtr camera_model) {
+AINFO<<"(DMCZP) EnteringMethod: IsObjectEightVerticesAllBehindCamera";
   std::vector<Eigen::Vector3d> vertices(8);
   GetObjectEightVertices(obj, &vertices);
   Eigen::Vector2d pt2d;
@@ -87,6 +91,7 @@ float ObjectInCameraView(SensorObjectConstPtr sensor_object,
                          const Eigen::Affine3d& camera_sensor2world_pose,
                          double camera_ts, double camera_max_dist,
                          bool motion_compensation, bool all_in) {
+AINFO<<"(DMCZP) EnteringMethod: ObjectInCameraView";
   float in_view_ratio = 0.0f;
   Eigen::Matrix4d world2sensor_pose =
       camera_sensor2world_pose.matrix().inverse();

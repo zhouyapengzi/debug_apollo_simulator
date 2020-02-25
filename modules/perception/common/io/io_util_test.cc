@@ -1,3 +1,4 @@
+#include "cyber/common/log.h"
 /******************************************************************************
  * Copyright 2018 The Apollo Authors. All Rights Reserved.
  *
@@ -24,6 +25,7 @@ namespace perception {
 namespace common {
 
 TEST(CommonIoTest, read_pose_file) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   const std::string testdata_folder =
       "/apollo/modules/perception/testdata/common/io/params/";
   std::string filename;
@@ -39,6 +41,7 @@ TEST(CommonIoTest, read_pose_file) {
 }
 
 TEST(CommonIoTest, load_camera_intrinsic) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   const std::string testdata_folder =
       "/apollo/modules/perception/testdata/common/io/params/";
   std::string yaml_file;
@@ -57,6 +60,7 @@ TEST(CommonIoTest, load_camera_intrinsic) {
 }
 
 TEST(CommonIoTest, load_ocamera_intrinsic) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   const std::string testdata_folder =
       "/apollo/modules/perception/testdata/common/io/params/";
   std::string yaml_file;
@@ -92,6 +96,7 @@ TEST(CommonIoTest, load_ocamera_intrinsic) {
 }
 
 TEST(CommonIoTest, GetFileList) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   std::string path = "/apollo/modules/perception/testdata/lib/data";
   std::vector<std::string> files;
   EXPECT_TRUE(GetFileList(path, "", &files));

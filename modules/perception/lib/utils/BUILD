@@ -33,6 +33,7 @@ cc_test(
     deps = [
         ":perception_timer",
         "@gtest//:main",
+        "//cyber/common:log",
     ],
 )
 
@@ -48,6 +49,7 @@ cc_test(
     deps = [
         ":perception_time_util",
         "@gtest//:main",
+        "//cyber/common:log",
     ],
 )
 

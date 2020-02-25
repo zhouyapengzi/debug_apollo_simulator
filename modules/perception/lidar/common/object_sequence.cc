@@ -27,6 +27,7 @@ using ObjectPtr = std::shared_ptr<apollo::perception::base::Object>;
 
 bool ObjectSequence::AddTrackedFrameObjects(
     const std::vector<ObjectPtr>& objects, TimeStampKey timestamp) {
+AINFO<<"(DMCZP) EnteringMethod: ObjectSequence::AddTrackedFrameObjects";
   std::lock_guard<std::mutex> lock(mutex_);
   for (const auto& obj : objects) {
     TrackIdKey& track_id = obj->track_id;
@@ -49,6 +50,7 @@ bool ObjectSequence::AddTrackedFrameObjects(
 bool ObjectSequence::GetTrackInTemporalWindow(TrackIdKey track_id,
                                               TrackedObjects* track,
                                               TimeStampKey window_time) {
+AINFO<<"(DMCZP) EnteringMethod: ObjectSequence::GetTrackInTemporalWindow";
   if (track == nullptr) {
     return false;
   }
@@ -68,6 +70,7 @@ bool ObjectSequence::GetTrackInTemporalWindow(TrackIdKey track_id,
 }
 
 void ObjectSequence::RemoveStaleTracks(TimeStampKey current_stamp) {
+AINFO<<"(DMCZP) EnteringMethod: ObjectSequence::RemoveStaleTracks";
   for (auto outer_iter = sequence_.begin(); outer_iter != sequence_.end();) {
     CHECK(outer_iter->second.size() > 0) << "Find empty tracks.";
     auto& track = outer_iter->second;

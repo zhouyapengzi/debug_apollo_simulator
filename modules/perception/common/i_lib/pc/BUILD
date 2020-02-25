@@ -18,6 +18,7 @@ cc_library(
         "//modules/perception/common/i_lib/core",
         "//modules/perception/common/i_lib/da:i_ransac",
         "//modules/perception/common/i_lib/geometry:i_plane",
+        "//cyber/common:log",
     ],
 )
 

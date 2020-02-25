@@ -25,6 +25,7 @@ namespace fusion {
 
 bool GetFusionInitOptions(const std::string& module_name,
                           BaseInitOptions* options) {
+AINFO<<"(DMCZP) EnteringMethod: GetFusionInitOptions";
   CHECK_NOTNULL(options);
   const lib::ModelConfig* model_config = nullptr;
   if (!lib::ConfigManager::Instance()->GetModelConfig(module_name,

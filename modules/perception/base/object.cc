@@ -1,3 +1,4 @@
+#include "cyber/common/log.h"
 /******************************************************************************
  * Copyright 2018 The Apollo Authors. All Rights Reserved.
  *
@@ -21,6 +22,7 @@ namespace perception {
 namespace base {
 
 Object::Object() {
+AINFO<<"(DMCZP) EnteringMethod: Object::Object";
   center_uncertainty << 0.0f, 0, 0, 0, 0.0f, 0, 0, 0, 0.0f;
   velocity_uncertainty << 0.0f, 0, 0, 0, 0.0f, 0, 0, 0, 0.0f;
   acceleration_uncertainty << 0.0f, 0, 0, 0, 0.0f, 0, 0, 0, 0.0f;
@@ -30,6 +32,7 @@ Object::Object() {
 }
 
 void Object::Reset() {
+AINFO<<"(DMCZP) EnteringMethod: Object::Reset";
   id = -1;
   polygon.clear();
   direction = Eigen::Vector3f(1.0f, 0.0f, 0.0f);
@@ -70,6 +73,7 @@ void Object::Reset() {
 }
 
 std::string Object::ToString() const {
+AINFO<<"(DMCZP) EnteringMethod: Object::ToString";
   std::ostringstream oss;
   oss << "Object [id: " << id << ", track_id: " << track_id << ", direction: ("
       << direction[0] << "," << direction[1] << "," << direction[2]

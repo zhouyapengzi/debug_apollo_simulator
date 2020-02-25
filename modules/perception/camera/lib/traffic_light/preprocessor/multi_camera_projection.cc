@@ -29,6 +29,7 @@ namespace perception {
 namespace camera {
 
 bool MultiCamerasProjection::Init(const MultiCamerasInitOption& options) {
+AINFO<<"(DMCZP) EnteringMethod: MultiCamerasProjection::Init";
   if (options.camera_names.empty()) {
     AERROR << "no cameras to be projected";
     return false;
@@ -81,6 +82,7 @@ bool MultiCamerasProjection::Init(const MultiCamerasInitOption& options) {
 bool MultiCamerasProjection::Project(const CarPose& pose,
                                      const ProjectOption& option,
                                      base::TrafficLight* light) const {
+AINFO<<"(DMCZP) EnteringMethod: MultiCamerasProjection::Project";
   if (!HasCamera(option.camera_name)) {
     AERROR << "no camera: " << option.camera_name;
     return false;
@@ -106,6 +108,7 @@ bool MultiCamerasProjection::Project(const CarPose& pose,
 }
 
 bool MultiCamerasProjection::HasCamera(const std::string& camera_name) const {
+AINFO<<"(DMCZP) EnteringMethod: MultiCamerasProjection::HasCamera";
   auto iter =
       std::find(camera_names_.begin(), camera_names_.end(), camera_name);
   return iter != camera_names_.end() &&
@@ -114,6 +117,8 @@ bool MultiCamerasProjection::HasCamera(const std::string& camera_name) const {
 
 int MultiCamerasProjection::getImageWidth(
     const std::string& camera_name) const {
+AINFO<<"(DMCZP) EnteringMethod: MultiCamerasProjection::getImageWidth";
+AINFO<<"(DMCZP) EnteringMethod: MultiCamerasProjection::getImageHeight";
   if (!HasCamera(camera_name)) {
     AERROR << "getImageWidth failed, camera_name: " << camera_name;
     return -1;
@@ -135,6 +140,7 @@ bool MultiCamerasProjection::BoundaryBasedProject(
     const Eigen::Matrix4d& c2w_pose,
     const std::vector<base::PointXYZID>& points,
     base::TrafficLight* light) const {
+AINFO<<"(DMCZP) EnteringMethod: MultiCamerasProjection::BoundaryBasedProject";
   CHECK_NOTNULL(camera_model.get());
   int width = static_cast<int>(camera_model->get_width());
   int height = static_cast<int>(camera_model->get_height());

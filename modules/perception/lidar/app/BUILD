@@ -67,6 +67,7 @@ cc_test(
         "//external:gflags",
         "//modules/perception/common/io:io_util",
         "@gtest//:main",
+        "//cyber/common:log",
     ],
 )
 

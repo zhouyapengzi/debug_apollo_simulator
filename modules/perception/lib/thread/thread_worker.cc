@@ -1,3 +1,4 @@
+#include "cyber/common/log.h"
 /******************************************************************************
  * Copyright 2018 The Apollo Authors. All Rights Reserved.
  *
@@ -20,10 +21,12 @@ namespace perception {
 namespace lib {
 
 void ThreadWorker::Bind(const std::function<bool()> &func) {
+AINFO<<"(DMCZP) EnteringMethod: ThreadWorker::Bind";
   work_func_ = func;
 }
 
 void ThreadWorker::Start() {
+AINFO<<"(DMCZP) EnteringMethod: ThreadWorker::Start";
   if (thread_ptr_ == nullptr) {
     thread_ptr_.reset(new std::thread(&ThreadWorker::Core, this));
   }
@@ -33,6 +36,7 @@ void ThreadWorker::Start() {
 }
 
 void ThreadWorker::WakeUp() {
+AINFO<<"(DMCZP) EnteringMethod: ThreadWorker::WakeUp";
   {
     std::lock_guard<std::mutex> lock(mutex_);
     work_flag_ = true;
@@ -41,11 +45,13 @@ void ThreadWorker::WakeUp() {
 }
 
 void ThreadWorker::Join() {
+AINFO<<"(DMCZP) EnteringMethod: ThreadWorker::Join";
   std::unique_lock<std::mutex> lock(mutex_);
   condition_.wait(lock, [&]() { return !work_flag_; });
 }
 
 void ThreadWorker::Release() {
+AINFO<<"(DMCZP) EnteringMethod: ThreadWorker::Release";
   if (thread_ptr_ == nullptr) {
     return;
   }
@@ -60,6 +66,7 @@ void ThreadWorker::Release() {
 }
 
 void ThreadWorker::Core() {
+AINFO<<"(DMCZP) EnteringMethod: ThreadWorker::Core";
   while (true) {
     {
       std::unique_lock<std::mutex> lock(mutex_);

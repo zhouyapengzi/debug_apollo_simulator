@@ -40,6 +40,7 @@ cc_library(
     ],
     deps = [
         "//modules/perception/lib/config_manager",
+        "//cyber/common:log",
     ],
 )
 
@@ -54,6 +55,7 @@ cc_library(
     deps = [
         ":sensor",
         ":track",
+        "//cyber/common:log",
     ],
 )
 
@@ -91,6 +93,7 @@ cc_test(
     deps = [
         ":sensor",
         "@gtest//:main",
+        "//cyber/common:log",
     ],
 )
 
@@ -103,6 +106,7 @@ cc_test(
     deps = [
         ":sensor",
         "@gtest//:main",
+        "//cyber/common:log",
     ],
 )
 
@@ -115,6 +119,7 @@ cc_test(
     deps = [
         ":sensor",
         "@gtest//:main",
+        "//cyber/common:log",
     ],
 )
 
@@ -131,6 +136,7 @@ cc_library(
         "//modules/perception/base:frame",
         "//modules/perception/common/sensor_manager",
         "//modules/perception/lib/thread",
+        "//cyber/common:log",
     ],
 )
 
@@ -146,6 +152,7 @@ cc_test(
     deps = [
         ":sensor_data_manager",
         "@gtest//:main",
+        "//cyber/common:log",
     ],
 )
 
@@ -159,6 +166,7 @@ cc_library(
     ],
     deps = [
         ":sensor",
+        "//cyber/common:log",
     ],
 )
 
@@ -171,6 +179,7 @@ cc_test(
     deps = [
         ":track",
         "@gtest//:main",
+        "//cyber/common:log",
     ],
 )
 
@@ -185,6 +194,7 @@ cc_library(
     deps = [
         ":track",
         "//modules/perception/base:object_pool",
+        "//cyber/common:log",
     ],
 )
 

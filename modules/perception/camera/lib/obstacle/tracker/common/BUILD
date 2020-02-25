@@ -32,6 +32,7 @@ cc_library(
         "//modules/perception/base",
         "//modules/perception/camera/common",
         "@eigen",
+        "//cyber/common:log",
     ],
 )
 
@@ -45,6 +46,7 @@ cc_library(
     ],
     deps = [
         "//modules/perception/camera/common",
+        "//cyber/common:log",
     ],
 )
 
@@ -59,6 +61,7 @@ cc_library(
     deps = [
         "//cyber",
         "@eigen",
+        
     ],
 )
 

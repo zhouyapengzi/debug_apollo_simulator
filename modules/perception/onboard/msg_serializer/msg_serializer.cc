@@ -30,6 +30,7 @@ bool MsgSerializer::SerializeMsg(double timestamp, int seq_num,
                                  const std::vector<base::ObjectPtr> &objects,
                                  const apollo::common::ErrorCode &error_code,
                                  PerceptionObstacles *obstacles) {
+AINFO<<"(DMCZP) EnteringMethod: MsgSerializer::SerializeMsg";
   // double publish_time = lib::TimeUtil::GetCurrentTime();
   double publish_time = cyber::Time::Now().ToSecond();
   ::apollo::common::Header *header = obstacles->mutable_header();
@@ -54,6 +55,7 @@ bool MsgSerializer::SerializeMsg(double timestamp, int seq_num,
 
 bool MsgSerializer::ConvertObjectToPb(const base::ObjectPtr &object_ptr,
                                       PerceptionObstacle *pb_msg) {
+AINFO<<"(DMCZP) EnteringMethod: MsgSerializer::ConvertObjectToPb";
   if (object_ptr == nullptr || pb_msg == nullptr) {
     return false;
   }

@@ -1,3 +1,4 @@
+#include "cyber/common/log.h"
 /******************************************************************************
  * Copyright 2018 The Apollo Authors. All Rights Reserved.
  *
@@ -49,6 +50,7 @@ class LidarAppPipelineTest : public testing::Test {
 #ifdef PERCEPTION_LIDAR_USE_COMMON_MESSAGE
 void ToMessage(const base::PointFCloud& cloud,
                adu::common::sensor::PointCloud* message) {
+AINFO<<"(DMCZP) EnteringMethod: ToMessage";
   message->set_measurement_time(0.0);
   for (size_t i = 0; i < cloud.size(); ++i) {
     const auto& pt = cloud[i];
@@ -65,6 +67,7 @@ void ToMessage(const base::PointFCloud& cloud,
 
 /*
 TEST_F(LidarAppPipelineTest, lidar_app_pipeline_test) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   std::string pcd_path =
       "/apollo/modules/perception/testdata/lidar/app/data/perception/lidar/files/";
   std::string pose_path =
@@ -110,6 +113,7 @@ TEST_F(LidarAppPipelineTest, lidar_app_pipeline_test) {
 
 #ifdef PERCEPTION_LIDAR_USE_COMMON_MESSAGE
 TEST_F(LidarAppPipelineTest, lidar_app_pipeline_test2) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   std::string pcd_path = "./data/perception/lidar/files/";
   std::string pose_path = "./data/perception/lidar/poses/";
   std::vector<std::string> pcd_file_names;

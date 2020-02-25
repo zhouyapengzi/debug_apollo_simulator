@@ -24,6 +24,7 @@ namespace perception {
 namespace radar {
 
 TEST(ContiArsTrackerTest, conti_ars_tracker_empty_init_test) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   std::unique_ptr<BaseTracker> tracker(new ContiArsTracker());
   FLAGS_work_root =
       "/apollo/modules/perception/testdata/"

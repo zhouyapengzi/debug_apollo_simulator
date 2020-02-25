@@ -1,3 +1,4 @@
+#include "cyber/common/log.h"
 /******************************************************************************
  * Copyright 2018 The Apollo Authors. All Rights Reserved.
  *
@@ -25,6 +26,7 @@ namespace perception {
 namespace fusion {
 
 TEST(DstTypeFusionTest, test_update_with_measurement) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   FLAGS_work_root =
       "/apollo/modules/perception/testdata/"
       "fusion/dst_type_fusion";
@@ -114,6 +116,7 @@ TEST(DstTypeFusionTest, test_update_with_measurement) {
 }
 
 TEST(DstTypeFusionTest, test_update_without_measurement) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   FLAGS_work_root =
       "/apollo/modules/perception/testdata/"
       "fusion/dst_type_fusion";

@@ -1,3 +1,4 @@
+#include "cyber/common/log.h"
 /******************************************************************************
  * Copyright 2018 The Apollo Authors. All Rights Reserved.
  *
@@ -22,6 +23,7 @@ namespace lidar {
 
 // @brief call pool instance once to initialize memory
 __attribute__((constructor)) void SppPoolInitialize() {
+AINFO<<"(DMCZP) EnteringMethod: __attribute__";
   SppClusterPool::Instance("velodyne16");
   SppClusterPool::Instance("velodyne64");
   SppClusterPool::Instance("velodyne128");

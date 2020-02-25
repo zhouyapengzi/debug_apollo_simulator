@@ -22,6 +22,7 @@ cc_library(
         "//modules/perception/common/geometry:basic",
         "@eigen",
         "@yaml_cpp//:yaml",
+         
     ],
 )
 
@@ -37,6 +38,7 @@ cc_test(
     deps = [
         ":io_util",
         "@gtest//:main",
+        "//cyber/common:log",
     ],
 )
 

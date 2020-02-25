@@ -31,6 +31,7 @@ using apollo::cyber::common::GetProtoFromFile;
 using Eigen::MatrixXf;
 
 bool NCutSegmentation::Init(const SegmentationInitOptions& options) {
+AINFO<<"(DMCZP) EnteringMethod: NCutSegmentation::Init";
   std::string param_file;
   CHECK(GetConfigs(&param_file));
   AINFO << "--    param_file: " << param_file;
@@ -124,6 +125,7 @@ bool NCutSegmentation::Init(const SegmentationInitOptions& options) {
 }
 
 bool NCutSegmentation::Configure(std::string param_file) {
+AINFO<<"(DMCZP) EnteringMethod: NCutSegmentation::Configure";
   NCutSegmentationParam seg_param_;
   // get cnnseg params
   CHECK(GetProtoFromFile(param_file, &seg_param_))
@@ -147,6 +149,7 @@ bool NCutSegmentation::Configure(std::string param_file) {
 }
 
 bool NCutSegmentation::GetConfigs(std::string* param_file) {
+AINFO<<"(DMCZP) EnteringMethod: NCutSegmentation::GetConfigs";
   auto config_manager = lib::ConfigManager::Instance();
   const lib::ModelConfig* model_config = nullptr;
   CHECK(config_manager->GetModelConfig("NCutSegmentation", &model_config))
@@ -169,6 +172,7 @@ bool NCutSegmentation::GetConfigs(std::string* param_file) {
 
 bool NCutSegmentation::Segment(const SegmentationOptions& options,
                                LidarFrame* frame) {
+AINFO<<"(DMCZP) EnteringMethod: NCutSegmentation::Segment";
   // check input
   if (frame == nullptr) {
     AERROR << "Input null frame ptr.";
@@ -388,6 +392,7 @@ bool NCutSegmentation::Segment(const SegmentationOptions& options,
 void NCutSegmentation::PartitionConnectedComponents(
     const base::PointFCloudPtr& in_cloud, float cell_size,
     std::vector<base::PointFCloudPtr>* out_clouds) {
+AINFO<<"(DMCZP) EnteringMethod: NCutSegmentation::PartitionConnectedComponents";
   std::vector<base::PointFCloudPtr>& temp_clouds = *out_clouds;
   FloodFill FFfilter(grid_radius_, cell_size);
   std::vector<std::vector<int>> component_points;
@@ -405,6 +410,7 @@ void NCutSegmentation::ObstacleFilter(const base::PointFCloudPtr& in_cloud,
                                       bool filter_pedestrian_only,
                                       base::PointFCloudPtr* out_cloud,
                                       std::vector<base::ObjectPtr>* segments) {
+AINFO<<"(DMCZP) EnteringMethod: NCutSegmentation::ObstacleFilter";
   FloodFill FFfilter(grid_radius_, cell_size);
   std::vector<std::vector<int>> component_points;
   std::vector<int> num_cells_per_components;
@@ -463,6 +469,7 @@ void NCutSegmentation::ObstacleFilter(const base::PointFCloudPtr& in_cloud,
 }
 
 bool NCutSegmentation::IsOutlier(const base::PointFCloudPtr& in_cloud) {
+AINFO<<"(DMCZP) EnteringMethod: NCutSegmentation::IsOutlier";
   size_t min_num_points = std::max(outlier_min_num_points_, 1);
   if (in_cloud->size() < min_num_points) {
     return true;
@@ -504,6 +511,7 @@ bool NCutSegmentation::IsOutlier(const base::PointFCloudPtr& in_cloud) {
 
 #ifdef DEBUG_NCUT
 void NCutSegmentation::VisualizePointCloud(const base::PointFCloudPtr& cloud) {
+AINFO<<"(DMCZP) EnteringMethod: NCutSegmentation::VisualizePointCloud";
   // _viewer->removePointCloud(_viewer_id, 0);
   _viewer->removeAllPointClouds(0);
   _viewer->removeAllShapes(0);
@@ -525,6 +533,7 @@ void NCutSegmentation::VisualizePointCloud(const base::PointFCloudPtr& cloud) {
 
 void NCutSegmentation::VisualizeSegments(
     const std::vector<base::ObjectPtr>& segments) {
+AINFO<<"(DMCZP) EnteringMethod: NCutSegmentation::VisualizeSegments";
   // _viewer->removePointCloud(_viewer_id, 0);
   unsigned int seed;
   _viewer->removeAllPointClouds(0);
@@ -554,6 +563,7 @@ void NCutSegmentation::VisualizeSegments(
 void NCutSegmentation::VisualizeComponents(
     const base::PointFCloudPtr& cloud,
     const std::vector<std::vector<int>>& component_points) {
+AINFO<<"(DMCZP) EnteringMethod: NCutSegmentation::VisualizeComponents";
   // _viewer->removePointCloud(_viewer_id, 0);
   unsigned int seed;
   _viewer->removeAllPointClouds(0);

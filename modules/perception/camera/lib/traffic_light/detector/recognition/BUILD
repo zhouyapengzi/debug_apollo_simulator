@@ -33,6 +33,7 @@ cc_library(
         "//modules/perception/inference:inference_lib",
         "//modules/perception/inference/utils:inference_resize_lib",
         "//modules/perception/inference/utils:inference_util_lib",
+        "//cyber/common:log",
     ],
 )
 
@@ -50,6 +51,7 @@ cc_library(
         "//cyber/common:file",
         "//modules/perception/camera/lib/interface",
         "//modules/perception/inference:inference_lib",
+        "//cyber/common:log",
     ],
 )
 

@@ -61,6 +61,7 @@ cc_test(
         "//modules/perception/common/io:io_util",
         "@gtest//:main",
         "@yaml_cpp//:yaml",
+        "//cyber/common:log",
     ],
 )
 
@@ -94,6 +95,7 @@ cc_test(
         "@gtest//:main",
         "@tensorrt",
         "@yaml_cpp//:yaml",
+        "//cyber/common:log",
     ],
 )
 
@@ -139,6 +141,7 @@ cc_library(
     deps = [
         "//modules/perception/base",
         "@yaml_cpp//:yaml",
+        "//cyber/common:log",
     ],
 )
 
@@ -192,6 +195,7 @@ cc_test(
         "@gtest//:main",
         "@tensorrt",
         "@yaml_cpp//:yaml",
+        "//cyber/common:log",
     ],
 )
 
@@ -216,6 +220,7 @@ cc_test(
         "@gtest//:main",
         "@tensorrt",
         "@yaml_cpp//:yaml",
+        "//cyber/common:log",
     ],
 )
 
@@ -233,6 +238,7 @@ cc_test(
         "//modules/perception/common/io:io_util",
         "@gtest//:main",
         "@yaml_cpp//:yaml",
+        "//cyber/common:log",
     ],
 )
 
@@ -245,6 +251,7 @@ cc_test(
     deps = [
         "//modules/perception/camera/lib/calibrator/common:histogram_estimator",
         "@gtest//:main",
+        "//cyber/common:log",
     ],
 )
 
@@ -263,6 +270,7 @@ cc_library(
     deps = [
         "//modules/perception/common/i_lib/core",
         "//modules/perception/common/i_lib/geometry:i_plane",
+        "//cyber/common:log",
     ],
 )
 
@@ -283,6 +291,7 @@ cc_library(
         "//modules/perception/common/i_lib/core",
         "//modules/perception/common/i_lib/geometry:i_plane",
         "@eigen",
+        "//cyber/common:log",
     ],
 )
 
@@ -299,6 +308,7 @@ cc_library(
         "//modules/perception/camera/lib/calibrator/laneline:lane_based_calibrator",
         "//modules/perception/common/i_lib/core",
         "@eigen",
+        "//cyber/common:log",
     ],
 )
 
@@ -330,6 +340,7 @@ cc_test(
     deps = [
         "//modules/perception/camera/lib/dummy:dummy_algorithms",
         "@gtest//:main",
+        "//cyber/common:log",
     ],
 )
 
@@ -347,6 +358,7 @@ cc_test(
         "//modules/perception/inference/utils:inference_gemm_lib",
         "//modules/perception/inference/utils:inference_util_lib",
         "@gtest//:main",
+        "//cyber/common:log",
     ],
 )
 
@@ -380,6 +392,7 @@ cc_test(
         "//modules/perception/common/io:io_util",
         "@gtest//:main",
         "@yaml_cpp//:yaml",
+        "//cyber/common:log",
     ],
 )
 
@@ -400,6 +413,7 @@ cc_test(
         "//modules/perception/camera/lib/lane/detector/denseline:denseline_lane_detector",
         "//modules/perception/common/io:io_util",
         "@gtest//:main",
+        "//cyber/common:log",
     ],
 )
 
@@ -424,6 +438,7 @@ cc_test(
         "//modules/perception/camera/lib/lane/postprocessor/denseline:denseline_lane_postprocessor",
         "//modules/perception/common/io:io_util",
         "@gtest//:main",
+        "//cyber/common:log",
     ],
 )
 
@@ -444,6 +459,7 @@ cc_test(
         "//modules/perception/camera/lib/lane/detector/darkSCNN:darkSCNN_lane_detector",
         "//modules/perception/common/io:io_util",
         "@gtest//:main",
+        "//cyber/common:log",
     ],
 )
 
@@ -469,6 +485,7 @@ cc_test(
         "//modules/perception/camera/tools/offline:visualizer",
         "//modules/perception/common/io:io_util",
         "@gtest//:main",
+        "//cyber/common:log",
     ],
 )
 
@@ -485,6 +502,7 @@ cc_test(
         "//modules/perception/inference/utils:inference_cuda_util_lib",
         "//modules/perception/inference/utils:inference_gemm_lib",
         "@gtest//:main",
+        "//cyber/common:log",
     ],
 )
 
@@ -506,6 +524,7 @@ cc_test(
         "//modules/perception/inference/utils:inference_util_lib",
         "@gtest//:main",
         "@yaml_cpp//:yaml",
+        "//cyber/common:log",
     ],
 )
 
@@ -522,6 +541,7 @@ cc_test(
         "//modules/perception/camera/lib/obstacle/postprocessor/location_refiner:location_refiner_obstacle_postprocessor",
         "//modules/perception/common/io:io_util",
         "@gtest//:main",
+        "//cyber/common:log",
     ],
 )
 
@@ -541,6 +561,7 @@ cc_test(
         "//modules/perception/inference/utils:inference_util_lib",
         "@eigen",
         "@gtest//:main",
+        "//cyber/common:log",
     ],
 )
 
@@ -554,6 +575,7 @@ cc_test(
         "//modules/perception/camera/common",
         "//modules/perception/camera/lib/obstacle/tracker/omt:frame_list",
         "@gtest//:main",
+        "//cyber/common:log",
     ],
 )
 
@@ -612,6 +634,7 @@ cc_test(
         "//modules/perception/camera/lib/obstacle/tracker/omt:target",
         "//modules/perception/inference/utils:inference_gemm_lib",
         "@gtest//:main",
+        "//cyber/common:log",
     ],
 )
 
@@ -635,6 +658,7 @@ cc_test(
         "//modules/perception/inference/utils:inference_resize_lib",
         "//modules/perception/inference/utils:inference_util_lib",
         "@gtest//:main",
+        "//cyber/common:log",
     ],
 )
 
@@ -657,6 +681,7 @@ cc_test(
         "@gtest//:main",
         "@tensorrt",
         "@yaml_cpp//:yaml",
+        "//cyber/common:log",
     ],
 )
 
@@ -726,6 +751,7 @@ cc_test(
         "@gtest//:main",
         "@tensorrt",
         "@yaml_cpp//:yaml",
+        "//cyber/common:log",
     ],
 )
 
@@ -778,6 +804,7 @@ cc_test(
         "@gtest//:main",
         "@tensorrt",
         "@yaml_cpp//:yaml",
+        "//cyber/common:log",
     ],
 )
 
@@ -799,6 +826,7 @@ cc_test(
         "//modules/perception/camera/app:cipv_camera",
         "//modules/perception/common/io:io_util",
         "@gtest//:main",
+        "//cyber/common:log",
     ],
 )
 

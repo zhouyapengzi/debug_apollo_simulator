@@ -22,6 +22,7 @@ cc_library(
         "//modules/perception/camera/common",
         "//modules/perception/onboard/proto:motion_service_proto",
         "//modules/perception/proto:perception_proto",
+        "//cyber/common:log",
     ],
 )
 
@@ -39,6 +40,7 @@ cc_library(
         "//modules/perception/camera/common",
         "@eigen",
         "@yaml_cpp//:yaml",
+         
     ],
 )
 
@@ -63,6 +65,7 @@ cc_binary(
         "//modules/perception/camera/lib/lane/detector/darkSCNN:darkSCNN_lane_detector",
         "//modules/perception/camera/lib/lane/postprocessor/darkSCNN:darkSCNN_lane_postprocessor",
         "//modules/perception/lib/utils",
+        "//cyber/common:log",
     ],
 )
 

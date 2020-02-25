@@ -14,6 +14,7 @@ cc_library(
         "//cyber",
         "//modules/perception/common/i_lib/core",
         "@eigen",
+       
     ],
 )
 

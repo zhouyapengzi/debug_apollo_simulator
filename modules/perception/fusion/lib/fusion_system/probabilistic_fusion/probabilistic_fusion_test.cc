@@ -1,3 +1,4 @@
+#include "cyber/common/log.h"
 /******************************************************************************
  * Copyright 2018 The Apollo Authors. All Rights Reserved.
  *
@@ -28,6 +29,7 @@ namespace fusion {
 using apollo::perception::base::SensorInfo;
 
 TEST(ProbabliticFusionTest, test_init) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   FLAGS_work_root =
       "/apollo/modules/perception/testdata/"
       "fusion/probabilistic_fusion";
@@ -96,6 +98,7 @@ TEST(ProbabliticFusionTest, test_init) {
 }
 
 TEST(ProbabliticFusionTest, test_update) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   FLAGS_work_root =
       "/apollo/modules/perception/testdata/"
       "fusion/probabilistic_fusion";
@@ -248,6 +251,7 @@ TEST(ProbabliticFusionTest, test_update) {
 }
 
 TEST(ProbabilisticFusionTest, test_collect_sensor_measurement) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   FLAGS_work_root =
       "/apollo/modules/perception/testdata/"
       "fusion/probabilistic_fusion";

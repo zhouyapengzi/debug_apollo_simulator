@@ -28,6 +28,7 @@ namespace perception {
 namespace camera {
 
 bool UndistortionHandler::set_device(int device) {
+AINFO<<"(DMCZP) EnteringMethod: UndistortionHandler::set_device";
   device_ = device;
   auto code = cudaSetDevice(device_);
   if (code != cudaSuccess) {
@@ -43,6 +44,7 @@ bool UndistortionHandler::set_device(int device) {
  * Note: returns OK if already been inited.
  */
 bool UndistortionHandler::Init(const std::string &sensor_name, int device) {
+AINFO<<"(DMCZP) EnteringMethod: UndistortionHandler::Init";
   if (inited_) {
     return true;
   }
@@ -83,6 +85,7 @@ bool UndistortionHandler::Init(const std::string &sensor_name, int device) {
 
 bool UndistortionHandler::Handle(const base::Image8U &src_img,
                                  base::Image8U *dst_img) {
+AINFO<<"(DMCZP) EnteringMethod: UndistortionHandler::Handle";
   if (!inited_) {
     return false;
   }
@@ -128,6 +131,7 @@ bool UndistortionHandler::Handle(const base::Image8U &src_img,
 }
 
 bool UndistortionHandler::Release(void) {
+AINFO<<"(DMCZP) EnteringMethod: UndistortionHandler::Release";
   inited_ = false;
   return true;
 }
@@ -137,6 +141,7 @@ void UndistortionHandler::InitUndistortRectifyMap(
     const Eigen::Matrix<float, 5, 1> distortion, const Eigen::Matrix3f &R,
     const Eigen::Matrix3f &new_camera_model, int width, int height,
     base::Blob<float> *d_mapx, base::Blob<float> *d_mapy) {
+AINFO<<"(DMCZP) EnteringMethod: UndistortionHandler::InitUndistortRectifyMap";
   float fx = camera_model(0, 0);
   float fy = camera_model(1, 1);
   float cx = camera_model(0, 2);

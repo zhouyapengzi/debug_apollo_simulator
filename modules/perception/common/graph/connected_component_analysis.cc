@@ -1,3 +1,4 @@
+#include "cyber/common/log.h"
 /******************************************************************************
  * Copyright 2018 The Apollo Authors. All Rights Reserved.
  *
@@ -21,6 +22,7 @@ namespace common {
 
 void ConnectedComponentAnalysis(const std::vector<std::vector<int>>& graph,
                                 std::vector<std::vector<int>>* components) {
+AINFO<<"(DMCZP) EnteringMethod: ConnectedComponentAnalysis";
   int num_item = graph.size();
   std::vector<int> visited;
   visited.resize(num_item, 0);

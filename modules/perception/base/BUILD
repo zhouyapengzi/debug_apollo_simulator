@@ -63,6 +63,7 @@ cc_test(
         "//modules/perception/base/test:test_helper",
         "@cuda",
         "@gtest//:main",
+        "//cyber/common:log",
     ],
 )
 
@@ -86,6 +87,7 @@ cc_test(
     deps = [
         ":box",
         "@gtest//:main",
+        "//cyber/common:log",
     ],
 )
 
@@ -99,6 +101,7 @@ cc_library(
     ],
     deps = [
         "@eigen",
+        "//cyber/common:log",
     ],
 )
 
@@ -111,6 +114,7 @@ cc_test(
     deps = [
         ":camera",
         "@gtest//:main",
+        "//cyber/common:log",
     ],
 )
 
@@ -121,6 +125,7 @@ cc_library(
     ],
     deps = [
         "@cuda",
+        
     ],
 )
 
@@ -133,6 +138,7 @@ cc_test(
     deps = [
         ":common",
         "@gtest//:main",
+        "//cyber/common:log",
     ],
 )
 
@@ -148,6 +154,7 @@ cc_library(
         ":camera",
         "//cyber",
         "@eigen",
+        "//cyber/common:log",
     ],
 )
 
@@ -160,6 +167,7 @@ cc_test(
     deps = [
         ":distortion_model",
         "@gtest//:main",
+        "//cyber/common:log",
     ],
 )
 
@@ -221,6 +229,7 @@ cc_test(
     deps = [
         ":impending_collision_edge",
         "@gtest//:main",
+        "//cyber/common:log",
     ],
 )
 
@@ -239,6 +248,7 @@ cc_library(
         ":box",
         ":point_cloud",
         "@eigen",
+        "//cyber/common:log",
     ],
 )
 
@@ -251,6 +261,7 @@ cc_test(
     deps = [
         ":object",
         "@gtest//:main",
+        "//cyber/common:log",
     ],
 )
 
@@ -281,6 +292,7 @@ cc_test(
         "//cyber",
         "@eigen",
         "@gtest//:main",
+        
     ],
 )
 
@@ -328,6 +340,7 @@ cc_test(
     deps = [
         ":omnidirectional_model",
         "@gtest//:main",
+        "//cyber/common:log",
     ],
 )
 
@@ -370,6 +383,7 @@ cc_test(
     deps = [
         ":point_cloud",
         "@gtest//:main",
+        "//cyber/common:log",
     ],
 )
 
@@ -382,6 +396,7 @@ cc_library(
         "polynomial.h",
     ],
     deps = [
+        "//cyber/common:log",
     ],
 )
 
@@ -394,6 +409,7 @@ cc_test(
     deps = [
         ":polynomial",
         "@gtest//:main",
+        "//cyber/common:log",
     ],
 )
 
@@ -422,6 +438,7 @@ cc_test(
         "//modules/perception/base/test:test_helper",
         "@cuda",
         "@gtest//:main",
+        "//cyber/common:log",
     ],
 )
 

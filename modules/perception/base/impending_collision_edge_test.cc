@@ -1,3 +1,4 @@
+#include "cyber/common/log.h"
 /******************************************************************************
  * Copyright 2018 The Apollo Authors. All Rights Reserved.
  *
@@ -24,6 +25,7 @@ namespace base {
 class ImpendingCollisionEdgeTest : public ::testing::Test {};
 
 TEST_F(ImpendingCollisionEdgeTest, ImpendingCollisionEdge) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   ImpendingCollisionEdge edge;
   edge.id = 2;
   edge.tracking_time = 1.0;
@@ -36,6 +38,7 @@ TEST_F(ImpendingCollisionEdgeTest, ImpendingCollisionEdge) {
 }
 
 TEST_F(ImpendingCollisionEdgeTest, ImpendingCollisionEdges) {
+AINFO<<"(DMCZP) EnteringMethod: TEST_F";
   ImpendingCollisionEdges edges;
 
   edges.timestamp = 1.0;

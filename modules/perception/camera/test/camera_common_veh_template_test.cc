@@ -1,3 +1,4 @@
+#include "cyber/common/log.h"
 /******************************************************************************
  * Copyright 2018 The Apollo Authors. All Rights Reserved.
  *
@@ -22,6 +23,7 @@ namespace perception {
 namespace camera {
 
 TEST(VehtemplateTest, GetVisualObjHwlBySearchTemplatesTest) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   ObjectTemplateManagerInitOptions options;
   options.root_dir =
       "/apollo/modules/perception/testdata/"

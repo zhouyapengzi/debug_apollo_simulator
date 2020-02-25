@@ -1,3 +1,4 @@
+#include "cyber/common/log.h"
 /******************************************************************************
  * Copyright 2018 The Apollo Authors. All Rights Reserved.
  *
@@ -42,6 +43,7 @@ namespace camera {
 
 bool draw_vanishing_row_on_image(const cv::Scalar &color, int vanishing_row,
                                  cv::Mat *image) {
+AINFO<<"(DMCZP) EnteringMethod: draw_vanishing_row_on_image";
   assert(image != nullptr);
   int h = image->rows;
   int w = image->cols;
@@ -149,6 +151,7 @@ bool draw_vanishing_row_on_image(const cv::Scalar &color, int vanishing_row,
 
 void draw_lane_pts(const std::vector<Eigen::Vector2f> &lane_pts,
                    const cv::Scalar &color, cv::Mat *image) {
+AINFO<<"(DMCZP) EnteringMethod: draw_lane_pts";
   if (image->rows <= 0 || image->cols <= 0) {
     return;
   }

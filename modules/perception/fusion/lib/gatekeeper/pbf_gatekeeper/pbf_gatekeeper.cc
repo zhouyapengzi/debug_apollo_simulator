@@ -1,3 +1,4 @@
+#include "cyber/common/log.h"
 /******************************************************************************
  * Copyright 2018 The Apollo Authors. All Rights Reserved.
  *
@@ -28,10 +29,12 @@ namespace fusion {
 using cyber::common::GetAbsolutePath;
 
 PbfGatekeeper::PbfGatekeeper() {}
+AINFO<<"(DMCZP) EnteringMethod: PbfGatekeeper::PbfGatekeeper";
 
 PbfGatekeeper::~PbfGatekeeper() {}
 
 bool PbfGatekeeper::Init() {
+AINFO<<"(DMCZP) EnteringMethod: PbfGatekeeper::Init";
   BaseInitOptions options;
   if (!GetFusionInitOptions("PbfGatekeeper", &options)) {
     return false;
@@ -64,8 +67,10 @@ bool PbfGatekeeper::Init() {
 }
 
 std::string PbfGatekeeper::Name() const { return "PbfGatekeeper"; }
+AINFO<<"(DMCZP) EnteringMethod: PbfGatekeeper::Name";
 
 bool PbfGatekeeper::AbleToPublish(const TrackPtr &track) {
+AINFO<<"(DMCZP) EnteringMethod: PbfGatekeeper::AbleToPublish";
   bool invisible_in_lidar = !(track->IsLidarVisible());
   bool invisible_in_radar = !(track->IsRadarVisible());
   bool invisible_in_camera = !(track->IsCameraVisible());
@@ -98,6 +103,7 @@ bool PbfGatekeeper::AbleToPublish(const TrackPtr &track) {
 }
 
 bool PbfGatekeeper::LidarAbleToPublish(const TrackPtr &track) {
+AINFO<<"(DMCZP) EnteringMethod: PbfGatekeeper::LidarAbleToPublish";
   bool visible_in_lidar = track->IsLidarVisible();
   if (params_.publish_if_has_lidar && visible_in_lidar) {
     return true;
@@ -106,6 +112,7 @@ bool PbfGatekeeper::LidarAbleToPublish(const TrackPtr &track) {
 }
 
 bool PbfGatekeeper::RadarAbleToPublish(const TrackPtr &track, bool is_night) {
+AINFO<<"(DMCZP) EnteringMethod: PbfGatekeeper::RadarAbleToPublish";
   bool visible_in_radar = track->IsRadarVisible();
   SensorObjectConstPtr radar_object = track->GetLatestRadarObject();
   if (params_.publish_if_has_radar && visible_in_radar &&
@@ -172,6 +179,7 @@ bool PbfGatekeeper::RadarAbleToPublish(const TrackPtr &track, bool is_night) {
 }
 
 bool PbfGatekeeper::CameraAbleToPublish(const TrackPtr &track, bool is_night) {
+AINFO<<"(DMCZP) EnteringMethod: PbfGatekeeper::CameraAbleToPublish";
   bool visible_in_camera = track->IsCameraVisible();
   SensorId2ObjectMap &camera_objects = track->GetCameraObjects();
   auto iter = camera_objects.find("front_6mm");

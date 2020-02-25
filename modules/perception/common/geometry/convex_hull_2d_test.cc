@@ -1,3 +1,4 @@
+#include "cyber/common/log.h"
 /******************************************************************************
  * Copyright 2018 The Apollo Authors. All Rights Reserved.
  *
@@ -29,6 +30,7 @@ using PointFCloud = apollo::perception::base::AttributePointCloud<PointF>;
 using PointFCloudPtr = std::shared_ptr<PointFCloud>;
 
 TEST(ConvexHull2DTest, convex_hull_2d) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   ConvexHull2D<PointFCloud, PointFCloud> convex_hull_2d;
   PointFCloud pointcloud_in, pointcloud_out;
   bool flag = true;
@@ -94,6 +96,7 @@ TEST(ConvexHull2DTest, convex_hull_2d) {
 }
 
 TEST(ConvexHull2DTest1, convex_hull_2d1) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   ConvexHull2D<PointFCloud, PointFCloud> convex_hull_2d;
   PointFCloudPtr pointcloud_in_ptr =
       PointFCloudPtr(new PointFCloud(128, 128, PointF()));

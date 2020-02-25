@@ -1,3 +1,4 @@
+#include "cyber/common/log.h"
 /******************************************************************************
  * Copyright 2018 The Apollo Authors. All Rights Reserved.
  *
@@ -21,6 +22,7 @@ namespace perception {
 namespace camera {
 
 TEST(RecognizeTest, yellow) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   std::shared_ptr<TrafficLightRecognition> recognition(
       new TrafficLightRecognition);
 
@@ -77,6 +79,7 @@ TEST(RecognizeTest, yellow) {
 }
 
 TEST(RecognizeTest, red) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   std::shared_ptr<TrafficLightRecognition> recognition(
       new TrafficLightRecognition);
 
@@ -133,6 +136,7 @@ TEST(RecognizeTest, red) {
 }
 
 TEST(RecognizeTest, green) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   std::shared_ptr<TrafficLightRecognition> recognition(
       new TrafficLightRecognition);
 
@@ -185,6 +189,7 @@ TEST(RecognizeTest, green) {
 }
 
 TEST(RecognizeTest, black) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   std::shared_ptr<TrafficLightRecognition> recognition(
       new TrafficLightRecognition);
 
@@ -241,6 +246,7 @@ TEST(RecognizeTest, black) {
 }
 
 TEST(RecognizeTest, no_detection) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   std::shared_ptr<TrafficLightRecognition> recognition(
       new TrafficLightRecognition);
 
@@ -293,6 +299,7 @@ TEST(RecognizeTest, no_detection) {
 }
 
 TEST(RecognizeTest, unknown_class) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   std::shared_ptr<TrafficLightRecognition> recognition(
       new TrafficLightRecognition);
 
@@ -347,6 +354,7 @@ TEST(RecognizeTest, unknown_class) {
 }
 
 TEST(RecognizeTest, quadrate) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   std::shared_ptr<TrafficLightRecognition> recognition(
       new TrafficLightRecognition);
 
@@ -403,6 +411,7 @@ TEST(RecognizeTest, quadrate) {
 }
 
 TEST(RecognizeTest, horizontal) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   std::shared_ptr<TrafficLightRecognition> recognition(
       new TrafficLightRecognition);
 
@@ -465,6 +474,7 @@ TEST(RecognizeTest, horizontal) {
 }
 
 TEST(RecognizeTest, no_light) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   std::shared_ptr<TrafficLightRecognition> recognition(
       new TrafficLightRecognition);
 
@@ -514,6 +524,7 @@ TEST(RecognizeTest, no_light) {
 }
 
 TEST(RecognizeTest, bad_config) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   std::shared_ptr<TrafficLightRecognition> recognition(
       new TrafficLightRecognition);
 
@@ -536,6 +547,7 @@ TEST(RecognizeTest, bad_config) {
 }
 
 TEST(RecognizeTest, rgb_config) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   std::shared_ptr<TrafficLightRecognition> recognition(
       new TrafficLightRecognition);
 

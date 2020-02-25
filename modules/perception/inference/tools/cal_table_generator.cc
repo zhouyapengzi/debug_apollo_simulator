@@ -48,6 +48,27 @@ DEFINE_int32(mean_r, 0, "image r");
 DEFINE_bool(hwc_input, true, "input blob is hwc order.");
 
 int evaluate_image_list() {
+AINFO<<"(DMCZP) EnteringMethod: DEFINE_string";
+AINFO<<"(DMCZP) EnteringMethod: DEFINE_string";
+AINFO<<"(DMCZP) EnteringMethod: DEFINE_bool";
+AINFO<<"(DMCZP) EnteringMethod: DEFINE_bool";
+AINFO<<"(DMCZP) EnteringMethod: DEFINE_string";
+AINFO<<"(DMCZP) EnteringMethod: DEFINE_int32";
+AINFO<<"(DMCZP) EnteringMethod: DEFINE_int32";
+AINFO<<"(DMCZP) EnteringMethod: DEFINE_string";
+AINFO<<"(DMCZP) EnteringMethod: DEFINE_int32";
+AINFO<<"(DMCZP) EnteringMethod: DEFINE_int32";
+AINFO<<"(DMCZP) EnteringMethod: DEFINE_string";
+AINFO<<"(DMCZP) EnteringMethod: DEFINE_string";
+AINFO<<"(DMCZP) EnteringMethod: DEFINE_string";
+AINFO<<"(DMCZP) EnteringMethod: DEFINE_string";
+AINFO<<"(DMCZP) EnteringMethod: DEFINE_int32";
+AINFO<<"(DMCZP) EnteringMethod: DEFINE_int32";
+AINFO<<"(DMCZP) EnteringMethod: DEFINE_int32";
+AINFO<<"(DMCZP) EnteringMethod: DEFINE_int32";
+AINFO<<"(DMCZP) EnteringMethod: DEFINE_int32";
+AINFO<<"(DMCZP) EnteringMethod: DEFINE_bool";
+AINFO<<"(DMCZP) EnteringMethod: evaluate_image_list";
   CHECK_EQ(FLAGS_image_channel_num, 3);
   const int height = FLAGS_height;
   const int width = FLAGS_width;
@@ -161,6 +182,7 @@ int evaluate_image_list() {
 }
 
 int main(int argc, char **argv) {
+AINFO<<"(DMCZP) EnteringMethod: main";
   google::ParseCommandLineFlags(&argc, &argv, true);
 
   if (FLAGS_gen_batch) {

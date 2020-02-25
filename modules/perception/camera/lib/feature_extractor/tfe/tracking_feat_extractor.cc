@@ -1,3 +1,4 @@
+#include "cyber/common/log.h"
 /******************************************************************************
  * Copyright 2018 The Apollo Authors. All Rights Reserved.
  *
@@ -23,6 +24,7 @@ namespace camera {
 
 bool TrackingFeatureExtractor::Init(
     const FeatureExtractorInitOptions &init_options) {
+AINFO<<"(DMCZP) EnteringMethod: TrackingFeatureExtractor::Init";
   //  setup bottom and top
   int feat_height = init_options.feat_blob->shape(2);
   int feat_width = init_options.feat_blob->shape(3);
@@ -64,6 +66,7 @@ bool TrackingFeatureExtractor::Init(
 void TrackingFeatureExtractor::init_roipooling(
     const FeatureExtractorInitOptions &options,
     const tracking_feature::ROIPoolingParam &param) {
+AINFO<<"(DMCZP) EnteringMethod: TrackingFeatureExtractor::init_roipooling";
   int feat_channel = options.feat_blob->shape(1);
   feat_height_ = options.feat_blob->shape(2);
   feat_width_ = options.feat_blob->shape(3);
@@ -85,6 +88,7 @@ void TrackingFeatureExtractor::init_roipooling(
 
 bool TrackingFeatureExtractor::Extract(const FeatureExtractorOptions &options,
                                        CameraFrame *frame) {
+AINFO<<"(DMCZP) EnteringMethod: TrackingFeatureExtractor::Extract";
   if (frame == nullptr) {
     return false;
   }

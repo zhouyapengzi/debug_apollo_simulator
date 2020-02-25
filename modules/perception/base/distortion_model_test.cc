@@ -1,3 +1,4 @@
+#include "cyber/common/log.h"
 /******************************************************************************
  * Copyright 2018 The Apollo Authors. All Rights Reserved.
  *
@@ -22,6 +23,7 @@ namespace perception {
 namespace base {
 
 TEST(DistortionModelTest, distortion_model_get_set_test) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   BrownCameraDistortionModel distortion_model;
   EXPECT_EQ(distortion_model.name(), "BrownCameraDistortionModel");
 
@@ -76,6 +78,7 @@ TEST(DistortionModelTest, distortion_model_get_set_test) {
 }
 
 TEST(DistortionModelTest, distortion_model_project_test) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   BrownCameraDistortionModel distortion_model;
   EXPECT_EQ(distortion_model.name(), "BrownCameraDistortionModel");
 

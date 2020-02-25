@@ -26,6 +26,7 @@ cc_library(
         "//modules/perception/common/i_lib/core",
         "//modules/perception/common/i_lib/da:i_ransac",
         "//modules/perception/common/i_lib/geometry:i_plane",
+        "//cyber/common:log",
     ],
 )
 
@@ -40,6 +41,7 @@ cc_library(
     deps = [
         ":undistortion_handler",
         "//modules/perception/base",
+        "//cyber/common:log",
     ],
 )
 
@@ -74,6 +76,7 @@ cc_library(
         "//modules/perception/common/io:io_util",
         "//modules/perception/lib/config_manager",
         "//modules/perception/lib/thread",
+        "//cyber/common:log",
     ],
 )
 
@@ -108,6 +111,7 @@ cc_library(
         "//modules/perception/base",
         "//modules/perception/base:blob",
         "//modules/perception/common/sensor_manager",
+        "//cyber/common:log",
     ],
 )
 
@@ -121,6 +125,7 @@ cc_library(
     ],
     deps = [
         "//modules/perception/base",
+        "//cyber/common:log",
     ],
 )
 
@@ -145,6 +150,7 @@ cc_library(
         ":twod_threed_util",
         ":undistortion_handler",
         ":util",
+        "//cyber/common:log",
     ],
 )
 

@@ -25,6 +25,7 @@ namespace perception {
 namespace inference {
 
 TEST(BatchStreamTest, test_init) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   {
     BatchStream batch_stream;
     batch_stream.reset(0);
@@ -54,6 +55,7 @@ TEST(BatchStreamTest, test_init) {
 }
 
 TEST(BatchStreamTest, test_update) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   {
     BatchStream batch_stream(
         1, 3,
@@ -70,6 +72,7 @@ TEST(BatchStreamTest, test_update) {
 }
 
 TEST(BatchStreamTest, test_next) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   {
     BatchStream batch_stream(
         1, 3,
@@ -95,6 +98,7 @@ TEST(BatchStreamTest, test_next) {
 }
 
 TEST(BatchStreamTest, test_skip) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   {
     BatchStream batch_stream(
         2, 2,

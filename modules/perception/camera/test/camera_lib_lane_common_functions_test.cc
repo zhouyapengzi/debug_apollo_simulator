@@ -26,6 +26,7 @@ namespace perception {
 namespace camera {
 
 TEST(CommonFunctions, poly_fit_error_test) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   {
     Eigen::Matrix<float, max_poly_order + 1, 1> *coeff = nullptr;
     std::vector<Eigen::Matrix<float, 2, 1> > pos_vec;
@@ -65,6 +66,7 @@ TEST(CommonFunctions, poly_fit_error_test) {
   }
 }
 TEST(CommonFunctions, poly_eval_test) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   {
     Eigen::Matrix<float, max_poly_order + 1, 1> coeff;
     int order = max_poly_order + 2;
@@ -89,6 +91,7 @@ TEST(CommonFunctions, poly_eval_test) {
   }
 }
 TEST(CommonFunctions, find_cc_invalid_test) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   {
     std::vector<unsigned char> src;
     int width = 0;
@@ -144,6 +147,7 @@ TEST(CommonFunctions, find_cc_invalid_test) {
   }
 }
 TEST(CommonFunctions, find_cc_test) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   std::vector<unsigned char> src;
   std::vector<ConnectedComponent> cc;
   std::string impath =
@@ -166,6 +170,7 @@ TEST(CommonFunctions, find_cc_test) {
 }
 
 TEST(CommonFunctions, QuickSortTest) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   int nsize = 10;
   std::vector<float> value_vec;
   std::string msg = "input value: ";
@@ -189,6 +194,7 @@ TEST(CommonFunctions, QuickSortTest) {
   AINFO << msg;
 }
 TEST(CommonFunctions, FindKSmallValueTest) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   int nsize = 10;
   std::vector<float> value_vec;
   std::string msg = "input value: ";
@@ -266,6 +272,7 @@ TEST(CommonFunctions, FindKSmallValueTest) {
 }
 
 TEST(CommonFunctions, FindKLargeValueTest) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   int nsize = 10;
   std::vector<float> value_vec;
   std::string msg = "input value: ";

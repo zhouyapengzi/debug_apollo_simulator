@@ -27,6 +27,7 @@ namespace perception {
 namespace camera {
 
 TEST(KalmanTest, copy_test) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   KalmanFilterConstVelocity kf;
   Eigen::Vector3d center;
   Eigen::Vector2d measure;
@@ -42,6 +43,7 @@ TEST(KalmanTest, copy_test) {
 }
 
 TEST(KalmanTest, zero_test) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   KalmanFilterConstVelocity kf;
   Eigen::Vector3d center;
   Eigen::Vector4d state;
@@ -58,6 +60,7 @@ TEST(KalmanTest, zero_test) {
 }
 
 TEST(KalmanTest, kalman_test) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   KalmanFilterConstVelocity kf;
   // x is ground truth
   // z is observation
@@ -86,6 +89,7 @@ TEST(KalmanTest, kalman_test) {
 }
 
 TEST(EKFTest, ekf_test) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   //  ExtendedKalmanFilter ekf;
   //  Eigen::Vector3d x;
   //  Eigen::Vector3d z;  // observation: x, y, theta
@@ -131,6 +135,7 @@ TEST(EKFTest, ekf_test) {
 }
 
 TEST(MeanFilterTest, mean_filter_test) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   MeanFilter mean_filter;
   int window_size = 5;
   mean_filter.SetWindow(window_size);
@@ -160,6 +165,7 @@ TEST(MeanFilterTest, mean_filter_test) {
   ASSERT_TRUE(std::fabs(state[1]) < 1e-6);
 }
 TEST(SimilarTest, cpu_test) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   CosineSimilar similar;
   using base::Object;
   using base::ObjectPtr;
@@ -192,6 +198,7 @@ TEST(SimilarTest, cpu_test) {
 }
 
 TEST(SimilarTest, GPU_test) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   inference::CudaUtil::set_device_id(0);
   GPUSimilar similar;
   using base::Object;
@@ -251,6 +258,7 @@ TEST(SimilarTest, GPU_test) {
 }
 
 TEST(AngleTest, angle_test) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   HalfCircleAngle angle;
   angle.SetDirection(1.5f);
   ASSERT_TRUE(Equal(1.5f, angle.value(), 0.01f));
@@ -269,6 +277,7 @@ TEST(AngleTest, angle_test) {
 }
 
 TEST(KalmanConstTest, const_filter_test) {
+AINFO<<"(DMCZP) EnteringMethod: TEST";
   {
     KalmanFilterConstState<1> filter;
     KalmanFilterConstState<1>::VectorNd param;

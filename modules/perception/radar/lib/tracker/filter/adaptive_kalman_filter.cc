@@ -23,8 +23,10 @@ namespace radar {
 double AdaptiveKalmanFilter::s_q_matrix_ratio_ = 0.074;
 
 AdaptiveKalmanFilter::AdaptiveKalmanFilter() { name_ = "AdaptiveKalmanFilter"; }
+AINFO<<"(DMCZP) EnteringMethod: AdaptiveKalmanFilter::AdaptiveKalmanFilter";
 AdaptiveKalmanFilter::~AdaptiveKalmanFilter() {}
 void AdaptiveKalmanFilter::Init(const base::Object& object) {
+AINFO<<"(DMCZP) EnteringMethod: AdaptiveKalmanFilter::Init";
   belief_anchor_point_ = object.center;
   belief_velocity_ = object.velocity.cast<double>();
   a_matrix_.setIdentity();
@@ -49,6 +51,7 @@ void AdaptiveKalmanFilter::Init(const base::Object& object) {
   c_matrix_.setIdentity();
 }
 Eigen::VectorXd AdaptiveKalmanFilter::Predict(const double time_diff) {
+AINFO<<"(DMCZP) EnteringMethod: AdaptiveKalmanFilter::Predict";
   Eigen::VectorXd state;
   state.resize(4);
   state[0] = belief_anchor_point_[0] + belief_velocity_[0] * time_diff;
@@ -59,6 +62,7 @@ Eigen::VectorXd AdaptiveKalmanFilter::Predict(const double time_diff) {
 }
 Eigen::VectorXd AdaptiveKalmanFilter::UpdateWithObject(
     const base::Object& new_object, double time_diff) {
+AINFO<<"(DMCZP) EnteringMethod: AdaptiveKalmanFilter::UpdateWithObject";
   // predict and then correct
   a_matrix_.setIdentity();
   a_matrix_(0, 2) = time_diff;
@@ -102,6 +106,7 @@ Eigen::VectorXd AdaptiveKalmanFilter::UpdateWithObject(
 }
 void AdaptiveKalmanFilter::GetState(Eigen::Vector3d* anchor_point,
                                     Eigen::Vector3d* velocity) {
+AINFO<<"(DMCZP) EnteringMethod: AdaptiveKalmanFilter::GetState";
   CHECK_NOTNULL(anchor_point);
   CHECK_NOTNULL(velocity);
   *anchor_point = belief_anchor_point_;
