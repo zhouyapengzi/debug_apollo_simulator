@@ -15,6 +15,7 @@
  *****************************************************************************/
 
 #include "modules/prediction/network/rnn_model/rnn_model.h"
+#include <thread>
 
 namespace apollo {
 namespace prediction {
@@ -60,6 +61,9 @@ void RnnModel::Run(const std::vector<Eigen::MatrixXf>& inputs,
 
   output->resize(1, 2);
   *output << prob, acc;
+  AINFO<<"(pengzi) run rnn model. prob: "<< prob 
+       << " acc:" << acc 
+       <<" thread:"<<std::this_thread::get_id();  ;
 }
 
 void RnnModel::SetState(const std::vector<Eigen::MatrixXf>& states) {

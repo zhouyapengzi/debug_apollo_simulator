@@ -15,7 +15,7 @@
  *****************************************************************************/
 
 #include "modules/prediction/evaluator/cyclist/cyclist_keep_lane_evaluator.h"
-
+#include <thread>
 namespace apollo {
 namespace prediction {
 
@@ -24,6 +24,7 @@ CyclistKeepLaneEvaluator::CyclistKeepLaneEvaluator() {
 }
 
 bool CyclistKeepLaneEvaluator::Evaluate(Obstacle* obstacle_ptr) {
+  AINFO<<"(pengzi) begin prediction-evaluator of CyclistKeepLaneEvaluator. thread: "<<std::this_thread::get_id();
   CHECK_NOTNULL(obstacle_ptr);
 
   obstacle_ptr->SetEvaluatorType(evaluator_type_);
@@ -63,6 +64,7 @@ bool CyclistKeepLaneEvaluator::Evaluate(Obstacle* obstacle_ptr) {
 
 double CyclistKeepLaneEvaluator::ComputeProbability(
     const std::string& curr_lane_id, const LaneSequence& lane_sequence) {
+  AINFO<<"(pengzi) computer probaility for CyclistKeepLaneEvaluator. thread:"<<std::this_thread::get_id();
   if (lane_sequence.lane_segment_size() == 0) {
     AWARN << "Empty lane sequence.";
     return 0.0;

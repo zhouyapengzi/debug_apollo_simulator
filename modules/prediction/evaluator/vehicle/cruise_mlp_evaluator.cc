@@ -540,6 +540,7 @@ void CruiseMLPEvaluator::LoadModels() {
   //   ADEBUG << "CUDA is available";
   //   device_ = torch::Device(torch::kCUDA);
   // }
+  AINFO<<"(pengzi) begin load models for predict cruiseMLP evaluator. thread:"<<std::this_thread::get_id();  
   torch::set_num_threads(1);
   torch_go_model_ptr_ =
       torch::jit::load(FLAGS_torch_vehicle_cruise_go_file, device_);
@@ -558,6 +559,8 @@ void CruiseMLPEvaluator::ModelInference(
     const std::vector<torch::jit::IValue>& torch_inputs,
     std::shared_ptr<torch::jit::script::Module> torch_model_ptr,
     LaneSequence* lane_sequence_ptr) {
+  
+  AINFO<<"(pengzi) predict cruiseMLP model inference. thread:"<<std::this_thread::get_id();
   auto torch_output_tuple = torch_model_ptr->forward(torch_inputs).toTuple();
   auto probability_tensor = torch_output_tuple->elements()[0].toTensor();
   auto finish_time_tensor = torch_output_tuple->elements()[1].toTensor();
@@ -565,6 +568,7 @@ void CruiseMLPEvaluator::ModelInference(
       static_cast<double>(probability_tensor.accessor<float, 2>()[0][0])));
   lane_sequence_ptr->set_time_to_lane_center(
       static_cast<double>(finish_time_tensor.accessor<float, 2>()[0][0]));
+    
 }
 
 }  // namespace prediction

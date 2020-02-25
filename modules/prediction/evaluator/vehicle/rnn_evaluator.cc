@@ -22,6 +22,7 @@
 #include "cyber/common/file.h"
 #include "modules/prediction/common/prediction_gflags.h"
 #include "modules/prediction/common/prediction_map.h"
+#include <thread>
 
 namespace apollo {
 namespace prediction {
@@ -80,6 +81,11 @@ bool RNNEvaluator::Evaluate(Obstacle* obstacle_ptr) {
     obstacle_ptr->InitRNNStates();
   }
   obstacle_ptr->GetRNNStates(&states);
+
+AINFO<<"(pengzi) RNN prediction evaluator. get RNN states. rnnstate:"
+     << &states
+      << " thread:"<<std::this_thread::get_id();  
+
   for (int i = 0; i < lane_graph_ptr->lane_sequence_size(); ++i) {
     LaneSequence* lane_sequence_ptr = lane_graph_ptr->mutable_lane_sequence(i);
     int seq_id = lane_sequence_ptr->lane_sequence_id();
@@ -96,6 +102,9 @@ bool RNNEvaluator::Evaluate(Obstacle* obstacle_ptr) {
     model_ptr_->Run({obstacle_feature_mat, lane_feature_mat}, &pred_mat);
     double probability = pred_mat(0, 0);
     ADEBUG << "Probability = " << probability;
+
+AINFO << "(pengzi) RNN. Probability = " << probability  << " thread:"<<std::this_thread::get_id();  
+
     double acceleration = pred_mat(0, 1);
     if (std::isnan(probability) || std::isinf(probability)) {
       ADEBUG << "Fail to compute probability.";
@@ -116,18 +125,23 @@ bool RNNEvaluator::Evaluate(Obstacle* obstacle_ptr) {
 void RNNEvaluator::Clear() {}
 
 void RNNEvaluator::LoadModel(const std::string& model_file) {
+  AINFO<<"(pengzi) predict RNN evaluator. load model. thread:"<<std::this_thread::get_id();
   NetParameter net_parameter;
   CHECK(cyber::common::GetProtoFromFile(model_file, &net_parameter))
       << "Unable to load model file: " << model_file << ".";
 
   ADEBUG << "Succeeded in loading the model file: " << model_file << ".";
+  AINFO<< "(pengzi)RNN predictor Succeeded in loading the model file: " << model_file << ".";
   model_ptr_ = network::RnnModel::Instance();
   model_ptr_->LoadModel(net_parameter);
+
+  AINFO << "(pengzi) RNN. model parameter: " << net_parameter  << " thread:"<<std::this_thread::get_id();  
 }
 
 int RNNEvaluator::ExtractFeatureValues(
     Obstacle* obstacle, Eigen::MatrixXf* const obstacle_feature_mat,
     std::unordered_map<int, Eigen::MatrixXf>* const lane_feature_mats) {
+  AINFO<<"(pengzi) RNN. extract feature value. thread:"<<std::this_thread::get_id();
   std::vector<float> obstacle_features;
   std::vector<float> lane_features;
   if (SetupObstacleFeature(obstacle, &obstacle_features) != 0) {
@@ -163,11 +177,18 @@ int RNNEvaluator::ExtractFeatureValues(
     }
     (*lane_feature_mats)[seq_id] = std::move(mat);
   }
+
+   AINFO<<"(pengzi) RNN. extract feature. obstacle feature size:"
+        << obstacle_features.size()
+        << "obstacle feature: " << obstacle_features
+        << " thread:"<<std::this_thread::get_id();
+
   return 0;
 }
 
 int RNNEvaluator::SetupObstacleFeature(
     Obstacle* obstacle, std::vector<float>* const feature_values) {
+  AINFO<<"(pengzi) set up obstacle_features.thread:"<<std::this_thread::get_id();
   feature_values->clear();
   feature_values->reserve(DIM_OBSTACLE_FEATURE);
 
@@ -246,6 +267,7 @@ int RNNEvaluator::SetupObstacleFeature(
 int RNNEvaluator::SetupLaneFeature(const Feature& feature,
                                    const LaneSequence& lane_sequence,
                                    std::vector<float>* const feature_values) {
+  AINFO<<"(pengzi) RNN prediction evaluator. set up lane feature.thread:"<<std::this_thread::get_id();                                   
   CHECK_LE(LENGTH_LANE_POINT_SEQUENCE, FLAGS_max_num_lane_point);
   feature_values->clear();
   feature_values->reserve(static_cast<size_t>(DIM_LANE_POINT_FEATURE) *

@@ -31,6 +31,7 @@
 #include "modules/prediction/common/prediction_system_gflags.h"
 #include "modules/prediction/container/container_manager.h"
 #include "modules/prediction/container/obstacles/obstacles_container.h"
+#include <thread>
 
 namespace apollo {
 namespace prediction {
@@ -53,6 +54,8 @@ bool LaneScanningEvaluator::Evaluate(Obstacle* obstacle_ptr) {
 
 bool LaneScanningEvaluator::Evaluate(Obstacle* obstacle_ptr,
                                      std::vector<Obstacle*> dynamic_env) {
+
+  AINFO<<"(pengzi) Begin LaneScanningEvaluator::Evaluate. thread: " << std::this_thread::get_id();                                      
   // Sanity checks.
   omp_set_num_threads(1);
   CHECK_NOTNULL(obstacle_ptr);
@@ -110,6 +113,9 @@ bool LaneScanningEvaluator::Evaluate(Obstacle* obstacle_ptr,
   torch_inputs.push_back(std::move(torch_input));
   ModelInference(torch_inputs, torch_lane_scanning_model_ptr_,
                  latest_feature_ptr);
+
+  AINFO<<"(pengzi) Finish LaneScanningEvaluator::Evaluate. thread: " << std::this_thread::get_id();               
+  
   return true;
 }
 
@@ -129,6 +135,9 @@ bool LaneScanningEvaluator::ExtractStringFeatures(
 bool LaneScanningEvaluator::ExtractFeatures(
     const Obstacle* obstacle_ptr, const LaneGraph* lane_graph_ptr,
     std::vector<double>* feature_values) {
+
+ AINFO<<"(pengzi)  LaneScanningEvaluator::ExtractFeatures. thread: " << std::this_thread::get_id();
+   
   // Sanity checks.
   CHECK_NOTNULL(obstacle_ptr);
   int id = obstacle_ptr->id();
@@ -174,6 +183,8 @@ bool LaneScanningEvaluator::ExtractFeatures(
 
 bool LaneScanningEvaluator::ExtractObstacleFeatures(
     const Obstacle* obstacle_ptr, std::vector<double>* feature_values) {
+   AINFO<<"(pengzi)  LaneScanningEvaluator::ExtractObstacleFeatures. thread: " << std::this_thread::get_id();
+   
   // Sanity checks.
   CHECK_NOTNULL(obstacle_ptr);
   feature_values->clear();
@@ -432,12 +443,18 @@ void LaneScanningEvaluator::LoadModel() {
   torch::set_num_threads(1);
   torch_lane_scanning_model_ptr_ =
       torch::jit::load(FLAGS_torch_vehicle_lane_scanning_file, device_);
+  AINFO<<"(pengzi)  predictor lane scaning evaluator.loading the model file: " << FLAGS_torch_vehicle_lane_scanning_file 
+       << " device: "<< device_
+       <<" thread: " << std::this_thread::get_id();
+  
 }
 
 void LaneScanningEvaluator::ModelInference(
     const std::vector<torch::jit::IValue>& torch_inputs,
     std::shared_ptr<torch::jit::script::Module> torch_model_ptr,
     Feature* feature_ptr) {
+   AINFO<<"(pengzi)  predictor lane scaning evaluator.begin model inferece. thread: " << std::this_thread::get_id();
+
   auto torch_output_tensor = torch_model_ptr->forward(torch_inputs).toTensor();
   auto torch_output = torch_output_tensor.accessor<float, 3>();
   for (size_t i = 0; i < SHORT_TERM_TRAJECTORY_SIZE; ++i) {

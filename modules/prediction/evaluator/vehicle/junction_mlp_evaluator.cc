@@ -63,12 +63,15 @@ JunctionMLPEvaluator::JunctionMLPEvaluator() : device_(torch::kCPU) {
 void JunctionMLPEvaluator::Clear() {}
 
 bool JunctionMLPEvaluator::Evaluate(Obstacle* obstacle_ptr) {
+    AINFO<<"(pengzi) Begin JunctionMLPEvaluator::Evaluate. thread: " << std::this_thread::get_id();  
   // Sanity checks.
   omp_set_num_threads(1);
   Clear();
   CHECK_NOTNULL(obstacle_ptr);
 
   obstacle_ptr->SetEvaluatorType(evaluator_type_);
+
+   AINFO<<"(pengzi) prediction evaluator_type_:"<<evaluator_type_ <<"thread: " << std::this_thread::get_id();  
 
   int id = obstacle_ptr->id();
   if (!obstacle_ptr->latest_feature().IsInitialized()) {
@@ -162,11 +165,13 @@ bool JunctionMLPEvaluator::Evaluate(Obstacle* obstacle_ptr) {
       }
     }
   }
+AINFO<<"(pengzi) Finish JunctionMLPEvaluator::Evaluate. thread: " << std::this_thread::get_id();  
   return true;
 }
 
 void JunctionMLPEvaluator::ExtractFeatureValues(
     Obstacle* obstacle_ptr, std::vector<double>* feature_values) {
+  AINFO<<"(pengzi) Begin JunctionMLPEvaluator::ExtractFeatureValues. thread: " << std::this_thread::get_id();     
   CHECK_NOTNULL(obstacle_ptr);
   int id = obstacle_ptr->id();
 
@@ -205,10 +210,13 @@ void JunctionMLPEvaluator::ExtractFeatureValues(
                          ego_vehicle_feature_values.end());
   feature_values->insert(feature_values->end(), junction_feature_values.begin(),
                          junction_feature_values.end());
+
+    AINFO<<"(pengzi) Finish JunctionMLPEvaluator::ExtractFeatureValues. thread: " << std::this_thread::get_id();                         
 }
 
 void JunctionMLPEvaluator::SetObstacleFeatureValues(
     Obstacle* obstacle_ptr, std::vector<double>* feature_values) {
+AINFO<<"(pengzi) Begin JunctionMLPEvaluator::SetObstacleFeatureValues. thread: " << std::this_thread::get_id(); 
   feature_values->clear();
   feature_values->reserve(OBSTACLE_FEATURE_SIZE);
   const Feature& feature = obstacle_ptr->latest_feature();
@@ -251,10 +259,12 @@ void JunctionMLPEvaluator::SetObstacleFeatureValues(
     feature_values->push_back(pos_history[i].first);
     feature_values->push_back(pos_history[i].second);
   }
+  AINFO<<"(pengzi) Finish JunctionMLPEvaluator::SetObstacleFeatureValues. thread: " << std::this_thread::get_id(); 
 }
 
 void JunctionMLPEvaluator::SetEgoVehicleFeatureValues(
     Obstacle* obstacle_ptr, std::vector<double>* const feature_values) {
+  AINFO<<"(pengzi) Begin JunctionMLPEvaluator::SetEgoVehicleFeatureValues. thread: " << std::this_thread::get_id(); 
   feature_values->clear();
   *feature_values = std::vector<double>(4, 0.0);
   auto ego_pose_container_ptr =
@@ -289,6 +299,7 @@ void JunctionMLPEvaluator::SetEgoVehicleFeatureValues(
 
 void JunctionMLPEvaluator::SetJunctionFeatureValues(
     Obstacle* obstacle_ptr, std::vector<double>* feature_values) {
+  AINFO<<"(pengzi) Begin JunctionMLPEvaluator::SetJunctionFeatureValues. thread: " << std::this_thread::get_id(); 
   feature_values->clear();
   feature_values->reserve(JUNCTION_FEATURE_SIZE);
   Feature* feature_ptr = obstacle_ptr->mutable_latest_feature();
@@ -363,6 +374,7 @@ void JunctionMLPEvaluator::SetJunctionFeatureValues(
 }
 
 void JunctionMLPEvaluator::LoadModel() {
+  AINFO<<"(pengzi) Begin JunctionMLPEvaluator::LoadModel. thread: " << std::this_thread::get_id(); 
   // TODO(all) uncomment the following when cuda issue is resolved
   // if (torch::cuda::is_available()) {
   //   ADEBUG << "CUDA is available for JunctionMLPEvaluator!";
@@ -371,6 +383,9 @@ void JunctionMLPEvaluator::LoadModel() {
   torch::set_num_threads(1);
   torch_model_ptr_ =
       torch::jit::load(FLAGS_torch_vehicle_junction_mlp_file, device_);
+
+  AINFO<<"(pengzi) Finish LaneAggregatingEvaluator::LoadModel. Model file: " << FLAGS_torch_vehicle_junction_mlp_file
+  <<" thread: " << std::this_thread::get_id(); 
 }
 
 }  // namespace prediction

@@ -27,9 +27,11 @@ CostEvaluator::CostEvaluator() {
 }
 
 bool CostEvaluator::Evaluate(Obstacle* obstacle_ptr) {
+  AINFO<<"(pengzi) begin cost evaluate for vehicle. thread:"<<std::this_thread::get_id();
   CHECK_NOTNULL(obstacle_ptr);
 
   obstacle_ptr->SetEvaluatorType(evaluator_type_);
+  AINFO<<"(pengzi) cost evaluate type: "<< evaluator_type_<< "thread:"<<std::this_thread::get_id();
 
   int id = obstacle_ptr->id();
   if (!obstacle_ptr->latest_feature().IsInitialized()) {
@@ -75,6 +77,7 @@ bool CostEvaluator::Evaluate(Obstacle* obstacle_ptr) {
 double CostEvaluator::ComputeProbability(const double obstacle_length,
                                          const double obstacle_width,
                                          const LaneSequence& lane_sequence) {
+  AINFO<<"(pengzi) compute probability. thread:"<<std::this_thread::get_id();                                         
   double front_lateral_distance_cost =
       FrontLateralDistanceCost(obstacle_length, obstacle_width, lane_sequence);
   return Sigmoid(front_lateral_distance_cost);
@@ -83,6 +86,8 @@ double CostEvaluator::ComputeProbability(const double obstacle_length,
 double CostEvaluator::FrontLateralDistanceCost(
     const double obstacle_length, const double obstacle_width,
     const LaneSequence& lane_sequence) {
+   AINFO<<"(pengzi) compute front lateral distance cost. thread:"<<std::this_thread::get_id();  
+
   if (lane_sequence.lane_segment_size() == 0 ||
       lane_sequence.lane_segment(0).lane_point_size() == 0) {
     AWARN << "Empty lane sequence.";

@@ -27,6 +27,7 @@
 #include "modules/prediction/container/container_manager.h"
 #include "modules/prediction/container/obstacles/obstacles_container.h"
 #include "modules/prediction/container/pose/pose_container.h"
+#include <thread>
 
 namespace apollo {
 namespace prediction {
@@ -44,6 +45,8 @@ LaneAggregatingEvaluator::LaneAggregatingEvaluator() : device_(torch::kCPU) {
 }
 
 void LaneAggregatingEvaluator::LoadModel() {
+  AINFO<<"(pengzi) Begin LaneAggregatingEvaluator::LoadModel. thread: " << std::this_thread::get_id(); 
+
   torch::set_num_threads(1);
   torch_obstacle_encoding_ptr_ = torch::jit::load(
       FLAGS_torch_lane_aggregating_obstacle_encoding_file, device_);
@@ -51,9 +54,16 @@ void LaneAggregatingEvaluator::LoadModel() {
       FLAGS_torch_lane_aggregating_lane_encoding_file, device_);
   torch_prediction_layer_ptr_ = torch::jit::load(
       FLAGS_torch_lane_aggregating_prediction_layer_file, device_);
+
+  AINFO<<"(pengzi) Finish LaneAggregatingEvaluator::LoadModel."
+   << "FLAGS_torch_lane_aggregating_obstacle_encoding_file"<<FLAGS_torch_lane_aggregating_obstacle_encoding_file
+   << " FLAGS_torch_lane_aggregating_lane_encoding_file: "<<FLAGS_torch_lane_aggregating_lane_encoding_file
+   <<" FLAGS_torch_lane_aggregating_prediction_layer_file: "<<FLAGS_torch_lane_aggregating_prediction_layer_file
+   <<" thread: " << std::this_thread::get_id(); 
 }
 
 bool LaneAggregatingEvaluator::Evaluate(Obstacle* obstacle_ptr) {
+  AINFO<<"(pengzi) Begin LaneAggregatingEvaluator::Evaluate. thread: " << std::this_thread::get_id(); 
   // Sanity checks.
   CHECK_NOTNULL(obstacle_ptr);
 
@@ -83,6 +93,7 @@ bool LaneAggregatingEvaluator::Evaluate(Obstacle* obstacle_ptr) {
 
   // Extract features, and do model inferencing.
   // 1. Encode the obstacle features.
+  
   std::vector<double> obstacle_feature_values;
   if (!ExtractObstacleFeatures(obstacle_ptr, &obstacle_feature_values)) {
     ADEBUG << "Failed to extract obstacle features for obs_id = " << id;
@@ -94,6 +105,9 @@ bool LaneAggregatingEvaluator::Evaluate(Obstacle* obstacle_ptr) {
     return false;
   }
   ADEBUG << "Obstacle feature size = " << obstacle_feature_values.size();
+AINFO<<"(pengzi) Encode the obstacle features..Obstacle feature size = " << obstacle_feature_values.size()
+     << "thread: " << std::this_thread::get_id(); 
+
   std::vector<torch::jit::IValue> obstacle_encoding_inputs;
   torch::Tensor obstacle_encoding_inputs_tensor =
       torch::zeros({1, static_cast<int>(obstacle_feature_values.size())});
@@ -139,11 +153,15 @@ bool LaneAggregatingEvaluator::Evaluate(Obstacle* obstacle_ptr) {
             .toTensor()
             .to(torch::kCPU);
     lane_encoding_list.push_back(std::move(single_lane_encoding));
+
+    AINFO<<"(pengzi) Encode the lane features..lane feature size = " << single_lane_feature_values.size()
+     << "thread: " << std::this_thread::get_id(); 
   }
   // 3. Aggregate the lane features.
   // torch::Tensor aggregated_lane_encoding =
   //     AggregateLaneEncodings(lane_encoding_list);
   // 4. Make prediction.
+ 
   std::vector<double> prediction_scores;
   for (size_t i = 0; i < lane_encoding_list.size(); ++i) {
     std::vector<torch::jit::IValue> prediction_layer_inputs;
@@ -175,6 +193,8 @@ bool LaneAggregatingEvaluator::Evaluate(Obstacle* obstacle_ptr) {
             .to(torch::kCPU);
     auto prediction_score = prediction_layer_output.accessor<float, 2>();
     prediction_scores.push_back(static_cast<double>(prediction_score[0][0]));
+
+    AINFO<<"(pengzi) make prediction success. thread: " << std::this_thread::get_id(); 
   }
 
   // Pass the predicted result to the predictor to plot trajectory.

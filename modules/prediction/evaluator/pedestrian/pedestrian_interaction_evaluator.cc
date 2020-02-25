@@ -63,6 +63,7 @@ void PedestrianInteractionEvaluator::Clear() {
 }
 
 void PedestrianInteractionEvaluator::LoadModel() {
+  AINFO<<"(pengzi) load model for pedestrian interaction evaluator. thread:"<<std::this_thread::get_id();
   torch::set_num_threads(1);
   // TODO(all) uncomment the following when cuda issue is resolved
   // if (torch::cuda::is_available()) {

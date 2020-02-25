@@ -25,6 +25,7 @@
 #include "modules/prediction/common/prediction_system_gflags.h"
 #include "modules/prediction/common/prediction_util.h"
 #include "modules/prediction/common/validation_checker.h"
+#include <thread>
 
 namespace apollo {
 namespace prediction {
@@ -32,12 +33,18 @@ namespace prediction {
 namespace {
 
 double ComputeMean(const std::vector<double>& nums, size_t start, size_t end) {
+  AINFO<<"(pengzi)  predictor mlp evaluator: computer mean. thread: " << std::this_thread::get_id();
+
   int count = 0;
   double sum = 0.0;
   for (size_t i = start; i <= end && i < nums.size(); i++) {
     sum += nums[i];
     ++count;
   }
+  AINFO<<"(pengzi)  predictor mlp evaluator: computer mean.  mean:"
+  << sum/count
+  <<" thread: " << std::this_thread::get_id();
+
   return (count == 0) ? 0.0 : sum / count;
 }
 
@@ -51,11 +58,14 @@ MLPEvaluator::MLPEvaluator() {
 void MLPEvaluator::Clear() {}
 
 bool MLPEvaluator::Evaluate(Obstacle* obstacle_ptr) {
+   AINFO<<"(pengzi)  predictor mlp evaluator: begin evaluate. thread: " << std::this_thread::get_id();
   Clear();
   CHECK_NOTNULL(obstacle_ptr);
   CHECK_LE(LANE_FEATURE_SIZE, 4 * FLAGS_max_num_lane_point);
 
   obstacle_ptr->SetEvaluatorType(evaluator_type_);
+  AINFO<<"(pengzi)  predictor mlp evaluator: eevaluator type:" << evaluator_type_
+  <<". thread: " << std::this_thread::get_id();
 
   int id = obstacle_ptr->id();
   if (!obstacle_ptr->latest_feature().IsInitialized()) {
@@ -131,6 +141,7 @@ bool MLPEvaluator::Evaluate(Obstacle* obstacle_ptr) {
 void MLPEvaluator::ExtractFeatureValues(Obstacle* obstacle_ptr,
                                         LaneSequence* lane_sequence_ptr,
                                         std::vector<double>* feature_values) {
+  AINFO<<"(pengzi) MLP evaluator, ExtractFeatureValues . thread: " << std::this_thread::get_id();                                    
   int id = obstacle_ptr->id();
   std::vector<double> obstacle_feature_values;
 
@@ -160,6 +171,7 @@ void MLPEvaluator::ExtractFeatureValues(Obstacle* obstacle_ptr,
 
 void MLPEvaluator::SaveOfflineFeatures(
     LaneSequence* sequence, const std::vector<double>& feature_values) {
+AINFO<<"(pengzi) MLP evaluator, SaveOfflineFeatures . thread: " << std::this_thread::get_id();
   for (double feature_value : feature_values) {
     sequence->mutable_features()->add_mlp_features(feature_value);
   }
@@ -167,6 +179,7 @@ void MLPEvaluator::SaveOfflineFeatures(
 
 void MLPEvaluator::SetObstacleFeatureValues(
     Obstacle* obstacle_ptr, std::vector<double>* feature_values) {
+  AINFO<<"(pengzi) MLP evaluator, SetObstacleFeatureValues value. thread: " << std::this_thread::get_id();
   feature_values->clear();
   feature_values->reserve(OBSTACLE_FEATURE_SIZE);
 
@@ -304,6 +317,9 @@ void MLPEvaluator::SetObstacleFeatureValues(
 void MLPEvaluator::SetLaneFeatureValues(Obstacle* obstacle_ptr,
                                         LaneSequence* lane_sequence_ptr,
                                         std::vector<double>* feature_values) {
+
+    AINFO<<"(pengzi) MLP evaluator, set lane feature value. thread: " << std::this_thread::get_id();
+
   feature_values->clear();
   feature_values->reserve(LANE_FEATURE_SIZE);
   const Feature& feature = obstacle_ptr->latest_feature();
@@ -361,10 +377,13 @@ void MLPEvaluator::LoadModel(const std::string& model_file) {
       << "Unable to load model file: " << model_file << ".";
 
   AINFO << "Succeeded in loading the model file: " << model_file << ".";
+  AINFO<<"(pengzi)  predictor mlp evaluator. Succeeded in loading the model file: " << model_file 
+       << "thread: " << std::this_thread::get_id();
 }
 
 double MLPEvaluator::ComputeProbability(
     const std::vector<double>& feature_values) {
+ 
   CHECK_NOTNULL(model_ptr_.get());
   double probability = 0.0;
 
@@ -378,7 +397,10 @@ double MLPEvaluator::ComputeProbability(
   layer_input.reserve(model_ptr_->dim_input());
   std::vector<double> layer_output;
 
+
+
   // normalization
+   AINFO <<"(pengzi) normalization. thread: " << std::this_thread::get_id();
   for (int i = 0; i < model_ptr_->dim_input(); ++i) {
     double mean = model_ptr_->samples_mean().columns(i);
     double std = model_ptr_->samples_std().columns(i);
@@ -411,6 +433,7 @@ double MLPEvaluator::ComputeProbability(
         neuron_output = apollo::prediction::math_util::Sigmoid(neuron_output);
       }
       layer_output.push_back(neuron_output);
+      AINFO <<"(pengzi) push_back neuron_output. thread: " << std::this_thread::get_id();
     }
   }
 
@@ -420,6 +443,11 @@ double MLPEvaluator::ComputeProbability(
   } else {
     probability = layer_output[0];
   }
+
+ AINFO<< "(pengzi)ComputeProbability: " << probability
+         << "model input dim = " << model_ptr_->dim_input()
+         << "; feature value size = " << feature_values.size()    
+         << " thread: " << std::this_thread::get_id();
 
   return probability;
 }
