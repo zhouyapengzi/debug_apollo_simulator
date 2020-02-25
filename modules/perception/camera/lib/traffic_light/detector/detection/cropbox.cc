@@ -30,7 +30,7 @@ void CropBox::getCropBox(const int width, const int height,
   int rows = height;
   int cols = width;
 
-AINFO<<"(pengzi) CropBox::getCropBox. rows:"<rows <<" cols:"<<cols << " thread:"<<std::this_thread::get_id();
+AINFO<<"(pengzi) CropBox::getCropBox(). thread:"<<std::this_thread::get_id();
 
   if (OutOfValidRegion(light->region.projection_roi, width, height) ||
       light->region.projection_roi.Area() <= 0) {

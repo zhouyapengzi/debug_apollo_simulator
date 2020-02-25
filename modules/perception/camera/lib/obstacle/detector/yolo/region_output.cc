@@ -17,7 +17,7 @@
 #include "modules/perception/camera/lib/obstacle/detector/yolo/region_output.h"
 
 #include "cyber/common/log.h"
-
+#include<thread>
 namespace apollo {
 namespace perception {
 namespace camera {

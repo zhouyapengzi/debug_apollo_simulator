@@ -195,7 +195,7 @@ int TrafficLightsPerceptionComponent::InitAlgorithmPlugin() {
   }
 
   preprocessor_init_options_.camera_names = camera_names_;
-   AINFO << "(pengzi) Init preprocessor for trafficlights perception component. camera_names:" << preprocessor_init_options_.camera_names;
+   AINFO << "(pengzi) Init preprocessor for trafficlights perception component." ;
 
   if (!preprocessor_->Init(preprocessor_init_options_)) {
     AERROR << "TrafficLightsPerceptionComponent init preprocessor failed";

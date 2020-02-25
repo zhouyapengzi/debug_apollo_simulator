@@ -25,8 +25,7 @@ namespace camera {
 bool TrafficLightRecognition::Init(
     const TrafficLightDetectorInitOptions& options) {
 
-  AINFO << "(pengzi) in method : TrafficLightRecognition::Init(
-    const TrafficLightDetectorInitOptions& options) .thread: "<<std::this_thread::get_id();
+  AINFO << "(pengzi) in method : TrafficLightRecognition::Init( const TrafficLightDetectorInitOptions& options) .thread: "<<std::this_thread::get_id();
   std::string proto_path =
       cyber::common::GetAbsolutePath(options.root_dir, options.conf_file);
 
@@ -57,8 +56,7 @@ bool TrafficLightRecognition::Init(
 bool TrafficLightRecognition::Detect(const TrafficLightDetectorOptions& options,
                                      CameraFrame* frame) {
 
-  AINFO << "(pengzi) in method : TrafficLightRecognition::Detect(const TrafficLightDetectorOptions& options,
-                                     CameraFrame* frame) .thread: "<<std::this_thread::get_id();
+  AINFO << "(pengzi) in method : TrafficLightRecognition::Detect(const TrafficLightDetectorOptions& options,CameraFrame* frame) .thread: "<<std::this_thread::get_id();
 
   std::vector<base::TrafficLightPtr> candidate(1);
 

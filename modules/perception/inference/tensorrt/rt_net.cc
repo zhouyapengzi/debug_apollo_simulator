@@ -415,11 +415,7 @@ void RTNet::addLayer(const LayerParameter &layer_param,
                      TensorMap *tensor_map,
                      TensorModifyMap *tensor_modify_map) {
 
-   AINFO<<"(pengzi) in method: RTNet::addLayer(const LayerParameter &layer_param,
-                     nvinfer1::ITensor *const *inputs, int nbInputs,
-                     WeightMap *weight_map, nvinfer1::INetworkDefinition *net,
-                     TensorMap *tensor_map,
-                     TensorModifyMap *tensor_modify_map).  thread:" << std::this_thread::get_id();
+   AINFO<<"(pengzi) in method: RTNet::addLayer(const LayerParameter &layer_param, thread:" << std::this_thread::get_id();
 
   if (layer_param.type() == "Convolution") {
     addConvLayer(layer_param, inputs, weight_map, net, tensor_map,
