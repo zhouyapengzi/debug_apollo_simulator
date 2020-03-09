@@ -141,5 +141,19 @@ AINFO<<"(DMCZP) EnteringMethod: main";
   apollo::perception::inference::write_result(FLAGS_res_dir, output_data_vec);
   delete rt_net;
 
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: main";
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_string";
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_string";
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_string";
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_string";
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_string";
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_bool";
   return 0;
 }

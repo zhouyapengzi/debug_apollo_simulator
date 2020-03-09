@@ -33,7 +33,9 @@ AINFO<<"(DMCZP) EnteringMethod: HalfCircleAngle::SetDirection";
       theta_ += static_cast<float>(M_PI);
     }
   }
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: HalfCircleAngle::SetDirection";
+ }
 
 HalfCircleAngle &HalfCircleAngle::operator=(const float &theta) {
   theta_ = theta;
@@ -44,6 +46,8 @@ float HalfCircleAngle::operator+(const float &theta) const {
 }
 float HalfCircleAngle::operator*(const float &scale) const {
 AINFO<<"(DMCZP) EnteringMethod: HalfCircleAngle::operator*";
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: HalfCircleAngle::operator*";
   return theta_ * scale;
 }
 HalfCircleAngle &HalfCircleAngle::operator=(const HalfCircleAngle &theta) {
@@ -56,7 +60,13 @@ bool HalfCircleAngle::operator==(const HalfCircleAngle &theta) const {
 bool HalfCircleAngle::operator==(const float &theta) const {
   return Equal(theta_, theta, 0.01f);
 }
-float HalfCircleAngle::value() const { return theta_; }
+float HalfCircleAngle::value() const {
+  AINFO<<"(DMCZP) EnteringMethod: HalfCircleAngle::value";
+ 
+  AINFO<<"(DMC
+  AINFO<<"(DMCZP) LeaveMethod: HalfCircleAngle::value";
+ ZP) (return) LeaveMethod: HalfCircleAngle::value";
+  return theta_; }
 }  // namespace camera
 }  // namespace perception
 }  // namespace apollo

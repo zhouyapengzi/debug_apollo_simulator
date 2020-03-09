@@ -29,7 +29,9 @@ AINFO<<"(DMCZP) EnteringMethod: Universe::Universe";
     elts_[i].size = 1;
     elts_[i].p = i;
   }
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: Universe::Universe";
+ }
 
 void Universe::Reset(const int elements_num) {
 AINFO<<"(DMCZP) EnteringMethod: Universe::Reset";
@@ -40,7 +42,9 @@ AINFO<<"(DMCZP) EnteringMethod: Universe::Reset";
     elts_[i].size = 1;
     elts_[i].p = i;
   }
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: Universe::Reset";
+ }
 
 int Universe::Find(const int x) {
 AINFO<<"(DMCZP) EnteringMethod: Universe::Find";
@@ -57,6 +61,8 @@ AINFO<<"(DMCZP) EnteringMethod: Universe::Find";
     elts_[w].p = y;
     w = z;
   }
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: Universe::Find";
   return y;
 }
 
@@ -73,7 +79,9 @@ AINFO<<"(DMCZP) EnteringMethod: Universe::Join";
     }
   }
   --sets_num_;
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: Universe::Join";
+ }
 
 }  // namespace common
 }  // namespace perception

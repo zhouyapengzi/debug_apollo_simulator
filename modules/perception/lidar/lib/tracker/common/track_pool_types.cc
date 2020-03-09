@@ -27,7 +27,9 @@ AINFO<<"(DMCZP) EnteringMethod: __attribute__";
   TrackDataPool::Instance();
   MlfTrackDataPool::Instance();
   AINFO << "Initialize track pool.";
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: __attribute__";
+ }
 
 }  // namespace lidar
 }  // namespace perception

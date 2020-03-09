@@ -82,7 +82,9 @@ AINFO<<"(DMCZP) EnteringMethod: SyncedMemory::SyncedMemory";
   BASE_CUDA_CHECK(cudaGetDevice(&device_));
 #endif
 #endif
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: SyncedMemory::SyncedMemory";
+ }
 
 SyncedMemory::SyncedMemory(size_t size, bool use_cuda)
     : cpu_ptr_(NULL),
@@ -98,7 +100,9 @@ SyncedMemory::SyncedMemory(size_t size, bool use_cuda)
   BASE_CUDA_CHECK(cudaGetDevice(&device_));
 #endif
 #endif
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: SyncedMemory::SyncedMemory";
+ }
 
 SyncedMemory::~SyncedMemory() {
   check_device();
@@ -121,7 +125,10 @@ AINFO<<"(DMCZP) EnteringMethod: SyncedMemory::to_cpu";
       PerceptionMallocHost(&cpu_ptr_, size_, cpu_malloc_use_cuda_);
       if (cpu_ptr_ == nullptr) {
         AERROR << "cpu_ptr_ is null";
-        return;
+        
+  AINFO<<"(DMCZP) (return) LeaveMethod: SyncedMemory::to_cpu";
+
+  return;
       }
       memset(cpu_ptr_, 0, size_);
       head_ = HEAD_AT_CPU;
@@ -143,7 +150,9 @@ AINFO<<"(DMCZP) EnteringMethod: SyncedMemory::to_cpu";
     case SYNCED:
       break;
   }
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: SyncedMemory::to_cpu";
+ }
 
 inline void SyncedMemory::to_gpu() {
 AINFO<<"(DMCZP) EnteringMethod: SyncedMemory::to_gpu";
@@ -171,12 +180,17 @@ AINFO<<"(DMCZP) EnteringMethod: SyncedMemory::to_gpu";
 #else
   NO_GPU;
 #endif
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: SyncedMemory::to_gpu";
+ }
 
 const void* SyncedMemory::cpu_data() {
 AINFO<<"(DMCZP) EnteringMethod: SyncedMemory::cpu_data";
   check_device();
   to_cpu();
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: SyncedMemory::cpu_data";
+
   return (const void*)cpu_ptr_;
 }
 
@@ -190,19 +204,27 @@ AINFO<<"(DMCZP) EnteringMethod: SyncedMemory::set_cpu_data";
   cpu_ptr_ = data;
   head_ = HEAD_AT_CPU;
   own_cpu_data_ = false;
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: SyncedMemory::set_cpu_data";
+ }
 
 const void* SyncedMemory::gpu_data() {
 AINFO<<"(DMCZP) EnteringMethod: SyncedMemory::gpu_data";
   check_device();
 #ifndef PERCEPTION_CPU_ONLY
   to_gpu();
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: SyncedMemory::gpu_data";
   return (const void*)gpu_ptr_;
 #else
   NO_GPU;
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: SyncedMemory::gpu_data";
   return nullptr;
 #endif
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: SyncedMemory::gpu_data";
+ }
 
 void SyncedMemory::set_gpu_data(void* data) {
 AINFO<<"(DMCZP) EnteringMethod: SyncedMemory::set_gpu_data";
@@ -218,13 +240,18 @@ AINFO<<"(DMCZP) EnteringMethod: SyncedMemory::set_gpu_data";
 #else
   NO_GPU;
 #endif
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: SyncedMemory::set_gpu_data";
+ }
 
 void* SyncedMemory::mutable_cpu_data() {
 AINFO<<"(DMCZP) EnteringMethod: SyncedMemory::mutable_cpu_data";
   check_device();
   to_cpu();
   head_ = HEAD_AT_CPU;
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: SyncedMemory::mutable_cpu_data";
+
   return cpu_ptr_;
 }
 
@@ -234,12 +261,20 @@ AINFO<<"(DMCZP) EnteringMethod: SyncedMemory::mutable_gpu_data";
 #ifndef PERCEPTION_CPU_ONLY
   to_gpu();
   head_ = HEAD_AT_GPU;
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: SyncedMemory::mutable_gpu_data";
+
   return gpu_ptr_;
 #else
   NO_GPU;
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: SyncedMemory::mutable_gpu_data";
+
   return nullptr;
 #endif
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: SyncedMemory::mutable_gpu_data";
+ }
 
 #ifndef PERCEPTION_CPU_ONLY
 void SyncedMemory::async_gpu_push(const cudaStream_t& stream) {
@@ -254,7 +289,9 @@ AINFO<<"(DMCZP) EnteringMethod: SyncedMemory::async_gpu_push";
   BASE_CUDA_CHECK(cudaMemcpyAsync(gpu_ptr_, cpu_ptr_, size_, put, stream));
   // Assume caller will synchronize on the stream before use
   head_ = SYNCED;
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: SyncedMemory::async_gpu_push";
+ }
 #endif
 
 void SyncedMemory::check_device() {
@@ -271,8 +308,11 @@ AINFO<<"(DMCZP) EnteringMethod: SyncedMemory::check_device";
   }
 #endif
 #endif
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: SyncedMemory::check_device";
+ }
 
 }  // namespace base
 }  // namespace perception
-}  // namespace apollo
+
+ }  // namespace apollo

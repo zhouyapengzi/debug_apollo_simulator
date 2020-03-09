@@ -39,7 +39,9 @@ AINFO<<"(DMCZP) EnteringMethod: DenselineLanePostprocessor::Init";
       GetAbsolutePath(options.detect_config_root, options.detect_config_name);
   if (!cyber::common::GetProtoFromFile(proto_path, &denseline_param)) {
     AERROR << "Failed to load proto param, root dir: " << options.root_dir;
-    return false;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: DenselineLanePostprocessor::Init";
+  return false;
   }
   const auto& model_param = denseline_param.model_param();
   input_offset_x_ = model_param.input_offset_x();
@@ -57,7 +59,9 @@ AINFO<<"(DMCZP) EnteringMethod: DenselineLanePostprocessor::Init";
   if (!cyber::common::GetProtoFromFile(postprocessor_config,
                                        &lane_postprocessor_param_)) {
     AERROR << "Read config detect_param failed: " << postprocessor_config;
-    return false;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: DenselineLanePostprocessor::Init";
+  return false;
   }
   std::string param_str;
   google::protobuf::TextFormat::PrintToString(lane_postprocessor_param_,
@@ -78,6 +82,8 @@ AINFO<<"(DMCZP) EnteringMethod: DenselineLanePostprocessor::Init";
   lane_map_dim_ = lane_map_width_ * lane_map_height_;
   lane_pos_blob_.Reshape({4, lane_map_dim_});
   lane_hist_blob_.Reshape({2, lane_map_dim_});
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: DenselineLanePostprocessor::Init";
   return true;
 }
 
@@ -89,7 +95,9 @@ AINFO<<"(DMCZP) EnteringMethod: DenselineLanePostprocessor::Process3D";
   // 1. locate the lane line point set
   bool flag = LocateLanelinePointSet(frame);
   if (!flag) {
-    return true;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: DenselineLanePostprocessor::Process2D";
+  return true;
   }
 
   //  2. classify the lane line pos type
@@ -112,6 +120,8 @@ AINFO<<"(DMCZP) EnteringMethod: DenselineLanePostprocessor::Process3D";
   }
   AINFO << "[AfterProcess2D]lane_lines_num: " << frame->lane_objects.size();
 
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: DenselineLanePostprocessor::Process2D";
   return true;
 }
 
@@ -119,6 +129,8 @@ bool DenselineLanePostprocessor::Process3D(
     const LanePostprocessorOptions& options, CameraFrame* frame) {
   ConvertImagePoint2Camera(frame);
   PolyFitCameraLaneline(frame);
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: DenselineLanePostprocessor::Process3D";
   return true;
 }
 
@@ -148,10 +160,14 @@ AINFO<<"(DMCZP) EnteringMethod: DenselineLanePostprocessor::ConvertImagePoint2Ca
       camera_point_set.push_back(camera_point);
     }
   }
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: DenselineLanePostprocessor::ConvertImagePoint2Camera";
+ }
 
 std::string DenselineLanePostprocessor::Name() const {
 AINFO<<"(DMCZP) EnteringMethod: DenselineLanePostprocessor::Name";
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: DenselineLanePostprocessor::Name";
   return "DenselineLanePostprocessor";
 }
 
@@ -210,7 +226,9 @@ AINFO<<"(DMCZP) EnteringMethod: DenselineLanePostprocessor::CalLaneMap";
       lane_output_[out_dim * 2 + pixel_pos] = max_score;
     }
   }
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: DenselineLanePostprocessor::CalLaneMap";
+ }
 
 // @brief infer the lane line points using lane center point information
 void DenselineLanePostprocessor::InferPointSetFromLaneCenter(
@@ -243,7 +261,9 @@ AINFO<<"(DMCZP) EnteringMethod: DenselineLanePostprocessor::InferPointSetFromOne
     InferPointSetFromOneCC(lane_ccs[i], left_index, right_index,
                            lane_map_group_point_set);
   }
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: DenselineLanePostprocessor::InferPointSetFromLaneCenter";
+ }
 
 // @brief infer the lane line points from one CC
 void DenselineLanePostprocessor::InferPointSetFromOneCC(
@@ -327,7 +347,9 @@ void DenselineLanePostprocessor::InferPointSetFromOneCC(
       }
     }
   }
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: DenselineLanePostprocessor::InferPointSetFromOneCC";
+ }
 
 bool DenselineLanePostprocessor::MaxScorePoint(const float* score_pointer,
                                                const float* x_pointer,
@@ -338,17 +360,23 @@ AINFO<<"(DMCZP) EnteringMethod: DenselineLanePostprocessor::MaxScorePoint";
   int large_index[2];
   bool flag = FindKLargeValue(score_pointer, lane_map_width_, 2, large_index);
   if (!flag) {
-    return false;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: DenselineLanePostprocessor::MaxScorePoint";
+  return false;
   }
   int max_x = large_index[0];
   float max_score = score_pointer[large_index[0]];
   if (max_score <= laneline_point_score_thresh_) {
-    return false;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: DenselineLanePostprocessor::MaxScorePoint";
+  return false;
   }
   (*point_info).x =
       x_pointer[max_x] / static_cast<float>(x_count_pointer[max_x]);
   (*point_info).y = static_cast<float>(y_pos);
   (*point_info).score = max_score / static_cast<float>(x_count_pointer[max_x]);
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: DenselineLanePostprocessor::MaxScorePoint";
   return true;
 }
 
@@ -360,7 +388,9 @@ AINFO<<"(DMCZP) EnteringMethod: DenselineLanePostprocessor::SelectLanecenterCCs"
   int lane_ccs_num = static_cast<int>(lane_ccs.size());
   if (lane_ccs_num == 0) {
     AINFO << "lane_ccs_num is 0.";
-    return false;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: DenselineLanePostprocessor::SelectLanecenterCCs";
+  return false;
   }
   //  select top 3 ccs with largest pixels size
   int valid_pixels_num = static_cast<int>(cc_valid_pixels_ratio_ *
@@ -377,13 +407,17 @@ AINFO<<"(DMCZP) EnteringMethod: DenselineLanePostprocessor::SelectLanecenterCCs"
   int valid_ccs_num = static_cast<int>(valid_lane_ccs.size());
   if (valid_ccs_num == 0) {
     AINFO << "valid_ccs_num is 0.";
-    return false;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: DenselineLanePostprocessor::SelectLanecenterCCs";
+  return false;
   }
   std::sort(valid_lane_ccs.begin(), valid_lane_ccs.end(), CompareCCSize);
   int select_cc_num = std::min(valid_ccs_num, 3);
   for (int i = 0; i < select_cc_num; i++) {
     select_lane_ccs->push_back(valid_lane_ccs[i]);
   }
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: DenselineLanePostprocessor::SelectLanecenterCCs";
   return true;
 }
 
@@ -428,13 +462,17 @@ AINFO<<"(DMCZP) EnteringMethod: DenselineLanePostprocessor::LocateLanelinePointS
   bool flag =
       FindCC(lane_map_, lane_map_width_, lane_map_height_, roi, &lane_ccs_);
   if (!flag) {
-    return false;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: DenselineLanePostprocessor::LocateLanelinePointSet";
+  return false;
   }
 
   //  3. select lane center ccs
   flag = SelectLanecenterCCs(lane_ccs_, &select_lane_ccs_);
   if (!flag) {
-    return false;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: DenselineLanePostprocessor::LocateLanelinePointSet";
+  return false;
   }
 
   //  4. Classify the lane_ccs_ type
@@ -442,7 +480,9 @@ AINFO<<"(DMCZP) EnteringMethod: DenselineLanePostprocessor::LocateLanelinePointS
                                      LaneType::UNKNOWN_LANE);
   flag = ClassifyLaneCCsPosTypeInImage(select_lane_ccs_, &ccs_pos_type);
   if (!flag) {
-    return false;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: DenselineLanePostprocessor::LocateLanelinePointSet";
+  return false;
   }
 
   //  5. get the lane line points
@@ -452,6 +492,8 @@ AINFO<<"(DMCZP) EnteringMethod: DenselineLanePostprocessor::LocateLanelinePointS
 
   //  6. convert to the original image
   Convert2OriginalCoord(lane_map_group_point_set, &image_group_point_set_);
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: DenselineLanePostprocessor::LocateLanelinePointSet";
   return true;
 }
 
@@ -499,7 +541,9 @@ AINFO<<"(DMCZP) EnteringMethod: DenselineLanePostprocessor::ClassifyLaneCCsPosTy
   }
   if (min_index == -1) {
     AERROR << "min_index=-1";
-    return false;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: DenselineLanePostprocessor::ClassifyLaneCCsPosTypeInImage";
+  return false;
   }
   //  0: ego-lane
   //  1: adj-left lane
@@ -519,6 +563,8 @@ AINFO<<"(DMCZP) EnteringMethod: DenselineLanePostprocessor::ClassifyLaneCCsPosTy
       (*ccs_pos_type)[i] = LaneType::ADJACENT_LEFT_LANE;
     }
   }
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: DenselineLanePostprocessor::ClassifyLaneCCsPosTypeInImage";
   return true;
 }
 
@@ -593,7 +639,9 @@ AINFO<<"(DMCZP) EnteringMethod: DenselineLanePostprocessor::ClassifyLanelinePosT
         base::LaneLinePositionType::ADJACENT_RIGHT;
     (*line_flag)[adj_right_index] = true;
   }
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: DenselineLanePostprocessor::ClassifyLanelinePosTypeInImage";
+ }
 
 // @brief: locate neighbor lane lines
 bool DenselineLanePostprocessor::LocateNeighborLaneLine(
@@ -604,7 +652,9 @@ AINFO<<"(DMCZP) EnteringMethod: DenselineLanePostprocessor::LocateNeighborLaneLi
   // left_flag = false: find the line which is at right side of the line
   int set_size = static_cast<int>(latitude_intersection.size());
   if (line_index < 0 || line_index >= set_size) {
-    return false;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: DenselineLanePostprocessor::LocateNeighborLaneLine";
+  return false;
   }
   float intersection_x = latitude_intersection[line_index];
   if (left_flag) {
@@ -632,6 +682,8 @@ AINFO<<"(DMCZP) EnteringMethod: DenselineLanePostprocessor::LocateNeighborLaneLi
       }
     }
   }
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: DenselineLanePostprocessor::LocateNeighborLaneLine";
   return true;
 }
 
@@ -657,7 +709,9 @@ AINFO<<"(DMCZP) EnteringMethod: DenselineLanePostprocessor::Convert2OriginalCoor
       (*image_group_point_set)[i].push_back(original_info);
     }
   }
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: DenselineLanePostprocessor::Convert2OriginalCoord";
+ }
 
 // @brief: add image lane line
 void DenselineLanePostprocessor::AddImageLaneline(
@@ -670,7 +724,9 @@ AINFO<<"(DMCZP) EnteringMethod: DenselineLanePostprocessor::AddImageLaneline";
   // image: x = f(y)
   int image_point_set_size = static_cast<int>(image_point_set.size());
   if (image_point_set_size <= laneline_point_min_num_thresh_) {
-    return;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: DenselineLanePostprocessor::AddImageLaneline";
+  return;
   }
   base::LaneLine lane_mark;
   std::vector<Eigen::Matrix<float, 2, 1> > img_pos_vec(image_point_set_size);
@@ -702,7 +758,9 @@ AINFO<<"(DMCZP) EnteringMethod: DenselineLanePostprocessor::AddImageLaneline";
 
   bool fit_flag = PolyFit(img_pos_vec, max_poly_order, &img_coeff, is_x_axis);
   if (!fit_flag) {
-    return;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: DenselineLanePostprocessor::AddImageLaneline";
+  return;
   }
   //  check the validity of laneline
   float sum_dist = 0.0f;
@@ -722,7 +780,9 @@ AINFO<<"(DMCZP) EnteringMethod: DenselineLanePostprocessor::AddImageLaneline";
   }
   if (avg_dist >= laneline_reject_dist_thresh_) {
     AERROR << "avg_dist>=laneline_reject_dist_thresh_";
-    return;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: DenselineLanePostprocessor::AddImageLaneline";
+  return;
   }
   lane_mark.curve_image_coord.a = img_coeff(3, 0);
   lane_mark.curve_image_coord.b = img_coeff(2, 0);
@@ -736,7 +796,9 @@ AINFO<<"(DMCZP) EnteringMethod: DenselineLanePostprocessor::AddImageLaneline";
   lane_mark.type = type;
   lane_mark.pos_type = pos_type;
   lane_marks->push_back(lane_mark);
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: DenselineLanePostprocessor::AddImageLaneline";
+ }
 
 // @brief: fit camera lane line using polynomial
 void DenselineLanePostprocessor::PolyFitCameraLaneline(CameraFrame* frame) {
@@ -780,11 +842,15 @@ AINFO<<"(DMCZP) EnteringMethod: DenselineLanePostprocessor::PolyFitCameraLanelin
     lane_objects[line_index].curve_car_coord.x_end = x_end;
     lane_objects[line_index].use_type = base::LaneLineUseType::REAL;
   }
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: DenselineLanePostprocessor::PolyFitCameraLaneline";
+ }
 
 std::vector<std::vector<LanePointInfo> >
 DenselineLanePostprocessor::GetLanelinePointSet() {
 AINFO<<"(DMCZP) EnteringMethod: DenselineLanePostprocessor::GetLanelinePointSet";
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: DenselineLanePostprocessor::GetLanelinePointSet";
   return image_group_point_set_;
 }
 
@@ -833,6 +899,8 @@ AINFO<<"(DMCZP) EnteringMethod: DenselineLanePostprocessor::GetAllInferLinePoint
       }
     }
   }
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: DenselineLanePostprocessor::GetAllInferLinePointSet";
   return image_laneline_point_set_;
 }
 
@@ -846,7 +914,9 @@ AINFO<<"(DMCZP) EnteringMethod: DenselineLanePostprocessor::GetLaneCCs";
   *lane_map_height = lane_map_height_;
   *connected_components = lane_ccs_;
   *select_connected_components = select_lane_ccs_;
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: DenselineLanePostprocessor::GetLaneCCs";
+ }
 
 REGISTER_LANE_POSTPROCESSOR(DenselineLanePostprocessor);
 }  // namespace camera

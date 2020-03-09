@@ -43,7 +43,9 @@ AINFO<<"(DMCZP) EnteringMethod: HistogramEstimatorParams::Init";
   hat_std_allowed = 6.0f;
   histogram_mass_limit = 100;
   decay_factor = 0.9f;
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: HistogramEstimatorParams::Init";
+ }
 
 void HistogramEstimator::Init(const HistogramEstimatorParams *params) {
 AINFO<<"(DMCZP) EnteringMethod: HistogramEstimator::Init";
@@ -56,7 +58,9 @@ AINFO<<"(DMCZP) EnteringMethod: HistogramEstimator::Init";
   int nr_bins = params_.nr_bins_in_histogram;
   memset(hist_.data(), 0, sizeof(uint32_t) * nr_bins);
   GenerateHat(hist_hat_.data(), nr_bins);
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: HistogramEstimator::Init";
+ }
 
 bool HistogramEstimator::Process() {
 AINFO<<"(DMCZP) EnteringMethod: HistogramEstimator::Process";
@@ -79,17 +83,23 @@ AINFO<<"(DMCZP) EnteringMethod: HistogramEstimator::Process";
   GetPeakIndexAndMass(hist_smoothed, nr_bins, &max_index, &mass);
   if (mass < params_.histogram_mass_limit) {
     AERROR << "Fail: lack enough samples.";
-    return false;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: HistogramEstimator::Process";
+  return false;
   }
 
   if (!IsGoodShape(hist, nr_bins, max_index)) {
     AERROR << "Fail: distribution is not good.";
-    return false;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: HistogramEstimator::Process";
+  return false;
   }
 
   val_estimation_ = GetValFromIndex(max_index);
   Decay(hist, nr_bins);
 
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: HistogramEstimator::Process";
   return true;
 }
 
@@ -100,7 +110,9 @@ AINFO<<"(DMCZP) EnteringMethod: HistogramEstimator::Smooth";
 
   int filter_radius = params_.smooth_kernel_radius;
   if (filter_radius * 2 > nr_bins) {
-    return;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: HistogramEstimator::Smooth";
+  return;
   }
 
   float weight_sum_kernel = 0.0f;
@@ -150,7 +162,9 @@ AINFO<<"(DMCZP) EnteringMethod: HistogramEstimator::Smooth";
     float scale = common::IRec(kernel_sum);
     hist_output[i] = static_cast<uint32_t>(static_cast<float>(sum) * scale);
   }
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: HistogramEstimator::Smooth";
+ }
 
 void HistogramEstimator::GenerateHat(float *hist_hat, int nr_bins) {
 AINFO<<"(DMCZP) EnteringMethod: HistogramEstimator::GenerateHat";
@@ -166,7 +180,9 @@ AINFO<<"(DMCZP) EnteringMethod: HistogramEstimator::GenerateHat";
     float val = static_cast<float>(i - nr_bins_half) / hat_std_allowed;
     hist_hat_[i] = expf(-val * val * 0.5f) + hat_min_allowed;
   }
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: HistogramEstimator::GenerateHat";
+ }
 
 bool HistogramEstimator::IsGoodShape(const uint32_t *hist, int nr_bins,
                                      int max_index) {
@@ -185,9 +201,13 @@ AINFO<<"(DMCZP) EnteringMethod: HistogramEstimator::IsGoodShape";
   for (int i = sp; i < ep; ++i) {
     float hat_val = hist_hat_[i - offset];
     if (static_cast<float>(hist[i]) > static_cast<float>(max_value) * hat_val) {
-      return false;
+      
+  AINFO<<"(DMCZP) (return) LeaveMethod: HistogramEstimator::IsGoodShape";
+  return false;
     }
   }
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: HistogramEstimator::IsGoodShape";
   return true;
 }
 
@@ -208,7 +228,9 @@ AINFO<<"(DMCZP) EnteringMethod: HistogramEstimator::GetPeakIndexAndMass";
     }
     *mass += hist[i];
   }
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: HistogramEstimator::GetPeakIndexAndMass";
+ }
 
 // bool HistogramEstimator::SaveHist(const std::string &filename,
 //                                   const uint32_t *hist, int nr_bins) {

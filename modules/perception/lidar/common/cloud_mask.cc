@@ -31,6 +31,8 @@ AINFO<<"(DMCZP) EnteringMethod: CloudMask::ValidIndicesCount";
       ++count;
     }
   }
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: CloudMask::ValidIndicesCount";
   return count;
 }
 
@@ -38,7 +40,9 @@ void CloudMask::GetValidCloud(const AttributePointCloud<PointF>& source_cloud,
                               AttributePointCloud<PointF>* target_cloud) const {
 AINFO<<"(DMCZP) EnteringMethod: CloudMask::GetValidCloud";
   if (target_cloud == nullptr) {
-    return;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: CloudMask::GetValidCloud";
+  return;
   }
   indices_.clear();
   indices_.reserve(mask_.size());
@@ -48,19 +52,25 @@ AINFO<<"(DMCZP) EnteringMethod: CloudMask::GetValidCloud";
     }
   }
   target_cloud->CopyPointCloud(source_cloud, indices_);
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: CloudMask::GetValidCloud";
+ }
 
 void CloudMask::Flip() {
 AINFO<<"(DMCZP) EnteringMethod: CloudMask::Flip";
   for (auto& i : mask_) {
     i = i > 0 ? 0 : 1;
   }
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: CloudMask::Flip";
+ }
 
 void CloudMask::AddIndices(const base::PointIndices& indices, int value) {
 AINFO<<"(DMCZP) EnteringMethod: CloudMask::AddIndices";
   AddIndices(indices.indices, value);
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: CloudMask::AddIndices";
+ }
 
 void CloudMask::AddIndicesOfIndices(
     const base::PointIndices& indices,
@@ -69,12 +79,16 @@ AINFO<<"(DMCZP) EnteringMethod: CloudMask::AddIndicesOfIndices";
   for (auto& id : indices_of_indices.indices) {
     mask_[indices.indices[id]] = value;
   }
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: CloudMask::AddIndicesOfIndices";
+ }
 
 void CloudMask::RemoveIndices(const base::PointIndices& indices) {
 AINFO<<"(DMCZP) EnteringMethod: CloudMask::RemoveIndices";
   RemoveIndices(indices.indices);
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: CloudMask::RemoveIndices";
+ }
 
 void CloudMask::RemoveIndicesOfIndices(
     const base::PointIndices& indices,
@@ -83,12 +97,16 @@ AINFO<<"(DMCZP) EnteringMethod: CloudMask::RemoveIndicesOfIndices";
   for (auto& id : indices_of_indices.indices) {
     mask_[indices.indices[id]] = 0;
   }
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: CloudMask::RemoveIndicesOfIndices";
+ }
 
 void CloudMask::GetValidMask(CloudMask* rhs) const {
 AINFO<<"(DMCZP) EnteringMethod: CloudMask::GetValidMask";
   if (rhs == nullptr) {
-    return;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: CloudMask::GetValidMask";
+  return;
   }
   rhs->clear();
   for (const auto& i : mask_) {
@@ -96,7 +114,9 @@ AINFO<<"(DMCZP) EnteringMethod: CloudMask::GetValidMask";
       rhs->mask_.push_back(i);
     }
   }
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: CloudMask::GetValidMask";
+ }
 
 void CloudMask::ResetValue(int source_value, int target_value) {
 AINFO<<"(DMCZP) EnteringMethod: CloudMask::ResetValue";
@@ -105,7 +125,9 @@ AINFO<<"(DMCZP) EnteringMethod: CloudMask::ResetValue";
       i = target_value;
     }
   }
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: CloudMask::ResetValue";
+ }
 
 }  // namespace lidar
 }  // namespace perception

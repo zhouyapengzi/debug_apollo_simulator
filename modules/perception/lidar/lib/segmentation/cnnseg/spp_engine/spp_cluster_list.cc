@@ -28,7 +28,9 @@ AINFO<<"(DMCZP) EnteringMethod: SppClusterList::Init";
   sensor_name_ = sensor_name;
   clusters_.clear();
   SppClusterPool::Instance(sensor_name_).BatchGet(size, &clusters_);
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: SppClusterList::Init";
+ }
 
 void SppClusterList::resize(size_t size) {
 AINFO<<"(DMCZP) EnteringMethod: SppClusterList::resize";
@@ -38,7 +40,9 @@ AINFO<<"(DMCZP) EnteringMethod: SppClusterList::resize";
   } else {
     clusters_.resize(size);
   }
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: SppClusterList::resize";
+ }
 
 void SppClusterList::AddPointSample(size_t cluster_id,
                                     const base::PointF& point, float height,
@@ -48,7 +52,9 @@ AINFO<<"(DMCZP) EnteringMethod: SppClusterList::AddPointSample";
     resize(cluster_id + 1);
   }
   clusters_[cluster_id]->AddPointSample(point, height, point_id);
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: SppClusterList::AddPointSample";
+ }
 
 void SppClusterList::Merge(SppClusterList* rhs) {
 AINFO<<"(DMCZP) EnteringMethod: SppClusterList::Merge";
@@ -56,7 +62,9 @@ AINFO<<"(DMCZP) EnteringMethod: SppClusterList::Merge";
   for (size_t i = 0; i < rhs->size(); ++i) {
     clusters_.push_back((*rhs)[static_cast<int>(i)]);
   }
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: SppClusterList::Merge";
+ }
 
 size_t SppClusterList::HeightCut(float max_gap, size_t start_id) {
 AINFO<<"(DMCZP) EnteringMethod: SppClusterList::HeightCut";
@@ -70,13 +78,17 @@ AINFO<<"(DMCZP) EnteringMethod: SppClusterList::HeightCut";
     }
   }
   AINFO << "Split " << count << " clusters in 3d";
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: SppClusterList::HeightCut";
   return count;
 }
 
 bool SppClusterList::ComputeHeightAndSplitCluster(size_t id, float max_gap) {
 AINFO<<"(DMCZP) EnteringMethod: SppClusterList::ComputeHeightAndSplitCluster";
   if (id >= clusters_.size()) {
-    return false;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: SppClusterList::ComputeHeightAndSplitCluster";
+  return false;
   }
 
   clusters_[id]->SortPoint();
@@ -111,9 +123,13 @@ AINFO<<"(DMCZP) EnteringMethod: SppClusterList::ComputeHeightAndSplitCluster";
       size_t split_index = split_indices[max_index + 1];
       points.resize(split_index);
       indices.resize(split_index);
-      return true;
+      
+  AINFO<<"(DMCZP) (return) LeaveMethod: SppClusterList::ComputeHeightAndSplitCluster";
+  return true;
     }
   }
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: SppClusterList::ComputeHeightAndSplitCluster";
   return false;
 }
 
@@ -129,16 +145,22 @@ AINFO<<"(DMCZP) EnteringMethod: SppClusterList::RemoveEmptyClusters";
     }
   }
   clusters_.resize(current);
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: SppClusterList::RemoveEmptyClusters";
+ }
 
 void SppClusterList::EraseCluster(size_t id) {
 AINFO<<"(DMCZP) EnteringMethod: SppClusterList::EraseCluster";
   if (clusters_.size() <= id) {
-    return;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: SppClusterList::EraseCluster";
+  return;
   }
   clusters_[id] = clusters_.back();
   clusters_.resize(clusters_.size() - 1);
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: SppClusterList::EraseCluster";
+ }
 
 }  // namespace lidar
 }  // namespace perception

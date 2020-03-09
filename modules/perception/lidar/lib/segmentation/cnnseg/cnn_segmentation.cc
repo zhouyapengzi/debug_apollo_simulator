@@ -127,6 +127,8 @@ AINFO<<"(DMCZP) EnteringMethod: CNNSegmentation::Init";
   // init cluster and background segmentation methods
   CHECK(InitClusterAndBackgroundSegmentation());
 
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: CNNSegmentation::Init";
   return true;
 }
 
@@ -217,9 +219,13 @@ AINFO<<"(DMCZP) EnteringMethod: CNNSegmentation::InitClusterAndBackgroundSegment
     ground_detector_time_ = timer.toc(true);
     AINFO << "Roi-filter time: " << roi_filter_time_
           << "\tGround-detector time: " << ground_detector_time_;
-    return true;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: CNNSegmentation::InitClusterAndBackgroundSegmentation";
+  return true;
   });
   worker_.Start();
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: CNNSegmentation::InitClusterAndBackgroundSegmentation";
   return true;
 }
 
@@ -247,7 +253,9 @@ AINFO<<"(DMCZP) EnteringMethod: CNNSegmentation::MapPointToGrid";
     }
     point2grid_[i] = pos_y * width_ + pos_x;
   }
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: CNNSegmentation::MapPointToGrid";
+ }
 
 bool CNNSegmentation::Segment(const SegmentationOptions& options,
                               LidarFrame* frame) {
@@ -255,23 +263,33 @@ AINFO<<"(DMCZP) EnteringMethod: CNNSegmentation::Segment";
   // check input
   if (frame == nullptr) {
     AERROR << "Input null frame ptr.";
-    return false;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: CNNSegmentation::Segment";
+  return false;
   }
   if (frame->cloud == nullptr) {
     AERROR << "Input null frame cloud.";
-    return false;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: CNNSegmentation::Segment";
+  return false;
   }
   if (frame->world_cloud == nullptr) {
     AERROR << "Input null frame world cloud.";
-    return false;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: CNNSegmentation::Segment";
+  return false;
   }
   if (frame->cloud->size() == 0) {
     AERROR << "Input none points.";
-    return false;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: CNNSegmentation::Segment";
+  return false;
   }
   if (frame->cloud->size() != frame->world_cloud->size()) {
     AERROR << "Cloud size and world cloud size not consistent.";
-    return false;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: CNNSegmentation::Segment";
+  return false;
   }
   // record input cloud and lidar frame
   original_cloud_ = frame->cloud;
@@ -290,7 +308,9 @@ AINFO<<"(DMCZP) EnteringMethod: CNNSegmentation::Segment";
 
   if (cudaSetDevice(gpu_id_) != cudaSuccess) {
     AERROR << "Failed to set device to " << gpu_id_;
-    return false;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: CNNSegmentation::Segment";
+  return false;
   }
 
   // generate features
@@ -310,6 +330,8 @@ AINFO<<"(DMCZP) EnteringMethod: CNNSegmentation::Segment";
         << " fg-seg: " << fg_seg_time_ << "\t"
         << " join: " << join_time_ << "\t"
         << " collect: " << collect_time_;
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: CNNSegmentation::Segment";
   return true;
 }
 
@@ -440,7 +462,9 @@ AINFO<<"(DMCZP) EnteringMethod: CNNSegmentation::GetObjectsFromSppEngine";
   // add additional object seg logic with ncut if cnnseg miss detects
 
   collect_time_ = timer.toc(true);
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: CNNSegmentation::GetObjectsFromSppEngine";
+ }
 
 bool CNNSegmentation::GetConfigs(std::string* param_file,
                                  std::string* proto_file,
@@ -475,6 +499,8 @@ AINFO<<"(DMCZP) EnteringMethod: CNNSegmentation::GetConfigs";
   }
   *engine_file = GetAbsolutePath(work_root, config.engine_file());
 
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: CNNSegmentation::GetConfigs";
   return true;
 }
 

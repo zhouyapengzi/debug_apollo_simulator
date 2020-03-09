@@ -36,14 +36,18 @@ AINFO<<"(DMCZP) EnteringMethod: MlfTrackData::Reset";
   sensor_history_objects_.clear();
   cached_objects_.clear();
   predict_.Reset();
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: MlfTrackData::Reset";
+ }
 
 void MlfTrackData::Reset(TrackedObjectPtr obj, int track_id) {
 AINFO<<"(DMCZP) EnteringMethod: MlfTrackData::Reset";
   Reset();
   track_id_ = track_id;
   PushTrackedObjectToCache(obj);
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: MlfTrackData::Reset";
+ }
 
 void MlfTrackData::PushTrackedObjectToTrack(TrackedObjectPtr obj) {
 AINFO<<"(DMCZP) EnteringMethod: MlfTrackData::PushTrackedObjectToTrack";
@@ -75,7 +79,9 @@ AINFO<<"(DMCZP) EnteringMethod: MlfTrackData::PushTrackedObjectToTrack";
     AINFO << "Push object timestamp " << timestamp << " from sensor "
           << obj->sensor_info.name << " already exist in track, ignore push.";
   }
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: MlfTrackData::PushTrackedObjectToTrack";
+ }
 
 void MlfTrackData::PushTrackedObjectToCache(TrackedObjectPtr obj) {
 AINFO<<"(DMCZP) EnteringMethod: MlfTrackData::PushTrackedObjectToCache";
@@ -87,13 +93,17 @@ AINFO<<"(DMCZP) EnteringMethod: MlfTrackData::PushTrackedObjectToCache";
     AINFO << "Push object timestamp " << timestamp << " from sensor "
           << obj->sensor_info.name << " already exist in cache, ignore push.";
   }
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: MlfTrackData::PushTrackedObjectToCache";
+ }
 
 bool MlfTrackData::ToObject(const Eigen::Vector3d& local_to_global_offset,
                             double timestamp, base::ObjectPtr object) const {
 AINFO<<"(DMCZP) EnteringMethod: MlfTrackData::ToObject";
   if (history_objects_.empty()) {
-    return false;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: MlfTrackData::ToObject";
+  return false;
   }
   auto latest_iter = history_objects_.rbegin();
   const double latest_time = latest_iter->first;
@@ -129,13 +139,17 @@ AINFO<<"(DMCZP) EnteringMethod: MlfTrackData::ToObject";
     pt.y += offset_y;
     pt.z += offset_z;
   }
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: MlfTrackData::ToObject";
   return true;
 }
 
 void MlfTrackData::PredictState(double timestamp) const {
 AINFO<<"(DMCZP) EnteringMethod: MlfTrackData::PredictState";
   if (history_objects_.empty()) {
-    return;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: MlfTrackData::PredictState";
+  return;
   }
   auto latest_iter = history_objects_.rbegin();
   const double latest_time = latest_iter->first;
@@ -159,7 +173,9 @@ AINFO<<"(DMCZP) EnteringMethod: MlfTrackData::PredictState";
 
   predict_.timestamp = timestamp;
   // TODO(.): predict cloud and polygon if needed in future.
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: MlfTrackData::PredictState";
+ }
 
 void MlfTrackData::GetAndCleanCachedObjectsInTimeInterval(
     std::vector<TrackedObjectPtr>* objects) {
@@ -177,7 +193,9 @@ AINFO<<"(DMCZP) EnteringMethod: MlfTrackData::GetAndCleanCachedObjectsInTimeInte
       break;
     }
   }
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: MlfTrackData::GetAndCleanCachedObjectsInTimeInterval";
+ }
 
 void RemoveStaleDataFromMap(double timestamp,
                             std::map<double, TrackedObjectPtr>* data) {
@@ -190,7 +208,9 @@ AINFO<<"(DMCZP) EnteringMethod: RemoveStaleDataFromMap";
       break;
     }
   }
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: RemoveStaleDataFromMap";
+ }
 
 void MlfTrackData::RemoveStaleHistory(double timestamp) {
 AINFO<<"(DMCZP) EnteringMethod: MlfTrackData::RemoveStaleHistory";
@@ -198,7 +218,9 @@ AINFO<<"(DMCZP) EnteringMethod: MlfTrackData::RemoveStaleHistory";
   for (auto& map : sensor_history_objects_) {
     RemoveStaleDataFromMap(timestamp, &map.second);
   }
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: MlfTrackData::RemoveStaleHistory";
+ }
 
 }  // namespace lidar
 }  // namespace perception

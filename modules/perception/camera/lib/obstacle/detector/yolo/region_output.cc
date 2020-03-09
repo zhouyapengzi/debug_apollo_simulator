@@ -42,24 +42,36 @@ AINFO<<"(DMCZP) EnteringMethod: get_intersect_bbox";
     intersect_bbox->xmax = std::min(bbox1.xmax, bbox2.xmax);
     intersect_bbox->ymax = std::min(bbox1.ymax, bbox2.ymax);
   }
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: get_intersect_bbox";
+ }
 
 float get_bbox_size(const NormalizedBBox &bbox) {
 AINFO<<"(DMCZP) EnteringMethod: get_bbox_size";
   AINFO<<"(pengzi). get bbox size" << std::this_thread::get_id();
   if (bbox.xmax < bbox.xmin || bbox.ymax < bbox.ymin) {
-    // If bbox is invalid (e.g. xmax < xmin or ymax < ymin), return 0.
-    return 0;
+    // If bbox is invalid (e.g. xmax < xmin or ymax < ymin), 
+  AINFO<<"(DMCZP) (return) LeaveMethod: get_bbox_size";
+  return 0.
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: get_bbox_size";
+  return 0;
   } else {
     if (bbox.size >= 0) {
-      return bbox.size;
+      
+  AINFO<<"(DMCZP) (return) LeaveMethod: get_bbox_size";
+  return bbox.size;
     } else {
       float width = bbox.xmax - bbox.xmin;
       float height = bbox.ymax - bbox.ymin;
-      return width * height;
+      
+  AINFO<<"(DMCZP) (return) LeaveMethod: get_bbox_size";
+  return width * height;
     }
   }
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: get_bbox_size";
+ }
 
 float get_jaccard_overlap(const NormalizedBBox &bbox1,
                           const NormalizedBBox &bbox2) {
@@ -75,11 +87,17 @@ AINFO<<"(DMCZP) EnteringMethod: get_jaccard_overlap";
     float intersect_size = intersect_width * intersect_height;
     float bbox1_size = get_bbox_size(bbox1);
     float bbox2_size = get_bbox_size(bbox2);
-    return intersect_size / (bbox1_size + bbox2_size - intersect_size);
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: get_jaccard_overlap";
+  return intersect_size / (bbox1_size + bbox2_size - intersect_size);
   } else {
-    return 0.;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: get_jaccard_overlap";
+  return 0.;
   }
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: get_jaccard_overlap";
+ }
 
 void get_max_score_index(const std::vector<float> &scores,
                          const float threshold, const int top_k,
@@ -101,7 +119,9 @@ AINFO<<"(DMCZP) EnteringMethod: get_max_score_index";
   if (top_k > -1 && top_k < static_cast<int>(score_index_vec->size())) {
     score_index_vec->resize(top_k);
   }
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: get_max_score_index";
+ }
 
 void apply_softnms_fast(const std::vector<NormalizedBBox> &bboxes,
                         std::vector<float> *scores, const float score_threshold,
@@ -143,7 +163,9 @@ AINFO<<"(DMCZP) EnteringMethod: apply_softnms_fast";
       ++it;
     }
   }
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: apply_softnms_fast";
+ }
 
 void apply_boxvoting_fast(std::vector<NormalizedBBox> *bboxes,
                           std::vector<float> *scores,
@@ -151,7 +173,9 @@ void apply_boxvoting_fast(std::vector<NormalizedBBox> *bboxes,
                           const float sigma, std::vector<int> *indices) {
 AINFO<<"(DMCZP) EnteringMethod: apply_boxvoting_fast";
   if (bboxes->size() == 0) {
-    return;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: apply_boxvoting_fast";
+  return;
   }
   indices->clear();
   for (int i = 0; i < static_cast<int>(bboxes->size()); i++) {
@@ -213,7 +237,9 @@ AINFO<<"(DMCZP) EnteringMethod: apply_boxvoting_fast";
       (*bboxes)[max_box_idx].ymax = y2_vt / s_vt;
     }
   }
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: apply_boxvoting_fast";
+ }
 
 void apply_nms_fast(const std::vector<NormalizedBBox> &bboxes,
                     const std::vector<float> &scores,
@@ -252,7 +278,9 @@ AINFO<<"(DMCZP) EnteringMethod: apply_nms_fast";
       adaptive_threshold *= eta;
     }
   }
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: apply_nms_fast";
+ }
 
 void filter_bbox(const MinDims &min_dims,
                  std::vector<base::ObjectPtr> *objects) {
@@ -276,7 +304,9 @@ AINFO<<"(DMCZP) EnteringMethod: filter_bbox";
   AINFO << valid_obj_idx << " of " << total_obj_idx << " obstacles kept";
   objects->resize(valid_obj_idx);
   AINFO << "Number of detected obstacles: " << objects->size();
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: filter_bbox";
+ }
 void recover_bbox(int roi_w, int roi_h, int offset_y,
                   std::vector<base::ObjectPtr> *objects) {
 AINFO<<"(DMCZP) EnteringMethod: recover_bbox";
@@ -325,7 +355,9 @@ AINFO<<"(DMCZP) EnteringMethod: recover_bbox";
     obj->camera_supplement.back_box.ymin += static_cast<float>(offset_y);
     obj->camera_supplement.back_box.ymax += static_cast<float>(offset_y);
   }
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: recover_bbox";
+ }
 
 void fill_base(base::ObjectPtr obj, const float *bbox) {
 AINFO<<"(DMCZP) EnteringMethod: fill_base";
@@ -333,7 +365,9 @@ AINFO<<"(DMCZP) EnteringMethod: fill_base";
   obj->camera_supplement.box.ymin = bbox[1];
   obj->camera_supplement.box.xmax = bbox[2];
   obj->camera_supplement.box.ymax = bbox[3];
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: fill_base";
+ }
 
 void fill_bbox3d(bool with_box3d, base::ObjectPtr obj, const float *bbox) {
 AINFO<<"(DMCZP) EnteringMethod: fill_bbox3d";
@@ -343,7 +377,9 @@ AINFO<<"(DMCZP) EnteringMethod: fill_bbox3d";
     obj->size[1] = bbox[2];
     obj->size[0] = bbox[3];
   }
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: fill_bbox3d";
+ }
 
 void fill_frbox(bool with_frbox, base::ObjectPtr obj, const float *bbox) {
 AINFO<<"(DMCZP) EnteringMethod: fill_frbox";
@@ -358,7 +394,9 @@ AINFO<<"(DMCZP) EnteringMethod: fill_frbox";
     obj->camera_supplement.back_box.xmax = bbox[6];
     obj->camera_supplement.back_box.ymax = bbox[7];
   }
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: fill_frbox";
+ }
 
 void fill_lights(bool with_lights, base::ObjectPtr obj, const float *bbox) {
 AINFO<<"(DMCZP) EnteringMethod: fill_lights";
@@ -370,7 +408,9 @@ AINFO<<"(DMCZP) EnteringMethod: fill_lights";
     obj->car_light.right_turn_visible = bbox[4];
     obj->car_light.right_turn_switch_on = bbox[5];
   }
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: fill_lights";
+ }
 
 void fill_ratios(bool with_ratios, base::ObjectPtr obj, const float *bbox) {
 AINFO<<"(DMCZP) EnteringMethod: fill_ratios";
@@ -388,7 +428,9 @@ AINFO<<"(DMCZP) EnteringMethod: fill_ratios";
     obj->camera_supplement.cut_off_ratios[2] = bbox[6];
     obj->camera_supplement.cut_off_ratios[3] = bbox[7];
   }
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: fill_ratios";
+ }
 
 void fill_area_id(bool with_flag, base::ObjectPtr obj, const float *data) {
 AINFO<<"(DMCZP) EnteringMethod: fill_area_id";
@@ -396,7 +438,9 @@ AINFO<<"(DMCZP) EnteringMethod: fill_area_id";
     obj->camera_supplement.area_id = static_cast<int>(data[0]);
     // obj->camera_supplement.area_id_prob = data[1];
   }
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: fill_area_id";
+ }
 
 int get_area_id(float visible_ratios[4]) {
 AINFO<<"(DMCZP) EnteringMethod: get_area_id";
@@ -431,6 +475,8 @@ AINFO<<"(DMCZP) EnteringMethod: get_area_id";
     visible_ratios[max_face] = max_ratio / sum_ratio;
     visible_ratios[right_face] = right_ratio / sum_ratio;
   }
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: get_area_id";
   return area_id;
 }
 

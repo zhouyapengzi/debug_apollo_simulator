@@ -42,6 +42,8 @@ AINFO<<"(DMCZP) EnteringMethod: ReshapeDims";
       axis_inference = i;
     }
   }
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: ReshapeDims";
   return outDims;
 }
 
@@ -92,31 +94,41 @@ AINFO<<"(DMCZP) EnteringMethod: ParseNetParam";
       order->push_back(tensorrt_layer_param);
     }
   }
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: ParseNetParam";
+ }
 
 bool ParserConvParam(const ConvolutionParameter &conv, ConvParam *param) {
 AINFO<<"(DMCZP) EnteringMethod: ParserConvParam";
   if (conv.has_kernel_h() || conv.has_kernel_w()) {
     if (conv.kernel_size_size() != 0) {
-      return false;
+      
+  AINFO<<"(DMCZP) (return) LeaveMethod: ParserConvParam";
+  return false;
     }
     param->kernel_h = conv.kernel_h();
     param->kernel_w = conv.kernel_w();
   } else {
     if (conv.kernel_size_size() < 1) {
-      return false;
+      
+  AINFO<<"(DMCZP) (return) LeaveMethod: ParserConvParam";
+  return false;
     }
     param->kernel_h = conv.kernel_size(0);
     param->kernel_w = (conv.kernel_size_size() > 1 ? conv.kernel_size(1)
                                                    : conv.kernel_size(0));
   }
   if (param->kernel_h == 0 || param->kernel_w == 0) {
-    return false;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: ParserConvParam";
+  return false;
   }
 
   if (conv.has_pad_h() || conv.has_pad_w()) {
     if (conv.pad_size() != 0) {
-      return false;
+      
+  AINFO<<"(DMCZP) (return) LeaveMethod: ParserConvParam";
+  return false;
     }
     param->padding_h = conv.pad_h();
     param->padding_w = conv.pad_w();
@@ -127,7 +139,9 @@ AINFO<<"(DMCZP) EnteringMethod: ParserConvParam";
 
   if (conv.has_stride_h() || conv.has_stride_w()) {
     if (conv.stride_size() != 0) {
-      return false;
+      
+  AINFO<<"(DMCZP) (return) LeaveMethod: ParserConvParam";
+  return false;
     }
     param->stride_h = conv.stride_h();
     param->stride_w = conv.stride_w();
@@ -137,10 +151,14 @@ AINFO<<"(DMCZP) EnteringMethod: ParserConvParam";
         (conv.stride_size() > 1 ? conv.stride(1) : param->stride_h);
   }
   if (param->stride_h == 0 || param->stride_w == 0) {
-    return false;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: ParserConvParam";
+  return false;
   }
 
   param->dilation = conv.dilation_size() == 0 ? 1 : conv.dilation(0);
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: ParserConvParam";
   return true;
 }
 
@@ -151,7 +169,9 @@ AINFO<<"(DMCZP) EnteringMethod: modify_pool_param";
     pool_param->set_kernel_w(pool_param->kernel_size());
   }
   if (pool_param->kernel_w() == 0 || pool_param->kernel_h() == 0) {
-    return false;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: modify_pool_param";
+  return false;
   }
   if (pool_param->has_pad()) {
     pool_param->set_pad_h(pool_param->pad());
@@ -162,8 +182,12 @@ AINFO<<"(DMCZP) EnteringMethod: modify_pool_param";
     pool_param->set_stride_w(pool_param->stride());
   }
   if (pool_param->stride_w() == 0 || pool_param->stride_h() == 0) {
-    return false;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: modify_pool_param";
+  return false;
   }
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: modify_pool_param";
   return true;
 }
 

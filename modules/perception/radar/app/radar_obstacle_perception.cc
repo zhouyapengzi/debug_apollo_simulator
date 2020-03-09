@@ -64,6 +64,8 @@ AINFO<<"(DMCZP) EnteringMethod: RadarObstaclePerception::Init";
   CHECK(roi_filter_->Init()) << "radar roi filter init error";
   CHECK(tracker_->Init()) << "radar tracker init error";
 
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: RadarObstaclePerception::Init";
   return true;
 }
 
@@ -99,11 +101,15 @@ AINFO<<"(DMCZP) EnteringMethod: RadarObstaclePerception::Perceive";
 
   *objects = tracker_frame_ptr->objects;
 
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: RadarObstaclePerception::Perceive";
   return true;
 }
 
 std::string RadarObstaclePerception::Name() const {
 AINFO<<"(DMCZP) EnteringMethod: RadarObstaclePerception::Name";
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: RadarObstaclePerception::Name";
   return "RadarObstaclePerception";
 }
 

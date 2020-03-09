@@ -27,6 +27,8 @@ double BoundedScalePositiveProbability(double p, double max_p, double min_p) {
 AINFO<<"(DMCZP) EnteringMethod: BoundedScalePositiveProbability";
   p = std::max(p, min_p);
   p = (p - min_p) * (max_p - min_p) / (1 - min_p) + min_p;
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: BoundedScalePositiveProbability";
   return p;
 }
 // @brief: scale input prob
@@ -35,9 +37,13 @@ AINFO<<"(DMCZP) EnteringMethod: BoundedScalePositiveProbability";
 double ScalePositiveProbability(double p, double max_p, double th_p) {
 AINFO<<"(DMCZP) EnteringMethod: ScalePositiveProbability";
   if (p <= th_p) {
-    return p;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: ScalePositiveProbability";
+  return p;
   }
   p = (p - th_p) * (max_p - th_p) / (1 - th_p) + th_p;
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: ScalePositiveProbability";
   return p;
 }
 // @brief: calculate the Welsh Loss
@@ -53,6 +59,8 @@ AINFO<<"(DMCZP) EnteringMethod: WelshVarLossFun";
     dist /= scale;
     p = std::exp(-dist * dist);
   }
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: WelshVarLossFun";
   return p;
 }
 // @brief: fuse two probabilities, fused prob is greater than 0.5, if
@@ -63,6 +71,8 @@ AINFO<<"(DMCZP) EnteringMethod: WelshVarLossFun";
 double FuseTwoProbabilities(double prob1, double prob2) {
 AINFO<<"(DMCZP) EnteringMethod: FuseTwoProbabilities";
   double prob = (prob1 * prob2) / (2 * prob1 * prob2 + 1 - prob1 - prob2);
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: FuseTwoProbabilities";
   return prob;
 }
 // @brief: fuse multiple probabilities
@@ -73,17 +83,23 @@ AINFO<<"(DMCZP) EnteringMethod: FuseMultipleProbabilities";
   std::vector<double> log_odd_probs = probs;
   auto prob_to_log_odd = [](double p) {
     p = std::max(std::min(p, 1 - 1e-6), 1e-6);
-    return std::log(p / (1 - p));
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: FuseMultipleProbabilities";
+  return std::log(p / (1 - p));
   };
   auto log_odd_to_prob = [](double log_odd_p) {
     double tmp = std::exp(log_odd_p);
-    return tmp / (tmp + 1);
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: FuseMultipleProbabilities";
+  return tmp / (tmp + 1);
   };
   for (auto& log_odd_prob : log_odd_probs) {
     log_odd_prob = prob_to_log_odd(log_odd_prob);
   }
   double log_odd_probs_sum =
       std::accumulate(log_odd_probs.begin(), log_odd_probs.end(), 0.0);
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: FuseMultipleProbabilities";
   return log_odd_to_prob(log_odd_probs_sum);
 }
 

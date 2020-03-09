@@ -37,11 +37,15 @@ AINFO<<"(DMCZP) EnteringMethod: MotionService::Init";
   // node_.reset(new cyber::Node("MotionService"));
   vehicle_planemotion_ = new PlaneMotion(motion_buffer_size_);
 
-  // the macro READ_CONF would return cyber::FAIL if config not exists
+  // the macro READ_CONF would 
+  AINFO<<"(DMCZP) (return) LeaveMethod: MotionService::Init";
+  return cyber::FAIL if config not exists
   apollo::perception::onboard::MotionService motion_service_param;
   if (!GetProtoConfig(&motion_service_param)) {
     AINFO << "load lane detection component proto param failed";
-    return false;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: MotionService::Init";
+  return false;
   }
 
   std::string camera_names_str = motion_service_param.camera_names();
@@ -56,7 +60,9 @@ AINFO<<"(DMCZP) EnteringMethod: MotionService::Init";
   if (input_camera_channel_names_.size() != camera_names_.size()) {
     AERROR << "wrong input_camera_channel_names_.size(): "
            << input_camera_channel_names_.size();
-    return cyber::FAIL;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: MotionService::Init";
+  return cyber::FAIL;
   }
 
   // initialize image listener
@@ -78,6 +84,8 @@ AINFO<<"(DMCZP) EnteringMethod: MotionService::Init";
   writer_ = node_->CreateWriter<Motion_Service>(
       motion_service_param.output_topic_channel_name());
   AINFO << "init MotionService success.";
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: MotionService::Init";
   return true;
 }
 
@@ -91,7 +99,9 @@ AINFO<<"(DMCZP) EnteringMethod: MotionService::OnReceiveImage";
          << " camera_name: " << camera_name
          << " image ts: " + std::to_string(curr_timestamp);
   camera_timestamp_ = curr_timestamp;
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: MotionService::OnReceiveImage";
+ }
 
 // On reveiving localization input, register it to camera timestamp,
 // compute motion between camera time stamps
@@ -162,7 +172,9 @@ AINFO<<"(DMCZP) EnteringMethod: MotionService::OnLocalization";
   }
 
   pre_camera_timestamp_ = camera_timestamp;
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: MotionService::OnLocalization";
+ }
 
 // pubulish vehicle status buffer to output channel
 // which is at camera timestamp
@@ -185,7 +197,9 @@ AINFO<<"(DMCZP) EnteringMethod: MotionService::PublishEvent";
     ConvertVehicleMotionToMsgOut(motion_buffer.at(k), v_status_msg);
   }
   writer_->Write(motion_service_msg);
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: MotionService::PublishEvent";
+ }
 
 // convert vehicle status buffer to output message
 void MotionService::ConvertVehicleMotionToMsgOut(
@@ -217,18 +231,24 @@ AINFO<<"(DMCZP) EnteringMethod: MotionService::ConvertVehicleMotionToMsgOut";
   motion_msg->set_m31(vs.motion(3, 1));
   motion_msg->set_m32(vs.motion(3, 2));
   motion_msg->set_m33(vs.motion(3, 3));
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: MotionService::ConvertVehicleMotionToMsgOut";
+ }
 
 // load vehicle status buffer from vehicle_planemotion_
 base::MotionBuffer MotionService::GetMotionBuffer() {
 AINFO<<"(DMCZP) EnteringMethod: MotionService::GetMotionBuffer";
   std::lock_guard<std::mutex> lock(motion_mutex_);
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: MotionService::GetMotionBuffer";
   return vehicle_planemotion_->get_buffer();
 }
 
 double MotionService::GetLatestTimestamp() {
 AINFO<<"(DMCZP) EnteringMethod: MotionService::GetLatestTimestamp";
   // std::lock_guard<std::mutex> lock(image_mutex_);
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: MotionService::GetLatestTimestamp";
   return pre_camera_timestamp_;
 }
 
@@ -236,6 +256,8 @@ AINFO<<"(DMCZP) EnteringMethod: MotionService::GetLatestTimestamp";
 bool MotionService::GetMotionInformation(double timestamp,
                                          base::VehicleStatus *vs) {
 AINFO<<"(DMCZP) EnteringMethod: MotionService::GetMotionInformation";
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: MotionService::GetMotionInformation";
   return vehicle_planemotion_->find_motion_with_timestamp(timestamp, vs);
 }
 

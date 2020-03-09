@@ -55,7 +55,9 @@ AINFO<<"(DMCZP) EnteringMethod: ObstacleReference::Init";
     }
   }
   object_template_manager_ = ObjectTemplateManager::Instance();
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: ObstacleReference::Init";
+ }
 
 void ObstacleReference::UpdateReference(const CameraFrame *frame,
                                         const std::vector<Target> &targets) {
@@ -140,7 +142,9 @@ AINFO<<"(DMCZP) EnteringMethod: ObstacleReference::UpdateReference";
         frame->calibration_service->QueryCameraToGroundHeight(),
         vd_samples.data(), count_samples);
   }
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: ObstacleReference::UpdateReference";
+ }
 void ObstacleReference::CorrectSize(CameraFrame *frame) {
 AINFO<<"(DMCZP) EnteringMethod: ObstacleReference::CorrectSize";
   const TemplateMap &kMinTemplateHWL =
@@ -275,7 +279,9 @@ AINFO<<"(DMCZP) EnteringMethod: ObstacleReference::CorrectSize";
     }
     ADEBUG << "correct size:" << obj->size.transpose();
   }
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: ObstacleReference::CorrectSize";
+ }
 }  // namespace camera
 }  // namespace perception
 }  // namespace apollo

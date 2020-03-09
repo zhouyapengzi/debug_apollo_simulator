@@ -35,7 +35,9 @@ ThreadPool::ThreadPool(int num_workers)
     ThreadPoolWorker *worker = new ThreadPoolWorker(this);
     workers_.push_back(worker);
   }
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: ThreadPool::ThreadPool";
+ }
 
 ThreadPool::~ThreadPool() {
   if (!started_) {
@@ -58,16 +60,24 @@ AINFO<<"(DMCZP) EnteringMethod: ThreadPool::Start";
     workers_[idx]->Start();
   }
   started_ = true;
-}
 
-void ThreadPool::Add(Closure *closure) { task_queue_.Push(closure); }
+  AINFO<<"(DMCZP) LeaveMethod: ThreadPool::Start";
+ }
+
+void ThreadPool::Add(Closure *closure) {
+  AINFO<<"(DMCZP) EnteringMethod: ThreadPool::Add";
+ task_queue_.Push(closure); 
+  AINFO<<"(DMCZP) LeaveMethod: ThreadPool::Add";
+ }
 
 void ThreadPool::Add(const vector<Closure *> &closures) {
 AINFO<<"(DMCZP) EnteringMethod: ThreadPool::Add";
   for (size_t idx = 0; idx < closures.size(); ++idx) {
     Add(closures[idx]);
   }
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: ThreadPool::Add";
+ }
 
 void ThreadPoolWorker::Run() {
 AINFO<<"(DMCZP) EnteringMethod: ThreadPoolWorker::Run";
@@ -90,7 +100,9 @@ AINFO<<"(DMCZP) EnteringMethod: ThreadPoolWorker::Run";
       ++(thread_pool_->num_available_workers_);
     }
   }
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: ThreadPoolWorker::Run";
+ }
 
 }  // namespace lib
 }  // namespace perception

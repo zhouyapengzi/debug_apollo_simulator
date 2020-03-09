@@ -172,4 +172,4 @@ template class ROIPoolingLayer<double>;
 
 }  // namespace inference
 }  // namespace perception
-}  // namespace apollo
+ }  // namespace apollo

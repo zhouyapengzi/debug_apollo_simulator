@@ -35,7 +35,9 @@ AINFO<<"(DMCZP) EnteringMethod: LocationRefinerObstaclePostprocessor::Init";
   if (!cyber::common::GetProtoFromFile(postprocessor_config,
                                        &location_refiner_param_)) {
     AERROR << "Read config failed: " << postprocessor_config;
-    return false;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: LocationRefinerObstaclePostprocessor::Init";
+  return false;
   }
 
   AINFO << "Load postprocessor parameters from " << postprocessor_config
@@ -43,6 +45,8 @@ AINFO<<"(DMCZP) EnteringMethod: LocationRefinerObstaclePostprocessor::Init";
         << location_refiner_param_.min_dist_to_camera()
         << " \nroi_h2bottom_scale: "
         << location_refiner_param_.roi_h2bottom_scale();
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: LocationRefinerObstaclePostprocessor::Init";
   return true;
 }
 
@@ -53,7 +57,9 @@ AINFO<<"(DMCZP) EnteringMethod: LocationRefinerObstaclePostprocessor::Process";
       frame->calibration_service == nullptr ||
       !options.do_refinement_with_calibration_service) {
     ADEBUG << "Do not run obstacle postprocessor.";
-    return true;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: LocationRefinerObstaclePostprocessor::Process";
+  return true;
   }
   Eigen::Vector4d plane;
   if (options.do_refinement_with_calibration_service &&
@@ -159,11 +165,15 @@ AINFO<<"(DMCZP) EnteringMethod: LocationRefinerObstaclePostprocessor::Process";
     AINFO << "diff on camera z: " << z_diff_camera;
     AINFO << "Obj center from postprocessor: " << obj->center.transpose();
   }
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: LocationRefinerObstaclePostprocessor::Process";
   return true;
 }
 
 std::string LocationRefinerObstaclePostprocessor::Name() const {
 AINFO<<"(DMCZP) EnteringMethod: LocationRefinerObstaclePostprocessor::Name";
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: LocationRefinerObstaclePostprocessor::Name";
   return "LocationRefinerObstaclePostprocessor";
 }
 

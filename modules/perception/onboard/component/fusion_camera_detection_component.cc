@@ -45,7 +45,9 @@ AINFO<<"(DMCZP) EnteringMethod: fill_lane_msg";
   lane_marker->set_c3_curvature_derivative(curve_coord.a);
   lane_marker->set_longitude_start(curve_coord.x_start);
   lane_marker->set_longitude_end(curve_coord.x_end);
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: fill_lane_msg";
+ }
 
 static int GetGpuId(const camera::CameraPerceptionInitOptions &options) {
 AINFO<<"(DMCZP) EnteringMethod: GetGpuId";
@@ -56,12 +58,18 @@ AINFO<<"(DMCZP) EnteringMethod: GetGpuId";
   config_file = GetAbsolutePath(work_root, config_file);
   if (!cyber::common::GetProtoFromFile(config_file, &perception_param)) {
     AERROR << "Read config failed: " << config_file;
-    return -1;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: GetGpuId";
+  return -1;
   }
   if (!perception_param.has_gpu_id()) {
     AINFO << "gpu id not found.";
-    return -1;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: GetGpuId";
+  return -1;
   }
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: GetGpuId";
   return perception_param.gpu_id();
 }
 
@@ -83,16 +91,24 @@ AINFO<<"(DMCZP) EnteringMethod: SetCameraHeight";
     *camera_height = base_h + camera_offset;
   } catch (YAML::InvalidNode &in) {
     AERROR << "load camera extrisic file error, YAML::InvalidNode exception";
-    return false;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: SetCameraHeight";
+  return false;
   } catch (YAML::TypedBadConversion<float> &bc) {
     AERROR << "load camera extrisic file error, "
            << "YAML::TypedBadConversion exception";
-    return false;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: SetCameraHeight";
+  return false;
   } catch (YAML::Exception &e) {
     AERROR << "load camera extrisic file "
            << " error, YAML exception:" << e.what();
-    return false;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: SetCameraHeight";
+  return false;
   }
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: SetCameraHeight";
   return true;
 }
 
@@ -102,7 +118,9 @@ bool LoadExtrinsics(const std::string &yaml_file,
 AINFO<<"(DMCZP) EnteringMethod: LoadExtrinsics";
   if (!apollo::cyber::common::PathExists(yaml_file)) {
     AINFO << yaml_file << " does not exist!";
-    return false;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: LoadExtrinsics";
+  return false;
   }
   YAML::Node node = YAML::LoadFile(yaml_file);
   double qw = 0.0;
@@ -115,7 +133,9 @@ AINFO<<"(DMCZP) EnteringMethod: LoadExtrinsics";
   try {
     if (node.IsNull()) {
       AINFO << "Load " << yaml_file << " failed! please check!";
-      return false;
+      
+  AINFO<<"(DMCZP) (return) LeaveMethod: LoadExtrinsics";
+  return false;
     }
     qw = node["transform"]["rotation"]["w"].as<double>();
     qx = node["transform"]["rotation"]["x"].as<double>();
@@ -127,15 +147,21 @@ AINFO<<"(DMCZP) EnteringMethod: LoadExtrinsics";
   } catch (YAML::InvalidNode &in) {
     AERROR << "load camera extrisic file " << yaml_file
            << " with error, YAML::InvalidNode exception";
-    return false;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: LoadExtrinsics";
+  return false;
   } catch (YAML::TypedBadConversion<double> &bc) {
     AERROR << "load camera extrisic file " << yaml_file
            << " with error, YAML::TypedBadConversion exception";
-    return false;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: LoadExtrinsics";
+  return false;
   } catch (YAML::Exception &e) {
     AERROR << "load camera extrisic file " << yaml_file
            << " with error, YAML exception:" << e.what();
-    return false;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: LoadExtrinsics";
+  return false;
   }
   camera_extrinsic->setConstant(0);
   Eigen::Quaterniond q;
@@ -148,6 +174,8 @@ AINFO<<"(DMCZP) EnteringMethod: LoadExtrinsics";
   (*camera_extrinsic)(1, 3) = ty;
   (*camera_extrinsic)(2, 3) = tz;
   (*camera_extrinsic)(3, 3) = 1;
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: LoadExtrinsics";
   return true;
 }
 
@@ -161,7 +189,9 @@ AINFO<<"(DMCZP) EnteringMethod: GetProjectMatrix";
   // TODO(techoe): This condition should be removed.
   if (camera_names.size() != 2) {
     AINFO << "camera number must be 2!";
-    return false;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: GetProjectMatrix";
+  return false;
   }
   *project_matrix =
       intrinsic_map.at(camera_names[0]).cast<double>() *
@@ -177,6 +207,8 @@ AINFO<<"(DMCZP) EnteringMethod: GetProjectMatrix";
     *pitch_diff = euler(0);
     AINFO << "pitch diff: " << *pitch_diff;
   }
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: GetProjectMatrix";
   return true;
 }
 
@@ -186,7 +218,9 @@ bool FusionCameraDetectionComponent::Init() {
 AINFO<<"(DMCZP) EnteringMethod: FusionCameraDetectionComponent::Init";
   if (InitConfig() != cyber::SUCC) {
     AERROR << "InitConfig() failed.";
-    return false;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: FusionCameraDetectionComponent::Init";
+  return false;
   }
   writer_ =
       node_->CreateWriter<PerceptionObstacles>(output_obstacles_channel_name_);
@@ -199,27 +233,39 @@ AINFO<<"(DMCZP) EnteringMethod: FusionCameraDetectionComponent::Init";
           camera_debug_channel_name_);
   if (InitSensorInfo() != cyber::SUCC) {
     AERROR << "InitSensorInfo() failed.";
-    return false;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: FusionCameraDetectionComponent::Init";
+  return false;
   }
   if (InitAlgorithmPlugin() != cyber::SUCC) {
     AERROR << "InitAlgorithmPlugin() failed.";
-    return false;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: FusionCameraDetectionComponent::Init";
+  return false;
   }
   if (InitCameraFrames() != cyber::SUCC) {
     AERROR << "InitCameraFrames() failed.";
-    return false;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: FusionCameraDetectionComponent::Init";
+  return false;
   }
   if (InitProjectMatrix() != cyber::SUCC) {
     AERROR << "InitProjectMatrix() failed.";
-    return false;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: FusionCameraDetectionComponent::Init";
+  return false;
   }
   if (InitCameraListeners() != cyber::SUCC) {
     AERROR << "InitCameraListeners() failed.";
-    return false;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: FusionCameraDetectionComponent::Init";
+  return false;
   }
   if (InitMotionService() != cyber::SUCC) {
     AERROR << "InitMotionService() failed.";
-    return false;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: FusionCameraDetectionComponent::Init";
+  return false;
   }
 
   SetCameraHeightAndPitch();
@@ -261,6 +307,8 @@ AINFO<<"(DMCZP) EnteringMethod: FusionCameraDetectionComponent::Init";
     }
   }
 
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: FusionCameraDetectionComponent::Init";
   return true;
 }
 
@@ -278,7 +326,9 @@ AINFO<<"(DMCZP) EnteringMethod: FusionCameraDetectionComponent::OnReceiveImage";
     AINFO << "Received an old message. Last ts is " << std::setprecision(19)
           << last_timestamp_ << " current ts is " << msg_timestamp
           << " last - current is " << last_timestamp_ - msg_timestamp;
-    return;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: FusionCameraDetectionComponent::OnReceiveImage";
+  return;
   }
   last_timestamp_ = msg_timestamp;
   ++seq_num_;
@@ -308,12 +358,16 @@ AINFO<<"(DMCZP) EnteringMethod: FusionCameraDetectionComponent::OnReceiveImage";
     if (MakeProtobufMsg(msg_timestamp, seq_num_, {}, {}, error_code,
                         out_message.get()) != cyber::SUCC) {
       AERROR << "MakeProtobufMsg failed";
-      return;
+      
+  AINFO<<"(DMCZP) (return) LeaveMethod: FusionCameraDetectionComponent::OnReceiveImage";
+  return;
     }
     if (output_final_obstacles_) {
       writer_->Write(out_message);
     }
-    return;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: FusionCameraDetectionComponent::OnReceiveImage";
+  return;
   }
 
   bool send_sensorframe_ret = sensorframe_writer_->Write(prefused_message);
@@ -334,16 +388,22 @@ AINFO<<"(DMCZP) EnteringMethod: FusionCameraDetectionComponent::OnReceiveImage";
           << GLOG_TIMESTAMP(end_timestamp) << "]:cur_latency[" << end_latency
           << "]";
   }
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: FusionCameraDetectionComponent::OnReceiveImage";
+ }
 
 int FusionCameraDetectionComponent::InitConfig() {
 AINFO<<"(DMCZP) EnteringMethod: FusionCameraDetectionComponent::InitConfig";
-  // the macro READ_CONF would return cyber::FAIL if config not exists
+  // the macro READ_CONF would 
+  AINFO<<"(DMCZP) (return) LeaveMethod: FusionCameraDetectionComponent::InitConfig";
+  return cyber::FAIL if config not exists
   apollo::perception::onboard::FusionCameraDetection
       fusion_camera_detection_param;
   if (!GetProtoConfig(&fusion_camera_detection_param)) {
     AINFO << "load fusion camera detection component proto param failed";
-    return false;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: FusionCameraDetectionComponent::InitConfig";
+  return false;
   }
 
   std::string camera_names_str = fusion_camera_detection_param.camera_names();
@@ -355,7 +415,9 @@ AINFO<<"(DMCZP) EnteringMethod: FusionCameraDetectionComponent::InitConfig";
                           boost::algorithm::is_any_of(","));
   if (camera_names_.size() != 2) {
     AERROR << "Now FusionCameraDetectionComponent only support 2 cameras";
-    return cyber::FAIL;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: FusionCameraDetectionComponent::InitConfig";
+  return cyber::FAIL;
   }
 
   std::string input_camera_channel_names_str =
@@ -366,7 +428,9 @@ AINFO<<"(DMCZP) EnteringMethod: FusionCameraDetectionComponent::InitConfig";
   if (input_camera_channel_names_.size() != camera_names_.size()) {
     AERROR << "wrong input_camera_channel_names_.size(): "
            << input_camera_channel_names_.size();
-    return cyber::FAIL;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: FusionCameraDetectionComponent::InitConfig";
+  return cyber::FAIL;
   }
 
   camera_perception_init_options_.root_dir =
@@ -453,6 +517,8 @@ AINFO<<"(DMCZP) EnteringMethod: FusionCameraDetectionComponent::InitConfig";
           write_visual_img_);
   AINFO << config_info_str;
 
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: FusionCameraDetectionComponent::InitConfig";
   return cyber::SUCC;
 }
 
@@ -460,20 +526,26 @@ int FusionCameraDetectionComponent::InitSensorInfo() {
 AINFO<<"(DMCZP) EnteringMethod: FusionCameraDetectionComponent::InitSensorInfo";
   if (camera_names_.size() != 2) {
     AERROR << "invalid camera_names_.size(): " << camera_names_.size();
-    return cyber::FAIL;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: FusionCameraDetectionComponent::InitSensorInfo";
+  return cyber::FAIL;
   }
 
   auto *sensor_manager = common::SensorManager::Instance();
   for (size_t i = 0; i < camera_names_.size(); ++i) {
     if (!sensor_manager->IsSensorExist(camera_names_[i])) {
       AERROR << ("sensor_name: " + camera_names_[i] + " not exists.");
-      return cyber::FAIL;
+      
+  AINFO<<"(DMCZP) (return) LeaveMethod: FusionCameraDetectionComponent::InitSensorInfo";
+  return cyber::FAIL;
     }
 
     base::SensorInfo sensor_info;
     if (!(sensor_manager->GetSensorInfo(camera_names_[i], &sensor_info))) {
       AERROR << "Failed to get sensor info, sensor name: " << camera_names_[i];
-      return cyber::FAIL;
+      
+  AINFO<<"(DMCZP) (return) LeaveMethod: FusionCameraDetectionComponent::InitSensorInfo";
+  return cyber::FAIL;
     }
     sensor_info_map_[camera_names_[i]] = sensor_info;
 
@@ -504,6 +576,8 @@ AINFO<<"(DMCZP) EnteringMethod: FusionCameraDetectionComponent::InitSensorInfo";
           image_height_ % image_channel_num_);
   AINFO << sensor_info_str;
 
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: FusionCameraDetectionComponent::InitSensorInfo";
   return cyber::SUCC;
 }
 
@@ -512,9 +586,13 @@ AINFO<<"(DMCZP) EnteringMethod: FusionCameraDetectionComponent::InitAlgorithmPlu
   camera_obstacle_pipeline_.reset(new camera::ObstacleCameraPerception);
   if (!camera_obstacle_pipeline_->Init(camera_perception_init_options_)) {
     AERROR << "camera_obstacle_pipeline_->Init() failed";
-    return cyber::FAIL;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: FusionCameraDetectionComponent::InitAlgorithmPlugin";
+  return cyber::FAIL;
   }
   AINFO << "camera_obstacle_pipeline_->Init() succeed";
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: FusionCameraDetectionComponent::InitAlgorithmPlugin";
   return cyber::SUCC;
 }
 
@@ -522,13 +600,17 @@ int FusionCameraDetectionComponent::InitCameraFrames() {
 AINFO<<"(DMCZP) EnteringMethod: FusionCameraDetectionComponent::InitCameraFrames";
   if (camera_names_.size() != 2) {
     AERROR << "invalid camera_names_.size(): " << camera_names_.size();
-    return cyber::FAIL;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: FusionCameraDetectionComponent::InitCameraFrames";
+  return cyber::FAIL;
   }
   // fixed size
   camera_frames_.resize(frame_capacity_);
   if (camera_frames_.empty()) {
     AERROR << "frame_capacity_ must > 0";
-    return cyber::FAIL;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: FusionCameraDetectionComponent::InitCameraFrames";
+  return cyber::FAIL;
   }
 
   // init data_providers for each camera
@@ -540,7 +622,9 @@ AINFO<<"(DMCZP) EnteringMethod: FusionCameraDetectionComponent::InitCameraFrames
     data_provider_init_options.sensor_name = camera_name;
     int gpu_id = GetGpuId(camera_perception_init_options_);
     if (gpu_id == -1) {
-      return cyber::FAIL;
+      
+  AINFO<<"(DMCZP) (return) LeaveMethod: FusionCameraDetectionComponent::InitCameraFrames";
+  return cyber::FAIL;
     }
     data_provider_init_options.device_id = gpu_id;
     AINFO << "data_provider_init_options.device_id: "
@@ -585,6 +669,8 @@ AINFO<<"(DMCZP) EnteringMethod: FusionCameraDetectionComponent::InitCameraFrames
     frame.lane_detected_blob.reset(new base::Blob<float>());
   }
 
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: FusionCameraDetectionComponent::InitCameraFrames";
   return cyber::SUCC;
 }
 
@@ -593,7 +679,9 @@ AINFO<<"(DMCZP) EnteringMethod: FusionCameraDetectionComponent::InitProjectMatri
   if (!GetProjectMatrix(camera_names_, extrinsic_map_, intrinsic_map_,
                         &project_matrix_, &pitch_diff_)) {
     AERROR << "GetProjectMatrix failed";
-    return cyber::FAIL;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: FusionCameraDetectionComponent::InitProjectMatrix";
+  return cyber::FAIL;
   }
   AINFO << "project_matrix_: " << project_matrix_;
   AINFO << "pitch_diff_:" << pitch_diff_;
@@ -601,6 +689,8 @@ AINFO<<"(DMCZP) EnteringMethod: FusionCameraDetectionComponent::InitProjectMatri
   name_camera_pitch_angle_diff_map_[camera_names_[1]] =
       static_cast<float>(pitch_diff_);
 
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: FusionCameraDetectionComponent::InitProjectMatrix";
   return cyber::SUCC;
 }
 
@@ -618,6 +708,8 @@ AINFO<<"(DMCZP) EnteringMethod: FusionCameraDetectionComponent::InitCameraListen
                   std::placeholders::_1, camera_name);
     auto camera_reader = node_->CreateReader(channel_name, camera_callback);
   }
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: FusionCameraDetectionComponent::InitCameraListeners";
   return cyber::SUCC;
 }
 
@@ -635,6 +727,8 @@ AINFO<<"(DMCZP) EnteringMethod: FusionCameraDetectionComponent::InitMotionServic
   } else {
     motion_buffer_->set_capacity(motion_buffer_size_);
   }
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: FusionCameraDetectionComponent::InitMotionService";
   return cyber::SUCC;
 }
 
@@ -677,14 +771,18 @@ AINFO<<"(DMCZP) EnteringMethod: FusionCameraDetectionComponent::OnMotionService"
 
   motion_buffer_->push_back(vehicledata);
   // TODO(@yg13): output motion in text file
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: FusionCameraDetectionComponent::OnMotionService";
+ }
 
 void FusionCameraDetectionComponent::SetCameraHeightAndPitch() {
 AINFO<<"(DMCZP) EnteringMethod: FusionCameraDetectionComponent::SetCameraHeightAndPitch";
   camera_obstacle_pipeline_->SetCameraHeightAndPitch(
       camera_height_map_, name_camera_pitch_angle_diff_map_,
       default_camera_pitch_);
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: FusionCameraDetectionComponent::SetCameraHeightAndPitch";
+ }
 
 int FusionCameraDetectionComponent::InternalProc(
     const std::shared_ptr<apollo::drivers::Image const> &in_message,
@@ -715,7 +813,9 @@ AINFO<<"(DMCZP) EnteringMethod: FusionCameraDetectionComponent::InternalProc";
     AERROR << err_str;
     *error_code = apollo::common::ErrorCode::PERCEPTION_ERROR_TF;
     prefused_message->error_code_ = *error_code;
-    return cyber::FAIL;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: FusionCameraDetectionComponent::InternalProc";
+  return cyber::FAIL;
   }
   Eigen::Affine3d world2camera = camera2world_trans.inverse();
 
@@ -752,7 +852,9 @@ AINFO<<"(DMCZP) EnteringMethod: FusionCameraDetectionComponent::InternalProc";
            << " msg_timestamp: " << std::to_string(msg_timestamp);
     *error_code = apollo::common::ErrorCode::PERCEPTION_ERROR_PROCESS;
     prefused_message->error_code_ = *error_code;
-    return cyber::FAIL;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: FusionCameraDetectionComponent::InternalProc";
+  return cyber::FAIL;
   }
   AINFO << "##" << camera_name << ": pitch "
         << camera_frame.calibration_service->QueryPitchAngle()
@@ -783,7 +885,9 @@ AINFO<<"(DMCZP) EnteringMethod: FusionCameraDetectionComponent::InternalProc";
            << " ts: " << std::to_string(msg_timestamp);
     *error_code = apollo::common::ErrorCode::PERCEPTION_ERROR_UNKNOWN;
     prefused_message->error_code_ = *error_code;
-    return cyber::FAIL;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: FusionCameraDetectionComponent::InternalProc";
+  return cyber::FAIL;
   }
   *error_code = apollo::common::ErrorCode::OK;
   prefused_message->error_code_ = *error_code;
@@ -863,11 +967,15 @@ AINFO<<"(DMCZP) EnteringMethod: FusionCameraDetectionComponent::InternalProc";
     if (MakeCameraDebugMsg(msg_timestamp, camera_name, camera_frame,
                            camera_debug_msg.get()) != cyber::SUCC) {
       AERROR << "make camera_debug_msg failed";
-      return cyber::FAIL;
+      
+  AINFO<<"(DMCZP) (return) LeaveMethod: FusionCameraDetectionComponent::InternalProc";
+  return cyber::FAIL;
     }
     camera_debug_writer_->Write(camera_debug_msg);
   }
 
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: FusionCameraDetectionComponent::InternalProc";
   return cyber::SUCC;
 }
 
@@ -898,7 +1006,9 @@ AINFO<<"(DMCZP) EnteringMethod: FusionCameraDetectionComponent::MakeProtobufMsg"
         obstacles->add_perception_obstacle();
     if (ConvertObjectToPb(obj, obstacle) != cyber::SUCC) {
       AERROR << "ConvertObjectToPb failed, Object:" << obj->ToString();
-      return cyber::FAIL;
+      
+  AINFO<<"(DMCZP) (return) LeaveMethod: FusionCameraDetectionComponent::MakeProtobufMsg";
+  return cyber::FAIL;
     }
   }
 
@@ -935,6 +1045,8 @@ AINFO<<"(DMCZP) EnteringMethod: FusionCameraDetectionComponent::MakeProtobufMsg"
     }
   }
 
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: FusionCameraDetectionComponent::MakeProtobufMsg";
   return cyber::SUCC;
 }
 
@@ -943,7 +1055,9 @@ int FusionCameraDetectionComponent::ConvertObjectToPb(
     apollo::perception::PerceptionObstacle *pb_msg) {
 AINFO<<"(DMCZP) EnteringMethod: FusionCameraDetectionComponent::ConvertObjectToPb";
   if (!object_ptr || !pb_msg) {
-    return cyber::FAIL;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: FusionCameraDetectionComponent::ConvertObjectToPb";
+  return cyber::FAIL;
   }
 
   pb_msg->set_id(object_ptr->track_id);
@@ -1015,6 +1129,8 @@ AINFO<<"(DMCZP) EnteringMethod: FusionCameraDetectionComponent::ConvertObjectToP
     light_status->set_right_turn_switch_on(car_light.right_turn_switch_on);
   }
 
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: FusionCameraDetectionComponent::ConvertObjectToPb";
   return cyber::SUCC;
 }
 
@@ -1049,6 +1165,8 @@ AINFO<<"(DMCZP) EnteringMethod: FusionCameraDetectionComponent::ConvertObjectToC
                  << camera_obstacle->type_probs(camera_obstacle->type());
   camera_obstacle->add_debug_message(type_score_msg.str());
 
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: FusionCameraDetectionComponent::ConvertObjectToCameraObstacle";
   return cyber::SUCC;
 }
 
@@ -1124,6 +1242,8 @@ AINFO<<"(DMCZP) EnteringMethod: FusionCameraDetectionComponent::ConvertLaneToCam
     lane_end_points->mutable_end()->set_x(end_points.end.x);
     lane_end_points->mutable_end()->set_y(end_points.end.y);
   }
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: FusionCameraDetectionComponent::ConvertLaneToCameraLaneline";
   return cyber::SUCC;
 }
 
@@ -1136,7 +1256,9 @@ AINFO<<"(DMCZP) EnteringMethod: FusionCameraDetectionComponent::MakeCameraDebugM
   auto itr = std::find(camera_names_.begin(), camera_names_.end(), camera_name);
   if (itr == camera_names_.end()) {
     AERROR << "invalid camera_name: " << camera_name;
-    return cyber::FAIL;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: FusionCameraDetectionComponent::MakeCameraDebugMsg";
+  return cyber::FAIL;
   }
   int input_camera_channel_names_idx =
       static_cast<int>(itr - camera_names_.begin());
@@ -1148,7 +1270,9 @@ AINFO<<"(DMCZP) EnteringMethod: FusionCameraDetectionComponent::MakeCameraDebugM
            << input_camera_channel_names_idx
            << " input_camera_channel_names_.size(): "
            << input_camera_channel_names_.size();
-    return cyber::FAIL;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: FusionCameraDetectionComponent::MakeCameraDebugMsg";
+  return cyber::FAIL;
   }
   std::string source_channel_name =
       input_camera_channel_names_[input_camera_channel_names_idx];
@@ -1177,6 +1301,8 @@ AINFO<<"(DMCZP) EnteringMethod: FusionCameraDetectionComponent::MakeCameraDebugM
   // Fill the calibrator information(pitch angle)
   float pitch_angle = camera_frame.calibration_service->QueryPitchAngle();
   camera_debug_msg->mutable_camera_calibrator()->set_pitch_angle(pitch_angle);
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: FusionCameraDetectionComponent::MakeCameraDebugMsg";
   return cyber::SUCC;
 }
 

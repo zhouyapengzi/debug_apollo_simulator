@@ -25,7 +25,11 @@ double Track::s_max_lidar_invisible_period_ = 0.25;   // in second
 double Track::s_max_radar_invisible_period_ = 0.50;   // in second
 double Track::s_max_camera_invisible_period_ = 0.75;  // in second
 
-Track::Track() { fused_object_.reset(new FusedObject()); }
+Track::Track() {
+  AINFO<<"(DMCZP) EnteringMethod: Track::Track";
+ fused_object_.reset(new FusedObject()); 
+  AINFO<<"(DMCZP) LeaveMethod: Track::Track";
+ }
 
 bool Track::Initialize(SensorObjectPtr obj, bool is_background) {
 AINFO<<"(DMCZP) EnteringMethod: Track::Initialize";
@@ -37,6 +41,8 @@ AINFO<<"(DMCZP) EnteringMethod: Track::Initialize";
   *fused_base_obj = *sensor_base_obj;
   fused_base_obj->track_id = track_id;
   UpdateWithSensorObject(obj);
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: Track::Initialize";
   return true;
 }
 
@@ -51,41 +57,57 @@ AINFO<<"(DMCZP) EnteringMethod: Track::Reset";
   is_alive_ = true;
   tracked_times_ = 0;
   toic_prob_ = 0.0;
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: Track::Reset";
+ }
 
 SensorObjectConstPtr Track::GetSensorObject(
     const std::string& sensor_id) const {
 AINFO<<"(DMCZP) EnteringMethod: Track::GetSensorObject";
   auto lidar_it = lidar_objects_.find(sensor_id);
   if (lidar_it != lidar_objects_.end()) {
-    return lidar_it->second;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: Track::GetSensorObject";
+  return lidar_it->second;
   }
 
   auto radar_it = radar_objects_.find(sensor_id);
   if (radar_it != radar_objects_.end()) {
-    return radar_it->second;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: Track::GetSensorObject";
+  return radar_it->second;
   }
 
   auto camera_it = camera_objects_.find(sensor_id);
   if (camera_it != camera_objects_.end()) {
-    return camera_it->second;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: Track::GetSensorObject";
+  return camera_it->second;
   }
 
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: Track::GetSensorObject";
   return nullptr;
 }
 
 SensorObjectConstPtr Track::GetLatestLidarObject() const {
 AINFO<<"(DMCZP) EnteringMethod: Track::GetLatestLidarObject";
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: Track::GetLatestLidarObject";
   return GetLatestSensorObject(lidar_objects_);
 }
 
 SensorObjectConstPtr Track::GetLatestRadarObject() const {
 AINFO<<"(DMCZP) EnteringMethod: Track::GetLatestRadarObject";
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: Track::GetLatestRadarObject";
   return GetLatestSensorObject(radar_objects_);
 }
 
 SensorObjectConstPtr Track::GetLatestCameraObject() const {
 AINFO<<"(DMCZP) EnteringMethod: Track::GetLatestCameraObject";
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: Track::GetLatestCameraObject";
   return GetLatestSensorObject(camera_objects_);
 }
 
@@ -98,6 +120,8 @@ AINFO<<"(DMCZP) EnteringMethod: Track::GetLatestSensorObject";
       obj = it->second;
     }
   }
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: Track::GetLatestSensorObject";
   return obj;
 }
 
@@ -109,6 +133,8 @@ AINFO<<"(DMCZP) EnteringMethod: Track::GenerateNewTrackId";
   } else {
     s_track_idx_++;
   }
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: Track::GenerateNewTrackId";
   return ret_track_id;
 }
 
@@ -122,7 +148,9 @@ AINFO<<"(DMCZP) EnteringMethod: Track::UpdateSensorObject";
   } else {
     it->second = obj;
   }
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: Track::UpdateSensorObject";
+ }
 
 void Track::UpdateWithSensorObject(const SensorObjectPtr& obj) {
 AINFO<<"(DMCZP) EnteringMethod: Track::UpdateWithSensorObject";
@@ -135,7 +163,9 @@ AINFO<<"(DMCZP) EnteringMethod: Track::UpdateWithSensorObject";
   } else if (IsCamera(obj)) {
     objects = &camera_objects_;
   } else {
-    return;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: Track::UpdateWithSensorObject";
+  return;
   }
   UpdateSensorObject(objects, obj);
   double time_diff = obj->GetTimestamp() - fused_object_->GetTimestamp();
@@ -152,14 +182,18 @@ AINFO<<"(DMCZP) EnteringMethod: Track::UpdateWithSensorObject";
                                     s_max_camera_invisible_period_);
 
   if (is_background_) {
-    return UpdateWithSensorObjectForBackground(obj);
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: Track::UpdateWithSensorObject";
+  return UpdateWithSensorObjectForBackground(obj);
   }
 
   fused_object_->GetBaseObject()->latest_tracked_time = obj->GetTimestamp();
   UpdateSupplementState(obj);
   UpdateUnfusedState(obj);
   is_alive_ = true;
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: Track::UpdateWithSensorObject";
+ }
 
 void Track::UpdateWithoutSensorObject(const std::string& sensor_id,
                                       double measurement_timestamp) {
@@ -177,7 +211,9 @@ AINFO<<"(DMCZP) EnteringMethod: Track::UpdateWithoutSensorObject";
   UpdateSupplementState();
   is_alive_ = (!lidar_objects_.empty()) || (!radar_objects_.empty()) ||
               (!camera_objects_.empty());
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: Track::UpdateWithoutSensorObject";
+ }
 
 void Track::UpdateSensorObjectWithoutMeasurement(SensorId2ObjectMap* objects,
                                                  const std::string& sensor_id,
@@ -199,7 +235,9 @@ AINFO<<"(DMCZP) EnteringMethod: Track::UpdateSensorObjectWithoutMeasurement";
       ++it;
     }
   }
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: Track::UpdateSensorObjectWithoutMeasurement";
+ }
 
 void Track::UpdateSensorObjectWithMeasurement(SensorId2ObjectMap* objects,
                                               const std::string& sensor_id,
@@ -219,7 +257,9 @@ AINFO<<"(DMCZP) EnteringMethod: Track::UpdateSensorObjectWithMeasurement";
       ++it;
     }
   }
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: Track::UpdateSensorObjectWithMeasurement";
+ }
 
 void Track::UpdateSupplementState(const SensorObjectPtr& src_object) {
 AINFO<<"(DMCZP) EnteringMethod: Track::UpdateSupplementState";
@@ -244,7 +284,9 @@ AINFO<<"(DMCZP) EnteringMethod: Track::UpdateSupplementState";
   if (camera_objects_.empty()) {
     dst_obj->camera_supplement.Reset();
   }
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: Track::UpdateSupplementState";
+ }
 
 void Track::UpdateUnfusedState(const SensorObjectPtr& src_object) {
 AINFO<<"(DMCZP) EnteringMethod: Track::UpdateUnfusedState";
@@ -258,11 +300,15 @@ AINFO<<"(DMCZP) EnteringMethod: Track::UpdateUnfusedState";
   } else if (IsCamera(src_object)) {
     dst_obj->confidence = src_obj->confidence;
   }
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: Track::UpdateUnfusedState";
+ }
 
 bool Track::IsVisible(const std::string& sensor_id) const {
 AINFO<<"(DMCZP) EnteringMethod: Track::IsVisible";
   SensorObjectConstPtr sensor_obj = GetSensorObject(sensor_id);
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: Track::IsVisible";
   return (sensor_obj != nullptr && sensor_obj->GetInvisiblePeriod() < 1.0e-6);
 }
 
@@ -270,9 +316,13 @@ bool Track::IsLidarVisible() const {
 AINFO<<"(DMCZP) EnteringMethod: Track::IsLidarVisible";
   for (auto it = lidar_objects_.begin(); it != lidar_objects_.end(); ++it) {
     if (it->second->GetInvisiblePeriod() < 1.0e-6) {
-      return true;
+      
+  AINFO<<"(DMCZP) (return) LeaveMethod: Track::IsLidarVisible";
+  return true;
     }
   }
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: Track::IsLidarVisible";
   return false;
 }
 
@@ -280,9 +330,13 @@ bool Track::IsRadarVisible() const {
 AINFO<<"(DMCZP) EnteringMethod: Track::IsRadarVisible";
   for (auto it = radar_objects_.begin(); it != radar_objects_.end(); ++it) {
     if (it->second->GetInvisiblePeriod() < 1.0e-6) {
-      return true;
+      
+  AINFO<<"(DMCZP) (return) LeaveMethod: Track::IsRadarVisible";
+  return true;
     }
   }
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: Track::IsRadarVisible";
   return false;
 }
 
@@ -290,9 +344,13 @@ bool Track::IsCameraVisible() const {
 AINFO<<"(DMCZP) EnteringMethod: Track::IsCameraVisible";
   for (auto it = camera_objects_.begin(); it != camera_objects_.end(); ++it) {
     if (it->second->GetInvisiblePeriod() < 1.0e-6) {
-      return true;
+      
+  AINFO<<"(DMCZP) (return) LeaveMethod: Track::IsCameraVisible";
+  return true;
     }
   }
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: Track::IsCameraVisible";
   return false;
 }
 
@@ -305,10 +363,16 @@ AINFO<<"(DMCZP) EnteringMethod: Track::UpdateWithSensorObjectForBackground";
   int track_id = fused_base_object->track_id;
   *fused_base_object = *measurement_base_object;
   fused_base_object->track_id = track_id;
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: Track::UpdateWithSensorObjectForBackground";
+ }
 
 void Track::UpdateWithoutSensorObjectForBackground(
-    const std::string& sensor_id, double measurement_timestamp) {}
+    const std::string& sensor_id, double measurement_timestamp) {
+  AINFO<<"(DMCZP) EnteringMethod: Track::UpdateWithoutSensorObjectForBackground";
+
+  AINFO<<"(DMCZP) LeaveMethod: Track::UpdateWithoutSensorObjectForBackground";
+ }
 
 std::string Track::DebugString() const {
 AINFO<<"(DMCZP) EnteringMethod: Track::DebugString";
@@ -339,6 +403,8 @@ AINFO<<"(DMCZP) EnteringMethod: Track::DebugString";
         << ", info: " << it->second->GetBaseObject()->ToString() << ")\n";
   }
   oss << "]\n";
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: Track::DebugString";
   return oss.str();
 }
 

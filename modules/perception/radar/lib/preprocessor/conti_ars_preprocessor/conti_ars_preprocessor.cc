@@ -31,6 +31,8 @@ AINFO<<"(DMCZP) EnteringMethod: ContiArsPreprocessor::Init";
   CHECK(lib::ConfigManager::Instance()->GetModelConfig(model_name,
                                                        &model_config));
   CHECK(model_config->get_value("delay_time", &delay_time_));
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: ContiArsPreprocessor::Init";
   return true;
 }
 
@@ -45,11 +47,15 @@ AINFO<<"(DMCZP) EnteringMethod: ContiArsPreprocessor::SkipObjects";
 AINFO<<"(DMCZP) EnteringMethod: ContiArsPreprocessor::CorrectTime";
   ExpandIds(corrected_obstacles);
   CorrectTime(corrected_obstacles);
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: ContiArsPreprocessor::Preprocess";
   return true;
 }
 
 std::string ContiArsPreprocessor::Name() const {
 AINFO<<"(DMCZP) EnteringMethod: ContiArsPreprocessor::Name";
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: ContiArsPreprocessor::Name";
   return "ContiArsPreprocessor";
 }
 
@@ -70,7 +76,9 @@ void ContiArsPreprocessor::SkipObjects(
     AINFO << "skip objects: " << raw_obstacles.contiobs_size() << "-> "
           << corrected_obstacles->contiobs_size();
   }
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: ContiArsPreprocessor::SkipObjects";
+ }
 
 void ContiArsPreprocessor::ExpandIds(drivers::ContiRadar* corrected_obstacles) {
 AINFO<<"(DMCZP) EnteringMethod: ContiArsPreprocessor::ExpandIds";
@@ -87,14 +95,18 @@ AINFO<<"(DMCZP) EnteringMethod: ContiArsPreprocessor::ExpandIds";
     corrected_obstacles->mutable_contiobs(iobj)->set_obstacle_id(
         local2global_[id]);
   }
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: ContiArsPreprocessor::ExpandIds";
+ }
 
 void ContiArsPreprocessor::CorrectTime(
     drivers::ContiRadar* corrected_obstacles) {
   double correct_timestamp =
       corrected_obstacles->header().timestamp_sec() - delay_time_;
   corrected_obstacles->mutable_header()->set_timestamp_sec(correct_timestamp);
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: ContiArsPreprocessor::CorrectTime";
+ }
 
 int ContiArsPreprocessor::GetNextId() {
 AINFO<<"(DMCZP) EnteringMethod: ContiArsPreprocessor::GetNextId";
@@ -102,6 +114,8 @@ AINFO<<"(DMCZP) EnteringMethod: ContiArsPreprocessor::GetNextId";
   if (MAX_RADAR_IDX == current_idx_) {
     current_idx_ = 1;
   }
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: ContiArsPreprocessor::GetNextId";
   return current_idx_;
 }
 

@@ -33,8 +33,12 @@ AINFO<<"(DMCZP) EnteringMethod: UndistortionHandler::set_device";
   auto code = cudaSetDevice(device_);
   if (code != cudaSuccess) {
     AERROR << "cudaSetDevice failed: " << cudaGetErrorString(code);
-    return false;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: UndistortionHandler::set_device";
+  return false;
   }
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: UndistortionHandler::set_device";
   return true;
 }
 /* Initialization of the GPU routines for camera data preprocessing
@@ -46,7 +50,9 @@ AINFO<<"(DMCZP) EnteringMethod: UndistortionHandler::set_device";
 bool UndistortionHandler::Init(const std::string &sensor_name, int device) {
 AINFO<<"(DMCZP) EnteringMethod: UndistortionHandler::Init";
   if (inited_) {
-    return true;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: UndistortionHandler::Init";
+  return true;
   }
 
   std::vector<double> D;
@@ -55,11 +61,15 @@ AINFO<<"(DMCZP) EnteringMethod: UndistortionHandler::Init";
   common::SensorManager *sensor_manager = common::SensorManager::Instance();
   if (!sensor_manager->IsSensorExist(sensor_name)) {
     AERROR << "Sensor '" << sensor_name << "' not exists!";
-    return false;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: UndistortionHandler::Init";
+  return false;
   }
 
   if (!set_device(device)) {
-    return false;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: UndistortionHandler::Init";
+  return false;
   }
 
   base::BrownCameraDistortionModelPtr distort_model =
@@ -80,6 +90,8 @@ AINFO<<"(DMCZP) EnteringMethod: UndistortionHandler::Init";
                           height_, &d_mapx_, &d_mapy_);
 
   inited_ = true;
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: UndistortionHandler::Init";
   return true;
 }
 
@@ -87,11 +99,15 @@ bool UndistortionHandler::Handle(const base::Image8U &src_img,
                                  base::Image8U *dst_img) {
 AINFO<<"(DMCZP) EnteringMethod: UndistortionHandler::Handle";
   if (!inited_) {
-    return false;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: UndistortionHandler::Handle";
+  return false;
   }
 
   if (!set_device(device_)) {
-    return false;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: UndistortionHandler::Handle";
+  return false;
   }
 
   NppiInterpolationMode remap_mode = NPPI_INTER_LINEAR;
@@ -119,20 +135,28 @@ AINFO<<"(DMCZP) EnteringMethod: UndistortionHandler::Handle";
       break;
     default:
       AERROR << "Invalid number of channels: " << src_img.channels();
-      return false;
+      
+  AINFO<<"(DMCZP) (return) LeaveMethod: UndistortionHandler::Handle";
+  return false;
   }
 
   if (status != NPP_SUCCESS) {
     AERROR << "NPP_CHECK_NPP - status = " << status;
-    return false;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: UndistortionHandler::Handle";
+  return false;
   }
 
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: UndistortionHandler::Handle";
   return true;
 }
 
 bool UndistortionHandler::Release(void) {
 AINFO<<"(DMCZP) EnteringMethod: UndistortionHandler::Release";
   inited_ = false;
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: UndistortionHandler::Release";
   return true;
 }
 
@@ -177,7 +201,9 @@ AINFO<<"(DMCZP) EnteringMethod: UndistortionHandler::InitUndistortRectifyMap";
       y_ptr[u] = static_cast<float>(nny * fy + cy);
     }
   }
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: UndistortionHandler::InitUndistortRectifyMap";
+ }
 
 }  // namespace camera
 }  // namespace perception

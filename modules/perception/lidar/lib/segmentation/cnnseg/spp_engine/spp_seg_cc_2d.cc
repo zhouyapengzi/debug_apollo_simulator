@@ -34,7 +34,9 @@ AINFO<<"(DMCZP) EnteringMethod: SppCCDetector::SetData";
   objectness_threshold_ = objectness_threshold;
   worker_.Bind(std::bind(&SppCCDetector::CleanNodes, this));
   worker_.Start();
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: SppCCDetector::SetData";
+ }
 
 bool SppCCDetector::BuildNodes(int start_row_index, int end_row_index) {
 AINFO<<"(DMCZP) EnteringMethod: SppCCDetector::BuildNodes";
@@ -54,6 +56,8 @@ AINFO<<"(DMCZP) EnteringMethod: SppCCDetector::BuildNodes";
       (node_ptr++)->center_node = center_row * cols_ + center_col;
     }
   }
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: SppCCDetector::BuildNodes";
   return true;
 }
 
@@ -66,6 +70,8 @@ AINFO<<"(DMCZP) EnteringMethod: SppCCDetector::CleanNodes";
       nodes_[row][col].parent = node_idx++;
     }
   }
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: SppCCDetector::CleanNodes";
   return true;
 }
 
@@ -95,6 +101,8 @@ AINFO<<"(DMCZP) EnteringMethod: SppCCDetector::Detect";
         << "\ttraverse: " << traverse_time << "\tunion: " << union_time
         << "\tcollect: " << collect_time << "\t#obj: " << num;
 
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: SppCCDetector::Detect";
   return num;
 }
 
@@ -108,7 +116,9 @@ AINFO<<"(DMCZP) EnteringMethod: SppCCDetector::TraverseNodes";
       }
     }
   }
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: SppCCDetector::TraverseNodes";
+ }
 
 void SppCCDetector::UnionNodes() {
 AINFO<<"(DMCZP) EnteringMethod: SppCCDetector::UnionNodes";
@@ -149,7 +159,9 @@ AINFO<<"(DMCZP) EnteringMethod: SppCCDetector::UnionNodes";
       }
     }
   }
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: SppCCDetector::UnionNodes";
+ }
 
 size_t SppCCDetector::ToLabelMap(SppLabelImage* labels) {
 AINFO<<"(DMCZP) EnteringMethod: SppCCDetector::ToLabelMap";
@@ -174,6 +186,8 @@ AINFO<<"(DMCZP) EnteringMethod: SppCCDetector::ToLabelMap";
     }
   }
   labels->ResizeClusters(id);
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: SppCCDetector::ToLabelMap";
   return id;
 }
 
@@ -197,7 +211,9 @@ AINFO<<"(DMCZP) EnteringMethod: SppCCDetector::Traverse";
     y->set_traversed(1);
     y->parent = x->parent;
   }
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: SppCCDetector::Traverse";
+ }
 
 SppCCDetector::Node* SppCCDetector::DisjointSetFindLoop(Node* x) {
 AINFO<<"(DMCZP) EnteringMethod: SppCCDetector::DisjointSetFindLoop";
@@ -211,6 +227,8 @@ AINFO<<"(DMCZP) EnteringMethod: SppCCDetector::DisjointSetFindLoop";
     w->parent = root->parent;
     w = temp;
   }
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: SppCCDetector::DisjointSetFindLoop";
   return root;
 }
 
@@ -218,11 +236,15 @@ SppCCDetector::Node* SppCCDetector::DisjointSetFind(Node* x) {
 AINFO<<"(DMCZP) EnteringMethod: SppCCDetector::DisjointSetFind";
   Node* y = nodes_[0] + x->parent;
   if (y == x || nodes_[0] + y->parent == y) {
-    return y;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: SppCCDetector::DisjointSetFind";
+  return y;
   }
   Node* root = DisjointSetFindLoop(nodes_[0] + y->parent);
   x->parent = root->parent;
   y->parent = root->parent;
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: SppCCDetector::DisjointSetFind";
   return root;
 }
 
@@ -231,7 +253,9 @@ AINFO<<"(DMCZP) EnteringMethod: SppCCDetector::DisjointSetUnion";
   x = DisjointSetFind(x);
   y = DisjointSetFind(y);
   if (x == y) {
-    return;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: SppCCDetector::DisjointSetUnion";
+  return;
   }
   uint16_t x_node_rank = x->get_node_rank();
   uint16_t y_node_rank = y->get_node_rank();
@@ -243,7 +267,9 @@ AINFO<<"(DMCZP) EnteringMethod: SppCCDetector::DisjointSetUnion";
     y->parent = x->parent;
     x->set_node_rank(static_cast<uint16_t>(x_node_rank + 1));
   }
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: SppCCDetector::DisjointSetUnion";
+ }
 
 }  // namespace lidar
 }  // namespace perception

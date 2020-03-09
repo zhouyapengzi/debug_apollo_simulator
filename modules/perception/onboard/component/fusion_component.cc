@@ -33,7 +33,9 @@ bool FusionComponent::Init() {
 AINFO<<"(DMCZP) EnteringMethod: FusionComponent::Init";
   FusionComponentConfig comp_config;
   if (!GetProtoConfig(&comp_config)) {
-    return false;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: FusionComponent::Init";
+  return false;
   }
   AINFO << "Radarr Component Configs: " << comp_config.DebugString();
 
@@ -49,6 +51,8 @@ AINFO<<"(DMCZP) EnteringMethod: FusionComponent::Init";
       comp_config.output_obstacles_channel_name());
   inner_writer_ = node_->CreateWriter<SensorFrameMessage>(
       comp_config.output_viz_fused_content_channel_name());
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: FusionComponent::Init";
   return true;
 }
 
@@ -57,7 +61,9 @@ AINFO<<"(DMCZP) EnteringMethod: FusionComponent::Proc";
   AINFO << "Enter FusionComponent proc. message->sensor_id_: "
         << message->sensor_id_;
   if (message->process_stage_ == ProcessStage::SENSOR_FUSION) {
-    return true;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: FusionComponent::Proc";
+  return true;
   }
   std::shared_ptr<PerceptionObstacles> out_message(new (std::nothrow)
                                                        PerceptionObstacles);
@@ -80,6 +86,8 @@ AINFO<<"(DMCZP) EnteringMethod: FusionComponent::Proc";
       }
     }
   }
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: FusionComponent::Proc";
   return status;
 }
 
@@ -96,6 +104,8 @@ AINFO<<"(DMCZP) EnteringMethod: FusionComponent::InitAlgorithmPlugin";
     CHECK(hdmap_input_->Init()) << "Failed to init hdmap input.";
   }
   AINFO << "Init algorithm successfully, onboard fusion: " << fusion_method_;
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: FusionComponent::InitAlgorithmPlugin";
   return true;
 }
 
@@ -117,14 +127,18 @@ AINFO<<"(DMCZP) EnteringMethod: FusionComponent::InternalProc";
                                      valid_objects, in_message->error_code_,
                                      out_message.get())) {
       AERROR << "Failed to gen PerceptionObstacles object.";
-      return false;
+      
+  AINFO<<"(DMCZP) (return) LeaveMethod: FusionComponent::InternalProc";
+  return false;
     }
     if (FLAGS_obs_enable_visualization) {
       viz_message->process_stage_ = ProcessStage::SENSOR_FUSION;
       viz_message->error_code_ = in_message->error_code_;
     }
     AERROR << "Fusion receive message with error code, skip it.";
-    return true;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: FusionComponent::InternalProc";
+  return true;
   }
   base::FramePtr frame = in_message->frame_;
   frame->timestamp = in_message->timestamp_;
@@ -132,13 +146,17 @@ AINFO<<"(DMCZP) EnteringMethod: FusionComponent::InternalProc";
   std::vector<base::ObjectPtr> fused_objects;
   if (!fusion_->Process(frame, &fused_objects)) {
     AERROR << "Failed to call fusion plugin.";
-    return false;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: FusionComponent::InternalProc";
+  return false;
   }
   PERCEPTION_PERF_BLOCK_END_WITH_INDICATOR(std::string("fusion_process"),
                                            in_message->sensor_id_);
 
   if (in_message->sensor_id_ != fusion_main_sensor_) {
-    return true;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: FusionComponent::InternalProc";
+  return true;
   }
 
   Eigen::Matrix4d sensor2world_pose =
@@ -184,7 +202,9 @@ AINFO<<"(DMCZP) EnteringMethod: FusionComponent::InternalProc";
                                    valid_objects, error_code,
                                    out_message.get())) {
     AERROR << "Failed to gen PerceptionObstacles object.";
-    return false;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: FusionComponent::InternalProc";
+  return false;
   }
   PERCEPTION_PERF_BLOCK_END_WITH_INDICATOR(
       std::string("fusion_serialize_message"), in_message->sensor_id_);
@@ -196,6 +216,8 @@ AINFO<<"(DMCZP) EnteringMethod: FusionComponent::InternalProc";
         << std::to_string(cur_time) << "]:cur_latency[" << latency
         << "]:obj_cnt[" << valid_objects.size() << "]";
   AINFO << "publish_number: " << valid_objects.size() << " obj";
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: FusionComponent::InternalProc";
   return true;
 }
 
