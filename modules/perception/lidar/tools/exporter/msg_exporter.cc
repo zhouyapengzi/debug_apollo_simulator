@@ -68,7 +68,9 @@ AINFO<<"(DMCZP) EnteringMethod: MsgExporter::MsgExporter";
       std::cout << "Unknown channel type: " << channel << std::endl;
     }
   }
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: MsgExporter::MsgExporter";
+ }
 void MsgExporter::ImageMessageHandler(
     const std::shared_ptr<const ImgMsg>& img_msg, const std::string& channel,
     const std::string& child_frame_id, const std::string& folder) {
@@ -93,7 +95,9 @@ AINFO<<"(DMCZP) EnteringMethod: MsgExporter::PointCloudMessageHandler";
     std::cout << "Failed to query camera pose, child_frame_id "
               << child_frame_id << std::endl;
   }
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: MsgExporter::ImageMessageHandler";
+ }
 void MsgExporter::PointCloudMessageHandler(
     const std::shared_ptr<const PcMsg>& cloud_msg, const std::string& channel,
     const std::string& child_frame_id, const std::string& folder) {
@@ -127,7 +131,9 @@ void MsgExporter::PointCloudMessageHandler(
     std::cout << "Failed to query lidar pose, child_frame_id " << child_frame_id
               << std::endl;
   }
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: MsgExporter::PointCloudMessageHandler";
+ }
 bool MsgExporter::SavePointCloud(
     const pcl::PointCloud<PCLPointXYZIT>& point_cloud, double timestamp,
     const std::string& folder) {
@@ -136,8 +142,12 @@ AINFO<<"(DMCZP) EnteringMethod: MsgExporter::SavePointCloud";
   snprintf(path, sizeof(path), "%s/%.6f.pcd", folder.c_str(), timestamp);
   pcl::PCDWriter writer;
   writer.writeBinaryCompressed(path, point_cloud);
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: MsgExporter::SavePointCloud";
   return true;
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: MsgExporter::SavePointCloud";
+ }
 bool MsgExporter::SaveImage(const unsigned char* color_image,
                             const unsigned char* range_image, std::size_t width,
                             std::size_t height, double timestamp,
@@ -161,8 +171,12 @@ AINFO<<"(DMCZP) EnteringMethod: MsgExporter::SaveImage";
     // timestamp);
     // cv::imwrite(path, range_image_mat);
   }
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: MsgExporter::SaveImage";
   return true;
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: MsgExporter::SaveImage";
+ }
 bool MsgExporter::QuerySensorToWorldPose(double timestamp,
                                          const std::string& child_frame_id,
                                          Eigen::Matrix4d* pose) {
@@ -173,7 +187,11 @@ AINFO<<"(DMCZP) EnteringMethod: MsgExporter::QuerySensorToWorldPose";
   if (child_frame_id != "null" &&
       !QueryPose(timestamp, "novatel", child_frame_id,
                  &sensor2novatel_extrinsics)) {
-    return false;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: MsgExporter::QuerySensorToWorldPose";
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: MsgExporter::QuerySensorToWorldPose";
+  return false;
   }
   // query novatel to world pose
   if (!QueryPose(timestamp, "world", _localization_method,
@@ -181,8 +199,12 @@ AINFO<<"(DMCZP) EnteringMethod: MsgExporter::QuerySensorToWorldPose";
     return false;
   }
   *pose = novatel2world_pose * sensor2novatel_extrinsics;
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: MsgExporter::QuerySensorToWorldPose";
   return true;
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: MsgExporter::QuerySensorToWorldPose";
+ }
 bool MsgExporter::QueryPose(double timestamp, const std::string& frame_id,
                             const std::string& child_frame_id,
                             Eigen::Matrix4d* pose) {
@@ -194,7 +216,11 @@ AINFO<<"(DMCZP) EnteringMethod: MsgExporter::QueryPose";
     AERROR << "Can not find transform. "  //<< GLOG_TIMESTAMP(timestamp)
            << " frame_id: " << frame_id << " child_frame_id: " << child_frame_id
            << " Error info: " << err_string;
-    return false;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: MsgExporter::QueryPose";
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: MsgExporter::QueryPose";
+  return false;
   }
   apollo::transform::TransformStamped stamped_transform;
   try {
@@ -213,8 +239,12 @@ AINFO<<"(DMCZP) EnteringMethod: MsgExporter::QueryPose";
     AERROR << ex.what();
     return false;
   }
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: MsgExporter::QueryPose";
   return true;
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: MsgExporter::QueryPose";
+ }
 bool MsgExporter::SavePose(const Eigen::Matrix4d& pose, double timestamp,
                            const std::string& folder) {
 AINFO<<"(DMCZP) EnteringMethod: MsgExporter::SavePose";
@@ -229,35 +259,57 @@ AINFO<<"(DMCZP) EnteringMethod: MsgExporter::SavePose";
          << quat.y() << " " << quat.z() << " " << quat.w() << std::endl;
     fout.close();
   }
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: MsgExporter::SavePose";
   return true;
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: MsgExporter::SavePose";
+ }
 bool MsgExporter::IsStereoCamera(const std::string& channel) {
 AINFO<<"(DMCZP) EnteringMethod: MsgExporter::IsStereoCamera";
   std::vector<std::string> strs;
   apollo::common::util::Split(channel, '/', &strs);
   if (strs.size() > 2 && strs[2] == "smartereye") {
-    return true;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: MsgExporter::IsStereoCamera";
+  return true;
   }
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: MsgExporter::IsStereoCamera";
   return false;
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: MsgExporter::IsStereoCamera";
+ }
 bool MsgExporter::IsCamera(const std::string& channel) {
 AINFO<<"(DMCZP) EnteringMethod: MsgExporter::IsCamera";
   std::vector<std::string> strs;
   apollo::common::util::Split(channel, '/', &strs);
   if (strs.size() > 1 && strs[1] == "camera") {
-    return true;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: MsgExporter::IsCamera";
+  return true;
   }
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: MsgExporter::IsCamera";
   return false;
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: MsgExporter::IsCamera";
+ }
 bool MsgExporter::IsLidar(const std::string& channel) {
 AINFO<<"(DMCZP) EnteringMethod: MsgExporter::IsLidar";
   std::vector<std::string> strs;
   apollo::common::util::Split(channel, '/', &strs);
   if (strs.size() > 0 && strs.back() == "PointCloud2") {
-    return true;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: MsgExporter::IsLidar";
+  return true;
   }
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: MsgExporter::IsLidar";
   return false;
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: MsgExporter::IsLidar";
+ }
 std::string MsgExporter::TransformChannelToFolder(const std::string& channel) {
 AINFO<<"(DMCZP) EnteringMethod: MsgExporter::TransformChannelToFolder";
   std::vector<std::string> strs;
@@ -267,8 +319,12 @@ AINFO<<"(DMCZP) EnteringMethod: MsgExporter::TransformChannelToFolder";
     target += str + "_";
   }
   target += "data";
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: MsgExporter::TransformChannelToFolder";
   return target;
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: MsgExporter::TransformChannelToFolder";
+ }
 }  // namespace lidar
 }  // namespace perception
 }  // namespace apollo

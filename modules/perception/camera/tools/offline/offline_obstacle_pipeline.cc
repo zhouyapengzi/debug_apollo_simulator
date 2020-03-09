@@ -95,7 +95,35 @@ void save_image(const std::string &path, base::Image8U &image) {  // NOLINT
   cv::Mat cv_img(image.rows(), image.cols(), cv_type, image.mutable_cpu_data(),
                  image.width_step());
   cv::imwrite(path, cv_img);
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: save_image";
+ 
+  AINFO<<"(DMCZP) LeaveMethod: REGISTER_LANE_POSTPROCESSOR";
+ 
+  AINFO<<"(DMCZP) LeaveMethod: REGISTER_LANE_DETECTOR";
+ 
+  AINFO<<"(DMCZP) LeaveMethod: REGISTER_CALIBRATION_SERVICE";
+ 
+  AINFO<<"(DMCZP) LeaveMethod: REGISTER_CALIBRATOR";
+ 
+  AINFO<<"(DMCZP) LeaveMethod: REGISTER_LANE_DETECTOR";
+ 
+  AINFO<<"(DMCZP) LeaveMethod: REGISTER_LANE_POSTPROCESSOR";
+ 
+  AINFO<<"(DMCZP) LeaveMethod: REGISTER_FEATURE_EXTRACTOR";
+ 
+  AINFO<<"(DMCZP) LeaveMethod: REGISTER_FEATURE_EXTRACTOR";
+ 
+  AINFO<<"(DMCZP) LeaveMethod: REGISTER_OBSTACLE_POSTPROCESSOR";
+ 
+  AINFO<<"(DMCZP) LeaveMethod: REGISTER_OBSTACLE_TRANSFORMER";
+ 
+  AINFO<<"(DMCZP) LeaveMethod: REGISTER_FEATURE_EXTRACTOR";
+ 
+  AINFO<<"(DMCZP) LeaveMethod: REGISTER_OBSTACLE_TRACKER";
+ 
+  AINFO<<"(DMCZP) LeaveMethod: REGISTER_OBSTACLE_DETECTOR";
+ }
 
 int work() {
 AINFO<<"(DMCZP) EnteringMethod: work";
@@ -124,7 +152,39 @@ AINFO<<"(DMCZP) EnteringMethod: work";
   fin.open(FLAGS_test_list, std::ifstream::in);
   if (!fin.is_open()) {
     AERROR << "Cannot open image list: " << FLAGS_test_list;
-    return -1;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: work";
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_string";
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_string";
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_bool";
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_double";
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_string";
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_string";
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_string";
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_string";
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_string";
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_string";
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_string";
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_string";
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_string";
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_string";
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_string";
+  return -1;
   }
 
   // Init camera list
@@ -181,7 +241,103 @@ AINFO<<"(DMCZP) EnteringMethod: work";
     if (!transform_server.QueryTransform(camera_names[i], "ground", &c2g)) {
       AINFO << "Failed to query transform from " << camera_names[i]
             << " to ground";
-      return -1;
+      
+  AINFO<<"(DMCZP) (return) LeaveMethod: work";
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: work";
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: work";
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_string";
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_string";
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_string";
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_string";
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_string";
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_string";
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_bool";
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_bool";
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_bool";
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_double";
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_double";
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_double";
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_string";
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_string";
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_string";
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_string";
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_string";
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_string";
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_string";
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_string";
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_string";
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_string";
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_string";
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_string";
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_string";
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_string";
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_string";
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_string";
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_string";
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_string";
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_string";
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_string";
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_string";
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_string";
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_string";
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_string";
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_string";
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_string";
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_string";
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_string";
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_string";
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_string";
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_string";
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_string";
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_string";
+  return -1;
     }
     float camera_ground_height = static_cast<float>(c2g.translation()[2]);
     AINFO << camera_names[i] << " height: " << camera_ground_height;
@@ -196,7 +352,71 @@ AINFO<<"(DMCZP) EnteringMethod: work";
       if (!transform_server.QueryTransform(camera_names[i],
                                            FLAGS_base_camera_name, &trans)) {
         AINFO << "Failed to query transform";
-        return -1;
+        
+  AINFO<<"(DMCZP) (return) LeaveMethod: work";
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: work";
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_string";
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_string";
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_string";
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_string";
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_bool";
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_bool";
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_double";
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_double";
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_string";
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_string";
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_string";
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_string";
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_string";
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_string";
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_string";
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_string";
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_string";
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_string";
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_string";
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_string";
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_string";
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_string";
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_string";
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_string";
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_string";
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_string";
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_string";
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_string";
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_string";
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_string";
+  return -1;
       }
       Eigen::Vector3d euler = trans.linear().eulerAngles(0, 1, 2);
       pitch_diff = static_cast<float>(euler(0));
@@ -342,11 +562,75 @@ AINFO<<"(DMCZP) EnteringMethod: work";
             << save_dir + "/" + image_name + FLAGS_image_ext;
     }
   }
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: work";
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_string";
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_string";
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_bool";
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_double";
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_string";
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_string";
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_string";
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_string";
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_string";
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_string";
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_string";
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_string";
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_string";
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_string";
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_string";
   return 0;
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: work";
+ }
 }  // namespace camera
 }  // namespace perception
-}  // namespace apollo
+
+  AINFO<<"(DMCZP) LeaveMethod: DEFINE_string";
+ 
+  AINFO<<"(DMCZP) LeaveMethod: DEFINE_string";
+ 
+  AINFO<<"(DMCZP) LeaveMethod: DEFINE_bool";
+ 
+  AINFO<<"(DMCZP) LeaveMethod: DEFINE_double";
+ 
+  AINFO<<"(DMCZP) LeaveMethod: DEFINE_string";
+ 
+  AINFO<<"(DMCZP) LeaveMethod: DEFINE_string";
+ 
+  AINFO<<"(DMCZP) LeaveMethod: DEFINE_string";
+ 
+  AINFO<<"(DMCZP) LeaveMethod: DEFINE_string";
+ 
+  AINFO<<"(DMCZP) LeaveMethod: DEFINE_string";
+ 
+  AINFO<<"(DMCZP) LeaveMethod: DEFINE_string";
+ 
+  AINFO<<"(DMCZP) LeaveMethod: DEFINE_string";
+ 
+  AINFO<<"(DMCZP) LeaveMethod: DEFINE_string";
+ 
+  AINFO<<"(DMCZP) LeaveMethod: DEFINE_string";
+ 
+  AINFO<<"(DMCZP) LeaveMethod: DEFINE_string";
+ 
+  AINFO<<"(DMCZP) LeaveMethod: DEFINE_string";
+ }  // namespace apollo
 
 int main(int argc, char *argv[]) {
 AINFO<<"(DMCZP) EnteringMethod: main";
@@ -355,5 +639,9 @@ AINFO<<"(DMCZP) EnteringMethod: main";
       "command line brew\n"
       "Usage: camera_benchmark <args>\n");
 
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: main";
   return apollo::perception::camera::work();
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: main";
+ }

@@ -30,17 +30,27 @@ AINFO<<"(DMCZP) EnteringMethod: ROIServiceFilter::Init";
       SceneManager::Instance().Service("ROIService"));
   if (roi_service_ == nullptr) {
     AERROR << "ROi service is nullptr, Init scene manager first !";
-    return false;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: ROIServiceFilter::Init";
+  return false;
   }
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: ROIServiceFilter::Init";
   return true;
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: ROIServiceFilter::Init";
+ }
 
 bool ROIServiceFilter::Filter(const ROIFilterOptions& options,
                               LidarFrame* frame) {
 AINFO<<"(DMCZP) EnteringMethod: ROIServiceFilter::Filter";
   if (frame == nullptr || frame->world_cloud == nullptr) {
     AERROR << "Frame is nullptr.";
-    return false;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: ROIServiceFilter::Filter";
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: ROIServiceFilter::Filter";
+  return false;
   }
   roi_service_->GetServiceContentCopy(&roi_service_content_);
   if (!roi_service_content_.IsServiceReady()) {
@@ -59,8 +69,12 @@ AINFO<<"(DMCZP) EnteringMethod: ROIServiceFilter::Filter";
           static_cast<uint8_t>(LidarPointLabel::ROI);
     }
   }
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: ROIServiceFilter::Filter";
   return true;
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: ROIServiceFilter::Filter";
+ }
 
 PERCEPTION_REGISTER_ROIFILTER(ROIServiceFilter);
 

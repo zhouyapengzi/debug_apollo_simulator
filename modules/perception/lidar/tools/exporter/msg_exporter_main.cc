@@ -30,7 +30,9 @@ bool config_parser(const std::string& config_file,
 AINFO<<"(DMCZP) EnteringMethod: config_parser";
   std::ifstream fin(config_file);
   if (!fin.is_open()) {
-    return false;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: config_parser";
+  return false;
   }
   channels->clear();
   child_frame_ids->clear();
@@ -56,8 +58,12 @@ AINFO<<"(DMCZP) EnteringMethod: config_parser";
     std::cout << "\t\tRead channel " << channels->at(i) << " child_frame_id "
               << child_frame_ids->at(i) << std::endl;
   }
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: config_parser";
   return true;
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: config_parser";
+ }
 }  // namespace lidar
 }  // namespace perception
 }  // namespace apollo
@@ -66,7 +72,13 @@ int main(int argc, char** argv) {
 AINFO<<"(DMCZP) EnteringMethod: main";
   if (argc < 2) {
     std::cout << "export_msgs config_file" << std::endl;
-    return -1;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: main";
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: main";
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: main";
+  return -1;
   }
   // apollo::cyber::Logger::Init(argv[0]);
   apollo::cyber::Init(argv[0]);  // cybertron init function
@@ -89,5 +101,9 @@ AINFO<<"(DMCZP) EnteringMethod: main";
   while (apollo::cyber::OK()) {
     sleep(1);
   }
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: main";
   return 0;
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: main";
+ }

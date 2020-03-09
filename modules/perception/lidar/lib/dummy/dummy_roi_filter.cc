@@ -21,13 +21,23 @@ namespace apollo {
 namespace perception {
 namespace lidar {
 
-bool DummyROIFilter::Init(const ROIFilterInitOptions& options) { return true; }
+bool DummyROIFilter::Init(const ROIFilterInitOptions& options) {
+  AINFO<<"(DMCZP) EnteringMethod: DummyROIFilter::Init";
+ 
+  AINFO<<"(D
+  AINFO<<"(DMCZP) LeaveMethod: DummyROIFilter::Init";
+ MCZP) (return) LeaveMethod: DummyROIFilter::Init";
+  return true; }
 
 bool DummyROIFilter::Filter(const ROIFilterOptions& options,
                             LidarFrame* frame) {
 AINFO<<"(DMCZP) EnteringMethod: DummyROIFilter::Filter";
   if (!frame) {
-    return false;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: DummyROIFilter::Filter";
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: DummyROIFilter::Filter";
+  return false;
   }
   if (!frame->cloud) {
     return false;
@@ -35,8 +45,12 @@ AINFO<<"(DMCZP) EnteringMethod: DummyROIFilter::Filter";
   frame->roi_indices.indices.resize(frame->cloud->size());
   std::iota(frame->roi_indices.indices.begin(),
             frame->roi_indices.indices.end(), 0);
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: DummyROIFilter::Filter";
   return true;
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: DummyROIFilter::Filter";
+ }
 
 PERCEPTION_REGISTER_ROIFILTER(DummyROIFilter);
 

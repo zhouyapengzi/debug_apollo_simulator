@@ -34,7 +34,9 @@ AINFO<<"(DMCZP) EnteringMethod: GroundServiceContent::GetCopy";
   GroundServiceContent* ground_content =
       dynamic_cast<GroundServiceContent*>(content);
   if (ground_content == nullptr) {
-    return;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: GroundServiceContent::GetCopy";
+  return;
   }
   ground_content->grid_ = grid_;
   ground_content->grid_center_ = grid_center_;
@@ -47,14 +49,18 @@ AINFO<<"(DMCZP) EnteringMethod: GroundServiceContent::GetCopy";
   ground_content->rows_ = rows_;
   ground_content->cols_ = cols_;
   ground_content->service_ready_ = service_ready_;
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: GroundServiceContent::GetCopy";
+ }
 
 void GroundServiceContent::SetContent(const SceneServiceContent& content) {
 AINFO<<"(DMCZP) EnteringMethod: GroundServiceContent::SetContent";
   const GroundServiceContent* ground_content =
       dynamic_cast<const GroundServiceContent*>(&content);
   if (ground_content == nullptr) {
-    return;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: GroundServiceContent::SetContent";
+  return;
   }
   grid_ = ground_content->grid_;
   grid_center_ = ground_content->grid_center_;
@@ -68,12 +74,18 @@ AINFO<<"(DMCZP) EnteringMethod: GroundServiceContent::SetContent";
   cols_ = ground_content->cols_;
 
   service_ready_ = true;
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: GroundServiceContent::SetContent";
+ }
 
 uint32_t inline GetIndex(uint32_t r, uint32_t c, uint32_t cols) {
 AINFO<<"(DMCZP) EnteringMethod: GetIndex";
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: GetIndex";
   return (r * cols + c);
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: GetIndex";
+ }
 
 bool GroundServiceContent::PointToGrid(const Eigen::Vector3d& world_point,
                                        uint32_t* grid_index) const {
@@ -83,22 +95,30 @@ AINFO<<"(DMCZP) EnteringMethod: GroundServiceContent::PointToGrid";
   if (x < bound_x_min_ || x > bound_x_max_ || y < bound_y_min_ ||
       y > bound_y_max_) {
     (*grid_index) = 0;
-    return false;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: GroundServiceContent::PointToGrid";
+  return false;
   }
   uint32_t c = std::min(
       cols_ - 1, static_cast<uint32_t>((x - bound_x_min_) / resolution_x_));
   uint32_t r = std::min(
       rows_ - 1, static_cast<uint32_t>((y - bound_y_min_) / resolution_y_));
   (*grid_index) = GetIndex(r, c, cols_);
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: GroundServiceContent::PointToGrid";
   return true;
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: GroundServiceContent::PointToGrid";
+ }
 
 float GroundServiceContent::PointToPlaneDistance(
     const Eigen::Vector3d& world_point) const {
 AINFO<<"(DMCZP) EnteringMethod: GroundServiceContent::PointToPlaneDistance";
   uint32_t grid_index = 0;
   if (!PointToGrid(world_point, &grid_index)) {
-    return std::numeric_limits<float>::max();
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: GroundServiceContent::PointToPlaneDistance";
+  return std::numeric_limits<float>::max();
   }
 
   float offset_pt[3];
@@ -117,8 +137,12 @@ AINFO<<"(DMCZP) EnteringMethod: GroundServiceContent::PointToPlaneDistance";
     params[3] = node->params(3);
     out = common::IPlaneToPointSignedDistanceWUnitNorm(params, offset_pt);
   }
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: GroundServiceContent::PointToPlaneDistance";
   return out;
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: GroundServiceContent::PointToPlaneDistance";
+ }
 
 bool GroundServiceContent::Init(double roi_x, double roi_y, uint32_t rows,
                                 uint32_t cols) {
@@ -135,8 +159,12 @@ AINFO<<"(DMCZP) EnteringMethod: GroundServiceContent::Init";
   resolution_y_ = (bound_y_max_ - bound_y_min_) / rows_;
 
   grid_.Init(rows_, cols_);
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: GroundServiceContent::Init";
   return true;
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: GroundServiceContent::Init";
+ }
 
 bool GroundService::Init(const SceneServiceInitOptions& options) {
 AINFO<<"(DMCZP) EnteringMethod: GroundService::Init";
@@ -170,8 +198,12 @@ AINFO<<"(DMCZP) EnteringMethod: GroundService::Init";
 
   ground_content_ref_->Init(roi_region_rad_x, roi_region_rad_y, rows, cols);
 
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: GroundService::Init";
   return true;
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: GroundService::Init";
+ }
 
 float GroundService::QueryPointToGroundDistance(
     const Eigen::Vector3d& world_point) {
@@ -180,8 +212,16 @@ AINFO<<"(DMCZP) EnteringMethod: GroundService::QueryPointToGroundDistance";
   std::lock_guard<std::mutex> lock(mutex_);
   float distance =
       QueryPointToGroundDistance(world_point, *ground_content_ref_);
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: GroundService::QueryPointToGroundDistance";
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: GroundService::QueryPointToGroundDistance";
   return distance;
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: GroundService::QueryPointToGroundDistance";
+ 
+  AINFO<<"(DMCZP) LeaveMethod: GroundService::QueryPointToGroundDistance";
+ }
 
 float GroundService::QueryPointToGroundDistance(
     const Eigen::Vector3d& world_point, const GroundServiceContent& content) {

@@ -27,8 +27,12 @@ namespace common {
 namespace {
 float GetThreshold(const size_t sz, const float c) {
 AINFO<<"(DMCZP) EnteringMethod: GetThreshold";
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: GetThreshold";
   return c / static_cast<float>(sz);
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: GetThreshold";
+ }
 }  // namespace
 
 void GraphSegmentor::Init(const float initial_threshold) {
@@ -41,14 +45,18 @@ AINFO<<"(DMCZP) EnteringMethod: GraphSegmentor::Init";
   for (size_t i = 1; i < kMaxThresholdsNum; ++i) {
     thresholds_table_[i] = GetThreshold(i, initial_threshold_);
   }
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: GraphSegmentor::Init";
+ }
 
 void GraphSegmentor::SegmentGraph(const int num_vertices, const int num_edges,
                                   Edge* edges, bool need_sort) {
 AINFO<<"(DMCZP) EnteringMethod: GraphSegmentor::SegmentGraph";
   if (edges == nullptr) {
     AERROR << "Input Null Edges.";
-    return;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: GraphSegmentor::SegmentGraph";
+  return;
   }
 
   if (need_sort) {
@@ -75,7 +83,9 @@ AINFO<<"(DMCZP) EnteringMethod: GraphSegmentor::SegmentGraph";
                         : GetThreshold(size_a, initial_threshold_));
     }
   }
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: GraphSegmentor::SegmentGraph";
+ }
 
 }  // namespace common
 }  // namespace perception

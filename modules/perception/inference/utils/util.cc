@@ -43,13 +43,19 @@ AINFO<<"(DMCZP) EnteringMethod: write_result";
   std::ofstream outf(out_path, std::ios::binary | std::ios::out);
   if (!outf.is_open()) {
     AINFO << "Cannot open output file: " << out_path;
-    return false;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: write_result";
+  return false;
   }
   outf.write(reinterpret_cast<const char *>(results.data()),
              sizeof(float) * results.size());
   outf.close();
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: write_result";
   return true;
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: write_result";
+ }
 
 }  // namespace inference
 }  // namespace perception

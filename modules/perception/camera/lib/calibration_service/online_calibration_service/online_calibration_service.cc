@@ -64,20 +64,32 @@ AINFO<<"(DMCZP) EnteringMethod: OnlineCalibrationService::Init";
   CHECK(calibrator_ != nullptr);
   CHECK(calibrator_->Init(calibrator_init_options))
       << "Failed to init " << options.calibrator_method;
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: OnlineCalibrationService::Init";
   return true;
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: OnlineCalibrationService::Init";
+ }
 
 bool OnlineCalibrationService::BuildIndex() {
 AINFO<<"(DMCZP) EnteringMethod: OnlineCalibrationService::BuildIndex";
   is_service_ready_ = HasSetIntrinsics() && HasSetGroundPlane();
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: OnlineCalibrationService::BuildIndex";
   return is_service_ready_;
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: OnlineCalibrationService::BuildIndex";
+ }
 
 bool OnlineCalibrationService::QueryDepthOnGroundPlane(int x, int y,
                                                        double *depth) const {
 AINFO<<"(DMCZP) EnteringMethod: OnlineCalibrationService::QueryDepthOnGroundPlane";
   if (!is_service_ready_) {
-    return false;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: OnlineCalibrationService::QueryDepthOnGroundPlane";
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: OnlineCalibrationService::QueryDepthOnGroundPlane";
+  return false;
   }
   CHECK(depth != nullptr);
   double pixel[2] = {static_cast<double>(x), static_cast<double>(y)};
@@ -93,14 +105,22 @@ AINFO<<"(DMCZP) EnteringMethod: OnlineCalibrationService::QueryDepthOnGroundPlan
   }
 
   *depth = point[2];
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: OnlineCalibrationService::QueryDepthOnGroundPlane";
   return true;
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: OnlineCalibrationService::QueryDepthOnGroundPlane";
+ }
 
 bool OnlineCalibrationService::QueryPoint3dOnGroundPlane(
     int x, int y, Eigen::Vector3d *point3d) const {
 AINFO<<"(DMCZP) EnteringMethod: OnlineCalibrationService::QueryPoint3dOnGroundPlane";
   if (!is_service_ready_) {
-    return false;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: OnlineCalibrationService::QueryPoint3dOnGroundPlane";
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: OnlineCalibrationService::QueryPoint3dOnGroundPlane";
+  return false;
   }
   CHECK(point3d != nullptr);
   double pixel[2] = {static_cast<double>(x), static_cast<double>(y)};
@@ -117,8 +137,12 @@ AINFO<<"(DMCZP) EnteringMethod: OnlineCalibrationService::QueryPoint3dOnGroundPl
   (*point3d)(0) = point[0];
   (*point3d)(1) = point[1];
   (*point3d)(2) = point[2];
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: OnlineCalibrationService::QueryPoint3dOnGroundPlane";
   return true;
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: OnlineCalibrationService::QueryPoint3dOnGroundPlane";
+ }
 
 bool OnlineCalibrationService::QueryGroundPlaneInCameraFrame(
     Eigen::Vector4d *plane_param) const {
@@ -127,15 +151,21 @@ AINFO<<"(DMCZP) EnteringMethod: OnlineCalibrationService::QueryGroundPlaneInCame
   if (!is_service_ready_) {
     (*plane_param)(0) = (*plane_param)(1) = (*plane_param)(2) =
         (*plane_param)(3) = 0.0;
-    return false;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: OnlineCalibrationService::QueryGroundPlaneInCameraFrame";
+  return false;
   }
   auto iter = name_camera_status_map_.find(sensor_name_);
   (*plane_param)(0) = iter->second.ground_plane[0];
   (*plane_param)(1) = iter->second.ground_plane[1];
   (*plane_param)(2) = iter->second.ground_plane[2];
   (*plane_param)(3) = iter->second.ground_plane[3];
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: OnlineCalibrationService::QueryGroundPlaneInCameraFrame";
   return true;
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: OnlineCalibrationService::QueryGroundPlaneInCameraFrame";
+ }
 
 bool OnlineCalibrationService::QueryCameraToGroundHeightAndPitchAngle(
     float *height, float *pitch) const {
@@ -144,13 +174,19 @@ AINFO<<"(DMCZP) EnteringMethod: OnlineCalibrationService::QueryCameraToGroundHei
   CHECK(pitch != nullptr);
   if (!is_service_ready_) {
     *height = *pitch = 0.0;
-    return false;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: OnlineCalibrationService::QueryCameraToGroundHeightAndPitchAngle";
+  return false;
   }
   auto iter = name_camera_status_map_.find(sensor_name_);
   *height = iter->second.camera_ground_height;
   *pitch = iter->second.pitch_angle;
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: OnlineCalibrationService::QueryCameraToGroundHeightAndPitchAngle";
   return true;
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: OnlineCalibrationService::QueryCameraToGroundHeightAndPitchAngle";
+ }
 
 void OnlineCalibrationService::Update(CameraFrame *frame) {
 AINFO<<"(DMCZP) EnteringMethod: OnlineCalibrationService::Update";
@@ -186,7 +222,9 @@ AINFO<<"(DMCZP) EnteringMethod: OnlineCalibrationService::Update";
         << " degree.";
   // CHECK(BuildIndex());
   is_service_ready_ = true;
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: OnlineCalibrationService::Update";
+ }
 
 void OnlineCalibrationService::SetCameraHeightAndPitch(
     const std::map<std::string, float> &name_camera_ground_height_map,
@@ -219,12 +257,18 @@ AINFO<<"(DMCZP) EnteringMethod: OnlineCalibrationService::SetCameraHeightAndPitc
     name_camera_status_map_[iter->first].ground_plane[3] =
         -name_camera_status_map_[iter->first].camera_ground_height;
   }
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: OnlineCalibrationService::SetCameraHeightAndPitch";
+ }
 
 std::string OnlineCalibrationService::Name() const {
 AINFO<<"(DMCZP) EnteringMethod: OnlineCalibrationService::Name";
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: OnlineCalibrationService::Name";
   return "OnlineCalibrationService";
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: OnlineCalibrationService::Name";
+ }
 REGISTER_CALIBRATION_SERVICE(OnlineCalibrationService);
 
 }  // namespace camera

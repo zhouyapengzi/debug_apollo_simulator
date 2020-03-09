@@ -23,14 +23,22 @@ namespace lidar {
 
 bool DummySegmentation::Init(const SegmentationInitOptions& options) {
 AINFO<<"(DMCZP) EnteringMethod: DummySegmentation::Init";
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: DummySegmentation::Init";
   return true;
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: DummySegmentation::Init";
+ }
 
 bool DummySegmentation::Segment(const SegmentationOptions& options,
                                 LidarFrame* frame) {
 AINFO<<"(DMCZP) EnteringMethod: DummySegmentation::Segment";
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: DummySegmentation::Segment";
   return true;
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: DummySegmentation::Segment";
+ }
 
 PERCEPTION_REGISTER_SEGMENTATION(DummySegmentation);
 

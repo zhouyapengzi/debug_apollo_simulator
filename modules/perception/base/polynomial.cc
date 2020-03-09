@@ -20,7 +20,11 @@ namespace apollo {
 namespace perception {
 namespace base {
 
-Polynomial::Polynomial() { coeff_[0] = 0.0; }
+Polynomial::Polynomial() {
+  AINFO<<"(DMCZP) EnteringMethod: Polynomial::Polynomial";
+ coeff_[0] = 0.0; 
+  AINFO<<"(DMCZP) LeaveMethod: Polynomial::Polynomial";
+ }
 Polynomial::~Polynomial() {}
 
 const std::map<uint32_t, double>& Polynomial::getCoeff() const {
@@ -67,8 +71,12 @@ AINFO<<"(DMCZP) EnteringMethod: Polynomial::operator";
     ++it_gap;
   }
 
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: Polynomial::operator";
   return sum;
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: Polynomial::operator";
+ }
 
 std::ostream& operator<<(std::ostream& o, const Polynomial& p) {
   const std::map<uint32_t, double>& coeff = p.getCoeff();

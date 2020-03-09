@@ -38,7 +38,11 @@ AINFO<<"(DMCZP) EnteringMethod: NCutSegmentation::Init";
 
   if (!Configure(param_file)) {
     AERROR << "failed to load ncut config.";
-    return false;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: NCutSegmentation::Init";
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: NCutSegmentation::Init";
+  return false;
   }
 
   // init ground detector
@@ -72,7 +76,9 @@ AINFO<<"(DMCZP) EnteringMethod: NCutSegmentation::Init";
     _segmentors[i].reset(new NCut);
     if (!(_segmentors[i]->Init(ncut_param_))) {
       AERROR << "failed to init NormalizedCut " << i << ".";
-      return false;
+      
+  AINFO<<"(DMCZP) (return) LeaveMethod: NCutSegmentation::Init";
+  return false;
     }
   }
 
@@ -105,7 +111,9 @@ AINFO<<"(DMCZP) EnteringMethod: NCutSegmentation::Init";
           << lidar_frame_ref_->lidar2world_pose(2, 3);
     GroundDetectorOptions ground_detector_options;
     ground_detector_->Detect(ground_detector_options, lidar_frame_ref_);
-    return true;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: NCutSegmentation::Init";
+  return true;
   });
 
   worker_.Start();
@@ -121,8 +129,12 @@ AINFO<<"(DMCZP) EnteringMethod: NCutSegmentation::Init";
 #endif
 
   AINFO << "NCutSegmentation init success, num_threads: " << num_threads;
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: NCutSegmentation::Init";
   return true;
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: NCutSegmentation::Init";
+ }
 
 bool NCutSegmentation::Configure(std::string param_file) {
 AINFO<<"(DMCZP) EnteringMethod: NCutSegmentation::Configure";
@@ -145,8 +157,12 @@ AINFO<<"(DMCZP) EnteringMethod: NCutSegmentation::Configure";
   roi_filter_str_ = seg_param_.roi_filter();
   ncut_param_ = seg_param_.ncut_param();
   AINFO << "NCut Segmentation " << seg_param_.DebugString();
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: NCutSegmentation::Configure";
   return true;
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: NCutSegmentation::Configure";
+ }
 
 bool NCutSegmentation::GetConfigs(std::string* param_file) {
 AINFO<<"(DMCZP) EnteringMethod: NCutSegmentation::GetConfigs";
@@ -167,8 +183,12 @@ AINFO<<"(DMCZP) EnteringMethod: NCutSegmentation::GetConfigs";
   CHECK(apollo::cyber::common::GetProtoFromFile(config_file, &config))
       << "Failed to parse CNNSeg config file";
   *param_file = GetAbsolutePath(work_root, config.param_file());
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: NCutSegmentation::GetConfigs";
   return true;
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: NCutSegmentation::GetConfigs";
+ }
 
 bool NCutSegmentation::Segment(const SegmentationOptions& options,
                                LidarFrame* frame) {
@@ -176,7 +196,17 @@ AINFO<<"(DMCZP) EnteringMethod: NCutSegmentation::Segment";
   // check input
   if (frame == nullptr) {
     AERROR << "Input null frame ptr.";
-    return false;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: NCutSegmentation::Segment";
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: NCutSegmentation::Segment";
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: NCutSegmentation::Segment";
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: NCutSegmentation::Segment";
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: NCutSegmentation::Segment";
+  return false;
   }
   if (frame->cloud == nullptr) {
     AERROR << "Input null frame cloud.";
@@ -386,8 +416,12 @@ AINFO<<"(DMCZP) EnteringMethod: NCutSegmentation::Segment";
   VisualizeSegments(*segments);
   VisualizeSegments(*_outliers);
 #endif
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: NCutSegmentation::Segment";
   return true;
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: NCutSegmentation::Segment";
+ }
 
 void NCutSegmentation::PartitionConnectedComponents(
     const base::PointFCloudPtr& in_cloud, float cell_size,
@@ -403,7 +437,9 @@ AINFO<<"(DMCZP) EnteringMethod: NCutSegmentation::PartitionConnectedComponents";
     temp_clouds[i] = base::PointFCloudPtr(
         new base::PointFCloud(*in_cloud, component_points[i]));
   }
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: NCutSegmentation::PartitionConnectedComponents";
+ }
 
 void NCutSegmentation::ObstacleFilter(const base::PointFCloudPtr& in_cloud,
                                       float cell_size,
@@ -466,13 +502,21 @@ AINFO<<"(DMCZP) EnteringMethod: NCutSegmentation::ObstacleFilter";
   }
   *out_cloud =
       base::PointFCloudPtr(new base::PointFCloud(*in_cloud, remaining_pids));
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: NCutSegmentation::ObstacleFilter";
+ }
 
 bool NCutSegmentation::IsOutlier(const base::PointFCloudPtr& in_cloud) {
 AINFO<<"(DMCZP) EnteringMethod: NCutSegmentation::IsOutlier";
   size_t min_num_points = std::max(outlier_min_num_points_, 1);
   if (in_cloud->size() < min_num_points) {
-    return true;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: NCutSegmentation::IsOutlier";
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: NCutSegmentation::IsOutlier";
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: NCutSegmentation::IsOutlier";
+  return true;
   }
   float x_max = -FLT_MAX;
   float y_max = -FLT_MAX;
@@ -504,10 +548,16 @@ AINFO<<"(DMCZP) EnteringMethod: NCutSegmentation::IsOutlier";
   }
   // std::pair<float, bool> dist = _ground_detector.distance_to_ground(pt_max);
   // if (dist.second && dist.first < _outlier_height) {
-  //    return true;
+  //    
+  AINFO<<"(DMCZP) (return) LeaveMethod: NCutSegmentation::IsOutlier";
+  return true;
   //}
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: NCutSegmentation::IsOutlier";
   return false;
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: NCutSegmentation::IsOutlier";
+ }
 
 #ifdef DEBUG_NCUT
 void NCutSegmentation::VisualizePointCloud(const base::PointFCloudPtr& cloud) {
@@ -529,7 +579,9 @@ AINFO<<"(DMCZP) EnteringMethod: NCutSegmentation::VisualizePointCloud";
   snprintf(_viewer_id, sizeof(_viewer_id), "vis%06d", _viewer_count++);
   _viewer->addPointCloud(_rgb_cloud, _viewer_id, 0);
   _viewer->spin();
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: NCutSegmentation::VisualizePointCloud";
+ }
 
 void NCutSegmentation::VisualizeSegments(
     const std::vector<base::ObjectPtr>& segments) {
@@ -558,7 +610,9 @@ AINFO<<"(DMCZP) EnteringMethod: NCutSegmentation::VisualizeSegments";
   snprintf(_viewer_id, sizeof(_viewer_id), "vis%06d", _viewer_count++);
   _viewer->addPointCloud(_rgb_cloud, _viewer_id, 0);
   _viewer->spin();
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: NCutSegmentation::VisualizeSegments";
+ }
 
 void NCutSegmentation::VisualizeComponents(
     const base::PointFCloudPtr& cloud,
@@ -608,7 +662,9 @@ AINFO<<"(DMCZP) EnteringMethod: NCutSegmentation::VisualizeComponents";
     _viewer->addText3D(text, centers[i], 0.3, 1.0, 1.0, 1.0, text_id, 0);
   }
   _viewer->spin();
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: NCutSegmentation::VisualizeComponents";
+ }
 #endif
 
 PERCEPTION_REGISTER_SEGMENTATION(NCutSegmentation);

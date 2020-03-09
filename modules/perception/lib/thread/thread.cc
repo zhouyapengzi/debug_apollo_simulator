@@ -40,7 +40,9 @@ AINFO<<"(DMCZP) EnteringMethod: Thread::Start";
   CHECK_EQ(pthread_attr_destroy(&attr), 0);
 
   started_ = true;
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: Thread::Start";
+ }
 
 void Thread::Join() {
 AINFO<<"(DMCZP) EnteringMethod: Thread::Join";
@@ -49,12 +51,20 @@ AINFO<<"(DMCZP) EnteringMethod: Thread::Join";
   CHECK_EQ(result, 0) << "Could not join thread (" << tid_ << ", "
                       << thread_name_ << ")";
   tid_ = 0;
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: Thread::Join";
+ }
 
 bool Thread::IsAlive() {
 AINFO<<"(DMCZP) EnteringMethod: Thread::IsAlive";
   if (tid_ == 0) {
-    return false;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: Thread::IsAlive";
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: Thread::IsAlive";
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: Thread::IsAlive";
+  return false;
   }
   // no signal sent, just check existence for thread
   int ret = pthread_kill(tid_, 0);
@@ -66,8 +76,12 @@ AINFO<<"(DMCZP) EnteringMethod: Thread::IsAlive";
     return false;
   }
 
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: Thread::IsAlive";
   return true;
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: Thread::IsAlive";
+ }
 
 }  // namespace lib
 }  // namespace perception

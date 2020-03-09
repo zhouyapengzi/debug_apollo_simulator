@@ -30,15 +30,21 @@ AINFO<<"(DMCZP) EnteringMethod: ReadProtoFromTextFile";
   int fd = open(filename.c_str(), O_RDONLY);
   if (fd < 0) {
     AERROR << "cannot open file " << filename;
-    return false;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: ReadProtoFromTextFile";
+  return false;
   }
   google::protobuf::io::FileInputStream raw_input(fd);
 
   bool success = google::protobuf::TextFormat::Parse(&raw_input, proto);
 
   close(fd);
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: ReadProtoFromTextFile";
   return success;
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: ReadProtoFromTextFile";
+ }
 
 bool ReadProtoFromBinaryFile(const std::string &filename,
                              google::protobuf::Message *proto) {
@@ -46,7 +52,9 @@ AINFO<<"(DMCZP) EnteringMethod: ReadProtoFromBinaryFile";
   int fd = open(filename.c_str(), O_RDONLY);
   if (fd < 0) {
     AERROR << "cannot open file " << filename;
-    return false;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: ReadProtoFromBinaryFile";
+  return false;
   }
   google::protobuf::io::FileInputStream raw_input(fd);
   google::protobuf::io::CodedInputStream coded_input(&raw_input);
@@ -55,16 +63,28 @@ AINFO<<"(DMCZP) EnteringMethod: ReadProtoFromBinaryFile";
   bool success = proto->ParseFromCodedStream(&coded_input);
 
   close(fd);
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: ReadProtoFromBinaryFile";
   return success;
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: ReadProtoFromBinaryFile";
+ }
 bool loadNetParams(const std::string &param_file, NetParameter *param) {
 AINFO<<"(DMCZP) EnteringMethod: loadNetParams";
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: loadNetParams";
   return ReadProtoFromTextFile(param_file, param);
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: loadNetParams";
+ }
 std::string locateFile(const std::string &network, const std::string &input) {
 AINFO<<"(DMCZP) EnteringMethod: locateFile";
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: locateFile";
   return network + "/" + input;
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: locateFile";
+ }
 }  // namespace inference
 }  // namespace perception
 }  // namespace apollo

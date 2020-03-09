@@ -181,8 +181,12 @@ AINFO<<"(DMCZP) EnteringMethod: ObstacleCameraPerception::Init";
     init_options.conf_file = plugin_param.config_file();
     CHECK(ObjectTemplateManager::Instance()->Init(init_options));
   }
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: ObstacleCameraPerception::Init";
   return true;
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: ObstacleCameraPerception::Init";
+ }
 
 void ObstacleCameraPerception::InitLane(
     const std::string &work_root, const base::BaseCameraModelPtr model,
@@ -249,7 +253,9 @@ AINFO<<"(DMCZP) EnteringMethod: ObstacleCameraPerception::InitCalibrationService
       EnsureDirectory(out_calib_dir_);
     }
   }
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: ObstacleCameraPerception::InitLane";
+ }
 
 void ObstacleCameraPerception::InitCalibrationService(
     const std::string &work_root, const base::BaseCameraModelPtr model,
@@ -279,7 +285,9 @@ void ObstacleCameraPerception::InitCalibrationService(
         << calibration_service_param.plugin_param().name();
     AINFO << "calibration_service: " << calibration_service_->Name();
   }
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: ObstacleCameraPerception::InitCalibrationService";
+ }
 
 void ObstacleCameraPerception::SetCameraHeightAndPitch(
     const std::map<std::string, float> &name_camera_ground_height_map,
@@ -290,21 +298,29 @@ AINFO<<"(DMCZP) EnteringMethod: ObstacleCameraPerception::SetCameraHeightAndPitc
   calibration_service_->SetCameraHeightAndPitch(
       name_camera_ground_height_map, name_camera_pitch_angle_diff_map,
       pitch_angle_calibrator_working_sensor);
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: ObstacleCameraPerception::SetCameraHeightAndPitch";
+ }
 
 void ObstacleCameraPerception::SetIm2CarHomography(
     Eigen::Matrix3d homography_im2car) {
 AINFO<<"(DMCZP) EnteringMethod: ObstacleCameraPerception::SetIm2CarHomography";
   CHECK(calibration_service_ != nullptr);
   lane_postprocessor_->SetIm2CarHomography(homography_im2car);
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: ObstacleCameraPerception::SetIm2CarHomography";
+ }
 
 bool ObstacleCameraPerception::GetCalibrationService(
     BaseCalibrationService **calibration_service) {
 AINFO<<"(DMCZP) EnteringMethod: ObstacleCameraPerception::GetCalibrationService";
   *calibration_service = calibration_service_.get();
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: ObstacleCameraPerception::GetCalibrationService";
   return true;
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: ObstacleCameraPerception::GetCalibrationService";
+ }
 
 bool ObstacleCameraPerception::Perception(
     const CameraPerceptionOptions &options, CameraFrame *frame) {
@@ -331,7 +347,13 @@ AINFO<<"(DMCZP) EnteringMethod: ObstacleCameraPerception::Perception";
     LanePostprocessorOptions lane_postprocessor_options;
     if (!lane_detector_->Detect(lane_detetor_options, frame)) {
       AERROR << "Failed to detect lane.";
-      return false;
+      
+  AINFO<<"(DMCZP) (return) LeaveMethod: ObstacleCameraPerception::Perception";
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: ObstacleCameraPerception::Perception";
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: ObstacleCameraPerception::Perception";
+  return false;
     }
     PERCEPTION_PERF_BLOCK_END_WITH_INDICATOR(
         frame->data_provider->sensor_name(), "LaneDetector");
@@ -391,7 +413,23 @@ AINFO<<"(DMCZP) EnteringMethod: ObstacleCameraPerception::Perception";
   // Obstacle prediction
   if (!tracker_->Predict(tracker_options, frame)) {
     AERROR << "Failed to predict.";
-    return false;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: ObstacleCameraPerception::Perception";
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: ObstacleCameraPerception::Perception";
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: ObstacleCameraPerception::Perception";
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: ObstacleCameraPerception::Perception";
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: ObstacleCameraPerception::Perception";
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: ObstacleCameraPerception::Perception";
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: ObstacleCameraPerception::Perception";
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: ObstacleCameraPerception::Perception";
+  return false;
   }
   PERCEPTION_PERF_BLOCK_END_WITH_INDICATOR(frame->data_provider->sensor_name(),
                                            "Predict");
@@ -522,8 +560,12 @@ AINFO<<"(pengzi) finish camera detect obstacle. thread:"<< std::this_thread::get
 
 AINFO<<"(pengzi) finish obstacle camera perception" <<".thread:"<< std::this_thread::get_id();
  
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: ObstacleCameraPerception::Perception";
   return true;
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: ObstacleCameraPerception::Perception";
+ }
 }  // namespace camera
 }  // namespace perception
 }  // namespace apollo

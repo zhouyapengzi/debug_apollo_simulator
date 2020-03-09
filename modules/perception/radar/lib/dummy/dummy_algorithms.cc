@@ -72,36 +72,86 @@ void DummyDetector::ContiObs2Frame(
     }
     radar_frame->objects.push_back(radar_object);
   }
-}
 
-bool DummyPreprocessor::Init() { return true; }
+  AINFO<<"(DMCZP) LeaveMethod: DummyDetector::ContiObs2Frame";
+ }
+
+bool DummyPreprocessor::Init() {
+  AINFO<<"(DMCZP) EnteringMethod: DummyPreprocessor::Init";
+ 
+  AINFO<<"(D
+  AINFO<<"(DMCZP) LeaveMethod: DummyPreprocessor::Init";
+ MCZP) (return) LeaveMethod: DummyPreprocessor::Init";
+  return true; }
 bool DummyPreprocessor::Preprocess(const drivers::ContiRadar& raw_obstacles,
                                    const PreprocessorOptions& options,
                                    drivers::ContiRadar* corrected_obstacles) {
 AINFO<<"(DMCZP) EnteringMethod: DummyPreprocessor::Preprocess";
   CHECK_NOTNULL(corrected_obstacles);
   *corrected_obstacles = raw_obstacles;
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: DummyPreprocessor::Preprocess";
   return true;
-}
-std::string DummyPreprocessor::Name() const { return "DummyPreprocessor"; }
 
-bool DummyDetector::Init() { return true; }
+  AINFO<<"(DMCZP) LeaveMethod: DummyPreprocessor::Preprocess";
+ }
+std::string DummyPreprocessor::Name() const {
+  AINFO<<"(DMCZP) EnteringMethod: DummyPreprocessor::Name";
+ 
+  AINFO<<"(DMCZP) (return) 
+  AINFO<<"(DMCZP) LeaveMethod: DummyPreprocessor::Name";
+ LeaveMethod: DummyPreprocessor::Name";
+  return "DummyPreprocessor"; }
+
+bool DummyDetector::Init() {
+  AINFO<<"(DMCZP) EnteringMethod: DummyDetector::Init";
+ 
+  AINFO<<"(D
+  AINFO<<"(DMCZP) LeaveMethod: DummyDetector::Init";
+ MCZP) (return) LeaveMethod: DummyDetector::Init";
+  return true; }
 bool DummyDetector::Detect(const drivers::ContiRadar& corrected_obstacles,
                            const DetectorOptions& options,
                            base::FramePtr detected_frame) {
 AINFO<<"(DMCZP) EnteringMethod: DummyDetector::Detect";
   ContiObs2Frame(corrected_obstacles, detected_frame);
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: DummyDetector::Detect";
   return true;
-}
-std::string DummyDetector::Name() const { return "DummyDetector"; }
 
-bool DummyRoiFilter::Init() { return true; }
+  AINFO<<"(DMCZP) LeaveMethod: DummyDetector::Detect";
+ }
+std::string DummyDetector::Name() const {
+  AINFO<<"(DMCZP) EnteringMethod: DummyDetector::Name";
+ 
+  AINFO<<"(DMCZP) (retu
+  AINFO<<"(DMCZP) LeaveMethod: DummyDetector::Name";
+ rn) LeaveMethod: DummyDetector::Name";
+  return "DummyDetector"; }
+
+bool DummyRoiFilter::Init() {
+  AINFO<<"(DMCZP) EnteringMethod: DummyRoiFilter::Init";
+ 
+  AINFO<<"(D
+  AINFO<<"(DMCZP) LeaveMethod: DummyRoiFilter::Init";
+ MCZP) (return) LeaveMethod: DummyRoiFilter::Init";
+  return true; }
 bool DummyRoiFilter::RoiFilter(const RoiFilterOptions& options,
                                base::FramePtr radar_frame) {
 AINFO<<"(DMCZP) EnteringMethod: DummyRoiFilter::RoiFilter";
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: DummyRoiFilter::RoiFilter";
   return true;
-}
-std::string DummyRoiFilter::Name() const { return "DummyRoiFilter"; }
+
+  AINFO<<"(DMCZP) LeaveMethod: DummyRoiFilter::RoiFilter";
+ }
+std::string DummyRoiFilter::Name() const {
+  AINFO<<"(DMCZP) EnteringMethod: DummyRoiFilter::Name";
+ 
+  AINFO<<"(DMCZP) (retur
+  AINFO<<"(DMCZP) LeaveMethod: DummyRoiFilter::Name";
+ n) LeaveMethod: DummyRoiFilter::Name";
+  return "DummyRoiFilter"; }
 
 PERCEPTION_REGISTER_PREPROCESSOR(DummyPreprocessor);
 PERCEPTION_REGISTER_ROI_FILTER(DummyRoiFilter);

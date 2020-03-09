@@ -57,7 +57,9 @@ AINFO<<"(DMCZP) EnteringMethod: GetBoundingBox2d";
                  object->center(0);
   box->at(3).y = half_length * direction(1) - half_width * odirection(1) +
                  object->center(1);
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: GetBoundingBox2d";
+ }
 
 void ComputeObjectShapeFromPolygon(std::shared_ptr<Object> object,
                                    bool use_world_cloud) {
@@ -69,7 +71,9 @@ AINFO<<"(DMCZP) EnteringMethod: ComputeObjectShapeFromPolygon";
   if (polygon.empty() || cloud.empty()) {
     AINFO << "Failed to compute box, polygon size: " << polygon.size()
           << " cloud size: " << cloud.size();
-    return;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: ComputeObjectShapeFromPolygon";
+  return;
   }
 
   // note here we assume direction is not changed
@@ -128,7 +132,9 @@ AINFO<<"(DMCZP) EnteringMethod: ComputeObjectShapeFromPolygon";
   polygon_xy = projected_polygon_xy(0) * direction +
                projected_polygon_xy(1) * odirection;
   object->center << polygon_xy(0) + offset(0), polygon_xy(1) + offset(1), min_z;
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: ComputeObjectShapeFromPolygon";
+ }
 
 }  // namespace lidar
 }  // namespace perception

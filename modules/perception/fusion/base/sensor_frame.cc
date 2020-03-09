@@ -20,12 +20,18 @@ namespace apollo {
 namespace perception {
 namespace fusion {
 
-SensorFrame::SensorFrame() { header_.reset(new SensorFrameHeader()); }
+SensorFrame::SensorFrame() {
+  AINFO<<"(DMCZP) EnteringMethod: SensorFrame::SensorFrame";
+ header_.reset(new SensorFrameHeader()); 
+  AINFO<<"(DMCZP) LeaveMethod: SensorFrame::SensorFrame";
+ }
 
 SensorFrame::SensorFrame(const base::FrameConstPtr& base_frame_ptr) {
 AINFO<<"(DMCZP) EnteringMethod: SensorFrame::SensorFrame";
   Initialize(base_frame_ptr);
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: SensorFrame::SensorFrame";
+ }
 
 void SensorFrame::Initialize(const base::FrameConstPtr& base_frame_ptr) {
 AINFO<<"(DMCZP) EnteringMethod: SensorFrame::Initialize";
@@ -48,31 +54,47 @@ AINFO<<"(DMCZP) EnteringMethod: SensorFrame::Initialize";
       foreground_objects_.emplace_back(obj);
     }
   }
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: SensorFrame::Initialize";
+ }
 
 void SensorFrame::Initialize(const base::FrameConstPtr& base_frame_ptr,
                              const SensorPtr& sensor) {
 AINFO<<"(DMCZP) EnteringMethod: SensorFrame::Initialize";
   Initialize(base_frame_ptr);
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: SensorFrame::Initialize";
+ }
 
 std::string SensorFrame::GetSensorId() const {
 AINFO<<"(DMCZP) EnteringMethod: SensorFrame::GetSensorId";
   if (header_ == nullptr) {
-    return std::string("");
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: SensorFrame::GetSensorId";
+  return std::string("");
   }
 
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: SensorFrame::GetSensorId";
   return header_->sensor_info.name;
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: SensorFrame::GetSensorId";
+ }
 
 base::SensorType SensorFrame::GetSensorType() const {
 AINFO<<"(DMCZP) EnteringMethod: SensorFrame::GetSensorType";
   if (header_ == nullptr) {
-    return base::SensorType::UNKNOWN_SENSOR_TYPE;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: SensorFrame::GetSensorType";
+  return base::SensorType::UNKNOWN_SENSOR_TYPE;
   }
 
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: SensorFrame::GetSensorType";
   return header_->sensor_info.type;
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: SensorFrame::GetSensorType";
+ }
 
 }  // namespace fusion
 }  // namespace perception

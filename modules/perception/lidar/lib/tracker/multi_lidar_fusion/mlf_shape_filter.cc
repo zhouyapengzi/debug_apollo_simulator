@@ -44,8 +44,12 @@ AINFO<<"(DMCZP) EnteringMethod: MlfShapeFilter::Init";
 
   bottom_points_ignore_threshold_ = config.bottom_points_ignore_threshold();
   top_points_ignore_threshold_ = config.top_points_ignore_threshold();
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: MlfShapeFilter::Init";
   return true;
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: MlfShapeFilter::Init";
+ }
 
 void MlfShapeFilter::UpdateWithObject(const MlfFilterOptions& options,
                                       const MlfTrackDataConstPtr& track_data,
@@ -88,15 +92,21 @@ AINFO<<"(DMCZP) EnteringMethod: MlfShapeFilter::UpdateWithObject";
   new_object->output_center = new_object->center;
   new_object->output_direction = new_object->direction;
   new_object->output_size = new_object->size;
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: MlfShapeFilter::UpdateWithObject";
+ }
 
 void MlfShapeFilter::UpdateWithoutObject(const MlfFilterOptions& options,
                                          double timestamp,
                                          MlfTrackDataPtr track_data) {
 AINFO<<"(DMCZP) EnteringMethod: MlfShapeFilter::UpdateWithoutObject";
   // TODO(.)
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: MlfShapeFilter::UpdateWithoutObject";
   return;
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: MlfShapeFilter::UpdateWithoutObject";
+ }
 
 PERCEPTION_REGISTER_MLFFILTER(MlfShapeFilter);
 

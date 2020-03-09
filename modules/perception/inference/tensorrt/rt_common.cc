@@ -42,8 +42,12 @@ AINFO<<"(DMCZP) EnteringMethod: ReshapeDims";
       axis_inference = i;
     }
   }
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: ReshapeDims";
   return outDims;
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: ReshapeDims";
+ }
 
 void ParseNetParam(const NetParameter &net_param,
                    TensorDimsMap *tensor_dims_map,
@@ -92,13 +96,23 @@ AINFO<<"(DMCZP) EnteringMethod: ParseNetParam";
       order->push_back(tensorrt_layer_param);
     }
   }
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: ParseNetParam";
+ }
 
 bool ParserConvParam(const ConvolutionParameter &conv, ConvParam *param) {
 AINFO<<"(DMCZP) EnteringMethod: ParserConvParam";
   if (conv.has_kernel_h() || conv.has_kernel_w()) {
     if (conv.kernel_size_size() != 0) {
-      return false;
+      
+  AINFO<<"(DMCZP) (return) LeaveMethod: ParserConvParam";
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: ParserConvParam";
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: ParserConvParam";
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: ParserConvParam";
+  return false;
     }
     param->kernel_h = conv.kernel_h();
     param->kernel_w = conv.kernel_w();
@@ -111,7 +125,11 @@ AINFO<<"(DMCZP) EnteringMethod: ParserConvParam";
                                                    : conv.kernel_size(0));
   }
   if (param->kernel_h == 0 || param->kernel_w == 0) {
-    return false;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: ParserConvParam";
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: ParserConvParam";
+  return false;
   }
 
   if (conv.has_pad_h() || conv.has_pad_w()) {
@@ -141,8 +159,12 @@ AINFO<<"(DMCZP) EnteringMethod: ParserConvParam";
   }
 
   param->dilation = conv.dilation_size() == 0 ? 1 : conv.dilation(0);
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: ParserConvParam";
   return true;
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: ParserConvParam";
+ }
 
 bool modify_pool_param(PoolingParameter *pool_param) {
 AINFO<<"(DMCZP) EnteringMethod: modify_pool_param";
@@ -151,7 +173,11 @@ AINFO<<"(DMCZP) EnteringMethod: modify_pool_param";
     pool_param->set_kernel_w(pool_param->kernel_size());
   }
   if (pool_param->kernel_w() == 0 || pool_param->kernel_h() == 0) {
-    return false;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: modify_pool_param";
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: modify_pool_param";
+  return false;
   }
   if (pool_param->has_pad()) {
     pool_param->set_pad_h(pool_param->pad());
@@ -164,8 +190,12 @@ AINFO<<"(DMCZP) EnteringMethod: modify_pool_param";
   if (pool_param->stride_w() == 0 || pool_param->stride_h() == 0) {
     return false;
   }
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: modify_pool_param";
   return true;
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: modify_pool_param";
+ }
 
 }  // namespace inference
 }  // namespace perception

@@ -42,32 +42,52 @@ using base::PointDCloudPtr;
 using base::RoadBoundary;
 // HDMapInput
 
-HDMapInput::HDMapInput() {}
+HDMapInput::HDMapInput() {
+  AINFO<<"(DMCZP) EnteringMethod: HDMapInput::HDMapInput";
+
+  AINFO<<"(DMCZP) LeaveMethod: HDMapInput::HDMapInput";
+ }
 
 bool HDMapInput::Init() {
 AINFO<<"(DMCZP) EnteringMethod: HDMapInput::Init";
   lib::MutexLock lock(&mutex_);
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: HDMapInput::Init";
   return InitInternal();
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: HDMapInput::Init";
+ }
 
 bool HDMapInput::InitInternal() {
 AINFO<<"(DMCZP) EnteringMethod: HDMapInput::InitInternal";
   if (inited_) {
-    return true;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: HDMapInput::InitInternal";
+  return true;
   }
   if (!InitHDMap()) {
-    return false;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: HDMapInput::InitInternal";
+  return false;
   }
   inited_ = true;
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: HDMapInput::InitInternal";
   return true;
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: HDMapInput::InitInternal";
+ }
 
 bool HDMapInput::Reset() {
 AINFO<<"(DMCZP) EnteringMethod: HDMapInput::Reset";
   lib::MutexLock lock(&mutex_);
   inited_ = false;
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: HDMapInput::Reset";
   return InitInternal();
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: HDMapInput::Reset";
+ }
 
 bool HDMapInput::InitHDMap() {
 AINFO<<"(DMCZP) EnteringMethod: HDMapInput::InitHDMap";
@@ -77,7 +97,13 @@ AINFO<<"(DMCZP) EnteringMethod: HDMapInput::InitHDMap";
   if (!lib::ConfigManager::Instance()->GetModelConfig(model_name,
                                                       &model_config)) {
     AERROR << "Failed to find model: " << model_name;
-    return false;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: HDMapInput::InitHDMap";
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: HDMapInput::InitHDMap";
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: HDMapInput::InitHDMap";
+  return false;
   }
   if (!model_config->get_value("hdmap_sample_step", &hdmap_sample_step_)) {
     AERROR << "hdmap_sample_step not found.";
@@ -102,8 +128,12 @@ AINFO<<"(DMCZP) EnteringMethod: HDMapInput::InitHDMap";
   }
 
   AINFO << "Load hdmap file: " << hdmap_file_;
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: HDMapInput::InitHDMap";
   return true;
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: HDMapInput::InitHDMap";
+ }
 
 bool HDMapInput::GetRoiHDMapStruct(
     const base::PointD& pointd, const double distance,
@@ -121,7 +151,11 @@ AINFO<<"(DMCZP) EnteringMethod: HDMapInput::GetRoiHDMapStruct";
   if (hdmap_->GetRoadBoundaries(point, distance, &road_boundary_vec,
                                 &junctions_vec) != 0) {
     AERROR << "Failed to get road boundary, point: " << point.DebugString();
-    return false;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: HDMapInput::GetRoiHDMapStruct";
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: HDMapInput::GetRoiHDMapStruct";
+  return false;
   }
   if (hdmap_struct_ptr == nullptr) {
     return false;
@@ -140,8 +174,12 @@ AINFO<<"(DMCZP) EnteringMethod: HDMapInput::GetRoiHDMapStruct";
   GetRoadBoundaryFilteredByJunctions(road_boundaries,
                                      hdmap_struct_ptr->junction_polygons,
                                      &(hdmap_struct_ptr->road_boundary));
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: HDMapInput::GetRoiHDMapStruct";
   return true;
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: HDMapInput::GetRoiHDMapStruct";
+ }
 
 void HDMapInput::MergeBoundaryJunction(
     const std::vector<apollo::hdmap::RoadRoiPtr>& boundary,
@@ -228,7 +266,9 @@ AINFO<<"(DMCZP) EnteringMethod: HDMapInput::MergeBoundaryJunction";
       junction_polygons_ptr->at(idx).push_back(pointd);
     }
   }
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: HDMapInput::MergeBoundaryJunction";
+ }
 
 bool HDMapInput::GetRoadBoundaryFilteredByJunctions(
     const std::vector<base::RoadBoundary>& road_boundaries,
@@ -259,8 +299,12 @@ AINFO<<"(DMCZP) EnteringMethod: HDMapInput::GetRoadBoundaryFilteredByJunctions";
     }
   }
 
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: HDMapInput::GetRoadBoundaryFilteredByJunctions";
   return true;
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: HDMapInput::GetRoadBoundaryFilteredByJunctions";
+ }
 
 void HDMapInput::DownsamplePoints(const base::PointDCloudPtr& raw_cloud_ptr,
                                   base::PointCloud<base::PointD>* polygon_ptr,
@@ -275,7 +319,9 @@ AINFO<<"(DMCZP) EnteringMethod: HDMapInput::DownsamplePoints";
     for (size_t i = 0; i < raw_cloud_size; ++i) {
       polygon_ptr->push_back(raw_cloud[i]);
     }
-    return;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: HDMapInput::DownsamplePoints";
+  return;
   }
   // The first point
   polygon_ptr->push_back(raw_cloud[0]);
@@ -309,7 +355,9 @@ AINFO<<"(DMCZP) EnteringMethod: HDMapInput::DownsamplePoints";
   polygon_ptr->push_back(raw_cloud[raw_cloud_size - 1]);
   AINFO << "Downsample road boundary points from " << raw_cloud_size << " to "
         << polygon_ptr->size();
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: HDMapInput::DownsamplePoints";
+ }
 
 void HDMapInput::SplitBoundary(
     const base::PointCloud<base::PointD>& boundary_line,
@@ -355,13 +403,19 @@ AINFO<<"(DMCZP) EnteringMethod: HDMapInput::SplitBoundary";
     }
     boundary_line_vec_ptr->push_back(temp_line);
   }
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: HDMapInput::SplitBoundary";
+ }
 
 bool HDMapInput::GetNearestLaneDirection(const base::PointD& pointd,
                                          Eigen::Vector3d* lane_direction) {
 AINFO<<"(DMCZP) EnteringMethod: HDMapInput::GetNearestLaneDirection";
   // if (hdmap_ == nullptr) {
-  //   return false;
+  //   
+  AINFO<<"(DMCZP) (return) LeaveMethod: HDMapInput::GetNearestLaneDirection";
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: HDMapInput::GetNearestLaneDirection";
+  return false;
   // }
   // apollo::common::PointENU point;
   // point.set_x(pointd.x);
@@ -384,8 +438,12 @@ AINFO<<"(DMCZP) EnteringMethod: HDMapInput::GetNearestLaneDirection";
   // double lane_heading
   //   = nearest_lane_trajectory.get_smooth_point(nearest_s).heading();
   // *lane_direction = Eigen::Vector3d(cos(lane_heading), sin(lane_heading), 0);
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: HDMapInput::GetNearestLaneDirection";
   return true;
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: HDMapInput::GetNearestLaneDirection";
+ }
 
 bool HDMapInput::GetSignalsFromHDMap(
     const Eigen::Vector3d& pointd, double forward_distance,
@@ -400,7 +458,9 @@ AINFO<<"(DMCZP) EnteringMethod: HDMapInput::GetSignalsFromHDMap";
                                              &forward_signals) != 0) {
     AERROR << "Failed to call HDMap::get_signal. point: "
            << point.ShortDebugString();
-    return false;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: HDMapInput::GetSignalsFromHDMap";
+  return false;
   }
   signals->reserve(forward_signals.size());
   for (auto& signal_info : forward_signals) {
@@ -409,8 +469,12 @@ AINFO<<"(DMCZP) EnteringMethod: HDMapInput::GetSignalsFromHDMap";
   }
   ADEBUG << "get_signal success. num_signals: " << signals->size()
          << " point: " << point.ShortDebugString();
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: HDMapInput::GetSignalsFromHDMap";
   return true;
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: HDMapInput::GetSignalsFromHDMap";
+ }
 
 bool HDMapInput::GetSignals(const Eigen::Vector3d& pointd,
                             double forward_distance,
@@ -418,8 +482,12 @@ bool HDMapInput::GetSignals(const Eigen::Vector3d& pointd,
 AINFO<<"(DMCZP) EnteringMethod: HDMapInput::GetSignals";
   lib::MutexLock lock(&mutex_);
   CHECK_NOTNULL(hdmap_.get());
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: HDMapInput::GetSignals";
   return GetSignalsFromHDMap(pointd, forward_distance, signals);
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: HDMapInput::GetSignals";
+ }
 
 }  // namespace map
 }  // namespace perception

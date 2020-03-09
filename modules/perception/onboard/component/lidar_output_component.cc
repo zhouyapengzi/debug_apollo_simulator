@@ -25,8 +25,12 @@ bool LidarOutputComponent::Init() {
 AINFO<<"(DMCZP) EnteringMethod: LidarOutputComponent::Init";
   writer_ =
       node_->CreateWriter<PerceptionObstacles>("/apollo/perception/obstacles");
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: LidarOutputComponent::Init";
   return true;
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: LidarOutputComponent::Init";
+ }
 
 bool LidarOutputComponent::Proc(
     const std::shared_ptr<SensorFrameMessage>& message) {
@@ -35,7 +39,11 @@ AINFO<<"(DMCZP) EnteringMethod: LidarOutputComponent::Proc";
 
   if (message->frame_ == nullptr) {
     AERROR << "Failed to get frame in message.";
-    return false;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: LidarOutputComponent::Proc";
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: LidarOutputComponent::Proc";
+  return false;
   }
 
   if (!MsgSerializer::SerializeMsg(message->timestamp_, message->seq_num_,
@@ -48,8 +56,12 @@ AINFO<<"(DMCZP) EnteringMethod: LidarOutputComponent::Proc";
   writer_->Write(out_message);
   // Send("/apollo/perception/obstacles", out_message);
 
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: LidarOutputComponent::Proc";
   return true;
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: LidarOutputComponent::Proc";
+ }
 
 }  // namespace onboard
 }  // namespace perception

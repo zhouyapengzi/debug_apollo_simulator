@@ -29,13 +29,19 @@ AINFO<<"(DMCZP) EnteringMethod: DisjointSet::Add";
   int cur_size = static_cast<int>(disjoint_array_.size());
   disjoint_array_.push_back(cur_size);
   ++subset_num_;
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: DisjointSet::Add";
   return cur_size;
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: DisjointSet::Add";
+ }
 
 int DisjointSet::Find(int x) {
 AINFO<<"(DMCZP) EnteringMethod: DisjointSet::Find";
   if (disjoint_array_[x] == x) {
-    return x;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: DisjointSet::Find";
+  return x;
   }
 
   int y = x;
@@ -50,14 +56,22 @@ AINFO<<"(DMCZP) EnteringMethod: DisjointSet::Find";
     disjoint_array_[x] = y;
     x = z;
   }
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: DisjointSet::Find";
   return y;
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: DisjointSet::Find";
+ }
 
 // point the x and y to smaller root of the two
 void DisjointSet::Unite(int x, int y) {
 AINFO<<"(DMCZP) EnteringMethod: DisjointSet::Unite";
   if (x == y) {
-    return;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: DisjointSet::Unite";
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: DisjointSet::Unite";
+  return;
   }
   int x_root = Find(x);
   int y_root = Find(y);
@@ -69,7 +83,9 @@ AINFO<<"(DMCZP) EnteringMethod: DisjointSet::Unite";
     disjoint_array_[x_root] = y_root;
   }
   --subset_num_;
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: DisjointSet::Unite";
+ }
 
 /** ConnectedComponent **/
 void ConnectedComponent::AddPixel(int x, int y) {
@@ -83,15 +99,31 @@ AINFO<<"(DMCZP) EnteringMethod: ConnectedComponent::AddPixel";
   bbox_.ymin = std::min(y, bbox_.ymin);
   bbox_.ymax = std::max(y, bbox_.ymax);
   pixel_count_++;
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: ConnectedComponent::AddPixel";
   return;
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: ConnectedComponent::AddPixel";
+ }
 
 bool FindCC(const std::vector<unsigned char>& src, int width, int height,
             const base::RectI& roi, std::vector<ConnectedComponent>* cc) {
 AINFO<<"(DMCZP) EnteringMethod: FindCC";
   if (src.empty()) {
     AERROR << "input image is empty";
-    return false;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: FindCC";
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: FindCC";
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: FindCC";
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: FindCC";
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: FindCC";
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: FindCC";
+  return false;
   }
 
   cc->clear();
@@ -191,7 +223,9 @@ AINFO<<"(DMCZP) EnteringMethod: FindCC";
         if (curt_label >= static_cast<int>(root_map.size())) {
           AERROR << "curt_label should be smaller than root_map.size() "
                  << curt_label << " vs. " << root_map.size();
-          return false;
+          
+  AINFO<<"(DMCZP) (return) LeaveMethod: FindCC";
+  return false;
         }
         if (root_map.at(curt_label) != -1) {
           (*cc)[root_map.at(curt_label)].AddPixel(x, y);
@@ -204,8 +238,12 @@ AINFO<<"(DMCZP) EnteringMethod: FindCC";
   }    // end for y
   AINFO << "cc number = " << cc_count;
 
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: FindCC";
   return true;
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: FindCC";
+ }
 
 bool ImagePoint2Camera(const base::Point2DF& img_point, float pitch_angle,
                        float camera_ground_height,
@@ -222,14 +260,20 @@ AINFO<<"(DMCZP) EnteringMethod: ImagePoint2Camera";
   pitch_matrix << 1, 0, 0, 0, cos_pitch, sin_pitch, 0, -sin_pitch, cos_pitch;
   const Eigen::MatrixXf& rotate_point = pitch_matrix * org_camera_point;
   if (fabs(rotate_point(1, 0)) < lane_eps_value) {
-    return false;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: ImagePoint2Camera";
+  return false;
   }
   float scale = camera_ground_height / rotate_point(1, 0);
   (*camera_point)(0) = scale * org_camera_point(0, 0);
   (*camera_point)(1) = scale * org_camera_point(1, 0);
   (*camera_point)(2) = scale * org_camera_point(2, 0);
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: ImagePoint2Camera";
   return true;
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: ImagePoint2Camera";
+ }
 
 bool CameraPoint2Image(const Eigen::Vector3d& camera_point,
                        const Eigen::Matrix3f& intrinsic_params,
@@ -241,23 +285,37 @@ AINFO<<"(DMCZP) EnteringMethod: CameraPoint2Image";
   camera_point3f(2, 0) = static_cast<float>(camera_point(2, 0));
   Eigen::MatrixXf img_point3f = intrinsic_params * camera_point3f;
   if (fabs(img_point3f(2, 0)) < lane_eps_value) {
-    return false;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: CameraPoint2Image";
+  return false;
   }
   img_point->x = img_point3f(0, 0) / img_point3f(2, 0);
   img_point->y = img_point3f(1, 0) / img_point3f(2, 0);
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: CameraPoint2Image";
   return true;
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: CameraPoint2Image";
+ }
 bool ComparePoint2DY(const base::Point2DF& point1,
                      const base::Point2DF& point2) {
 AINFO<<"(DMCZP) EnteringMethod: ComparePoint2DY";
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: ComparePoint2DY";
   return point1.y < point2.y;
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: ComparePoint2DY";
+ }
 
 bool FindKSmallValue(const float* distance, int dim, int k, int* index) {
 AINFO<<"(DMCZP) EnteringMethod: FindKSmallValue";
   if (dim < k) {
     AWARN << "dim is smaller than k";
-    return false;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: FindKSmallValue";
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: FindKSmallValue";
+  return false;
   }
   if (k <= 0) {
     AWARN << "k is smaller than 0";
@@ -288,7 +346,9 @@ AINFO<<"(DMCZP) EnteringMethod: FindKSmallValue";
       }    //  for
     }      //  else
     if (locate_index == -1) {
-      return false;
+      
+  AINFO<<"(DMCZP) (return) LeaveMethod: FindKSmallValue";
+  return false;
     }
     for (int j = k - 2; j >= locate_index; j--) {
       small_value[j + 1] = small_value[j];
@@ -297,14 +357,22 @@ AINFO<<"(DMCZP) EnteringMethod: FindKSmallValue";
     small_value[locate_index] = distance[i];
     index[locate_index] = i;
   }
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: FindKSmallValue";
   return true;
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: FindKSmallValue";
+ }
 
 bool FindKLargeValue(const float* distance, int dim, int k, int* index) {
 AINFO<<"(DMCZP) EnteringMethod: FindKLargeValue";
   if (dim < k) {
     AWARN << "dim is smaller than k";
-    return false;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: FindKLargeValue";
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: FindKLargeValue";
+  return false;
   }
   if (k <= 0) {
     AWARN << "k is smaller than 0";
@@ -337,7 +405,9 @@ AINFO<<"(DMCZP) EnteringMethod: FindKLargeValue";
       }    //  for
     }      //  else
     if (locate_index == -1) {
-      return false;
+      
+  AINFO<<"(DMCZP) (return) LeaveMethod: FindKLargeValue";
+  return false;
     }
     for (int j = k - 2; j >= locate_index; j--) {
       large_value[j + 1] = large_value[j];
@@ -346,8 +416,12 @@ AINFO<<"(DMCZP) EnteringMethod: FindKLargeValue";
     large_value[locate_index] = distance[i];
     index[locate_index] = i;
   }
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: FindKLargeValue";
   return true;
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: FindKLargeValue";
+ }
 }  // namespace camera
 }  // namespace perception
 }  // namespace apollo

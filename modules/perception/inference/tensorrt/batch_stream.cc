@@ -39,9 +39,15 @@ AINFO<<"(DMCZP) EnteringMethod: BatchStream::BatchStream";
     mFileBatch.resize(mDims.n() * mImageSize, 0);
     reset(0);
   }
-}
 
-BatchStream::BatchStream() : mPath("") {}
+  AINFO<<"(DMCZP) LeaveMethod: BatchStream::BatchStream";
+ }
+
+BatchStream::BatchStream() : mPath("") {
+  AINFO<<"(DMCZP) EnteringMethod: BatchStream::BatchStream";
+
+  AINFO<<"(DMCZP) LeaveMethod: BatchStream::BatchStream";
+ }
 
 void BatchStream::reset(int firstBatch) {
 AINFO<<"(DMCZP) EnteringMethod: BatchStream::reset";
@@ -51,12 +57,16 @@ AINFO<<"(DMCZP) EnteringMethod: BatchStream::reset";
     mFileBatchPos = mDims.n();
     skip(firstBatch);
   }
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: BatchStream::reset";
+ }
 
 bool BatchStream::next() {
 AINFO<<"(DMCZP) EnteringMethod: BatchStream::next";
   if (mBatchCount == mMaxBatches) {
-    return false;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: BatchStream::next";
+  return false;
   }
 
   for (int csize = 1, batchPos = 0; batchPos < mBatchSize;
@@ -65,7 +75,9 @@ AINFO<<"(DMCZP) EnteringMethod: BatchStream::next";
     CHECK_LE(mFileBatchPos, mDims.n());
     // mMaxBatches > number of batches in the files
     if (mFileBatchPos == mDims.n() && !update()) {
-      return false;
+      
+  AINFO<<"(DMCZP) (return) LeaveMethod: BatchStream::next";
+  return false;
     }
 
     // copy the smaller of: elements left to fulfill the request,
@@ -75,15 +87,21 @@ AINFO<<"(DMCZP) EnteringMethod: BatchStream::next";
                 getBatch() + batchPos * mImageSize);
   }
   mBatchCount++;
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: BatchStream::next";
   return true;
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: BatchStream::next";
+ }
 
 void BatchStream::skip(int skipCount) {
 AINFO<<"(DMCZP) EnteringMethod: BatchStream::skip";
   if (mBatchSize >= mDims.n() && mBatchSize % mDims.n() == 0 &&
       mFileBatchPos == mDims.n()) {
     mFileCount += skipCount * mBatchSize / mDims.n();
-    return;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: BatchStream::skip";
+  return;
   }
 
   int x = mBatchCount;
@@ -91,14 +109,18 @@ AINFO<<"(DMCZP) EnteringMethod: BatchStream::skip";
     next();
   }
   mBatchCount = x;
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: BatchStream::skip";
+ }
 
 bool BatchStream::update() {
 AINFO<<"(DMCZP) EnteringMethod: BatchStream::update";
   std::string inputFileName = mPath + "Batch" + std::to_string(mFileCount++);
   FILE *file = fopen(inputFileName.c_str(), "rb");
   if (file == nullptr) {
-    return false;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: BatchStream::update";
+  return false;
   }
 
   int d[4];
@@ -112,8 +134,12 @@ AINFO<<"(DMCZP) EnteringMethod: BatchStream::update";
   CHECK_EQ(readInputCount, size_t(mDims.n() * mImageSize));
   fclose(file);
   mFileBatchPos = 0;
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: BatchStream::update";
   return true;
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: BatchStream::update";
+ }
 
 }  // namespace inference
 }  // namespace perception

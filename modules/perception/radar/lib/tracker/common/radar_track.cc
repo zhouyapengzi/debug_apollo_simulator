@@ -50,7 +50,9 @@ AINFO<<"(DMCZP) EnteringMethod: RadarTrack::RadarTrack";
   }
 
   filter_->Init(*obs);
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: RadarTrack::RadarTrack";
+ }
 
 void RadarTrack::UpdataObsRadar(const base::ObjectPtr& obs_radar,
                                 const double timestamp) {
@@ -74,23 +76,57 @@ AINFO<<"(DMCZP) EnteringMethod: RadarTrack::UpdataObsRadar";
   tracking_time_ += time_diff;
   timestamp_ = timestamp;
   ++tracked_times_;
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: RadarTrack::UpdataObsRadar";
+ }
 
 void RadarTrack::SetObsRadarNullptr() {
 AINFO<<"(DMCZP) EnteringMethod: RadarTrack::SetObsRadarNullptr";
   obs_radar_ = nullptr;
   obs_ = nullptr;
-}
 
-base::ObjectPtr RadarTrack::GetObsRadar() { return obs_radar_; }
+  AINFO<<"(DMCZP) LeaveMethod: RadarTrack::SetObsRadarNullptr";
+ }
 
-base::ObjectPtr RadarTrack::GetObs() { return obs_; }
+base::ObjectPtr RadarTrack::GetObsRadar() {
+  AINFO<<"(DMCZP) EnteringMethod: RadarTrack::GetObsRadar";
+ 
+  AINFO<<"(DMCZP) 
+  AINFO<<"(DMCZP) LeaveMethod: RadarTrack::GetObsRadar";
+ (return) LeaveMethod: RadarTrack::GetObsRadar";
+  return obs_radar_; }
 
-int RadarTrack::GetObsId() const { return obs_id_; }
+base::ObjectPtr RadarTrack::GetObs() {
+  AINFO<<"(DMCZP) EnteringMethod: RadarTrack::GetObs";
+ 
+  AINFO<<"(D
+  AINFO<<"(DMCZP) LeaveMethod: RadarTrack::GetObs";
+ MCZP) (return) LeaveMethod: RadarTrack::GetObs";
+  return obs_; }
 
-double RadarTrack::GetTimestamp() { return timestamp_; }
+int RadarTrack::GetObsId() const {
+  AINFO<<"(DMCZP) EnteringMethod: RadarTrack::GetObsId";
+ 
+  AINFO<<"(DMCZ
+  AINFO<<"(DMCZP) LeaveMethod: RadarTrack::GetObsId";
+ P) (return) LeaveMethod: RadarTrack::GetObsId";
+  return obs_id_; }
 
-double RadarTrack::GetTrackingTime() { return tracking_time_; }
+double RadarTrack::GetTimestamp() {
+  AINFO<<"(DMCZP) EnteringMethod: RadarTrack::GetTimestamp";
+ 
+  AINFO<<"(DMCZP) 
+  AINFO<<"(DMCZP) LeaveMethod: RadarTrack::GetTimestamp";
+ (return) LeaveMethod: RadarTrack::GetTimestamp";
+  return timestamp_; }
+
+double RadarTrack::GetTrackingTime() {
+  AINFO<<"(DMCZP) EnteringMethod: RadarTrack::GetTrackingTime";
+ 
+  AINFO<<"(DMCZP) (ret
+  AINFO<<"(DMCZP) LeaveMethod: RadarTrack::GetTrackingTime";
+ urn) LeaveMethod: RadarTrack::GetTrackingTime";
+  return tracking_time_; }
 }  // namespace radar
 }  // namespace perception
 }  // namespace apollo

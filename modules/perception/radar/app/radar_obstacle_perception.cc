@@ -64,8 +64,12 @@ AINFO<<"(DMCZP) EnteringMethod: RadarObstaclePerception::Init";
   CHECK(roi_filter_->Init()) << "radar roi filter init error";
   CHECK(tracker_->Init()) << "radar tracker init error";
 
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: RadarObstaclePerception::Init";
   return true;
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: RadarObstaclePerception::Init";
+ }
 
 bool RadarObstaclePerception::Perceive(
     const drivers::ContiRadar& corrected_obstacles,
@@ -99,13 +103,21 @@ AINFO<<"(DMCZP) EnteringMethod: RadarObstaclePerception::Perceive";
 
   *objects = tracker_frame_ptr->objects;
 
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: RadarObstaclePerception::Perceive";
   return true;
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: RadarObstaclePerception::Perceive";
+ }
 
 std::string RadarObstaclePerception::Name() const {
 AINFO<<"(DMCZP) EnteringMethod: RadarObstaclePerception::Name";
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: RadarObstaclePerception::Name";
   return "RadarObstaclePerception";
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: RadarObstaclePerception::Name";
+ }
 
 PERCEPTION_REGISTER_RADAR_OBSTACLE_PERCEPTION(RadarObstaclePerception);
 

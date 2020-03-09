@@ -38,7 +38,11 @@ std::string PbfTracker::s_motion_fusion_method_ =  // NOLINT
     "KalmanMotionFusion";
 std::string PbfTracker::s_shape_fusion_method_ = "PbfShapeFusion";  // NOLINT
 
-PbfTracker::PbfTracker() {}
+PbfTracker::PbfTracker() {
+  AINFO<<"(DMCZP) EnteringMethod: PbfTracker::PbfTracker";
+
+  AINFO<<"(DMCZP) LeaveMethod: PbfTracker::PbfTracker";
+ }
 
 PbfTracker::~PbfTracker() {}
 
@@ -46,7 +50,11 @@ bool PbfTracker::InitParams() {
 AINFO<<"(DMCZP) EnteringMethod: PbfTracker::InitParams";
   BaseInitOptions options;
   if (!GetFusionInitOptions("PbfTracker", &options)) {
-    return false;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: PbfTracker::InitParams";
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: PbfTracker::InitParams";
+  return false;
   }
 
   std::string woork_root_config = GetAbsolutePath(
@@ -68,8 +76,12 @@ AINFO<<"(DMCZP) EnteringMethod: PbfTracker::InitParams";
   s_existance_fusion_method_ = params.existance_fusion_method();
   s_shape_fusion_method_ = params.shape_fusion_method();
 
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: PbfTracker::InitParams";
   return true;
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: PbfTracker::InitParams";
+ }
 
 bool PbfTracker::InitMethods() {
 AINFO<<"(DMCZP) EnteringMethod: PbfTracker::InitMethods";
@@ -77,7 +89,15 @@ AINFO<<"(DMCZP) EnteringMethod: PbfTracker::InitMethods";
     type_fusion_.reset(new DstTypeFusion(track_));
   } else {
     AERROR << "Unknown type fusion : " << s_type_fusion_method_;
-    return false;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: PbfTracker::InitMethods";
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: PbfTracker::InitMethods";
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: PbfTracker::InitMethods";
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: PbfTracker::InitMethods";
+  return false;
   }
 
   if (s_motion_fusion_method_ == "KalmanMotionFusion") {
@@ -101,18 +121,28 @@ AINFO<<"(DMCZP) EnteringMethod: PbfTracker::InitMethods";
     return false;
   }
 
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: PbfTracker::InitMethods";
   return true;
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: PbfTracker::InitMethods";
+ }
 
 bool PbfTracker::Init(TrackPtr track, SensorObjectPtr measurement) {
 AINFO<<"(DMCZP) EnteringMethod: PbfTracker::Init";
   track_ = track;
   if (!InitMethods()) {
-    return false;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: PbfTracker::Init";
+  return false;
   }
   motion_fusion_->Init();
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: PbfTracker::Init";
   return true;
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: PbfTracker::Init";
+ }
 
 void PbfTracker::UpdateWithMeasurement(const TrackerOptions& options,
                                        const SensorObjectPtr measurement,
@@ -128,7 +158,9 @@ AINFO<<"(DMCZP) EnteringMethod: PbfTracker::UpdateWithMeasurement";
   shape_fusion_->UpdateWithMeasurement(measurement, target_timestamp);
   type_fusion_->UpdateWithMeasurement(measurement, target_timestamp);
   track_->UpdateWithSensorObject(measurement);
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: PbfTracker::UpdateWithMeasurement";
+ }
 
 void PbfTracker::UpdateWithoutMeasurement(const TrackerOptions& options,
                                           const std::string& sensor_id,
@@ -146,9 +178,17 @@ AINFO<<"(DMCZP) EnteringMethod: PbfTracker::UpdateWithoutMeasurement";
                                          target_timestamp,
                                          options.match_distance);
   track_->UpdateWithoutSensorObject(sensor_id, measurement_timestamp);
-}
 
-std::string PbfTracker::Name() const { return "PbfTracker"; }
+  AINFO<<"(DMCZP) LeaveMethod: PbfTracker::UpdateWithoutMeasurement";
+ }
+
+std::string PbfTracker::Name() const {
+  AINFO<<"(DMCZP) EnteringMethod: PbfTracker::Name";
+ 
+  AINFO<<"(DMCZP) (r
+  AINFO<<"(DMCZP) LeaveMethod: PbfTracker::Name";
+ eturn) LeaveMethod: PbfTracker::Name";
+  return "PbfTracker"; }
 
 }  // namespace fusion
 }  // namespace perception

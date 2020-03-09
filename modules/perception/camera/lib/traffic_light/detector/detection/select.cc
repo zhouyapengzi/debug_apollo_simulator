@@ -24,22 +24,32 @@ namespace camera {
 bool Select::Init(int rows, int cols) {
 AINFO<<"(DMCZP) EnteringMethod: Select::Init";
   if (rows < 0 || cols < 0) {
-    return false;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: Select::Init";
+  return false;
   }
 
   munkres_.costs()->Reserve(rows, cols);
 
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: Select::Init";
   return true;
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: Select::Init";
+ }
 
 double Select::Calc2dGaussianScore(base::Point2DI p1, base::Point2DI p2,
                                    float sigma1, float sigma2) {
 AINFO<<"(DMCZP) EnteringMethod: Select::Calc2dGaussianScore";
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: Select::Calc2dGaussianScore";
   return std::exp(-0.5 * (static_cast<float>((p1.x - p2.x) * (p1.x - p2.x)) /
                               (sigma1 * sigma1) +
                           (static_cast<float>((p1.y - p2.y) * (p1.y - p2.y)) /
                            (sigma2 * sigma2))));
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: Select::Calc2dGaussianScore";
+ }
 
 void Select::SelectTrafficLights(
     const std::vector<base::TrafficLightPtr> &refined_bboxes,
@@ -129,7 +139,9 @@ AINFO<<"(DMCZP) EnteringMethod: Select::SelectTrafficLights";
           << " detection_roi: "
           << (*hdmap_bboxes)[i]->region.detection_roi.ToStr();
   }
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: Select::SelectTrafficLights";
+ }
 
 }  // namespace camera
 }  // namespace perception

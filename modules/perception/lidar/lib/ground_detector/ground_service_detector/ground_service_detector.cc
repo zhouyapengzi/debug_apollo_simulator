@@ -51,17 +51,27 @@ AINFO<<"(DMCZP) EnteringMethod: GroundServiceDetector::Init";
       SceneManager::Instance().Service("GroundService"));
   if (ground_service_ == nullptr) {
     AERROR << "Ground service is nullptr, Init scene manager first !";
-    return false;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: GroundServiceDetector::Init";
+  return false;
   }
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: GroundServiceDetector::Init";
   return true;
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: GroundServiceDetector::Init";
+ }
 
 bool GroundServiceDetector::Detect(const GroundDetectorOptions& options,
                                    LidarFrame* frame) {
 AINFO<<"(DMCZP) EnteringMethod: GroundServiceDetector::Detect";
   if (frame == nullptr || frame->world_cloud == nullptr) {
     AERROR << "Frame is nullptr.";
-    return false;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: GroundServiceDetector::Detect";
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: GroundServiceDetector::Detect";
+  return false;
   }
   ground_service_->GetServiceContentCopy(&ground_service_content_);
   if (!ground_service_content_.IsServiceReady()) {
@@ -86,8 +96,12 @@ AINFO<<"(DMCZP) EnteringMethod: GroundServiceDetector::Detect";
           static_cast<uint8_t>(LidarPointLabel::GROUND);
     }
   }
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: GroundServiceDetector::Detect";
   return true;
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: GroundServiceDetector::Detect";
+ }
 
 PERCEPTION_REGISTER_GROUNDDETECTOR(GroundServiceDetector);
 

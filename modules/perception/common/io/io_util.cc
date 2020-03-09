@@ -34,7 +34,11 @@ bool ReadPoseFile(const std::string &filename, Eigen::Affine3d *pose,
 AINFO<<"(DMCZP) EnteringMethod: ReadPoseFile";
   if (pose == nullptr || frame_id == nullptr || time_stamp == nullptr) {
     AERROR << "Nullptr error.";
-    return false;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: ReadPoseFile";
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: ReadPoseFile";
+  return false;
   }
 
   std::ifstream fin(filename.c_str());
@@ -53,14 +57,24 @@ AINFO<<"(DMCZP) EnteringMethod: ReadPoseFile";
   pose->pretranslate(translation);
 
   fin.close();
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: ReadPoseFile";
   return true;
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: ReadPoseFile";
+ }
 
 bool LoadBrownCameraIntrinsic(const std::string &yaml_file,
                               base::BrownCameraDistortionModel *model) {
 AINFO<<"(DMCZP) EnteringMethod: LoadBrownCameraIntrinsic";
   if (!PathExists(yaml_file) || model == nullptr) {
-    return false;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: LoadBrownCameraIntrinsic";
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: LoadBrownCameraIntrinsic";
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: LoadBrownCameraIntrinsic";
+  return false;
   }
 
   YAML::Node node = YAML::LoadFile(yaml_file);
@@ -90,15 +104,27 @@ AINFO<<"(DMCZP) EnteringMethod: LoadBrownCameraIntrinsic";
     return false;
   }
 
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: LoadBrownCameraIntrinsic";
   return true;
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: LoadBrownCameraIntrinsic";
+ }
 
 bool LoadOmnidirectionalCameraIntrinsics(
     const std::string &yaml_file,
     base::OmnidirectionalCameraDistortionModel *model) {
 AINFO<<"(DMCZP) EnteringMethod: LoadOmnidirectionalCameraIntrinsics";
   if (!PathExists(yaml_file) || model == nullptr) {
-    return false;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: LoadOmnidirectionalCameraIntrinsics";
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: LoadOmnidirectionalCameraIntrinsics";
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: LoadOmnidirectionalCameraIntrinsics";
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: LoadOmnidirectionalCameraIntrinsics";
+  return false;
   }
 
   YAML::Node node = YAML::LoadFile(yaml_file);
@@ -159,15 +185,21 @@ AINFO<<"(DMCZP) EnteringMethod: LoadOmnidirectionalCameraIntrinsics";
     return false;
   }
 
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: LoadOmnidirectionalCameraIntrinsics";
   return true;
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: LoadOmnidirectionalCameraIntrinsics";
+ }
 
 bool GetFileList(const std::string &path, const std::string &suffix,
                  std::vector<std::string> *files) {
 AINFO<<"(DMCZP) EnteringMethod: GetFileList";
   if (!PathExists(path)) {
     AINFO << path << " not exist.";
-    return false;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: GetFileList";
+  return false;
   }
 
   boost::filesystem::recursive_directory_iterator itr(path);
@@ -182,8 +214,12 @@ AINFO<<"(DMCZP) EnteringMethod: GetFileList";
       continue;
     }
   }
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: GetFileList";
   return true;
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: GetFileList";
+ }
 
 }  // namespace common
 }  // namespace perception

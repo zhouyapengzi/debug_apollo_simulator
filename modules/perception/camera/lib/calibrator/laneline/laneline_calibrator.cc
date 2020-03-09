@@ -30,8 +30,12 @@ AINFO<<"(DMCZP) EnteringMethod: LaneLineCalibrator::Init";
   image_width_ = local_options.image_width = options.image_width;
   image_height_ = local_options.image_height = options.image_height;
   calibrator_.Init(local_options);
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: LaneLineCalibrator::Init";
   return true;
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: LaneLineCalibrator::Init";
+ }
 
 bool LaneLineCalibrator::Calibrate(const CalibratorOptions &options,
                                    float *pitch_angle) {
@@ -40,7 +44,9 @@ AINFO<<"(DMCZP) EnteringMethod: LaneLineCalibrator::Calibrate";
   EgoLane ego_lane;
   if (!LoadEgoLaneline(*options.lane_objects, &ego_lane)) {
     AINFO << "Failed to get the ego lane.";
-    return false;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: LaneLineCalibrator::Calibrate";
+  return false;
   }
 
   double cam_ori[4] = {0};
@@ -92,8 +98,12 @@ AINFO<<"(DMCZP) EnteringMethod: LaneLineCalibrator::Calibrate";
   is_first_frame_ = false;
   memcpy(cam_coord_pre_, cam_coord_cur_, sizeof(double) * 3);
   timestamp_pre_ = timestamp_cur_;
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: LaneLineCalibrator::Calibrate";
   return updated;
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: LaneLineCalibrator::Calibrate";
+ }
 
 bool LaneLineCalibrator::LoadEgoLaneline(
     const std::vector<base::LaneLine> &lane_objects, EgoLane *ego_lane) {
@@ -140,11 +150,17 @@ AINFO<<"(DMCZP) EnteringMethod: LaneLineCalibrator::LoadEgoLaneline";
       found_ego_right = true;
     }
     if (found_ego_left && found_ego_right) {
-      return true;
+      
+  AINFO<<"(DMCZP) (return) LeaveMethod: LaneLineCalibrator::LoadEgoLaneline";
+  return true;
     }
   }
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: LaneLineCalibrator::LoadEgoLaneline";
   return false;
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: LaneLineCalibrator::LoadEgoLaneline";
+ }
 
 // Register plugin.
 REGISTER_CALIBRATOR(LaneLineCalibrator);

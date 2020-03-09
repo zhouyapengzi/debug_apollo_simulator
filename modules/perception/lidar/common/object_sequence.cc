@@ -39,20 +39,30 @@ AINFO<<"(DMCZP) EnteringMethod: ObjectSequence::AddTrackedFrameObjects";
     auto res = iter->second.insert(std::make_pair(timestamp, obj));
     if (!res.second) {
       AERROR << "Fail to insert object." << std::endl;
-      return false;
+      
+  AINFO<<"(DMCZP) (return) LeaveMethod: ObjectSequence::AddTrackedFrameObjects";
+  return false;
     }
   }
   RemoveStaleTracks(timestamp);
   current_ = timestamp;
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: ObjectSequence::AddTrackedFrameObjects";
   return true;
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: ObjectSequence::AddTrackedFrameObjects";
+ }
 
 bool ObjectSequence::GetTrackInTemporalWindow(TrackIdKey track_id,
                                               TrackedObjects* track,
                                               TimeStampKey window_time) {
 AINFO<<"(DMCZP) EnteringMethod: ObjectSequence::GetTrackInTemporalWindow";
   if (track == nullptr) {
-    return false;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: ObjectSequence::GetTrackInTemporalWindow";
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: ObjectSequence::GetTrackInTemporalWindow";
+  return false;
   }
   track->clear();
   std::lock_guard<std::mutex> lock(mutex_);
@@ -66,8 +76,12 @@ AINFO<<"(DMCZP) EnteringMethod: ObjectSequence::GetTrackInTemporalWindow";
       track->insert(tobj);
     }
   }
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: ObjectSequence::GetTrackInTemporalWindow";
   return true;
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: ObjectSequence::GetTrackInTemporalWindow";
+ }
 
 void ObjectSequence::RemoveStaleTracks(TimeStampKey current_stamp) {
 AINFO<<"(DMCZP) EnteringMethod: ObjectSequence::RemoveStaleTracks";
@@ -93,7 +107,9 @@ AINFO<<"(DMCZP) EnteringMethod: ObjectSequence::RemoveStaleTracks";
       ++outer_iter;
     }
   }
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: ObjectSequence::RemoveStaleTracks";
+ }
 
 }  // namespace lidar
 }  // namespace perception

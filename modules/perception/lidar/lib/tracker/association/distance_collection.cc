@@ -65,8 +65,12 @@ AINFO<<"(DMCZP) EnteringMethod: PointNumDistance";
     location_dist = static_cast<float>(sqrt(dx * dx * 0.5 + dy * dy * 2));
   }
 
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: LocationDistance";
   return location_dist;
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: LocationDistance";
+ }
 
 float DirectionDistance(const TrackedObjectConstPtr& last_object,
                         const Eigen::VectorXf& track_predict,
@@ -96,8 +100,12 @@ AINFO<<"(DMCZP) EnteringMethod: HistogramDistance";
   }
   float direction_dist = static_cast<float>(-cos_theta) + 1.0f;
 
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: DirectionDistance";
   return direction_dist;
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: DirectionDistance";
+ }
 
 float BboxSizeDistance(const TrackedObjectConstPtr& last_object,
                        const Eigen::VectorXf& track_predict,
@@ -132,8 +140,12 @@ float BboxSizeDistance(const TrackedObjectConstPtr& last_object,
     size_dist = std::min(temp_val_0, temp_val_1);
   }
 
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: BboxSizeDistance";
   return size_dist;
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: BboxSizeDistance";
+ }
 
 float PointNumDistance(const TrackedObjectConstPtr& last_object,
                        const Eigen::VectorXf& track_predict,
@@ -151,8 +163,12 @@ float PointNumDistance(const TrackedObjectConstPtr& last_object,
       static_cast<float>(fabs(old_point_number - new_point_number)) * 1.0f /
       static_cast<float>(std::max(old_point_number, new_point_number));
 
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: PointNumDistance";
   return point_num_dist;
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: PointNumDistance";
+ }
 
 float HistogramDistance(const TrackedObjectConstPtr& last_object,
                         const Eigen::VectorXf& track_predict,
@@ -168,7 +184,9 @@ float HistogramDistance(const TrackedObjectConstPtr& last_object,
 
   if (old_object_shape_features.size() != new_object_shape_features.size()) {
     AINFO << "sizes of compared features not matched. TrackObjectDistance";
-    return 100;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: HistogramDistance";
+  return 100;
   }
 
   float histogram_dist = 0.0f;
@@ -177,8 +195,12 @@ float HistogramDistance(const TrackedObjectConstPtr& last_object,
         std::fabs(old_object_shape_features[i] - new_object_shape_features[i]);
   }
 
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: HistogramDistance";
   return histogram_dist;
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: HistogramDistance";
+ }
 
 float CentroidShiftDistance(const TrackedObjectConstPtr& last_object,
                             const Eigen::VectorXf& track_predict,
@@ -188,8 +210,12 @@ AINFO<<"(DMCZP) EnteringMethod: CentroidShiftDistance";
   float dist = static_cast<float>(
       (last_object->barycenter.head(2) - new_object->barycenter.head(2))
           .norm());
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: CentroidShiftDistance";
   return dist;
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: CentroidShiftDistance";
+ }
 
 float BboxIouDistance(const TrackedObjectConstPtr& last_object,
                       const Eigen::VectorXf& track_predict,
@@ -250,8 +276,12 @@ AINFO<<"(DMCZP) EnteringMethod: BboxIouDistance";
                                                 new_center, new_size_tmp);
   // Step 4: compute dist
   double dist = (1 - iou) * match_threshold;
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: BboxIouDistance";
   return static_cast<float>(dist);
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: BboxIouDistance";
+ }
 
 }  // namespace lidar
 }  // namespace perception

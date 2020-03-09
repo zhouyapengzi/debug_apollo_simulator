@@ -34,27 +34,43 @@ int FloodFill::Pos(float x, float y) const {
 AINFO<<"(DMCZP) EnteringMethod: FloodFill::Pos";
   const int irow = static_cast<int>((y + _offset_y) / _cell_size);
   if (!IsValidRowIndex(irow)) {
-    return -1;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: FloodFill::Pos";
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: FloodFill::Pos";
+  return -1;
   }
   const int jcol = static_cast<int>((x + _offset_x) / _cell_size);
   if (!IsValidColIndex(jcol)) {
     return -1;
   }
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: FloodFill::Pos";
   return irow * _grid_num_cols + jcol;
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: FloodFill::Pos";
+ }
 
 bool FloodFill::Pos2d(float x, float y, int* irow, int* jcol) const {
 AINFO<<"(DMCZP) EnteringMethod: FloodFill::Pos2d";
   *irow = static_cast<int>((y + _offset_y) / _cell_size);
   if (!IsValidRowIndex(*irow)) {
-    return false;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: FloodFill::Pos2d";
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: FloodFill::Pos2d";
+  return false;
   }
   *jcol = static_cast<int>((x + _offset_x) / _cell_size);
   if (!IsValidColIndex(*jcol)) {
     return false;
   }
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: FloodFill::Pos2d";
   return true;
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: FloodFill::Pos2d";
+ }
 
 void FloodFill::BuildGrid(base::PointFCloudConstPtr cloud) {
 AINFO<<"(DMCZP) EnteringMethod: FloodFill::BuildGrid";
@@ -100,7 +116,9 @@ AINFO<<"(DMCZP) EnteringMethod: FloodFill::BuildGrid";
       _label[idx] = kNonEmptyGridLabel;
     }
   }
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: FloodFill::BuildGrid";
+ }
 
 int FloodFill::GetConnectedComponents() {
 AINFO<<"(DMCZP) EnteringMethod: FloodFill::GetConnectedComponents";
@@ -113,8 +131,12 @@ AINFO<<"(DMCZP) EnteringMethod: FloodFill::GetConnectedComponents";
       ++num_components;
     }
   }
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: FloodFill::GetConnectedComponents";
   return num_components;
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: FloodFill::GetConnectedComponents";
+ }
 
 void FloodFill::DfsColoring(int i, int j, int curr_component) {
 AINFO<<"(DMCZP) EnteringMethod: FloodFill::DfsColoring";
@@ -130,7 +152,9 @@ AINFO<<"(DMCZP) EnteringMethod: FloodFill::DfsColoring";
       }
     }
   }
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: FloodFill::DfsColoring";
+ }
 
 void FloodFill::GetSegments(base::PointFCloudConstPtr cloud,
                             std::vector<std::vector<int> >* segments_indices,
@@ -159,7 +183,9 @@ AINFO<<"(DMCZP) EnteringMethod: FloodFill::GetSegments";
       (*segments_indices)[_label[idx]].push_back(i);
     }
   }
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: FloodFill::GetSegments";
+ }
 }  // namespace lidar
 }  // namespace perception
 }  // namespace apollo
