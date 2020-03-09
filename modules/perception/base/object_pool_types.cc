@@ -33,9 +33,7 @@ AINFO<<"(DMCZP) EnteringMethod: __attribute__";
 #else
   AINFO << "Initialize base object pool (malloc).";
 #endif
-
-  AINFO<<"(DMCZP) LeaveMethod: __attribute__";
- }
+}
 
 }  // namespace base
 }  // namespace perception

@@ -29,9 +29,7 @@ AINFO<<"(DMCZP) EnteringMethod: Object::Object";
   type_probs.resize(static_cast<int>(ObjectType::MAX_OBJECT_TYPE), 0);
   sub_type_probs.resize(static_cast<int>(ObjectSubType::MAX_OBJECT_TYPE), 0.0f);
   b_cipv = false;
-
-  AINFO<<"(DMCZP) LeaveMethod: Object::Object";
- }
+}
 
 void Object::Reset() {
 AINFO<<"(DMCZP) EnteringMethod: Object::Reset";
@@ -72,9 +70,7 @@ AINFO<<"(DMCZP) EnteringMethod: Object::Reset";
   radar_supplement.Reset();
   camera_supplement.Reset();
   fusion_supplement.Reset();
-
-  AINFO<<"(DMCZP) LeaveMethod: Object::Reset";
- }
+}
 
 std::string Object::ToString() const {
 AINFO<<"(DMCZP) EnteringMethod: Object::ToString";
@@ -100,12 +96,8 @@ AINFO<<"(DMCZP) EnteringMethod: Object::ToString";
       << ", acceleration: (" << acceleration[0] << "," << acceleration[1] << ","
       << acceleration[2] << "), tracking_time: " << tracking_time
       << ", latest_tracked_time: " << latest_tracked_time;
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: Object::ToString";
   return oss.str();
-
-  AINFO<<"(DMCZP) LeaveMethod: Object::ToString";
- }
+}
 
 }  // namespace base
 }  // namespace perception

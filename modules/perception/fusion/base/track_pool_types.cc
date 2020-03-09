@@ -26,9 +26,7 @@ __attribute__((constructor)) void FusionPoolInitialize() {
 AINFO<<"(DMCZP) EnteringMethod: __attribute__";
   TrackPool::Instance();
   AINFO << "Initialize FusionPool";
-
-  AINFO<<"(DMCZP) LeaveMethod: __attribute__";
- }
+}
 
 }  // namespace fusion
 }  // namespace perception

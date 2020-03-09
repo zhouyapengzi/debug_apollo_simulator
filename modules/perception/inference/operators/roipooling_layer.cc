@@ -172,8 +172,4 @@ template class ROIPoolingLayer<double>;
 
 }  // namespace inference
 }  // namespace perception
-
-  AINFO<<"(DMCZP) LeaveMethod: Copyright";
- 
-  AINFO<<"(DMCZP) LeaveMethod: Copyright";
- }  // namespace apollo
+}  // namespace apollo

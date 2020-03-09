@@ -73,12 +73,8 @@ AINFO<<"(DMCZP) EnteringMethod: SpatioTemporalGroundDetector::Init";
   ground_service_content_.Init(
       config_params.roi_rad_x(), config_params.roi_rad_y(),
       config_params.grid_size(), config_params.grid_size());
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: SpatioTemporalGroundDetector::Init";
   return true;
-
-  AINFO<<"(DMCZP) LeaveMethod: SpatioTemporalGroundDetector::Init";
- }
+}
 
 bool SpatioTemporalGroundDetector::Detect(const GroundDetectorOptions& options,
                                           LidarFrame* frame) {
@@ -86,15 +82,7 @@ AINFO<<"(DMCZP) EnteringMethod: SpatioTemporalGroundDetector::Detect";
   // check input
   if (frame == nullptr) {
     AERROR << "Input null frame ptr.";
-    
-  AINFO<<"(DMCZP) (return) LeaveMethod: SpatioTemporalGroundDetector::Detect";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: SpatioTemporalGroundDetector::Detect";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: SpatioTemporalGroundDetector::Detect";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: SpatioTemporalGroundDetector::Detect";
-  return false;
+    return false;
   }
   if (frame->cloud.get() == nullptr || frame->world_cloud.get() == nullptr) {
     AERROR << "Input null frame cloud.";
@@ -227,12 +215,8 @@ AINFO<<"(DMCZP) EnteringMethod: SpatioTemporalGroundDetector::Detect";
       AINFO << "Failed to find ground service and cannot update.";
     }
   }
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: SpatioTemporalGroundDetector::Detect";
   return true;
-
-  AINFO<<"(DMCZP) LeaveMethod: SpatioTemporalGroundDetector::Detect";
- }
+}
 
 PERCEPTION_REGISTER_GROUNDDETECTOR(SpatioTemporalGroundDetector);
 

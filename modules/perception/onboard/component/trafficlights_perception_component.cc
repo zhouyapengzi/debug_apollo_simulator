@@ -70,13 +70,7 @@ AINFO<<"(DMCZP) EnteringMethod: GetGpuId";
   config_file = GetAbsolutePath(work_root, config_file);
   if (!cyber::common::GetProtoFromFile(config_file, &trafficlight_param)) {
     AERROR << "Read config failed: " << config_file;
-    
-  AINFO<<"(DMCZP) (return) LeaveMethod: GetGpuId";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: GetGpuId";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: GetGpuId";
-  return -1;
+    return -1;
   }
   if (trafficlight_param.detector_param_size() == 0) {
     AERROR << "get gpu id failed. detector_param_size() == 0";
@@ -86,12 +80,8 @@ AINFO<<"(DMCZP) EnteringMethod: GetGpuId";
     AINFO << "gpu id not found.";
     return -1;
   }
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: GetGpuId";
   return trafficlight_param.gpu_id();
-
-  AINFO<<"(DMCZP) LeaveMethod: GetGpuId";
- }
+}
 
 bool TrafficLightsPerceptionComponent::Init() {
 AINFO<<"(DMCZP) EnteringMethod: TrafficLightsPerceptionComponent::Init";
@@ -102,17 +92,7 @@ AINFO<<"(DMCZP) EnteringMethod: TrafficLightsPerceptionComponent::Init";
 
   if (InitConfig() != cyber::SUCC) {
     AERROR << "TrafficLightsPerceptionComponent InitConfig failed.";
-    
-  AINFO<<"(DMCZP) (return) LeaveMethod: TrafficLightsPerceptionComponent::Init";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: TrafficLightsPerceptionComponent::Init";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: TrafficLightsPerceptionComponent::Init";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: TrafficLightsPerceptionComponent::Init";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: TrafficLightsPerceptionComponent::Init";
-  return false;
+    return false;
   }
 
   if (InitAlgorithmPlugin() != cyber::SUCC) {
@@ -142,21 +122,15 @@ AINFO<<"(DMCZP) EnteringMethod: TrafficLightsPerceptionComponent::Init";
   }
 
   AINFO << "TrafficLight Preproc Init Success";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: TrafficLightsPerceptionComponent::Init";
   return true;
-
-  AINFO<<"(DMCZP) LeaveMethod: TrafficLightsPerceptionComponent::Init";
- }
+}
 
 int TrafficLightsPerceptionComponent::InitConfig() {
 AINFO<<"(DMCZP) EnteringMethod: TrafficLightsPerceptionComponent::InitConfig";
   apollo::perception::onboard::TrafficLight traffic_light_param;
   if (!GetProtoConfig(&traffic_light_param)) {
     AINFO << "load trafficlights perception component proto param failed";
-    
-  AINFO<<"(DMCZP) (return) LeaveMethod: TrafficLightsPerceptionComponent::InitConfig";
-  return cyber::FAIL;
+    return cyber::FAIL;
   }
 
   tf2_frame_id_ = traffic_light_param.tl_tf2_frame_id();
@@ -211,12 +185,8 @@ AINFO<<"(DMCZP) EnteringMethod: TrafficLightsPerceptionComponent::InitConfig";
   v2x_sync_interval_seconds_ = traffic_light_param.v2x_sync_interval_seconds();
   max_v2x_msg_buff_size_ = traffic_light_param.max_v2x_msg_buff_size();
   v2x_msg_buffer_.set_capacity(max_v2x_msg_buff_size_);
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: TrafficLightsPerceptionComponent::InitConfig";
   return cyber::SUCC;
-
-  AINFO<<"(DMCZP) LeaveMethod: TrafficLightsPerceptionComponent::InitConfig";
- }
+}
 
 int TrafficLightsPerceptionComponent::InitAlgorithmPlugin() {
 AINFO<<"(DMCZP) EnteringMethod: TrafficLightsPerceptionComponent::InitAlgorithmPlugin";
@@ -225,21 +195,7 @@ AINFO<<"(DMCZP) EnteringMethod: TrafficLightsPerceptionComponent::InitAlgorithmP
   AINFO << "(pengzi) New preprocessor for trafficlights perception component";
   if (!preprocessor_) {
     AERROR << "TrafficLightsPerceptionComponent new preprocessor failed";
-    
-  AINFO<<"(DMCZP) (return) LeaveMethod: TrafficLightsPerceptionComponent::InitAlgorithmPlugin";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: TrafficLightsPerceptionComponent::InitAlgorithmPlugin";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: TrafficLightsPerceptionComponent::InitAlgorithmPlugin";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: TrafficLightsPerceptionComponent::InitAlgorithmPlugin";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: TrafficLightsPerceptionComponent::InitAlgorithmPlugin";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: TrafficLightsPerceptionComponent::InitAlgorithmPlugin";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: TrafficLightsPerceptionComponent::InitAlgorithmPlugin";
-  return cyber::FAIL;
+    return cyber::FAIL;
   }
 
   preprocessor_init_options_.camera_names = camera_names_;
@@ -264,9 +220,7 @@ AINFO<<"(DMCZP) EnteringMethod: TrafficLightsPerceptionComponent::InitAlgorithmP
   for (size_t i = 0; i < camera_names_.size(); ++i) {
     if (!sensor_manager->IsSensorExist(camera_names_[i])) {
       AERROR << ("sensor_name: " + camera_names_[i] + " not exists.");
-      
-  AINFO<<"(DMCZP) (return) LeaveMethod: TrafficLightsPerceptionComponent::InitAlgorithmPlugin";
-  return cyber::FAIL;
+      return cyber::FAIL;
     }
 
     // init transform wrappers
@@ -302,12 +256,8 @@ AINFO<<"(DMCZP) EnteringMethod: TrafficLightsPerceptionComponent::InitAlgorithmP
     return cyber::FAIL;
   }
 
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: TrafficLightsPerceptionComponent::InitAlgorithmPlugin";
   return cyber::SUCC;
-
-  AINFO<<"(DMCZP) LeaveMethod: TrafficLightsPerceptionComponent::InitAlgorithmPlugin";
- }
+}
 
 int TrafficLightsPerceptionComponent::InitCameraListeners() {
 AINFO<<"(DMCZP) EnteringMethod: TrafficLightsPerceptionComponent::InitCameraListeners";
@@ -326,12 +276,8 @@ AINFO<<"(DMCZP) EnteringMethod: TrafficLightsPerceptionComponent::InitCameraList
     last_sub_camera_image_ts_[camera_name] = 0.0;
   }
 
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: TrafficLightsPerceptionComponent::InitCameraListeners";
   return cyber::SUCC;
-
-  AINFO<<"(DMCZP) LeaveMethod: TrafficLightsPerceptionComponent::InitCameraListeners";
- }
+}
 
 int TrafficLightsPerceptionComponent::InitV2XListener() {
 AINFO<<"(DMCZP) EnteringMethod: TrafficLightsPerceptionComponent::InitV2XListener";
@@ -342,12 +288,8 @@ AINFO<<"(DMCZP) EnteringMethod: TrafficLightsPerceptionComponent::InitV2XListene
                 std::placeholders::_1);
   auto sub_v2x_reader = node_->CreateReader(
       v2x_trafficlights_input_channel_name_, sub_v2x_tl_callback);
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: TrafficLightsPerceptionComponent::InitV2XListener";
   return cyber::SUCC;
-
-  AINFO<<"(DMCZP) LeaveMethod: TrafficLightsPerceptionComponent::InitV2XListener";
- }
+}
 
 int TrafficLightsPerceptionComponent::InitCameraFrame() {
 AINFO<<"(DMCZP) EnteringMethod: TrafficLightsPerceptionComponent::InitCameraFrame";
@@ -355,9 +297,7 @@ AINFO<<"(DMCZP) EnteringMethod: TrafficLightsPerceptionComponent::InitCameraFram
   data_provider_init_options_.image_width = image_width_;
   int gpu_id = GetGpuId(camera_perception_init_options_);
   if (gpu_id == -1) {
-    
-  AINFO<<"(DMCZP) (return) LeaveMethod: TrafficLightsPerceptionComponent::InitCameraFrame";
-  return cyber::FAIL;
+    return cyber::FAIL;
   }
   data_provider_init_options_.device_id = gpu_id;
   AINFO << "trafficlights data_provider_init_options_.device_id: "
@@ -372,19 +312,13 @@ AINFO<<"(DMCZP) EnteringMethod: TrafficLightsPerceptionComponent::InitCameraFram
     if (!data_provider->Init(data_provider_init_options_)) {
       AERROR << "trafficlights init data_provider failed. "
              << " camera_name: " << camera_name;
-      
-  AINFO<<"(DMCZP) (return) LeaveMethod: TrafficLightsPerceptionComponent::InitCameraFrame";
-  return cyber::FAIL;
+      return cyber::FAIL;
     }
     data_providers_map_[camera_name] = data_provider;
   }
 
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: TrafficLightsPerceptionComponent::InitCameraFrame";
   return cyber::SUCC;
-
-  AINFO<<"(DMCZP) LeaveMethod: TrafficLightsPerceptionComponent::InitCameraFrame";
- }
+}
 
 void TrafficLightsPerceptionComponent::OnReceiveImage(
     const std::shared_ptr<apollo::drivers::Image> msg,
@@ -410,15 +344,7 @@ AINFO<<"(DMCZP) EnteringMethod: TrafficLightsPerceptionComponent::OnReceiveImage
   if (!CheckCameraImageStatus(image_msg_ts, check_image_status_interval_thresh_,
                               camera_name)) {
     AERROR << "CheckCameraImageStatus failed";
-    
-  AINFO<<"(DMCZP) (return) LeaveMethod: TrafficLightsPerceptionComponent::OnReceiveImage";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: TrafficLightsPerceptionComponent::OnReceiveImage";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: TrafficLightsPerceptionComponent::OnReceiveImage";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: TrafficLightsPerceptionComponent::OnReceiveImage";
-  return;
+    return;
   }
   const auto check_camera_status_time =
       PERCEPTION_PERF_BLOCK_END_WITH_INDICATOR(perf_indicator,
@@ -559,18 +485,14 @@ AINFO<<"(DMCZP) EnteringMethod: TrafficLightsPerceptionComponent::OnReceiveImage
           << GLOG_TIMESTAMP(end_timestamp) << "]:cur_latency[" << end_latency
           << "]";
   }
-
-  AINFO<<"(DMCZP) LeaveMethod: TrafficLightsPerceptionComponent::OnReceiveImage";
- }
+}
 
 void TrafficLightsPerceptionComponent::OnReceiveV2XMsg(
     const std::shared_ptr<apollo::v2x::IntersectionTrafficLightData> v2x_msg) {
 AINFO<<"(DMCZP) EnteringMethod: TrafficLightsPerceptionComponent::OnReceiveV2XMsg";
   std::lock_guard<std::mutex> lck(mutex_);
   v2x_msg_buffer_.push_back(*v2x_msg);
-
-  AINFO<<"(DMCZP) LeaveMethod: TrafficLightsPerceptionComponent::OnReceiveV2XMsg";
- }
+}
 
 void TrafficLightsPerceptionComponent::GenerateTrafficLights(
     const std::vector<apollo::hdmap::Signal>& signals,
@@ -597,9 +519,7 @@ AINFO<<"(DMCZP) EnteringMethod: TrafficLightsPerceptionComponent::GenerateTraffi
     traffic_lights->push_back(light);
     stoplines_ = signal.stop_line();
   }
-
-  AINFO<<"(DMCZP) LeaveMethod: TrafficLightsPerceptionComponent::GenerateTrafficLights";
- }
+}
 
 bool TrafficLightsPerceptionComponent::QueryPoseAndSignals(
     const double ts, camera::CarPose* pose,
@@ -610,11 +530,7 @@ AINFO<<"(DMCZP) EnteringMethod: TrafficLightsPerceptionComponent::QueryPoseAndSi
   if (!GetCarPose(ts, pose)) {
     AINFO << "query_pose_and_signals failed to get car pose, ts:"
           << std::to_string(ts);
-    
-  AINFO<<"(DMCZP) (return) LeaveMethod: TrafficLightsPerceptionComponent::QueryPoseAndSignals";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: TrafficLightsPerceptionComponent::QueryPoseAndSignals";
-  return false;
+    return false;
   }
   auto pos_x = std::to_string(pose->getCarPose()(0, 3));
   auto pos_y = std::to_string(pose->getCarPose()(1, 3));
@@ -645,12 +561,8 @@ AINFO<<"(DMCZP) EnteringMethod: TrafficLightsPerceptionComponent::QueryPoseAndSi
     last_signals_ts_ = ts;
     last_signals_ = *signals;
   }
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: TrafficLightsPerceptionComponent::QueryPoseAndSignals";
   return true;
-
-  AINFO<<"(DMCZP) LeaveMethod: TrafficLightsPerceptionComponent::QueryPoseAndSignals";
- }
+}
 
 bool TrafficLightsPerceptionComponent::VerifyLightsProjection(
     const double& ts, const camera::TLPreprocessorOption& option,
@@ -662,11 +574,7 @@ AINFO<<"(DMCZP) EnteringMethod: TrafficLightsPerceptionComponent::VerifyLightsPr
   if (!QueryPoseAndSignals(ts, &pose, &signals)) {
     AERROR << "query_pose_and_signals failed, ts: " << std::to_string(ts);
     // (*image_lights)->debug_info.is_pose_valid = false;
-    
-  AINFO<<"(DMCZP) (return) LeaveMethod: TrafficLightsPerceptionComponent::VerifyLightsProjection";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: TrafficLightsPerceptionComponent::VerifyLightsProjection";
-  return false;
+    return false;
   }
 
   GenerateTrafficLights(signals, &frame->traffic_lights);
@@ -680,12 +588,8 @@ AINFO<<"(DMCZP) EnteringMethod: TrafficLightsPerceptionComponent::VerifyLightsPr
 
   AINFO << "VerifyLightsProjection success " << frame->traffic_lights.size();
 
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: TrafficLightsPerceptionComponent::VerifyLightsProjection";
   return true;
-
-  AINFO<<"(DMCZP) LeaveMethod: TrafficLightsPerceptionComponent::VerifyLightsProjection";
- }
+}
 
 bool TrafficLightsPerceptionComponent::UpdateCameraSelection(
     double timestamp, const camera::TLPreprocessorOption& option,
@@ -697,9 +601,7 @@ AINFO<<"(DMCZP) EnteringMethod: TrafficLightsPerceptionComponent::UpdateCameraSe
       current_ts - last_query_tf_ts_ < query_tf_interval_seconds_) {
     AINFO << "skip current tf msg, img_ts: " << std::to_string(timestamp)
           << " , last_query_tf_ts_: " << std::to_string(last_query_tf_ts_);
-    
-  AINFO<<"(DMCZP) (return) LeaveMethod: TrafficLightsPerceptionComponent::UpdateCameraSelection";
-  return true;
+    return true;
   }
 AINFO<<"(DMCZP) EnteringMethod: TrafficLightsPerceptionComponent::SyncV2XTrafficLights";
   AINFO << "start select camera";
@@ -708,9 +610,7 @@ AINFO<<"(DMCZP) EnteringMethod: TrafficLightsPerceptionComponent::SyncV2XTraffic
   std::vector<apollo::hdmap::Signal> signals;
   if (!QueryPoseAndSignals(timestamp, &pose, &signals)) {
     AINFO << "query_pose_and_signals failed, ts: " << std::to_string(timestamp);
-    
-  AINFO<<"(DMCZP) (return) LeaveMethod: TrafficLightsPerceptionComponent::UpdateCameraSelection";
-  return false;
+    return false;
   }
   last_query_tf_ts_ = current_ts;
 
@@ -732,12 +632,8 @@ AINFO<<"(DMCZP) EnteringMethod: TrafficLightsPerceptionComponent::SyncV2XTraffic
           << light->region.projection_roi.width << " h "
           << light->region.projection_roi.height;
   }
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: TrafficLightsPerceptionComponent::UpdateCameraSelection";
   return true;
-
-  AINFO<<"(DMCZP) LeaveMethod: TrafficLightsPerceptionComponent::UpdateCameraSelection";
- }
+}
 
 bool TrafficLightsPerceptionComponent::CheckCameraImageStatus(
     double timestamp, double interval, const std::string& camera_name) {
@@ -765,25 +661,17 @@ AINFO<<"(DMCZP) EnteringMethod: TrafficLightsPerceptionComponent::CheckCameraIma
   if (!preprocessor_->GetCameraWorkingFlag(camera_name, &is_camera_working)) {
     AERROR << "get_camera_is_working_flag ts: " << std::to_string(timestamp)
            << " camera_name: " << camera_name;
-    
-  AINFO<<"(DMCZP) (return) LeaveMethod: TrafficLightsPerceptionComponent::CheckCameraImageStatus";
-  return false;
+    return false;
   }
   if (!is_camera_working) {
     if (!preprocessor_->SetCameraWorkingFlag(camera_name, true)) {
       AERROR << "set_camera_is_working_flag ts: " << std::to_string(timestamp)
              << " camera_name: " << camera_name;
-      
-  AINFO<<"(DMCZP) (return) LeaveMethod: TrafficLightsPerceptionComponent::CheckCameraImageStatus";
-  return false;
+      return false;
     }
   }
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: TrafficLightsPerceptionComponent::CheckCameraImageStatus";
   return true;
-
-  AINFO<<"(DMCZP) LeaveMethod: TrafficLightsPerceptionComponent::CheckCameraImageStatus";
- }
+}
 
 bool TrafficLightsPerceptionComponent::GetCarPose(const double timestamp,
                                                   camera::CarPose* pose) {
@@ -795,11 +683,7 @@ AINFO<<"(DMCZP) EnteringMethod: TrafficLightsPerceptionComponent::GetCarPose";
                      &pose_matrix)) {
     AERROR << "get pose from tf failed, child_frame_id: "
            << tf2_child_frame_id_;
-    
-  AINFO<<"(DMCZP) (return) LeaveMethod: TrafficLightsPerceptionComponent::GetCarPose";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: TrafficLightsPerceptionComponent::GetCarPose";
-  return false;
+    return false;
   }
   if (!pose->Init(timestamp, pose_matrix)) {
     AERROR << "PreprocessComponent::get_car_pose failed, ts:"
@@ -822,12 +706,8 @@ AINFO<<"(DMCZP) EnteringMethod: TrafficLightsPerceptionComponent::GetCarPose";
       state += 1;
     }
   }
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: TrafficLightsPerceptionComponent::GetCarPose";
   return state > 0;
-
-  AINFO<<"(DMCZP) LeaveMethod: TrafficLightsPerceptionComponent::GetCarPose";
- }
+}
 
 bool TrafficLightsPerceptionComponent::GetPoseFromTF(
     const double timestamp, const std::string& frame_id,
@@ -843,11 +723,7 @@ AINFO<<"(DMCZP) EnteringMethod: TrafficLightsPerceptionComponent::GetPoseFromTF"
     AERROR << "Can not find transform. " << std::to_string(timestamp)
            << " frame_id: " << frame_id << " child_frame_id: " << child_frame_id
            << " Error info: " << err_string;
-    
-  AINFO<<"(DMCZP) (return) LeaveMethod: TrafficLightsPerceptionComponent::GetPoseFromTF";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: TrafficLightsPerceptionComponent::GetPoseFromTF";
-  return false;
+    return false;
   }
   apollo::transform::TransformStamped stamped_transform;
   try {
@@ -867,12 +743,8 @@ AINFO<<"(DMCZP) EnteringMethod: TrafficLightsPerceptionComponent::GetPoseFromTF"
     AERROR << ex.what();
     return false;
   }
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: TrafficLightsPerceptionComponent::GetPoseFromTF";
   return true;
-
-  AINFO<<"(DMCZP) LeaveMethod: TrafficLightsPerceptionComponent::GetPoseFromTF";
- }
+}
 
 bool TrafficLightsPerceptionComponent::TransformOutputMessage(
     camera::CameraFrame* frame, const std::string& camera_name,
@@ -901,11 +773,7 @@ AINFO<<"(DMCZP) EnteringMethod: TrafficLightsPerceptionComponent::TransformOutpu
   if (CAMERA_ID_TO_TLCAMERA_ID.find(camera_name) ==
       CAMERA_ID_TO_TLCAMERA_ID.end()) {
     AERROR << "unknown camera_name: " << camera_name;
-    
-  AINFO<<"(DMCZP) (return) LeaveMethod: TrafficLightsPerceptionComponent::TransformOutputMessage";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: TrafficLightsPerceptionComponent::TransformOutputMessage";
-  return false;
+    return false;
   }
   (*out_msg)->set_camera_id(CAMERA_ID_TO_TLCAMERA_ID.at(camera_name));
 
@@ -1017,10 +885,6 @@ AINFO<<"(DMCZP) EnteringMethod: TrafficLightsPerceptionComponent::TransformOutpu
     return false;
   }
 
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: TrafficLightsPerceptionComponent::TransformOutputMessage";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: TrafficLightsPerceptionComponent::TransformOutputMessage";
   return true;
 }
 
@@ -1031,9 +895,7 @@ AINFO<<"(DMCZP) EnteringMethod: TrafficLightsPerceptionComponent::TransRect2Box"
   box->set_y(rect.y);
   box->set_width(rect.width);
   box->set_height(rect.height);
-
-  AINFO<<"(DMCZP) LeaveMethod: TrafficLightsPerceptionComponent::TransRect2Box";
- }
+}
 
 double TrafficLightsPerceptionComponent::stopline_distance(
     const Eigen::Matrix4d& cam_pose) {
@@ -1041,23 +903,7 @@ AINFO<<"(DMCZP) EnteringMethod: TrafficLightsPerceptionComponent::stopline_dista
   if (stoplines_.empty()) {
     AWARN << "compute car to stopline's distance failed(no stopline). "
           << "cam_pose:" << cam_pose;
-    
-  AINFO<<"(DMCZP) (return) LeaveMethod: TrafficLightsPerceptionComponent::stopline_distance";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: TrafficLightsPerceptionComponent::stopline_distance";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: TrafficLightsPerceptionComponent::stopline_distance";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: TrafficLightsPerceptionComponent::stopline_distance";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: TrafficLightsPerceptionComponent::TransformOutputMessage";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: TrafficLightsPerceptionComponent::TransformOutputMessage";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: TrafficLightsPerceptionComponent::TransformOutputMessage";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: TrafficLightsPerceptionComponent::TransformOutputMessage";
-  return -1;
+    return -1;
   }
   const apollo::hdmap::Curve& stopline = stoplines_.Get(0);
   if (stopline.segment_size() == 0) {
@@ -1091,14 +937,8 @@ AINFO<<"(DMCZP) EnteringMethod: TrafficLightsPerceptionComponent::stopline_dista
        Eigen::Vector4d(stopline_pt(0), stopline_pt(1), stopline_pt(2), 1.0))
           .head(3);
 
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: TrafficLightsPerceptionComponent::stopline_distance";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: TrafficLightsPerceptionComponent::TransformOutputMessage";
   return stopline_pt_cam(2);
-
-  AINFO<<"(DMCZP) LeaveMethod: TrafficLightsPerceptionComponent::stopline_distance";
- }
+}
 
 bool TrafficLightsPerceptionComponent::TransformDebugMessage(
     const camera::CameraFrame* frame,
@@ -1162,12 +1002,8 @@ AINFO<<"(DMCZP) EnteringMethod: TrafficLightsPerceptionComponent::TransformDebug
     Visualize(*frame, lights);
   }
 
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: TrafficLightsPerceptionComponent::TransformDebugMessage";
   return true;
-
-  AINFO<<"(DMCZP) LeaveMethod: TrafficLightsPerceptionComponent::TransformDebugMessage";
- }
+}
 
 void TrafficLightsPerceptionComponent::Visualize(
     const camera::CameraFrame& frame,
@@ -1178,11 +1014,7 @@ AINFO<<"(DMCZP) EnteringMethod: TrafficLightsPerceptionComponent::Visualize";
   cv::Scalar tl_color;
 
   if (lights.empty()) {
-    
-  AINFO<<"(DMCZP) (return) LeaveMethod: TrafficLightsPerceptionComponent::Visualize";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: TrafficLightsPerceptionComponent::TransformOutputMessage";
-  return;
+    return;
   }
   cv::Mat output_image(image_height_, image_width_, CV_8UC3,
                        cv::Scalar(0, 0, 0));
@@ -1267,9 +1099,7 @@ AINFO<<"(DMCZP) EnteringMethod: TrafficLightsPerceptionComponent::Visualize";
   cv::imwrite("/apollo/debug_vis/" + std::to_string(frame.timestamp) + ".jpg",
               output_image);
   cvWaitKey(30);
-
-  AINFO<<"(DMCZP) LeaveMethod: TrafficLightsPerceptionComponent::Visualize";
- }
+}
 
 void TrafficLightsPerceptionComponent::SyncV2XTrafficLights(
     camera::CameraFrame* frame) {
@@ -1328,20 +1158,14 @@ void TrafficLightsPerceptionComponent::SyncV2XTrafficLights(
   for (auto& light : frame->traffic_lights) {
     sync_single_light(light);
   }
-
-  AINFO<<"(DMCZP) LeaveMethod: TrafficLightsPerceptionComponent::SyncV2XTrafficLights";
- }
+}
 
 void TrafficLightsPerceptionComponent::SendSimulationMsg() {
 AINFO<<"(DMCZP) EnteringMethod: TrafficLightsPerceptionComponent::SendSimulationMsg";
   auto out_msg = std::make_shared<TrafficLightDetection>();
   writer_->Write(out_msg);
+}
 
-  AINFO<<"(DMCZP) LeaveMethod: TrafficLightsPerceptionComponent::SendSimulationMsg";
- }
-
-
-  AINFO<<"(DMCZP) LeaveMethod: TrafficLightsPerceptionComponent::TransformOutputMessage";
- }  // namespace onboard
+}  // namespace onboard
 }  // namespace perception
 }  // namespace apollo

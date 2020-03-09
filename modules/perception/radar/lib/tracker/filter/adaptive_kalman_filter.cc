@@ -22,11 +22,7 @@ namespace radar {
 
 double AdaptiveKalmanFilter::s_q_matrix_ratio_ = 0.074;
 
-AdaptiveKalmanFilter::AdaptiveKalmanFilter() {
-  AINFO<<"(DMCZP) EnteringMethod: AdaptiveKalmanFilter::AdaptiveKalmanFilter";
- name_ = "AdaptiveKalmanFilter"; 
-  AINFO<<"(DMCZP) LeaveMethod: AdaptiveKalmanFilter::AdaptiveKalmanFilter";
- }
+AdaptiveKalmanFilter::AdaptiveKalmanFilter() { name_ = "AdaptiveKalmanFilter"; }
 AdaptiveKalmanFilter::~AdaptiveKalmanFilter() {}
 void AdaptiveKalmanFilter::Init(const base::Object& object) {
 AINFO<<"(DMCZP) EnteringMethod: AdaptiveKalmanFilter::Init";
@@ -52,9 +48,7 @@ AINFO<<"(DMCZP) EnteringMethod: AdaptiveKalmanFilter::Init";
   p_matrix_.block<2, 2>(2, 2) =
       object.velocity_uncertainty.topLeftCorner(2, 2).cast<double>();
   c_matrix_.setIdentity();
-
-  AINFO<<"(DMCZP) LeaveMethod: AdaptiveKalmanFilter::Init";
- }
+}
 Eigen::VectorXd AdaptiveKalmanFilter::Predict(const double time_diff) {
 AINFO<<"(DMCZP) EnteringMethod: AdaptiveKalmanFilter::Predict";
   Eigen::VectorXd state;
@@ -63,12 +57,8 @@ AINFO<<"(DMCZP) EnteringMethod: AdaptiveKalmanFilter::Predict";
   state[1] = belief_anchor_point_[1] + belief_velocity_[1] * time_diff;
   state[2] = belief_velocity_[0];
   state[3] = belief_velocity_[1];
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: AdaptiveKalmanFilter::Predict";
   return state;
-
-  AINFO<<"(DMCZP) LeaveMethod: AdaptiveKalmanFilter::Predict";
- }
+}
 Eigen::VectorXd AdaptiveKalmanFilter::UpdateWithObject(
     const base::Object& new_object, double time_diff) {
 AINFO<<"(DMCZP) EnteringMethod: AdaptiveKalmanFilter::UpdateWithObject";
@@ -111,12 +101,8 @@ AINFO<<"(DMCZP) EnteringMethod: AdaptiveKalmanFilter::UpdateWithObject";
   state[1] = belief_anchor_point_[1];
   state[2] = belief_velocity_[0];
   state[3] = belief_velocity_[1];
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: AdaptiveKalmanFilter::UpdateWithObject";
   return state;
-
-  AINFO<<"(DMCZP) LeaveMethod: AdaptiveKalmanFilter::UpdateWithObject";
- }
+}
 void AdaptiveKalmanFilter::GetState(Eigen::Vector3d* anchor_point,
                                     Eigen::Vector3d* velocity) {
 AINFO<<"(DMCZP) EnteringMethod: AdaptiveKalmanFilter::GetState";
@@ -124,9 +110,7 @@ AINFO<<"(DMCZP) EnteringMethod: AdaptiveKalmanFilter::GetState";
   CHECK_NOTNULL(velocity);
   *anchor_point = belief_anchor_point_;
   *velocity = belief_velocity_;
-
-  AINFO<<"(DMCZP) LeaveMethod: AdaptiveKalmanFilter::GetState";
- }
+}
 
 }  // namespace radar
 }  // namespace perception

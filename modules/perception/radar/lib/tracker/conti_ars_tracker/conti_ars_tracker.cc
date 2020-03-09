@@ -25,9 +25,7 @@ ContiArsTracker::ContiArsTracker()
     : BaseTracker(), matcher_(nullptr), track_manager_(nullptr) {
 AINFO<<"(DMCZP) EnteringMethod: ContiArsTracker::ContiArsTracker";
   name_ = "ContiArsTracker";
-
-  AINFO<<"(DMCZP) LeaveMethod: ContiArsTracker::ContiArsTracker";
- }
+}
 
 ContiArsTracker::~ContiArsTracker() {
   if (matcher_ != nullptr) {
@@ -87,12 +85,8 @@ AINFO<<"(DMCZP) EnteringMethod: ContiArsTracker::Init";
   track_manager_ = new RadarTrackManager();
   CHECK(track_manager_ != nullptr)
       << "Failed to get RadarTrackManager instance.";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: ContiArsTracker::Init";
   return state;
-
-  AINFO<<"(DMCZP) LeaveMethod: ContiArsTracker::Init";
- }
+}
 
 bool ContiArsTracker::Track(const base::Frame &detected_frame,
                             const TrackerOptions &options,
@@ -100,12 +94,8 @@ bool ContiArsTracker::Track(const base::Frame &detected_frame,
 AINFO<<"(DMCZP) EnteringMethod: ContiArsTracker::Track";
   TrackObjects(detected_frame);
   CollectTrackedFrame(tracked_frame);
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: ContiArsTracker::Track";
   return true;
-
-  AINFO<<"(DMCZP) LeaveMethod: ContiArsTracker::Track";
- }
+}
 
 void ContiArsTracker::TrackObjects(const base::Frame &radar_frame) {
 AINFO<<"(DMCZP) EnteringMethod: ContiArsTracker::TrackObjects";
@@ -120,9 +110,7 @@ AINFO<<"(DMCZP) EnteringMethod: ContiArsTracker::TrackObjects";
   UpdateUnassignedTracks(radar_frame, unassigned_tracks);
   DeleteLostTracks();
   CreateNewTracks(radar_frame, unassigned_objects);
-
-  AINFO<<"(DMCZP) LeaveMethod: ContiArsTracker::TrackObjects";
- }
+}
 
 void ContiArsTracker::UpdateAssignedTracks(
     const base::Frame &radar_frame, std::vector<TrackObjectPair> assignments) {
@@ -132,9 +120,7 @@ AINFO<<"(DMCZP) EnteringMethod: ContiArsTracker::UpdateAssignedTracks";
     radar_tracks[assignments[i].first]->UpdataObsRadar(
         radar_frame.objects[assignments[i].second], radar_frame.timestamp);
   }
-
-  AINFO<<"(DMCZP) LeaveMethod: ContiArsTracker::UpdateAssignedTracks";
- }
+}
 
 void ContiArsTracker::UpdateUnassignedTracks(
     const base::Frame &radar_frame,
@@ -153,15 +139,9 @@ AINFO<<"(DMCZP) EnteringMethod: ContiArsTracker::UpdateUnassignedTracks";
       radar_tracks[unassigned_tracks[i]]->SetDead();
     }
   }
+}
 
-  AINFO<<"(DMCZP) LeaveMethod: ContiArsTracker::UpdateUnassignedTracks";
- }
-
-void ContiArsTracker::DeleteLostTracks() {
-  AINFO<<"(DMCZP) EnteringMethod: ContiArsTracker::DeleteLostTracks";
- track_manager_->RemoveLostTracks(); 
-  AINFO<<"(DMCZP) LeaveMethod: ContiArsTracker::DeleteLostTracks";
- }
+void ContiArsTracker::DeleteLostTracks() { track_manager_->RemoveLostTracks(); }
 
 void ContiArsTracker::CreateNewTracks(
     const base::Frame &radar_frame,
@@ -173,9 +153,7 @@ AINFO<<"(DMCZP) EnteringMethod: ContiArsTracker::CreateNewTracks";
                                      radar_frame.timestamp));
     track_manager_->AddTrack(radar_track);
   }
-
-  AINFO<<"(DMCZP) LeaveMethod: ContiArsTracker::CreateNewTracks";
- }
+}
 
 void ContiArsTracker::CollectTrackedFrame(base::FramePtr tracked_frame) {
 AINFO<<"(DMCZP) EnteringMethod: ContiArsTracker::CollectTrackedFrame";
@@ -193,9 +171,7 @@ AINFO<<"(DMCZP) EnteringMethod: ContiArsTracker::CollectTrackedFrame";
       objects.push_back(object);
     }
   }
-
-  AINFO<<"(DMCZP) LeaveMethod: ContiArsTracker::CollectTrackedFrame";
- }
+}
 
 PERCEPTION_REGISTER_TRACKER(ContiArsTracker);
 

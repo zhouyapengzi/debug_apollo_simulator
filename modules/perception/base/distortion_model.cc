@@ -63,12 +63,8 @@ AINFO<<"(DMCZP) EnteringMethod: BrownCameraDistortionModel::Project";
   pt2d_img[0] = fx * pt2d_img[0] + cx;
   pt2d_img[1] = fy * pt2d_img[1] + cy;
 
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: BrownCameraDistortionModel::Project";
   return pt2d_img;
-
-  AINFO<<"(DMCZP) LeaveMethod: BrownCameraDistortionModel::Project";
- }
+}
 
 std::shared_ptr<BaseCameraModel>
 BrownCameraDistortionModel::get_camera_model() {
@@ -78,20 +74,14 @@ AINFO<<"(DMCZP) EnteringMethod: BrownCameraDistortionModel::get_camera_model";
   camera_model->set_height(height_);
   camera_model->set_intrinsic_params(intrinsic_params_);
 
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: BrownCameraDistortionModel::get_camera_model";
   return std::dynamic_pointer_cast<BaseCameraModel>(camera_model);
-
-  AINFO<<"(DMCZP) LeaveMethod: BrownCameraDistortionModel::get_camera_model";
- }
+}
 
 bool BrownCameraDistortionModel::set_params(size_t width, size_t height,
                                             const Eigen::VectorXf& params) {
 AINFO<<"(DMCZP) EnteringMethod: BrownCameraDistortionModel::set_params";
   if (params.size() != 14) {
-    
-  AINFO<<"(DMCZP) (return) LeaveMethod: BrownCameraDistortionModel::set_params";
-  return false;
+    return false;
   }
 
   width_ = width;
@@ -112,12 +102,8 @@ AINFO<<"(DMCZP) EnteringMethod: BrownCameraDistortionModel::set_params";
   distort_params_[3] = params[12];
   distort_params_[4] = params[13];
 
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: BrownCameraDistortionModel::set_params";
   return true;
-
-  AINFO<<"(DMCZP) LeaveMethod: BrownCameraDistortionModel::set_params";
- }
+}
 
 }  // namespace base
 }  // namespace perception

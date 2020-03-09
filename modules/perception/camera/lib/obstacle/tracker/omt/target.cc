@@ -29,19 +29,9 @@ namespace perception {
 namespace camera {
 
 int Target::global_track_id = 0;
-int Target::Size() const {
-  AINFO<<"(DMCZP) EnteringMethod: Target::Size";
- 
-  AINFO<<"(DMCZP) (return) LeaveMethod: Target::
-  AINFO<<"(DMCZP) LeaveMethod: Target::Size";
- Size";
-  return static_cast<int>(tracked_objects.size()); }
+int Target::Size() const { return static_cast<int>(tracked_objects.size()); }
 
-void Target::Clear() {
-  AINFO<<"(DMCZP) EnteringMethod: Target::Clear";
- tracked_objects.clear(); 
-  AINFO<<"(DMCZP) LeaveMethod: Target::Clear";
- }
+void Target::Clear() { tracked_objects.clear(); }
 
 TrackObjectPtr Target::operator[](int index) const { return get_object(index); }
 TrackObjectPtr Target::get_object(int index) const {
@@ -49,13 +39,9 @@ AINFO<<"(DMCZP) EnteringMethod: Target::get_object";
   CHECK_GT(tracked_objects.size(), 0);
   CHECK_LT(index, static_cast<int>(tracked_objects.size()));
   CHECK_GE(index, -static_cast<int>(tracked_objects.size()));
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: Target::get_object";
   return tracked_objects[(index + tracked_objects.size()) %
                          tracked_objects.size()];
-
-  AINFO<<"(DMCZP) LeaveMethod: Target::get_object";
- }
+}
 void Target::Add(TrackObjectPtr object) {
 AINFO<<"(DMCZP) EnteringMethod: Target::Add";
   if (tracked_objects.empty()) {
@@ -69,9 +55,7 @@ AINFO<<"(DMCZP) EnteringMethod: Target::Add";
   latest_object = object;
   lost_age = 0;
   tracked_objects.push_back(object);
-
-  AINFO<<"(DMCZP) LeaveMethod: Target::Add";
- }
+}
 void Target::RemoveOld(int frame_id) {
 AINFO<<"(DMCZP) EnteringMethod: Target::RemoveOld";
   size_t index = 0;
@@ -81,9 +65,7 @@ AINFO<<"(DMCZP) EnteringMethod: Target::RemoveOld";
   }
   tracked_objects.erase(tracked_objects.begin(),
                         tracked_objects.begin() + index);
-
-  AINFO<<"(DMCZP) LeaveMethod: Target::RemoveOld";
- }
+}
 void Target::Init(const omt::TargetParam &param) {
 AINFO<<"(DMCZP) EnteringMethod: Target::Init";
   target_param_ = param;
@@ -122,14 +104,8 @@ AINFO<<"(DMCZP) EnteringMethod: Target::Init";
       target_param_.world_center().init_variance();
   // Init object template
   object_template_manager_ = ObjectTemplateManager::Instance();
-
-  AINFO<<"(DMCZP) LeaveMethod: Target::Init";
- }
-Target::Target(const omt::TargetParam &param) {
-  AINFO<<"(DMCZP) EnteringMethod: Target::Target";
- Init(param); 
-  AINFO<<"(DMCZP) LeaveMethod: Target::Target";
- }
+}
+Target::Target(const omt::TargetParam &param) { Init(param); }
 
 void Target::Predict(CameraFrame *frame) {
 
@@ -138,9 +114,7 @@ void Target::Predict(CameraFrame *frame) {
   auto delta_t =
       static_cast<float>(frame->timestamp - latest_object->timestamp);
   if (delta_t < 0) {
-    
-  AINFO<<"(DMCZP) (return) LeaveMethod: Target::Predict";
-  return;
+    return;
   }
 
    AINFO<<"(pengzi) predict image_center. in method: Target::Predict(CameraFrame *frame). thread:"<< std::this_thread::get_id();
@@ -164,9 +138,7 @@ void Target::Predict(CameraFrame *frame) {
   world_center_const.Predict(delta_t);
 
   AINFO<<"(pengzi)finish predict target. thread:"<< std::this_thread::get_id();
-
-  AINFO<<"(DMCZP) LeaveMethod: Target::Predict";
- }
+}
 
 void Target::Update2D(CameraFrame *frame) {
 AINFO<<"(DMCZP) EnteringMethod: Target::Update2D";
@@ -198,9 +170,7 @@ AINFO<<"(DMCZP) EnteringMethod: Target::Update2D";
     RefineBox(rect, width, height, &rect);
     latest_object->projected_box = rect;
   }
-
-  AINFO<<"(DMCZP) LeaveMethod: Target::Update2D";
- }
+}
 
 void Target::Update3D(CameraFrame *frame) {
 AINFO<<"(DMCZP) EnteringMethod: Target::Update3D";
@@ -349,9 +319,7 @@ AINFO<<"(DMCZP) EnteringMethod: Target::Update3D";
   // debug velocity
   ADEBUG << "obj_speed--id: " << id << " "
          << std::to_string(object->velocity.head(2).norm());
-
-  AINFO<<"(DMCZP) LeaveMethod: Target::Update3D";
- }
+}
 
 void Target::UpdateType(CameraFrame *frame) {
 AINFO<<"(DMCZP) EnteringMethod: Target::UpdateType";
@@ -392,9 +360,7 @@ AINFO<<"(DMCZP) EnteringMethod: Target::UpdateType";
     }
     ADEBUG << " size is " << world_lwh.get_state().transpose();
   }
-
-  AINFO<<"(DMCZP) LeaveMethod: Target::UpdateType";
- }
+}
 
 void Target::ClappingTrackVelocity(const base::ObjectPtr &obj) {
 AINFO<<"(DMCZP) EnteringMethod: Target::ClappingTrackVelocity";
@@ -420,9 +386,7 @@ AINFO<<"(DMCZP) EnteringMethod: Target::ClappingTrackVelocity";
                 " abnormal_velocity_heading_angle_threshold : "
              << target_param_.abnormal_velocity_heading_angle_threshold();
       obj->velocity = Eigen::Vector3f::Zero();
-      
-  AINFO<<"(DMCZP) (return) LeaveMethod: Target::ClappingTrackVelocity";
-  return;
+      return;
     }
   }
 
@@ -430,13 +394,9 @@ AINFO<<"(DMCZP) EnteringMethod: Target::ClappingTrackVelocity";
   if (CheckStatic()) {
     ADEBUG << "omt set zero velocity because of small speed.";
     obj->velocity = Eigen::Vector3f::Zero();
-    
-  AINFO<<"(DMCZP) (return) LeaveMethod: Target::ClappingTrackVelocity";
-  return;
+    return;
   }
-
-  AINFO<<"(DMCZP) LeaveMethod: Target::ClappingTrackVelocity";
- }
+}
 
 /*
  * 1. check small speed
@@ -447,9 +407,7 @@ bool Target::CheckStatic() {
 AINFO<<"(DMCZP) EnteringMethod: Target::CheckStatic";
   if (static_cast<int>(history_world_states_.size()) <
       target_param_.min_cached_world_state_history_size()) {
-    
-  AINFO<<"(DMCZP) (return) LeaveMethod: Target::CheckStatic";
-  return false;
+    return false;
   }
 
   // 1. Check small speed
@@ -467,9 +425,7 @@ AINFO<<"(DMCZP) EnteringMethod: Target::CheckStatic";
                       [](const base::Object &obj1, const base::Object &obj2) {
                         base::Object ret_obj;
                         ret_obj.velocity = obj1.velocity + obj2.velocity;
-                        
-  AINFO<<"(DMCZP) (return) LeaveMethod: Target::CheckStatic";
-  return ret_obj;
+                        return ret_obj;
                       });
   tmp_obj_vel_avg.velocity /= static_cast<float>(min_vel_size);
   double speed_avg = tmp_obj_vel_avg.velocity.head(2).norm();
@@ -481,13 +437,7 @@ AINFO<<"(DMCZP) EnteringMethod: Target::CheckStatic";
     small_speed = speed_avg < target_param_.static_speed_threshold();
   }
   if (small_speed) {
-    
-  AINFO<<"(DMCZP) (return) LeaveMethod: Target::CheckStatic";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: Target::CheckStatic";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: Target::CheckStatic";
-  return true;
+    return true;
   }
 
   // 2. Check small moved distance
@@ -539,9 +489,7 @@ AINFO<<"(DMCZP) EnteringMethod: Target::CheckStatic";
                      min_vel_size,
                  history_world_states_.end(), theta_vec.begin(),
                  [](const base::Object &obj) -> double {
-                   
-  AINFO<<"(DMCZP) (return) LeaveMethod: Target::CheckStatic";
-  return std::atan2(obj.velocity[1], obj.velocity[0]);
+                   return std::atan2(obj.velocity[1], obj.velocity[0]);
                  });
   double mean = 0.0;
   double var = 0.0;
@@ -550,28 +498,14 @@ AINFO<<"(DMCZP) EnteringMethod: Target::CheckStatic";
   if (stddev > target_param_.velocity_theta_var()) {  // 28.64 degree
     return true;
   }
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: Target::CheckStatic";
   return false;
-
-  AINFO<<"(DMCZP) LeaveMethod: Target::CheckStatic";
- }
+}
 
 bool Target::isTracked() const {
 AINFO<<"(DMCZP) EnteringMethod: Target::isTracked";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: Target::isTracked";
   return Size() >= target_param_.tracked_life();
-
-  AINFO<<"(DMCZP) LeaveMethod: Target::isTracked";
- }
-bool Target::isLost() const {
-  AINFO<<"(DMCZP) EnteringMethod: Target::isLost";
- 
-  AINFO<<"(DMCZP) (r
-  AINFO<<"(DMCZP) LeaveMethod: Target::isLost";
- eturn) LeaveMethod: Target::isLost";
-  return lost_age > 0; }
+}
+bool Target::isLost() const { return lost_age > 0; }
 
 }  // namespace camera
 }  // namespace perception

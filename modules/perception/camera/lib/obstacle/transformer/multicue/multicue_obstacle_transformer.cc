@@ -31,9 +31,7 @@ AINFO<<"(DMCZP) EnteringMethod: MultiCueObstacleTransformer::Init";
 
   if (!cyber::common::GetProtoFromFile(transformer_config, &multicue_param_)) {
     AERROR << "Read config failed: " << transformer_config;
-    
-  AINFO<<"(DMCZP) (return) LeaveMethod: MultiCueObstacleTransformer::Init";
-  return false;
+    return false;
   }
   AINFO << "Load transformer parameters from " << transformer_config
         << " \nmin dimension: " << multicue_param_.min_dimension_val()
@@ -42,12 +40,8 @@ AINFO<<"(DMCZP) EnteringMethod: MultiCueObstacleTransformer::Init";
   // Init object template
   object_template_manager_ = ObjectTemplateManager::Instance();
 
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: MultiCueObstacleTransformer::Init";
   return true;
-
-  AINFO<<"(DMCZP) LeaveMethod: MultiCueObstacleTransformer::Init";
- }
+}
 
 void MultiCueObstacleTransformer::SetObjMapperOptions(
     base::ObjectPtr obj, Eigen::Matrix3f camera_k_matrix, int width_image,
@@ -101,9 +95,7 @@ AINFO<<"(DMCZP) EnteringMethod: MultiCueObstacleTransformer::SetObjMapperOptions
   ADEBUG << "Obj pred type: " << static_cast<int>(sub_type);
   ADEBUG << "Bbox: " << bbox2d[0] << ", " << bbox2d[1] << ", " << bbox2d[2]
          << ", " << bbox2d[3];
-
-  AINFO<<"(DMCZP) LeaveMethod: MultiCueObstacleTransformer::SetObjMapperOptions";
- }
+}
 
 int MultiCueObstacleTransformer::MatchTemplates(base::ObjectSubType sub_type,
                                                 float *dimension_hwl) {
@@ -146,9 +138,7 @@ AINFO<<"(DMCZP) EnteringMethod: MultiCueObstacleTransformer::MatchTemplates";
       sort(diff_hs.begin(), diff_hs.end(),
            [](const std::pair<float, float> &a,
               const std::pair<float, float> &b) -> bool {
-             
-  AINFO<<"(DMCZP) (return) LeaveMethod: MultiCueObstacleTransformer::MatchTemplates";
-  return a.first < b.first;
+             return a.first < b.first;
            });
       dimension_hwl[0] = diff_hs[0].second;
       break;
@@ -176,21 +166,15 @@ AINFO<<"(DMCZP) EnteringMethod: MultiCueObstacleTransformer::MatchTemplates";
       }
       break;
   }
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: MultiCueObstacleTransformer::MatchTemplates";
   return type_min_vol_index;
-
-  AINFO<<"(DMCZP) LeaveMethod: MultiCueObstacleTransformer::MatchTemplates";
- }
+}
 
 void MultiCueObstacleTransformer::FillResults(
     float object_center[3], float dimension_hwl[3], float rotation_y,
     Eigen::Affine3d camera2world_pose, float theta_ray, base::ObjectPtr obj) {
 AINFO<<"(DMCZP) EnteringMethod: MultiCueObstacleTransformer::FillResults";
   if (obj == nullptr) {
-    
-  AINFO<<"(DMCZP) (return) LeaveMethod: MultiCueObstacleTransformer::FillResults";
-  return;
+    return;
   }
   object_center[1] -= dimension_hwl[0] / 2;
   obj->camera_supplement.local_center(0) = object_center[0];
@@ -230,18 +214,14 @@ AINFO<<"(DMCZP) EnteringMethod: MultiCueObstacleTransformer::FillResults";
   ADEBUG << "Obj ry:" << rotation_y;
   ADEBUG << "Obj theta: " << obj->theta;
   ADEBUG << "Obj center from transformer: " << obj->center.transpose();
-
-  AINFO<<"(DMCZP) LeaveMethod: MultiCueObstacleTransformer::FillResults";
- }
+}
 
 bool MultiCueObstacleTransformer::Transform(
     const ObstacleTransformerOptions &options, CameraFrame *frame) {
 AINFO<<"(DMCZP) EnteringMethod: MultiCueObstacleTransformer::Transform";
   if (frame->detected_objects.empty()) {
     ADEBUG << "No object input to transformer.";
-    
-  AINFO<<"(DMCZP) (return) LeaveMethod: MultiCueObstacleTransformer::Transform";
-  return true;
+    return true;
   }
 
   const auto &camera_k_matrix = frame->camera_k_matrix;
@@ -289,21 +269,13 @@ AINFO<<"(DMCZP) EnteringMethod: MultiCueObstacleTransformer::Transform";
 
     ++nr_transformed_obj;
   }
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: MultiCueObstacleTransformer::Transform";
   return nr_transformed_obj > 0;
-
-  AINFO<<"(DMCZP) LeaveMethod: MultiCueObstacleTransformer::Transform";
- }
+}
 
 std::string MultiCueObstacleTransformer::Name() const {
 AINFO<<"(DMCZP) EnteringMethod: MultiCueObstacleTransformer::Name";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: MultiCueObstacleTransformer::Name";
   return "MultiCueObstacleTransformer";
-
-  AINFO<<"(DMCZP) LeaveMethod: MultiCueObstacleTransformer::Name";
- }
+}
 
 // Register plugin.
 REGISTER_OBSTACLE_TRANSFORMER(MultiCueObstacleTransformer);

@@ -35,11 +35,7 @@ bool SegmentationComponent::Init() {
 AINFO<<"(DMCZP) EnteringMethod: SegmentationComponent::Init";
   LidarSegmentationComponentConfig comp_config;
   if (!GetProtoConfig(&comp_config)) {
-    
-  AINFO<<"(DMCZP) (return) LeaveMethod: SegmentationComponent::Init";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: SegmentationComponent::Init";
-  return false;
+    return false;
   }
   ADEBUG << "Lidar Component Configs: " << comp_config.DebugString();
   output_channel_name_ = comp_config.output_channel_name();
@@ -55,12 +51,8 @@ AINFO<<"(DMCZP) EnteringMethod: SegmentationComponent::Init";
     AERROR << "Failed to init segmentation component algorithm plugin.";
     return false;
   }
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: SegmentationComponent::Init";
   return true;
-
-  AINFO<<"(DMCZP) LeaveMethod: SegmentationComponent::Init";
- }
+}
 
 bool SegmentationComponent::Proc(
     const std::shared_ptr<drivers::PointCloud>& message) {
@@ -77,12 +69,8 @@ AINFO<<"(DMCZP) EnteringMethod: SegmentationComponent::Proc";
     writer_->Write(out_message);
     AINFO << "Send lidar segment output message.";
   }
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: SegmentationComponent::Proc";
   return status;
-
-  AINFO<<"(DMCZP) LeaveMethod: SegmentationComponent::Proc";
- }
+}
 
 bool SegmentationComponent::InitAlgorithmPlugin() {
 AINFO<<"(DMCZP) EnteringMethod: SegmentationComponent::InitAlgorithmPlugin";
@@ -93,11 +81,7 @@ AINFO<<"(DMCZP) EnteringMethod: SegmentationComponent::InitAlgorithmPlugin";
   if (segmentor_ == nullptr) {
     AERROR << "sensor_name_ "
            << "Failed to get segmentation instance";
-    
-  AINFO<<"(DMCZP) (return) LeaveMethod: SegmentationComponent::InitAlgorithmPlugin";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: SegmentationComponent::InitAlgorithmPlugin";
-  return false;
+    return false;
   }
   lidar::LidarObstacleSegmentationInitOptions init_options;
   init_options.sensor_name = sensor_name_;
@@ -110,12 +94,8 @@ AINFO<<"(DMCZP) EnteringMethod: SegmentationComponent::InitAlgorithmPlugin";
   }
 
   lidar2world_trans_.Init(lidar2novatel_tf2_child_frame_id_);
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: SegmentationComponent::InitAlgorithmPlugin";
   return true;
-
-  AINFO<<"(DMCZP) LeaveMethod: SegmentationComponent::InitAlgorithmPlugin";
- }
+}
 
 bool SegmentationComponent::InternalProc(
     const std::shared_ptr<const drivers::PointCloud>& in_message,
@@ -154,11 +134,7 @@ AINFO<<"(DMCZP) EnteringMethod: SegmentationComponent::InternalProc";
     out_message->error_code_ = apollo::common::ErrorCode::PERCEPTION_ERROR_TF;
     AERROR << "Failed to get pose at time: "
            << std::to_string(lidar_query_tf_timestamp);
-    
-  AINFO<<"(DMCZP) (return) LeaveMethod: SegmentationComponent::InternalProc";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: SegmentationComponent::InternalProc";
-  return false;
+    return false;
   }
   PERCEPTION_PERF_BLOCK_END_WITH_INDICATOR(
       sensor_name_, "segmentation_1::get_lidar_to_world_pose");
@@ -179,12 +155,8 @@ AINFO<<"(DMCZP) EnteringMethod: SegmentationComponent::InternalProc";
   PERCEPTION_PERF_BLOCK_END_WITH_INDICATOR(sensor_name_,
                                            "segmentation_2::segment_obstacle");
 
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: SegmentationComponent::InternalProc";
   return true;
-
-  AINFO<<"(DMCZP) LeaveMethod: SegmentationComponent::InternalProc";
- }
+}
 
 }  // namespace onboard
 }  // namespace perception

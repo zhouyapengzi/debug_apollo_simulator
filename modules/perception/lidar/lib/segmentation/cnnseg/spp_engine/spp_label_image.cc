@@ -41,9 +41,7 @@ AINFO<<"(DMCZP) EnteringMethod: SppLabelImage::Init";
                                       static_cast<int>(width_));
   memset(labels_[0], 0, sizeof(uint16_t) * width_ * height_);
   clusters_.clear();
-
-  AINFO<<"(DMCZP) LeaveMethod: SppLabelImage::Init";
- }
+}
 
 void SppLabelImage::InitRangeMask(float range, float boundary_distance) {
 AINFO<<"(DMCZP) EnteringMethod: SppLabelImage::InitRangeMask";
@@ -67,9 +65,7 @@ AINFO<<"(DMCZP) EnteringMethod: SppLabelImage::InitRangeMask";
       }
     }
   }
-
-  AINFO<<"(DMCZP) LeaveMethod: SppLabelImage::InitRangeMask";
- }
+}
 
 void SppLabelImage::CollectClusterFromSppLabelImage() {
 AINFO<<"(DMCZP) EnteringMethod: SppLabelImage::CollectClusterFromSppLabelImage";
@@ -88,9 +84,7 @@ AINFO<<"(DMCZP) EnteringMethod: SppLabelImage::CollectClusterFromSppLabelImage";
       }
     }
   }
-
-  AINFO<<"(DMCZP) LeaveMethod: SppLabelImage::CollectClusterFromSppLabelImage";
- }
+}
 
 void SppLabelImage::ProjectClusterToSppLabelImage() {
 AINFO<<"(DMCZP) EnteringMethod: SppLabelImage::ProjectClusterToSppLabelImage";
@@ -101,9 +95,7 @@ AINFO<<"(DMCZP) EnteringMethod: SppLabelImage::ProjectClusterToSppLabelImage";
       labels_[0][pixel] = static_cast<uint16_t>(n + 1);
     }
   }
-
-  AINFO<<"(DMCZP) LeaveMethod: SppLabelImage::ProjectClusterToSppLabelImage";
- }
+}
 
 void SppLabelImage::FilterClusters(const float* confidence_map,
                                    float threshold) {
@@ -136,11 +128,7 @@ AINFO<<"(DMCZP) EnteringMethod: SppLabelImage::FilterClusters";
     }
   }
   clusters_.resize(current);
-
-  AINFO<<"(DMCZP) LeaveMethod: SppLabelImage::FilterClusters";
- 
-  AINFO<<"(DMCZP) LeaveMethod: SppLabelImage::FilterClusters";
- }
+}
 
 void SppLabelImage::FilterClusters(const float* confidence_map,
                                    const float* category_map,
@@ -225,9 +213,7 @@ AINFO<<"(DMCZP) EnteringMethod: SppLabelImage::CalculateClusterClass";
     cluster->type = static_cast<SppClassType>(std::distance(
         probs.begin(), std::max_element(probs.begin(), probs.end())));
   }
-
-  AINFO<<"(DMCZP) LeaveMethod: SppLabelImage::CalculateClusterClass";
- }
+}
 
 void SppLabelImage::CalculateClusterHeading(const float* heading_map) {
 AINFO<<"(DMCZP) EnteringMethod: SppLabelImage::CalculateClusterHeading";
@@ -248,9 +234,7 @@ AINFO<<"(DMCZP) EnteringMethod: SppLabelImage::CalculateClusterHeading";
     clusters_[n]->yaw =
         std::atan2(directions[n].second, directions[n].first) * 0.5f;
   }
-
-  AINFO<<"(DMCZP) LeaveMethod: SppLabelImage::CalculateClusterHeading";
- }
+}
 
 void SppLabelImage::CalculateClusterTopZ(const float* top_z_map) {
 AINFO<<"(DMCZP) EnteringMethod: SppLabelImage::CalculateClusterTopZ";
@@ -264,9 +248,7 @@ AINFO<<"(DMCZP) EnteringMethod: SppLabelImage::CalculateClusterTopZ";
               : sum;
     cluster->top_z = sum;
   }
-
-  AINFO<<"(DMCZP) LeaveMethod: SppLabelImage::CalculateClusterTopZ";
- }
+}
 
 void SppLabelImage::AddPixelSample(size_t id, uint32_t pixel) {
 AINFO<<"(DMCZP) EnteringMethod: SppLabelImage::AddPixelSample";
@@ -275,9 +257,7 @@ AINFO<<"(DMCZP) EnteringMethod: SppLabelImage::AddPixelSample";
         .BatchGet(id + 1 - clusters_.size(), &clusters_);
   }
   clusters_[id]->pixels.push_back(pixel);
-
-  AINFO<<"(DMCZP) LeaveMethod: SppLabelImage::AddPixelSample";
- }
+}
 
 void SppLabelImage::ResizeClusters(size_t size) {
 AINFO<<"(DMCZP) EnteringMethod: SppLabelImage::ResizeClusters";
@@ -287,9 +267,7 @@ AINFO<<"(DMCZP) EnteringMethod: SppLabelImage::ResizeClusters";
   } else {
     clusters_.resize(size);
   }
-
-  AINFO<<"(DMCZP) LeaveMethod: SppLabelImage::ResizeClusters";
- }
+}
 
 void SppLabelImage::ResetClusters(size_t size) {
 AINFO<<"(DMCZP) EnteringMethod: SppLabelImage::ResetClusters";
@@ -298,9 +276,7 @@ AINFO<<"(DMCZP) EnteringMethod: SppLabelImage::ResetClusters";
   for (size_t i = 0; i < reset_pos; ++i) {
     clusters_[i]->clear();
   }
-
-  AINFO<<"(DMCZP) LeaveMethod: SppLabelImage::ResetClusters";
- }
+}
 
 }  // namespace lidar
 }  // namespace perception

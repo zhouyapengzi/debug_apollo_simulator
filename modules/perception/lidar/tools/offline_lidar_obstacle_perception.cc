@@ -64,135 +64,7 @@ class OfflineLidarObstaclePerception {
     FLAGS_config_manager_path = "./conf";
     if (!lib::ConfigManager::Instance()->Init()) {
       AERROR << "Failed to init ConfigManage.";
-      
-  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_string";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_string";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_string";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_string";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_string";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_string";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_string";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_string";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_bool";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_bool";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_bool";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_bool";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_bool";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_bool";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_bool";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_bool";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_bool";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_bool";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_bool";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_bool";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_bool";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_bool";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_bool";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_bool";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_double";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_double";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_double";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_double";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_double";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_double";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_double";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_double";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_bool";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_bool";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_bool";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_bool";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_bool";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_bool";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_bool";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_bool";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_string";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_string";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_string";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_string";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_string";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_string";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_string";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_string";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_string";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_string";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_string";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_string";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_string";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_string";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_string";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_string";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_string";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_string";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_string";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_string";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_string";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_string";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_string";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_string";
-  return false;
+      return false;
     }
     lidar_segmentation_.reset(new LidarObstacleSegmentation);
     if (lidar_segmentation_ == nullptr) {
@@ -223,55 +95,7 @@ class OfflineLidarObstaclePerception {
     }
 
     ADEBUG << "Sensor_name: " << sensor_info_.name;
-    
-  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_string";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_string";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_string";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_bool";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_bool";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_bool";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_bool";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_bool";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_bool";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_double";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_double";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_double";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_bool";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_bool";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_bool";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_string";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_string";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_string";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_string";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_string";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_string";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_string";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_string";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_string";
-  return true;
+    return true;
   }
 
   bool run() {
@@ -287,41 +111,9 @@ class OfflineLidarObstaclePerception {
     std::sort(pcd_file_names.begin(), pcd_file_names.end(),
               [](const std::string& lhs, const std::string& rhs) {
                 if (lhs.length() != rhs.length()) {
-                  
-  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_string";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_bool";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_bool";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_double";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_bool";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_string";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_string";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_string";
-  return lhs.length() < rhs.length();
+                  return lhs.length() < rhs.length();
                 }
-                
-  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_string";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_bool";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_bool";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_double";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_bool";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_string";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_string";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_string";
-  return lhs <= rhs;
+                return lhs <= rhs;
               });
     for (size_t i = 0; i < pcd_file_names.size(); ++i) {
       AINFO << "***************** Frame " << i << " ******************";
@@ -357,39 +149,7 @@ class OfflineLidarObstaclePerception {
           lidar_segmentation_->Process(segment_options_, frame_.get());
       if (segment_result.error_code != LidarErrorCode::Succeed) {
         AINFO << segment_result.log;
-        
-  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_string";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_string";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_bool";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_bool";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_bool";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_bool";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_double";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_double";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_bool";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_bool";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_string";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_string";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_string";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_string";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_string";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_string";
-  return false;
+        return false;
       }
       if (FLAGS_enable_tracking) {
         AINFO << "Enable tracking.";
@@ -397,62 +157,14 @@ class OfflineLidarObstaclePerception {
             lidar_tracking_->Process(tracking_options_, frame_.get());
         if (tracking_result.error_code != LidarErrorCode::Succeed) {
           AINFO << tracking_result.log;
-          
-  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_string";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_bool";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_bool";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_double";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_bool";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_string";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_string";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_string";
-  return false;
+          return false;
         }
         if (FLAGS_use_tracking_info) {
           auto& objects = frame_->segmented_objects;
           auto& result_objects = frame_->tracked_objects;
           std::sort(objects.begin(), objects.end(),
                     [](const base::ObjectPtr& lhs, const base::ObjectPtr& rhs) {
-                      
-  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_string";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_string";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_bool";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_bool";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_bool";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_bool";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_double";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_double";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_bool";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_bool";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_string";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_string";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_string";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_string";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_string";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_string";
-  return lhs->id < rhs->id;
+                      return lhs->id < rhs->id;
                     });
           std::sort(result_objects.begin(), result_objects.end(),
                     [](const base::ObjectPtr& lhs, const base::ObjectPtr& rhs) {
@@ -617,23 +329,7 @@ class OfflineLidarObstaclePerception {
 
 }  // namespace lidar
 }  // namespace perception
-
-  AINFO<<"(DMCZP) LeaveMethod: DEFINE_string";
- 
-  AINFO<<"(DMCZP) LeaveMethod: DEFINE_bool";
- 
-  AINFO<<"(DMCZP) LeaveMethod: DEFINE_bool";
- 
-  AINFO<<"(DMCZP) LeaveMethod: DEFINE_double";
- 
-  AINFO<<"(DMCZP) LeaveMethod: DEFINE_bool";
- 
-  AINFO<<"(DMCZP) LeaveMethod: DEFINE_string";
- 
-  AINFO<<"(DMCZP) LeaveMethod: DEFINE_string";
- 
-  AINFO<<"(DMCZP) LeaveMethod: DEFINE_string";
- }  // namespace apollo
+}  // namespace apollo
 
 int main(int argc, char** argv) {
 AINFO<<"(DMCZP) EnteringMethod: main";
@@ -644,13 +340,7 @@ AINFO<<"(DMCZP) EnteringMethod: main";
   apollo::perception::lidar::OfflineLidarObstaclePerception test;
   if (!test.setup()) {
     AINFO << "Failed to setup OfflineLidarObstaclePerception";
-    
-  AINFO<<"(DMCZP) (return) LeaveMethod: main";
-  return -1;
+    return -1;
   }
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: main";
   return test.run() ? 0 : -1;
-
-  AINFO<<"(DMCZP) LeaveMethod: main";
- }
+}

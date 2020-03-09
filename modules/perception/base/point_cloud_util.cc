@@ -34,9 +34,7 @@ AINFO<<"(DMCZP) EnteringMethod: GetPointCloudCentroid";
   centroid->x /= static_cast<float>(cloud.size());
   centroid->y /= static_cast<float>(cloud.size());
   centroid->z /= static_cast<float>(cloud.size());
-
-  AINFO<<"(DMCZP) LeaveMethod: GetPointCloudCentroid";
- }
+}
 
 void CloudDemean(PointFCloud* pc) {
 AINFO<<"(DMCZP) EnteringMethod: CloudDemean";
@@ -48,9 +46,7 @@ AINFO<<"(DMCZP) EnteringMethod: CloudDemean";
     (*pc)[i].y -= centroid.y;
     (*pc)[i].z -= centroid.z;
   }
-
-  AINFO<<"(DMCZP) LeaveMethod: CloudDemean";
- }
+}
 
 double OrientCloud(const PointFCloud& pc, PointFCloud* pc_out, bool demean) {
 AINFO<<"(DMCZP) EnteringMethod: OrientCloud";
@@ -73,20 +69,14 @@ AINFO<<"(DMCZP) EnteringMethod: OrientCloud";
   if (demean) {
     CloudDemean(pc_out);
   }
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: OrientCloud";
   return theta;
-
-  AINFO<<"(DMCZP) LeaveMethod: OrientCloud";
- }
+}
 
 bool GetPointCloudMinareaBbox(const PointFCloud& pc, BoundingCube* box,
                               const int& min_num_points, const bool& verbose) {
 AINFO<<"(DMCZP) EnteringMethod: GetPointCloudMinareaBbox";
   if (pc.size() <= static_cast<size_t>(min_num_points)) {
-    
-  AINFO<<"(DMCZP) (return) LeaveMethod: GetPointCloudMinareaBbox";
-  return false;
+    return false;
   }
   std::vector<cv::Point2f> pts;
   float min_z = FLT_MAX;
@@ -118,12 +108,8 @@ AINFO<<"(DMCZP) EnteringMethod: GetPointCloudMinareaBbox";
   box->width = mar.size.height;
   box->height = max_z - min_z;
   box->yaw = static_cast<float>((M_PI * (mar.angle + 180)) / 180);
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: GetPointCloudMinareaBbox";
   return true;
-
-  AINFO<<"(DMCZP) LeaveMethod: GetPointCloudMinareaBbox";
- }
+}
 
 }  // namespace base
 }  // namespace perception

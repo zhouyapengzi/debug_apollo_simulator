@@ -26,32 +26,16 @@ double BaseMatcher::s_bound_match_distance_ = 10.0;
 void BaseMatcher::SetMaxMatchDistance(double dist) {
 AINFO<<"(DMCZP) EnteringMethod: BaseMatcher::SetMaxMatchDistance";
   s_max_match_distance_ = dist;
+}
 
-  AINFO<<"(DMCZP) LeaveMethod: BaseMatcher::SetMaxMatchDistance";
- }
-
-double BaseMatcher::GetMaxMatchDistance() {
-  AINFO<<"(DMCZP) EnteringMethod: BaseMatcher::GetMaxMatchDistance";
- 
-  AINFO<<"(DMCZP) (return) Le
-  AINFO<<"(DMCZP) LeaveMethod: BaseMatcher::GetMaxMatchDistance";
- aveMethod: BaseMatcher::GetMaxMatchDistance";
-  return s_max_match_distance_; }
+double BaseMatcher::GetMaxMatchDistance() { return s_max_match_distance_; }
 
 void BaseMatcher::SetBoundMatchDistance(double dist) {
 AINFO<<"(DMCZP) EnteringMethod: BaseMatcher::SetBoundMatchDistance";
   s_bound_match_distance_ = dist;
+}
 
-  AINFO<<"(DMCZP) LeaveMethod: BaseMatcher::SetBoundMatchDistance";
- }
-
-double BaseMatcher::GetBoundMatchDistance() {
-  AINFO<<"(DMCZP) EnteringMethod: BaseMatcher::GetBoundMatchDistance";
- 
-  AINFO<<"(DMCZP) (return) Leav
-  AINFO<<"(DMCZP) LeaveMethod: BaseMatcher::GetBoundMatchDistance";
- eMethod: BaseMatcher::GetBoundMatchDistance";
-  return s_bound_match_distance_; }
+double BaseMatcher::GetBoundMatchDistance() { return s_bound_match_distance_; }
 
 void BaseMatcher::IDMatch(const std::vector<RadarTrackPtr> &radar_tracks,
                           const base::Frame &radar_frame,
@@ -68,9 +52,7 @@ AINFO<<"(DMCZP) EnteringMethod: BaseMatcher::IDMatch";
     unassigned_objects->resize(num_obj);
     std::iota(unassigned_tracks->begin(), unassigned_tracks->end(), 0);
     std::iota(unassigned_objects->begin(), unassigned_objects->end(), 0);
-    
-  AINFO<<"(DMCZP) (return) LeaveMethod: BaseMatcher::IDMatch";
-  return;
+    return;
   }
   std::vector<bool> track_used(num_track, false);
   std::vector<bool> object_used(num_obj, false);
@@ -100,25 +82,17 @@ AINFO<<"(DMCZP) EnteringMethod: BaseMatcher::IDMatch";
       unassigned_objects->push_back(i);
     }
   }
-
-  AINFO<<"(DMCZP) LeaveMethod: BaseMatcher::IDMatch";
- }
+}
 
 bool BaseMatcher::RefinedTrack(const base::ObjectPtr &track_object,
                                double track_timestamp,
                                const base::ObjectPtr &radar_object,
                                double radar_timestamp) {
 AINFO<<"(DMCZP) EnteringMethod: BaseMatcher::RefinedTrack";
-  // This function is supposed to 
-  AINFO<<"(DMCZP) (return) LeaveMethod: BaseMatcher::RefinedTrack";
-  return true in the base class.
+  // This function is supposed to return true in the base class.
   // Specific actions can be overrided in derived classes.
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: BaseMatcher::RefinedTrack";
   return true;
-
-  AINFO<<"(DMCZP) LeaveMethod: BaseMatcher::RefinedTrack";
- }
+}
 
 }  // namespace radar
 }  // namespace perception

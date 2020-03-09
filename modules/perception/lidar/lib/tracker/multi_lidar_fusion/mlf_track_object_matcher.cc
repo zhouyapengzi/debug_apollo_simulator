@@ -60,12 +60,8 @@ AINFO<<"(DMCZP) EnteringMethod: MlfTrackObjectMatcher::Init";
 
   bound_value_ = config.bound_value();
   max_match_distance_ = config.max_match_distance();
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: MlfTrackObjectMatcher::Init";
   return true;
-
-  AINFO<<"(DMCZP) LeaveMethod: MlfTrackObjectMatcher::Init";
- }
+}
 
 void MlfTrackObjectMatcher::Match(
     const MlfTrackObjectMatcherOptions &options,
@@ -83,9 +79,7 @@ AINFO<<"(DMCZP) EnteringMethod: MlfTrackObjectMatcher::Match";
     unassigned_tracks->resize(tracks.size());
     std::iota(unassigned_objects->begin(), unassigned_objects->end(), 0);
     std::iota(unassigned_tracks->begin(), unassigned_tracks->end(), 0);
-    
-  AINFO<<"(DMCZP) (return) LeaveMethod: MlfTrackObjectMatcher::Match";
-  return;
+    return;
   }
 
   BipartiteGraphMatcherOptions matcher_options;
@@ -108,9 +102,7 @@ AINFO<<"(DMCZP) EnteringMethod: MlfTrackObjectMatcher::Match";
                            assignments->at(i).second) /
         max_match_distance_;
   }
-
-  AINFO<<"(DMCZP) LeaveMethod: MlfTrackObjectMatcher::Match";
- }
+}
 
 void MlfTrackObjectMatcher::ComputeAssociateMatrix(
     const std::vector<MlfTrackDataPtr> &tracks,
@@ -123,9 +115,7 @@ AINFO<<"(DMCZP) EnteringMethod: MlfTrackObjectMatcher::ComputeAssociateMatrix";
           track_object_distance_->ComputeDistance(new_objects[j], tracks[i]);
     }
   }
-
-  AINFO<<"(DMCZP) LeaveMethod: MlfTrackObjectMatcher::ComputeAssociateMatrix";
- }
+}
 
 }  // namespace lidar
 }  // namespace perception

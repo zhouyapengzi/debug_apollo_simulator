@@ -41,13 +41,7 @@ AINFO<<"(DMCZP) EnteringMethod: TransformServer::Init";
   } catch (YAML::InvalidNode &in) {
     AERROR << "load velodyne128 extrisic file error"
            << " YAML::InvalidNode exception";
-    
-  AINFO<<"(DMCZP) (return) LeaveMethod: TransformServer::Init";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: TransformServer::Init";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: TransformServer::Init";
-  return false;
+    return false;
   } catch (YAML::TypedBadConversion<float> &bc) {
     AERROR << "load velodyne128 extrisic file error, "
            << "YAML::TypedBadConversion exception";
@@ -71,9 +65,7 @@ AINFO<<"(DMCZP) EnteringMethod: TransformServer::Init";
       YAML::Node node = YAML::LoadFile(yaml_file);
       if (node.IsNull()) {
         AINFO << "Load " << yaml_file << " failed! please check!";
-        
-  AINFO<<"(DMCZP) (return) LeaveMethod: TransformServer::Init";
-  return false;
+        return false;
       }
       std::string child_frame_id = node["child_frame_id"].as<std::string>();
       std::string frame_id = node["header"]["frame_id"].as<std::string>();
@@ -95,13 +87,7 @@ AINFO<<"(DMCZP) EnteringMethod: TransformServer::Init";
     } catch (YAML::InvalidNode &in) {
       AERROR << "load camera extrisic file " << yaml_file
              << " with error, YAML::InvalidNode exception";
-      
-  AINFO<<"(DMCZP) (return) LeaveMethod: TransformServer::Init";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: TransformServer::Init";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: TransformServer::Init";
-  return false;
+      return false;
     } catch (YAML::TypedBadConversion<double> &bc) {
       AERROR << "load camera extrisic file " << yaml_file
              << " with error, YAML::TypedBadConversion exception";
@@ -112,21 +98,15 @@ AINFO<<"(DMCZP) EnteringMethod: TransformServer::Init";
       return false;
     }
   }
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: TransformServer::Init";
   return true;
-
-  AINFO<<"(DMCZP) LeaveMethod: TransformServer::Init";
- }
+}
 
 bool TransformServer::LoadFromFile(const std::string &tf_input,
                                    float frequency) {
 AINFO<<"(DMCZP) EnteringMethod: TransformServer::LoadFromFile";
   if (frequency <= 0) {
     AERROR << "Error frequency value:" << frequency;
-    
-  AINFO<<"(DMCZP) (return) LeaveMethod: TransformServer::LoadFromFile";
-  return false;
+    return false;
   }
   std::ifstream fin(tf_input);
   Transform tf;
@@ -146,12 +126,8 @@ AINFO<<"(DMCZP) EnteringMethod: TransformServer::LoadFromFile";
   error_limit_ = 1 / frequency / 2.0f;
   AINFO << "Load tf successfully. count: " << tf_.size()
         << " error limit:" << error_limit_;
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: TransformServer::LoadFromFile";
   return true;
-
-  AINFO<<"(DMCZP) LeaveMethod: TransformServer::LoadFromFile";
- }
+}
 
 bool TransformServer::QueryPos(double timestamp, Eigen::Affine3d *pose) {
 AINFO<<"(DMCZP) EnteringMethod: TransformServer::QueryPos";
@@ -161,17 +137,11 @@ AINFO<<"(DMCZP) EnteringMethod: TransformServer::QueryPos";
       pose->linear() = rotation.matrix();
       pose->translation() << tf.tx, tf.ty, tf.tz;
       AINFO << "Get Pose:\n" << pose->matrix();
-      
-  AINFO<<"(DMCZP) (return) LeaveMethod: TransformServer::QueryPos";
-  return true;
+      return true;
     }
   }
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: TransformServer::QueryPos";
   return false;
-
-  AINFO<<"(DMCZP) LeaveMethod: TransformServer::QueryPos";
- }
+}
 
 bool TransformServer::AddTransform(const std::string &child_frame_id,
                                    const std::string &frame_id,
@@ -185,9 +155,7 @@ AINFO<<"(DMCZP) EnteringMethod: TransformServer::AddTransform";
 
   for (auto iter = begin; iter != end; ++iter) {
     if (iter->second.frame_id == frame_id) {
-      
-  AINFO<<"(DMCZP) (return) LeaveMethod: TransformServer::AddTransform";
-  return false;
+      return false;
     }
   }
 
@@ -204,12 +172,8 @@ AINFO<<"(DMCZP) EnteringMethod: TransformServer::AddTransform";
   edges_.insert({child_frame_id, e});
   edges_.insert({frame_id, e_inv});
 
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: TransformServer::AddTransform";
   return true;
-
-  AINFO<<"(DMCZP) LeaveMethod: TransformServer::AddTransform";
- }
+}
 
 bool TransformServer::QueryTransform(const std::string &child_frame_id,
                                      const std::string &frame_id,
@@ -218,17 +182,13 @@ AINFO<<"(DMCZP) EnteringMethod: TransformServer::QueryTransform";
   *transform = Eigen::Affine3d::Identity();
 
   if (child_frame_id == frame_id) {
-    
-  AINFO<<"(DMCZP) (return) LeaveMethod: TransformServer::QueryTransform";
-  return true;
+    return true;
   }
 
   // Vertices does not exist
   if (vertices_.find(child_frame_id) == vertices_.end() ||
       vertices_.find(frame_id) == vertices_.end()) {
-    
-  AINFO<<"(DMCZP) (return) LeaveMethod: TransformServer::QueryTransform";
-  return false;
+    return false;
   }
 
   std::map<std::string, bool> visited;
@@ -236,12 +196,8 @@ AINFO<<"(DMCZP) EnteringMethod: TransformServer::QueryTransform";
     visited[item] = false;
   }
 
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: TransformServer::QueryTransform";
   return FindTransform(child_frame_id, frame_id, transform, &visited);
-
-  AINFO<<"(DMCZP) LeaveMethod: TransformServer::QueryTransform";
- }
+}
 
 bool TransformServer::FindTransform(const std::string &child_frame_id,
                                     const std::string &frame_id,
@@ -267,11 +223,7 @@ AINFO<<"(DMCZP) EnteringMethod: TransformServer::FindTransform";
 
     if (edge.frame_id == frame_id) {
       *transform = loc_transform;
-      
-  AINFO<<"(DMCZP) (return) LeaveMethod: TransformServer::FindTransform";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: TransformServer::FindTransform";
-  return true;
+      return true;
     }
 
     Eigen::Affine3d tr = Eigen::Affine3d::Identity();
@@ -283,12 +235,8 @@ AINFO<<"(DMCZP) EnteringMethod: TransformServer::FindTransform";
 
     loc_transform = edge.transform.inverse() * loc_transform;
   }
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: TransformServer::FindTransform";
   return false;
-
-  AINFO<<"(DMCZP) LeaveMethod: TransformServer::FindTransform";
- }
+}
 
 void TransformServer::print() {
 AINFO<<"(DMCZP) EnteringMethod: TransformServer::print";
@@ -306,9 +254,7 @@ AINFO<<"(DMCZP) EnteringMethod: TransformServer::print";
           << trans.translation()[1] << " " << trans.translation()[2]
           << std::endl;
   }
-
-  AINFO<<"(DMCZP) LeaveMethod: TransformServer::print";
- }
+}
 
 }  // namespace camera
 }  // namespace perception

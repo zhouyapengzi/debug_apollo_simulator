@@ -63,9 +63,7 @@ AINFO<<"(DMCZP) EnteringMethod: MockRadarPolygon";
   object->polygon[3].x = center(0) + world_poly(0);
   object->polygon[3].y = center(1) + world_poly(1);
   object->polygon[3].z = center(2);
-
-  AINFO<<"(DMCZP) LeaveMethod: MockRadarPolygon";
- }
+}
 
 }  // namespace radar
 }  // namespace perception

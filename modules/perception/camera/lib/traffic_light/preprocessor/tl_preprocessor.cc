@@ -31,9 +31,7 @@ AINFO<<"(DMCZP) EnteringMethod: TLPreprocessor::Init";
   projection_init_option.camera_names = options.camera_names;
   if (!projection_.Init(projection_init_option)) {
     AERROR << "init multi_camera_projection failed.";
-    
-  AINFO<<"(DMCZP) (return) LeaveMethod: TLPreprocessor::Init";
-  return false;
+    return false;
   }
 
   num_cameras_ = projection_.getCameraNamesByDescendingFocalLen().size();
@@ -43,12 +41,8 @@ AINFO<<"(DMCZP) EnteringMethod: TLPreprocessor::Init";
 
   AINFO << "preprocessor init succeed";
 
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: TLPreprocessor::Init";
   return true;
-
-  AINFO<<"(DMCZP) LeaveMethod: TLPreprocessor::Init";
- }
+}
 
 bool TLPreprocessor::UpdateCameraSelection(
     const CarPose &pose, const TLPreprocessorOption &option,
@@ -63,9 +57,7 @@ AINFO<<"(DMCZP) EnteringMethod: TLPreprocessor::UpdateCameraSelection";
   if (lights->empty()) {
     AINFO << "No signals, select camera with max focal length: "
           << selected_camera_name_.second;
-    
-  AINFO<<"(DMCZP) (return) LeaveMethod: TLPreprocessor::UpdateCameraSelection";
-  return true;
+    return true;
   }
 
   if (!ProjectLightsAndSelectCamera(pose, option,
@@ -76,12 +68,8 @@ AINFO<<"(DMCZP) EnteringMethod: TLPreprocessor::UpdateCameraSelection";
 
   AINFO << "selected_camera_id: " << selected_camera_name_.second;
 
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: TLPreprocessor::UpdateCameraSelection";
   return true;
-
-  AINFO<<"(DMCZP) LeaveMethod: TLPreprocessor::UpdateCameraSelection";
- }
+}
 
 bool TLPreprocessor::SyncInformation(const double image_timestamp,
                                      const std::string &cam_name) {
@@ -93,13 +81,7 @@ AINFO<<"(DMCZP) EnteringMethod: TLPreprocessor::SyncInformation";
   if (!projection_.HasCamera(cam_name)) {
     AERROR << "sync_image failed, "
            << "get invalid camera_name: " << cam_name;
-    
-  AINFO<<"(DMCZP) (return) LeaveMethod: TLPreprocessor::SyncInformation";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: TLPreprocessor::SyncInformation";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: TLPreprocessor::SyncInformation";
-  return false;
+    return false;
   }
 
   AINFO << "Enter TLPreprocessor::sync_image. proj_ts: "
@@ -122,12 +104,8 @@ AINFO<<"(DMCZP) EnteringMethod: TLPreprocessor::SyncInformation";
   }
   AINFO << "sync_image succeeded.";
   last_pub_img_ts_ = image_timestamp;
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: TLPreprocessor::SyncInformation";
   return true;
-
-  AINFO<<"(DMCZP) LeaveMethod: TLPreprocessor::SyncInformation";
- }
+}
 
 bool TLPreprocessor::UpdateLightsProjection(
     const CarPose &pose, const TLPreprocessorOption &option,
@@ -140,20 +118,14 @@ bool TLPreprocessor::UpdateLightsProjection(
 
   if (lights->empty()) {
     AINFO << "No lights to be projected";
-    
-  AINFO<<"(DMCZP) (return) LeaveMethod: TLPreprocessor::UpdateLightsProjection";
-  return true;
+    return true;
   }
 
   if (!ProjectLights(pose, camera_name, lights, &lights_on_image_,
                      &lights_outside_image_)) {
     AERROR << "update_lights_projection project lights on " << camera_name
            << " image failed";
-    
-  AINFO<<"(DMCZP) (return) LeaveMethod: TLPreprocessor::UpdateLightsProjection";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: TLPreprocessor::UpdateLightsProjection";
-  return false;
+    return false;
   }
 
   if (lights_outside_image_.size() > 0) {
@@ -165,9 +137,7 @@ bool TLPreprocessor::UpdateLightsProjection(
 
   auto min_focal_len_working_camera = GetMinFocalLenWorkingCameraName();
   if (camera_name == min_focal_len_working_camera) {
-    
-  AINFO<<"(DMCZP) (return) LeaveMethod: TLPreprocessor::UpdateLightsProjection";
-  return lights_on_image_.size() > 0;
+    return lights_on_image_.size() > 0;
   }
   for (const base::TrafficLightPtr &light : lights_on_image_) {
     if (OutOfValidRegion(light->region.projection_roi,
@@ -176,19 +146,13 @@ bool TLPreprocessor::UpdateLightsProjection(
                          option.image_borders_size->at(camera_name))) {
       AINFO << "update_lights_projection light project out of image region. "
             << "camera_name: " << camera_name;
-      
-  AINFO<<"(DMCZP) (return) LeaveMethod: TLPreprocessor::UpdateLightsProjection";
-  return false;
+      return false;
     }
   }
 
   AINFO << "UpdateLightsProjection success";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: TLPreprocessor::UpdateLightsProjection";
   return true;
-
-  AINFO<<"(DMCZP) LeaveMethod: TLPreprocessor::UpdateLightsProjection";
- }
+}
 
 bool TLPreprocessor::SetCameraWorkingFlag(const std::string &camera_name,
                                           bool is_working) {
@@ -196,19 +160,13 @@ AINFO<<"(DMCZP) EnteringMethod: TLPreprocessor::SetCameraWorkingFlag";
   if (!projection_.HasCamera(camera_name)) {
     AERROR << "SetCameraWorkingFlag failed, "
            << "get invalid camera_name: " << camera_name;
-    
-  AINFO<<"(DMCZP) (return) LeaveMethod: TLPreprocessor::SetCameraWorkingFlag";
-  return false;
+    return false;
   }
   camera_is_working_flags_[camera_name] = is_working;
   AINFO << "SetCameraWorkingFlag succeeded, camera_name: " << camera_name
         << ", flag: " << camera_is_working_flags_[camera_name];
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: TLPreprocessor::SetCameraWorkingFlag";
   return true;
-
-  AINFO<<"(DMCZP) LeaveMethod: TLPreprocessor::SetCameraWorkingFlag";
- }
+}
 
 bool TLPreprocessor::GetCameraWorkingFlag(const std::string &camera_name,
                                           bool *is_working) const {
@@ -216,9 +174,7 @@ AINFO<<"(DMCZP) EnteringMethod: TLPreprocessor::GetCameraWorkingFlag";
   if (!projection_.HasCamera(camera_name)) {
     AERROR << "GetCameraWorkingFlag failed, "
            << "get invalid camera_name: " << camera_name;
-    
-  AINFO<<"(DMCZP) (return) LeaveMethod: TLPreprocessor::GetCameraWorkingFlag";
-  return false;
+    return false;
   }
 
   if (camera_is_working_flags_.find(camera_name) ==
@@ -228,12 +184,8 @@ AINFO<<"(DMCZP) EnteringMethod: TLPreprocessor::GetCameraWorkingFlag";
   } else {
     *is_working = true;
   }
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: TLPreprocessor::GetCameraWorkingFlag";
   return true;
-
-  AINFO<<"(DMCZP) LeaveMethod: TLPreprocessor::GetCameraWorkingFlag";
- }
+}
 
 void TLPreprocessor::SelectCamera(
     std::vector<base::TrafficLightPtrs> *lights_on_image_array,
@@ -290,9 +242,7 @@ AINFO<<"(DMCZP) EnteringMethod: TLPreprocessor::SelectCamera";
     }
   }
   AINFO << "select_camera selection: " << *selected_camera_name;
-
-  AINFO<<"(DMCZP) LeaveMethod: TLPreprocessor::SelectCamera";
- }
+}
 
 bool TLPreprocessor::ProjectLights(
     const CarPose &pose, const std::string &camera_name,
@@ -302,17 +252,11 @@ bool TLPreprocessor::ProjectLights(
 AINFO<<"(DMCZP) EnteringMethod: TLPreprocessor::ProjectLights";
   if (lights->empty()) {
     AINFO << "project_lights get empty signals.";
-    
-  AINFO<<"(DMCZP) (return) LeaveMethod: TLPreprocessor::ProjectLights";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: TLPreprocessor::ProjectLights";
-  return true;
+    return true;
   }
   if (!projection_.HasCamera(camera_name)) {
     AERROR << "project_lights get invalid camera_name: " << camera_name;
-    
-  AINFO<<"(DMCZP) (return) LeaveMethod: TLPreprocessor::ProjectLights";
-  return false;
+    return false;
   }
 
   // camera is not working
@@ -336,12 +280,8 @@ AINFO<<"(DMCZP) EnteringMethod: TLPreprocessor::ProjectLights";
       lights_on_image->push_back(light_proj);
     }
   }
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: TLPreprocessor::ProjectLights";
   return true;
-
-  AINFO<<"(DMCZP) LeaveMethod: TLPreprocessor::ProjectLights";
- }
+}
 
 bool TLPreprocessor::ProjectLightsAndSelectCamera(
     const CarPose &pose, const TLPreprocessorOption &option,
@@ -366,9 +306,7 @@ bool TLPreprocessor::ProjectLightsAndSelectCamera(
                        &(lights_outside_image_array_[cam_id]))) {
       AERROR << "select_camera_by_lights_projection project lights on "
              << camera_name << " image failed";
-      
-  AINFO<<"(DMCZP) (return) LeaveMethod: TLPreprocessor::ProjectLightsAndSelectCamera";
-  return false;
+      return false;
     }
   }
 
@@ -386,29 +324,15 @@ bool TLPreprocessor::ProjectLightsAndSelectCamera(
   SelectCamera(&lights_on_image_array_, &lights_outside_image_array_, option,
                selected_camera_name);
 
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: TLPreprocessor::ProjectLightsAndSelectCamera";
   return true;
-
-  AINFO<<"(DMCZP) LeaveMethod: TLPreprocessor::ProjectLightsAndSelectCamera";
- }
+}
 
 bool TLPreprocessor::GetAlllightsOutsideFlag() const {
 AINFO<<"(DMCZP) EnteringMethod: TLPreprocessor::GetAlllightsOutsideFlag";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: TLPreprocessor::GetAlllightsOutsideFlag";
   return projections_outside_all_images_;
+}
 
-  AINFO<<"(DMCZP) LeaveMethod: TLPreprocessor::GetAlllightsOutsideFlag";
- }
-
-std::string TLPreprocessor::Name() const {
-  AINFO<<"(DMCZP) EnteringMethod: TLPreprocessor::Name";
- 
-  AINFO<<"(DMCZP) (retur
-  AINFO<<"(DMCZP) LeaveMethod: TLPreprocessor::Name";
- n) LeaveMethod: TLPreprocessor::Name";
-  return "TLPreprocessor"; }
+std::string TLPreprocessor::Name() const { return "TLPreprocessor"; }
 
 std::string TLPreprocessor::GetMinFocalLenWorkingCameraName() const {
 AINFO<<"(DMCZP) EnteringMethod: TLPreprocessor::GetMinFocalLenWorkingCameraName";
@@ -416,20 +340,12 @@ AINFO<<"(DMCZP) EnteringMethod: TLPreprocessor::GetMinFocalLenWorkingCameraName"
   for (auto itr = camera_names.crbegin(); itr != camera_names.crend(); ++itr) {
     bool is_working = false;
     if (GetCameraWorkingFlag(*itr, &is_working) && is_working) {
-      
-  AINFO<<"(DMCZP) (return) LeaveMethod: TLPreprocessor::GetMinFocalLenWorkingCameraName";
-  return *itr;
+      return *itr;
     }
   }
-  AWARN << "No working camera, 
-  AINFO<<"(DMCZP) (return) LeaveMethod: TLPreprocessor::GetMinFocalLenWorkingCameraName";
-  return empty camera_name";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: TLPreprocessor::GetMinFocalLenWorkingCameraName";
+  AWARN << "No working camera, return empty camera_name";
   return "";
-
-  AINFO<<"(DMCZP) LeaveMethod: TLPreprocessor::GetMinFocalLenWorkingCameraName";
- }
+}
 
 std::string TLPreprocessor::GetMaxFocalLenWorkingCameraName() const {
 AINFO<<"(DMCZP) EnteringMethod: TLPreprocessor::GetMaxFocalLenWorkingCameraName";
@@ -437,20 +353,12 @@ AINFO<<"(DMCZP) EnteringMethod: TLPreprocessor::GetMaxFocalLenWorkingCameraName"
   for (const auto &camera_name : camera_names) {
     bool is_working = false;
     if (GetCameraWorkingFlag(camera_name, &is_working) && is_working) {
-      
-  AINFO<<"(DMCZP) (return) LeaveMethod: TLPreprocessor::GetMaxFocalLenWorkingCameraName";
-  return camera_name;
+      return camera_name;
     }
   }
-  AWARN << "No working camera, 
-  AINFO<<"(DMCZP) (return) LeaveMethod: TLPreprocessor::GetMaxFocalLenWorkingCameraName";
-  return empty camera_name";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: TLPreprocessor::GetMaxFocalLenWorkingCameraName";
+  AWARN << "No working camera, return empty camera_name";
   return "";
-
-  AINFO<<"(DMCZP) LeaveMethod: TLPreprocessor::GetMaxFocalLenWorkingCameraName";
- }
+}
 
 }  // namespace camera
 }  // namespace perception

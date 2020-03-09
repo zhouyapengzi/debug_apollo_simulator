@@ -26,9 +26,7 @@ namespace lidar {
 MultiHmBipartiteGraphMatcher::MultiHmBipartiteGraphMatcher() {
 AINFO<<"(DMCZP) EnteringMethod: MultiHmBipartiteGraphMatcher::MultiHmBipartiteGraphMatcher";
   cost_matrix_ = optimizer_.mutable_global_costs();
-
-  AINFO<<"(DMCZP) LeaveMethod: MultiHmBipartiteGraphMatcher::MultiHmBipartiteGraphMatcher";
- }
+}
 
 MultiHmBipartiteGraphMatcher::~MultiHmBipartiteGraphMatcher() {
   cost_matrix_ = nullptr;
@@ -44,9 +42,7 @@ AINFO<<"(DMCZP) EnteringMethod: MultiHmBipartiteGraphMatcher::Match";
       common::GatedHungarianMatcher<float>::OptimizeFlag::OPTMIN;
   optimizer_.Match(options.cost_thresh, options.bound_value, opt_flag,
                    assignments, unassigned_rows, unassigned_cols);
-
-  AINFO<<"(DMCZP) LeaveMethod: MultiHmBipartiteGraphMatcher::Match";
- }
+}
 
 PERCEPTION_REGISTER_BIPARTITEGRAPHMATCHER(MultiHmBipartiteGraphMatcher);
 

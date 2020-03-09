@@ -64,12 +64,6 @@ AINFO<<"(DMCZP) EnteringMethod: ExternalFeatureExtractor::Init";
   inference_->Infer();
   InitFeatureExtractor(options.root_dir);
   image_.reset(new base::Image8U(height_, width_, base::Color::BGR));
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: ExternalFeatureExtractor::Init";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: ExternalFeatureExtractor::Init";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: ExternalFeatureExtractor::Init";
   return true;
 }
 bool ExternalFeatureExtractor::InitFeatureExtractor(
@@ -86,12 +80,8 @@ AINFO<<"(DMCZP) EnteringMethod: ExternalFeatureExtractor::InitFeatureExtractor";
   feature_extractor_.reset(BaseFeatureExtractorRegisterer::GetInstanceByName(
       "TrackingFeatureExtractor"));
   feature_extractor_->Init(feat_options);
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: ExternalFeatureExtractor::InitFeatureExtractor";
   return true;
-
-  AINFO<<"(DMCZP) LeaveMethod: ExternalFeatureExtractor::InitFeatureExtractor";
- }
+}
 bool ExternalFeatureExtractor::Extract(const FeatureExtractorOptions &options,
                                        CameraFrame *frame) {
 AINFO<<"(DMCZP) EnteringMethod: ExternalFeatureExtractor::Extract";
@@ -116,25 +106,13 @@ AINFO<<"(DMCZP) EnteringMethod: ExternalFeatureExtractor::Extract";
       image_options.crop_roi.width, image_options.crop_roi.height);
   feature_extractor_->Extract(feat_options, frame);
   AINFO << "Extract Done";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: ExternalFeatureExtractor::Extract";
   return true;
-
-  AINFO<<"(DMCZP) LeaveMethod: ExternalFeatureExtractor::Extract";
- }
+}
 std::string ExternalFeatureExtractor::Name() const {
 AINFO<<"(DMCZP) EnteringMethod: ExternalFeatureExtractor::Name";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: ExternalFeatureExtractor::Name";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: ExternalFeatureExtractor::Init";
   return "ExternalFeatureExtractor";
-
-  AINFO<<"(DMCZP) LeaveMethod: ExternalFeatureExtractor::Name";
- }
+}
 REGISTER_FEATURE_EXTRACTOR(ExternalFeatureExtractor);
-
-  AINFO<<"(DMCZP) LeaveMethod: ExternalFeatureExtractor::Init";
- }  // namespace camera
+}  // namespace camera
 }  // namespace perception
 }  // namespace apollo

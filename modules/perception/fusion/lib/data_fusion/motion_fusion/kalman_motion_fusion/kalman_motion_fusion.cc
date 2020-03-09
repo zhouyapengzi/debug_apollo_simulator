@@ -33,21 +33,15 @@ size_t KalmanMotionFusion::s_history_size_maximum_ = 20;
 bool KalmanMotionFusion::Init() {
 AINFO<<"(DMCZP) EnteringMethod: KalmanMotionFusion::Init";
   if (track_ref_ == nullptr) {
-    
-  AINFO<<"(DMCZP) (return) LeaveMethod: KalmanMotionFusion::Init";
-  return false;
+    return false;
   }
   if (track_ref_->GetLatestLidarObject() != nullptr) {
     filter_init_ = InitFilter(track_ref_->GetLatestLidarObject());
   } else if (track_ref_->GetLatestRadarObject() != nullptr) {
     filter_init_ = InitFilter(track_ref_->GetLatestRadarObject());
   }
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: KalmanMotionFusion::Init";
   return true;
-
-  AINFO<<"(DMCZP) LeaveMethod: KalmanMotionFusion::Init";
- }
+}
 
 bool KalmanMotionFusion::InitFilter(const SensorObjectConstPtr& sensor_object) {
 AINFO<<"(DMCZP) EnteringMethod: KalmanMotionFusion::InitFilter";
@@ -92,11 +86,7 @@ AINFO<<"(DMCZP) EnteringMethod: KalmanMotionFusion::InitFilter";
   }
 
   if (!kalman_filter_.Init(global_states, global_uncertainty)) {
-    
-  AINFO<<"(DMCZP) (return) LeaveMethod: KalmanMotionFusion::InitFilter";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: KalmanMotionFusion::InitFilter";
-  return false;
+    return false;
   }
   if (!kalman_filter_.SetGainBreakdownThresh(gain_break_down,
                                              gain_break_down_threshold) ||
@@ -105,21 +95,15 @@ AINFO<<"(DMCZP) EnteringMethod: KalmanMotionFusion::InitFilter";
     return false;
   }
 
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: KalmanMotionFusion::InitFilter";
   return true;
-
-  AINFO<<"(DMCZP) LeaveMethod: KalmanMotionFusion::InitFilter";
- }
+}
 
 void KalmanMotionFusion::GetStates(Eigen::Vector3d* anchor_point,
                                    Eigen::Vector3d* velocity) {
 AINFO<<"(DMCZP) EnteringMethod: KalmanMotionFusion::GetStates";
   *anchor_point = fused_anchor_point_;
   *velocity = fused_velocity_;
-
-  AINFO<<"(DMCZP) LeaveMethod: KalmanMotionFusion::GetStates";
- }
+}
 
 void KalmanMotionFusion::UpdateWithoutMeasurement(const std::string& sensor_id,
                                                   double measurement_timestamp,
@@ -145,9 +129,7 @@ AINFO<<"(DMCZP) EnteringMethod: KalmanMotionFusion::UpdateWithoutMeasurement";
   // valid lidar & radar measurement. now, as the quality of estimation
   // of camera improved, this step is not needed.
   UpdateMotionState();
-
-  AINFO<<"(DMCZP) LeaveMethod: KalmanMotionFusion::UpdateWithoutMeasurement";
- }
+}
 
 void KalmanMotionFusion::UpdateWithMeasurement(
     const SensorObjectConstPtr& measurement, double target_timestamp) {
@@ -180,9 +162,7 @@ AINFO<<"(DMCZP) EnteringMethod: KalmanMotionFusion::UpdateWithMeasurement";
       // No kalman result, no matter which sensortype
       // of measurement, use measurement's
       // anchor point and velocity
-      
-  AINFO<<"(DMCZP) (return) LeaveMethod: KalmanMotionFusion::UpdateWithMeasurement";
-  return;
+      return;
     }
   }
   // shape & location fusion
@@ -235,9 +215,7 @@ AINFO<<"(DMCZP) EnteringMethod: KalmanMotionFusion::UpdateWithMeasurement";
   // valid lidar & radar measurement. now, as the quality of estimation
   // of camera improved, this step is not needed.
   UpdateMotionState();
-
-  AINFO<<"(DMCZP) LeaveMethod: KalmanMotionFusion::UpdateWithMeasurement";
- }
+}
 
 void KalmanMotionFusion::MotionFusionWithoutMeasurement(
     const double time_diff) {
@@ -249,9 +227,7 @@ AINFO<<"(DMCZP) EnteringMethod: KalmanMotionFusion::MotionFusionWithoutMeasureme
   transform_matrix(1, 3) = time_diff;
   env_uncertainty.setZero(6, 6);
   kalman_filter_.Predict(transform_matrix, env_uncertainty);
-
-  AINFO<<"(DMCZP) LeaveMethod: KalmanMotionFusion::MotionFusionWithoutMeasurement";
- }
+}
 
 void KalmanMotionFusion::MotionFusionWithMeasurement(
     const SensorObjectConstPtr& measurement, double time_diff) {
@@ -358,9 +334,7 @@ AINFO<<"(DMCZP) EnteringMethod: KalmanMotionFusion::MotionFusionWithMeasurement"
          << kalman_filter_.GetUncertainty()(2, 3) << ","
          << kalman_filter_.GetUncertainty()(3, 2) << ","
          << kalman_filter_.GetUncertainty()(3, 3) << ")";
-
-  AINFO<<"(DMCZP) LeaveMethod: KalmanMotionFusion::MotionFusionWithMeasurement";
- }
+}
 
 void KalmanMotionFusion::UpdateMotionState() {
 AINFO<<"(DMCZP) EnteringMethod: KalmanMotionFusion::UpdateMotionState";
@@ -378,9 +352,7 @@ AINFO<<"(DMCZP) EnteringMethod: KalmanMotionFusion::UpdateMotionState";
   obj->center_uncertainty = center_uncertainty_;
   obj->velocity_uncertainty = velo_uncertainty_;
   obj->acceleration_uncertainty = acc_uncertainty_;
-
-  AINFO<<"(DMCZP) LeaveMethod: KalmanMotionFusion::UpdateMotionState";
- }
+}
 
 Eigen::VectorXd KalmanMotionFusion::ComputeAccelerationMeasurement(
     const base::SensorType& sensor_type, const Eigen::Vector3d& velocity,
@@ -390,28 +362,20 @@ AINFO<<"(DMCZP) EnteringMethod: KalmanMotionFusion::ComputeAccelerationMeasureme
   if (common::SensorManager::Instance()->IsCamera(sensor_type)) {
     acceleration_measurement(0) = kalman_filter_.GetStates()(4);
     acceleration_measurement(1) = kalman_filter_.GetStates()(5);
-    
-  AINFO<<"(DMCZP) (return) LeaveMethod: KalmanMotionFusion::ComputeAccelerationMeasurement";
-  return acceleration_measurement;
+    return acceleration_measurement;
 AINFO<<"(DMCZP) EnteringMethod: KalmanMotionFusion::UpdateSensorHistory";
   }
   if (GetSensorHistoryLength(sensor_type) >= s_eval_window_) {
     size_t history_index = GetSensorHistoryIndex(sensor_type, s_eval_window_);
     if (history_index < 0 || history_index >= history_velocity_.size()) {
       AERROR << "illegal history index";
-      
-  AINFO<<"(DMCZP) (return) LeaveMethod: KalmanMotionFusion::ComputeAccelerationMeasurement";
-  return Eigen::Vector3d::Zero();
+      return Eigen::Vector3d::Zero();
     }
     acceleration_measurement = velocity - history_velocity_[history_index];
     acceleration_measurement /= (timestamp - history_timestamp_[history_index]);
   }
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: KalmanMotionFusion::ComputeAccelerationMeasurement";
   return acceleration_measurement;
-
-  AINFO<<"(DMCZP) LeaveMethod: KalmanMotionFusion::ComputeAccelerationMeasurement";
- }
+}
 
 void KalmanMotionFusion::RewardRMatrix(const base::SensorType& sensor_type,
                                        const bool& converged,
@@ -440,9 +404,7 @@ AINFO<<"(DMCZP) EnteringMethod: KalmanMotionFusion::RewardRMatrix";
     }
   }
   r_matrix->block<2, 2>(4, 4) *= 0.5;
-
-  AINFO<<"(DMCZP) LeaveMethod: KalmanMotionFusion::RewardRMatrix";
- }
+}
 
 Eigen::Vector4d KalmanMotionFusion::ComputePseudoMeasurement(
     const Eigen::Vector4d& measurement, const base::SensorType& sensor_type) {
@@ -455,28 +417,18 @@ AINFO<<"(DMCZP) EnteringMethod: KalmanMotionFusion::ComputePseudoMeasurement";
   // otherwise, use current belief
   common::SensorManager* sensor_manager = common::SensorManager::Instance();
   if (sensor_manager->IsLidar(sensor_type)) {
-    
-  AINFO<<"(DMCZP) (return) LeaveMethod: KalmanMotionFusion::ComputePseudoMeasurement";
-  return ComputePseudoLidarMeasurement(measurement);
+    return ComputePseudoLidarMeasurement(measurement);
   }
   if (sensor_manager->IsRadar(sensor_type)) {
-    
-  AINFO<<"(DMCZP) (return) LeaveMethod: KalmanMotionFusion::ComputePseudoMeasurement";
-  return ComputePseudoRadarMeasurement(measurement);
+    return ComputePseudoRadarMeasurement(measurement);
   }
   if (sensor_manager->IsCamera(sensor_type)) {
-    
-  AINFO<<"(DMCZP) (return) LeaveMethod: KalmanMotionFusion::ComputePseudoMeasurement";
-  return ComputePseudoCameraMeasurement(measurement);
+    return ComputePseudoCameraMeasurement(measurement);
   }
   AINFO << "unsupport sensor type for pseudo measurement computation!";
   Eigen::Vector4d pseudo_measurement = measurement;
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: KalmanMotionFusion::ComputePseudoMeasurement";
   return pseudo_measurement;
-
-  AINFO<<"(DMCZP) LeaveMethod: KalmanMotionFusion::ComputePseudoMeasurement";
- }
+}
 
 Eigen::Vector4d KalmanMotionFusion::ComputePseudoLidarMeasurement(
     const Eigen::Vector4d& measurement) {
@@ -497,9 +449,7 @@ AINFO<<"(DMCZP) EnteringMethod: KalmanMotionFusion::ComputePseudoRadarMeasuremen
   // Return if lidar velocity is already small enough
   double lidar_velocity_norm = lidar_velocity.norm();
   if (lidar_velocity_norm < DBL_EPSILON) {
-    
-  AINFO<<"(DMCZP) (return) LeaveMethod: KalmanMotionFusion::ComputePseudoLidarMeasurement";
-  return pseudo_measurement;
+    return pseudo_measurement;
   }
   // Trace back radar velocity history, try to find good radar measurement
   // which could help lidar velocity get a more accurate pseudo measurement
@@ -547,11 +497,7 @@ AINFO<<"(DMCZP) EnteringMethod: KalmanMotionFusion::ComputePseudoRadarMeasuremen
       }
       pseudo_measurement(2) = radar_velocity_project_on_lidar_velocity(0);
       pseudo_measurement(3) = radar_velocity_project_on_lidar_velocity(1);
-      
-  AINFO<<"(DMCZP) (return) LeaveMethod: KalmanMotionFusion::ComputePseudoLidarMeasurement";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: KalmanMotionFusion::ComputePseudoLidarMeasurement";
-  return pseudo_measurement;
+      return pseudo_measurement;
     }
     if (trace_count == s_eval_window_) {
       pseudo_measurement = measurement;
@@ -559,12 +505,8 @@ AINFO<<"(DMCZP) EnteringMethod: KalmanMotionFusion::ComputePseudoRadarMeasuremen
     }
   }
   pseudo_measurement = measurement;
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: KalmanMotionFusion::ComputePseudoLidarMeasurement";
   return pseudo_measurement;
-
-  AINFO<<"(DMCZP) LeaveMethod: KalmanMotionFusion::ComputePseudoLidarMeasurement";
- }
+}
 
 Eigen::Vector4d KalmanMotionFusion::ComputePseudoCameraMeasurement(
     const Eigen::Vector4d& measurement) {
@@ -582,9 +524,7 @@ Eigen::Vector4d KalmanMotionFusion::ComputePseudoCameraMeasurement(
   // Return if camera velocity is already small enough
   double camera_velocity_norm = camera_velocity.norm();
   if (camera_velocity_norm < DBL_EPSILON) {
-    
-  AINFO<<"(DMCZP) (return) LeaveMethod: KalmanMotionFusion::ComputePseudoCameraMeasurement";
-  return pseudo_measurement;
+    return pseudo_measurement;
   }
   // Trace back radar velocity history, try to find good radar measurement
   // which could help camera velocity get a more accurate pseudo measurement
@@ -632,11 +572,7 @@ Eigen::Vector4d KalmanMotionFusion::ComputePseudoCameraMeasurement(
       }
       pseudo_measurement(2) = radar_velocity_project_on_camera_velocity(0);
       pseudo_measurement(3) = radar_velocity_project_on_camera_velocity(1);
-      
-  AINFO<<"(DMCZP) (return) LeaveMethod: KalmanMotionFusion::ComputePseudoCameraMeasurement";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: KalmanMotionFusion::ComputePseudoCameraMeasurement";
-  return pseudo_measurement;
+      return pseudo_measurement;
     }
     if (trace_count == s_eval_window_) {
       pseudo_measurement = measurement;
@@ -644,12 +580,8 @@ Eigen::Vector4d KalmanMotionFusion::ComputePseudoCameraMeasurement(
     }
   }
   pseudo_measurement = measurement;
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: KalmanMotionFusion::ComputePseudoCameraMeasurement";
   return pseudo_measurement;
-
-  AINFO<<"(DMCZP) LeaveMethod: KalmanMotionFusion::ComputePseudoCameraMeasurement";
- }
+}
 
 Eigen::Vector4d KalmanMotionFusion::ComputePseudoRadarMeasurement(
     const Eigen::Vector4d& measurement) {
@@ -664,9 +596,7 @@ Eigen::Vector4d KalmanMotionFusion::ComputePseudoRadarMeasurement(
   if (lidar_camera_history_length == 0) {
     pseudo_measurement(2) = kalman_filter_.GetStates()(2);
     pseudo_measurement(3) = kalman_filter_.GetStates()(3);
-    
-  AINFO<<"(DMCZP) (return) LeaveMethod: KalmanMotionFusion::ComputePseudoRadarMeasurement";
-  return pseudo_measurement;
+    return pseudo_measurement;
   }
   Eigen::Vector3d radar_velocity =
       Eigen::Vector3d(measurement(2), measurement(3), 0);
@@ -689,15 +619,7 @@ Eigen::Vector4d KalmanMotionFusion::ComputePseudoRadarMeasurement(
         camera_trace_count == s_eval_window_) {
       pseudo_measurement(2) = kalman_filter_.GetStates()(2);
       pseudo_measurement(3) = kalman_filter_.GetStates()(3);
-      
-  AINFO<<"(DMCZP) (return) LeaveMethod: KalmanMotionFusion::ComputePseudoRadarMeasurement";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: KalmanMotionFusion::ComputePseudoRadarMeasurement";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: KalmanMotionFusion::ComputePseudoRadarMeasurement";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: KalmanMotionFusion::ComputePseudoRadarMeasurement";
-  return pseudo_measurement;
+      return pseudo_measurement;
     }
     Eigen::Vector3d history_velocity = history_velocity_[history_index];
     // Abandon history measurement, if its speed is too small
@@ -771,12 +693,8 @@ Eigen::Vector4d KalmanMotionFusion::ComputePseudoRadarMeasurement(
   }
   // Use original measurement, if history is not enough
   pseudo_measurement = measurement;
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: KalmanMotionFusion::ComputePseudoRadarMeasurement";
   return pseudo_measurement;
-
-  AINFO<<"(DMCZP) LeaveMethod: KalmanMotionFusion::ComputePseudoRadarMeasurement";
- }
+}
 
 void KalmanMotionFusion::UpdateSensorHistory(
     const base::SensorType& sensor_type, const Eigen::Vector3d& velocity,
@@ -795,9 +713,7 @@ void KalmanMotionFusion::UpdateSensorHistory(
   history_velocity_.push_back(velocity);
   history_timestamp_.push_back(timestamp);
   history_sensor_type_.push_back(sensor_type);
-
-  AINFO<<"(DMCZP) LeaveMethod: KalmanMotionFusion::UpdateSensorHistory";
- }
+}
 
 int KalmanMotionFusion::GetSensorHistoryLength(
     const base::SensorType& sensor_type) {
@@ -808,12 +724,8 @@ AINFO<<"(DMCZP) EnteringMethod: KalmanMotionFusion::GetSensorHistoryLength";
       ++sensor_history_length;
     }
   }
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: KalmanMotionFusion::GetSensorHistoryLength";
   return sensor_history_length;
-
-  AINFO<<"(DMCZP) LeaveMethod: KalmanMotionFusion::GetSensorHistoryLength";
- }
+}
 
 int KalmanMotionFusion::GetSensorHistoryIndex(
     const base::SensorType& sensor_type, const int& trace_length) {
@@ -826,18 +738,12 @@ AINFO<<"(DMCZP) EnteringMethod: KalmanMotionFusion::GetSensorHistoryIndex";
       ++history_count;
     }
     if (history_count == trace_length) {
-      
-  AINFO<<"(DMCZP) (return) LeaveMethod: KalmanMotionFusion::GetSensorHistoryIndex";
-  return history_index;
+      return history_index;
     }
   }
 
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: KalmanMotionFusion::GetSensorHistoryIndex";
   return -1;
-
-  AINFO<<"(DMCZP) LeaveMethod: KalmanMotionFusion::GetSensorHistoryIndex";
- }
+}
 
 }  // namespace fusion
 }  // namespace perception

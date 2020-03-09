@@ -20,27 +20,19 @@ namespace apollo {
 namespace perception {
 namespace fusion {
 
-Scene::Scene() {
-  AINFO<<"(DMCZP) EnteringMethod: Scene::Scene";
-
-  AINFO<<"(DMCZP) LeaveMethod: Scene::Scene";
- }
+Scene::Scene() {}
 
 Scene::~Scene() {}
 
 void Scene::AddForegroundTrack(TrackPtr track) {
 AINFO<<"(DMCZP) EnteringMethod: Scene::AddForegroundTrack";
   foreground_tracks_.push_back(track);
-
-  AINFO<<"(DMCZP) LeaveMethod: Scene::AddForegroundTrack";
- }
+}
 
 void Scene::AddBackgroundTrack(TrackPtr track) {
 AINFO<<"(DMCZP) EnteringMethod: Scene::AddBackgroundTrack";
   background_tracks_.push_back(track);
-
-  AINFO<<"(DMCZP) LeaveMethod: Scene::AddBackgroundTrack";
- }
+}
 
 }  // namespace fusion
 }  // namespace perception

@@ -45,9 +45,7 @@ AINFO<<"(DMCZP) EnteringMethod: ConvertGround3ToGround4";
   ground4->data()[3] = ground3[1] * b * fx;
   float norm = common::ISqrt(common::ISquaresum3(ground4->data()));
   common::IScale4(ground4->data(), common::IRec(norm));
-
-  AINFO<<"(DMCZP) LeaveMethod: ConvertGround3ToGround4";
- }
+}
 
 bool ConvertGround4ToGround3(const float &baseline,
                              const std::vector<float> &k_mat,
@@ -66,9 +64,7 @@ AINFO<<"(DMCZP) EnteringMethod: ConvertGround4ToGround3";
   if (p[0] > 1e-3) {
     AERROR << "Have roll in the ground plane: " << p[0];
     ground3->assign(3, 0.f);
-    
-  AINFO<<"(DMCZP) (return) LeaveMethod: ConvertGround4ToGround3";
-  return false;
+    return false;
   }
   // no roll
   const float &b = baseline;
@@ -78,12 +74,8 @@ AINFO<<"(DMCZP) EnteringMethod: ConvertGround4ToGround3";
   ground3->data()[0] = p[1] * common::IRec(fy);
   ground3->data()[1] = p[3] * common::IRec(b * fx);
   ground3->data()[2] = p[2] - ground3->data()[0] * cy;
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: ConvertGround4ToGround3";
   return true;
-
-  AINFO<<"(DMCZP) LeaveMethod: ConvertGround4ToGround3";
- }
+}
 
 void GetGroundPlanePitchHeight(const float &baseline,
                                const std::vector<float> &k_mat,
@@ -104,9 +96,7 @@ AINFO<<"(DMCZP) EnteringMethod: GetGroundPlanePitchHeight";
   double cos_pitch = ground4[1];
   double sin_pitch = -ground4[2];
   *pitch = static_cast<float>(atan2(sin_pitch, cos_pitch));
-
-  AINFO<<"(DMCZP) LeaveMethod: GetGroundPlanePitchHeight";
- }
+}
 
 void GetGround3FromPitchHeight(const std::vector<float> &k_mat,
                                const float &baseline, const float &pitch,
@@ -122,9 +112,7 @@ AINFO<<"(DMCZP) EnteringMethod: GetGround3FromPitchHeight";
   float cos_pitch = static_cast<float>(cos(pitch));
   std::vector<float> ground4 = {0, cos_pitch, -sin_pitch, -cam_height};
   ConvertGround4ToGround3(baseline, k_mat, ground4, ground3);
-
-  AINFO<<"(DMCZP) LeaveMethod: GetGround3FromPitchHeight";
- }
+}
 
 GroundPlaneTracker::GroundPlaneTracker(int track_length) {
 AINFO<<"(DMCZP) EnteringMethod: GroundPlaneTracker::GroundPlaneTracker";
@@ -144,9 +132,7 @@ AINFO<<"(DMCZP) EnteringMethod: GroundPlaneTracker::GroundPlaneTracker";
                  common::IRec(accm_sum));
 
   head_ = track_length;
-
-  AINFO<<"(DMCZP) LeaveMethod: GroundPlaneTracker::GroundPlaneTracker";
- }
+}
 
 void GroundPlaneTracker::Push(const std::vector<float> &ph,
                               const float &inlier_ratio) {
@@ -169,9 +155,7 @@ AINFO<<"(DMCZP) EnteringMethod: GroundPlaneTracker::Push";
   pitch_height_inlier_tracks_[head3] = ph[0];
   pitch_height_inlier_tracks_[head3 + 1] = ph[1];
   pitch_height_inlier_tracks_[head3 + 2] = inlier_ratio;
-
-  AINFO<<"(DMCZP) LeaveMethod: GroundPlaneTracker::Push";
- }
+}
 
 void GroundPlaneTracker::GetGround(float *pitch, float *cam_height) {
 AINFO<<"(DMCZP) EnteringMethod: GroundPlaneTracker::GetGround";
@@ -181,11 +165,7 @@ AINFO<<"(DMCZP) EnteringMethod: GroundPlaneTracker::GetGround";
   int length = static_cast<int>(pitch_height_inlier_tracks_.size() / 3);
   if (!length) {
     *pitch = *cam_height = 0.0f;
-    
-  AINFO<<"(DMCZP) (return) LeaveMethod: GroundPlaneTracker::GetGround";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: GroundPlaneTracker::GetGround";
-  return;
+    return;
   } else if (length == 1) {
     *pitch = pitch_height_inlier_tracks_[0];
     *cam_height = pitch_height_inlier_tracks_[1];
@@ -213,9 +193,7 @@ AINFO<<"(DMCZP) EnteringMethod: GroundPlaneTracker::GetGround";
   ph[1] = common::IDiv(ph[1], accm_wei);
   *pitch = ph[0];
   *cam_height = ph[1];
-
-  AINFO<<"(DMCZP) LeaveMethod: GroundPlaneTracker::GetGround";
- }
+}
 
 void GroundPlaneTracker::Restart() {
 AINFO<<"(DMCZP) EnteringMethod: GroundPlaneTracker::Restart";
@@ -229,9 +207,7 @@ AINFO<<"(DMCZP) EnteringMethod: GroundPlaneTracker::Restart";
     weight_.at(i) = 0.0f;
   }
   head_ = track_length;  // reset to init value
-
-  AINFO<<"(DMCZP) LeaveMethod: GroundPlaneTracker::Restart";
- }
+}
 
 void CameraGroundPlaneParams::SetDefault() {
 AINFO<<"(DMCZP) EnteringMethod: CameraGroundPlaneParams::SetDefault";
@@ -244,9 +220,7 @@ AINFO<<"(DMCZP) EnteringMethod: CameraGroundPlaneParams::SetDefault";
   thres_inlier_plane_fitting = 1.5f;  // in pixel
   */
   thres_inlier_plane_fitting = 0.0035f;  // in reversed depth, 3m@30m
-
-  AINFO<<"(DMCZP) LeaveMethod: CameraGroundPlaneParams::SetDefault";
- }
+}
 
 bool CameraGroundPlaneDetector::DetetGround(float pitch, float camera_height,
                                             float *vd, int count_vd,
@@ -265,9 +239,7 @@ AINFO<<"(DMCZP) EnteringMethod: CameraGroundPlaneDetector::DetetGround";
     AINFO << "set ground plane from outside: " << plane[0] << ", " << plane[1]
           << ", " << plane[2] << ", " << plane[3];
     ground_is_valid_ = true;
-    
-  AINFO<<"(DMCZP) (return) LeaveMethod: CameraGroundPlaneDetector::DetetGround";
-  return true;
+    return true;
   } else {
     bool success = false;
     float inlier_ratio = 0.0f;
@@ -293,9 +265,7 @@ AINFO<<"(DMCZP) EnteringMethod: CameraGroundPlaneDetector::DetetGround";
     if (success) {
       ADEBUG << "succeed with inlier ratio: " << inlier_ratio;
       ground_is_valid_ = true;
-      
-  AINFO<<"(DMCZP) (return) LeaveMethod: CameraGroundPlaneDetector::DetetGround";
-  return true;
+      return true;
     }
 
     // backup using last successful frame or given pitch & height
@@ -312,13 +282,9 @@ AINFO<<"(DMCZP) EnteringMethod: CameraGroundPlaneDetector::DetetGround";
       FillGroundModel(ground3);
     }
     ground_plane_tracker_->Restart();
-    
-  AINFO<<"(DMCZP) (return) LeaveMethod: CameraGroundPlaneDetector::DetetGround";
-  return false;
+    return false;
   }
-
-  AINFO<<"(DMCZP) LeaveMethod: CameraGroundPlaneDetector::DetetGround";
- }
+}
 
 bool CameraGroundPlaneDetector::DetectGroundFromSamples(float *vd, int count_vd,
                                                         float *inlier_ratio) {
@@ -328,13 +294,7 @@ AINFO<<"(DMCZP) EnteringMethod: CameraGroundPlaneDetector::DetectGroundFromSampl
   *inlier_ratio = 0.0f;
   if (count_vd < params_.min_nr_samples) {
     l_[0] = l_[1] = l_[2] = 0.0f;
-    
-  AINFO<<"(DMCZP) (return) LeaveMethod: CameraGroundPlaneDetector::DetectGroundFromSamples";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: CameraGroundPlaneDetector::DetectGroundFromSamples";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: CameraGroundPlaneDetector::DetectGroundFromSamples";
-  return false;
+    return false;
   }
 
   double kMinInlierRatio = params_.min_inlier_ratio;
@@ -382,12 +342,8 @@ AINFO<<"(DMCZP) EnteringMethod: CameraGroundPlaneDetector::DetectGroundFromSampl
   float l_best[3] = {0};
   common::ILineFit2dTotalLeastSquare(vd, l_best, count);
   memcpy(l_, l_best, sizeof(float) * 3);
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: CameraGroundPlaneDetector::DetectGroundFromSamples";
   return true;
-
-  AINFO<<"(DMCZP) LeaveMethod: CameraGroundPlaneDetector::DetectGroundFromSamples";
- }
+}
 
 }  // namespace camera
 }  // namespace perception

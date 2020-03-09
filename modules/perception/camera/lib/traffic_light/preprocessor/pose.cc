@@ -24,20 +24,10 @@ bool CarPose::Init(double ts, const Eigen::Matrix4d &pose) {
 AINFO<<"(DMCZP) EnteringMethod: CarPose::Init";
   timestamp_ = ts;
   pose_ = pose;
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: CarPose::Init";
   return true;
+}
 
-  AINFO<<"(DMCZP) LeaveMethod: CarPose::Init";
- }
-
-const Eigen::Matrix4d CarPose::getCarPose() const {
-  AINFO<<"(DMCZP) EnteringMethod: CarPose::getCarPose";
- 
-  AINFO<<"(DM
-  AINFO<<"(DMCZP) LeaveMethod: CarPose::getCarPose";
- CZP) (return) LeaveMethod: CarPose::getCarPose";
-  return pose_; }
+const Eigen::Matrix4d CarPose::getCarPose() const { return pose_; }
 
 const Eigen::Vector3d CarPose::getCarPosition() const {
 AINFO<<"(DMCZP) EnteringMethod: CarPose::getCarPosition";
@@ -46,38 +36,26 @@ AINFO<<"(DMCZP) EnteringMethod: CarPose::getCarPosition";
   p[1] = pose_(1, 3);
   p[2] = pose_(2, 3);
 
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: CarPose::getCarPosition";
   return p;
-
-  AINFO<<"(DMCZP) LeaveMethod: CarPose::getCarPosition";
- }
+}
 
 void CarPose::SetCameraPose(const std::string &camera_name,
                             const Eigen::Matrix4d &c2w_pose) {
 AINFO<<"(DMCZP) EnteringMethod: CarPose::SetCameraPose";
   c2w_poses_[camera_name] = c2w_pose;
-
-  AINFO<<"(DMCZP) LeaveMethod: CarPose::SetCameraPose";
- }
+}
 
 bool CarPose::GetCameraPose(const std::string &camera_name,
                             Eigen::Matrix4d *c2w_pose) const {
 AINFO<<"(DMCZP) EnteringMethod: CarPose::GetCameraPose";
   CHECK_NOTNULL(c2w_pose);
   if (c2w_poses_.find(camera_name) == c2w_poses_.end()) {
-    
-  AINFO<<"(DMCZP) (return) LeaveMethod: CarPose::GetCameraPose";
-  return false;
+    return false;
   }
   *c2w_pose = c2w_poses_.at(camera_name);
 
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: CarPose::GetCameraPose";
   return true;
-
-  AINFO<<"(DMCZP) LeaveMethod: CarPose::GetCameraPose";
- }
+}
 
 std::ostream &operator<<(std::ostream &os, const CarPose &pose) {
   os << pose.pose_;
@@ -89,9 +67,7 @@ AINFO<<"(DMCZP) EnteringMethod: CarPose::ClearCameraPose";
   if (it != c2w_poses_.end()) {
     c2w_poses_.erase(it);
   }
-
-  AINFO<<"(DMCZP) LeaveMethod: CarPose::ClearCameraPose";
- }
+}
 
 }  // namespace camera
 }  // namespace perception

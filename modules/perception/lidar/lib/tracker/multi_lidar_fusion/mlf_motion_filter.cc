@@ -61,12 +61,8 @@ AINFO<<"(DMCZP) EnteringMethod: MlfMotionFilter::Init";
 
   motion_refiner_.reset(new MlfMotionRefiner);
   CHECK(motion_refiner_->Init());
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: MlfMotionFilter::Init";
   return true;
-
-  AINFO<<"(DMCZP) LeaveMethod: MlfMotionFilter::Init";
- }
+}
 
 void MlfMotionFilter::UpdateWithObject(const MlfFilterOptions& options,
                                        const MlfTrackDataConstPtr& track_data,
@@ -74,11 +70,7 @@ void MlfMotionFilter::UpdateWithObject(const MlfFilterOptions& options,
 AINFO<<"(DMCZP) EnteringMethod: MlfMotionFilter::UpdateWithObject";
   if (track_data->age_ == 0) {
     InitializeTrackState(new_object);
-    
-  AINFO<<"(DMCZP) (return) LeaveMethod: MlfMotionFilter::UpdateWithObject";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: MlfMotionFilter::UpdateWithObject";
-  return;
+    return;
   }
   if (new_object->is_background) {
     new_object->output_velocity.setZero();
@@ -110,20 +102,14 @@ AINFO<<"(DMCZP) EnteringMethod: MlfMotionFilter::UpdateWithObject";
     UpdateConverged(track_data, new_object);
   }
   OnlineCovarianceEstimation(track_data, new_object);
-
-  AINFO<<"(DMCZP) LeaveMethod: MlfMotionFilter::UpdateWithObject";
- }
+}
 
 void MlfMotionFilter::UpdateWithoutObject(const MlfFilterOptions& options,
                                           double timestamp,
                                           MlfTrackDataPtr track_data) {
 AINFO<<"(DMCZP) EnteringMethod: MlfMotionFilter::UpdateWithoutObject";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: MlfMotionFilter::UpdateWithoutObject";
   return;
-
-  AINFO<<"(DMCZP) LeaveMethod: MlfMotionFilter::UpdateWithoutObject";
- }
+}
 
 void MlfMotionFilter::InitializeTrackState(TrackedObjectPtr new_object) {
 AINFO<<"(DMCZP) EnteringMethod: MlfMotionFilter::InitializeTrackState";
@@ -154,9 +140,7 @@ AINFO<<"(DMCZP) EnteringMethod: MlfMotionFilter::InitializeTrackState";
 
   StateToBelief(new_object);
   BeliefToOutput(new_object);
-
-  AINFO<<"(DMCZP) LeaveMethod: MlfMotionFilter::InitializeTrackState";
- }
+}
 
 void MlfMotionFilter::KalmanFilterUpdateWithPartialObservation(
     const MlfTrackDataConstPtr& track_data,
@@ -251,9 +235,7 @@ AINFO<<"(DMCZP) EnteringMethod: MlfMotionFilter::ConvergenceEstimationAndBoostUp
 
   // 4. finally, state to belief and output to keep consistency
   new_object->belief_velocity_gain << state_gain.head<2>(), 0;
-
-  AINFO<<"(DMCZP) LeaveMethod: MlfMotionFilter::KalmanFilterUpdateWithPartialObservation";
- }
+}
 
 void MlfMotionFilter::StateGainAdjustment(
     const MlfTrackDataConstPtr& track_data,
@@ -280,26 +262,20 @@ AINFO<<"(DMCZP) EnteringMethod: MlfMotionFilter::StateGainAdjustment";
       gain->tail<2>() *= acceleration_breakdown_threshold / acceleration_gain;
     }
   }
-
-  AINFO<<"(DMCZP) LeaveMethod: MlfMotionFilter::StateGainAdjustment";
- }
+}
 
 void MlfMotionFilter::StateToBelief(TrackedObjectPtr object) {
 AINFO<<"(DMCZP) EnteringMethod: MlfMotionFilter::StateToBelief";
   object->belief_velocity << object->state.head<2>(), 0;
   object->belief_acceleration << object->state.tail<2>(), 0;
-
-  AINFO<<"(DMCZP) LeaveMethod: MlfMotionFilter::StateToBelief";
- }
+}
 
 void MlfMotionFilter::BeliefToOutput(TrackedObjectPtr object) {
 AINFO<<"(DMCZP) EnteringMethod: MlfMotionFilter::BeliefToOutput";
   object->output_velocity = object->belief_velocity;
   object->output_velocity_uncertainty =
       object->belief_velocity_online_covariance;
-
-  AINFO<<"(DMCZP) LeaveMethod: MlfMotionFilter::BeliefToOutput";
- }
+}
 
 void MlfMotionFilter::ClipingState(TrackedObjectPtr object) {
 AINFO<<"(DMCZP) EnteringMethod: MlfMotionFilter::ClipingState";
@@ -309,9 +285,7 @@ AINFO<<"(DMCZP) EnteringMethod: MlfMotionFilter::ClipingState";
     object->state_covariance.block<2, 2>(0, 2).setZero();
     object->state_covariance.block<2, 2>(2, 0).setZero();
   }
-
-  AINFO<<"(DMCZP) LeaveMethod: MlfMotionFilter::ClipingState";
- }
+}
 
 void MlfMotionFilter::OnlineCovarianceEstimation(
     const MlfTrackDataConstPtr& track_data, TrackedObjectPtr object) {
@@ -325,9 +299,7 @@ AINFO<<"(DMCZP) EnteringMethod: MlfMotionFilter::OnlineCovarianceEstimation";
     object->belief_velocity_online_covariance = Eigen::Matrix3d::Identity() *
                                                 predict_variance_per_sqrsec_ *
                                                 predict_variance_per_sqrsec_;
-    
-  AINFO<<"(DMCZP) (return) LeaveMethod: MlfMotionFilter::OnlineCovarianceEstimation";
-  return;
+    return;
   }
   // compute online covariance
   auto cur_obj_pair = track_data->history_objects_.rbegin();
@@ -349,9 +321,7 @@ AINFO<<"(DMCZP) EnteringMethod: MlfMotionFilter::OnlineCovarianceEstimation";
       Eigen::Matrix3d::Identity() * noise_maximum_ * noise_maximum_;
   object->output_velocity_uncertainty =
       object->belief_velocity_online_covariance;
-
-  AINFO<<"(DMCZP) LeaveMethod: MlfMotionFilter::OnlineCovarianceEstimation";
- }
+}
 
 void MlfMotionFilter::ConvergenceEstimationAndBoostUp(
     const MlfTrackDataConstPtr& track_data,
@@ -372,9 +342,7 @@ void MlfMotionFilter::ConvergenceEstimationAndBoostUp(
   // do not boostup belief if usable measure velocity is not enough
   if (window_size <
       static_cast<size_t>(new_object->boostup_need_history_size)) {
-    
-  AINFO<<"(DMCZP) (return) LeaveMethod: MlfMotionFilter::ConvergenceEstimationAndBoostUp";
-  return;
+    return;
   }
   // boostup belief if not converged yet
   if (!new_object->converged) {
@@ -382,9 +350,7 @@ void MlfMotionFilter::ConvergenceEstimationAndBoostUp(
     ComputeConvergenceConfidence(track_data, new_object, true);
     UpdateConverged(track_data, new_object);
   }
-
-  AINFO<<"(DMCZP) LeaveMethod: MlfMotionFilter::ConvergenceEstimationAndBoostUp";
- }
+}
 
 void MlfMotionFilter::ComputeConvergenceConfidence(
     const MlfTrackDataConstPtr& track_data, TrackedObjectPtr new_object,
@@ -446,9 +412,7 @@ AINFO<<"(DMCZP) EnteringMethod: MlfMotionFilter::ComputeConvergenceConfidence";
     new_object->convergence_confidence =
         static_cast<float>(mean_convergence_confidence_score);
   }
-
-  AINFO<<"(DMCZP) LeaveMethod: MlfMotionFilter::ComputeConvergenceConfidence";
- }
+}
 
 void MlfMotionFilter::BoostupState(const MlfTrackDataConstPtr& track_data,
                                    TrackedObjectPtr new_object) {
@@ -513,9 +477,7 @@ AINFO<<"(DMCZP) EnteringMethod: MlfMotionFilter::BoostupState";
     new_obj_belief_velocity = max_boosted_velocity;
   }
   new_object->state.head<2>() = new_obj_belief_velocity.head<2>();
-
-  AINFO<<"(DMCZP) LeaveMethod: MlfMotionFilter::BoostupState";
- }
+}
 
 void MlfMotionFilter::UpdateConverged(const MlfTrackDataConstPtr& track_data,
                                       TrackedObjectPtr object) {
@@ -526,9 +488,7 @@ AINFO<<"(DMCZP) EnteringMethod: MlfMotionFilter::UpdateConverged";
     // increase cached history size if necessary
     if (track_data->history_objects_.size() <
         static_cast<size_t>(object->boostup_need_history_size)) {
-      
-  AINFO<<"(DMCZP) (return) LeaveMethod: MlfMotionFilter::UpdateConverged";
-  return;
+      return;
     }
     if (static_cast<size_t>(object->boostup_need_history_size) <
         boostup_history_size_maximum_) {
@@ -537,9 +497,7 @@ AINFO<<"(DMCZP) EnteringMethod: MlfMotionFilter::UpdateConverged";
   } else {
     object->converged = false;
   }
-
-  AINFO<<"(DMCZP) LeaveMethod: MlfMotionFilter::UpdateConverged";
- }
+}
 
 PERCEPTION_REGISTER_MLFFILTER(MlfMotionFilter);
 

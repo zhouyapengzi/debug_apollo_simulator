@@ -45,29 +45,19 @@ AINFO<<"(DMCZP) EnteringMethod: ROIBoundaryFilter::Init";
   confidence_threshold_ = config.confidence_threshold();
   cross_roi_threshold_ = config.cross_roi_threshold();
   inside_threshold_ = config.inside_threshold();
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: ROIBoundaryFilter::Init";
   return true;
-
-  AINFO<<"(DMCZP) LeaveMethod: ROIBoundaryFilter::Init";
- }
+}
 
 bool ROIBoundaryFilter::Filter(const ObjectFilterOptions& options,
                                LidarFrame* frame) {
 AINFO<<"(DMCZP) EnteringMethod: ROIBoundaryFilter::Filter";
   if (!frame) {
     AINFO << "Lidar frame is nullptr.";
-    
-  AINFO<<"(DMCZP) (return) LeaveMethod: ROIBoundaryFilter::Filter";
-  return false;
+    return false;
   }
   if (!frame->hdmap_struct) {
     AINFO << "HDMap struct is nullptr.";
-    
-  AINFO<<"(DMCZP) (return) LeaveMethod: ROIBoundaryFilter::Filter";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: ROIBoundaryFilter::Filter";
-  return true;
+    return true;
   }
   if (frame->hdmap_struct->road_boundary.size() +
           frame->hdmap_struct->road_polygons.size() +
@@ -105,12 +95,8 @@ AINFO<<"(DMCZP) EnteringMethod: ROIBoundaryFilter::Filter";
   objects.resize(count);
   AINFO << "Roi boundary filter, " << objects_valid_flag_.size() << " to "
         << count;
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: ROIBoundaryFilter::Filter";
   return true;
-
-  AINFO<<"(DMCZP) LeaveMethod: ROIBoundaryFilter::Filter";
- }
+}
 
 void ROIBoundaryFilter::BuildWorldPolygons(const ObjectFilterOptions& options,
                                            const LidarFrame& frame) {
@@ -136,9 +122,7 @@ AINFO<<"(DMCZP) EnteringMethod: ROIBoundaryFilter::BuildWorldPolygons";
       }
     }
   }
-
-  AINFO<<"(DMCZP) LeaveMethod: ROIBoundaryFilter::BuildWorldPolygons";
- }
+}
 
 void ROIBoundaryFilter::FillObjectRoiFlag(const ObjectFilterOptions& options,
                                           LidarFrame* frame) {
@@ -161,9 +145,7 @@ AINFO<<"(DMCZP) EnteringMethod: ROIBoundaryFilter::FillObjectRoiFlag";
       objects_cross_roi_[i] = true;
     }
   }
-
-  AINFO<<"(DMCZP) LeaveMethod: ROIBoundaryFilter::FillObjectRoiFlag";
- }
+}
 
 void ROIBoundaryFilter::FilterObjectsOutsideBoundary(
     const ObjectFilterOptions& options, LidarFrame* frame,
@@ -208,9 +190,7 @@ AINFO<<"(DMCZP) EnteringMethod: ROIBoundaryFilter::FilterObjectsByConfidence";
       }
     }
   }
-
-  AINFO<<"(DMCZP) LeaveMethod: ROIBoundaryFilter::FilterObjectsOutsideBoundary";
- }
+}
 
 void ROIBoundaryFilter::FilterObjectsInsideBoundary(
     const ObjectFilterOptions& options, LidarFrame* frame,
@@ -253,9 +233,7 @@ void ROIBoundaryFilter::FilterObjectsInsideBoundary(
       }
     }
   }
-
-  AINFO<<"(DMCZP) LeaveMethod: ROIBoundaryFilter::FilterObjectsInsideBoundary";
- }
+}
 
 void ROIBoundaryFilter::FilterObjectsByConfidence(
     const ObjectFilterOptions& options, LidarFrame* frame,
@@ -276,9 +254,7 @@ void ROIBoundaryFilter::FilterObjectsByConfidence(
       }
     }
   }
-
-  AINFO<<"(DMCZP) LeaveMethod: ROIBoundaryFilter::FilterObjectsByConfidence";
- }
+}
 
 PERCEPTION_REGISTER_OBJECTFILTER(ROIBoundaryFilter);
 

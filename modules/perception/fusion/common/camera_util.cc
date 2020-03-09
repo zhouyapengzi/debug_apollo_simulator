@@ -50,11 +50,7 @@ AINFO<<"(DMCZP) EnteringMethod: GetObjectEightVertices";
   (*vertices)[5] = (*vertices)[1], (*vertices)[5].z() += obj->size(2);
   (*vertices)[6] = (*vertices)[2], (*vertices)[6].z() += obj->size(2);
   (*vertices)[7] = (*vertices)[3], (*vertices)[7].z() += obj->size(2);
-
-  AINFO<<"(DMCZP) LeaveMethod: GetObjectEightVertices";
- 
-  AINFO<<"(DMCZP) LeaveMethod: GetObjectEightVertices";
- }
+}
 
 bool Pt3dToCamera2d(const Eigen::Vector3d& pt3d,
                     const Eigen::Matrix4d& world2camera_pose,
@@ -69,22 +65,10 @@ AINFO<<"(DMCZP) EnteringMethod: Pt3dToCamera2d";
              static_cast<float>(local_pt[0]), static_cast<float>(local_pt[1]),
              static_cast<float>(local_pt[2]))))
             .cast<double>();
-    
-  AINFO<<"(DMCZP) (return) LeaveMethod: Pt3dToCamera2d";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: Pt3dToCamera2d";
-  return true;
+    return true;
   }
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: Pt3dToCamera2d";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: Pt3dToCamera2d";
   return false;
-
-  AINFO<<"(DMCZP) LeaveMethod: Pt3dToCamera2d";
- 
-  AINFO<<"(DMCZP) LeaveMethod: Pt3dToCamera2d";
- }
+}
 
 bool IsObjectEightVerticesAllBehindCamera(
     const std::shared_ptr<const base::Object>& obj,
@@ -96,23 +80,11 @@ AINFO<<"(DMCZP) EnteringMethod: IsObjectEightVerticesAllBehindCamera";
   Eigen::Vector2d pt2d;
   for (const auto& vertice : vertices) {
     if ((Pt3dToCamera2d(vertice, world2camera_pose, camera_model, &pt2d))) {
-      
-  AINFO<<"(DMCZP) (return) LeaveMethod: IsObjectEightVerticesAllBehindCamera";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: IsObjectEightVerticesAllBehindCamera";
-  return false;
+      return false;
     }
   }
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: IsObjectEightVerticesAllBehindCamera";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: IsObjectEightVerticesAllBehindCamera";
   return true;
-
-  AINFO<<"(DMCZP) LeaveMethod: IsObjectEightVerticesAllBehindCamera";
- 
-  AINFO<<"(DMCZP) LeaveMethod: IsObjectEightVerticesAllBehindCamera";
- }
+}
 
 float ObjectInCameraView(SensorObjectConstPtr sensor_object,
                          base::BaseCameraModelPtr camera_model,
@@ -124,15 +96,7 @@ AINFO<<"(DMCZP) EnteringMethod: ObjectInCameraView";
   Eigen::Matrix4d world2sensor_pose =
       camera_sensor2world_pose.matrix().inverse();
   if (!world2sensor_pose.allFinite()) {
-    
-  AINFO<<"(DMCZP) (return) LeaveMethod: ObjectInCameraView";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: ObjectInCameraView";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: ObjectInCameraView";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: ObjectInCameraView";
-  return in_view_ratio;
+    return in_view_ratio;
   }
   double width = static_cast<double>(camera_model->get_width());
   double height = static_cast<double>(camera_model->get_height());
@@ -150,9 +114,7 @@ AINFO<<"(DMCZP) EnteringMethod: ObjectInCameraView";
   Eigen::Vector3d center = sensor_object->GetBaseObject()->center;
   Eigen::Vector2d center2d;
   if (!Pt3dToCamera2d(center, world2sensor_pose, camera_model, &center2d)) {
-    
-  AINFO<<"(DMCZP) (return) LeaveMethod: ObjectInCameraView";
-  return in_view_ratio;
+    return in_view_ratio;
   }
   double obj_length = sensor_object->GetBaseObject()->size(0);
   double obj_width = sensor_object->GetBaseObject()->size(1);
@@ -187,9 +149,7 @@ AINFO<<"(DMCZP) EnteringMethod: ObjectInCameraView";
       bool flag = Pt3dToCamera2d(box3d_v + offset.cast<double>(),
                                  world2sensor_pose, camera_model, &pt2d);
       if (!flag) {
-        
-  AINFO<<"(DMCZP) (return) LeaveMethod: ObjectInCameraView";
-  return in_view_ratio;
+        return in_view_ratio;
       }
       box2d_vs.push_back(pt2d.cast<float>());
     }
@@ -234,25 +194,13 @@ AINFO<<"(DMCZP) EnteringMethod: ObjectInCameraView";
   const double dist_slope = 0.25;
   auto sigmoid_like_fun = [max_dist, dist_slope](double obj_dist) {
     double x = obj_dist - max_dist;
-    
-  AINFO<<"(DMCZP) (return) LeaveMethod: ObjectInCameraView";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: ObjectInCameraView";
-  return 0.5 - 0.5 * x * dist_slope /
+    return 0.5 - 0.5 * x * dist_slope /
                      std::sqrt(1 + x * x * dist_slope * dist_slope);
   };
   Eigen::Vector4d center3d_local = world2sensor_pose * center.homogeneous();
   double dist_to_camera = center3d_local.z();
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: ObjectInCameraView";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: ObjectInCameraView";
   return static_cast<float>(in_view_ratio * sigmoid_like_fun(dist_to_camera));
-
-  AINFO<<"(DMCZP) LeaveMethod: ObjectInCameraView";
- 
-  AINFO<<"(DMCZP) LeaveMethod: ObjectInCameraView";
- }
+}
 
 }  // namespace fusion
 }  // namespace perception

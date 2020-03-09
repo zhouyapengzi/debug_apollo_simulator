@@ -38,13 +38,7 @@ AINFO<<"(DMCZP) EnteringMethod: DarkSCNNLaneDetector::Init";
   std::string proto_path = GetAbsolutePath(options.root_dir, options.conf_file);
   if (!GetProtoFromFile(proto_path, &darkscnn_param_)) {
     AINFO << "load proto param failed, root dir: " << options.root_dir;
-    
-  AINFO<<"(DMCZP) (return) LeaveMethod: DarkSCNNLaneDetector::Init";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: DarkSCNNLaneDetector::Init";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: DarkSCNNLaneDetector::Init";
-  return false;
+    return false;
   }
   std::string param_str;
   google::protobuf::TextFormat::PrintToString(darkscnn_param_, &param_str);
@@ -171,10 +165,6 @@ AINFO<<"(DMCZP) EnteringMethod: DarkSCNNLaneDetector::Init";
   std::vector<int> lane_shape = {1, 1, lane_output_height_, lane_output_width_};
   lane_blob_.reset(new base::Blob<float>(lane_shape));
 
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: DarkSCNNLaneDetector::Init";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: DarkSCNNLaneDetector::Init";
   return true;
 }
 
@@ -187,9 +177,7 @@ AINFO<<"(DMCZP) EnteringMethod: DarkSCNNLaneDetector::Detect";
 
   if (frame == nullptr) {
     AINFO << "camera frame is empty.";
-    
-  AINFO<<"(DMCZP) (return) LeaveMethod: DarkSCNNLaneDetector::Detect";
-  return false;
+    return false;
   }
 
   auto start = std::chrono::high_resolution_clock::now();
@@ -309,28 +297,16 @@ AINFO<<"(DMCZP) EnteringMethod: DarkSCNNLaneDetector::Detect";
   ADEBUG << "Avg detection infer time: " << time_1 / time_num
          << " Avg detection merge output time: " << time_2 / time_num;
   ADEBUG << "Lane detection done!";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: DarkSCNNLaneDetector::Detect";
   return true;
-
-  AINFO<<"(DMCZP) LeaveMethod: DarkSCNNLaneDetector::Detect";
- }
+}
 
 std::string DarkSCNNLaneDetector::Name() const {
 AINFO<<"(DMCZP) EnteringMethod: DarkSCNNLaneDetector::Name";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: DarkSCNNLaneDetector::Name";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: DarkSCNNLaneDetector::Init";
   return "DarkSCNNLaneDetector";
-
-  AINFO<<"(DMCZP) LeaveMethod: DarkSCNNLaneDetector::Name";
- }
+}
 
 REGISTER_LANE_DETECTOR(DarkSCNNLaneDetector);
 
-
-  AINFO<<"(DMCZP) LeaveMethod: DarkSCNNLaneDetector::Init";
- }  // namespace camera
+}  // namespace camera
 }  // namespace perception
 }  // namespace apollo

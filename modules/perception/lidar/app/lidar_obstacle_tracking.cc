@@ -60,12 +60,8 @@ AINFO<<"(DMCZP) EnteringMethod: LidarObstacleTracking::Init";
   CHECK_NOTNULL(fusion_classifier_.get());
   ClassifierInitOptions fusion_classifier_init_options;
   CHECK(fusion_classifier_->Init(fusion_classifier_init_options));
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: LidarObstacleTracking::Init";
   return true;
-
-  AINFO<<"(DMCZP) LeaveMethod: LidarObstacleTracking::Init";
- }
+}
 
 LidarProcessResult LidarObstacleTracking::Process(
     const LidarObstacleTrackingOptions& options, LidarFrame* frame) {
@@ -77,28 +73,20 @@ AINFO<<"(DMCZP) EnteringMethod: LidarObstacleTracking::Process";
   PERCEPTION_PERF_BLOCK_START();
   MultiTargetTrackerOptions tracker_options;
   if (!multi_target_tracker_->Track(tracker_options, frame)) {
-    
-  AINFO<<"(DMCZP) (return) LeaveMethod: LidarObstacleTracking::Process";
-  return LidarProcessResult(LidarErrorCode::TrackerError,
+    return LidarProcessResult(LidarErrorCode::TrackerError,
                               "Fail to track objects.");
   }
   PERCEPTION_PERF_BLOCK_END_WITH_INDICATOR(sensor_name, "tracker");
 
   ClassifierOptions fusion_classifier_options;
   if (!fusion_classifier_->Classify(fusion_classifier_options, frame)) {
-    
-  AINFO<<"(DMCZP) (return) LeaveMethod: LidarObstacleTracking::Process";
-  return LidarProcessResult(LidarErrorCode::ClassifierError,
+    return LidarProcessResult(LidarErrorCode::ClassifierError,
                               "Fail to fuse object types.");
   }
   PERCEPTION_PERF_BLOCK_END_WITH_INDICATOR(sensor_name, "type_fusion");
 
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: LidarObstacleTracking::Process";
   return LidarProcessResult(LidarErrorCode::Succeed);
-
-  AINFO<<"(DMCZP) LeaveMethod: LidarObstacleTracking::Process";
- }
+}
 
 }  // namespace lidar
 }  // namespace perception

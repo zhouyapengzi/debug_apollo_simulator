@@ -54,9 +54,7 @@ AINFO<<"(DMCZP) EnteringMethod: ConnectedComponentAnalysis";
     components->push_back(component);
     component.clear();
   }
-
-  AINFO<<"(DMCZP) LeaveMethod: ConnectedComponentAnalysis";
- }
+}
 
 }  // namespace common
 }  // namespace perception

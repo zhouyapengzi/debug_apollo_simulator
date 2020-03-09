@@ -109,12 +109,8 @@ AINFO<<"(DMCZP) EnteringMethod: FeatureGenerator::Init";
            distance_data.size() * sizeof(float));
 #endif
   }
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: FeatureGenerator::Init";
   return true;
-
-  AINFO<<"(DMCZP) LeaveMethod: FeatureGenerator::Init";
- }
+}
 
 void FeatureGenerator::GenerateCPU(const base::PointFCloudPtr& pc_ptr,
                                    const std::vector<int>& point2grid) {
@@ -171,9 +167,7 @@ AINFO<<"(DMCZP) EnteringMethod: FeatureGenerator::GenerateCPU";
     }
     count_data_[i] = LogCount(static_cast<int>(count_data_[i]));
   }
-
-  AINFO<<"(DMCZP) LeaveMethod: FeatureGenerator::GenerateCPU";
- }
+}
 
 }  // namespace lidar
 }  // namespace perception

@@ -46,9 +46,7 @@ AINFO<<"(DMCZP) EnteringMethod: SppData::MakeReference";
   data_height = height;
   data_range = range;
   data_size = width * height;
-
-  AINFO<<"(DMCZP) LeaveMethod: SppData::MakeReference";
- }
+}
 
 SppData::~SppData() {
   if (obs_prob_data_ref) {

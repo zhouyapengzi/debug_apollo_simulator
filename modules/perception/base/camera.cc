@@ -30,12 +30,8 @@ AINFO<<"(DMCZP) EnteringMethod: PinholeCameraModel::Project";
   pt2d(1) = point3d(1) / point3d(2) * intrinsic_params_(1, 1) +
             intrinsic_params_(1, 2);
 
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: PinholeCameraModel::Project";
   return pt2d;
-
-  AINFO<<"(DMCZP) LeaveMethod: PinholeCameraModel::Project";
- }
+}
 
 Eigen::Vector3f PinholeCameraModel::UnProject(const Eigen::Vector2f& point2d) {
 AINFO<<"(DMCZP) EnteringMethod: PinholeCameraModel::UnProject";
@@ -44,12 +40,8 @@ AINFO<<"(DMCZP) EnteringMethod: PinholeCameraModel::UnProject";
   pt3d(1) = (point2d(1) - intrinsic_params_(1, 2)) / intrinsic_params_(1, 1);
   pt3d(2) = 1.0f;
 
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: PinholeCameraModel::UnProject";
   return pt3d;
-
-  AINFO<<"(DMCZP) LeaveMethod: PinholeCameraModel::UnProject";
- }
+}
 
 }  // namespace base
 }  // namespace perception

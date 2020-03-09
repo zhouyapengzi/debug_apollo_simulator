@@ -34,11 +34,7 @@ AINFO<<"(DMCZP) EnteringMethod: RecognitionComponent::Init";
 
   LidarRecognitionComponentConfig comp_config;
   if (!GetProtoConfig(&comp_config)) {
-    
-  AINFO<<"(DMCZP) (return) LeaveMethod: RecognitionComponent::Init";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: RecognitionComponent::Init";
-  return false;
+    return false;
   }
   AINFO << "Lidar Component Configs: " << comp_config.DebugString();
   output_channel_name_ = comp_config.output_channel_name();
@@ -48,12 +44,8 @@ AINFO<<"(DMCZP) EnteringMethod: RecognitionComponent::Init";
     AERROR << "Failed to init recongnition component algorithm plugin.";
     return false;
   }
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: RecognitionComponent::Init";
   return true;
-
-  AINFO<<"(DMCZP) LeaveMethod: RecognitionComponent::Init";
- }
+}
 
 bool RecognitionComponent::Proc(
     const std::shared_ptr<LidarFrameMessage>& message) {
@@ -68,27 +60,17 @@ AINFO<<"(DMCZP) EnteringMethod: RecognitionComponent::Proc";
   if (InternalProc(message, out_message)) {
     writer_->Write(out_message);
     AINFO << "Send lidar recognition output message.";
-    
-  AINFO<<"(DMCZP) (return) LeaveMethod: RecognitionComponent::Proc";
-  return true;
+    return true;
   }
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: RecognitionComponent::Proc";
   return false;
-
-  AINFO<<"(DMCZP) LeaveMethod: RecognitionComponent::Proc";
- }
+}
 
 bool RecognitionComponent::InitAlgorithmPlugin() {
 AINFO<<"(DMCZP) EnteringMethod: RecognitionComponent::InitAlgorithmPlugin";
   tracker_.reset(new lidar::LidarObstacleTracking);
   if (tracker_ == nullptr) {
     AERROR << "Failed to get tracking instance.";
-    
-  AINFO<<"(DMCZP) (return) LeaveMethod: RecognitionComponent::InitAlgorithmPlugin";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: RecognitionComponent::InitAlgorithmPlugin";
-  return false;
+    return false;
   }
   lidar::LidarObstacleTrackingInitOptions init_options;
   init_options.sensor_name = main_sensor_name_;
@@ -97,12 +79,8 @@ AINFO<<"(DMCZP) EnteringMethod: RecognitionComponent::InitAlgorithmPlugin";
     return false;
   }
 
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: RecognitionComponent::InitAlgorithmPlugin";
   return true;
-
-  AINFO<<"(DMCZP) LeaveMethod: RecognitionComponent::InitAlgorithmPlugin";
- }
+}
 
 bool RecognitionComponent::InternalProc(
     const std::shared_ptr<const LidarFrameMessage>& in_message,
@@ -118,11 +96,7 @@ AINFO<<"(DMCZP) EnteringMethod: RecognitionComponent::InternalProc";
   if (in_message->error_code_ != apollo::common::ErrorCode::OK) {
     out_message->error_code_ = in_message->error_code_;
     AERROR << "Lidar recognition receive message with error code, skip it.";
-    
-  AINFO<<"(DMCZP) (return) LeaveMethod: RecognitionComponent::InternalProc";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: RecognitionComponent::InternalProc";
-  return true;
+    return true;
   }
 
   PERCEPTION_PERF_BLOCK_START();
@@ -158,12 +132,8 @@ AINFO<<"(DMCZP) EnteringMethod: RecognitionComponent::InternalProc";
         << std::to_string(in_message->timestamp_) << "]:cur_time["
         << std::to_string(end_timestamp) << "]:cur_latency[" << end_latency
         << "]";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: RecognitionComponent::InternalProc";
   return true;
-
-  AINFO<<"(DMCZP) LeaveMethod: RecognitionComponent::InternalProc";
- }
+}
 
 }  // namespace onboard
 }  // namespace perception
