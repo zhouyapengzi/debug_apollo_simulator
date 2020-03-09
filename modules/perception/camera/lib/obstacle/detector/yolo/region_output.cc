@@ -48,28 +48,18 @@ float get_bbox_size(const NormalizedBBox &bbox) {
 AINFO<<"(DMCZP) EnteringMethod: get_bbox_size";
   AINFO<<"(pengzi). get bbox size" << std::this_thread::get_id();
   if (bbox.xmax < bbox.xmin || bbox.ymax < bbox.ymin) {
-    // If bbox is invalid (e.g. xmax < xmin or ymax < ymin), 
-  AINFO<<"(DMCZP) (return) LeaveMethod: get_bbox_size";
-  return 0.
-    
-  AINFO<<"(DMCZP) (return) LeaveMethod: get_bbox_size";
-  return 0;
+    // If bbox is invalid (e.g. xmax < xmin or ymax < ymin), return 0.
+    return 0;
   } else {
     if (bbox.size >= 0) {
-      
-  AINFO<<"(DMCZP) (return) LeaveMethod: get_bbox_size";
-  return bbox.size;
+      return bbox.size;
     } else {
       float width = bbox.xmax - bbox.xmin;
       float height = bbox.ymax - bbox.ymin;
-      
-  AINFO<<"(DMCZP) (return) LeaveMethod: get_bbox_size";
-  return width * height;
+      return width * height;
     }
   }
-
-  AINFO<<"(DMCZP) LeaveMethod: get_bbox_size";
- }
+}
 
 float get_jaccard_overlap(const NormalizedBBox &bbox1,
                           const NormalizedBBox &bbox2) {
@@ -85,17 +75,11 @@ AINFO<<"(DMCZP) EnteringMethod: get_jaccard_overlap";
     float intersect_size = intersect_width * intersect_height;
     float bbox1_size = get_bbox_size(bbox1);
     float bbox2_size = get_bbox_size(bbox2);
-    
-  AINFO<<"(DMCZP) (return) LeaveMethod: get_jaccard_overlap";
-  return intersect_size / (bbox1_size + bbox2_size - intersect_size);
+    return intersect_size / (bbox1_size + bbox2_size - intersect_size);
   } else {
-    
-  AINFO<<"(DMCZP) (return) LeaveMethod: get_jaccard_overlap";
-  return 0.;
+    return 0.;
   }
-
-  AINFO<<"(DMCZP) LeaveMethod: get_jaccard_overlap";
- }
+}
 
 void get_max_score_index(const std::vector<float> &scores,
                          const float threshold, const int top_k,
@@ -167,9 +151,7 @@ void apply_boxvoting_fast(std::vector<NormalizedBBox> *bboxes,
                           const float sigma, std::vector<int> *indices) {
 AINFO<<"(DMCZP) EnteringMethod: apply_boxvoting_fast";
   if (bboxes->size() == 0) {
-    
-  AINFO<<"(DMCZP) (return) LeaveMethod: apply_boxvoting_fast";
-  return;
+    return;
   }
   indices->clear();
   for (int i = 0; i < static_cast<int>(bboxes->size()); i++) {
@@ -231,9 +213,7 @@ AINFO<<"(DMCZP) EnteringMethod: apply_boxvoting_fast";
       (*bboxes)[max_box_idx].ymax = y2_vt / s_vt;
     }
   }
-
-  AINFO<<"(DMCZP) LeaveMethod: apply_boxvoting_fast";
- }
+}
 
 void apply_nms_fast(const std::vector<NormalizedBBox> &bboxes,
                     const std::vector<float> &scores,
@@ -451,8 +431,6 @@ AINFO<<"(DMCZP) EnteringMethod: get_area_id";
     visible_ratios[max_face] = max_ratio / sum_ratio;
     visible_ratios[right_face] = right_ratio / sum_ratio;
   }
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: get_area_id";
   return area_id;
 }
 

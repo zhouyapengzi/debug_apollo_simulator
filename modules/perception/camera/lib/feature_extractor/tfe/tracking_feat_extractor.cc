@@ -37,15 +37,11 @@ AINFO<<"(DMCZP) EnteringMethod: TrackingFeatureExtractor::Init";
       init_options.root_dir, init_options.conf_file);
   if (!cyber::common::GetProtoFromFile(config_path, &feat_param)) {
     AERROR << "read proto_config fail";
-    
-  AINFO<<"(DMCZP) (return) LeaveMethod: TrackingFeatureExtractor::Init";
-  return false;
+    return false;
   }
   if (feat_param.extractor_size() != 1) {
     AERROR << "extractor should be 1";
-    
-  AINFO<<"(DMCZP) (return) LeaveMethod: TrackingFeatureExtractor::Init";
-  return false;
+    return false;
   }
   CHECK_EQ(input_height_ / feat_height, input_width_ / feat_width)
       << "Invalid aspect ratio: " << feat_height << "x" << feat_width
@@ -62,13 +58,9 @@ AINFO<<"(DMCZP) EnteringMethod: TrackingFeatureExtractor::Init";
   }
   if (roi_poolings_.empty()) {
     AERROR << "no proper extractor";
-    
-  AINFO<<"(DMCZP) (return) LeaveMethod: TrackingFeatureExtractor::Init";
-  return false;
+    return false;
   }
 
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: TrackingFeatureExtractor::Init";
   return true;
 }
 void TrackingFeatureExtractor::init_roipooling(
@@ -98,14 +90,10 @@ bool TrackingFeatureExtractor::Extract(const FeatureExtractorOptions &options,
                                        CameraFrame *frame) {
 AINFO<<"(DMCZP) EnteringMethod: TrackingFeatureExtractor::Extract";
   if (frame == nullptr) {
-    
-  AINFO<<"(DMCZP) (return) LeaveMethod: TrackingFeatureExtractor::Extract";
-  return false;
+    return false;
   }
   if (frame->detected_objects.empty()) {
-    
-  AINFO<<"(DMCZP) (return) LeaveMethod: TrackingFeatureExtractor::Extract";
-  return true;
+    return true;
   }
   if (!options.normalized) {
     encode_bbox(&(frame->detected_objects));
@@ -138,8 +126,6 @@ AINFO<<"(DMCZP) EnteringMethod: TrackingFeatureExtractor::Extract";
     }
   }
   norm_.L2Norm(frame->track_feature_blob.get());
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: TrackingFeatureExtractor::Extract";
   return true;
 }
 REGISTER_FEATURE_EXTRACTOR(TrackingFeatureExtractor);

@@ -29,15 +29,11 @@ static constexpr uint64_t kZeroLast = static_cast<uint64_t>(-1) - 1;
 inline Bitmap2D::DirectionMajor Bitmap2D::OppositeDirection(
     const Bitmap2D::DirectionMajor dir_major) {
 AINFO<<"(DMCZP) EnteringMethod: Bitmap2D::OppositeDirection";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: Bitmap2D::OppositeDirection";
   return static_cast<DirectionMajor>(static_cast<int>(dir_major) ^ 1);
 }
 
 inline bool Bitmap2D::CheckBit(const size_t loc, const uint64_t block) const {
 AINFO<<"(DMCZP) EnteringMethod: Bitmap2D::CheckBit";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: Bitmap2D::CheckBit";
   return block & (static_cast<uint64_t>(1) << loc);
 }
 
@@ -121,37 +117,27 @@ AINFO<<"(DMCZP) EnteringMethod: Bitmap2D::RealToBitmap";
   bit_p.x() = major_pix.x();
   bit_p.y() = major_pix.y() >> 6;
   bit_p.z() = major_pix.y() & 63;
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: Bitmap2D::RealToBitmap";
   return bit_p;
 }
 
 // calc index by bitmap index;
 inline int Bitmap2D::Index(const Bitmap2D::Vec3ui& p) const {
 AINFO<<"(DMCZP) EnteringMethod: Bitmap2D::Index";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: Bitmap2D::Index";
   return static_cast<int>(p.x() * map_size_[1] + p.y());
 }
 
 // range check
 bool Bitmap2D::IsExists(const Eigen::Vector2d& p) const {
 AINFO<<"(DMCZP) EnteringMethod: Bitmap2D::IsExists";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: Bitmap2D::IsExists";
   return p.x() >= min_range_.x() && p.x() < max_range_.x() &&
          p.y() >= min_range_.y() && p.y() < max_range_.y();
-
-  AINFO<<"(DMCZP) LeaveMethod: Bitmap2D::IsExists";
- }
+}
 
 // check
 bool Bitmap2D::Check(const Eigen::Vector2d& p) const {
 AINFO<<"(DMCZP) EnteringMethod: Bitmap2D::Check";
   const Vec3ui bit_p = RealToBitmap(p);
   const int idx = Index(bit_p);
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: Bitmap2D::Check";
   return CheckBit(bit_p.z(), bitmap_[idx]);
 }
 
@@ -160,8 +146,6 @@ void Bitmap2D::Set(const Eigen::Vector2d& p) {
 AINFO<<"(DMCZP) EnteringMethod: Bitmap2D::Set";
   const Vec3ui bit_p = RealToBitmap(p);
   const int idx = Index(bit_p);
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: Bitmap2D::Set";
   return SetBit(bit_p.z(), &bitmap_[idx]);
 }
 
@@ -169,8 +153,6 @@ void Bitmap2D::Reset(const Eigen::Vector2d& p) {
 AINFO<<"(DMCZP) EnteringMethod: Bitmap2D::Reset";
   const Vec3ui bit_p = RealToBitmap(p);
   const int idx = Index(bit_p);
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: Bitmap2D::Reset";
   return ResetBit(bit_p.z(), &bitmap_[idx]);
 }
 
@@ -185,9 +167,7 @@ AINFO<<"(DMCZP) EnteringMethod: Bitmap2D::Set";
   if (left_bit_p.y() == right_bit_p.y()) {
     const int idx = Index(left_bit_p);
     SetRangeBits(right_bit_p.z(), left_bit_p.z(), &bitmap_[idx]);
-    
-  AINFO<<"(DMCZP) (return) LeaveMethod: Bitmap2D::Set";
-  return;
+    return;
   }
   const size_t left_idx = Index(left_bit_p);
   const size_t right_idx = Index(right_bit_p);
@@ -196,9 +176,7 @@ AINFO<<"(DMCZP) EnteringMethod: Bitmap2D::Set";
   for (size_t i = left_idx + 1; i < right_idx; ++i) {
     bitmap_[i] = static_cast<uint64_t>(-1);
   }
-
-  AINFO<<"(DMCZP) LeaveMethod: Bitmap2D::Set";
- }
+}
 
 void Bitmap2D::Reset(const double x, const double min_y, const double max_y) {
 AINFO<<"(DMCZP) EnteringMethod: Bitmap2D::Reset";
@@ -211,9 +189,7 @@ AINFO<<"(DMCZP) EnteringMethod: Bitmap2D::Reset";
   if (left_bit_p.y() == right_bit_p.y()) {
     const int idx = Index(left_bit_p);
     ResetRangeBits(right_bit_p.z() + 1, left_bit_p.z(), &bitmap_[idx]);
-    
-  AINFO<<"(DMCZP) (return) LeaveMethod: Bitmap2D::Reset";
-  return;
+    return;
   }
   // set first block and last block
   const size_t left_idx = Index(left_bit_p);
@@ -223,9 +199,7 @@ AINFO<<"(DMCZP) EnteringMethod: Bitmap2D::Reset";
   for (size_t i = left_idx + 1; i < right_idx; ++i) {
     bitmap_[i] = static_cast<uint64_t>(0);
   }
-
-  AINFO<<"(DMCZP) LeaveMethod: Bitmap2D::Reset";
- }
+}
 
 }  // namespace lidar
 }  // namespace perception

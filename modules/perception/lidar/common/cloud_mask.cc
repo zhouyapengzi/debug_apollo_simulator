@@ -31,8 +31,6 @@ AINFO<<"(DMCZP) EnteringMethod: CloudMask::ValidIndicesCount";
       ++count;
     }
   }
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: CloudMask::ValidIndicesCount";
   return count;
 }
 
@@ -40,9 +38,7 @@ void CloudMask::GetValidCloud(const AttributePointCloud<PointF>& source_cloud,
                               AttributePointCloud<PointF>* target_cloud) const {
 AINFO<<"(DMCZP) EnteringMethod: CloudMask::GetValidCloud";
   if (target_cloud == nullptr) {
-    
-  AINFO<<"(DMCZP) (return) LeaveMethod: CloudMask::GetValidCloud";
-  return;
+    return;
   }
   indices_.clear();
   indices_.reserve(mask_.size());
@@ -52,9 +48,7 @@ AINFO<<"(DMCZP) EnteringMethod: CloudMask::GetValidCloud";
     }
   }
   target_cloud->CopyPointCloud(source_cloud, indices_);
-
-  AINFO<<"(DMCZP) LeaveMethod: CloudMask::GetValidCloud";
- }
+}
 
 void CloudMask::Flip() {
 AINFO<<"(DMCZP) EnteringMethod: CloudMask::Flip";
@@ -94,9 +88,7 @@ AINFO<<"(DMCZP) EnteringMethod: CloudMask::RemoveIndicesOfIndices";
 void CloudMask::GetValidMask(CloudMask* rhs) const {
 AINFO<<"(DMCZP) EnteringMethod: CloudMask::GetValidMask";
   if (rhs == nullptr) {
-    
-  AINFO<<"(DMCZP) (return) LeaveMethod: CloudMask::GetValidMask";
-  return;
+    return;
   }
   rhs->clear();
   for (const auto& i : mask_) {
@@ -104,9 +96,7 @@ AINFO<<"(DMCZP) EnteringMethod: CloudMask::GetValidMask";
       rhs->mask_.push_back(i);
     }
   }
-
-  AINFO<<"(DMCZP) LeaveMethod: CloudMask::GetValidMask";
- }
+}
 
 void CloudMask::ResetValue(int source_value, int target_value) {
 AINFO<<"(DMCZP) EnteringMethod: CloudMask::ResetValue";

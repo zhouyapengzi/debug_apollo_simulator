@@ -25,8 +25,6 @@ bool LidarOutputComponent::Init() {
 AINFO<<"(DMCZP) EnteringMethod: LidarOutputComponent::Init";
   writer_ =
       node_->CreateWriter<PerceptionObstacles>("/apollo/perception/obstacles");
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: LidarOutputComponent::Init";
   return true;
 }
 
@@ -37,25 +35,19 @@ AINFO<<"(DMCZP) EnteringMethod: LidarOutputComponent::Proc";
 
   if (message->frame_ == nullptr) {
     AERROR << "Failed to get frame in message.";
-    
-  AINFO<<"(DMCZP) (return) LeaveMethod: LidarOutputComponent::Proc";
-  return false;
+    return false;
   }
 
   if (!MsgSerializer::SerializeMsg(message->timestamp_, message->seq_num_,
                                    message->frame_->objects,
                                    message->error_code_, out_message.get())) {
     AERROR << "Failed to serialize PerceptionObstacles object.";
-    
-  AINFO<<"(DMCZP) (return) LeaveMethod: LidarOutputComponent::Proc";
-  return false;
+    return false;
   }
 
   writer_->Write(out_message);
   // Send("/apollo/perception/obstacles", out_message);
 
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: LidarOutputComponent::Proc";
   return true;
 }
 

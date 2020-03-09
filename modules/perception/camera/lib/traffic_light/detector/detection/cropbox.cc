@@ -40,9 +40,7 @@ AINFO<<"(pengzi) CropBox::getCropBox(). thread:"<<std::this_thread::get_id();
     crop_box->y = 0;
     crop_box->width = 0;
     crop_box->height = 0;
-    
-  AINFO<<"(DMCZP) (return) LeaveMethod: CropBox::getCropBox";
-  return;
+    return;
   }
 
   int xl = light->region.projection_roi.x;
@@ -83,9 +81,7 @@ AINFO<<"(pengzi) CropBox::getCropBox(). thread:"<<std::this_thread::get_id();
   crop_box->y = yt;
   crop_box->width = xr - xl + 1;
   crop_box->height = yb - yt + 1;
-
-  AINFO<<"(DMCZP) LeaveMethod: CropBox::getCropBox";
- }
+}
 void CropBox::Init(float crop_scale, int min_crop_size) {
 AINFO<<"(DMCZP) EnteringMethod: CropBox::Init";
   crop_scale_ = crop_scale;
@@ -104,18 +100,14 @@ AINFO<<"(DMCZP) EnteringMethod: CropBoxWholeImage::getCropBox";
     crop_box->x = crop_box->y = 0;
     crop_box->width = width;
     crop_box->height = height;
-    
-  AINFO<<"(DMCZP) (return) LeaveMethod: CropBoxWholeImage::getCropBox";
-  return;
+    return;
   }
 
   crop_box->x = 0;
   crop_box->y = 0;
   crop_box->width = 0;
   crop_box->height = 0;
-
-  AINFO<<"(DMCZP) LeaveMethod: CropBoxWholeImage::getCropBox";
- }
+}
 
 }  // namespace camera
 }  // namespace perception

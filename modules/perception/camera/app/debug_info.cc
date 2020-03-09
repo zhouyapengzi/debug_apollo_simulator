@@ -45,9 +45,7 @@ void WriteCamera2World(std::ofstream &fout, int frame_num,
 AINFO<<"(DMCZP) EnteringMethod: WriteCamera2World";
   if (!fout.is_open()) {
     AERROR << "Cannot write Camera2World!";
-    
-  AINFO<<"(DMCZP) (return) LeaveMethod: WriteCamera2World";
-  return;
+    return;
   }
   fout << frame_num;
   // Save the current format flags
@@ -65,18 +63,14 @@ AINFO<<"(DMCZP) EnteringMethod: WriteCamera2World";
   fout.flags(old_flags);
   // Restore the precision
   fout.precision(old_precision);
-
-  AINFO<<"(DMCZP) LeaveMethod: WriteCamera2World";
- }
+}
 
 void WriteTracking(std::ofstream &fout, int frame_num,
                    const std::vector<base::ObjectPtr> &tracked_object) {
 AINFO<<"(DMCZP) EnteringMethod: WriteTracking";
   if (!fout.is_open()) {
     AERROR << "Cannot write tracking!";
-    
-  AINFO<<"(DMCZP) (return) LeaveMethod: WriteTracking";
-  return;
+    return;
   }
   char output[500];
   for (size_t i = 0; i < tracked_object.size(); ++i) {
@@ -96,30 +90,20 @@ AINFO<<"(DMCZP) EnteringMethod: WriteTracking";
              ptr->camera_supplement.sensor_name.c_str());
     fout << output << std::endl;
   }
-
-  AINFO<<"(DMCZP) LeaveMethod: WriteTracking";
- }
+}
 
 int WriteDetections(const bool enabled, const std::string &out_path,
                     const std::vector<base::ObjectPtr> &objects) {
 AINFO<<"(DMCZP) EnteringMethod: WriteDetections";
 AINFO<<"(DMCZP) EnteringMethod: WriteDetections";
   if (!enabled) {
-    
-  AINFO<<"(DMCZP) (return) LeaveMethod: WriteDetections";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: WriteDetections";
-  return -1;
+    return -1;
   }
   std::ofstream outf(out_path, std::ofstream::out);
   AINFO << "Write detection to: " << out_path;
   if (!outf.is_open()) {
     AERROR << "Cannot open output file: " << out_path;
-    
-  AINFO<<"(DMCZP) (return) LeaveMethod: WriteDetections";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: WriteDetections";
-  return -1;
+    return -1;
   }
 
   // 1    type         Describes the type of object: 'Car', 'Van', 'Truck',
@@ -191,10 +175,6 @@ AINFO<<"(DMCZP) EnteringMethod: WriteDetections";
     outf << std::endl;
   }
   outf.close();
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: WriteDetections";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: WriteDetections";
   return 0;
 }
 
@@ -237,18 +217,12 @@ int WriteLanelines(const bool enabled, const std::string &save_path,
                    const std::vector<base::LaneLine> &lane_objects) {
 AINFO<<"(DMCZP) EnteringMethod: WriteLanelines";
   if (!enabled) {
-    
-  AINFO<<"(DMCZP) (return) LeaveMethod: WriteLanelines";
-  return -1;
-  
-  AINFO<<"(DMCZP) LeaveMethod: WriteLanelines";
- }
+    return -1;
+  }
   FILE *file_save = fopen(save_path.data(), "wt");
   if (file_save == nullptr) {
     AERROR << "Failed to open lane save path: " << save_path;
-    
-  AINFO<<"(DMCZP) (return) LeaveMethod: WriteLanelines";
-  return -1;
+    return -1;
   }
   int lane_line_size = static_cast<int>(lane_objects.size());
   AINFO << "Lane line num: " << lane_line_size;
@@ -322,32 +296,24 @@ int WriteCalibrationOutput(bool enabled, const std::string &out_path,
                            const CameraFrame *frame) {
 AINFO<<"(DMCZP) EnteringMethod: WriteCalibrationOutput";
   if (!enabled) {
-    
-  AINFO<<"(DMCZP) (return) LeaveMethod: WriteCalibrationOutput";
-  return -1;
+    return -1;
   }
   float pitch_angle = 0.f;
   float camera_ground_height = 0.f;
   if (!frame->calibration_service->QueryCameraToGroundHeightAndPitchAngle(
           &camera_ground_height, &pitch_angle)) {
     AERROR << "Failed to query camera to ground height and pitch.";
-    
-  AINFO<<"(DMCZP) (return) LeaveMethod: WriteCalibrationOutput";
-  return -1;
+    return -1;
   }
 
   FILE *file_save = fopen(out_path.data(), "wt");
   if (file_save == nullptr) {
     AERROR << "Failed to open output path: " << out_path.data();
-    
-  AINFO<<"(DMCZP) (return) LeaveMethod: WriteCalibrationOutput";
-  return -1;
+    return -1;
   }
   fprintf(file_save, "camera_ground_height:\t%f\n", camera_ground_height);
   fprintf(file_save, "pitch_angle:\t%f\n", pitch_angle);
   fclose(file_save);
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: WriteCalibrationOutput";
   return 0;
 }
 
@@ -357,9 +323,7 @@ void WriteFusionTracking(std::ofstream &fout, int frame_num,
 AINFO<<"(DMCZP) EnteringMethod: WriteFusionTracking";
   if (!fout.is_open()) {
     AERROR << "Failed to write tracking!";
-    
-  AINFO<<"(DMCZP) (return) LeaveMethod: WriteFusionTracking";
-  return;
+    return;
   }
   AINFO << "Write track results: " << frame_num;
   if (camera_name == "front_12mm") {
@@ -404,9 +368,7 @@ AINFO<<"(DMCZP) EnteringMethod: WriteFusionTracking";
   } else {
     AERROR << "Unknown camera name: " << camera_name;
   }
-
-  AINFO<<"(DMCZP) LeaveMethod: WriteFusionTracking";
- }
+}
 }  // namespace camera
 }  // namespace perception
 }  // namespace apollo

@@ -96,8 +96,6 @@ AINFO<<"(DMCZP) EnteringMethod: Object::ToString";
       << ", acceleration: (" << acceleration[0] << "," << acceleration[1] << ","
       << acceleration[2] << "), tracking_time: " << tracking_time
       << ", latest_tracked_time: " << latest_tracked_time;
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: Object::ToString";
   return oss.str();
 }
 

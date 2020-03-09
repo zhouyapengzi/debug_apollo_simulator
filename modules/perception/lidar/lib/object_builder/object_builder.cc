@@ -38,8 +38,6 @@ using PolygonDType = apollo::perception::base::PointCloud<PointD>;
 
 bool ObjectBuilder::Init(const ObjectBuilderInitOptions& options) {
 AINFO<<"(DMCZP) EnteringMethod: ObjectBuilder::Init";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: ObjectBuilder::Init";
   return true;
 }
 
@@ -47,9 +45,7 @@ bool ObjectBuilder::Build(const ObjectBuilderOptions& options,
                           LidarFrame* frame) {
 AINFO<<"(DMCZP) EnteringMethod: ObjectBuilder::Build";
   if (frame == nullptr) {
-    
-  AINFO<<"(DMCZP) (return) LeaveMethod: ObjectBuilder::Build";
-  return false;
+    return false;
   }
   std::vector<ObjectPtr>* objects = &(frame->segmented_objects);
   for (size_t i = 0; i < objects->size(); ++i) {
@@ -62,8 +58,6 @@ AINFO<<"(DMCZP) EnteringMethod: ObjectBuilder::Build";
     ComputePolygonSizeCenter(objects->at(i));
     ComputeOtherObjectInformation(objects->at(i));
   }
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: ObjectBuilder::Build";
   return true;
 }
 
@@ -75,16 +69,12 @@ AINFO<<"(DMCZP) EnteringMethod: ObjectBuilder::ComputePolygon2D";
   GetMinMax3D(cloud, &min_pt, &max_pt);
   if (cloud.size() < 4u) {
     SetDefaultValue(min_pt, max_pt, object);
-    
-  AINFO<<"(DMCZP) (return) LeaveMethod: ObjectBuilder::ComputePolygon2D";
-  return;
+    return;
   }
   LinePerturbation(&cloud);
   common::ConvexHull2D<PointFCloud, PolygonDType> hull;
   hull.GetConvexHull(cloud, &(object->polygon));
-
-  AINFO<<"(DMCZP) LeaveMethod: ObjectBuilder::ComputePolygon2D";
- }
+}
 
 void ObjectBuilder::ComputeOtherObjectInformation(ObjectPtr object) {
 AINFO<<"(DMCZP) EnteringMethod: ObjectBuilder::ComputeOtherObjectInformation";
@@ -103,9 +93,7 @@ AINFO<<"(DMCZP) EnteringMethod: ObjectBuilder::ComputeOtherObjectInformation";
 void ObjectBuilder::ComputePolygonSizeCenter(ObjectPtr object) {
 AINFO<<"(DMCZP) EnteringMethod: ObjectBuilder::ComputePolygonSizeCenter";
   if (object->lidar_supplement.cloud.size() < 4u) {
-    
-  AINFO<<"(DMCZP) (return) LeaveMethod: ObjectBuilder::ComputePolygonSizeCenter";
-  return;
+    return;
   }
   Eigen::Vector3f dir = object->direction;
   common::CalculateBBoxSizeCenter2DXY(object->lidar_supplement.cloud, dir,
@@ -128,9 +116,7 @@ AINFO<<"(DMCZP) EnteringMethod: ObjectBuilder::ComputePolygonSizeCenter";
   }
   object->theta =
       static_cast<float>(atan2(object->direction(1), object->direction(0)));
-
-  AINFO<<"(DMCZP) LeaveMethod: ObjectBuilder::ComputePolygonSizeCenter";
- }
+}
 
 void ObjectBuilder::SetDefaultValue(const Eigen::Vector3f& min_pt_in,
                                     const Eigen::Vector3f& max_pt_in,
@@ -194,19 +180,13 @@ AINFO<<"(DMCZP) EnteringMethod: ObjectBuilder::LinePerturbation";
       float tdiff_x = cloud->at(idx).x - cloud->at(start_point).x;
       float tdiff_y = cloud->at(idx).y - cloud->at(start_point).y;
       if (fabs(diff_x * tdiff_y - tdiff_x * diff_y) > kEpsilonForLine) {
-        
-  AINFO<<"(DMCZP) (return) LeaveMethod: ObjectBuilder::LinePerturbation";
-  return false;
+        return false;
       }
     }
     cloud->at(0).x += kEpsilonForLine;
     cloud->at(1).y += kEpsilonForLine;
-    
-  AINFO<<"(DMCZP) (return) LeaveMethod: ObjectBuilder::LinePerturbation";
-  return true;
+    return true;
   }
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: ObjectBuilder::LinePerturbation";
   return true;
 }
 

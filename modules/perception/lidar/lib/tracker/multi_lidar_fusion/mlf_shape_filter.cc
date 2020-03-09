@@ -44,8 +44,6 @@ AINFO<<"(DMCZP) EnteringMethod: MlfShapeFilter::Init";
 
   bottom_points_ignore_threshold_ = config.bottom_points_ignore_threshold();
   top_points_ignore_threshold_ = config.top_points_ignore_threshold();
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: MlfShapeFilter::Init";
   return true;
 }
 
@@ -97,8 +95,6 @@ void MlfShapeFilter::UpdateWithoutObject(const MlfFilterOptions& options,
                                          MlfTrackDataPtr track_data) {
 AINFO<<"(DMCZP) EnteringMethod: MlfShapeFilter::UpdateWithoutObject";
   // TODO(.)
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: MlfShapeFilter::UpdateWithoutObject";
   return;
 }
 

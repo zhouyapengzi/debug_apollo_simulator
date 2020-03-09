@@ -34,17 +34,13 @@ bool ReadPoseFile(const std::string &filename, Eigen::Affine3d *pose,
 AINFO<<"(DMCZP) EnteringMethod: ReadPoseFile";
   if (pose == nullptr || frame_id == nullptr || time_stamp == nullptr) {
     AERROR << "Nullptr error.";
-    
-  AINFO<<"(DMCZP) (return) LeaveMethod: ReadPoseFile";
-  return false;
+    return false;
   }
 
   std::ifstream fin(filename.c_str());
   if (!fin.is_open()) {
     AERROR << "Failed to open pose file: " << filename;
-    
-  AINFO<<"(DMCZP) (return) LeaveMethod: ReadPoseFile";
-  return false;
+    return false;
   }
 
   Eigen::Vector3d translation;
@@ -57,8 +53,6 @@ AINFO<<"(DMCZP) EnteringMethod: ReadPoseFile";
   pose->pretranslate(translation);
 
   fin.close();
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: ReadPoseFile";
   return true;
 }
 
@@ -66,17 +60,13 @@ bool LoadBrownCameraIntrinsic(const std::string &yaml_file,
                               base::BrownCameraDistortionModel *model) {
 AINFO<<"(DMCZP) EnteringMethod: LoadBrownCameraIntrinsic";
   if (!PathExists(yaml_file) || model == nullptr) {
-    
-  AINFO<<"(DMCZP) (return) LeaveMethod: LoadBrownCameraIntrinsic";
-  return false;
+    return false;
   }
 
   YAML::Node node = YAML::LoadFile(yaml_file);
   if (node.IsNull()) {
     AINFO << "Load " << yaml_file << " failed! please check!";
-    
-  AINFO<<"(DMCZP) (return) LeaveMethod: LoadBrownCameraIntrinsic";
-  return false;
+    return false;
   }
 
   float camera_width = 0.0f;
@@ -97,13 +87,9 @@ AINFO<<"(DMCZP) EnteringMethod: LoadBrownCameraIntrinsic";
   } catch (YAML::Exception &e) {
     AERROR << "load camera intrisic file " << yaml_file
            << " with error, YAML exception: " << e.what();
-    
-  AINFO<<"(DMCZP) (return) LeaveMethod: LoadBrownCameraIntrinsic";
-  return false;
+    return false;
   }
 
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: LoadBrownCameraIntrinsic";
   return true;
 }
 
@@ -112,17 +98,13 @@ bool LoadOmnidirectionalCameraIntrinsics(
     base::OmnidirectionalCameraDistortionModel *model) {
 AINFO<<"(DMCZP) EnteringMethod: LoadOmnidirectionalCameraIntrinsics";
   if (!PathExists(yaml_file) || model == nullptr) {
-    
-  AINFO<<"(DMCZP) (return) LeaveMethod: LoadOmnidirectionalCameraIntrinsics";
-  return false;
+    return false;
   }
 
   YAML::Node node = YAML::LoadFile(yaml_file);
   if (node.IsNull()) {
     AINFO << "Load " << yaml_file << " failed! please check!";
-    
-  AINFO<<"(DMCZP) (return) LeaveMethod: LoadOmnidirectionalCameraIntrinsics";
-  return false;
+    return false;
   }
 
   if (!node["width"].IsDefined() || !node["height"].IsDefined() ||
@@ -130,9 +112,7 @@ AINFO<<"(DMCZP) EnteringMethod: LoadOmnidirectionalCameraIntrinsics";
       !node["cam2world"].IsDefined() || !node["world2cam"].IsDefined() ||
       !node["focallength"].IsDefined() || !node["principalpoint"].IsDefined()) {
     AINFO << "Invalid intrinsics file for an omnidirectional camera.";
-    
-  AINFO<<"(DMCZP) (return) LeaveMethod: LoadOmnidirectionalCameraIntrinsics";
-  return false;
+    return false;
   }
 
   try {
@@ -176,13 +156,9 @@ AINFO<<"(DMCZP) EnteringMethod: LoadOmnidirectionalCameraIntrinsics";
   } catch (YAML::Exception &e) {
     AERROR << "load camera intrisic file " << yaml_file
            << " with error, YAML exception: " << e.what();
-    
-  AINFO<<"(DMCZP) (return) LeaveMethod: LoadOmnidirectionalCameraIntrinsics";
-  return false;
+    return false;
   }
 
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: LoadOmnidirectionalCameraIntrinsics";
   return true;
 }
 
@@ -191,9 +167,7 @@ bool GetFileList(const std::string &path, const std::string &suffix,
 AINFO<<"(DMCZP) EnteringMethod: GetFileList";
   if (!PathExists(path)) {
     AINFO << path << " not exist.";
-    
-  AINFO<<"(DMCZP) (return) LeaveMethod: GetFileList";
-  return false;
+    return false;
   }
 
   boost::filesystem::recursive_directory_iterator itr(path);
@@ -208,8 +182,6 @@ AINFO<<"(DMCZP) EnteringMethod: GetFileList";
       continue;
     }
   }
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: GetFileList";
   return true;
 }
 

@@ -64,8 +64,6 @@ AINFO<<"(DMCZP) EnteringMethod: CCRFOneShotTypeFusion::Init";
   AINFO << "Confidence: ";
   AINFO << std::endl << confidence_smooth_matrix_;
 
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: CCRFOneShotTypeFusion::Init";
   return true;
 }
 
@@ -73,15 +71,11 @@ bool CCRFOneShotTypeFusion::TypeFusion(const TypeFusionOption& option,
                                        ObjectPtr object) {
 AINFO<<"(DMCZP) EnteringMethod: CCRFOneShotTypeFusion::TypeFusion";
   if (object == nullptr) {
-    
-  AINFO<<"(DMCZP) (return) LeaveMethod: CCRFOneShotTypeFusion::TypeFusion";
-  return false;
+    return false;
   }
   Vectord log_prob;
   if (!FuseOneShotTypeProbs(object, &log_prob)) {
-    
-  AINFO<<"(DMCZP) (return) LeaveMethod: CCRFOneShotTypeFusion::TypeFusion";
-  return false;
+    return false;
   }
   util::ToExp(&log_prob);
   util::Normalize(&log_prob);
@@ -89,8 +83,6 @@ AINFO<<"(DMCZP) EnteringMethod: CCRFOneShotTypeFusion::TypeFusion";
   object->type = static_cast<ObjectType>(std::distance(
       object->type_probs.begin(),
       std::max_element(object->type_probs.begin(), object->type_probs.end())));
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: CCRFOneShotTypeFusion::TypeFusion";
   return true;
 }
 
@@ -98,21 +90,15 @@ bool CCRFOneShotTypeFusion::FuseOneShotTypeProbs(const ObjectPtr& object,
                                                  Vectord* log_prob) {
 AINFO<<"(DMCZP) EnteringMethod: CCRFOneShotTypeFusion::FuseOneShotTypeProbs";
   if (object == nullptr) {
-    
-  AINFO<<"(DMCZP) (return) LeaveMethod: CCRFOneShotTypeFusion::FuseOneShotTypeProbs";
-  return false;
+    return false;
   }
   if (log_prob == nullptr) {
-    
-  AINFO<<"(DMCZP) (return) LeaveMethod: CCRFOneShotTypeFusion::FuseOneShotTypeProbs";
-  return false;
+    return false;
   }
   const auto& vecs = object->lidar_supplement.raw_probs;
   const auto& names = object->lidar_supplement.raw_classification_methods;
   if (vecs.empty()) {
-    
-  AINFO<<"(DMCZP) (return) LeaveMethod: CCRFOneShotTypeFusion::FuseOneShotTypeProbs";
-  return false;
+    return false;
   }
 
   log_prob->setZero();
@@ -137,8 +123,6 @@ AINFO<<"(DMCZP) EnteringMethod: CCRFOneShotTypeFusion::FuseOneShotTypeProbs";
     *log_prob += single_prob;
   }
 
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: CCRFOneShotTypeFusion::FuseOneShotTypeProbs";
   return true;
 }
 
@@ -173,8 +157,6 @@ AINFO<<"(DMCZP) EnteringMethod: CCRFSequenceTypeFusion::Init";
     }
   }
   AINFO << std::endl << transition_matrix_;
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: CCRFSequenceTypeFusion::Init";
   return true;
 }
 
@@ -182,17 +164,11 @@ bool CCRFSequenceTypeFusion::TypeFusion(const TypeFusionOption& option,
                                         TrackedObjects* tracked_objects) {
 AINFO<<"(DMCZP) EnteringMethod: CCRFSequenceTypeFusion::TypeFusion";
   if (tracked_objects == nullptr) {
-    
-  AINFO<<"(DMCZP) (return) LeaveMethod: CCRFSequenceTypeFusion::TypeFusion";
-  return false;
+    return false;
   }
   if (tracked_objects->empty()) {
-    
-  AINFO<<"(DMCZP) (return) LeaveMethod: CCRFSequenceTypeFusion::TypeFusion";
-  return false;
+    return false;
   }
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: CCRFSequenceTypeFusion::TypeFusion";
   return FuseWithConditionalProbabilityInference(tracked_objects);
 }
 
@@ -208,9 +184,7 @@ AINFO<<"(DMCZP) EnteringMethod: CCRFSequenceTypeFusion::FuseWithConditionalProba
     if (!one_shot_fuser_.FuseOneShotTypeProbs(object,
                                               &fused_oneshot_probs_[i++])) {
       AERROR << "Failed to fuse one short probs in sequence.";
-      
-  AINFO<<"(DMCZP) (return) LeaveMethod: CCRFSequenceTypeFusion::FuseWithConditionalProbabilityInference";
-  return false;
+      return false;
     }
   }
 
@@ -244,8 +218,6 @@ AINFO<<"(DMCZP) EnteringMethod: CCRFSequenceTypeFusion::FuseWithConditionalProba
   ObjectPtr object = tracked_objects->rbegin()->second;
   RecoverFromLogProbability(&fused_sequence_probs_.back(), &object->type_probs,
                             &object->type);
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: CCRFSequenceTypeFusion::FuseWithConditionalProbabilityInference";
   return true;
 }
 
@@ -258,8 +230,6 @@ AINFO<<"(DMCZP) EnteringMethod: CCRFSequenceTypeFusion::RecoverFromLogProbabilit
   util::FromEigenToVector(*prob, dst);
   *type = static_cast<ObjectType>(
       std::distance(dst->begin(), std::max_element(dst->begin(), dst->end())));
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: CCRFSequenceTypeFusion::RecoverFromLogProbability";
   return true;
 }
 

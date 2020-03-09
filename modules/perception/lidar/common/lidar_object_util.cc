@@ -69,9 +69,7 @@ AINFO<<"(DMCZP) EnteringMethod: ComputeObjectShapeFromPolygon";
   if (polygon.empty() || cloud.empty()) {
     AINFO << "Failed to compute box, polygon size: " << polygon.size()
           << " cloud size: " << cloud.size();
-    
-  AINFO<<"(DMCZP) (return) LeaveMethod: ComputeObjectShapeFromPolygon";
-  return;
+    return;
   }
 
   // note here we assume direction is not changed
@@ -130,9 +128,7 @@ AINFO<<"(DMCZP) EnteringMethod: ComputeObjectShapeFromPolygon";
   polygon_xy = projected_polygon_xy(0) * direction +
                projected_polygon_xy(1) * odirection;
   object->center << polygon_xy(0) + offset(0), polygon_xy(1) + offset(1), min_z;
-
-  AINFO<<"(DMCZP) LeaveMethod: ComputeObjectShapeFromPolygon";
- }
+}
 
 }  // namespace lidar
 }  // namespace perception

@@ -73,8 +73,6 @@ AINFO<<"(DMCZP) EnteringMethod: GetPolyValue";
   y += (b * v);
   v *= x;
   y += (a * v);
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: GetPolyValue";
   return y;
 }
 
@@ -87,9 +85,7 @@ AINFO<<"(DMCZP) EnteringMethod: DarkSCNNLanePostprocessor::Init";
       GetAbsolutePath(options.detect_config_root, options.detect_config_name);
   if (!GetProtoFromFile(proto_path, &darkscnn_param)) {
     AINFO << "Failed to load proto param, root dir: " << options.root_dir;
-    
-  AINFO<<"(DMCZP) (return) LeaveMethod: DarkSCNNLanePostprocessor::Init";
-  return false;
+    return false;
   }
   const auto& model_param = darkscnn_param.model_param();
   input_offset_x_ = model_param.input_offset_x();
@@ -107,9 +103,7 @@ AINFO<<"(DMCZP) EnteringMethod: DarkSCNNLanePostprocessor::Init";
   AINFO << "postprocessor_config: " << postprocessor_config;
   if (!GetProtoFromFile(postprocessor_config, &lane_postprocessor_param_)) {
     AERROR << "Failed to read config detect_param: " << postprocessor_config;
-    
-  AINFO<<"(DMCZP) (return) LeaveMethod: DarkSCNNLanePostprocessor::Init";
-  return false;
+    return false;
   }
   std::string param_str;
   google::protobuf::TextFormat::PrintToString(lane_postprocessor_param_,
@@ -122,8 +116,6 @@ AINFO<<"(DMCZP) EnteringMethod: DarkSCNNLanePostprocessor::Init";
 
   lane_type_num_ = static_cast<int>(spatialLUTind.size());
   AINFO << "lane_type_num_: " << lane_type_num_;
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: DarkSCNNLanePostprocessor::Init";
   return true;
 }
 
@@ -410,8 +402,6 @@ AINFO<<"(DMCZP) EnteringMethod: DarkSCNNLanePostprocessor::Process3D";
          << " Avg fitting time: " << time_2 / time_num
          << " Avg writing time: " << time_3 / time_num;
   ADEBUG << "darkSCNN lane_postprocess done!";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: DarkSCNNLanePostprocessor::Process2D";
   return true;
 }
 
@@ -420,10 +410,6 @@ bool DarkSCNNLanePostprocessor::Process3D(
     const LanePostprocessorOptions& options, CameraFrame* frame) {
   ConvertImagePoint2Camera(frame);
   PolyFitCameraLaneline(frame);
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: DarkSCNNLanePostprocessor::Process3D";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: DarkSCNNLanePostprocessor::Process2D";
   return true;
 }
 
@@ -453,10 +439,6 @@ AINFO<<"(DMCZP) EnteringMethod: DarkSCNNLanePostprocessor::ConvertImagePoint2Cam
       camera_point_set.push_back(camera_point);
     }
   }
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: DarkSCNNLanePostprocessor::ConvertImagePoint2Camera";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: DarkSCNNLanePostprocessor::Process2D";
   return;
 }
 
@@ -496,25 +478,15 @@ AINFO<<"(DMCZP) EnteringMethod: DarkSCNNLanePostprocessor::PolyFitCameraLaneline
     lane_objects[line_index].curve_camera_coord.x_end = x_end;
     lane_objects[line_index].use_type = base::LaneLineUseType::REAL;
   }
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: DarkSCNNLanePostprocessor::PolyFitCameraLaneline";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: DarkSCNNLanePostprocessor::Process2D";
   return;
 }
 
 std::string DarkSCNNLanePostprocessor::Name() const {
 AINFO<<"(DMCZP) EnteringMethod: DarkSCNNLanePostprocessor::Name";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: DarkSCNNLanePostprocessor::Name";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: DarkSCNNLanePostprocessor::Process2D";
   return "DarkSCNNLanePostprocessor";
 }
 
 REGISTER_LANE_POSTPROCESSOR(DarkSCNNLanePostprocessor);
-
-  AINFO<<"(DMCZP) LeaveMethod: DarkSCNNLanePostprocessor::Process2D";
- }  // namespace camera
+}  // namespace camera
 }  // namespace perception
 }  // namespace apollo

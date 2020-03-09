@@ -38,9 +38,7 @@ AINFO<<"(DMCZP) EnteringMethod: NCutSegmentation::Init";
 
   if (!Configure(param_file)) {
     AERROR << "failed to load ncut config.";
-    
-  AINFO<<"(DMCZP) (return) LeaveMethod: NCutSegmentation::Init";
-  return false;
+    return false;
   }
 
   // init ground detector
@@ -62,9 +60,7 @@ AINFO<<"(DMCZP) EnteringMethod: NCutSegmentation::Init";
   _outliers.reset(new std::vector<ObjectPtr>);
   if (!_outliers) {
     AERROR << "Failed to reset outliers.";
-    
-  AINFO<<"(DMCZP) (return) LeaveMethod: NCutSegmentation::Init";
-  return false;
+    return false;
   }
   int num_threads = 1;
 #pragma omp parallel
@@ -76,9 +72,7 @@ AINFO<<"(DMCZP) EnteringMethod: NCutSegmentation::Init";
     _segmentors[i].reset(new NCut);
     if (!(_segmentors[i]->Init(ncut_param_))) {
       AERROR << "failed to init NormalizedCut " << i << ".";
-      
-  AINFO<<"(DMCZP) (return) LeaveMethod: NCutSegmentation::Init";
-  return false;
+      return false;
     }
   }
 
@@ -111,9 +105,7 @@ AINFO<<"(DMCZP) EnteringMethod: NCutSegmentation::Init";
           << lidar_frame_ref_->lidar2world_pose(2, 3);
     GroundDetectorOptions ground_detector_options;
     ground_detector_->Detect(ground_detector_options, lidar_frame_ref_);
-    
-  AINFO<<"(DMCZP) (return) LeaveMethod: NCutSegmentation::Init";
-  return true;
+    return true;
   });
 
   worker_.Start();
@@ -129,8 +121,6 @@ AINFO<<"(DMCZP) EnteringMethod: NCutSegmentation::Init";
 #endif
 
   AINFO << "NCutSegmentation init success, num_threads: " << num_threads;
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: NCutSegmentation::Init";
   return true;
 }
 
@@ -155,8 +145,6 @@ AINFO<<"(DMCZP) EnteringMethod: NCutSegmentation::Configure";
   roi_filter_str_ = seg_param_.roi_filter();
   ncut_param_ = seg_param_.ncut_param();
   AINFO << "NCut Segmentation " << seg_param_.DebugString();
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: NCutSegmentation::Configure";
   return true;
 }
 
@@ -179,8 +167,6 @@ AINFO<<"(DMCZP) EnteringMethod: NCutSegmentation::GetConfigs";
   CHECK(apollo::cyber::common::GetProtoFromFile(config_file, &config))
       << "Failed to parse CNNSeg config file";
   *param_file = GetAbsolutePath(work_root, config.param_file());
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: NCutSegmentation::GetConfigs";
   return true;
 }
 
@@ -190,33 +176,23 @@ AINFO<<"(DMCZP) EnteringMethod: NCutSegmentation::Segment";
   // check input
   if (frame == nullptr) {
     AERROR << "Input null frame ptr.";
-    
-  AINFO<<"(DMCZP) (return) LeaveMethod: NCutSegmentation::Segment";
-  return false;
+    return false;
   }
   if (frame->cloud == nullptr) {
     AERROR << "Input null frame cloud.";
-    
-  AINFO<<"(DMCZP) (return) LeaveMethod: NCutSegmentation::Segment";
-  return false;
+    return false;
   }
   if (frame->world_cloud == nullptr) {
     AERROR << "Input null frame world cloud.";
-    
-  AINFO<<"(DMCZP) (return) LeaveMethod: NCutSegmentation::Segment";
-  return false;
+    return false;
   }
   if (frame->cloud->size() == 0) {
     AERROR << "Input none points.";
-    
-  AINFO<<"(DMCZP) (return) LeaveMethod: NCutSegmentation::Segment";
-  return false;
+    return false;
   }
   if (frame->cloud->size() != frame->world_cloud->size()) {
     AERROR << "Cloud size and world cloud size not consistent.";
-    
-  AINFO<<"(DMCZP) (return) LeaveMethod: NCutSegmentation::Segment";
-  return false;
+    return false;
   }
 
   // record input cloud and lidar frame
@@ -410,8 +386,6 @@ AINFO<<"(DMCZP) EnteringMethod: NCutSegmentation::Segment";
   VisualizeSegments(*segments);
   VisualizeSegments(*_outliers);
 #endif
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: NCutSegmentation::Segment";
   return true;
 }
 
@@ -498,9 +472,7 @@ bool NCutSegmentation::IsOutlier(const base::PointFCloudPtr& in_cloud) {
 AINFO<<"(DMCZP) EnteringMethod: NCutSegmentation::IsOutlier";
   size_t min_num_points = std::max(outlier_min_num_points_, 1);
   if (in_cloud->size() < min_num_points) {
-    
-  AINFO<<"(DMCZP) (return) LeaveMethod: NCutSegmentation::IsOutlier";
-  return true;
+    return true;
   }
   float x_max = -FLT_MAX;
   float y_max = -FLT_MAX;
@@ -525,23 +497,15 @@ AINFO<<"(DMCZP) EnteringMethod: NCutSegmentation::IsOutlier";
   float width = y_max - y_min;
   float height = z_max - z_min;
   if (length < outlier_length_ && width < outlier_width_) {
-    
-  AINFO<<"(DMCZP) (return) LeaveMethod: NCutSegmentation::IsOutlier";
-  return true;
+    return true;
   }
   if (height < outlier_height_) {
-    
-  AINFO<<"(DMCZP) (return) LeaveMethod: NCutSegmentation::IsOutlier";
-  return true;
+    return true;
   }
   // std::pair<float, bool> dist = _ground_detector.distance_to_ground(pt_max);
   // if (dist.second && dist.first < _outlier_height) {
-  //    
-  AINFO<<"(DMCZP) (return) LeaveMethod: NCutSegmentation::IsOutlier";
-  return true;
+  //    return true;
   //}
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: NCutSegmentation::IsOutlier";
   return false;
 }
 

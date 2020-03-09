@@ -27,19 +27,7 @@ namespace fusion {
 // SensorObject implementations
 SensorObject::SensorObject(
     const std::shared_ptr<const base::Object>& object_ptr)
-    : object_(object_ptr), frame_header_(nullptr) {
-  AINFO<<"(DMCZP) EnteringMethod: SensorObject::SensorObject";
-
-  AINFO<<"(DMCZP) LeaveMethod: SensorObject::SensorObject";
- 
-  AINFO<<"(DMCZP) EnteringMethod: SensorObject::SensorObject";
-
-  AINFO<<"(DMCZP) LeaveMethod: SensorObject::SensorObject";
- 
-  AINFO<<"(DMCZP) EnteringMethod: SensorObject::SensorObject";
-
-  AINFO<<"(DMCZP) LeaveMethod: SensorObject::SensorObject";
- }
+    : object_(object_ptr), frame_header_(nullptr) {}
 
 SensorObject::SensorObject(
     const std::shared_ptr<const base::Object>& object_ptr,
@@ -56,13 +44,9 @@ SensorObject::SensorObject(
 double SensorObject::GetTimestamp() const {
 AINFO<<"(DMCZP) EnteringMethod: SensorObject::GetTimestamp";
   if (frame_header_ == nullptr) {
-    
-  AINFO<<"(DMCZP) (return) LeaveMethod: SensorObject::GetTimestamp";
-  return 0.0;
+    return 0.0;
   }
 
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: SensorObject::GetTimestamp";
   return frame_header_->timestamp;
 }
 
@@ -70,40 +54,28 @@ bool SensorObject::GetRelatedFramePose(Eigen::Affine3d* pose) const {
 AINFO<<"(DMCZP) EnteringMethod: SensorObject::GetRelatedFramePose";
   CHECK_NOTNULL(pose);
   if (frame_header_ == nullptr) {
-    
-  AINFO<<"(DMCZP) (return) LeaveMethod: SensorObject::GetRelatedFramePose";
-  return false;
+    return false;
   }
 
   *pose = frame_header_->sensor2world_pose;
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: SensorObject::GetRelatedFramePose";
   return true;
 }
 
 std::string SensorObject::GetSensorId() const {
 AINFO<<"(DMCZP) EnteringMethod: SensorObject::GetSensorId";
   if (frame_header_ == nullptr) {
-    
-  AINFO<<"(DMCZP) (return) LeaveMethod: SensorObject::GetSensorId";
-  return std::string("");
+    return std::string("");
   }
 
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: SensorObject::GetSensorId";
   return frame_header_->sensor_info.name;
 }
 
 base::SensorType SensorObject::GetSensorType() const {
 AINFO<<"(DMCZP) EnteringMethod: SensorObject::GetSensorType";
   if (frame_header_ == nullptr) {
-    
-  AINFO<<"(DMCZP) (return) LeaveMethod: SensorObject::GetSensorType";
-  return base::SensorType::UNKNOWN_SENSOR_TYPE;
+    return base::SensorType::UNKNOWN_SENSOR_TYPE;
   }
 
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: SensorObject::GetSensorType";
   return frame_header_->sensor_info.type;
 }
 
@@ -117,24 +89,18 @@ AINFO<<"(DMCZP) EnteringMethod: FusedObject::FusedObject";
 bool IsLidar(const SensorObjectConstPtr& obj) {
 AINFO<<"(DMCZP) EnteringMethod: IsLidar";
   base::SensorType type = obj->GetSensorType();
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: IsLidar";
   return common::SensorManager::Instance()->IsLidar(type);
 }
 
 bool IsRadar(const SensorObjectConstPtr& obj) {
 AINFO<<"(DMCZP) EnteringMethod: IsRadar";
   base::SensorType type = obj->GetSensorType();
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: IsRadar";
   return common::SensorManager::Instance()->IsRadar(type);
 }
 
 bool IsCamera(const SensorObjectConstPtr& obj) {
 AINFO<<"(DMCZP) EnteringMethod: IsCamera";
   base::SensorType type = obj->GetSensorType();
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: IsCamera";
   return common::SensorManager::Instance()->IsCamera(type);
 }
 

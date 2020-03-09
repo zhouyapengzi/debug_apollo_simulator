@@ -28,9 +28,7 @@ AINFO<<"(DMCZP) EnteringMethod: RadarDetectionComponent::Init";
   AINFO<<"(pengzi) Radar RadarDetectionComponent::Init()";
   RadarComponentConfig comp_config;
   if (!GetProtoConfig(&comp_config)) {
-    
-  AINFO<<"(DMCZP) (return) LeaveMethod: RadarDetectionComponent::Init";
-  return false;
+    return false;
   }
   AINFO << "Radar Component Configs: " << comp_config.DebugString();
 
@@ -46,9 +44,7 @@ AINFO<<"(DMCZP) EnteringMethod: RadarDetectionComponent::Init";
           comp_config.radar_name(), &radar_info_)) {
     AERROR << "Failed to get sensor info, sensor name: "
            << comp_config.radar_name();
-    
-  AINFO<<"(DMCZP) (return) LeaveMethod: RadarDetectionComponent::Init";
-  return false;
+    return false;
   }
 
   writer_ = node_->CreateWriter<SensorFrameMessage>(
@@ -61,8 +57,6 @@ AINFO<<"(DMCZP) EnteringMethod: RadarDetectionComponent::Init";
   localization_subscriber_.Init(
       odometry_channel_name_,
       odometry_channel_name_ + '_' + comp_config.radar_name());
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: RadarDetectionComponent::Init";
   return true;
 }
 
@@ -74,14 +68,10 @@ AINFO<<"(DMCZP) EnteringMethod: RadarDetectionComponent::Proc";
   std::shared_ptr<SensorFrameMessage> out_message(new (std::nothrow)
                                                       SensorFrameMessage);
   if (!InternalProc(message, out_message)) {
-    
-  AINFO<<"(DMCZP) (return) LeaveMethod: RadarDetectionComponent::Proc";
-  return false;
+    return false;
   }
   writer_->Write(out_message);
   AINFO << "Send radar processing output message.";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: RadarDetectionComponent::Proc";
   return true;
 }
 
@@ -107,8 +97,6 @@ AINFO<<"(DMCZP) EnteringMethod: RadarDetectionComponent::InitAlgorithmPlugin";
   CHECK(radar_perception_->Init(pipeline_name_))
       << "Failed to init radar perception.";
   AINFO << "Init algorithm plugin successfully.";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: RadarDetectionComponent::InitAlgorithmPlugin";
   return true;
 }
 
@@ -151,18 +139,14 @@ AINFO<<"(DMCZP) EnteringMethod: RadarDetectionComponent::InternalProc";
   if (!radar2world_trans_.GetSensor2worldTrans(timestamp, &radar_trans)) {
     out_message->error_code_ = apollo::common::ErrorCode::PERCEPTION_ERROR_TF;
     AERROR << "Failed to get pose at time: " << timestamp;
-    
-  AINFO<<"(DMCZP) (return) LeaveMethod: RadarDetectionComponent::InternalProc";
-  return true;
+    return true;
   }
   Eigen::Affine3d radar2novatel_trans;
   if (!radar2novatel_trans_.GetTrans(timestamp, &radar2novatel_trans, "novatel",
                                      tf_child_frame_id_)) {
     out_message->error_code_ = apollo::common::ErrorCode::PERCEPTION_ERROR_TF;
     AERROR << "Failed to get radar2novatel trans at time: " << timestamp;
-    
-  AINFO<<"(DMCZP) (return) LeaveMethod: RadarDetectionComponent::InternalProc";
-  return true;
+    return true;
   }
   PERCEPTION_PERF_BLOCK_END_WITH_INDICATOR(radar_info_.name,
                                            "GetSensor2worldTrans");
@@ -175,9 +159,7 @@ AINFO<<"(DMCZP) EnteringMethod: RadarDetectionComponent::InternalProc";
                                &(options.detector_options.car_angular_speed))) {
     AERROR << "Failed to call get_car_speed. [timestamp: "
            << std::to_string(timestamp);
-    // 
-  AINFO<<"(DMCZP) (return) LeaveMethod: RadarDetectionComponent::InternalProc";
-  return false;
+    // return false;
   }
   PERCEPTION_PERF_BLOCK_END_WITH_INDICATOR(radar_info_.name, "GetCarSpeed");
   // Init roi_filter_options
@@ -201,9 +183,7 @@ AINFO<<"(DMCZP) EnteringMethod: RadarDetectionComponent::InternalProc";
     out_message->error_code_ =
         apollo::common::ErrorCode::PERCEPTION_ERROR_PROCESS;
     AERROR << "RadarDetector Proc failed.";
-    
-  AINFO<<"(DMCZP) (return) LeaveMethod: RadarDetectionComponent::InternalProc";
-  return true;
+    return true;
   }
   out_message->frame_.reset(new base::Frame());
   out_message->frame_->sensor_info = radar_info_;
@@ -221,8 +201,6 @@ AINFO<<"(DMCZP) EnteringMethod: RadarDetectionComponent::InternalProc";
         << std::to_string(end_timestamp) << "]:cur_latency[" << end_latency
         << "]";
 
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: RadarDetectionComponent::InternalProc";
   return true;
 }
 
@@ -237,9 +215,7 @@ AINFO<<"(DMCZP) EnteringMethod: RadarDetectionComponent::GetCarLocalizationSpeed
   std::shared_ptr<LocalizationEstimate const> loct_ptr;
   if (!localization_subscriber_.LookupNearest(timestamp, &loct_ptr)) {
     AERROR << "Cannot get car speed.";
-    
-  AINFO<<"(DMCZP) (return) LeaveMethod: RadarDetectionComponent::GetCarLocalizationSpeed";
-  return false;
+    return false;
   }
   (*car_linear_speed)[0] =
       static_cast<float>(loct_ptr->pose().linear_velocity().x());
@@ -254,8 +230,6 @@ AINFO<<"(DMCZP) EnteringMethod: RadarDetectionComponent::GetCarLocalizationSpeed
   (*car_angular_speed)[2] =
       static_cast<float>(loct_ptr->pose().angular_velocity().z());
 
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: RadarDetectionComponent::GetCarLocalizationSpeed";
   return true;
 }
 

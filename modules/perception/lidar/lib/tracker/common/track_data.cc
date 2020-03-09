@@ -21,17 +21,9 @@ namespace apollo {
 namespace perception {
 namespace lidar {
 const int TrackData::kMaxHistorySize = 40;
-TrackData::TrackData() {
-  AINFO<<"(DMCZP) EnteringMethod: TrackData::TrackData";
- Reset(); 
-  AINFO<<"(DMCZP) LeaveMethod: TrackData::TrackData";
- }
+TrackData::TrackData() { Reset(); }
 
-TrackData::TrackData(TrackedObjectPtr obj, int track_id) {
-  AINFO<<"(DMCZP) EnteringMethod: TrackData::TrackData";
-
-  AINFO<<"(DMCZP) LeaveMethod: TrackData::TrackData";
- }
+TrackData::TrackData(TrackedObjectPtr obj, int track_id) {}
 
 TrackData::~TrackData() {}
 

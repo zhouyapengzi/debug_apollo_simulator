@@ -47,17 +47,13 @@ AINFO<<"(DMCZP) EnteringMethod: ThreadWorker::WakeUp";
 void ThreadWorker::Join() {
 AINFO<<"(DMCZP) EnteringMethod: ThreadWorker::Join";
   std::unique_lock<std::mutex> lock(mutex_);
-  condition_.wait(lock, [&]() { 
-  AINFO<<"(DMCZP) (return) LeaveMethod: ThreadWorker::Join";
-  return !work_flag_; });
+  condition_.wait(lock, [&]() { return !work_flag_; });
 }
 
 void ThreadWorker::Release() {
 AINFO<<"(DMCZP) EnteringMethod: ThreadWorker::Release";
   if (thread_ptr_ == nullptr) {
-    
-  AINFO<<"(DMCZP) (return) LeaveMethod: ThreadWorker::Release";
-  return;
+    return;
   }
   {
     std::lock_guard<std::mutex> lock(mutex_);
@@ -67,18 +63,14 @@ AINFO<<"(DMCZP) EnteringMethod: ThreadWorker::Release";
   condition_.notify_one();
   thread_ptr_->join();
   thread_ptr_.reset(nullptr);
-
-  AINFO<<"(DMCZP) LeaveMethod: ThreadWorker::Release";
- }
+}
 
 void ThreadWorker::Core() {
 AINFO<<"(DMCZP) EnteringMethod: ThreadWorker::Core";
   while (true) {
     {
       std::unique_lock<std::mutex> lock(mutex_);
-      condition_.wait(lock, [&]() { 
-  AINFO<<"(DMCZP) (return) LeaveMethod: ThreadWorker::Core";
-  return work_flag_; });
+      condition_.wait(lock, [&]() { return work_flag_; });
     }
     if (exit_flag_) {
       break;
@@ -90,9 +82,7 @@ AINFO<<"(DMCZP) EnteringMethod: ThreadWorker::Core";
     }
     condition_.notify_one();
   }
-
-  AINFO<<"(DMCZP) LeaveMethod: ThreadWorker::Core";
- }
+}
 
 }  // namespace lib
 }  // namespace perception

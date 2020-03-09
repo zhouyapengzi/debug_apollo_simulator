@@ -85,8 +85,6 @@ AINFO<<"(DMCZP) EnteringMethod: ContiArsTracker::Init";
   track_manager_ = new RadarTrackManager();
   CHECK(track_manager_ != nullptr)
       << "Failed to get RadarTrackManager instance.";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: ContiArsTracker::Init";
   return state;
 }
 
@@ -96,8 +94,6 @@ bool ContiArsTracker::Track(const base::Frame &detected_frame,
 AINFO<<"(DMCZP) EnteringMethod: ContiArsTracker::Track";
   TrackObjects(detected_frame);
   CollectTrackedFrame(tracked_frame);
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: ContiArsTracker::Track";
   return true;
 }
 
@@ -145,11 +141,7 @@ AINFO<<"(DMCZP) EnteringMethod: ContiArsTracker::UpdateUnassignedTracks";
   }
 }
 
-void ContiArsTracker::DeleteLostTracks() {
-  AINFO<<"(DMCZP) EnteringMethod: ContiArsTracker::DeleteLostTracks";
- track_manager_->RemoveLostTracks(); 
-  AINFO<<"(DMCZP) LeaveMethod: ContiArsTracker::DeleteLostTracks";
- }
+void ContiArsTracker::DeleteLostTracks() { track_manager_->RemoveLostTracks(); }
 
 void ContiArsTracker::CreateNewTracks(
     const base::Frame &radar_frame,

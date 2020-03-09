@@ -28,11 +28,7 @@ namespace fusion {
 
 using cyber::common::GetAbsolutePath;
 
-PbfGatekeeper::PbfGatekeeper() {
-  AINFO<<"(DMCZP) EnteringMethod: PbfGatekeeper::PbfGatekeeper";
-
-  AINFO<<"(DMCZP) LeaveMethod: PbfGatekeeper::PbfGatekeeper";
- }
+PbfGatekeeper::PbfGatekeeper() {}
 
 PbfGatekeeper::~PbfGatekeeper() {}
 
@@ -40,9 +36,7 @@ bool PbfGatekeeper::Init() {
 AINFO<<"(DMCZP) EnteringMethod: PbfGatekeeper::Init";
   BaseInitOptions options;
   if (!GetFusionInitOptions("PbfGatekeeper", &options)) {
-    
-  AINFO<<"(DMCZP) (return) LeaveMethod: PbfGatekeeper::Init";
-  return false;
+    return false;
   }
 
   std::string woork_root_config = GetAbsolutePath(
@@ -53,9 +47,7 @@ AINFO<<"(DMCZP) EnteringMethod: PbfGatekeeper::Init";
 
   if (!cyber::common::GetProtoFromFile(config, &params)) {
     AERROR << "Read config failed: " << config;
-    
-  AINFO<<"(DMCZP) (return) LeaveMethod: PbfGatekeeper::Init";
-  return false;
+    return false;
   }
   params_.publish_if_has_lidar = params.publish_if_has_lidar();
   params_.publish_if_has_radar = params.publish_if_has_radar();
@@ -70,18 +62,10 @@ AINFO<<"(DMCZP) EnteringMethod: PbfGatekeeper::Init";
   params_.toic_threshold = params.toic_threshold();
   params_.use_track_time_pub_strategy = params.use_track_time_pub_strategy();
   params_.pub_track_time_thresh = params.pub_track_time_thresh();
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: PbfGatekeeper::Init";
   return true;
 }
 
-std::string PbfGatekeeper::Name() const {
-  AINFO<<"(DMCZP) EnteringMethod: PbfGatekeeper::Name";
- 
-  AINFO<<"(DMCZP) (retu
-  AINFO<<"(DMCZP) LeaveMethod: PbfGatekeeper::Name";
- rn) LeaveMethod: PbfGatekeeper::Name";
-  return "PbfGatekeeper"; }
+std::string PbfGatekeeper::Name() const { return "PbfGatekeeper"; }
 
 bool PbfGatekeeper::AbleToPublish(const TrackPtr &track) {
 AINFO<<"(DMCZP) EnteringMethod: PbfGatekeeper::AbleToPublish";
@@ -93,9 +77,7 @@ AINFO<<"(DMCZP) EnteringMethod: PbfGatekeeper::AbleToPublish";
     auto sensor_obj = track->GetFusedObject();
     if (sensor_obj != nullptr && sensor_obj->GetBaseObject()->sub_type !=
                                      base::ObjectSubType::TRAFFICCONE) {
-      
-  AINFO<<"(DMCZP) (return) LeaveMethod: PbfGatekeeper::AbleToPublish";
-  return false;
+      return false;
     }
   }
   time_t rawtime = static_cast<time_t>(track->GetFusedObject()->GetTimestamp());
@@ -106,21 +88,15 @@ AINFO<<"(DMCZP) EnteringMethod: PbfGatekeeper::AbleToPublish";
   bool is_night = (timeinfo.tm_hour >= 23);
   if (!LidarAbleToPublish(track) && !RadarAbleToPublish(track, is_night) &&
       !CameraAbleToPublish(track, is_night)) {
-    
-  AINFO<<"(DMCZP) (return) LeaveMethod: PbfGatekeeper::AbleToPublish";
-  return false;
+    return false;
   }
 
   track->AddTrackedTimes();
   if (params_.use_track_time_pub_strategy &&
       track->GetTrackedTimes() <=
           static_cast<size_t>(params_.pub_track_time_thresh)) {
-    
-  AINFO<<"(DMCZP) (return) LeaveMethod: PbfGatekeeper::AbleToPublish";
-  return false;
+    return false;
   }
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: PbfGatekeeper::AbleToPublish";
   return true;
 }
 
@@ -128,12 +104,8 @@ bool PbfGatekeeper::LidarAbleToPublish(const TrackPtr &track) {
 AINFO<<"(DMCZP) EnteringMethod: PbfGatekeeper::LidarAbleToPublish";
   bool visible_in_lidar = track->IsLidarVisible();
   if (params_.publish_if_has_lidar && visible_in_lidar) {
-    
-  AINFO<<"(DMCZP) (return) LeaveMethod: PbfGatekeeper::LidarAbleToPublish";
-  return true;
+    return true;
   }
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: PbfGatekeeper::LidarAbleToPublish";
   return false;
 }
 
@@ -144,9 +116,7 @@ AINFO<<"(DMCZP) EnteringMethod: PbfGatekeeper::RadarAbleToPublish";
   if (params_.publish_if_has_radar && visible_in_radar &&
       radar_object != nullptr) {
     if (radar_object->GetSensorId() == "radar_front") {
-      
-  AINFO<<"(DMCZP) (return) LeaveMethod: PbfGatekeeper::RadarAbleToPublish";
-  return false;
+      return false;
       // if (radar_object->GetBaseObject()->radar_supplement.range >
       //         params_.min_radar_confident_distance &&
       //     radar_object->GetBaseObject()->radar_supplement.angle <
@@ -163,9 +133,7 @@ AINFO<<"(DMCZP) EnteringMethod: PbfGatekeeper::RadarAbleToPublish";
       //   if (!is_night) {
       //     if (toic_p > params_.toic_threshold) {
       //       set_velocity_to_zero();
-      //       
-  AINFO<<"(DMCZP) (return) LeaveMethod: PbfGatekeeper::RadarAbleToPublish";
-  return true;
+      //       return true;
       //     }
       //   } else {
       //     // the velocity buffer is [-3, +3] m/s
@@ -173,16 +141,12 @@ AINFO<<"(DMCZP) EnteringMethod: PbfGatekeeper::RadarAbleToPublish";
       //     double v_slope = 1.0;
       //     auto heading_v_decision = [](double x, double c, double k) {
       //       x = x - c;
-      //       
-  AINFO<<"(DMCZP) (return) LeaveMethod: PbfGatekeeper::RadarAbleToPublish";
-  return 0.5 + 0.5 * x * k / std::sqrt(1 + x * x * k * k);
+      //       return 0.5 + 0.5 * x * k / std::sqrt(1 + x * x * k * k);
       //     };
       //     auto fuse_two_probabilities = [](double p1, double p2) {
       //       double p = (p1 * p2) / (2 * p1 * p2 + 1 - p1 - p2);
       //       p = std::min(1.0 - std::numeric_limits<float>::epsilon(), p);
-      //       
-  AINFO<<"(DMCZP) (return) LeaveMethod: PbfGatekeeper::RadarAbleToPublish";
-  return p;
+      //       return p;
       //     };
 
       //     double min_toic_p = 0.2;
@@ -191,9 +155,7 @@ AINFO<<"(DMCZP) EnteringMethod: PbfGatekeeper::RadarAbleToPublish";
       //     double p = fuse_two_probabilities(toic_p, v_p);
       //     if (p > 0.5) {
       //       set_velocity_to_zero();
-      //       
-  AINFO<<"(DMCZP) (return) LeaveMethod: PbfGatekeeper::RadarAbleToPublish";
-  return true;
+      //       return true;
       //     }
       //   }
       // }
@@ -207,14 +169,10 @@ AINFO<<"(DMCZP) EnteringMethod: PbfGatekeeper::RadarAbleToPublish";
               params_.min_radar_confident_distance &&
           (radar_object->GetBaseObject()->velocity.norm() > 4.0 ||
            track->GetExistanceProb() > params_.radar_existance_threshold)) {
-        
-  AINFO<<"(DMCZP) (return) LeaveMethod: PbfGatekeeper::RadarAbleToPublish";
-  return true;
+        return true;
       }
     }
   }
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: PbfGatekeeper::RadarAbleToPublish";
   return false;
 }
 
@@ -242,14 +200,10 @@ AINFO<<"(DMCZP) EnteringMethod: PbfGatekeeper::CameraAbleToPublish";
         static int cnt_cam = 1;
         AINFO << "publish camera only object : cnt =  " << cnt_cam;
         cnt_cam++;
-        
-  AINFO<<"(DMCZP) (return) LeaveMethod: PbfGatekeeper::CameraAbleToPublish";
-  return true;
+        return true;
       }
     }
   }
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: PbfGatekeeper::CameraAbleToPublish";
   return false;
 }
 

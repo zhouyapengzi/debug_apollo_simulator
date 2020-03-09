@@ -26,21 +26,11 @@ bool HdmapRadarRoiFilter::RoiFilter(const RoiFilterOptions& options,
                                     base::FramePtr radar_frame) {
 AINFO<<"(DMCZP) EnteringMethod: HdmapRadarRoiFilter::RoiFilter";
   std::vector<base::ObjectPtr> origin_objects = radar_frame->objects;
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: HdmapRadarRoiFilter::RoiFilter";
   return common::ObjectInRoiCheck(options.roi, origin_objects,
                                   &radar_frame->objects);
+}
 
-  AINFO<<"(DMCZP) LeaveMethod: HdmapRadarRoiFilter::RoiFilter";
- }
-
-std::string HdmapRadarRoiFilter::Name() const {
-  AINFO<<"(DMCZP) EnteringMethod: HdmapRadarRoiFilter::Name";
- 
-  AINFO<<"(DMCZP) (return) Le
-  AINFO<<"(DMCZP) LeaveMethod: HdmapRadarRoiFilter::Name";
- aveMethod: HdmapRadarRoiFilter::Name";
-  return "HdmapRadarRoiFilter"; }
+std::string HdmapRadarRoiFilter::Name() const { return "HdmapRadarRoiFilter"; }
 
 PERCEPTION_REGISTER_ROI_FILTER(HdmapRadarRoiFilter);
 

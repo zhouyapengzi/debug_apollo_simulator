@@ -47,13 +47,9 @@ AINFO<<"(DMCZP) EnteringMethod: MsgSerializer::SerializeMsg";
     PerceptionObstacle *obstacle = obstacles->add_perception_obstacle();
     if (!ConvertObjectToPb(obj, obstacle)) {
       AERROR << "ConvertObjectToPb failed, Object:" << obj->ToString();
-      
-  AINFO<<"(DMCZP) (return) LeaveMethod: MsgSerializer::SerializeMsg";
-  return false;
+      return false;
     }
   }
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: MsgSerializer::SerializeMsg";
   return true;
 }
 
@@ -61,9 +57,7 @@ bool MsgSerializer::ConvertObjectToPb(const base::ObjectPtr &object_ptr,
                                       PerceptionObstacle *pb_msg) {
 AINFO<<"(DMCZP) EnteringMethod: MsgSerializer::ConvertObjectToPb";
   if (object_ptr == nullptr || pb_msg == nullptr) {
-    
-  AINFO<<"(DMCZP) (return) LeaveMethod: MsgSerializer::ConvertObjectToPb";
-  return false;
+    return false;
   }
 
   pb_msg->set_id(object_ptr->track_id);
@@ -186,8 +180,6 @@ AINFO<<"(DMCZP) EnteringMethod: MsgSerializer::ConvertObjectToPb";
     }
   }
 
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: MsgSerializer::ConvertObjectToPb";
   return true;
 }
 

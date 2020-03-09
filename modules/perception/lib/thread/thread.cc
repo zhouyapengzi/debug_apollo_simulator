@@ -54,26 +54,18 @@ AINFO<<"(DMCZP) EnteringMethod: Thread::Join";
 bool Thread::IsAlive() {
 AINFO<<"(DMCZP) EnteringMethod: Thread::IsAlive";
   if (tid_ == 0) {
-    
-  AINFO<<"(DMCZP) (return) LeaveMethod: Thread::IsAlive";
-  return false;
+    return false;
   }
   // no signal sent, just check existence for thread
   int ret = pthread_kill(tid_, 0);
   if (ret == ESRCH) {
-    
-  AINFO<<"(DMCZP) (return) LeaveMethod: Thread::IsAlive";
-  return false;
+    return false;
   }
   if (ret == EINVAL) {
     AWARN << "Invalid singal.";
-    
-  AINFO<<"(DMCZP) (return) LeaveMethod: Thread::IsAlive";
-  return false;
+    return false;
   }
 
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: Thread::IsAlive";
   return true;
 }
 

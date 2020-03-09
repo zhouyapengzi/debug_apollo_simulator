@@ -109,8 +109,6 @@ AINFO<<"(DMCZP) EnteringMethod: FeatureGenerator::Init";
            distance_data.size() * sizeof(float));
 #endif
   }
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: FeatureGenerator::Init";
   return true;
 }
 

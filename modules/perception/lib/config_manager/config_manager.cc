@@ -44,17 +44,13 @@ AINFO<<"(DMCZP) EnteringMethod: ConfigManager::ConfigManager";
 bool ConfigManager::Init() {
 AINFO<<"(DMCZP) EnteringMethod: ConfigManager::Init";
   MutexLock lock(&mutex_);
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: ConfigManager::Init";
   return InitInternal();
 }
 
 bool ConfigManager::InitInternal() {
 AINFO<<"(DMCZP) EnteringMethod: ConfigManager::InitInternal";
   if (inited_) {
-    
-  AINFO<<"(DMCZP) (return) LeaveMethod: ConfigManager::InitInternal";
-  return true;
+    return true;
   }
   for (auto iter = model_config_map_.begin(); iter != model_config_map_.end();
        ++iter) {
@@ -72,18 +68,14 @@ AINFO<<"(DMCZP) EnteringMethod: ConfigManager::InitInternal";
                            &model_config_files)) {
     AERROR << "config_root_path : " << config_module_path
            << " get file list error.";
-    
-  AINFO<<"(DMCZP) (return) LeaveMethod: ConfigManager::InitInternal";
-  return false;
+    return false;
   }
 
   for (const auto &model_config_file : model_config_files) {
     ModelConfigFileListProto file_list_proto;
     if (!GetProtoFromASCIIFile(model_config_file, &file_list_proto)) {
       AERROR << "Invalid ModelConfigFileListProto file: " << model_config_file;
-      
-  AINFO<<"(DMCZP) (return) LeaveMethod: ConfigManager::InitInternal";
-  return false;
+      return false;
     }
 
     for (const std::string &model_config_path :
@@ -93,18 +85,14 @@ AINFO<<"(DMCZP) EnteringMethod: ConfigManager::InitInternal";
       MultiModelConfigProto multi_model_config_proto;
       if (!GetProtoFromASCIIFile(abs_path, &multi_model_config_proto)) {
         AERROR << "Invalid MultiModelConfigProto file: " << abs_path;
-        
-  AINFO<<"(DMCZP) (return) LeaveMethod: ConfigManager::InitInternal";
-  return false;
+        return false;
       }
 
       for (const ModelConfigProto &model_config_proto :
            multi_model_config_proto.model_configs()) {
         ModelConfig *model_config = new ModelConfig();
         if (!model_config->Reset(model_config_proto)) {
-          
-  AINFO<<"(DMCZP) (return) LeaveMethod: ConfigManager::InitInternal";
-  return false;
+          return false;
         }
 
         AINFO << "load ModelConfig succ. name: " << model_config->name();
@@ -113,9 +101,7 @@ AINFO<<"(DMCZP) EnteringMethod: ConfigManager::InitInternal";
             model_config_map_.emplace(model_config->name(), model_config);
         if (!result.second) {
           AWARN << "duplicate ModelConfig, name: " << model_config->name();
-          
-  AINFO<<"(DMCZP) (return) LeaveMethod: ConfigManager::InitInternal";
-  return false;
+          return false;
         }
       }
     }
@@ -126,8 +112,6 @@ AINFO<<"(DMCZP) EnteringMethod: ConfigManager::InitInternal";
 
   inited_ = true;
 
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: ConfigManager::InitInternal";
   return true;
 }
 
@@ -135,8 +119,6 @@ bool ConfigManager::Reset() {
 AINFO<<"(DMCZP) EnteringMethod: ConfigManager::Reset";
   MutexLock lock(&mutex_);
   inited_ = false;
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: ConfigManager::Reset";
   return InitInternal();
 }
 
@@ -144,20 +126,14 @@ bool ConfigManager::GetModelConfig(const std::string &model_name,
                                    const ModelConfig **model_config) {
 AINFO<<"(DMCZP) EnteringMethod: ConfigManager::GetModelConfig";
   if (!inited_ && !Init()) {
-    
-  AINFO<<"(DMCZP) (return) LeaveMethod: ConfigManager::GetModelConfig";
-  return false;
+    return false;
   }
 
   auto citer = model_config_map_.find(model_name);
   if (citer == model_config_map_.end()) {
-    
-  AINFO<<"(DMCZP) (return) LeaveMethod: ConfigManager::GetModelConfig";
-  return false;
+    return false;
   }
   *model_config = citer->second;
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: ConfigManager::GetModelConfig";
   return true;
 }
 
@@ -250,8 +226,6 @@ AINFO<<"(DMCZP) EnteringMethod: ModelConfig::Reset";
         << " array_float_param_map's size: " << array_float_param_map_.size()
         << " array_bool_param_map's size: " << array_bool_param_map_.size();
 
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: ModelConfig::Reset";
   return true;
 }
 

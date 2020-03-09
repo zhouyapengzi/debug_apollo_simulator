@@ -64,9 +64,7 @@ AINFO<<"(DMCZP) EnteringMethod: ConvertGround4ToGround3";
   if (p[0] > 1e-3) {
     AERROR << "Have roll in the ground plane: " << p[0];
     ground3->assign(3, 0.f);
-    
-  AINFO<<"(DMCZP) (return) LeaveMethod: ConvertGround4ToGround3";
-  return false;
+    return false;
   }
   // no roll
   const float &b = baseline;
@@ -76,8 +74,6 @@ AINFO<<"(DMCZP) EnteringMethod: ConvertGround4ToGround3";
   ground3->data()[0] = p[1] * common::IRec(fy);
   ground3->data()[1] = p[3] * common::IRec(b * fx);
   ground3->data()[2] = p[2] - ground3->data()[0] * cy;
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: ConvertGround4ToGround3";
   return true;
 }
 
@@ -169,15 +165,11 @@ AINFO<<"(DMCZP) EnteringMethod: GroundPlaneTracker::GetGround";
   int length = static_cast<int>(pitch_height_inlier_tracks_.size() / 3);
   if (!length) {
     *pitch = *cam_height = 0.0f;
-    
-  AINFO<<"(DMCZP) (return) LeaveMethod: GroundPlaneTracker::GetGround";
-  return;
+    return;
   } else if (length == 1) {
     *pitch = pitch_height_inlier_tracks_[0];
     *cam_height = pitch_height_inlier_tracks_[1];
-    
-  AINFO<<"(DMCZP) (return) LeaveMethod: GroundPlaneTracker::GetGround";
-  return;
+    return;
   }
 
   float ph[2] = {0};
@@ -201,9 +193,7 @@ AINFO<<"(DMCZP) EnteringMethod: GroundPlaneTracker::GetGround";
   ph[1] = common::IDiv(ph[1], accm_wei);
   *pitch = ph[0];
   *cam_height = ph[1];
-
-  AINFO<<"(DMCZP) LeaveMethod: GroundPlaneTracker::GetGround";
- }
+}
 
 void GroundPlaneTracker::Restart() {
 AINFO<<"(DMCZP) EnteringMethod: GroundPlaneTracker::Restart";
@@ -249,9 +239,7 @@ AINFO<<"(DMCZP) EnteringMethod: CameraGroundPlaneDetector::DetetGround";
     AINFO << "set ground plane from outside: " << plane[0] << ", " << plane[1]
           << ", " << plane[2] << ", " << plane[3];
     ground_is_valid_ = true;
-    
-  AINFO<<"(DMCZP) (return) LeaveMethod: CameraGroundPlaneDetector::DetetGround";
-  return true;
+    return true;
   } else {
     bool success = false;
     float inlier_ratio = 0.0f;
@@ -277,9 +265,7 @@ AINFO<<"(DMCZP) EnteringMethod: CameraGroundPlaneDetector::DetetGround";
     if (success) {
       ADEBUG << "succeed with inlier ratio: " << inlier_ratio;
       ground_is_valid_ = true;
-      
-  AINFO<<"(DMCZP) (return) LeaveMethod: CameraGroundPlaneDetector::DetetGround";
-  return true;
+      return true;
     }
 
     // backup using last successful frame or given pitch & height
@@ -296,13 +282,9 @@ AINFO<<"(DMCZP) EnteringMethod: CameraGroundPlaneDetector::DetetGround";
       FillGroundModel(ground3);
     }
     ground_plane_tracker_->Restart();
-    
-  AINFO<<"(DMCZP) (return) LeaveMethod: CameraGroundPlaneDetector::DetetGround";
-  return false;
+    return false;
   }
-
-  AINFO<<"(DMCZP) LeaveMethod: CameraGroundPlaneDetector::DetetGround";
- }
+}
 
 bool CameraGroundPlaneDetector::DetectGroundFromSamples(float *vd, int count_vd,
                                                         float *inlier_ratio) {
@@ -312,9 +294,7 @@ AINFO<<"(DMCZP) EnteringMethod: CameraGroundPlaneDetector::DetectGroundFromSampl
   *inlier_ratio = 0.0f;
   if (count_vd < params_.min_nr_samples) {
     l_[0] = l_[1] = l_[2] = 0.0f;
-    
-  AINFO<<"(DMCZP) (return) LeaveMethod: CameraGroundPlaneDetector::DetectGroundFromSamples";
-  return false;
+    return false;
   }
 
   double kMinInlierRatio = params_.min_inlier_ratio;
@@ -338,9 +318,7 @@ AINFO<<"(DMCZP) EnteringMethod: CameraGroundPlaneDetector::DetectGroundFromSampl
           vs, ds, count_vd, p, &nr_inliers, inliers, kThresInlier, false, true,
           0.99f, kMinInlierRatio)) {
     memset(l_, 0, sizeof(float) * 3);
-    
-  AINFO<<"(DMCZP) (return) LeaveMethod: CameraGroundPlaneDetector::DetectGroundFromSamples";
-  return false;
+    return false;
   } else {
     *inlier_ratio = static_cast<float>(nr_inliers) *
                     common::IRec(static_cast<float>(count_vd));
@@ -349,9 +327,7 @@ AINFO<<"(DMCZP) EnteringMethod: CameraGroundPlaneDetector::DetectGroundFromSampl
   if (*inlier_ratio < kMinInlierRatio) {
     *inlier_ratio = 0.0f;
     memset(l_, 0, sizeof(float) * 3);
-    
-  AINFO<<"(DMCZP) (return) LeaveMethod: CameraGroundPlaneDetector::DetectGroundFromSamples";
-  return false;
+    return false;
   }
 
   // re-fit using inliers
@@ -366,8 +342,6 @@ AINFO<<"(DMCZP) EnteringMethod: CameraGroundPlaneDetector::DetectGroundFromSampl
   float l_best[3] = {0};
   common::ILineFit2dTotalLeastSquare(vd, l_best, count);
   memcpy(l_, l_best, sizeof(float) * 3);
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: CameraGroundPlaneDetector::DetectGroundFromSamples";
   return true;
 }
 

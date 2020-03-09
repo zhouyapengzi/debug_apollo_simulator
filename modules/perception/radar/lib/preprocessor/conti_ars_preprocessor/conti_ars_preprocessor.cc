@@ -31,8 +31,6 @@ AINFO<<"(DMCZP) EnteringMethod: ContiArsPreprocessor::Init";
   CHECK(lib::ConfigManager::Instance()->GetModelConfig(model_name,
                                                        &model_config));
   CHECK(model_config->get_value("delay_time", &delay_time_));
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: ContiArsPreprocessor::Init";
   return true;
 }
 
@@ -47,15 +45,11 @@ AINFO<<"(DMCZP) EnteringMethod: ContiArsPreprocessor::SkipObjects";
 AINFO<<"(DMCZP) EnteringMethod: ContiArsPreprocessor::CorrectTime";
   ExpandIds(corrected_obstacles);
   CorrectTime(corrected_obstacles);
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: ContiArsPreprocessor::Preprocess";
   return true;
 }
 
 std::string ContiArsPreprocessor::Name() const {
 AINFO<<"(DMCZP) EnteringMethod: ContiArsPreprocessor::Name";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: ContiArsPreprocessor::Name";
   return "ContiArsPreprocessor";
 }
 
@@ -108,8 +102,6 @@ AINFO<<"(DMCZP) EnteringMethod: ContiArsPreprocessor::GetNextId";
   if (MAX_RADAR_IDX == current_idx_) {
     current_idx_ = 1;
   }
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: ContiArsPreprocessor::GetNextId";
   return current_idx_;
 }
 

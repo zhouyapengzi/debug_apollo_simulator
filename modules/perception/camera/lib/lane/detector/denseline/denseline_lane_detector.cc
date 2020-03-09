@@ -36,9 +36,7 @@ AINFO<<"(DMCZP) EnteringMethod: DenselineLaneDetector::Init";
   std::string proto_path = GetAbsolutePath(options.root_dir, options.conf_file);
   if (!cyber::common::GetProtoFromFile(proto_path, &denseline_param_)) {
     AINFO << "load proto param failed, root dir: " << options.root_dir;
-    
-  AINFO<<"(DMCZP) (return) LeaveMethod: DenselineLaneDetector::Init";
-  return false;
+    return false;
   }
   std::string param_str;
   google::protobuf::TextFormat::PrintToString(denseline_param_, &param_str);
@@ -134,9 +132,7 @@ AINFO<<"(DMCZP) EnteringMethod: DenselineLaneDetector::Init";
         << input_reshape[net_inputs_[0]][3];
   if (!rt_net_->Init(input_reshape)) {
     AINFO << "net init fail.";
-    
-  AINFO<<"(DMCZP) (return) LeaveMethod: DenselineLaneDetector::Init";
-  return false;
+    return false;
   }
 
   for (auto &input_blob_name : net_inputs_) {
@@ -151,8 +147,6 @@ AINFO<<"(DMCZP) EnteringMethod: DenselineLaneDetector::Init";
           << output_blob->height() << " " << output_blob->width();
   }
 
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: DenselineLaneDetector::Init";
   return true;
 }
 
@@ -161,11 +155,7 @@ bool DenselineLaneDetector::Detect(const LaneDetectorOptions &options,
 AINFO<<"(DMCZP) EnteringMethod: DenselineLaneDetector::Detect";
   if (frame == nullptr) {
     AINFO << "camera frame is empty.";
-    
-  AINFO<<"(DMCZP) (return) LeaveMethod: DenselineLaneDetector::Detect";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: DenselineLaneDetector::Init";
-  return false;
+    return false;
   }
 
   auto data_provider = frame->data_provider;
@@ -204,26 +194,16 @@ AINFO<<"(DMCZP) EnteringMethod: DenselineLaneDetector::Detect";
 
   frame->lane_detected_blob = rt_net_->get_blob(net_outputs_[0]);
   ADEBUG << frame->lane_detected_blob->shape_string();
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: DenselineLaneDetector::Detect";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: DenselineLaneDetector::Init";
   return true;
 }
 
 std::string DenselineLaneDetector::Name() const {
 AINFO<<"(DMCZP) EnteringMethod: DenselineLaneDetector::Name";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: DenselineLaneDetector::Name";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: DenselineLaneDetector::Init";
   return "DenselineLaneDetector";
 }
 
 REGISTER_LANE_DETECTOR(DenselineLaneDetector);
 
-
-  AINFO<<"(DMCZP) LeaveMethod: DenselineLaneDetector::Init";
- }  // namespace camera
+}  // namespace camera
 }  // namespace perception
 }  // namespace apollo

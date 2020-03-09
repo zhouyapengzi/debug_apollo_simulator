@@ -142,9 +142,7 @@ AINFO<<"(DMCZP) EnteringMethod: LaneBasedCalibrator::Process";
     AINFO << "Do not calibate if not moving straight: "
           << "yaw angle changed " << vehicle_yaw_changed;
     vp_buffer_.clear();
-    
-  AINFO<<"(DMCZP) (return) LeaveMethod: LaneBasedCalibrator::Process";
-  return false;
+    return false;
   }
 
   VanishingPoint vp_cur;
@@ -153,9 +151,7 @@ AINFO<<"(DMCZP) EnteringMethod: LaneBasedCalibrator::Process";
   // Get the current estimation on vanishing point from lane
   if (!GetVanishingPoint(lane, &vp_cur)) {
     AINFO << "Lane is not valid for calibration.";
-    
-  AINFO<<"(DMCZP) (return) LeaveMethod: LaneBasedCalibrator::Process";
-  return false;
+    return false;
   }
   vp_cur.distance_traveled = distance_traveled_in_meter;
   //  std::cout << "#current v-row: " << vp_cur.pixel_pos[1] << std::endl;
@@ -164,18 +160,14 @@ AINFO<<"(DMCZP) EnteringMethod: LaneBasedCalibrator::Process";
   PushVanishingPoint(vp_cur);
   if (!PopVanishingPoint(&vp_work)) {
     AINFO << "Driving distance is not long enough";
-    
-  AINFO<<"(DMCZP) (return) LeaveMethod: LaneBasedCalibrator::Process";
-  return false;
+    return false;
   }
 
   // Get current estimation on pitch
   pitch_cur_ = 0.0f;
   if (!GetPitchFromVanishingPoint(vp_work, &pitch_cur_)) {
     AINFO << "Failed to estimate pitch from vanishing point.";
-    
-  AINFO<<"(DMCZP) (return) LeaveMethod: LaneBasedCalibrator::Process";
-  return false;
+    return false;
   }
   //  std::cout << "#current pitch: " << pitch_cur_ << std::endl;
   vanishing_row_ = vp_work.pixel_pos[1];
@@ -183,9 +175,7 @@ AINFO<<"(DMCZP) EnteringMethod: LaneBasedCalibrator::Process";
   // Get the filtered output using histogram
   if (!AddPitchToHistogram(pitch_cur_)) {
     AINFO << "Calculated pitch is out-of-range.";
-    
-  AINFO<<"(DMCZP) (return) LeaveMethod: LaneBasedCalibrator::Process";
-  return false;
+    return false;
   }
 
   accumulated_straight_driving_in_meter_ += distance_traveled_in_meter;
@@ -198,12 +188,8 @@ AINFO<<"(DMCZP) EnteringMethod: LaneBasedCalibrator::Process";
     const float fy = k_mat_[4];
     vanishing_row_ = tanf(pitch_estimation_) * fy + cy;
     accumulated_straight_driving_in_meter_ = 0.0f;
-    
-  AINFO<<"(DMCZP) (return) LeaveMethod: LaneBasedCalibrator::Process";
-  return true;
+    return true;
   }
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: LaneBasedCalibrator::Process";
   return false;
 }
 
@@ -226,21 +212,15 @@ AINFO<<"(DMCZP) EnteringMethod: LaneBasedCalibrator::PopVanishingPoint";
   }
   if (accumulated_distance <
       params_.min_required_straight_driving_distance_in_meter) {
-    
-  AINFO<<"(DMCZP) (return) LeaveMethod: LaneBasedCalibrator::PopVanishingPoint";
-  return false;
+    return false;
   }
   *v_point = vp_buffer_.back();
   vp_buffer_.pop_back();
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: LaneBasedCalibrator::PopVanishingPoint";
   return true;
 }
 
 bool LaneBasedCalibrator::AddPitchToHistogram(float pitch) {
 AINFO<<"(DMCZP) EnteringMethod: LaneBasedCalibrator::AddPitchToHistogram";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: LaneBasedCalibrator::AddPitchToHistogram";
   return pitch_histogram_.Push(pitch);
 }
 
@@ -254,13 +234,9 @@ AINFO<<"(DMCZP) EnteringMethod: LaneBasedCalibrator::GetPitchFromVanishingPoint"
   const float fy = k_mat_[4];
   float yaw_check = static_cast<float>(atan2(vp.pixel_pos[0] - cx, fx));
   if (fabs(yaw_check) > params_.max_allowed_yaw_angle_in_radian) {
-    
-  AINFO<<"(DMCZP) (return) LeaveMethod: LaneBasedCalibrator::GetPitchFromVanishingPoint";
-  return false;
+    return false;
   }
   *pitch = static_cast<float>(atan2(vp.pixel_pos[1] - cy, fy));
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: LaneBasedCalibrator::GetPitchFromVanishingPoint";
   return true;
 }
 
@@ -276,23 +252,17 @@ AINFO<<"(DMCZP) EnteringMethod: LaneBasedCalibrator::GetVanishingPoint";
       SelectTwoPointsFromLineForVanishingPoint(lane.left_line, line_seg_l);
   if (!get_line_seg_left) {
     AINFO << "Left lane is too short.";
-    
-  AINFO<<"(DMCZP) (return) LeaveMethod: LaneBasedCalibrator::GetVanishingPoint";
-  return false;
+    return false;
   }
 
   bool get_line_seg_right =
       SelectTwoPointsFromLineForVanishingPoint(lane.right_line, line_seg_r);
   if (!get_line_seg_right) {
     AINFO << "Right lane is too short.";
-    
-  AINFO<<"(DMCZP) (return) LeaveMethod: LaneBasedCalibrator::GetVanishingPoint";
-  return false;
+    return false;
   }
 
   // Get vanishing point by line segments intersection
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: LaneBasedCalibrator::GetVanishingPoint";
   return GetIntersectionFromTwoLineSegments(line_seg_l, line_seg_r, v_point);
 }
 
@@ -301,9 +271,7 @@ int LaneBasedCalibrator::GetCenterIndex(const Eigen::Vector2f *points,
 AINFO<<"(DMCZP) EnteringMethod: LaneBasedCalibrator::GetCenterIndex";
   assert(points != nullptr);
   if (nr_pts <= 0) {
-    
-  AINFO<<"(DMCZP) (return) LeaveMethod: LaneBasedCalibrator::GetCenterIndex";
-  return -1;
+    return -1;
   }
   float center_x = 0.0f;
   float center_y = 0.0f;
@@ -325,8 +293,6 @@ AINFO<<"(DMCZP) EnteringMethod: LaneBasedCalibrator::GetCenterIndex";
       center_index = i;
     }
   }
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: LaneBasedCalibrator::GetCenterIndex";
   return is_in_image(points[center_index]) ? center_index : -1;
 }
 
@@ -335,9 +301,7 @@ bool LaneBasedCalibrator::SelectTwoPointsFromLineForVanishingPoint(
 AINFO<<"(DMCZP) EnteringMethod: LaneBasedCalibrator::SelectTwoPointsFromLineForVanishingPoint";
   int nr_pts = static_cast<int>(line.lane_point.size());
   if (nr_pts < params_.min_nr_pts_laneline) {
-    
-  AINFO<<"(DMCZP) (return) LeaveMethod: LaneBasedCalibrator::SelectTwoPointsFromLineForVanishingPoint";
-  return false;
+    return false;
   }
 
   int nr_samples = nr_pts * static_cast<int>(params_.sampling_lane_point_rate);
@@ -364,8 +328,6 @@ AINFO<<"(DMCZP) EnteringMethod: LaneBasedCalibrator::SelectTwoPointsFromLineForV
     std::swap(line_seg[0], line_seg[2]);
     std::swap(line_seg[1], line_seg[3]);
   }
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: LaneBasedCalibrator::SelectTwoPointsFromLineForVanishingPoint";
   return true;
 }
 
@@ -410,9 +372,7 @@ AINFO<<"(DMCZP) EnteringMethod: LaneBasedCalibrator::GetIntersectionFromTwoLineS
 
   // Colinear
   if (fabs(dn) < 1e-5) {
-    
-  AINFO<<"(DMCZP) (return) LeaveMethod: LaneBasedCalibrator::GetIntersectionFromTwoLineSegments";
-  return false;
+    return false;
   }
 
   float v13[2] = {left_start_x - right_start_x, left_start_y - right_start_y};
@@ -421,8 +381,6 @@ AINFO<<"(DMCZP) EnteringMethod: LaneBasedCalibrator::GetIntersectionFromTwoLineS
 
   v_point->pixel_pos[0] = left_start_x + t * v10[0];
   v_point->pixel_pos[1] = left_start_y + t * v10[1];
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: LaneBasedCalibrator::GetIntersectionFromTwoLineSegments";
   return true;
 }
 

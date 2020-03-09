@@ -51,8 +51,6 @@ AINFO<<"(DMCZP) EnteringMethod: MlfTracker::Init";
     AINFO << "MlfTracker add filter: " << filter->Name();
   }
 
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: MlfTracker::Init";
   return true;
 }
 

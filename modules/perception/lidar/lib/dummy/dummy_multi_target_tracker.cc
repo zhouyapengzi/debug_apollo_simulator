@@ -26,8 +26,6 @@ namespace lidar {
 bool DummyMultiTargetTracker::Init(
     const MultiTargetTrackerInitOptions& options) {
 AINFO<<"(DMCZP) EnteringMethod: DummyMultiTargetTracker::Init";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: DummyMultiTargetTracker::Init";
   return true;
 }
 
@@ -35,9 +33,7 @@ bool DummyMultiTargetTracker::Track(const MultiTargetTrackerOptions& options,
                                     LidarFrame* frame) {
 AINFO<<"(DMCZP) EnteringMethod: DummyMultiTargetTracker::Track";
   if (frame == nullptr) {
-    
-  AINFO<<"(DMCZP) (return) LeaveMethod: DummyMultiTargetTracker::Track";
-  return false;
+    return false;
   }
   // transform objects
   frame->tracked_objects.clear();
@@ -68,8 +64,6 @@ AINFO<<"(DMCZP) EnteringMethod: DummyMultiTargetTracker::Track";
     obj->theta =
         static_cast<float>(atan2(obj->direction[1], obj->direction[0]));
   }
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: DummyMultiTargetTracker::Track";
   return true;
 }
 

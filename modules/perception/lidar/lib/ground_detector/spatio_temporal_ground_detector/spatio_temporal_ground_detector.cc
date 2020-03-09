@@ -73,8 +73,6 @@ AINFO<<"(DMCZP) EnteringMethod: SpatioTemporalGroundDetector::Init";
   ground_service_content_.Init(
       config_params.roi_rad_x(), config_params.roi_rad_y(),
       config_params.grid_size(), config_params.grid_size());
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: SpatioTemporalGroundDetector::Init";
   return true;
 }
 
@@ -84,21 +82,15 @@ AINFO<<"(DMCZP) EnteringMethod: SpatioTemporalGroundDetector::Detect";
   // check input
   if (frame == nullptr) {
     AERROR << "Input null frame ptr.";
-    
-  AINFO<<"(DMCZP) (return) LeaveMethod: SpatioTemporalGroundDetector::Detect";
-  return false;
+    return false;
   }
   if (frame->cloud.get() == nullptr || frame->world_cloud.get() == nullptr) {
     AERROR << "Input null frame cloud.";
-    
-  AINFO<<"(DMCZP) (return) LeaveMethod: SpatioTemporalGroundDetector::Detect";
-  return false;
+    return false;
   }
   if (frame->cloud->empty() || frame->world_cloud->empty()) {
     AERROR << "Input none points.";
-    
-  AINFO<<"(DMCZP) (return) LeaveMethod: SpatioTemporalGroundDetector::Detect";
-  return false;
+    return false;
   }
 
   unsigned int data_id = 0;
@@ -173,9 +165,7 @@ AINFO<<"(DMCZP) EnteringMethod: SpatioTemporalGroundDetector::Detect";
     non_ground_indices.indices.insert(
         non_ground_indices.indices.end(), point_indices_temp_.begin(),
         point_indices_temp_.begin() + valid_point_num);
-    
-  AINFO<<"(DMCZP) (return) LeaveMethod: SpatioTemporalGroundDetector::Detect";
-  return false;
+    return false;
   }
 
   for (i = 0; i < valid_point_num_cur; ++i) {
@@ -225,8 +215,6 @@ AINFO<<"(DMCZP) EnteringMethod: SpatioTemporalGroundDetector::Detect";
       AINFO << "Failed to find ground service and cannot update.";
     }
   }
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: SpatioTemporalGroundDetector::Detect";
   return true;
 }
 

@@ -29,9 +29,7 @@ AINFO<<"(DMCZP) EnteringMethod: DataProvider::Init";
 
   if (cudaSetDevice(device_id_) != cudaSuccess) {
     AERROR << "Failed to set device to: " << device_id_;
-    
-  AINFO<<"(DMCZP) (return) LeaveMethod: DataProvider::Init";
-  return false;
+    return false;
   }
 
   // Initialize uint8 blobs
@@ -52,9 +50,7 @@ AINFO<<"(DMCZP) EnteringMethod: DataProvider::Init";
   if (options.do_undistortion) {
     handler_.reset(new UndistortionHandler());
     if (!handler_->Init(options.sensor_name, device_id_)) {
-      
-  AINFO<<"(DMCZP) (return) LeaveMethod: DataProvider::Init";
-  return false;
+      return false;
     }
     // Initialize uint8 blobs
     ori_gray_.reset(
@@ -110,8 +106,6 @@ AINFO<<"(DMCZP) EnteringMethod: DataProvider::Init";
   rgb_ready_ = false;
   gray_ready_ = false;
 
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: DataProvider::Init";
   return true;
 }
 
@@ -120,9 +114,7 @@ bool DataProvider::FillImageData(int rows, int cols, const uint8_t *data,
 AINFO<<"(DMCZP) EnteringMethod: DataProvider::FillImageData";
   if (cudaSetDevice(device_id_) != cudaSuccess) {
     AERROR << "Failed to set device to: " << device_id_;
-    
-  AINFO<<"(DMCZP) (return) LeaveMethod: DataProvider::FillImageData";
-  return false;
+    return false;
   }
 
   gray_ready_ = false;
@@ -135,9 +127,7 @@ AINFO<<"(DMCZP) EnteringMethod: DataProvider::FillImageData";
   AINFO << "Fill in CPU mode ...";
   if (handler_ != nullptr) {
     AERROR << "Undistortion DO NOT support CPU mode!";
-    
-  AINFO<<"(DMCZP) (return) LeaveMethod: DataProvider::FillImageData";
-  return false;
+    return false;
   }
   if (encoding == "rgb8") {
     memcpy(rgb_->mutable_cpu_data(), data, rgb_->count() * sizeof(data[0]));
@@ -196,8 +186,6 @@ AINFO<<"(DMCZP) EnteringMethod: DataProvider::FillImageData";
 #endif
 
   AINFO << "Done! (" << success << ")";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: DataProvider::FillImageData";
   return success;
 }
 
@@ -208,11 +196,7 @@ AINFO<<"(DMCZP) EnteringMethod: DataProvider::GetImageBlob";
 AINFO<<"(DMCZP) EnteringMethod: DataProvider::GetImageBlob";
   bool ret = GetImageBlob(options, &temp_uint8_);
   if (!ret) {
-    
-  AINFO<<"(DMCZP) (return) LeaveMethod: DataProvider::GetImageBlob";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: DataProvider::GetImageBlob";
-  return false;
+    return false;
   }
   blob->Reshape(temp_uint8_.shape());
   NppiSize roi;
@@ -228,10 +212,6 @@ AINFO<<"(DMCZP) EnteringMethod: DataProvider::GetImageBlob";
   } else {
     nppiConvert_8u32f_C3R(temp_ptr, temp_step, blob_ptr, blob_step, roi);
   }
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: DataProvider::GetImageBlob";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: DataProvider::GetImageBlob";
   return true;
 }
 #endif
@@ -265,9 +245,7 @@ bool DataProvider::GetImage(const DataProvider::ImageOptions &options,
 AINFO<<"(DMCZP) EnteringMethod: DataProvider::GetImage";
   AINFO << "GetImage ...";
   if (image == nullptr) {
-    
-  AINFO<<"(DMCZP) (return) LeaveMethod: DataProvider::GetImage";
-  return false;
+    return false;
   }
   bool success = false;
   switch (options.target_color) {
@@ -288,9 +266,7 @@ AINFO<<"(DMCZP) EnteringMethod: DataProvider::GetImage";
              << static_cast<uint8_t>(options.target_color);
   }
   if (!success) {
-    
-  AINFO<<"(DMCZP) (return) LeaveMethod: DataProvider::GetImage";
-  return false;
+    return false;
   }
 
   if (options.do_crop) {
@@ -298,8 +274,6 @@ AINFO<<"(DMCZP) EnteringMethod: DataProvider::GetImage";
     *image = (*image)(options.crop_roi);
   }
   AINFO << "Done!";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: DataProvider::GetImage";
   return true;
 }
 
@@ -322,16 +296,10 @@ AINFO<<"(DMCZP) EnteringMethod: DataProvider::to_gray_image";
                                roi, coeffs);
       gray_ready_ = true;
     } else {
-      AWARN << "No image data filled yet, 
-  AINFO<<"(DMCZP) (return) LeaveMethod: DataProvider::to_gray_image";
-  return uninitialized blob!";
-      
-  AINFO<<"(DMCZP) (return) LeaveMethod: DataProvider::to_gray_image";
-  return false;
+      AWARN << "No image data filled yet, return uninitialized blob!";
+      return false;
     }
   }
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: DataProvider::to_gray_image";
   return true;
 }
 
@@ -353,16 +321,10 @@ AINFO<<"(DMCZP) EnteringMethod: DataProvider::to_rgb_image";
                        rgb_->mutable_gpu_data(), rgb_->width_step(), roi);
       rgb_ready_ = true;
     } else {
-      AWARN << "No image data filled yet, 
-  AINFO<<"(DMCZP) (return) LeaveMethod: DataProvider::to_rgb_image";
-  return uninitialized blob!";
-      
-  AINFO<<"(DMCZP) (return) LeaveMethod: DataProvider::to_rgb_image";
-  return false;
+      AWARN << "No image data filled yet, return uninitialized blob!";
+      return false;
     }
   }
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: DataProvider::to_rgb_image";
   return true;
 }
 
@@ -383,16 +345,10 @@ AINFO<<"(DMCZP) EnteringMethod: DataProvider::to_bgr_image";
                        bgr_->mutable_gpu_data(), bgr_->width_step(), roi);
       bgr_ready_ = true;
     } else {
-      AWARN << "No image data filled yet, 
-  AINFO<<"(DMCZP) (return) LeaveMethod: DataProvider::to_bgr_image";
-  return uninitialized blob!";
-      
-  AINFO<<"(DMCZP) (return) LeaveMethod: DataProvider::to_bgr_image";
-  return false;
+      AWARN << "No image data filled yet, return uninitialized blob!";
+      return false;
     }
   }
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: DataProvider::to_bgr_image";
   return true;
 }
 

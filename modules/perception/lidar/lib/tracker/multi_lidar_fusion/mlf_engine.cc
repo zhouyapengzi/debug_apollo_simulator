@@ -70,8 +70,6 @@ AINFO<<"(DMCZP) EnteringMethod: MlfEngine::Init";
   tracker_.reset(new MlfTracker);
   MlfTrackerInitOptions tracker_init_options;
   CHECK(tracker_->Init(tracker_init_options));
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: MlfEngine::Init";
   return true;
 }
 
@@ -117,8 +115,6 @@ AINFO<<"(DMCZP) EnteringMethod: MlfEngine::Track";
   AINFO << "MlfEngine publish objects: " << frame->tracked_objects.size()
         << " sensor_name: " << frame->sensor_info.name
         << " at timestamp: " << std::to_string(frame->timestamp);
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: MlfEngine::Track";
   return true;
 }
 

@@ -181,8 +181,6 @@ AINFO<<"(DMCZP) EnteringMethod: ObstacleCameraPerception::Init";
     init_options.conf_file = plugin_param.config_file();
     CHECK(ObjectTemplateManager::Instance()->Init(init_options));
   }
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: ObstacleCameraPerception::Init";
   return true;
 }
 
@@ -305,8 +303,6 @@ bool ObstacleCameraPerception::GetCalibrationService(
     BaseCalibrationService **calibration_service) {
 AINFO<<"(DMCZP) EnteringMethod: ObstacleCameraPerception::GetCalibrationService";
   *calibration_service = calibration_service_.get();
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: ObstacleCameraPerception::GetCalibrationService";
   return true;
 }
 
@@ -335,9 +331,7 @@ AINFO<<"(DMCZP) EnteringMethod: ObstacleCameraPerception::Perception";
     LanePostprocessorOptions lane_postprocessor_options;
     if (!lane_detector_->Detect(lane_detetor_options, frame)) {
       AERROR << "Failed to detect lane.";
-      
-  AINFO<<"(DMCZP) (return) LeaveMethod: ObstacleCameraPerception::Perception";
-  return false;
+      return false;
     }
     PERCEPTION_PERF_BLOCK_END_WITH_INDICATOR(
         frame->data_provider->sensor_name(), "LaneDetector");
@@ -346,9 +340,7 @@ AINFO<<"(DMCZP) EnteringMethod: ObstacleCameraPerception::Perception";
 
     if (!lane_postprocessor_->Process2D(lane_postprocessor_options, frame)) {
       AERROR << "Failed to postprocess lane 2D.";
-      
-  AINFO<<"(DMCZP) (return) LeaveMethod: ObstacleCameraPerception::Perception";
-  return false;
+      return false;
     }
     PERCEPTION_PERF_BLOCK_END_WITH_INDICATOR(
         frame->data_provider->sensor_name(), "LanePostprocessor2D");
@@ -363,9 +355,7 @@ AINFO<<"(DMCZP) EnteringMethod: ObstacleCameraPerception::Perception";
 
     if (!lane_postprocessor_->Process3D(lane_postprocessor_options, frame)) {
       AERROR << "Failed to postprocess lane 3D.";
-      
-  AINFO<<"(DMCZP) (return) LeaveMethod: ObstacleCameraPerception::Perception";
-  return false;
+      return false;
     }
     PERCEPTION_PERF_BLOCK_END_WITH_INDICATOR(
         frame->data_provider->sensor_name(), "LanePostprocessor3D");
@@ -401,9 +391,7 @@ AINFO<<"(DMCZP) EnteringMethod: ObstacleCameraPerception::Perception";
   // Obstacle prediction
   if (!tracker_->Predict(tracker_options, frame)) {
     AERROR << "Failed to predict.";
-    
-  AINFO<<"(DMCZP) (return) LeaveMethod: ObstacleCameraPerception::Perception";
-  return false;
+    return false;
   }
   PERCEPTION_PERF_BLOCK_END_WITH_INDICATOR(frame->data_provider->sensor_name(),
                                            "Predict");
@@ -416,9 +404,7 @@ AINFO<<"(DMCZP) EnteringMethod: ObstacleCameraPerception::Perception";
 AINFO<<"(pengzi) begin camera detect obstacle. thread:"<< std::this_thread::get_id();
   if (!detector->Detect(detector_options, frame)) {
     AERROR << "Failed to detect.";
-    
-  AINFO<<"(DMCZP) (return) LeaveMethod: ObstacleCameraPerception::Perception";
-  return false;
+    return false;
   }
   PERCEPTION_PERF_BLOCK_END_WITH_INDICATOR(frame->data_provider->sensor_name(),
                                            "detect");
@@ -434,9 +420,7 @@ AINFO<<"(pengzi) finish camera detect obstacle. thread:"<< std::this_thread::get
 
   if (extractor_ && !extractor_->Extract(extractor_options, frame)) {
     AERROR << "Failed to extractor";
-    
-  AINFO<<"(DMCZP) (return) LeaveMethod: ObstacleCameraPerception::Perception";
-  return false;
+    return false;
   }
   PERCEPTION_PERF_BLOCK_END_WITH_INDICATOR(frame->data_provider->sensor_name(),
                                            "external_feature");
@@ -459,18 +443,14 @@ AINFO<<"(pengzi) finish camera detect obstacle. thread:"<< std::this_thread::get
   }
   if (!tracker_->Associate2D(tracker_options, frame)) {
     AERROR << "Failed to associate2d.";
-    
-  AINFO<<"(DMCZP) (return) LeaveMethod: ObstacleCameraPerception::Perception";
-  return false;
+    return false;
   }
   PERCEPTION_PERF_BLOCK_END_WITH_INDICATOR(frame->data_provider->sensor_name(),
                                            "Associate2D");
 
   if (!transformer_->Transform(transformer_options, frame)) {
     AERROR << "Failed to transform.";
-    
-  AINFO<<"(DMCZP) (return) LeaveMethod: ObstacleCameraPerception::Perception";
-  return false;
+    return false;
   }
 
   AINFO<<"(pengzi) finish trasform camera perception. thread:"<< std::this_thread::get_id();
@@ -485,9 +465,7 @@ AINFO<<"(pengzi) finish camera detect obstacle. thread:"<< std::this_thread::get
   if (!obstacle_postprocessor_->Process(obstacle_postprocessor_options,
                                         frame)) {
     AERROR << "Failed to post process obstacles.";
-    
-  AINFO<<"(DMCZP) (return) LeaveMethod: ObstacleCameraPerception::Perception";
-  return false;
+    return false;
   }
 
   AINFO<<"(pengzi) finish prostprocessor obstacle camera perception. thread:"<< std::this_thread::get_id();
@@ -497,9 +475,7 @@ AINFO<<"(pengzi) finish camera detect obstacle. thread:"<< std::this_thread::get
 
   if (!tracker_->Associate3D(tracker_options, frame)) {
     AERROR << "Failed to Associate3D.";
-    
-  AINFO<<"(DMCZP) (return) LeaveMethod: ObstacleCameraPerception::Perception";
-  return false;
+    return false;
   }
 
   AINFO<<"(pengzi) finish associate camera perception to 3d. thread:"<< std::this_thread::get_id();
@@ -509,9 +485,7 @@ AINFO<<"(pengzi) finish camera detect obstacle. thread:"<< std::this_thread::get
 
   if (!tracker_->Track(tracker_options, frame)) {
     AERROR << "Failed to track.";
-    
-  AINFO<<"(DMCZP) (return) LeaveMethod: ObstacleCameraPerception::Perception";
-  return false;
+    return false;
   }
 
   AINFO<<"(pengzi) finish track camera perception result. thread:"<< std::this_thread::get_id();
@@ -548,8 +522,6 @@ AINFO<<"(pengzi) finish camera detect obstacle. thread:"<< std::this_thread::get
 
 AINFO<<"(pengzi) finish obstacle camera perception" <<".thread:"<< std::this_thread::get_id();
  
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: ObstacleCameraPerception::Perception";
   return true;
 }
 }  // namespace camera

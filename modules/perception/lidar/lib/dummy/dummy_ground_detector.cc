@@ -23,8 +23,6 @@ namespace lidar {
 
 bool DummyGroundDetector::Init(const GroundDetectorInitOptions& options) {
 AINFO<<"(DMCZP) EnteringMethod: DummyGroundDetector::Init";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: DummyGroundDetector::Init";
   return true;
 }
 
@@ -32,21 +30,15 @@ bool DummyGroundDetector::Detect(const GroundDetectorOptions& options,
                                  LidarFrame* frame) {
 AINFO<<"(DMCZP) EnteringMethod: DummyGroundDetector::Detect";
   if (!frame) {
-    
-  AINFO<<"(DMCZP) (return) LeaveMethod: DummyGroundDetector::Detect";
-  return false;
+    return false;
   }
   if (!frame->cloud) {
-    
-  AINFO<<"(DMCZP) (return) LeaveMethod: DummyGroundDetector::Detect";
-  return false;
+    return false;
   }
   frame->non_ground_indices.indices.resize(frame->cloud->size());
   std::iota(frame->non_ground_indices.indices.begin(),
             frame->non_ground_indices.indices.end(), 0);
 
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: DummyGroundDetector::Detect";
   return true;
 }
 

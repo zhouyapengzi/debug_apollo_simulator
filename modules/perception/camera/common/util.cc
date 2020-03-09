@@ -24,14 +24,10 @@ namespace camera {
 
 bool Equal(double x, double target, double eps) {
 AINFO<<"(DMCZP) EnteringMethod: Equal";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: Equal";
   return std::abs(x - target) < eps;
 }
 bool Equal(float x, float target, float eps) {
 AINFO<<"(DMCZP) EnteringMethod: Equal";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: Equal";
   return std::abs(x - target) < eps;
 }
 
@@ -42,23 +38,17 @@ AINFO<<"(DMCZP) EnteringMethod: LoadAnchors";
   ifs >> num_anchors;
   if (!ifs.good()) {
     AERROR << "Failed to get number of anchors!";
-    
-  AINFO<<"(DMCZP) (return) LeaveMethod: LoadAnchors";
-  return false;
+    return false;
   }
   (*anchors).resize(num_anchors * 2);
   for (int i = 0; i < num_anchors; ++i) {
     ifs >> (*anchors)[i * 2] >> (*anchors)[i * 2 + 1];
     if (!ifs.good()) {
       AERROR << "Failed to load the " << i << "-th anchor!";
-      
-  AINFO<<"(DMCZP) (return) LeaveMethod: LoadAnchors";
-  return false;
+      return false;
     }
   }
   ifs.close();
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: LoadAnchors";
   return true;
 }
 
@@ -68,26 +58,20 @@ AINFO<<"(DMCZP) EnteringMethod: LoadTypes";
   std::ifstream ifs(path, std::ifstream::in);
   if (!ifs.good()) {
     AERROR << "Type_list not found: " << path;
-    
-  AINFO<<"(DMCZP) (return) LeaveMethod: LoadTypes";
-  return false;
+    return false;
   }
   std::string type;
   AINFO << "Supported types: ";
   while (ifs >> type) {
     if (base::kName2SubTypeMap.find(type) == base::kName2SubTypeMap.end()) {
       AERROR << "Invalid type: " << type;
-      
-  AINFO<<"(DMCZP) (return) LeaveMethod: LoadTypes";
-  return false;
+      return false;
     }
     (*types).push_back(base::kName2SubTypeMap.at(type));
     AINFO << "\t\t" << type;
   }
   AINFO << "\t\t" << (*types).size() << " in total.";
   ifs.close();
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: LoadTypes";
   return true;
 }
 bool LoadExpand(const std::string &path, std::vector<float> *expands) {
@@ -95,9 +79,7 @@ AINFO<<"(DMCZP) EnteringMethod: LoadExpand";
   std::ifstream ifs(path, std::ifstream::in);
   if (!ifs.good()) {
     AERROR << "expand_list not found: " << path;
-    
-  AINFO<<"(DMCZP) (return) LeaveMethod: LoadExpand";
-  return false;
+    return false;
   }
   float expand;
   AINFO << "Expand nums: ";
@@ -106,8 +88,6 @@ AINFO<<"(DMCZP) EnteringMethod: LoadExpand";
     AINFO << "\t\t" << expand;
   }
   ifs.close();
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: LoadExpand";
   return true;
 }
 bool ResizeCPU(const base::Blob<uint8_t> &src_blob,
@@ -122,9 +102,7 @@ AINFO<<"(DMCZP) EnteringMethod: ResizeCPU";
   int origin_width = src_blob.shape(2);
   if (origin_channel != dst_blob->shape(3)) {
     AERROR << "channel should be the same after resize.";
-    
-  AINFO<<"(DMCZP) (return) LeaveMethod: ResizeCPU";
-  return false;
+    return false;
   }
   float fx = static_cast<float>(origin_width) / static_cast<float>(width);
   float fy = static_cast<float>(origin_height) / static_cast<float>(height);
@@ -180,8 +158,6 @@ AINFO<<"(DMCZP) EnteringMethod: ResizeCPU";
       }
     }
   }
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: ResizeCPU";
   return true;
 }
 
@@ -191,17 +167,13 @@ AINFO<<"(DMCZP) EnteringMethod: GetCyberWorkRoot";
   if (work_root.empty()) {
     work_root = cyber::common::GetEnv("CYBER_PATH");
   }
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: GetCyberWorkRoot";
   return work_root;
 }
 
 void FillObjectPolygonFromBBox3D(base::Object *object_ptr) {
 AINFO<<"(DMCZP) EnteringMethod: FillObjectPolygonFromBBox3D";
   if (!object_ptr) {
-    
-  AINFO<<"(DMCZP) (return) LeaveMethod: FillObjectPolygonFromBBox3D";
-  return;
+    return;
   }
   const double length = object_ptr->size(0);
   const double width = object_ptr->size(1);
@@ -239,9 +211,7 @@ AINFO<<"(DMCZP) EnteringMethod: FillObjectPolygonFromBBox3D";
   object_ptr->polygon[3].y =
       y1 * cos_theta - x2 * sin_theta + object_ptr->center[1];
   object_ptr->polygon[3].z = 0.0;
-
-  AINFO<<"(DMCZP) LeaveMethod: FillObjectPolygonFromBBox3D";
- }
+}
 
 }  // namespace camera
 }  // namespace perception

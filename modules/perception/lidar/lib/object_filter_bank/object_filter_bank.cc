@@ -57,8 +57,6 @@ AINFO<<"(DMCZP) EnteringMethod: ObjectFilterBank::Init";
     filter_bank_.push_back(filter);
     AINFO << "Filter bank add filter: " << name;
   }
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: ObjectFilterBank::Init";
   return true;
 }
 
@@ -73,8 +71,6 @@ AINFO<<"(DMCZP) EnteringMethod: ObjectFilterBank::Filter";
   }
   AINFO << "Object filter bank, filtered objects size: from " << object_number
         << " to " << frame->segmented_objects.size();
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: ObjectFilterBank::Filter";
   return true;
 }
 

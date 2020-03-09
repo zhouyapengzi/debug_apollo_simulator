@@ -45,20 +45,14 @@ std::vector<base::ObjectSubType> kTypeRefinedByRef = {
     base::ObjectSubType::CYCLIST,    base::ObjectSubType::MOTORCYCLIST,
     base::ObjectSubType::TRICYCLIST};
 
-ObjectTemplateManager::ObjectTemplateManager() {
-  AINFO<<"(DMCZP) EnteringMethod: ObjectTemplateManager::ObjectTemplateManager";
-
-  AINFO<<"(DMCZP) LeaveMethod: ObjectTemplateManager::ObjectTemplateManager";
- }
+ObjectTemplateManager::ObjectTemplateManager() {}
 
 bool ObjectTemplateManager::Init(
     const ObjectTemplateManagerInitOptions &options) {
 AINFO<<"(DMCZP) EnteringMethod: ObjectTemplateManager::Init";
   lib::MutexLock lock(&mutex_);
   if (inited_) {
-    
-  AINFO<<"(DMCZP) (return) LeaveMethod: ObjectTemplateManager::Init";
-  return true;
+    return true;
   }
 
   nr_dim_per_tmplt_ = 3;
@@ -68,9 +62,7 @@ AINFO<<"(DMCZP) EnteringMethod: ObjectTemplateManager::Init";
   ObjectTemplateMeta proto;
   if (!cyber::common::GetProtoFromFile(config, &proto)) {
     AERROR << "Read config failed: " << config;
-    
-  AINFO<<"(DMCZP) (return) LeaveMethod: ObjectTemplateManager::Init";
-  return false;
+    return false;
   }
 
   CHECK(proto.has_max_dim_change_ratio());
@@ -181,8 +173,6 @@ AINFO<<"(DMCZP) EnteringMethod: ObjectTemplateManager::Init";
 
   inited_ = true;
   AINFO << "Init object_template_manager success.";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: ObjectTemplateManager::Init";
   return true;
 }
 
@@ -249,8 +239,6 @@ AINFO<<"(DMCZP) EnteringMethod: ObjectTemplateManager::Get3dDimensionSimilarity"
   float iou_w = min_w / (FLT_EPSILON + max_w);
   float iou_l = min_l / (FLT_EPSILON + max_l);
 
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: ObjectTemplateManager::Get3dDimensionSimilarity";
   return iou_h * iou_h * iou_w * iou_l;  // h^2 * w * l
 }
 
@@ -298,9 +286,7 @@ AINFO<<"(DMCZP) EnteringMethod: ObjectTemplateManager::VehObjHwlBySearchTemplate
   float dh_dw_dl_ratio_mean = (dh_ratio + dw_ratio + dl_ratio) / 3;
   float dh_ratio_check = std::min(dh_ratio, dh_dw_dl_ratio_mean);
   if (score_best < FLT_EPSILON || dh_ratio_check > max_dim_change_ratio_) {
-    
-  AINFO<<"(DMCZP) (return) LeaveMethod: ObjectTemplateManager::VehObjHwlBySearchTemplates";
-  return -1.0f;
+    return -1.0f;
   }
   ADEBUG << dh_ratio << ", " << dw_ratio << ", " << dl_ratio;
 
@@ -313,8 +299,6 @@ AINFO<<"(DMCZP) EnteringMethod: ObjectTemplateManager::VehObjHwlBySearchTemplate
   if (is_flip != nullptr) {
     *is_flip = from_flip;
   }
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: ObjectTemplateManager::VehObjHwlBySearchTemplates";
   return score_best;
 }
 

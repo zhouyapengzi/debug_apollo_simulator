@@ -29,15 +29,7 @@ PaddleNet::PaddleNet(const std::string &model_file,
                      const std::vector<std::string> &outputs)
     : model_file_(model_file),
       param_file_(param_file),
-      output_names_(outputs) {
-  AINFO<<"(DMCZP) EnteringMethod: PaddleNet::PaddleNet";
-
-  AINFO<<"(DMCZP) LeaveMethod: PaddleNet::PaddleNet";
- 
-  AINFO<<"(DMCZP) EnteringMethod: PaddleNet::PaddleNet";
-
-  AINFO<<"(DMCZP) LeaveMethod: PaddleNet::PaddleNet";
- }
+      output_names_(outputs) {}
 
 bool PaddleNet::Init(const std::map<std::string, std::vector<int>> &shapes) {
 AINFO<<"(DMCZP) EnteringMethod: PaddleNet::Init";
@@ -51,9 +43,7 @@ AINFO<<"(DMCZP) EnteringMethod: PaddleNet::Init";
   // init Net
   predictor_ = paddle::CreatePaddlePredictor(config);
   if (predictor_ == nullptr) {
-    
-  AINFO<<"(DMCZP) (return) LeaveMethod: PaddleNet::Init";
-  return false;
+    return false;
   }
   // TODO(KAWAI) : shapes should only include input blobs.
   //              & a way to process multiple inputs.
@@ -102,8 +92,6 @@ AINFO<<"(DMCZP) EnteringMethod: PaddleNet::Init";
     blob.reset(new apollo::perception::base::Blob<float>(paddle_blob->shape()));
     blobs_.insert(std::make_pair(name, blob));
   }
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: PaddleNet::Init";
   return true;
 }
 
@@ -142,8 +130,6 @@ AINFO<<"(DMCZP) EnteringMethod: PaddleNet::reshape";
     }
   }
 
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: PaddleNet::reshape";
   return true;
 }
 
@@ -201,21 +187,15 @@ AINFO<<"(DMCZP) EnteringMethod: PaddleNet::shape";
     in_output = true;
   }
   if (~in_input && ~in_output) {
-    
-  AINFO<<"(DMCZP) (return) LeaveMethod: PaddleNet::shape";
-  return false;
+    return false;
   }
 
   auto blob = in_input ? predictor_->GetInputTensor(name_map_[name])
                        : predictor_->GetOutputTensor(name_map_[name]);
   if (blob == nullptr) {
-    
-  AINFO<<"(DMCZP) (return) LeaveMethod: PaddleNet::shape";
-  return false;
+    return false;
   }
   *res = blob->shape();
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: PaddleNet::shape";
   return true;
 }
 

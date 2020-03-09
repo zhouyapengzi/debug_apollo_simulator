@@ -34,9 +34,7 @@ AINFO<<"(DMCZP) EnteringMethod: TrafficLightRecognition::Init";
   AINFO << "proto_path " << proto_path;
   if (!cyber::common::GetProtoFromFile(proto_path, &recognize_param_)) {
     AINFO << "load proto param failed, root dir: " << options.root_dir;
-    
-  AINFO<<"(DMCZP) (return) LeaveMethod: TrafficLightRecognition::Init";
-  return false;
+    return false;
   }
 
   AINFO << "(pengzi) load proto param for traffic light detector classify. proto path:"
@@ -54,8 +52,6 @@ AINFO<<"(DMCZP) EnteringMethod: TrafficLightRecognition::Init";
   classify_horizontal_->Init(recognize_param_.horizontal_model(),
                              options.gpu_id, options.root_dir);
 
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: TrafficLightRecognition::Init";
   return true;
 }
 
@@ -83,9 +79,7 @@ AINFO<<"(DMCZP) EnteringMethod: TrafficLightRecognition::Detect";
         AINFO << "Recognize Use Horizonal Model!";
         classify_horizontal_->Perform(frame, &candidate);
       } else {
-        
-  AINFO<<"(DMCZP) (return) LeaveMethod: TrafficLightRecognition::Detect";
-  return false;
+        return false;
       }
     } else {
       light->status.color = base::TLColor::TL_UNKNOWN_COLOR;
@@ -93,15 +87,11 @@ AINFO<<"(DMCZP) EnteringMethod: TrafficLightRecognition::Detect";
     }
   }
 
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: TrafficLightRecognition::Detect";
   return true;
 }
 
 std::string TrafficLightRecognition::Name() const {
 AINFO<<"(DMCZP) EnteringMethod: TrafficLightRecognition::Name";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: TrafficLightRecognition::Name";
   return "TrafficLightRecognition";
 }
 

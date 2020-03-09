@@ -78,49 +78,7 @@ AINFO<<"(DMCZP) EnteringMethod: evaluate_image_list";
   fin.open(FLAGS_test_list, std::ifstream::in);
   if (!fin.is_open()) {
     AERROR << "Failed to open test list file: " << FLAGS_test_list;
-    
-  AINFO<<"(DMCZP) (return) LeaveMethod: evaluate_image_list";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_bool";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_int32";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_int32";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_int32";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_int32";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_int32";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_string";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_string";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_string";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_string";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_int32";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_int32";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_string";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_int32";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_int32";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_string";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_bool";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_bool";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_string";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_string";
-  return -1;
+    return -1;
   }
   std::string image_name;
   std::vector<std::string> img_list;
@@ -140,49 +98,7 @@ AINFO<<"(DMCZP) EnteringMethod: evaluate_image_list";
   // std::ofstream out_car(out_file, std::ofstream::out);
   if (!out_car.is_open()) {
     AERROR << "Failed to open out car file: " << out_file;
-    
-  AINFO<<"(DMCZP) (return) LeaveMethod: evaluate_image_list";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_bool";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_int32";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_int32";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_int32";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_int32";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_int32";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_string";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_string";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_string";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_string";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_int32";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_int32";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_string";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_int32";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_int32";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_string";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_bool";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_bool";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_string";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_string";
-  return -1;
+    return -1;
   }
   std::vector<float> cpu_data(count);
   // Main loop
@@ -207,49 +123,7 @@ AINFO<<"(DMCZP) EnteringMethod: evaluate_image_list";
     }
     if (img.data == 0) {
       AERROR << "Failed to read image: " << image_path;
-      
-  AINFO<<"(DMCZP) (return) LeaveMethod: evaluate_image_list";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_bool";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_int32";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_int32";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_int32";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_int32";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_int32";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_string";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_string";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_string";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_string";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_int32";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_int32";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_string";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_int32";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_int32";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_string";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_bool";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_bool";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_string";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_string";
-  return -1;
+      return -1;
     }
     cv::resize(img, img, cv::Size(width, height));
 
@@ -262,49 +136,7 @@ AINFO<<"(DMCZP) EnteringMethod: evaluate_image_list";
       out_car.open(out_file, std::ofstream::out | std::ofstream::binary);
       if (!out_car.is_open()) {
         AERROR << "Failed to open out car file: " << out_file;
-        
-  AINFO<<"(DMCZP) (return) LeaveMethod: evaluate_image_list";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_bool";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_int32";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_int32";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_int32";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_int32";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_int32";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_string";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_string";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_string";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_string";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_int32";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_int32";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_string";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_int32";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_int32";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_string";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_bool";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_bool";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_string";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_string";
-  return -1;
+        return -1;
       }
 
       int num =
@@ -346,48 +178,6 @@ AINFO<<"(DMCZP) EnteringMethod: evaluate_image_list";
 
   fin.clear();
   out_car.close();
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: evaluate_image_list";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_bool";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_int32";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_int32";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_int32";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_int32";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_int32";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_string";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_string";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_string";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_string";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_int32";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_int32";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_string";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_int32";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_int32";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_string";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_bool";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_bool";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_string";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: DEFINE_string";
   return 0;
 }
 
@@ -416,7 +206,5 @@ AINFO<<"(DMCZP) EnteringMethod: main";
   delete rt_net;
   delete calibrator;
 
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: main";
   return 0;
 }

@@ -48,14 +48,10 @@ AINFO<<"(DMCZP) EnteringMethod: SppEngine::Init";
     data_.classify_pt_blob->cpu_data();
     data_.heading_pt_blob->cpu_data();
     data_.height_pt_blob->cpu_data();
-    
-  AINFO<<"(DMCZP) (return) LeaveMethod: SppEngine::Init";
-  return true;
+    return true;
   });
   worker_.Start();
-
-  AINFO<<"(DMCZP) LeaveMethod: SppEngine::Init";
- }
+}
 
 size_t SppEngine::ProcessConnectedComponentCluster(
     const base::PointFCloudConstPtr point_cloud, const CloudMask& mask) {
@@ -68,9 +64,7 @@ AINFO<<"(DMCZP) EnteringMethod: SppEngine::ProcessConnectedComponentCluster";
   size_t num = detector_2d_cc_.Detect(&labels_2d_);
   if (num == 0) {
     ADEBUG << "No object detected";
-    // Later will decide if 
-  AINFO<<"(DMCZP) (return) LeaveMethod: SppEngine::ProcessConnectedComponentCluster";
-  return this function here
+    // Later will decide if return this function here
   }
   double detect_time = timer.toc(true);
   worker_.Join();
@@ -127,8 +121,6 @@ AINFO<<"(DMCZP) EnteringMethod: SppEngine::ProcessConnectedComponentCluster";
         << "\tchz: " << chz_time << "\tmapping: " << mapping_time
         << "\tremove: " << remove_time;
 
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: SppEngine::ProcessConnectedComponentCluster";
   return clusters_.size();
 }
 
@@ -138,8 +130,6 @@ AINFO<<"(DMCZP) EnteringMethod: SppEngine::ProcessForegroundSegmentation";
   mask_.clear();
   ProcessConnectedComponentCluster(point_cloud, mask_);
   AINFO << "Foreground: " << clusters_.size() << " clusters";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: SppEngine::ProcessForegroundSegmentation";
   return clusters_.size();
 }
 
@@ -157,8 +147,6 @@ AINFO<<"(DMCZP) EnteringMethod: SppEngine::RemoveGroundPointsInForegroundCluster
     clusters_[static_cast<int>(i)]->RemovePoints(mask_);
   }
   clusters_.RemoveEmptyClusters();
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: SppEngine::RemoveGroundPointsInForegroundCluster";
   return clusters_.size();
 }
 

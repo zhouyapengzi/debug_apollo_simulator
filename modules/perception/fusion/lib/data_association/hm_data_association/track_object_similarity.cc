@@ -45,9 +45,7 @@ AINFO<<"(DMCZP) EnteringMethod: ComputePtsBoxLocationSimilarity";
   float augmented_buffer = 25.0f;
   if (object->Empty()) {
     ADEBUG << "cache object is empty!";
-    
-  AINFO<<"(DMCZP) (return) LeaveMethod: ComputePtsBoxLocationSimilarity";
-  return min_p;
+    return min_p;
   }
   Eigen::Vector2d mean_pixel_dist(0.0, 0.0);
   // calculate mean x y pixel distance
@@ -59,9 +57,7 @@ AINFO<<"(DMCZP) EnteringMethod: ComputePtsBoxLocationSimilarity";
         CalculateAugmentedIOUBBox(velo_bbox, camera_bbox, augmented_buffer);
     if (augmented_iou < FLT_EPSILON) {
       ADEBUG << "augmented iou is empty!";
-      
-  AINFO<<"(DMCZP) (return) LeaveMethod: ComputePtsBoxLocationSimilarity";
-  return min_p;
+      return min_p;
     }
   }
   for (size_t i = start_ind; i < end_ind; ++i) {
@@ -98,8 +94,6 @@ AINFO<<"(DMCZP) EnteringMethod: ComputePtsBoxLocationSimilarity";
       1 - ChiSquaredCdf2TableFun(square_norm_mean_pixel_dist);
   // for numerical stability
   location_similarity = std::max(min_p, std::min(max_p, location_similarity));
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: ComputePtsBoxLocationSimilarity";
   return location_similarity;
 }
 // @brief: calculate the shape similarity between cloud and camera box
@@ -118,9 +112,7 @@ AINFO<<"(DMCZP) EnteringMethod: ComputePtsBoxShapeSimilarity";
   double x_std_dev = 0.3;
   double y_std_dev = 0.4;
   if (object->Empty()) {
-    
-  AINFO<<"(DMCZP) (return) LeaveMethod: ComputePtsBoxShapeSimilarity";
-  return min_p;
+    return min_p;
   }
   // compute 2d bbox size of camera & velo
   Eigen::Vector2d camera_box_size = Eigen::Vector2d(
@@ -154,8 +146,6 @@ AINFO<<"(DMCZP) EnteringMethod: ComputePtsBoxShapeSimilarity";
       1 - ChiSquaredCdf2TableFun(square_norm_box_size_diff);
   // for numerical stability
   shape_similarity = std::max(min_p, std::min(max_p, shape_similarity));
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: ComputePtsBoxShapeSimilarity";
   return shape_similarity;
 }
 // @brief: calculate the similarity between cloud and camera box
@@ -176,8 +166,6 @@ AINFO<<"(DMCZP) EnteringMethod: ComputePtsBoxSimilarity";
       FuseTwoProbabilities(location_similarity, shape_similarity);
   ADEBUG << "fused_similarity@" << fused_similarity << ", location_similarity@"
          << location_similarity << ", shape_similarity@" << shape_similarity;
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: ComputePtsBoxSimilarity";
   return fused_similarity;
 }
 // @brief: calculate the x/y/h similarity between radar and camera
@@ -196,8 +184,6 @@ AINFO<<"(DMCZP) EnteringMethod: ComputeRadarCameraXSimilarity";
                                         params.welsh_loss_scale_);
   x_similarity = ScalePositiveProbability(
       x_similarity, params.scale_positive_max_p_, params.scale_positive_th_p_);
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: ComputeRadarCameraXSimilarity";
   return x_similarity;
 }
 double ComputeRadarCameraYSimilarity(const double velo_ct_y,
@@ -220,8 +206,6 @@ AINFO<<"(DMCZP) EnteringMethod: ComputeRadarCameraYSimilarity";
   y_similarity = BoundedScalePositiveProbability(
       y_similarity, params.bounded_scale_positive_max_p_,
       params.bounded_scale_positive_min_p_);
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: ComputeRadarCameraYSimilarity";
   return y_similarity;
 }
 double ComputeRadarCameraHSimilarity(
@@ -249,8 +233,6 @@ AINFO<<"(DMCZP) EnteringMethod: ComputeRadarCameraHSimilarity";
                                                  params.scale_positive_max_p_,
                                                  params.scale_positive_th_p_);
   }
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: ComputeRadarCameraHSimilarity";
   return height_similarity;
 }
 double ComputeRadarCameraWSimilarity(
@@ -274,8 +256,6 @@ AINFO<<"(DMCZP) EnteringMethod: ComputeRadarCameraWSimilarity";
   width_similarity = BoundedScalePositiveProbability(
       width_similarity, params.bounded_scale_positive_max_p_,
       params.bounded_scale_positive_min_p_);
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: ComputeRadarCameraWSimilarity";
   return width_similarity;
 }
 double ComputeRadarCameraLocSimilarity(const Eigen::Vector3d& radar_ct,
@@ -292,8 +272,6 @@ AINFO<<"(DMCZP) EnteringMethod: ComputeRadarCameraLocSimilarity";
                                          params.welsh_loss_scale_);
   ct_similarity = ScalePositiveProbability(
       ct_similarity, params.scale_positive_max_p_, params.scale_positive_th_p_);
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: ComputeRadarCameraLocSimilarity";
   return ct_similarity;
 }
 
@@ -317,17 +295,11 @@ AINFO<<"(DMCZP) EnteringMethod: ComputeRadarCameraVelocitySimilarity";
                                    velocity_std / velocity_std));
     velocity_score = static_cast<float>(ScalePositiveProbability(
         velocity_score, max_velocity_p, th_velocity_p));
-    
-  AINFO<<"(DMCZP) (return) LeaveMethod: ComputeRadarCameraVelocitySimilarity";
-  return velocity_score;
+    return velocity_score;
   } else {
-    
-  AINFO<<"(DMCZP) (return) LeaveMethod: ComputeRadarCameraVelocitySimilarity";
-  return 0.5;
+    return 0.5;
   }
-
-  AINFO<<"(DMCZP) LeaveMethod: ComputeRadarCameraVelocitySimilarity";
- }
+}
 
 }  // namespace fusion
 }  // namespace perception

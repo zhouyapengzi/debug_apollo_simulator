@@ -23,16 +23,12 @@ namespace lidar {
 
 bool DummyClassifier::Init(const ClassifierInitOptions& options) {
 AINFO<<"(DMCZP) EnteringMethod: DummyClassifier::Init";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: DummyClassifier::Init";
   return true;
 }
 
 bool DummyClassifier::Classify(const ClassifierOptions& options,
                                LidarFrame* frame) {
 AINFO<<"(DMCZP) EnteringMethod: DummyClassifier::Classify";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: DummyClassifier::Classify";
   return true;
 }
 

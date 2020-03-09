@@ -24,8 +24,6 @@ namespace fusion {
 bool DummyFusionSystem::Init(const FusionInitOptions& options) {
 AINFO<<"(DMCZP) EnteringMethod: DummyFusionSystem::Init";
   main_sensor_ = options.main_sensor;
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: DummyFusionSystem::Init";
   return true;
 }
 
@@ -34,70 +32,46 @@ bool DummyFusionSystem::Fuse(const FusionOptions& options,
                              std::vector<base::ObjectPtr>* fused_objects) {
 AINFO<<"(DMCZP) EnteringMethod: DummyFusionSystem::Fuse";
   if (fused_objects == nullptr) {
-    
-  AINFO<<"(DMCZP) (return) LeaveMethod: DummyFusionSystem::Fuse";
-  return false;
+    return false;
   }
 
   fused_objects->clear();
   if (sensor_frame->sensor_info.name != main_sensor_) {
-    
-  AINFO<<"(DMCZP) (return) LeaveMethod: DummyFusionSystem::Fuse";
-  return true;
+    return true;
   }
 
   fused_objects->resize(sensor_frame->objects.size());
   for (size_t i = 0; i < sensor_frame->objects.size(); i++) {
     (*fused_objects)[i] = sensor_frame->objects[i];
   }
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: DummyFusionSystem::Fuse";
   return true;
 }
 
 // class DummyDataAssociation implementation
-bool DummyDataAssociation::Init() {
-  AINFO<<"(DMCZP) EnteringMethod: DummyDataAssociation::Init";
- 
-  AINFO<<"(D
-  AINFO<<"(DMCZP) LeaveMethod: DummyDataAssociation::Init";
- MCZP) (return) LeaveMethod: DummyDataAssociation::Init";
-  return true; }
+bool DummyDataAssociation::Init() { return true; }
 
 bool DummyDataAssociation::Associate(const AssociationOptions& options,
                                      SensorFramePtr sensor_measurements,
                                      ScenePtr scene,
                                      AssociationResult* association_result) {
 AINFO<<"(DMCZP) EnteringMethod: DummyDataAssociation::Associate";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: DummyDataAssociation::Associate";
   return true;
 }
 
 // class DummyTracker implementation
 bool DummyTracker::Init(TrackPtr track, SensorObjectPtr measurement) {
 AINFO<<"(DMCZP) EnteringMethod: DummyTracker::Init";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: DummyTracker::Init";
   return true;
 }
 
 void DummyTracker::UpdateWithMeasurement(const TrackerOptions& options,
                                          const SensorObjectPtr measurement,
-                                         double target_timestamp) {
-  AINFO<<"(DMCZP) EnteringMethod: DummyTracker::UpdateWithMeasurement";
-
-  AINFO<<"(DMCZP) LeaveMethod: DummyTracker::UpdateWithMeasurement";
- }
+                                         double target_timestamp) {}
 
 void DummyTracker::UpdateWithoutMeasurement(const TrackerOptions& options,
                                             const std::string& sensor_id,
                                             double measurement_timestamp,
-                                            double target_timestamp) {
-  AINFO<<"(DMCZP) EnteringMethod: DummyTracker::UpdateWithoutMeasurement";
-
-  AINFO<<"(DMCZP) LeaveMethod: DummyTracker::UpdateWithoutMeasurement";
- }
+                                            double target_timestamp) {}
 
 FUSION_REGISTER_FUSIONSYSTEM(DummyFusionSystem);
 

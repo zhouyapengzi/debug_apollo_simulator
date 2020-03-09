@@ -26,35 +26,13 @@ namespace perception {
 namespace lidar {
 
 MatchCost::MatchCost(size_t ridx, size_t cidx, double cost)
-    : row_idx_(ridx), col_idx_(cidx), cost_(cost) {
-  AINFO<<"(DMCZP) EnteringMethod: MatchCost::MatchCost";
+    : row_idx_(ridx), col_idx_(cidx), cost_(cost) {}
 
-  AINFO<<"(DMCZP) LeaveMethod: MatchCost::MatchCost";
- }
+size_t MatchCost::RowIdx() const { return row_idx_; }
 
-size_t MatchCost::RowIdx() const {
-  AINFO<<"(DMCZP) EnteringMethod: MatchCost::RowIdx";
- 
-  AINFO<<"(DMCZP
-  AINFO<<"(DMCZP) LeaveMethod: MatchCost::RowIdx";
- ) (return) LeaveMethod: MatchCost::RowIdx";
-  return row_idx_; }
+size_t MatchCost::ColIdx() const { return col_idx_; }
 
-size_t MatchCost::ColIdx() const {
-  AINFO<<"(DMCZP) EnteringMethod: MatchCost::ColIdx";
- 
-  AINFO<<"(DMCZP
-  AINFO<<"(DMCZP) LeaveMethod: MatchCost::ColIdx";
- ) (return) LeaveMethod: MatchCost::ColIdx";
-  return col_idx_; }
-
-double MatchCost::Cost() const {
-  AINFO<<"(DMCZP) EnteringMethod: MatchCost::Cost";
- 
-  AINFO<<"(DM
-  AINFO<<"(DMCZP) LeaveMethod: MatchCost::Cost";
- CZP) (return) LeaveMethod: MatchCost::Cost";
-  return cost_; }
+double MatchCost::Cost() const { return cost_; }
 
 bool operator<(const MatchCost& m1, const MatchCost& m2) {
   return m1.cost_ < m2.cost_;

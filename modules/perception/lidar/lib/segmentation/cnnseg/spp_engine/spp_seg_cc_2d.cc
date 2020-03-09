@@ -54,8 +54,6 @@ AINFO<<"(DMCZP) EnteringMethod: SppCCDetector::BuildNodes";
       (node_ptr++)->center_node = center_row * cols_ + center_col;
     }
   }
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: SppCCDetector::BuildNodes";
   return true;
 }
 
@@ -68,8 +66,6 @@ AINFO<<"(DMCZP) EnteringMethod: SppCCDetector::CleanNodes";
       nodes_[row][col].parent = node_idx++;
     }
   }
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: SppCCDetector::CleanNodes";
   return true;
 }
 
@@ -99,8 +95,6 @@ AINFO<<"(DMCZP) EnteringMethod: SppCCDetector::Detect";
         << "\ttraverse: " << traverse_time << "\tunion: " << union_time
         << "\tcollect: " << collect_time << "\t#obj: " << num;
 
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: SppCCDetector::Detect";
   return num;
 }
 
@@ -180,8 +174,6 @@ AINFO<<"(DMCZP) EnteringMethod: SppCCDetector::ToLabelMap";
     }
   }
   labels->ResizeClusters(id);
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: SppCCDetector::ToLabelMap";
   return id;
 }
 
@@ -219,8 +211,6 @@ AINFO<<"(DMCZP) EnteringMethod: SppCCDetector::DisjointSetFindLoop";
     w->parent = root->parent;
     w = temp;
   }
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: SppCCDetector::DisjointSetFindLoop";
   return root;
 }
 
@@ -228,15 +218,11 @@ SppCCDetector::Node* SppCCDetector::DisjointSetFind(Node* x) {
 AINFO<<"(DMCZP) EnteringMethod: SppCCDetector::DisjointSetFind";
   Node* y = nodes_[0] + x->parent;
   if (y == x || nodes_[0] + y->parent == y) {
-    
-  AINFO<<"(DMCZP) (return) LeaveMethod: SppCCDetector::DisjointSetFind";
-  return y;
+    return y;
   }
   Node* root = DisjointSetFindLoop(nodes_[0] + y->parent);
   x->parent = root->parent;
   y->parent = root->parent;
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: SppCCDetector::DisjointSetFind";
   return root;
 }
 
@@ -245,9 +231,7 @@ AINFO<<"(DMCZP) EnteringMethod: SppCCDetector::DisjointSetUnion";
   x = DisjointSetFind(x);
   y = DisjointSetFind(y);
   if (x == y) {
-    
-  AINFO<<"(DMCZP) (return) LeaveMethod: SppCCDetector::DisjointSetUnion";
-  return;
+    return;
   }
   uint16_t x_node_rank = x->get_node_rank();
   uint16_t y_node_rank = y->get_node_rank();
@@ -259,9 +243,7 @@ AINFO<<"(DMCZP) EnteringMethod: SppCCDetector::DisjointSetUnion";
     y->parent = x->parent;
     x->set_node_rank(static_cast<uint16_t>(x_node_rank + 1));
   }
-
-  AINFO<<"(DMCZP) LeaveMethod: SppCCDetector::DisjointSetUnion";
- }
+}
 
 }  // namespace lidar
 }  // namespace perception

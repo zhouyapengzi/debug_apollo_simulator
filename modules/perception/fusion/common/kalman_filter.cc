@@ -20,41 +20,25 @@ namespace apollo {
 namespace perception {
 namespace fusion {
 
-KalmanFilter::KalmanFilter() : BaseFilter("KalmanFilter") {
-  AINFO<<"(DMCZP) EnteringMethod: KalmanFilter::KalmanFilter";
-
-  AINFO<<"(DMCZP) LeaveMethod: KalmanFilter::KalmanFilter";
- }
+KalmanFilter::KalmanFilter() : BaseFilter("KalmanFilter") {}
 
 bool KalmanFilter::Init(const Eigen::VectorXd &initial_belief_states,
                         const Eigen::MatrixXd &initial_uncertainty) {
 AINFO<<"(DMCZP) EnteringMethod: KalmanFilter::Init";
   if (initial_uncertainty.rows() != initial_uncertainty.cols()) {
     AERROR << "the cols and rows of uncertainty martix should be equal";
-    
-  AINFO<<"(DMCZP) (return) LeaveMethod: KalmanFilter::Init";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: KalmanFilter::Init";
-  return false;
+    return false;
   }
   states_num_ = static_cast<int>(initial_uncertainty.rows());
 
   if (states_num_ <= 0) {
     AERROR << "state_num should be greater than zero";
-    
-  AINFO<<"(DMCZP) (return) LeaveMethod: KalmanFilter::Init";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: KalmanFilter::Init";
-  return false;
+    return false;
   }
 
   if (states_num_ != initial_belief_states.rows()) {
     AERROR << "the rows of state should be equal to state_num";
-    
-  AINFO<<"(DMCZP) (return) LeaveMethod: KalmanFilter::Init";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: KalmanFilter::Init";
-  return false;
+    return false;
   }
 
   global_states_ = initial_belief_states;
@@ -73,10 +57,6 @@ AINFO<<"(DMCZP) EnteringMethod: KalmanFilter::Init";
 
   kalman_gain_.setZero(states_num_, states_num_);
   init_ = true;
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: KalmanFilter::Init";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: KalmanFilter::Init";
   return true;
 }
 
@@ -85,43 +65,23 @@ bool KalmanFilter::Predict(const Eigen::MatrixXd &transform_matrix,
 AINFO<<"(DMCZP) EnteringMethod: KalmanFilter::Predict";
   if (!init_) {
     AERROR << "Predict: Kalman Filter initialize not successfully";
-    
-  AINFO<<"(DMCZP) (return) LeaveMethod: KalmanFilter::Predict";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: KalmanFilter::Predict";
-  return false;
+    return false;
   }
   if (transform_matrix.rows() != states_num_) {
     AERROR << "the rows of transform matrix should be equal to state_num";
-    
-  AINFO<<"(DMCZP) (return) LeaveMethod: KalmanFilter::Predict";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: KalmanFilter::Predict";
-  return false;
+    return false;
   }
   if (transform_matrix.cols() != states_num_) {
     AERROR << "the cols of transform matrix should be equal to state_num";
-    
-  AINFO<<"(DMCZP) (return) LeaveMethod: KalmanFilter::Predict";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: KalmanFilter::Predict";
-  return false;
+    return false;
   }
   if (env_uncertainty_matrix.rows() != states_num_) {
     AERROR << "the rows of env uncertainty should be equal to state_num";
-    
-  AINFO<<"(DMCZP) (return) LeaveMethod: KalmanFilter::Predict";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: KalmanFilter::Predict";
-  return false;
+    return false;
   }
   if (env_uncertainty_matrix.cols() != states_num_) {
     AERROR << "the cols of env uncertainty should be equal to state_num";
-    
-  AINFO<<"(DMCZP) (return) LeaveMethod: KalmanFilter::Predict";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: KalmanFilter::Predict";
-  return false;
+    return false;
   }
   transform_matrix_ = transform_matrix;
   env_uncertainty_ = env_uncertainty_matrix;
@@ -129,10 +89,6 @@ AINFO<<"(DMCZP) EnteringMethod: KalmanFilter::Predict";
   global_uncertainty_ =
       transform_matrix_ * global_uncertainty_ * transform_matrix_.transpose() +
       env_uncertainty_;
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: KalmanFilter::Predict";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: KalmanFilter::Predict";
   return true;
 }
 
@@ -141,37 +97,21 @@ bool KalmanFilter::Correct(const Eigen::VectorXd &cur_observation,
 AINFO<<"(DMCZP) EnteringMethod: KalmanFilter::Correct";
   if (!init_) {
     AERROR << "Correct: Kalman Filter initialize not successfully";
-    
-  AINFO<<"(DMCZP) (return) LeaveMethod: KalmanFilter::Correct";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: KalmanFilter::Correct";
-  return false;
+    return false;
   }
   if (cur_observation.rows() != states_num_) {
     AERROR << "the rows of current observation should be equal to state_num";
-    
-  AINFO<<"(DMCZP) (return) LeaveMethod: KalmanFilter::Correct";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: KalmanFilter::Correct";
-  return false;
+    return false;
   }
   if (cur_observation_uncertainty.rows() != states_num_) {
     AERROR << "the rows of current observation uncertainty "
               "should be equal to state_num";
-    
-  AINFO<<"(DMCZP) (return) LeaveMethod: KalmanFilter::Correct";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: KalmanFilter::Correct";
-  return false;
+    return false;
   }
   if (cur_observation_uncertainty.cols() != states_num_) {
     AERROR << "the cols of current observation uncertainty "
               "should be equal to state_num";
-    
-  AINFO<<"(DMCZP) (return) LeaveMethod: KalmanFilter::Correct";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: KalmanFilter::Correct";
-  return false;
+    return false;
   }
 
   cur_observation_ = cur_observation;
@@ -188,10 +128,6 @@ AINFO<<"(DMCZP) EnteringMethod: KalmanFilter::Correct";
       (tmp_identity - kalman_gain_ * c_matrix_) * global_uncertainty_ *
           (tmp_identity - kalman_gain_ * c_matrix_).transpose() +
       kalman_gain_ * cur_observation_uncertainty_ * kalman_gain_.transpose();
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: KalmanFilter::Correct";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: KalmanFilter::Correct";
   return true;
 }
 
@@ -199,47 +135,21 @@ bool KalmanFilter::SetControlMatrix(const Eigen::MatrixXd &control_matrix) {
 AINFO<<"(DMCZP) EnteringMethod: KalmanFilter::SetControlMatrix";
   if (!init_) {
     AERROR << "SetControlMatrix: Kalman Filter initialize not successfully";
-    
-  AINFO<<"(DMCZP) (return) LeaveMethod: KalmanFilter::SetControlMatrix";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: KalmanFilter::SetControlMatrix";
-  return false;
+    return false;
   }
   if (control_matrix.rows() != states_num_ ||
       control_matrix.cols() != states_num_) {
     AERROR << "the rows/cols of control matrix should be equal to state_num";
-    
-  AINFO<<"(DMCZP) (return) LeaveMethod: KalmanFilter::SetControlMatrix";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: KalmanFilter::SetControlMatrix";
-  return false;
+    return false;
   }
   c_matrix_ = control_matrix;
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: KalmanFilter::SetControlMatrix";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: KalmanFilter::SetControlMatrix";
   return true;
 }
 
-Eigen::VectorXd KalmanFilter::GetStates() const {
-  AINFO<<"(DMCZP) EnteringMethod: KalmanFilter::GetStates";
- 
-  AINFO<<"(DMCZP) (ret
-  AINFO<<"(DMCZP) LeaveMethod: KalmanFilter::GetStates";
- urn) LeaveMethod: KalmanFilter::GetStates";
-  
-  AINFO<<"(DMCZP) (ret
-  AINFO<<"(DMCZP) LeaveMethod: KalmanFilter::GetStates";
- urn) LeaveMethod: KalmanFilter::GetStates";
-  return global_states_; }
+Eigen::VectorXd KalmanFilter::GetStates() const { return global_states_; }
 
 Eigen::MatrixXd KalmanFilter::GetUncertainty() const {
 AINFO<<"(DMCZP) EnteringMethod: KalmanFilter::GetUncertainty";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: KalmanFilter::GetUncertainty";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: KalmanFilter::GetUncertainty";
   return global_uncertainty_;
 }
 
@@ -247,11 +157,7 @@ bool KalmanFilter::SetGainBreakdownThresh(const std::vector<bool> &break_down,
                                           const float threshold) {
 AINFO<<"(DMCZP) EnteringMethod: KalmanFilter::SetGainBreakdownThresh";
   if (static_cast<int>(break_down.size()) != states_num_) {
-    
-  AINFO<<"(DMCZP) (return) LeaveMethod: KalmanFilter::SetGainBreakdownThresh";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: KalmanFilter::SetGainBreakdownThresh";
-  return false;
+    return false;
   }
   for (int i = 0; i < states_num_; i++) {
     if (break_down[i]) {
@@ -259,10 +165,6 @@ AINFO<<"(DMCZP) EnteringMethod: KalmanFilter::SetGainBreakdownThresh";
     }
   }
   gain_break_down_threshold_ = threshold;
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: KalmanFilter::SetGainBreakdownThresh";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: KalmanFilter::SetGainBreakdownThresh";
   return true;
 }
 
@@ -270,11 +172,7 @@ bool KalmanFilter::SetValueBreakdownThresh(const std::vector<bool> &break_down,
                                            const float threshold) {
 AINFO<<"(DMCZP) EnteringMethod: KalmanFilter::SetValueBreakdownThresh";
   if (static_cast<int>(break_down.size()) != states_num_) {
-    
-  AINFO<<"(DMCZP) (return) LeaveMethod: KalmanFilter::SetValueBreakdownThresh";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: KalmanFilter::SetValueBreakdownThresh";
-  return false;
+    return false;
   }
   for (int i = 0; i < states_num_; i++) {
     if (break_down[i]) {
@@ -282,10 +180,6 @@ AINFO<<"(DMCZP) EnteringMethod: KalmanFilter::SetValueBreakdownThresh";
     }
   }
   value_break_down_threshold_ = threshold;
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: KalmanFilter::SetValueBreakdownThresh";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: KalmanFilter::SetValueBreakdownThresh";
   return true;
 }
 void KalmanFilter::CorrectionBreakdown() {
@@ -306,29 +200,19 @@ AINFO<<"(DMCZP) EnteringMethod: KalmanFilter::CorrectionBreakdown";
     global_states_ = global_states_.cwiseProduct(temp - value_break_down_);
   }
   prior_global_states_ = global_states_;
-
-  AINFO<<"(DMCZP) LeaveMethod: KalmanFilter::CorrectionBreakdown";
- }
+}
 
 bool KalmanFilter::DeCorrelation(int x, int y, int x_len, int y_len) {
 AINFO<<"(DMCZP) EnteringMethod: KalmanFilter::DeCorrelation";
   if (x >= states_num_ || y >= states_num_ || x + x_len >= states_num_ ||
       y + y_len >= states_num_) {
-    
-  AINFO<<"(DMCZP) (return) LeaveMethod: KalmanFilter::DeCorrelation";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: KalmanFilter::DeCorrelation";
-  return false;
+    return false;
   }
   for (int i = 0; i < x_len; i++) {
     for (int j = 0; j < y_len; j++) {
       global_uncertainty_(x + i, y + j) = 0;
     }
   }
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: KalmanFilter::DeCorrelation";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: KalmanFilter::DeCorrelation";
   return true;
 }
 

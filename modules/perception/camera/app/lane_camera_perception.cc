@@ -64,8 +64,6 @@ AINFO<<"(DMCZP) EnteringMethod: LaneCameraPerception::Init";
   // Init calibration service
   InitCalibrationService(work_root, model, perception_param_);
 
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: LaneCameraPerception::Init";
   return true;
 }
 
@@ -205,8 +203,6 @@ bool LaneCameraPerception::GetCalibrationService(
     BaseCalibrationService **calibration_service) {
 AINFO<<"(DMCZP) EnteringMethod: LaneCameraPerception::GetCalibrationService";
   *calibration_service = calibration_service_.get();
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: LaneCameraPerception::GetCalibrationService";
   return true;
 }
 
@@ -234,18 +230,14 @@ AINFO << "(pengzi) lane camera perception begin.thread:"<< std::this_thread::get
     LanePostprocessorOptions lane_postprocessor_options;
     if (!lane_detector_->Detect(lane_detetor_options, frame)) {
       AERROR << "Failed to detect lane.";
-      
-  AINFO<<"(DMCZP) (return) LeaveMethod: LaneCameraPerception::Perception";
-  return false;
+      return false;
     }
     PERCEPTION_PERF_BLOCK_END_WITH_INDICATOR(
         frame->data_provider->sensor_name(), "LaneDetector");
 
     if (!lane_postprocessor_->Process2D(lane_postprocessor_options, frame)) {
       AERROR << "Failed to postprocess lane 2D.";
-      
-  AINFO<<"(DMCZP) (return) LeaveMethod: LaneCameraPerception::Perception";
-  return false;
+      return false;
     }
     AINFO <<"(pengzi)lane post processor 2d.thread:"<<std::this_thread::get_id();
     PERCEPTION_PERF_BLOCK_END_WITH_INDICATOR(
@@ -258,9 +250,7 @@ AINFO << "(pengzi) lane camera perception begin.thread:"<< std::this_thread::get
 
     if (!lane_postprocessor_->Process3D(lane_postprocessor_options, frame)) {
       AERROR << "Failed to postprocess lane 3D.";
-      
-  AINFO<<"(DMCZP) (return) LeaveMethod: LaneCameraPerception::Perception";
-  return false;
+      return false;
     }
     PERCEPTION_PERF_BLOCK_END_WITH_INDICATOR(
         frame->data_provider->sensor_name(), "LanePostprocessor3D");
@@ -293,8 +283,6 @@ AINFO << "(pengzi) lane camera perception begin.thread:"<< std::this_thread::get
     WriteCalibrationOutput(write_out_calib_file_, calib_file_path, frame);
   }
   AINFO <<"(pengzi))Finish lane camera perception.thread:"<< std::this_thread::get_id();
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: LaneCameraPerception::Perception";
   return true;
 }
 }  // namespace camera

@@ -136,8 +136,6 @@ AINFO<<"(DMCZP) EnteringMethod: MsgExporter::SavePointCloud";
   snprintf(path, sizeof(path), "%s/%.6f.pcd", folder.c_str(), timestamp);
   pcl::PCDWriter writer;
   writer.writeBinaryCompressed(path, point_cloud);
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: MsgExporter::SavePointCloud";
   return true;
 }
 bool MsgExporter::SaveImage(const unsigned char* color_image,
@@ -163,8 +161,6 @@ AINFO<<"(DMCZP) EnteringMethod: MsgExporter::SaveImage";
     // timestamp);
     // cv::imwrite(path, range_image_mat);
   }
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: MsgExporter::SaveImage";
   return true;
 }
 bool MsgExporter::QuerySensorToWorldPose(double timestamp,
@@ -177,20 +173,14 @@ AINFO<<"(DMCZP) EnteringMethod: MsgExporter::QuerySensorToWorldPose";
   if (child_frame_id != "null" &&
       !QueryPose(timestamp, "novatel", child_frame_id,
                  &sensor2novatel_extrinsics)) {
-    
-  AINFO<<"(DMCZP) (return) LeaveMethod: MsgExporter::QuerySensorToWorldPose";
-  return false;
+    return false;
   }
   // query novatel to world pose
   if (!QueryPose(timestamp, "world", _localization_method,
                  &novatel2world_pose)) {
-    
-  AINFO<<"(DMCZP) (return) LeaveMethod: MsgExporter::QuerySensorToWorldPose";
-  return false;
+    return false;
   }
   *pose = novatel2world_pose * sensor2novatel_extrinsics;
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: MsgExporter::QuerySensorToWorldPose";
   return true;
 }
 bool MsgExporter::QueryPose(double timestamp, const std::string& frame_id,
@@ -204,9 +194,7 @@ AINFO<<"(DMCZP) EnteringMethod: MsgExporter::QueryPose";
     AERROR << "Can not find transform. "  //<< GLOG_TIMESTAMP(timestamp)
            << " frame_id: " << frame_id << " child_frame_id: " << child_frame_id
            << " Error info: " << err_string;
-    
-  AINFO<<"(DMCZP) (return) LeaveMethod: MsgExporter::QueryPose";
-  return false;
+    return false;
   }
   apollo::transform::TransformStamped stamped_transform;
   try {
@@ -223,12 +211,8 @@ AINFO<<"(DMCZP) EnteringMethod: MsgExporter::QueryPose";
     *pose = (translation * rotation).matrix();
   } catch (tf2::TransformException& ex) {
     AERROR << ex.what();
-    
-  AINFO<<"(DMCZP) (return) LeaveMethod: MsgExporter::QueryPose";
-  return false;
+    return false;
   }
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: MsgExporter::QueryPose";
   return true;
 }
 bool MsgExporter::SavePose(const Eigen::Matrix4d& pose, double timestamp,
@@ -245,8 +229,6 @@ AINFO<<"(DMCZP) EnteringMethod: MsgExporter::SavePose";
          << quat.y() << " " << quat.z() << " " << quat.w() << std::endl;
     fout.close();
   }
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: MsgExporter::SavePose";
   return true;
 }
 bool MsgExporter::IsStereoCamera(const std::string& channel) {
@@ -254,12 +236,8 @@ AINFO<<"(DMCZP) EnteringMethod: MsgExporter::IsStereoCamera";
   std::vector<std::string> strs;
   apollo::common::util::Split(channel, '/', &strs);
   if (strs.size() > 2 && strs[2] == "smartereye") {
-    
-  AINFO<<"(DMCZP) (return) LeaveMethod: MsgExporter::IsStereoCamera";
-  return true;
+    return true;
   }
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: MsgExporter::IsStereoCamera";
   return false;
 }
 bool MsgExporter::IsCamera(const std::string& channel) {
@@ -267,12 +245,8 @@ AINFO<<"(DMCZP) EnteringMethod: MsgExporter::IsCamera";
   std::vector<std::string> strs;
   apollo::common::util::Split(channel, '/', &strs);
   if (strs.size() > 1 && strs[1] == "camera") {
-    
-  AINFO<<"(DMCZP) (return) LeaveMethod: MsgExporter::IsCamera";
-  return true;
+    return true;
   }
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: MsgExporter::IsCamera";
   return false;
 }
 bool MsgExporter::IsLidar(const std::string& channel) {
@@ -280,12 +254,8 @@ AINFO<<"(DMCZP) EnteringMethod: MsgExporter::IsLidar";
   std::vector<std::string> strs;
   apollo::common::util::Split(channel, '/', &strs);
   if (strs.size() > 0 && strs.back() == "PointCloud2") {
-    
-  AINFO<<"(DMCZP) (return) LeaveMethod: MsgExporter::IsLidar";
-  return true;
+    return true;
   }
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: MsgExporter::IsLidar";
   return false;
 }
 std::string MsgExporter::TransformChannelToFolder(const std::string& channel) {
@@ -297,8 +267,6 @@ AINFO<<"(DMCZP) EnteringMethod: MsgExporter::TransformChannelToFolder";
     target += str + "_";
   }
   target += "data";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: MsgExporter::TransformChannelToFolder";
   return target;
 }
 }  // namespace lidar
