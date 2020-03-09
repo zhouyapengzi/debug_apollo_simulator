@@ -44,7 +44,9 @@ AINFO<<"(DMCZP) EnteringMethod: lane_postprocessor_eval";
   if (!common::LoadBrownCameraIntrinsic("params/front_6mm_intrinsics.yaml",
                                         &model)) {
     AERROR << "LoadBrownCameraIntrinsic Error!";
-    return -1;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: lane_postprocessor_eval";
+  return -1;
   }
   init_options.base_camera_model = model.get_camera_model();
 
@@ -214,6 +216,8 @@ AINFO<<"(DMCZP) EnteringMethod: lane_postprocessor_eval";
     }
   }
 
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: lane_postprocessor_eval";
   return 0;
 }
 
@@ -226,5 +230,7 @@ AINFO<<"(DMCZP) EnteringMethod: main";
   google::ParseCommandLineFlags(&argc, &argv, true);
   FLAGS_alsologtostderr = true;
   google::InitGoogleLogging(argv[0]);
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: main";
   return apollo::perception::camera::lane_postprocessor_eval();
 }

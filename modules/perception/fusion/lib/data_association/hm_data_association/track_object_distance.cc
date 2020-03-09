@@ -66,15 +66,21 @@ void TrackObjectDistance::GetModified2DRadarBoxVertices(
         camera_intrinsic->Project(local_box_vertex.head(3).cast<float>());
     radar_box2d_vertices->push_back(temp_vertex.cast<double>());
   }
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: TrackObjectDistance::GetModified2DRadarBoxVertices";
   return;
 }
 
 base::BaseCameraModelPtr TrackObjectDistance::QueryCameraModel(
     const SensorObjectConstPtr& camera) {
 AINFO<<"(DMCZP) EnteringMethod: TrackObjectDistance::QueryCameraModel";
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: TrackObjectDistance::QueryCameraModel";
   return SensorDataManager::Instance()->GetCameraIntrinsic(
       camera->GetSensorId());
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: TrackObjectDistance::QueryCameraModel";
+ }
 
 bool TrackObjectDistance::QueryWorld2CameraPose(
     const SensorObjectConstPtr& camera, Eigen::Matrix4d* pose) {
@@ -83,9 +89,13 @@ AINFO<<"(DMCZP) EnteringMethod: TrackObjectDistance::QueryWorld2CameraPose";
   bool status = SensorDataManager::Instance()->GetPose(
       camera->GetSensorId(), camera->GetTimestamp(), &camera2world_pose);
   if (!status) {
-    return false;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: TrackObjectDistance::QueryWorld2CameraPose";
+  return false;
   }
   (*pose) = camera2world_pose.matrix().inverse();
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: TrackObjectDistance::QueryWorld2CameraPose";
   return true;
 }
 
@@ -94,9 +104,13 @@ bool TrackObjectDistance::QueryLidar2WorldPose(
 AINFO<<"(DMCZP) EnteringMethod: TrackObjectDistance::QueryLidar2WorldPose";
   Eigen::Affine3d velo2world_pose;
   if (!lidar->GetRelatedFramePose(&velo2world_pose)) {
-    return false;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: TrackObjectDistance::QueryLidar2WorldPose";
+  return false;
   }
   (*pose) = velo2world_pose.matrix();
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: TrackObjectDistance::QueryLidar2WorldPose";
   return true;
 }
 
@@ -109,11 +123,15 @@ AINFO<<"(DMCZP) EnteringMethod: TrackObjectDistance::BuildProjectionCacheObject"
   // 1. get lidar2camera_pose
   Eigen::Matrix4d world2camera_pose;
   if (!QueryWorld2CameraPose(camera, &world2camera_pose)) {
-    return nullptr;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: TrackObjectDistance::BuildProjectionCacheObject";
+  return nullptr;
   }
   Eigen::Matrix4d lidar2world_pose;
   if (!QueryLidar2WorldPose(lidar, &lidar2world_pose)) {
-    return nullptr;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: TrackObjectDistance::BuildProjectionCacheObject";
+  return nullptr;
   }
   Eigen::Matrix4d lidar2camera_pose =
       static_cast<Eigen::Matrix<double, 4, 4, 0, 4, 4>>(world2camera_pose *
@@ -133,7 +151,9 @@ AINFO<<"(DMCZP) EnteringMethod: TrackObjectDistance::BuildProjectionCacheObject"
       projection_timestamp, lidar_object_id);
   if (cache_object == nullptr) {
     AERROR << "Failed to build projection cache object";
-    return nullptr;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: TrackObjectDistance::BuildProjectionCacheObject";
+  return nullptr;
   }
   size_t start_ind = projection_cache_.GetPoint2dsSize();
   size_t end_ind = projection_cache_.GetPoint2dsSize();
@@ -199,6 +219,8 @@ AINFO<<"(DMCZP) EnteringMethod: TrackObjectDistance::BuildProjectionCacheObject"
   cache_object->SetEndInd(end_ind);
   base::BBox2DF box = base::BBox2DF(xmin, ymin, xmax, ymax);
   cache_object->SetBox(box);
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: TrackObjectDistance::BuildProjectionCacheObject";
   return cache_object;
 }
 
@@ -220,12 +242,18 @@ AINFO<<"(DMCZP) EnteringMethod: TrackObjectDistance::QueryProjectionCacheObject"
   ProjectionCacheObject* cache_object = projection_cache_.QueryObject(
       measurement_sensor_id, measurement_timestamp, projection_sensor_id,
       projection_timestamp, lidar_object_id);
-  if (cache_object != nullptr) return cache_object;
+  if (cache_object != nullptr) 
+  AINFO<<"(DMCZP) (return) LeaveMethod: TrackObjectDistance::QueryProjectionCacheObject";
+  return cache_object;
   // 2. if query failed, build projection and cache it
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: TrackObjectDistance::QueryProjectionCacheObject";
   return BuildProjectionCacheObject(
       lidar, camera, camera_model, measurement_sensor_id, measurement_timestamp,
       projection_sensor_id, projection_timestamp);
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: TrackObjectDistance::QueryProjectionCacheObject";
+ }
 
 void TrackObjectDistance::QueryProjectedVeloCtOnCamera(
     const SensorObjectConstPtr& velodyne64, const SensorObjectConstPtr& camera,
@@ -248,12 +276,18 @@ bool TrackObjectDistance::QueryPolygonDCenter(
     const int range, Eigen::Vector3d* polygon_ct) {
 AINFO<<"(DMCZP) EnteringMethod: TrackObjectDistance::QueryPolygonDCenter";
   if (object == nullptr) {
-    return false;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: TrackObjectDistance::QueryPolygonDCenter";
+  return false;
   }
   const base::PolygonDType& polygon = object->polygon;
   if (!ComputePolygonCenter(polygon, ref_pos, range, polygon_ct)) {
-    return false;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: TrackObjectDistance::QueryPolygonDCenter";
+  return false;
   }
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: TrackObjectDistance::QueryPolygonDCenter";
   return true;
 }
 
@@ -261,12 +295,18 @@ bool TrackObjectDistance::IsTrackIdConsistent(
     const SensorObjectConstPtr& object1, const SensorObjectConstPtr& object2) {
 AINFO<<"(DMCZP) EnteringMethod: TrackObjectDistance::IsTrackIdConsistent";
   if (object1 == nullptr || object2 == nullptr) {
-    return false;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: TrackObjectDistance::IsTrackIdConsistent";
+  return false;
   }
   if (object1->GetBaseObject()->track_id ==
       object2->GetBaseObject()->track_id) {
-    return true;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: TrackObjectDistance::IsTrackIdConsistent";
+  return true;
   }
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: TrackObjectDistance::IsTrackIdConsistent";
   return false;
 }
 
@@ -286,8 +326,12 @@ AINFO<<"(DMCZP) EnteringMethod: TrackObjectDistance::LidarCameraCenterDistanceEx
   }
   double dynamic_threshold = 5 + 0.15 * local_distance;
   if (center_distance > dynamic_threshold) {
-    return true;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: TrackObjectDistance::LidarCameraCenterDistanceExceedDynamicThreshold";
+  return true;
   }
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: TrackObjectDistance::LidarCameraCenterDistanceExceedDynamicThreshold";
   return false;
 }
 
@@ -300,12 +344,16 @@ AINFO<<"(DMCZP) EnteringMethod: TrackObjectDistance::Compute";
   FusedObjectPtr fused_object = fused_track->GetFusedObject();
   if (fused_object == nullptr) {
     AERROR << "fused object is nullptr";
-    return (std::numeric_limits<float>::max)();
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: TrackObjectDistance::Compute";
+  return (std::numeric_limits<float>::max)();
   }
   Eigen::Vector3d* ref_point = options.ref_point;
   if (ref_point == nullptr) {
     AERROR << "reference point is nullptr";
-    return (std::numeric_limits<float>::max)();
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: TrackObjectDistance::Compute";
+  return (std::numeric_limits<float>::max)();
   }
   float distance = (std::numeric_limits<float>::max)();
   float min_distance = (std::numeric_limits<float>::max)();
@@ -353,6 +401,8 @@ AINFO<<"(DMCZP) EnteringMethod: TrackObjectDistance::Compute";
   } else {
     AERROR << "fused sensor type is not support";
   }
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: TrackObjectDistance::Compute";
   return min_distance;
 }
 
@@ -373,11 +423,15 @@ AINFO<<"(DMCZP) EnteringMethod: TrackObjectDistance::ComputeLidarRadar";
            << "center_dist@" << center_distance << ", "
            << "tight_threh@"
            << s_lidar2lidar_association_center_dist_threshold_;
-    return (std::numeric_limits<float>::max)();
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: TrackObjectDistance::ComputeLidarLidar";
+  return (std::numeric_limits<float>::max)();
   }
   float distance =
       ComputePolygonDistance3d(fused_object, sensor_object, ref_pos, range);
   ADEBUG << "ComputeLidarLidar distance: " << distance;
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: TrackObjectDistance::ComputeLidarLidar";
   return distance;
 }
 
@@ -397,11 +451,15 @@ float TrackObjectDistance::ComputeLidarRadar(
            << "center_dist@" << center_distance << ", "
            << "tight_threh@"
            << s_lidar2radar_association_center_dist_threshold_;
-    return (std::numeric_limits<float>::max)();
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: TrackObjectDistance::ComputeLidarRadar";
+  return (std::numeric_limits<float>::max)();
   }
   float distance =
       ComputePolygonDistance3d(fused_object, sensor_object, ref_pos, range);
   ADEBUG << "ComputeLidarRadar distance: " << distance;
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: TrackObjectDistance::ComputeLidarRadar";
   return distance;
 }
 
@@ -421,11 +479,15 @@ AINFO<<"(DMCZP) EnteringMethod: TrackObjectDistance::ComputeRadarRadar";
            << "center_dist@" << center_distance << ", "
            << "tight_threh@"
            << s_radar2radar_association_center_dist_threshold_;
-    return (std::numeric_limits<float>::max)();
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: TrackObjectDistance::ComputeRadarRadar";
+  return (std::numeric_limits<float>::max)();
   }
   float distance =
       ComputePolygonDistance3d(fused_object, sensor_object, ref_pos, range);
   ADEBUG << "ComputeRadarRadar distance: " << distance;
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: TrackObjectDistance::ComputeRadarRadar";
   return distance;
 }
 
@@ -438,7 +500,9 @@ float TrackObjectDistance::ComputeLidarCamera(
 AINFO<<"(DMCZP) EnteringMethod: TrackObjectDistance::ComputeLidarCamera";
   if (!is_track_id_consistent) {
     if (LidarCameraCenterDistanceExceedDynamicThreshold(lidar, camera)) {
-      return distance_thresh_;
+      
+  AINFO<<"(DMCZP) (return) LeaveMethod: TrackObjectDistance::ComputeLidarCamera";
+  return distance_thresh_;
     }
   }
   float distance = distance_thresh_;
@@ -446,17 +510,23 @@ AINFO<<"(DMCZP) EnteringMethod: TrackObjectDistance::ComputeLidarCamera";
   base::BaseCameraModelPtr camera_model = QueryCameraModel(camera);
   if (camera_model == nullptr) {
     AERROR << "Failed to get camera model for " << camera->GetSensorId();
-    return distance;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: TrackObjectDistance::ComputeLidarCamera";
+  return distance;
   }
   Eigen::Matrix4d world2camera_pose;
   if (!QueryWorld2CameraPose(camera, &world2camera_pose)) {
     AERROR << "Failed to query camera pose";
-    return distance;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: TrackObjectDistance::ComputeLidarCamera";
+  return distance;
   }
   Eigen::Matrix4d lidar2world_pose;
   if (!QueryLidar2WorldPose(lidar, &lidar2world_pose)) {
     AERROR << "Failed to query lidar pose";
-    return distance;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: TrackObjectDistance::ComputeLidarCamera";
+  return distance;
   }
   Eigen::Matrix4d lidar2camera_pose =
       static_cast<Eigen::Matrix<double, 4, 4, 0, 4, 4>>(world2camera_pose *
@@ -477,7 +547,9 @@ AINFO<<"(DMCZP) EnteringMethod: TrackObjectDistance::ComputeLidarCamera";
         lidar, camera, camera_model, measurement_is_lidar);
     if (cache_object == nullptr) {
       AERROR << "Failed to query projection cached object";
-      return distance;
+      
+  AINFO<<"(DMCZP) (return) LeaveMethod: TrackObjectDistance::ComputeLidarCamera";
+  return distance;
     }
     double similarity =
         ComputePtsBoxSimilarity(&projection_cache_, cache_object, camera_bbox);
@@ -503,6 +575,8 @@ AINFO<<"(DMCZP) EnteringMethod: TrackObjectDistance::ComputeLidarCamera";
     }
   }
   ADEBUG << "ComputeLidarCamera distance: " << distance;
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: TrackObjectDistance::ComputeLidarCamera";
   return distance;
 }
 
@@ -518,11 +592,15 @@ float TrackObjectDistance::ComputeRadarCamera(
   base::BaseCameraModelPtr camera_model = QueryCameraModel(camera);
   if (camera_model == nullptr) {
     AERROR << "Failed to get camera model for " << camera->GetSensorId();
-    return distance;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: TrackObjectDistance::ComputeRadarCamera";
+  return distance;
   }
   Eigen::Matrix4d world2camera_pose;
   if (!QueryWorld2CameraPose(camera, &world2camera_pose)) {
-    return distance;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: TrackObjectDistance::ComputeRadarCamera";
+  return distance;
   }
   // get camera useful information
   const base::BBox2DF& camera_bbox =
@@ -591,6 +669,8 @@ float TrackObjectDistance::ComputeRadarCamera(
   distance = distance_thresh_ * static_cast<float>(1.0 - fused_similarity) /
              (1.0f - rc_similarity2distance_penalize_thresh_);
   ADEBUG << "ComputeRadarCamera distance: " << distance;
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: TrackObjectDistance::ComputeRadarCamera";
   return distance;
 }
 
@@ -600,6 +680,8 @@ float TrackObjectDistance::ComputeRadarCamera(
 float TrackObjectDistance::ComputeCameraCamera(
     const SensorObjectPtr& fused_camera, const SensorObjectPtr& sensor_camera) {
 AINFO<<"(DMCZP) EnteringMethod: TrackObjectDistance::ComputeCameraCamera";
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: TrackObjectDistance::ComputeCameraCamera";
   return (std::numeric_limits<float>::max());
 }
 
@@ -621,15 +703,21 @@ double TrackObjectDistance::ComputeLidarCameraSimilarity(
   base::BaseCameraModelPtr camera_model = QueryCameraModel(camera);
   if (camera_model == nullptr) {
     AERROR << "Failed to get camera model for " << camera->GetSensorId();
-    return similarity;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: TrackObjectDistance::ComputeLidarCameraSimilarity";
+  return similarity;
   }
   Eigen::Matrix4d world2camera_pose;
   if (!QueryWorld2CameraPose(camera, &world2camera_pose)) {
-    return similarity;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: TrackObjectDistance::ComputeLidarCameraSimilarity";
+  return similarity;
   }
   Eigen::Matrix4d lidar2world_pose;
   if (!QueryLidar2WorldPose(lidar, &lidar2world_pose)) {
-    return similarity;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: TrackObjectDistance::ComputeLidarCameraSimilarity";
+  return similarity;
   }
   // Eigen::Matrix4d lidar2camera_pose = world2camera_pose * lidar2world_pose;
   // 2. compute similarity of camera vs. velodyne64 observation
@@ -641,11 +729,15 @@ double TrackObjectDistance::ComputeLidarCameraSimilarity(
     ProjectionCacheObject* cache_object = QueryProjectionCacheObject(
         lidar, camera, camera_model, measurement_is_lidar);
     if (cache_object == nullptr) {
-      return similarity;
+      
+  AINFO<<"(DMCZP) (return) LeaveMethod: TrackObjectDistance::ComputeLidarCameraSimilarity";
+  return similarity;
     }
     similarity =
         ComputePtsBoxSimilarity(&projection_cache_, cache_object, camera_bbox);
   }
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: TrackObjectDistance::ComputeLidarCameraSimilarity";
   return similarity;
 }
 
@@ -663,11 +755,15 @@ double TrackObjectDistance::ComputeRadarCameraSimilarity(
   base::BaseCameraModelPtr camera_model = QueryCameraModel(camera);
   if (camera_model == nullptr) {
     AERROR << "Failed to get camera model for " << camera->GetSensorId();
-    return similarity;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: TrackObjectDistance::ComputeRadarCameraSimilarity";
+  return similarity;
   }
   Eigen::Matrix4d world2camera_pose;
   if (!QueryWorld2CameraPose(camera, &world2camera_pose)) {
-    return similarity;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: TrackObjectDistance::ComputeRadarCameraSimilarity";
+  return similarity;
   }
   // 2. get information of camera
   const base::BBox2DF& camera_bbox =
@@ -712,6 +808,8 @@ double TrackObjectDistance::ComputeRadarCameraSimilarity(
       similarity = FuseMultipleProbabilities(multiple_similarities);
     }
   }
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: TrackObjectDistance::ComputeRadarCameraSimilarity";
   return similarity;
 }
 
@@ -724,12 +822,16 @@ float TrackObjectDistance::ComputePolygonDistance3d(
   const base::ObjectConstPtr& obj_f = fused_object->GetBaseObject();
   Eigen::Vector3d fused_poly_center(0, 0, 0);
   if (!QueryPolygonDCenter(obj_f, ref_pos, range, &fused_poly_center)) {
-    return (std::numeric_limits<float>::max());
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: TrackObjectDistance::ComputePolygonDistance3d";
+  return (std::numeric_limits<float>::max());
   }
   const base::ObjectConstPtr obj_s = sensor_object->GetBaseObject();
   Eigen::Vector3d sensor_poly_center(0, 0, 0);
   if (!QueryPolygonDCenter(obj_s, ref_pos, range, &sensor_poly_center)) {
-    return (std::numeric_limits<float>::max());
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: TrackObjectDistance::ComputePolygonDistance3d";
+  return (std::numeric_limits<float>::max());
   }
   double fusion_timestamp = fused_object->GetTimestamp();
   double sensor_timestamp = sensor_object->GetTimestamp();
@@ -738,6 +840,8 @@ float TrackObjectDistance::ComputePolygonDistance3d(
   fused_poly_center(1) += obj_f->velocity(1) * time_diff;
   float distance =
       ComputeEuclideanDistance(fused_poly_center, sensor_poly_center);
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: TrackObjectDistance::ComputePolygonDistance3d";
   return distance;
 }
 
@@ -749,6 +853,8 @@ AINFO<<"(DMCZP) EnteringMethod: TrackObjectDistance::ComputeEuclideanDistance";
   Eigen::Vector3d diff_pos = des - src;
   float distance = static_cast<float>(
       std::sqrt(diff_pos.head(2).cwiseProduct(diff_pos.head(2)).sum()));
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: TrackObjectDistance::ComputeEuclideanDistance";
   return distance;
 }
 
@@ -759,7 +865,11 @@ bool TrackObjectDistance::ComputePolygonCenter(
 AINFO<<"(DMCZP) EnteringMethod: TrackObjectDistance::ComputePolygonCenter";
   int size = static_cast<int>(polygon.size());
   if (size == 0) {
-    return false;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: TrackObjectDistance::ComputePolygonCenter";
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: TrackObjectDistance::ComputePolygonCenter";
+  return false;
   }
   *center = Eigen::Vector3d(0, 0, 0);
   for (int i = 0; i < size; ++i) {
@@ -768,6 +878,10 @@ AINFO<<"(DMCZP) EnteringMethod: TrackObjectDistance::ComputePolygonCenter";
     (*center)[1] += point.y;
   }
   (*center) /= size;
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: TrackObjectDistance::ComputePolygonCenter";
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: TrackObjectDistance::ComputePolygonCenter";
   return true;
 }
 

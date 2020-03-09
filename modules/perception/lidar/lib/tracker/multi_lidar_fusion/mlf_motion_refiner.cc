@@ -46,6 +46,8 @@ AINFO<<"(DMCZP) EnteringMethod: MlfMotionRefiner::Init";
   // read from proto config
   claping_speed_threshold_ = config.claping_speed_threshold();
   claping_acceleration_threshold_ = config.claping_acceleration_threshold();
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: MlfMotionRefiner::Init";
   return true;
 }
 
@@ -79,7 +81,9 @@ AINFO<<"(DMCZP) EnteringMethod: MlfMotionRefiner::Refine";
     new_object->output_velocity = current_velocity;
     AINFO << "Track_id " << track_data->track_id_
           << ", keep motion because of extraodinary acceleration.";
-    return true;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: MlfMotionRefiner::Refine";
+  return true;
   }
   // 2. static hypothesis check
   bool is_static_hypothesis =
@@ -90,8 +94,12 @@ AINFO<<"(DMCZP) EnteringMethod: MlfMotionRefiner::Refine";
     new_object->state.tail<2>().setZero();
     AINFO << "Track_id " << track_data->track_id_
           << ", set velocity to zero because of noise claping.";
-    return true;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: MlfMotionRefiner::Refine";
+  return true;
   }
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: MlfMotionRefiner::Refine";
   return false;
 }
 
@@ -114,7 +122,9 @@ AINFO<<"(DMCZP) EnteringMethod: MlfMotionRefiner::CheckStaticHypothesisByState";
     velocity_noise_level_is_0 = true;
   }
   if (velocity_noise_level_is_0) {
-    return true;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: MlfMotionRefiner::CheckStaticHypothesisByState";
+  return true;
   }
   // believe track is static if velocity noise level is
   // 1 && angle change level is 0
@@ -128,7 +138,9 @@ AINFO<<"(DMCZP) EnteringMethod: MlfMotionRefiner::CheckStaticHypothesisByState";
       CheckStaticHypothesisByVelocityAngleChange(
           latest_object, new_object, reasonable_angle_change_maximum_0);
   if (velocity_noise_level_is_1 && velocity_angle_change_level_is_0) {
-    return true;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: MlfMotionRefiner::CheckStaticHypothesisByState";
+  return true;
   }
   // believe track is static if velocity noise level is
   // 2 && angle change level is 1
@@ -142,8 +154,12 @@ AINFO<<"(DMCZP) EnteringMethod: MlfMotionRefiner::CheckStaticHypothesisByState";
       CheckStaticHypothesisByVelocityAngleChange(
           latest_object, new_object, reasonable_angle_change_maximum_1);
   if (velocity_noise_level_is_2 && velocity_angle_change_level_is_1) {
-    return true;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: MlfMotionRefiner::CheckStaticHypothesisByState";
+  return true;
   }
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: MlfMotionRefiner::CheckStaticHypothesisByState";
   return false;
 }
 
@@ -158,18 +174,26 @@ AINFO<<"(DMCZP) EnteringMethod: MlfMotionRefiner::CheckStaticHypothesisByVelocit
   Eigen::Vector3d previous_velocity = latest_object->output_velocity;
   Eigen::Vector3d current_velocity = new_object->output_velocity;
   if (previous_velocity.norm() < DBL_EPSILON) {
-    // return false; // without motion score, this should be true
-    return true;
+    // 
+  AINFO<<"(DMCZP) (return) LeaveMethod: MlfMotionRefiner::CheckStaticHypothesisByVelocityAngleChange";
+  return false; // without motion score, this should be true
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: MlfMotionRefiner::CheckStaticHypothesisByVelocityAngleChange";
+  return true;
   }
   if (current_velocity.norm() < DBL_EPSILON) {
-    return true;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: MlfMotionRefiner::CheckStaticHypothesisByVelocityAngleChange";
+  return true;
   }
   // believe angle change is obvious if it is greater than threshold
 
   double velocity_angle_change =
       common::CalculateTheta2DXY(previous_velocity, current_velocity);
   if (fabs(velocity_angle_change) > reasonable_angle_change_maximum) {
-    return true;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: MlfMotionRefiner::CheckStaticHypothesisByVelocityAngleChange";
+  return true;
   }
   // Let track be static if angle change of current velocity
   // & previous heading is larger
@@ -183,8 +207,12 @@ AINFO<<"(DMCZP) EnteringMethod: MlfMotionRefiner::CheckStaticHypothesisByVelocit
   velocity_angle_change = std::min(fabs(velocity_heading_angle_change_1),
                                    fabs(velocity_heading_angle_change_2));
   if (fabs(velocity_angle_change) > reasonable_angle_change_maximum) {
-    return true;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: MlfMotionRefiner::CheckStaticHypothesisByVelocityAngleChange";
+  return true;
   }
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: MlfMotionRefiner::CheckStaticHypothesisByVelocityAngleChange";
   return false;
 }
 

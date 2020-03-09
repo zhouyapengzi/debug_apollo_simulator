@@ -24,10 +24,18 @@ bool CarPose::Init(double ts, const Eigen::Matrix4d &pose) {
 AINFO<<"(DMCZP) EnteringMethod: CarPose::Init";
   timestamp_ = ts;
   pose_ = pose;
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: CarPose::Init";
   return true;
 }
 
-const Eigen::Matrix4d CarPose::getCarPose() const { return pose_; }
+const Eigen::Matrix4d CarPose::getCarPose() const {
+  AINFO<<"(DMCZP) EnteringMethod: CarPose::getCarPose";
+ 
+  AINFO<<"(DM
+  AINFO<<"(DMCZP) LeaveMethod: CarPose::getCarPose";
+ CZP) (return) LeaveMethod: CarPose::getCarPose";
+  return pose_; }
 
 const Eigen::Vector3d CarPose::getCarPosition() const {
 AINFO<<"(DMCZP) EnteringMethod: CarPose::getCarPosition";
@@ -36,6 +44,8 @@ AINFO<<"(DMCZP) EnteringMethod: CarPose::getCarPosition";
   p[1] = pose_(1, 3);
   p[2] = pose_(2, 3);
 
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: CarPose::getCarPosition";
   return p;
 }
 
@@ -50,10 +60,14 @@ bool CarPose::GetCameraPose(const std::string &camera_name,
 AINFO<<"(DMCZP) EnteringMethod: CarPose::GetCameraPose";
   CHECK_NOTNULL(c2w_pose);
   if (c2w_poses_.find(camera_name) == c2w_poses_.end()) {
-    return false;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: CarPose::GetCameraPose";
+  return false;
   }
   *c2w_pose = c2w_poses_.at(camera_name);
 
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: CarPose::GetCameraPose";
   return true;
 }
 

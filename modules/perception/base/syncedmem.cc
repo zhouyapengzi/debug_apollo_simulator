@@ -121,7 +121,13 @@ AINFO<<"(DMCZP) EnteringMethod: SyncedMemory::to_cpu";
       PerceptionMallocHost(&cpu_ptr_, size_, cpu_malloc_use_cuda_);
       if (cpu_ptr_ == nullptr) {
         AERROR << "cpu_ptr_ is null";
-        return;
+        
+  AINFO<<"(DMCZP) (return) LeaveMethod: SyncedMemory::to_cpu";
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: Copyright";
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: Copyright";
+  return;
       }
       memset(cpu_ptr_, 0, size_);
       head_ = HEAD_AT_CPU;
@@ -143,7 +149,9 @@ AINFO<<"(DMCZP) EnteringMethod: SyncedMemory::to_cpu";
     case SYNCED:
       break;
   }
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: SyncedMemory::to_cpu";
+ }
 
 inline void SyncedMemory::to_gpu() {
 AINFO<<"(DMCZP) EnteringMethod: SyncedMemory::to_gpu";
@@ -177,6 +185,12 @@ const void* SyncedMemory::cpu_data() {
 AINFO<<"(DMCZP) EnteringMethod: SyncedMemory::cpu_data";
   check_device();
   to_cpu();
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: SyncedMemory::cpu_data";
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: Copyright";
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: Copyright";
   return (const void*)cpu_ptr_;
 }
 
@@ -197,12 +211,26 @@ AINFO<<"(DMCZP) EnteringMethod: SyncedMemory::gpu_data";
   check_device();
 #ifndef PERCEPTION_CPU_ONLY
   to_gpu();
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: SyncedMemory::gpu_data";
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: Copyright";
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: Copyright";
   return (const void*)gpu_ptr_;
 #else
   NO_GPU;
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: SyncedMemory::gpu_data";
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: Copyright";
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: Copyright";
   return nullptr;
 #endif
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: SyncedMemory::gpu_data";
+ }
 
 void SyncedMemory::set_gpu_data(void* data) {
 AINFO<<"(DMCZP) EnteringMethod: SyncedMemory::set_gpu_data";
@@ -225,6 +253,12 @@ AINFO<<"(DMCZP) EnteringMethod: SyncedMemory::mutable_cpu_data";
   check_device();
   to_cpu();
   head_ = HEAD_AT_CPU;
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: SyncedMemory::mutable_cpu_data";
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: Copyright";
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: Copyright";
   return cpu_ptr_;
 }
 
@@ -234,12 +268,26 @@ AINFO<<"(DMCZP) EnteringMethod: SyncedMemory::mutable_gpu_data";
 #ifndef PERCEPTION_CPU_ONLY
   to_gpu();
   head_ = HEAD_AT_GPU;
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: SyncedMemory::mutable_gpu_data";
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: Copyright";
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: Copyright";
   return gpu_ptr_;
 #else
   NO_GPU;
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: SyncedMemory::mutable_gpu_data";
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: Copyright";
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: Copyright";
   return nullptr;
 #endif
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: SyncedMemory::mutable_gpu_data";
+ }
 
 #ifndef PERCEPTION_CPU_ONLY
 void SyncedMemory::async_gpu_push(const cudaStream_t& stream) {
@@ -275,4 +323,8 @@ AINFO<<"(DMCZP) EnteringMethod: SyncedMemory::check_device";
 
 }  // namespace base
 }  // namespace perception
-}  // namespace apollo
+
+  AINFO<<"(DMCZP) LeaveMethod: Copyright";
+ 
+  AINFO<<"(DMCZP) LeaveMethod: Copyright";
+ }  // namespace apollo

@@ -25,7 +25,15 @@ namespace inference {
 
 CaffeNet::CaffeNet(const std::string &net_file, const std::string &model_file,
                    const std::vector<std::string> &outputs)
-    : net_file_(net_file), model_file_(model_file), output_names_(outputs) {}
+    : net_file_(net_file), model_file_(model_file), output_names_(outputs) {
+  AINFO<<"(DMCZP) EnteringMethod: CaffeNet::CaffeNet";
+
+  AINFO<<"(DMCZP) LeaveMethod: CaffeNet::CaffeNet";
+ 
+  AINFO<<"(DMCZP) EnteringMethod: CaffeNet::CaffeNet";
+
+  AINFO<<"(DMCZP) LeaveMethod: CaffeNet::CaffeNet";
+ }
 
 bool CaffeNet::Init(const std::map<std::string, std::vector<int>> &shapes) {
 AINFO<<"(DMCZP) EnteringMethod: CaffeNet::Init";
@@ -43,7 +51,9 @@ AINFO<<"(DMCZP) EnteringMethod: CaffeNet::Init";
   // init Net
   net_.reset(new caffe::Net<float>(net_file_, caffe::TEST));
   if (net_ == nullptr) {
-    return false;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: CaffeNet::Init";
+  return false;
   }
   net_->CopyTrainedLayersFrom(model_file_);
   for (auto tmp : shapes) {
@@ -71,6 +81,8 @@ AINFO<<"(DMCZP) EnteringMethod: CaffeNet::Init";
     blob.reset(new apollo::perception::base::Blob<float>(caffe_blob->shape()));
     blobs_.insert(std::make_pair(name, blob));
   }
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: CaffeNet::Init";
   return true;
 }
 
@@ -111,6 +123,8 @@ AINFO<<"(DMCZP) EnteringMethod: CaffeNet::reshape";
   }
   net_->Reshape();
 
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: CaffeNet::reshape";
   return true;
 }
 
@@ -157,9 +171,13 @@ AINFO<<"(DMCZP) EnteringMethod: CaffeNet::shape";
 
   auto blob = net_->blob_by_name(name);
   if (blob == nullptr) {
-    return false;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: CaffeNet::shape";
+  return false;
   }
   *res = blob->shape();
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: CaffeNet::shape";
   return true;
 }
 

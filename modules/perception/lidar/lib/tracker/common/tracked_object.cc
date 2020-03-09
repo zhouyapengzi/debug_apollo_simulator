@@ -227,13 +227,17 @@ AINFO<<"(DMCZP) EnteringMethod: TrackedObject::ToObject";
 std::string TrackedObject::ToString() const {
 AINFO<<"(DMCZP) EnteringMethod: TrackedObject::ToString";
   // std::string txt;
-  // return txt;
+  // 
+  AINFO<<"(DMCZP) (return) LeaveMethod: TrackedObject::ToString";
+  return txt;
   std::ostringstream oos;
   oos << "obj id: " << object_ptr->id << ", track_id: " << object_ptr->track_id
       << ", bary_center: (" << barycenter[0] << "," << barycenter[1] << ","
       << barycenter[2] << ")"
       << ", lane_direction: (" << lane_direction[0] << "," << lane_direction[1]
       << "," << lane_direction[2] << ")";
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: TrackedObject::ToString";
   return oos.str();
 }
 

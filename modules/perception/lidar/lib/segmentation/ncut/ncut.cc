@@ -46,21 +46,31 @@ using apollo::cyber::common::GetAbsolutePath;
 using apollo::cyber::common::GetProtoFromFile;
 using Eigen::MatrixXf;
 
-NCut::NCut() {}
+NCut::NCut() {
+  AINFO<<"(DMCZP) EnteringMethod: NCut::NCut";
+
+  AINFO<<"(DMCZP) LeaveMethod: NCut::NCut";
+ }
 NCut::~NCut() { ADEBUG << "NCut destructor done"; }
 
 bool NCut::Init(const NCutParam &param) {
 AINFO<<"(DMCZP) EnteringMethod: NCut::Init";
   if (!Configure(param)) {
     AERROR << "failed to load ncut config.";
-    return false;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: NCut::Init";
+  return false;
   }
 
   _classifier.reset(new LRClassifier);
   if (!_classifier->init()) {
     AERROR << "failed to init FrameClassifierPipeline.";
-    return false;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: NCut::Init";
+  return false;
   }
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: NCut::Init";
   return true;
 }
 
@@ -83,6 +93,8 @@ AINFO<<"(DMCZP) EnteringMethod: NCut::Configure";
   _felzenszwalb_min_size = ncut_param_.felzenszwalb_min_size();
 
   AINFO << "NCut Parameters" << ncut_param_.DebugString();
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: NCut::Configure";
   return true;
 }
 
@@ -321,13 +333,17 @@ AINFO<<"(DMCZP) EnteringMethod: NCut::ComputeClusterBoundingBox";
   std::get<3>(box) = y_max;
   std::get<4>(box) = z_min;
   std::get<5>(box) = z_max;
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: NCut::ComputeClusterBoundingBox";
   return box;
 }
 
 std::string NCut::GetPcLabel(const base::PointFCloudPtr &cloud) {
 AINFO<<"(DMCZP) EnteringMethod: NCut::GetPcLabel";
   if (cloud->size() < OBSTACLE_MINIMUM_NUM_POINTS) {
-    return "unknown";
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: NCut::GetPcLabel";
+  return "unknown";
   }
   base::PointFCloudPtr rot_cloud(new base::PointFCloud);
   base::OrientCloud(*cloud, rot_cloud.get(), true);
@@ -339,6 +355,8 @@ AINFO<<"(DMCZP) EnteringMethod: NCut::GetPcLabel";
   if (label == "background") {
     label = "unknown";
   }
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: NCut::GetPcLabel";
   return label;
 }
 
@@ -350,13 +368,17 @@ AINFO<<"(DMCZP) EnteringMethod: NCut::NormalizedCut";
   std::vector<std::string> &segment_labels = *segment_labels_in;
   const int num_clusters = static_cast<int>(_cluster_points.size());
   if (num_clusters < 1) {
-    return;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: NCut::NormalizedCut";
+  return;
   }
   if (num_clusters == 1) {
     std::vector<int> tmp(1, 0);
     segment_clusters.push_back(tmp);
     segment_labels.push_back(_cluster_labels[0]);
-    return;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: NCut::NormalizedCut";
+  return;
   }
 #ifdef DEBUG_NCUT
   LOG_DEBUG << "\n+++++++++++++++++++++++++++++ input " << num_clusters
@@ -465,7 +487,9 @@ AINFO<<"(DMCZP) EnteringMethod: NCut::NormalizedCut";
     delete curr;
   }  // end of while
 #ifdef DEBUG_NCUT
-  std::cout << "graph cut return segments: " << std::endl;
+  std::cout << "graph cut 
+  AINFO<<"(DMCZP) (return) LeaveMethod: NCut::NormalizedCut";
+  return segments: " << std::endl;
   for (size_t i = 0; i < segment_clusters.size(); ++i) {
     std::cout << "seg " << i << ": ";
     for (size_t j = 0; j < segment_clusters[i].size(); ++j) {
@@ -477,7 +501,9 @@ AINFO<<"(DMCZP) EnteringMethod: NCut::NormalizedCut";
             << " segments from " << _cluster_points.size() << " clusters";
 // visualize_segments_from_cluster(segment_clusters);
 #endif
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: NCut::NormalizedCut";
+ }
 
 void NCut::ComputeSkeletonWeights(Eigen::MatrixXf *weights_in) {
 AINFO<<"(DMCZP) EnteringMethod: NCut::ComputeSkeletonWeights";
@@ -586,6 +612,8 @@ AINFO<<"(DMCZP) EnteringMethod: NCut::GetMinNcuts";
   }
   seg1->resize(num_seg1);
   seg2->resize(num_seg2);
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: NCut::GetMinNcuts";
   return opt_cost;
 }
 
@@ -668,7 +696,9 @@ bool NCut::ComputeSquaredSkeletonDistance(const Eigen::MatrixXf &in1_points,
 AINFO<<"(DMCZP) EnteringMethod: NCut::ComputeSquaredSkeletonDistance";
   if (!((in1_points.rows() == in1_features.rows()) &&
         (in2_points.rows() == in2_features.rows()))) {
-    return false;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: NCut::ComputeSquaredSkeletonDistance";
+  return false;
   }
   const int num1 = static_cast<int>(in1_points.rows());
   const int num2 = static_cast<int>(in2_points.rows());
@@ -699,6 +729,8 @@ AINFO<<"(DMCZP) EnteringMethod: NCut::ComputeSquaredSkeletonDistance";
                  in2_features.coeffRef(min_index2, i);
     *dist_feature += diff * diff;
   }
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: NCut::ComputeSquaredSkeletonDistance";
   return true;
 }
 
@@ -716,9 +748,13 @@ AINFO<<"(DMCZP) EnteringMethod: NCut::IsMovableObstacle";
       IsPotentialCarSize(length, width)) {
     *label = GetClustersLabel(cluster_ids);
     if (*label != "unknown" || *label != "background") {
-      return true;
+      
+  AINFO<<"(DMCZP) (return) LeaveMethod: NCut::IsMovableObstacle";
+  return true;
     }
   }
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: NCut::IsMovableObstacle";
   return false;
 }
 
@@ -728,6 +764,8 @@ AINFO<<"(DMCZP) EnteringMethod: NCut::GetClustersLabel";
   GetClustersPids(cluster_ids, &point_ids);
   base::PointFCloudPtr cloud =
       base::PointFCloudPtr(new base::PointFCloud(*_cloud_obstacles, point_ids));
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: NCut::GetClustersLabel";
   return GetPcLabel(cloud);
 }
 
@@ -754,7 +792,9 @@ int NCut::GetComponentBoundingBox(const std::vector<int> &cluster_ids,
 AINFO<<"(DMCZP) EnteringMethod: NCut::GetComponentBoundingBox";
   NcutBoundingBox &box = *box_in;
   if (cluster_ids.size() == 0) {
-    return 0;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: NCut::GetComponentBoundingBox";
+  return 0;
   }
   int cid = cluster_ids[0];
   float x_min = std::get<0>(_cluster_bounding_box[cid]);
@@ -780,6 +820,8 @@ AINFO<<"(DMCZP) EnteringMethod: NCut::GetComponentBoundingBox";
   std::get<3>(box) = y_max;
   std::get<4>(box) = z_min;
   std::get<5>(box) = z_max;
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: NCut::GetComponentBoundingBox";
   return num_points;
 }
 
@@ -787,7 +829,9 @@ std::string NCut::GetPcRoughLabel(const base::PointFCloudPtr &cloud,
                                   bool only_check_pedestrian) {
 AINFO<<"(DMCZP) EnteringMethod: NCut::GetPcRoughLabel";
   if (cloud->size() < OBSTACLE_MINIMUM_NUM_POINTS) {
-    return "unknown";
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: NCut::GetPcRoughLabel";
+  return "unknown";
   }
   float x_max = -FLT_MAX;
   float y_max = -FLT_MAX;
@@ -821,6 +865,8 @@ AINFO<<"(DMCZP) EnteringMethod: NCut::GetPcRoughLabel";
   if (is_candidate) {
     label = GetPcLabel(cloud);
   }
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: NCut::GetPcRoughLabel";
   return label;
 }
 

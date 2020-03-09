@@ -45,6 +45,8 @@ AINFO<<"(DMCZP) EnteringMethod: ROIBoundaryFilter::Init";
   confidence_threshold_ = config.confidence_threshold();
   cross_roi_threshold_ = config.cross_roi_threshold();
   inside_threshold_ = config.inside_threshold();
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: ROIBoundaryFilter::Init";
   return true;
 }
 
@@ -53,11 +55,15 @@ bool ROIBoundaryFilter::Filter(const ObjectFilterOptions& options,
 AINFO<<"(DMCZP) EnteringMethod: ROIBoundaryFilter::Filter";
   if (!frame) {
     AINFO << "Lidar frame is nullptr.";
-    return false;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: ROIBoundaryFilter::Filter";
+  return false;
   }
   if (!frame->hdmap_struct) {
     AINFO << "HDMap struct is nullptr.";
-    return true;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: ROIBoundaryFilter::Filter";
+  return true;
   }
   if (frame->hdmap_struct->road_boundary.size() +
           frame->hdmap_struct->road_polygons.size() +
@@ -67,7 +73,9 @@ AINFO<<"(DMCZP) EnteringMethod: ROIBoundaryFilter::Filter";
     for (auto& object : frame->segmented_objects) {
       object->lidar_supplement.is_in_roi = true;
     }
-    return true;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: ROIBoundaryFilter::Filter";
+  return true;
   }
   auto& objects = frame->segmented_objects;
   for (auto& obj : objects) {
@@ -95,6 +103,8 @@ AINFO<<"(DMCZP) EnteringMethod: ROIBoundaryFilter::Filter";
   objects.resize(count);
   AINFO << "Roi boundary filter, " << objects_valid_flag_.size() << " to "
         << count;
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: ROIBoundaryFilter::Filter";
   return true;
 }
 

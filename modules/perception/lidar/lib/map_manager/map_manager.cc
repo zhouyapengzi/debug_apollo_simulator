@@ -45,8 +45,12 @@ AINFO<<"(DMCZP) EnteringMethod: MapManager::Init";
   hdmap_input_ = map::HDMapInput::Instance();
   if (!hdmap_input_->Init()) {
     AINFO << "Failed to init hdmap input.";
-    return false;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: MapManager::Init";
+  return false;
   }
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: MapManager::Init";
   return true;
 }
 
@@ -54,14 +58,18 @@ bool MapManager::Update(const MapManagerOptions& options, LidarFrame* frame) {
 AINFO<<"(DMCZP) EnteringMethod: MapManager::Update";
   if (!frame) {
     AINFO << "Frame is nullptr.";
-    return false;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: MapManager::Update";
+  return false;
   }
   if (!(frame->hdmap_struct)) {
     frame->hdmap_struct.reset(new base::HdmapStruct);
   }
   if (!hdmap_input_) {
     AINFO << "Hdmap input is nullptr";
-    return false;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: MapManager::Update";
+  return false;
   }
   if (update_pose_) {
     if (!QueryPose(&(frame->lidar2world_pose))) {
@@ -80,11 +88,15 @@ AINFO<<"(DMCZP) EnteringMethod: MapManager::Update";
     frame->hdmap_struct->junction_polygons.clear();
     AINFO << "Failed to get roi from hdmap.";
   }
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: MapManager::Update";
   return true;
 }
 bool MapManager::QueryPose(Eigen::Affine3d* sensor2world_pose) const {
 AINFO<<"(DMCZP) EnteringMethod: MapManager::QueryPose";
   // TODO(...): map-based alignment to refine pose
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: MapManager::QueryPose";
   return false;
 }
 

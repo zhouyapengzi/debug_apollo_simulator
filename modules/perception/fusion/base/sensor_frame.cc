@@ -20,7 +20,11 @@ namespace apollo {
 namespace perception {
 namespace fusion {
 
-SensorFrame::SensorFrame() { header_.reset(new SensorFrameHeader()); }
+SensorFrame::SensorFrame() {
+  AINFO<<"(DMCZP) EnteringMethod: SensorFrame::SensorFrame";
+ header_.reset(new SensorFrameHeader()); 
+  AINFO<<"(DMCZP) LeaveMethod: SensorFrame::SensorFrame";
+ }
 
 SensorFrame::SensorFrame(const base::FrameConstPtr& base_frame_ptr) {
 AINFO<<"(DMCZP) EnteringMethod: SensorFrame::SensorFrame";
@@ -59,18 +63,26 @@ AINFO<<"(DMCZP) EnteringMethod: SensorFrame::Initialize";
 std::string SensorFrame::GetSensorId() const {
 AINFO<<"(DMCZP) EnteringMethod: SensorFrame::GetSensorId";
   if (header_ == nullptr) {
-    return std::string("");
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: SensorFrame::GetSensorId";
+  return std::string("");
   }
 
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: SensorFrame::GetSensorId";
   return header_->sensor_info.name;
 }
 
 base::SensorType SensorFrame::GetSensorType() const {
 AINFO<<"(DMCZP) EnteringMethod: SensorFrame::GetSensorType";
   if (header_ == nullptr) {
-    return base::SensorType::UNKNOWN_SENSOR_TYPE;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: SensorFrame::GetSensorType";
+  return base::SensorType::UNKNOWN_SENSOR_TYPE;
   }
 
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: SensorFrame::GetSensorType";
   return header_->sensor_info.type;
 }
 

@@ -57,6 +57,8 @@ AINFO<<"(DMCZP) EnteringMethod: Universe::Find";
     elts_[w].p = y;
     w = z;
   }
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: Universe::Find";
   return y;
 }
 

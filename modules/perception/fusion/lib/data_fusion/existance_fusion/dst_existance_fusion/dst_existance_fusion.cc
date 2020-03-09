@@ -42,14 +42,20 @@ DstExistanceFusionOptions DstExistanceFusion::options_;
 DstExistanceFusion::DstExistanceFusion(TrackPtr track)
     : BaseExistanceFusion(track),
       fused_toic_(toic_name_),
-      fused_existance_(name_) {}
+      fused_existance_(name_) {
+  AINFO<<"(DMCZP) EnteringMethod: DstExistanceFusion::DstExistanceFusion";
+
+  AINFO<<"(DMCZP) LeaveMethod: DstExistanceFusion::DstExistanceFusion";
+ }
 
 bool DstExistanceFusion::Init() {
 AINFO<<"(DMCZP) EnteringMethod: DstExistanceFusion::Init";
   BaseInitOptions options;
   if (!GetFusionInitOptions("DstExistanceFusion", &options)) {
     AERROR << "GetFusionInitOptions failed ";
-    return false;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: DstExistanceFusion::Init";
+  return false;
   }
 
   std::string woork_root_config = GetAbsolutePath(
@@ -60,7 +66,9 @@ AINFO<<"(DMCZP) EnteringMethod: DstExistanceFusion::Init";
 
   if (!cyber::common::GetProtoFromFile(config, &params)) {
     AERROR << "Read config failed: " << config;
-    return false;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: DstExistanceFusion::Init";
+  return false;
   }
   for (auto valid_dist : params.camera_valid_dist()) {
     std::string camera_id = valid_dist.camera_name();
@@ -81,9 +89,13 @@ AINFO<<"(DMCZP) EnteringMethod: DstExistanceFusion::Init";
   DstManager::Instance()->AddApp(toic_name_, toic_dst_maps_.fod_subsets_,
                                  toic_dst_maps_.subset_names_);
 
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: DstExistanceFusion::Init";
   return DstManager::Instance()->IsAppAdded(name_) &&
          DstManager::Instance()->IsAppAdded(toic_name_);
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: DstExistanceFusion::Init";
+ }
 
 void DstExistanceFusion::UpdateWithMeasurement(
     const SensorObjectPtr measurement, double target_timestamp,
@@ -183,7 +195,9 @@ AINFO<<"(DMCZP) EnteringMethod: DstExistanceFusion::ComputeDistDecay";
                                                        &sensor2world_pose);
   if (!status) {
     AERROR << "Failed to get pose";
-    return dist_decay;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: DstExistanceFusion::ComputeDistDecay";
+  return dist_decay;
   }
   Eigen::Matrix4d world2sensor_pose = sensor2world_pose.matrix().inverse();
   if (!world2sensor_pose.allFinite()) {
@@ -191,7 +205,9 @@ AINFO<<"(DMCZP) EnteringMethod: DstExistanceFusion::ComputeDistDecay";
                   "The obtained camera pose is invalid. sensor_id : %s"
                   " timestamp %16.6f") %
                   sensor_id % timestamp;
-    return dist_decay;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: DstExistanceFusion::ComputeDistDecay";
+  return dist_decay;
   }
   Eigen::Vector3d obj_ct = obj->center;
   Eigen::Vector3d obj_ct_local =
@@ -200,6 +216,8 @@ AINFO<<"(DMCZP) EnteringMethod: DstExistanceFusion::ComputeDistDecay";
   if (distance > 60) {
     dist_decay = 0.8;
   }
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: DstExistanceFusion::ComputeDistDecay";
   return dist_decay;
 }
 
@@ -207,7 +225,9 @@ double DstExistanceFusion::ComputeFeatureInfluence(
     const SensorObjectPtr measurement) {
   double velocity = measurement->GetBaseObject()->velocity.norm();
   auto sigmoid_fun = [](double velocity) {
-    return 1.0 / (1.0 + exp(-velocity));
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: DstExistanceFusion::ComputeFeatureInfluence";
+  return 1.0 / (1.0 + exp(-velocity));
   };
   double velocity_fact = sigmoid_fun(velocity);
   velocity_fact = velocity > 4.0 ? velocity_fact : 0.0;
@@ -215,6 +235,8 @@ double DstExistanceFusion::ComputeFeatureInfluence(
   ADEBUG << " sensor_id: " << measurement->GetSensorId()
          << " velocity: " << velocity << " velocity_fact: " << velocity_fact
          << " confidence: " << confidence;
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: DstExistanceFusion::ComputeFeatureInfluence";
   return velocity_fact * confidence;
 }
 
@@ -227,11 +249,17 @@ double DstExistanceFusion::GetExistReliability(
   common::SensorManager *sensor_manager = common::SensorManager::Instance();
   CHECK_NOTNULL(sensor_manager);
   if (sensor_manager->IsCamera(measurement->GetSensorId())) {
-    return 0.8 * unknown_ratio;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: DstExistanceFusion::GetExistReliability";
+  return 0.8 * unknown_ratio;
   }
   if (sensor_manager->IsLidar(measurement->GetSensorId())) {
-    return 0.9 * unknown_ratio;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: DstExistanceFusion::GetExistReliability";
+  return 0.9 * unknown_ratio;
   }
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: DstExistanceFusion::GetExistReliability";
   return 0.6;
 }
 
@@ -240,11 +268,17 @@ AINFO<<"(DMCZP) EnteringMethod: DstExistanceFusion::GetUnexistReliability";
   common::SensorManager *sensor_manager = common::SensorManager::Instance();
   CHECK_NOTNULL(sensor_manager);
   if (sensor_manager->IsCamera(sensor_id)) {
-    return 0.8;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: DstExistanceFusion::GetUnexistReliability";
+  return 0.8;
   }
   if (sensor_manager->IsLidar(sensor_id)) {
-    return 0.9;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: DstExistanceFusion::GetUnexistReliability";
+  return 0.9;
   }
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: DstExistanceFusion::GetUnexistReliability";
   return 0.6;
 }
 
@@ -348,7 +382,13 @@ AINFO<<"(DMCZP) EnteringMethod: DstExistanceFusion::UpdateToicWithCameraMeasurem
   fused_toic_ = fused_toic_ + toic_evidence * toic_fused_w * in_view_ratio;
 }
 
-std::string DstExistanceFusion::Name() const { return name_; }
+std::string DstExistanceFusion::Name() const {
+  AINFO<<"(DMCZP) EnteringMethod: DstExistanceFusion::Name";
+ 
+  AINFO<<"(DM
+  AINFO<<"(DMCZP) LeaveMethod: DstExistanceFusion::Name";
+ CZP) (return) LeaveMethod: DstExistanceFusion::Name";
+  return name_; }
 
 double DstExistanceFusion::GetExistanceProbability() const {
 AINFO<<"(DMCZP) EnteringMethod: DstExistanceFusion::GetExistanceProbability";
@@ -357,6 +397,8 @@ AINFO<<"(DMCZP) EnteringMethod: DstExistanceFusion::GetExistanceProbability";
   fused_existance_.ComputeProbability();
   const std::vector<double> &existance_probs_vec =
       fused_existance_.GetProbabilityVec();
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: DstExistanceFusion::GetExistanceProbability";
   return existance_probs_vec[toic_ind];
 }
 
@@ -366,6 +408,8 @@ AINFO<<"(DMCZP) EnteringMethod: DstExistanceFusion::GetToicProbability";
                                                            ToicDstMaps::TOIC);
   fused_toic_.ComputeProbability();
   const std::vector<double> &toic_probs_vec = fused_toic_.GetProbabilityVec();
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: DstExistanceFusion::GetToicProbability";
   return toic_probs_vec[toic_ind];
 }
 
@@ -382,13 +426,17 @@ AINFO<<"(DMCZP) EnteringMethod: DstExistanceFusion::UpdateExistanceState";
     } else {
       p = 0.5 - (0.5 - p) * (0.5 - min_p) / 0.5;
     }
-    return p;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: DstExistanceFusion::UpdateExistanceState";
+  return p;
   };
   // TODO(yuantingrong): hard code
   const double max_p = 0.8;
   const double min_p = 0.2;
   double toic_score = scale_probability(toic_p, max_p, min_p);
-  // when this fused object have lidar object, just return 1.0
+  // when this fused object have lidar object, just 
+  AINFO<<"(DMCZP) (return) LeaveMethod: DstExistanceFusion::UpdateExistanceState";
+  return 1.0
   // which means wen do not want introducing historical information
   // to affect the association, but when this fused object have just
   // radar object, we want using the historical information to filter
@@ -404,7 +452,9 @@ AINFO<<"(DMCZP) EnteringMethod: DstExistanceFusion::UpdateExistanceState";
                   track_ref_->GetTrackId();
     toic_score_ = 0.5;
   }
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: DstExistanceFusion::UpdateExistanceState";
+ }
 
 }  // namespace fusion
 }  // namespace perception

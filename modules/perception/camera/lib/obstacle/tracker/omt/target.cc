@@ -29,9 +29,19 @@ namespace perception {
 namespace camera {
 
 int Target::global_track_id = 0;
-int Target::Size() const { return static_cast<int>(tracked_objects.size()); }
+int Target::Size() const {
+  AINFO<<"(DMCZP) EnteringMethod: Target::Size";
+ 
+  AINFO<<"(DMCZP) (return) LeaveMethod: Target::
+  AINFO<<"(DMCZP) LeaveMethod: Target::Size";
+ Size";
+  return static_cast<int>(tracked_objects.size()); }
 
-void Target::Clear() { tracked_objects.clear(); }
+void Target::Clear() {
+  AINFO<<"(DMCZP) EnteringMethod: Target::Clear";
+ tracked_objects.clear(); 
+  AINFO<<"(DMCZP) LeaveMethod: Target::Clear";
+ }
 
 TrackObjectPtr Target::operator[](int index) const { return get_object(index); }
 TrackObjectPtr Target::get_object(int index) const {
@@ -39,9 +49,13 @@ AINFO<<"(DMCZP) EnteringMethod: Target::get_object";
   CHECK_GT(tracked_objects.size(), 0);
   CHECK_LT(index, static_cast<int>(tracked_objects.size()));
   CHECK_GE(index, -static_cast<int>(tracked_objects.size()));
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: Target::get_object";
   return tracked_objects[(index + tracked_objects.size()) %
                          tracked_objects.size()];
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: Target::get_object";
+ }
 void Target::Add(TrackObjectPtr object) {
 AINFO<<"(DMCZP) EnteringMethod: Target::Add";
   if (tracked_objects.empty()) {
@@ -105,7 +119,11 @@ AINFO<<"(DMCZP) EnteringMethod: Target::Init";
   // Init object template
   object_template_manager_ = ObjectTemplateManager::Instance();
 }
-Target::Target(const omt::TargetParam &param) { Init(param); }
+Target::Target(const omt::TargetParam &param) {
+  AINFO<<"(DMCZP) EnteringMethod: Target::Target";
+ Init(param); 
+  AINFO<<"(DMCZP) LeaveMethod: Target::Target";
+ }
 
 void Target::Predict(CameraFrame *frame) {
 
@@ -114,7 +132,9 @@ void Target::Predict(CameraFrame *frame) {
   auto delta_t =
       static_cast<float>(frame->timestamp - latest_object->timestamp);
   if (delta_t < 0) {
-    return;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: Target::Predict";
+  return;
   }
 
    AINFO<<"(pengzi) predict image_center. in method: Target::Predict(CameraFrame *frame). thread:"<< std::this_thread::get_id();
@@ -138,7 +158,9 @@ void Target::Predict(CameraFrame *frame) {
   world_center_const.Predict(delta_t);
 
   AINFO<<"(pengzi)finish predict target. thread:"<< std::this_thread::get_id();
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: Target::Predict";
+ }
 
 void Target::Update2D(CameraFrame *frame) {
 AINFO<<"(DMCZP) EnteringMethod: Target::Update2D";
@@ -386,7 +408,9 @@ AINFO<<"(DMCZP) EnteringMethod: Target::ClappingTrackVelocity";
                 " abnormal_velocity_heading_angle_threshold : "
              << target_param_.abnormal_velocity_heading_angle_threshold();
       obj->velocity = Eigen::Vector3f::Zero();
-      return;
+      
+  AINFO<<"(DMCZP) (return) LeaveMethod: Target::ClappingTrackVelocity";
+  return;
     }
   }
 
@@ -394,9 +418,13 @@ AINFO<<"(DMCZP) EnteringMethod: Target::ClappingTrackVelocity";
   if (CheckStatic()) {
     ADEBUG << "omt set zero velocity because of small speed.";
     obj->velocity = Eigen::Vector3f::Zero();
-    return;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: Target::ClappingTrackVelocity";
+  return;
   }
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: Target::ClappingTrackVelocity";
+ }
 
 /*
  * 1. check small speed
@@ -407,7 +435,9 @@ bool Target::CheckStatic() {
 AINFO<<"(DMCZP) EnteringMethod: Target::CheckStatic";
   if (static_cast<int>(history_world_states_.size()) <
       target_param_.min_cached_world_state_history_size()) {
-    return false;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: Target::CheckStatic";
+  return false;
   }
 
   // 1. Check small speed
@@ -425,7 +455,9 @@ AINFO<<"(DMCZP) EnteringMethod: Target::CheckStatic";
                       [](const base::Object &obj1, const base::Object &obj2) {
                         base::Object ret_obj;
                         ret_obj.velocity = obj1.velocity + obj2.velocity;
-                        return ret_obj;
+                        
+  AINFO<<"(DMCZP) (return) LeaveMethod: Target::CheckStatic";
+  return ret_obj;
                       });
   tmp_obj_vel_avg.velocity /= static_cast<float>(min_vel_size);
   double speed_avg = tmp_obj_vel_avg.velocity.head(2).norm();
@@ -437,7 +469,9 @@ AINFO<<"(DMCZP) EnteringMethod: Target::CheckStatic";
     small_speed = speed_avg < target_param_.static_speed_threshold();
   }
   if (small_speed) {
-    return true;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: Target::CheckStatic";
+  return true;
   }
 
   // 2. Check small moved distance
@@ -480,7 +514,9 @@ AINFO<<"(DMCZP) EnteringMethod: Target::CheckStatic";
     }
   }
   if (not_move) {
-    return true;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: Target::CheckStatic";
+  return true;
   }
 
   // 3. Check velocity theta's variance
@@ -489,23 +525,37 @@ AINFO<<"(DMCZP) EnteringMethod: Target::CheckStatic";
                      min_vel_size,
                  history_world_states_.end(), theta_vec.begin(),
                  [](const base::Object &obj) -> double {
-                   return std::atan2(obj.velocity[1], obj.velocity[0]);
+                   
+  AINFO<<"(DMCZP) (return) LeaveMethod: Target::CheckStatic";
+  return std::atan2(obj.velocity[1], obj.velocity[0]);
                  });
   double mean = 0.0;
   double var = 0.0;
   CalculateMeanAndVariance(theta_vec, &mean, &var);
   double stddev = std::sqrt(var);
   if (stddev > target_param_.velocity_theta_var()) {  // 28.64 degree
-    return true;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: Target::CheckStatic";
+  return true;
   }
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: Target::CheckStatic";
   return false;
 }
 
 bool Target::isTracked() const {
 AINFO<<"(DMCZP) EnteringMethod: Target::isTracked";
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: Target::isTracked";
   return Size() >= target_param_.tracked_life();
 }
-bool Target::isLost() const { return lost_age > 0; }
+bool Target::isLost() const {
+  AINFO<<"(DMCZP) EnteringMethod: Target::isLost";
+ 
+  AINFO<<"(DMCZP) (r
+  AINFO<<"(DMCZP) LeaveMethod: Target::isLost";
+ eturn) LeaveMethod: Target::isLost";
+  return lost_age > 0; }
 
 }  // namespace camera
 }  // namespace perception

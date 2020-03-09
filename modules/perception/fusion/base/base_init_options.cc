@@ -30,10 +30,14 @@ AINFO<<"(DMCZP) EnteringMethod: GetFusionInitOptions";
   const lib::ModelConfig* model_config = nullptr;
   if (!lib::ConfigManager::Instance()->GetModelConfig(module_name,
                                                       &model_config)) {
-    return false;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: GetFusionInitOptions";
+  return false;
   }
   bool state = model_config->get_value("root_dir", &(options->root_dir)) &&
                model_config->get_value("config_file", &(options->conf_file));
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: GetFusionInitOptions";
   return state;
 }
 

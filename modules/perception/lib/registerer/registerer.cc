@@ -24,6 +24,8 @@ namespace lib {
 BaseClassMap &GlobalFactoryMap() {
 AINFO<<"(DMCZP) EnteringMethod: &GlobalFactoryMap";
   static BaseClassMap factory_map;
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: &GlobalFactoryMap";
   return factory_map;
 }
 
@@ -36,11 +38,15 @@ AINFO<<"(DMCZP) EnteringMethod: GetRegisteredClasses";
   auto iter = map.find(base_class_name);
   if (iter == map.end()) {
     AERROR << "class not registered:" << base_class_name;
-    return false;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: GetRegisteredClasses";
+  return false;
   }
   for (auto pair : iter->second) {
     registered_derived_classes_names->push_back(pair.first);
   }
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: GetRegisteredClasses";
   return true;
 }
 

@@ -480,7 +480,9 @@ AINFO<<"(DMCZP) EnteringMethod: RTNet::loadWeights";
   NetParameter net;
   if (!ReadProtoFromBinaryFile(model_file.c_str(), &net)) {
     AFATAL << "open file " << model_file << " failed";
-    return false;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: RTNet::loadWeights";
+  return false;
   }
   for (int i = 0; i < net.layer_size(); i++) {
     std::vector<nvinfer1::Weights> lw;
@@ -499,6 +501,8 @@ AINFO<<"(DMCZP) EnteringMethod: RTNet::loadWeights";
     }
     (*weight_map)[net.layer(i).name().c_str()] = lw;
   }
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: RTNet::loadWeights";
   return true;
 }
 void RTNet::mergeBN(int index, LayerParameter *layer_param) {
@@ -539,6 +543,8 @@ AINFO<<"(DMCZP) EnteringMethod: RTNet::loadLayerWeights";
   }
   wt.values = val.get();
   wt.count = size;
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: RTNet::loadLayerWeights";
   return wt;
 }
 nvinfer1::Weights RTNet::loadLayerWeights(float data, int size) {
@@ -552,6 +558,8 @@ AINFO<<"(DMCZP) EnteringMethod: RTNet::loadLayerWeights";
   }
   wt.values = val.get();
   wt.count = size;
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: RTNet::loadLayerWeights";
   return wt;
 }
 
@@ -595,11 +603,15 @@ AINFO<<"(DMCZP) EnteringMethod: RTNet::shape";
   auto engine = &(context_->getEngine());
   if (tensor_modify_map_.find(name) == tensor_modify_map_.end()) {
     AINFO << "can't get the shape of " << name;
-    return false;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: RTNet::shape";
+  return false;
   }
   int bindingIndex = engine->getBindingIndex(tensor_modify_map_[name].c_str());
   if (bindingIndex > static_cast<int>(buffers_.size())) {
-    return false;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: RTNet::shape";
+  return false;
   }
   nvinfer1::DimsCHW dims = static_cast<nvinfer1::DimsCHW &&>(
       engine->getBindingDimensions(bindingIndex));
@@ -608,6 +620,8 @@ AINFO<<"(DMCZP) EnteringMethod: RTNet::shape";
   (*res)[1] = dims.c();
   (*res)[2] = dims.h();
   (*res)[3] = dims.w();
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: RTNet::shape";
   return true;
 }
 void RTNet::init_blob(std::vector<std::string> *names) {
@@ -636,7 +650,9 @@ bool RTNet::Init(const std::map<std::string, std::vector<int>> &shapes) {
 AINFO<<"(DMCZP) EnteringMethod: RTNet::Init";
   if (gpu_id_ < 0) {
     AINFO << "must use gpu mode";
-    return false;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: RTNet::Init";
+  return false;
   }
   BASE_CUDA_CHECK(cudaSetDevice(gpu_id_));
   // stream will only be destoried for gpu_id_ >= 0
@@ -665,6 +681,8 @@ AINFO<<"(DMCZP) EnteringMethod: RTNet::Init";
   buffers_.resize(input_names_.size() + output_names_.size());
   init_blob(&input_names_);
   init_blob(&output_names_);
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: RTNet::Init";
   return true;
 }
 bool RTNet::checkInt8(const std::string &gpu_name,
@@ -672,16 +690,22 @@ bool RTNet::checkInt8(const std::string &gpu_name,
 AINFO<<"(DMCZP) EnteringMethod: RTNet::checkInt8";
   if (calibrator == nullptr) {
     AINFO << "Device Works on FP32 Mode.";
-    return false;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: RTNet::checkInt8";
+  return false;
   }
   for (auto ref : _gpu_checklist) {
     if (ref == gpu_name) {
       AINFO << "Device Works on Int8 Mode.";
-      return true;
+      
+  AINFO<<"(DMCZP) (return) LeaveMethod: RTNet::checkInt8";
+  return true;
     }
   }
   AWARN << "Device Not Supports Int8 Mode. Use FP32 Mode.";
   calibrator_ = nullptr;
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: RTNet::checkInt8";
   return false;
 }
 bool RTNet::addInput(const TensorDimsMap &tensor_dims_map,
@@ -707,6 +731,8 @@ AINFO<<"(DMCZP) EnteringMethod: RTNet::addInput";
     tensor_map->insert(std::make_pair(dims_pair.first, data));
     input_names_.push_back(dims_pair.first);
   }
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: RTNet::addInput";
   return true;
 }
 

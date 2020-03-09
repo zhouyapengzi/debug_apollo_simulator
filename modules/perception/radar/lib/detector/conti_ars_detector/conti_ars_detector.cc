@@ -22,7 +22,13 @@ namespace apollo {
 namespace perception {
 namespace radar {
 
-bool ContiArsDetector::Init() { return true; }
+bool ContiArsDetector::Init() {
+  AINFO<<"(DMCZP) EnteringMethod: ContiArsDetector::Init";
+ 
+  AINFO<<"(D
+  AINFO<<"(DMCZP) LeaveMethod: ContiArsDetector::Init";
+ MCZP) (return) LeaveMethod: ContiArsDetector::Init";
+  return true; }
 
 bool ContiArsDetector::Detect(const drivers::ContiRadar& corrected_obstacles,
                               const DetectorOptions& options,
@@ -31,10 +37,18 @@ AINFO<<"(DMCZP) EnteringMethod: ContiArsDetector::Detect";
   RawObs2Frame(corrected_obstacles, options, radar_frame);
   radar_frame->timestamp = corrected_obstacles.header().timestamp_sec();
   radar_frame->sensor2world_pose = *(options.radar2world_pose);
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: ContiArsDetector::Detect";
   return true;
 }
 
-std::string ContiArsDetector::Name() const { return "ContiArsDetector"; }
+std::string ContiArsDetector::Name() const {
+  AINFO<<"(DMCZP) EnteringMethod: ContiArsDetector::Name";
+ 
+  AINFO<<"(DMCZP) (return)
+  AINFO<<"(DMCZP) LeaveMethod: ContiArsDetector::Name";
+  LeaveMethod: ContiArsDetector::Name";
+  return "ContiArsDetector"; }
 
 void ContiArsDetector::RawObs2Frame(
     const drivers::ContiRadar& corrected_obstacles,

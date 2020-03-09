@@ -93,7 +93,9 @@ bool MlfTrackData::ToObject(const Eigen::Vector3d& local_to_global_offset,
                             double timestamp, base::ObjectPtr object) const {
 AINFO<<"(DMCZP) EnteringMethod: MlfTrackData::ToObject";
   if (history_objects_.empty()) {
-    return false;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: MlfTrackData::ToObject";
+  return false;
   }
   auto latest_iter = history_objects_.rbegin();
   const double latest_time = latest_iter->first;
@@ -129,13 +131,17 @@ AINFO<<"(DMCZP) EnteringMethod: MlfTrackData::ToObject";
     pt.y += offset_y;
     pt.z += offset_z;
   }
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: MlfTrackData::ToObject";
   return true;
 }
 
 void MlfTrackData::PredictState(double timestamp) const {
 AINFO<<"(DMCZP) EnteringMethod: MlfTrackData::PredictState";
   if (history_objects_.empty()) {
-    return;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: MlfTrackData::PredictState";
+  return;
   }
   auto latest_iter = history_objects_.rbegin();
   const double latest_time = latest_iter->first;
@@ -159,7 +165,9 @@ AINFO<<"(DMCZP) EnteringMethod: MlfTrackData::PredictState";
 
   predict_.timestamp = timestamp;
   // TODO(.): predict cloud and polygon if needed in future.
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: MlfTrackData::PredictState";
+ }
 
 void MlfTrackData::GetAndCleanCachedObjectsInTimeInterval(
     std::vector<TrackedObjectPtr>* objects) {

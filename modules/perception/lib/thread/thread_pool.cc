@@ -60,7 +60,11 @@ AINFO<<"(DMCZP) EnteringMethod: ThreadPool::Start";
   started_ = true;
 }
 
-void ThreadPool::Add(Closure *closure) { task_queue_.Push(closure); }
+void ThreadPool::Add(Closure *closure) {
+  AINFO<<"(DMCZP) EnteringMethod: ThreadPool::Add";
+ task_queue_.Push(closure); 
+  AINFO<<"(DMCZP) LeaveMethod: ThreadPool::Add";
+ }
 
 void ThreadPool::Add(const vector<Closure *> &closures) {
 AINFO<<"(DMCZP) EnteringMethod: ThreadPool::Add";

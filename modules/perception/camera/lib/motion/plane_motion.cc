@@ -151,15 +151,21 @@ AINFO<<"(DMCZP) EnteringMethod: PlaneMotion::find_motion_with_timestamp";
     if (std::abs(rit->time_ts - timestamp) <
         std::numeric_limits<double>::epsilon()) {
       *vs = *rit;
-      return true;
+      
+  AINFO<<"(DMCZP) (return) LeaveMethod: PlaneMotion::find_motion_with_timestamp";
+  return true;
     }
   }
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: PlaneMotion::find_motion_with_timestamp";
   return false;
 }
 
 base::MotionBuffer PlaneMotion::get_buffer() {
 AINFO<<"(DMCZP) EnteringMethod: PlaneMotion::get_buffer";
   std::lock_guard<std::mutex> lock(mutex_);
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: PlaneMotion::get_buffer";
   return *mot_buffer_;
 }
 
@@ -194,7 +200,9 @@ AINFO<<"(DMCZP) EnteringMethod: PlaneMotion::add_new_motion";
         break;
       default:
         AERROR << "motion operation flag:wrong type";
-        return;
+        
+  AINFO<<"(DMCZP) (return) LeaveMethod: PlaneMotion::add_new_motion";
+  return;
     }
   } else {
     mot_buffer_->clear();
@@ -205,7 +213,9 @@ AINFO<<"(DMCZP) EnteringMethod: PlaneMotion::add_new_motion";
     ADEBUG << "pop and rest raw_buffer, mot_buffer: "
            << raw_motion_queue_.size();
   }
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: PlaneMotion::add_new_motion";
+ }
 }  // namespace camera
 }  // namespace perception
 }  // namespace apollo

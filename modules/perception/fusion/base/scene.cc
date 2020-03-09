@@ -20,7 +20,11 @@ namespace apollo {
 namespace perception {
 namespace fusion {
 
-Scene::Scene() {}
+Scene::Scene() {
+  AINFO<<"(DMCZP) EnteringMethod: Scene::Scene";
+
+  AINFO<<"(DMCZP) LeaveMethod: Scene::Scene";
+ }
 
 Scene::~Scene() {}
 

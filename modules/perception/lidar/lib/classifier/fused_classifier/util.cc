@@ -93,21 +93,29 @@ AINFO<<"(DMCZP) EnteringMethod: LoadSingleMatrix";
       fin >> (*matrix)(row, col);
     }
   }
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: LoadSingleMatrix";
   return true;
 }
 
 bool LoadSingleMatrixFile(const std::string& filename, Matrixd* matrix) {
 AINFO<<"(DMCZP) EnteringMethod: LoadSingleMatrixFile";
   if (matrix == nullptr) {
-    return false;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: LoadSingleMatrixFile";
+  return false;
   }
   std::ifstream fin(filename);
   if (!fin.is_open()) {
     AERROR << "Fail to open file: " << filename;
-    return false;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: LoadSingleMatrixFile";
+  return false;
   }
   LoadSingleMatrix(fin, matrix);
   fin.close();
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: LoadSingleMatrixFile";
   return true;
 }
 
@@ -115,12 +123,16 @@ bool LoadMultipleMatricesFile(const std::string& filename,
                               std::map<std::string, Matrixd>* matrices) {
 AINFO<<"(DMCZP) EnteringMethod: LoadMultipleMatricesFile";
   if (matrices == nullptr) {
-    return false;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: LoadMultipleMatricesFile";
+  return false;
   }
   std::ifstream fin(filename);
   if (!fin.is_open()) {
     AERROR << "Fail to open file: " << filename;
-    return false;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: LoadMultipleMatricesFile";
+  return false;
   }
   matrices->clear();
   size_t num = 0;
@@ -133,6 +145,8 @@ AINFO<<"(DMCZP) EnteringMethod: LoadMultipleMatricesFile";
     matrices->emplace(name, matrix);
   }
   fin.close();
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: LoadMultipleMatricesFile";
   return true;
 }
 

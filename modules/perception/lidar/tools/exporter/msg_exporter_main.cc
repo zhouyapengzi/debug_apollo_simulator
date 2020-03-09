@@ -30,7 +30,9 @@ bool config_parser(const std::string& config_file,
 AINFO<<"(DMCZP) EnteringMethod: config_parser";
   std::ifstream fin(config_file);
   if (!fin.is_open()) {
-    return false;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: config_parser";
+  return false;
   }
   channels->clear();
   child_frame_ids->clear();
@@ -56,6 +58,8 @@ AINFO<<"(DMCZP) EnteringMethod: config_parser";
     std::cout << "\t\tRead channel " << channels->at(i) << " child_frame_id "
               << child_frame_ids->at(i) << std::endl;
   }
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: config_parser";
   return true;
 }
 }  // namespace lidar
@@ -66,7 +70,9 @@ int main(int argc, char** argv) {
 AINFO<<"(DMCZP) EnteringMethod: main";
   if (argc < 2) {
     std::cout << "export_msgs config_file" << std::endl;
-    return -1;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: main";
+  return -1;
   }
   // apollo::cyber::Logger::Init(argv[0]);
   apollo::cyber::Init(argv[0]);  // cybertron init function
@@ -74,7 +80,9 @@ AINFO<<"(DMCZP) EnteringMethod: main";
       apollo::cyber::CreateNode("export_node"));
   if (!node) {
     std::cout << "Failed to create export node." << std::endl;
-    return -1;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: main";
+  return -1;
   }
   std::vector<std::string> channels;
   std::vector<std::string> child_frame_ids;
@@ -82,12 +90,16 @@ AINFO<<"(DMCZP) EnteringMethod: main";
   if (!apollo::perception::lidar::config_parser(argv[1], &channels,
                                                 &child_frame_ids)) {
     std::cout << "Failed to read config file" << std::endl;
-    return -1;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: main";
+  return -1;
   }
   apollo::perception::lidar::MsgExporter msg_exporter(node, channels,
                                                       child_frame_ids);
   while (apollo::cyber::OK()) {
     sleep(1);
   }
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: main";
   return 0;
 }

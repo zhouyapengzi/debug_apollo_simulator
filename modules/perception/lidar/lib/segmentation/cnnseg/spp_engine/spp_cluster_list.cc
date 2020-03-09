@@ -70,13 +70,17 @@ AINFO<<"(DMCZP) EnteringMethod: SppClusterList::HeightCut";
     }
   }
   AINFO << "Split " << count << " clusters in 3d";
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: SppClusterList::HeightCut";
   return count;
 }
 
 bool SppClusterList::ComputeHeightAndSplitCluster(size_t id, float max_gap) {
 AINFO<<"(DMCZP) EnteringMethod: SppClusterList::ComputeHeightAndSplitCluster";
   if (id >= clusters_.size()) {
-    return false;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: SppClusterList::ComputeHeightAndSplitCluster";
+  return false;
   }
 
   clusters_[id]->SortPoint();
@@ -111,9 +115,13 @@ AINFO<<"(DMCZP) EnteringMethod: SppClusterList::ComputeHeightAndSplitCluster";
       size_t split_index = split_indices[max_index + 1];
       points.resize(split_index);
       indices.resize(split_index);
-      return true;
+      
+  AINFO<<"(DMCZP) (return) LeaveMethod: SppClusterList::ComputeHeightAndSplitCluster";
+  return true;
     }
   }
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: SppClusterList::ComputeHeightAndSplitCluster";
   return false;
 }
 
@@ -134,11 +142,15 @@ AINFO<<"(DMCZP) EnteringMethod: SppClusterList::RemoveEmptyClusters";
 void SppClusterList::EraseCluster(size_t id) {
 AINFO<<"(DMCZP) EnteringMethod: SppClusterList::EraseCluster";
   if (clusters_.size() <= id) {
-    return;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: SppClusterList::EraseCluster";
+  return;
   }
   clusters_[id] = clusters_.back();
   clusters_.resize(clusters_.size() - 1);
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: SppClusterList::EraseCluster";
+ }
 
 }  // namespace lidar
 }  // namespace perception

@@ -83,6 +83,8 @@ AINFO<<"(DMCZP) EnteringMethod: LidarObstacleSegmentation::Init";
     CHECK(filter_bank_.Init(filter_bank_init_options));
   }
 
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: LidarObstacleSegmentation::Init";
   return true;
 }
 
@@ -95,11 +97,23 @@ AINFO<<"(DMCZP) EnteringMethod: LidarObstacleSegmentation::ProcessCommon";
   preprocessor_options.sensor2novatel_extrinsics =
       options.sensor2novatel_extrinsics;
   if (cloud_preprocessor_.Preprocess(preprocessor_options, frame)) {
-    return ProcessCommon(options, frame);
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: LidarObstacleSegmentation::Process";
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: LidarObstacleSegmentation::Process";
+  return ProcessCommon(options, frame);
   }
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: LidarObstacleSegmentation::Process";
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: LidarObstacleSegmentation::Process";
   return LidarProcessResult(LidarErrorCode::PointCloudPreprocessorError,
                             "Failed to preprocess point cloud.");
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: LidarObstacleSegmentation::Process";
+ 
+  AINFO<<"(DMCZP) LeaveMethod: LidarObstacleSegmentation::Process";
+ }
 
 LidarProcessResult LidarObstacleSegmentation::Process(
     const LidarObstacleSegmentationOptions& options,
@@ -129,7 +143,9 @@ LidarProcessResult LidarObstacleSegmentation::ProcessCommon(
   if (use_map_manager_) {
     MapManagerOptions map_manager_options;
     if (!map_manager_.Update(map_manager_options, frame)) {
-      return LidarProcessResult(LidarErrorCode::MapManagerError,
+      
+  AINFO<<"(DMCZP) (return) LeaveMethod: LidarObstacleSegmentation::ProcessCommon";
+  return LidarProcessResult(LidarErrorCode::MapManagerError,
                                 "Failed to update map structure.");
     }
   }
@@ -137,25 +153,33 @@ LidarProcessResult LidarObstacleSegmentation::ProcessCommon(
 
   SegmentationOptions segmentation_options;
   if (!segmentor_->Segment(segmentation_options, frame)) {
-    return LidarProcessResult(LidarErrorCode::SegmentationError,
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: LidarObstacleSegmentation::ProcessCommon";
+  return LidarProcessResult(LidarErrorCode::SegmentationError,
                               "Failed to segment.");
   }
   PERCEPTION_PERF_BLOCK_END_WITH_INDICATOR(sensor_name, "segmentation");
 
   ObjectBuilderOptions builder_options;
   if (!builder_.Build(builder_options, frame)) {
-    return LidarProcessResult(LidarErrorCode::ObjectBuilderError,
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: LidarObstacleSegmentation::ProcessCommon";
+  return LidarProcessResult(LidarErrorCode::ObjectBuilderError,
                               "Failed to build objects.");
   }
   PERCEPTION_PERF_BLOCK_END_WITH_INDICATOR(sensor_name, "object_builder");
 
   ObjectFilterOptions filter_options;
   if (!filter_bank_.Filter(filter_options, frame)) {
-    return LidarProcessResult(LidarErrorCode::ObjectFilterError,
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: LidarObstacleSegmentation::ProcessCommon";
+  return LidarProcessResult(LidarErrorCode::ObjectFilterError,
                               "Failed to filter objects.");
   }
   PERCEPTION_PERF_BLOCK_END_WITH_INDICATOR(sensor_name, "filter_bank");
 
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: LidarObstacleSegmentation::ProcessCommon";
   return LidarProcessResult(LidarErrorCode::Succeed);
 }
 

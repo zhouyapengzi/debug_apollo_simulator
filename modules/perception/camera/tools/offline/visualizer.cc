@@ -80,6 +80,8 @@ AINFO<<"(DMCZP) EnteringMethod: Camera2CarHomograph";
 
   H.block(0, 0, 3, 2) = (K * R.transpose()).block(0, 0, 3, 2);
   H.block(0, 2, 3, 1) = -K * R.transpose() * T;
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: Camera2CarHomograph";
   return H.inverse();
 }
 
@@ -100,6 +102,8 @@ AINFO<<"(DMCZP) EnteringMethod: Visualizer::Init";
   world_image_ = cv::Mat(world_h_, wide_pixel_, CV_8UC3, cv::Scalar(0, 0, 0));
   color_cipv_ = cv::Scalar(255, 255, 255);
   virtual_lane_color_ = cv::Scalar(0, 0, 255);
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: Visualizer::Init";
   return true;
 }
 
@@ -211,6 +215,8 @@ AINFO<<"(DMCZP) EnteringMethod: Visualizer::Init_all_info_single_camera";
 
   reset_key();
 
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: Visualizer::Init_all_info_single_camera";
   return true;
 }
 
@@ -288,17 +294,23 @@ AINFO<<"(DMCZP) EnteringMethod: Visualizer::adjust_angles";
 
   // homography_image2ground_ = homography_ground2image_.inverse();
 
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: Visualizer::adjust_angles";
   return true;
 }
 
 bool Visualizer::SetDirectory(const std::string &path) {
 AINFO<<"(DMCZP) EnteringMethod: Visualizer::SetDirectory";
   if (!cyber::common::EnsureDirectory(path)) {
-    return false;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: Visualizer::SetDirectory";
+  return false;
   }
   const std::string command = "rm " + path + "/*.jpg";
   int ret = system(command.c_str());
   path_ = path;
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: Visualizer::SetDirectory";
   return ret == 0;
 }
 
@@ -307,20 +319,34 @@ std::string Visualizer::type_to_string(
 AINFO<<"(DMCZP) EnteringMethod: Visualizer::type_to_string";
   switch (type) {
     case apollo::perception::base::ObjectType::UNKNOWN:
-      return "UNKN";
+      
+  AINFO<<"(DMCZP) (return) LeaveMethod: Visualizer::type_to_string";
+  return "UNKN";
     case apollo::perception::base::ObjectType::UNKNOWN_MOVABLE:
-      return "U_MO";
+      
+  AINFO<<"(DMCZP) (return) LeaveMethod: Visualizer::type_to_string";
+  return "U_MO";
     case apollo::perception::base::ObjectType::UNKNOWN_UNMOVABLE:
-      return "UNMO";
+      
+  AINFO<<"(DMCZP) (return) LeaveMethod: Visualizer::type_to_string";
+  return "UNMO";
     case apollo::perception::base::ObjectType::PEDESTRIAN:
-      return "PED";
+      
+  AINFO<<"(DMCZP) (return) LeaveMethod: Visualizer::type_to_string";
+  return "PED";
     case apollo::perception::base::ObjectType::BICYCLE:
-      return "CYC";
+      
+  AINFO<<"(DMCZP) (return) LeaveMethod: Visualizer::type_to_string";
+  return "CYC";
     case apollo::perception::base::ObjectType::VEHICLE:
-      return "VEH";
+      
+  AINFO<<"(DMCZP) (return) LeaveMethod: Visualizer::type_to_string";
+  return "VEH";
     default:
       break;
   }
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: Visualizer::type_to_string";
   return "WRNG";
 }
 
@@ -329,32 +355,58 @@ std::string Visualizer::sub_type_to_string(
 AINFO<<"(DMCZP) EnteringMethod: Visualizer::sub_type_to_string";
   switch (type) {
     case apollo::perception::base::ObjectSubType::UNKNOWN:
-      return "UNKN";
+      
+  AINFO<<"(DMCZP) (return) LeaveMethod: Visualizer::sub_type_to_string";
+  return "UNKN";
     case apollo::perception::base::ObjectSubType::UNKNOWN_MOVABLE:
-      return "U_MO";
+      
+  AINFO<<"(DMCZP) (return) LeaveMethod: Visualizer::sub_type_to_string";
+  return "U_MO";
     case apollo::perception::base::ObjectSubType::UNKNOWN_UNMOVABLE:
-      return "UNMO";
+      
+  AINFO<<"(DMCZP) (return) LeaveMethod: Visualizer::sub_type_to_string";
+  return "UNMO";
     case apollo::perception::base::ObjectSubType::CAR:
-      return "CAR";
+      
+  AINFO<<"(DMCZP) (return) LeaveMethod: Visualizer::sub_type_to_string";
+  return "CAR";
     case apollo::perception::base::ObjectSubType::VAN:
-      return "VAN";
+      
+  AINFO<<"(DMCZP) (return) LeaveMethod: Visualizer::sub_type_to_string";
+  return "VAN";
     case apollo::perception::base::ObjectSubType::TRUCK:
-      return "TRUC";
+      
+  AINFO<<"(DMCZP) (return) LeaveMethod: Visualizer::sub_type_to_string";
+  return "TRUC";
     case apollo::perception::base::ObjectSubType::BUS:
-      return "BUS";
+      
+  AINFO<<"(DMCZP) (return) LeaveMethod: Visualizer::sub_type_to_string";
+  return "BUS";
     case apollo::perception::base::ObjectSubType::CYCLIST:
-      return "CYC";
+      
+  AINFO<<"(DMCZP) (return) LeaveMethod: Visualizer::sub_type_to_string";
+  return "CYC";
     case apollo::perception::base::ObjectSubType::MOTORCYCLIST:
-      return "MCYC";
+      
+  AINFO<<"(DMCZP) (return) LeaveMethod: Visualizer::sub_type_to_string";
+  return "MCYC";
     case apollo::perception::base::ObjectSubType::TRICYCLIST:
-      return "TCYC";
+      
+  AINFO<<"(DMCZP) (return) LeaveMethod: Visualizer::sub_type_to_string";
+  return "TCYC";
     case apollo::perception::base::ObjectSubType::PEDESTRIAN:
-      return "PED";
+      
+  AINFO<<"(DMCZP) (return) LeaveMethod: Visualizer::sub_type_to_string";
+  return "PED";
     case apollo::perception::base::ObjectSubType::TRAFFICCONE:
-      return "CONE";
+      
+  AINFO<<"(DMCZP) (return) LeaveMethod: Visualizer::sub_type_to_string";
+  return "CONE";
     default:
       break;
   }
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: Visualizer::sub_type_to_string";
   return "WRNG";
 }
 
@@ -383,16 +435,24 @@ AINFO<<"(DMCZP) EnteringMethod: Visualizer::reset_key";
   show_help_text_ = false;
   manual_calibration_mode_ = false;
   show_homography_object_ = false;
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: Visualizer::reset_key";
   return true;
 }
 
 double Visualizer::regularize_angle(const double radian_angle) {
 AINFO<<"(DMCZP) EnteringMethod: Visualizer::regularize_angle";
   if (radian_angle <= -M_PI) {
-    return radian_angle + M_PI * 2.0;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: Visualizer::regularize_angle";
+  return radian_angle + M_PI * 2.0;
   } else if (radian_angle > M_PI) {
-    return radian_angle - M_PI * 2.0;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: Visualizer::regularize_angle";
+  return radian_angle - M_PI * 2.0;
   }
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: Visualizer::regularize_angle";
   return radian_angle;
 }
 
@@ -452,7 +512,9 @@ AINFO<<"(DMCZP) EnteringMethod: Visualizer::euler_to_quaternion";
     double qx = 0.5 * sqrt(1.0 + R(0, 0) - R(1, 1) - R(2, 2));
     if (fabs(qx) < 1.0e-6) {
       AWARN << "quaternion is degenerate qw: " << qw << "qx: " << qx;
-      return false;
+      
+  AINFO<<"(DMCZP) (return) LeaveMethod: Visualizer::euler_to_quaternion";
+  return false;
     }
     (*quaternion)(0) = qx;                               // Q.x
     (*quaternion)(1) = 0.25 * (R(0, 1) + R(1, 0)) / qx;  // Q.y
@@ -464,6 +526,8 @@ AINFO<<"(DMCZP) EnteringMethod: Visualizer::euler_to_quaternion";
           << (*quaternion)(2) << ", "
           << (*quaternion)(3) << ")";
   }
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: Visualizer::euler_to_quaternion";
   return true;
 }
 
@@ -489,6 +553,8 @@ AINFO<<"(DMCZP) EnteringMethod: Visualizer::copy_backup_file";
     AINFO << "Backup file: " << filename << " saved successfully.";
   }
 
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: Visualizer::copy_backup_file";
   return true;
 }
 
@@ -538,7 +604,9 @@ AINFO<<"(DMCZP) EnteringMethod: Visualizer::save_extrinsic_in_yaml";
   // try{
   //   if (node.IsNull()) {
   //     AINFO << "Load " << yaml_file << " failed! please check!";
-  //     return false;
+  //     
+  AINFO<<"(DMCZP) (return) LeaveMethod: Visualizer::save_extrinsic_in_yaml";
+  return false;
   //   }
   //   // Replace rotation only
   //   node["transform"]["rotation"]["x"].as<double>() = quaternion(0);
@@ -549,22 +617,32 @@ AINFO<<"(DMCZP) EnteringMethod: Visualizer::save_extrinsic_in_yaml";
   //   node.SaveFile(yaml_file);
   //   if (node.IsNull()) {
   //     AINFO << "Save " << yaml_file << " failed! please check!";
-  //     return false;
+  //     
+  AINFO<<"(DMCZP) (return) LeaveMethod: Visualizer::save_extrinsic_in_yaml";
+  return false;
   //   }
   // } catch (YAML::InvalidNode &in) {
   //   AERROR << "load/save camera extrisic file " << yaml_file
   //          << " with error, YAML::InvalidNode exception";
-  //   return false;
+  //   
+  AINFO<<"(DMCZP) (return) LeaveMethod: Visualizer::save_extrinsic_in_yaml";
+  return false;
   // } catch (YAML::TypedBadConversion<double> &bc) {
   //   AERROR << "load camera extrisic file " << yaml_file
   //          << " with error, YAML::TypedBadConversion exception";
-  //   return false;
+  //   
+  AINFO<<"(DMCZP) (return) LeaveMethod: Visualizer::save_extrinsic_in_yaml";
+  return false;
   // } catch (YAML::Exception &e) {
   //   AERROR << "load camera extrisic file " << yaml_file
   //          << " with error, YAML exception:" << e.what();
-  //   return false;
+  //   
+  AINFO<<"(DMCZP) (return) LeaveMethod: Visualizer::save_extrinsic_in_yaml";
+  return false;
   // }
 
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: Visualizer::save_extrinsic_in_yaml";
   return true;
 }
 
@@ -614,6 +692,8 @@ AINFO<<"(DMCZP) EnteringMethod: Visualizer::save_manual_calibration_parameter";
   save_extrinsic_in_yaml(camera_name, ex_camera2lidar_, quaternion,
                          new_pitch_radian, new_yaw_radian, new_roll_radian);
 
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: Visualizer::save_manual_calibration_parameter";
   return true;
 }
 
@@ -621,7 +701,9 @@ bool Visualizer::key_handler(const std::string &camera_name, const int key) {
 AINFO<<"(DMCZP) EnteringMethod: Visualizer::key_handler";
   AINFO << "Pressed Key: " << key;
   if (key <= 0) {
-    return false;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: Visualizer::key_handler";
+  return false;
   }
   switch (key) {
     case KEY_0:
@@ -797,6 +879,8 @@ AINFO<<"(DMCZP) EnteringMethod: Visualizer::key_handler";
         }
       }
   }
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: Visualizer::key_handler";
   return true;
 }
 
@@ -807,7 +891,9 @@ bool Visualizer::DrawTrajectories(
 AINFO<<"(DMCZP) EnteringMethod: Visualizer::DrawTrajectories";
   if (object->drop_num == 0 || motion_buffer == nullptr ||
       motion_buffer->size() == 0) {
-    return false;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: Visualizer::DrawTrajectories";
+  return false;
   }
   std::size_t count = std::min(object->drop_num, motion_buffer->size());
 
@@ -829,6 +915,8 @@ AINFO<<"(DMCZP) EnteringMethod: Visualizer::DrawTrajectories";
              cv::Scalar(127, 127, 127), trajectory_line_thickness_);
     start_point = end_point;
   }
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: Visualizer::DrawTrajectories";
   return true;
 }
 
@@ -842,7 +930,9 @@ AINFO<<"(DMCZP) EnteringMethod: Visualizer::Draw2Dand3D";
   Eigen::Affine3d lidar2novatel;
   if (!tf_server_->QueryTransform("velodyne128", "novatel", &lidar2novatel)) {
       AWARN << "Failed to query transform from lidar to ground.";
-      return;
+      
+  AINFO<<"(DMCZP) (return) LeaveMethod: Visualizer::Draw2Dand3D";
+  return;
   }
   Eigen::Affine3d lidar2world = pose * lidar2novatel;
   Eigen::Affine3d world2lidar = lidar2world.inverse();
@@ -913,7 +1003,9 @@ AINFO<<"(DMCZP) EnteringMethod: Visualizer::Draw2Dand3D";
   last_timestamp_ = frame.timestamp;
   cv::resize(image, camera_image_[frame.data_provider->sensor_name()],
              cv::Size(small_w_, small_h_));
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: Visualizer::Draw2Dand3D";
+ }
 
 void Visualizer::ShowResult(const cv::Mat &img, const CameraFrame &frame) {
 AINFO<<"(DMCZP) EnteringMethod: Visualizer::ShowResult";
@@ -1297,7 +1389,9 @@ void Visualizer::ShowResult_all_info_single_camera(const cv::Mat &img,
     const base::MotionBufferPtr motion_buffer,
     const Eigen::Affine3d &world2camera) {
 AINFO<<"(DMCZP) EnteringMethod: Visualizer::ShowResult_all_info_single_camera";
-  if (frame.timestamp - last_timestamp_ < 0.02) return;
+  if (frame.timestamp - last_timestamp_ < 0.02) 
+  AINFO<<"(DMCZP) (return) LeaveMethod: Visualizer::ShowResult_all_info_single_camera";
+  return;
 
   // draw results on visulization panel
   int line_pos = 0;
@@ -1398,7 +1492,9 @@ AINFO<<"(DMCZP) EnteringMethod: Visualizer::ShowResult_all_info_single_camera";
   // re-initialize empty world_image_
   world_image_ = cv::Mat(world_h_, wide_pixel_, CV_8UC3, cv::Scalar(0, 0, 0));
   draw_range_circle();
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: Visualizer::ShowResult_all_info_single_camera";
+ }
 
 void Visualizer::draw_range_circle() {
 AINFO<<"(DMCZP) EnteringMethod: Visualizer::draw_range_circle";
@@ -1421,6 +1517,8 @@ AINFO<<"(DMCZP) EnteringMethod: Visualizer::world_point_to_bigimg";
   cv::Point point;
   point.x = static_cast<int>(-p(1) * m2pixel_ + wide_pixel_ * 0.5);
   point.y = static_cast<int>(world_h_ - p(0) * m2pixel_);
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: Visualizer::world_point_to_bigimg";
   return point;
 }
 cv::Point Visualizer::world_point_to_bigimg(const Eigen::Vector4f &p) {
@@ -1429,6 +1527,8 @@ AINFO<<"(DMCZP) EnteringMethod: Visualizer::world_point_to_bigimg";
   point.x = (wide_pixel_ >> 1) -
             static_cast<int>(p(1) * static_cast<float>(m2pixel_));
   point.y = world_h_ - static_cast<int>(p(0) * static_cast<float>(m2pixel_));
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: Visualizer::world_point_to_bigimg";
   return point;
 }
 
@@ -1445,6 +1545,8 @@ AINFO<<"(DMCZP) EnteringMethod: Visualizer::image2ground";
   } else {
     AWARN << "p_ground(2) too small :" << p_ground(2);
   }
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: Visualizer::image2ground";
   return p_ground.block(0, 0, 2, 1);
 }
 cv::Point Visualizer::ground2image(Eigen::Vector2d p_ground) {
@@ -1458,6 +1560,8 @@ AINFO<<"(DMCZP) EnteringMethod: Visualizer::ground2image";
     p_img(0) = p_img(0) / p_img(2);
     p_img(1) = p_img(1) / p_img(2);
   }
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: Visualizer::ground2image";
   return cv::Point(static_cast<int>(p_img(0)), static_cast<int>(p_img(1)));
 }
 

@@ -30,7 +30,9 @@ void ROIServiceContent::GetCopy(SceneServiceContent* content) const {
 AINFO<<"(DMCZP) EnteringMethod: ROIServiceContent::GetCopy";
   ROIServiceContent* roi_content = dynamic_cast<ROIServiceContent*>(content);
   if (roi_content == nullptr) {
-    return;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: ROIServiceContent::GetCopy";
+  return;
   }
   roi_content->bitmap_ = bitmap_;
   roi_content->map_size_ = map_size_;
@@ -39,14 +41,18 @@ AINFO<<"(DMCZP) EnteringMethod: ROIServiceContent::GetCopy";
   roi_content->major_dir_ = major_dir_;
   roi_content->transform_ = transform_;
   roi_content->service_ready_ = service_ready_;
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: ROIServiceContent::GetCopy";
+ }
 
 void ROIServiceContent::SetContent(const SceneServiceContent& content) {
 AINFO<<"(DMCZP) EnteringMethod: ROIServiceContent::SetContent";
   const ROIServiceContent* roi_content =
       dynamic_cast<const ROIServiceContent*>(&content);
   if (roi_content == nullptr) {
-    return;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: ROIServiceContent::SetContent";
+  return;
   }
   // copy content
   bitmap_ = roi_content->bitmap_;
@@ -57,18 +63,24 @@ AINFO<<"(DMCZP) EnteringMethod: ROIServiceContent::SetContent";
   transform_ = roi_content->transform_;
   // set ready to true
   service_ready_ = true;
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: ROIServiceContent::SetContent";
+ }
 
 inline bool ROIServiceContent::CheckBit(const size_t loc,
                                         const uint64_t block) const {
 AINFO<<"(DMCZP) EnteringMethod: ROIServiceContent::CheckBit";
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: ROIServiceContent::CheckBit";
   return block & (static_cast<uint64_t>(1) << loc);
 }
 
 bool ROIServiceContent::Check(const Eigen::Vector3d& world_point) const {
 AINFO<<"(DMCZP) EnteringMethod: ROIServiceContent::Check";
   if (!service_ready_) {
-    return false;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: ROIServiceContent::Check";
+  return false;
   }
   Eigen::Vector2d pt;
   pt(0) = world_point(0) - transform_(0) + range_;
@@ -81,8 +93,12 @@ AINFO<<"(DMCZP) EnteringMethod: ROIServiceContent::Check";
     const size_t idx_y = iy >> 6;
     const size_t idx_z = iy & 63;
     const size_t idx = ix * map_size_[1] + idx_y;
-    return CheckBit(idx_z, bitmap_[idx]);
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: ROIServiceContent::Check";
+  return CheckBit(idx_z, bitmap_[idx]);
   }
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: ROIServiceContent::Check";
   return false;
 }
 
@@ -103,6 +119,8 @@ AINFO<<"(DMCZP) EnteringMethod: ROIService::Init";
   CHECK(cyber::common::GetProtoFromFile(config_file, &config));
   roi_content_ref_->cell_size_ = config.cell_size();
   roi_content_ref_->range_ = config.range();
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: ROIService::Init";
   return true;
 }
 
@@ -110,12 +128,16 @@ bool ROIService::QueryIsPointInROI(const Eigen::Vector3d& world_point) {
 AINFO<<"(DMCZP) EnteringMethod: ROIService::QueryIsPointInROI";
   std::lock_guard<std::mutex> lock(mutex_);
   bool status = QueryIsPointInROI(world_point, *roi_content_ref_);
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: ROIService::QueryIsPointInROI";
   return status;
 }
 
 bool ROIService::QueryIsPointInROI(const Eigen::Vector3d& world_point,
                                    const ROIServiceContent& content) {
 AINFO<<"(DMCZP) EnteringMethod: ROIService::QueryIsPointInROI";
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: ROIService::QueryIsPointInROI";
   return content.Check(world_point);
 }
 

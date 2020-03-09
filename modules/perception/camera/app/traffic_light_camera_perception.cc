@@ -43,7 +43,9 @@ AINFO<<"(DMCZP) EnteringMethod: TrafficLightCameraPerception::Init";
   AINFO << "proto_path " << proto_path;
   if (!cyber::common::GetProtoFromFile(proto_path, &tl_param_)) {
     AINFO << "load proto param failed, root dir: " << options.root_dir;
-    return false;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: TrafficLightCameraPerception::Init";
+  return false;
   }
 
   TrafficLightDetectorInitOptions init_options;
@@ -57,7 +59,9 @@ AINFO<<"(DMCZP) EnteringMethod: TrafficLightCameraPerception::Init";
   CHECK(detector_ != nullptr);
   if (!detector_->Init(init_options)) {
     AERROR << "tl detector init failed";
-    return false;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: TrafficLightCameraPerception::Init";
+  return false;
   }
 
   plugin_param = tl_param_.detector_param(1).plugin_param();
@@ -69,7 +73,9 @@ AINFO<<"(DMCZP) EnteringMethod: TrafficLightCameraPerception::Init";
   CHECK(recognizer_ != nullptr);
   if (!recognizer_->Init(init_options)) {
     AERROR << "tl recognizer init failed";
-    return false;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: TrafficLightCameraPerception::Init";
+  return false;
   }
 
   TrafficLightTrackerInitOptions tracker_init_options;
@@ -84,10 +90,14 @@ AINFO<<"(DMCZP) EnteringMethod: TrafficLightCameraPerception::Init";
         << tracker_init_options.conf_file;
   if (!tracker_->Init(tracker_init_options)) {
     AERROR << "tl tracker init failed";
-    return false;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: TrafficLightCameraPerception::Init";
+  return false;
   }
 
   AINFO << "tl pipeline init done";
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: TrafficLightCameraPerception::Init";
   return true;
 }
 
@@ -104,7 +114,9 @@ AINFO<<"(DMCZP) EnteringMethod: TrafficLightCameraPerception::Perception";
 
   if (!detector_->Detect(detector_options, frame)) {
     AERROR << "tl failed to detect.";
-    return false;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: TrafficLightCameraPerception::Perception";
+  return false;
   }
 
 
@@ -118,7 +130,9 @@ AINFO<<"(DMCZP) EnteringMethod: TrafficLightCameraPerception::Perception";
   TrafficLightDetectorOptions recognizer_options;
   if (!recognizer_->Detect(recognizer_options, frame)) {
     AERROR << "tl failed to recognize.";
-    return false;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: TrafficLightCameraPerception::Perception";
+  return false;
   }
   const auto traffic_light_recognize_time =
       PERCEPTION_PERF_BLOCK_END_WITH_INDICATOR(
@@ -130,7 +144,9 @@ AINFO << "(pengzi) Begin track traffic light"<<std::this_thread::get_id();
   TrafficLightTrackerOptions tracker_options;
   if (!tracker_->Track(tracker_options, frame)) {
     AERROR << "tl failed to track.";
-    return false;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: TrafficLightCameraPerception::Perception";
+  return false;
   }
   const auto traffic_light_track_time =
       PERCEPTION_PERF_BLOCK_END_WITH_INDICATOR(
@@ -142,6 +158,8 @@ AINFO << "(pengzi) Begin track traffic light"<<std::this_thread::get_id();
         << " ms."
         << " traffic_light_track_time: " << traffic_light_track_time << " ms.";
   AINFO << "pengzi. check above message. trafficlight perception perf_info.";
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: TrafficLightCameraPerception::Perception";
   return true;
 }
 

@@ -39,7 +39,11 @@ namespace fusion {
 
 using cyber::common::GetAbsolutePath;
 
-ProbabilisticFusion::ProbabilisticFusion() {}
+ProbabilisticFusion::ProbabilisticFusion() {
+  AINFO<<"(DMCZP) EnteringMethod: ProbabilisticFusion::ProbabilisticFusion";
+
+  AINFO<<"(DMCZP) LeaveMethod: ProbabilisticFusion::ProbabilisticFusion";
+ }
 
 ProbabilisticFusion::~ProbabilisticFusion() {}
 
@@ -49,7 +53,9 @@ AINFO<<"(DMCZP) EnteringMethod: ProbabilisticFusion::Init";
 
   BaseInitOptions options;
   if (!GetFusionInitOptions("ProbabilisticFusion", &options)) {
-    return false;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: ProbabilisticFusion::Init";
+  return false;
   }
 
   std::string woork_root_config = GetAbsolutePath(
@@ -60,7 +66,9 @@ AINFO<<"(DMCZP) EnteringMethod: ProbabilisticFusion::Init";
 
   if (!cyber::common::GetProtoFromFile(config, &params)) {
     AERROR << "Read config failed: " << config;
-    return false;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: ProbabilisticFusion::Init";
+  return false;
   }
   params_.use_lidar = params.use_lidar();
   params_.use_radar = params.use_radar();
@@ -83,27 +91,37 @@ AINFO<<"(DMCZP) EnteringMethod: ProbabilisticFusion::Init";
     matcher_.reset(new HMTrackersObjectsAssociation());
   } else {
     AERROR << "Unknown association method: " << params_.data_association_method;
-    return false;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: ProbabilisticFusion::Init";
+  return false;
   }
   if (!matcher_->Init()) {
     AERROR << "Failed to init matcher.";
-    return false;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: ProbabilisticFusion::Init";
+  return false;
   }
 
   if (params_.gate_keeper_method == "PbfGatekeeper") {
     gate_keeper_.reset(new PbfGatekeeper());
   } else {
     AERROR << "Unknown gate keeper method: " << params_.gate_keeper_method;
-    return false;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: ProbabilisticFusion::Init";
+  return false;
   }
   if (!gate_keeper_->Init()) {
     AERROR << "Failed to init gatekeeper.";
-    return false;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: ProbabilisticFusion::Init";
+  return false;
   }
 
   bool state = DstTypeFusion::Init() && DstExistanceFusion::Init() &&
                PbfTracker::InitParams();
 
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: ProbabilisticFusion::Init";
   return state;
 }
 
@@ -118,13 +136,19 @@ AINFO<<"(DMCZP) EnteringMethod: ProbabilisticFusion::Fuse";
   {
     std::lock_guard<std::mutex> data_lock(data_mutex_);
     if (sensor_data_manager->IsLidar(sensor_frame) && !params_.use_lidar) {
-      return true;
+      
+  AINFO<<"(DMCZP) (return) LeaveMethod: ProbabilisticFusion::Fuse";
+  return true;
     }
     if (sensor_data_manager->IsRadar(sensor_frame) && !params_.use_radar) {
-      return true;
+      
+  AINFO<<"(DMCZP) (return) LeaveMethod: ProbabilisticFusion::Fuse";
+  return true;
     }
     if (sensor_data_manager->IsCamera(sensor_frame) && !params_.use_camera) {
-      return true;
+      
+  AINFO<<"(DMCZP) (return) LeaveMethod: ProbabilisticFusion::Fuse";
+  return true;
     }
 
     bool is_publish_sensor = this->IsPublishSensor(sensor_frame);
@@ -140,7 +164,9 @@ AINFO<<"(DMCZP) EnteringMethod: ProbabilisticFusion::Fuse";
     }
 
     if (!is_publish_sensor) {
-      return true;
+      
+  AINFO<<"(DMCZP) (return) LeaveMethod: ProbabilisticFusion::Fuse";
+  return true;
     }
   }
 
@@ -158,26 +184,42 @@ AINFO<<"(DMCZP) EnteringMethod: ProbabilisticFusion::Fuse";
 
   // 4. collect fused objects
   CollectFusedObjects(fusion_time, fused_objects);
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: ProbabilisticFusion::Fuse";
   return true;
 }
 
-std::string ProbabilisticFusion::Name() const { return "ProbabilisticFusion"; }
+std::string ProbabilisticFusion::Name() const {
+  AINFO<<"(DMCZP) EnteringMethod: ProbabilisticFusion::Name";
+ 
+  AINFO<<"(DMCZP) (return) Le
+  AINFO<<"(DMCZP) LeaveMethod: ProbabilisticFusion::Name";
+ aveMethod: ProbabilisticFusion::Name";
+  return "ProbabilisticFusion"; }
 
 bool ProbabilisticFusion::IsPublishSensor(
     const base::FrameConstPtr& sensor_frame) const {
 AINFO<<"(DMCZP) EnteringMethod: ProbabilisticFusion::IsPublishSensor";
   std::string sensor_id = sensor_frame->sensor_info.name;
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: ProbabilisticFusion::IsPublishSensor";
   return sensor_id == main_sensor_;
   // const std::vector<std::string>& pub_sensors =
   //   params_.publish_sensor_ids;
   // const auto& itr = std::find(
   //   pub_sensors.begin(), pub_sensors.end(), sensor_id);
   // if (itr != pub_sensors.end()) {
-  //   return true;
+  //   
+  AINFO<<"(DMCZP) (return) LeaveMethod: ProbabilisticFusion::IsPublishSensor";
+  return true;
   // } else {
-  //   return false;
+  //   
+  AINFO<<"(DMCZP) (return) LeaveMethod: ProbabilisticFusion::IsPublishSensor";
+  return false;
   // }
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: ProbabilisticFusion::IsPublishSensor";
+ }
 
 void ProbabilisticFusion::FuseFrame(const SensorFramePtr& frame) {
 AINFO<<"(DMCZP) EnteringMethod: ProbabilisticFusion::FuseFrame";

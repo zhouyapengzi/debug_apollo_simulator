@@ -31,7 +31,9 @@ AINFO<<"(DMCZP) EnteringMethod: MultiCueObstacleTransformer::Init";
 
   if (!cyber::common::GetProtoFromFile(transformer_config, &multicue_param_)) {
     AERROR << "Read config failed: " << transformer_config;
-    return false;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: MultiCueObstacleTransformer::Init";
+  return false;
   }
   AINFO << "Load transformer parameters from " << transformer_config
         << " \nmin dimension: " << multicue_param_.min_dimension_val()
@@ -40,6 +42,8 @@ AINFO<<"(DMCZP) EnteringMethod: MultiCueObstacleTransformer::Init";
   // Init object template
   object_template_manager_ = ObjectTemplateManager::Instance();
 
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: MultiCueObstacleTransformer::Init";
   return true;
 }
 
@@ -138,7 +142,9 @@ AINFO<<"(DMCZP) EnteringMethod: MultiCueObstacleTransformer::MatchTemplates";
       sort(diff_hs.begin(), diff_hs.end(),
            [](const std::pair<float, float> &a,
               const std::pair<float, float> &b) -> bool {
-             return a.first < b.first;
+             
+  AINFO<<"(DMCZP) (return) LeaveMethod: MultiCueObstacleTransformer::MatchTemplates";
+  return a.first < b.first;
            });
       dimension_hwl[0] = diff_hs[0].second;
       break;
@@ -166,6 +172,8 @@ AINFO<<"(DMCZP) EnteringMethod: MultiCueObstacleTransformer::MatchTemplates";
       }
       break;
   }
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: MultiCueObstacleTransformer::MatchTemplates";
   return type_min_vol_index;
 }
 
@@ -174,7 +182,9 @@ void MultiCueObstacleTransformer::FillResults(
     Eigen::Affine3d camera2world_pose, float theta_ray, base::ObjectPtr obj) {
 AINFO<<"(DMCZP) EnteringMethod: MultiCueObstacleTransformer::FillResults";
   if (obj == nullptr) {
-    return;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: MultiCueObstacleTransformer::FillResults";
+  return;
   }
   object_center[1] -= dimension_hwl[0] / 2;
   obj->camera_supplement.local_center(0) = object_center[0];
@@ -214,14 +224,18 @@ AINFO<<"(DMCZP) EnteringMethod: MultiCueObstacleTransformer::FillResults";
   ADEBUG << "Obj ry:" << rotation_y;
   ADEBUG << "Obj theta: " << obj->theta;
   ADEBUG << "Obj center from transformer: " << obj->center.transpose();
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: MultiCueObstacleTransformer::FillResults";
+ }
 
 bool MultiCueObstacleTransformer::Transform(
     const ObstacleTransformerOptions &options, CameraFrame *frame) {
 AINFO<<"(DMCZP) EnteringMethod: MultiCueObstacleTransformer::Transform";
   if (frame->detected_objects.empty()) {
     ADEBUG << "No object input to transformer.";
-    return true;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: MultiCueObstacleTransformer::Transform";
+  return true;
   }
 
   const auto &camera_k_matrix = frame->camera_k_matrix;
@@ -269,11 +283,15 @@ AINFO<<"(DMCZP) EnteringMethod: MultiCueObstacleTransformer::Transform";
 
     ++nr_transformed_obj;
   }
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: MultiCueObstacleTransformer::Transform";
   return nr_transformed_obj > 0;
 }
 
 std::string MultiCueObstacleTransformer::Name() const {
 AINFO<<"(DMCZP) EnteringMethod: MultiCueObstacleTransformer::Name";
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: MultiCueObstacleTransformer::Name";
   return "MultiCueObstacleTransformer";
 }
 

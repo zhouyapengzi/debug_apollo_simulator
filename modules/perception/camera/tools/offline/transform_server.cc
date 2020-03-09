@@ -41,15 +41,21 @@ AINFO<<"(DMCZP) EnteringMethod: TransformServer::Init";
   } catch (YAML::InvalidNode &in) {
     AERROR << "load velodyne128 extrisic file error"
            << " YAML::InvalidNode exception";
-    return false;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: TransformServer::Init";
+  return false;
   } catch (YAML::TypedBadConversion<float> &bc) {
     AERROR << "load velodyne128 extrisic file error, "
            << "YAML::TypedBadConversion exception";
-    return false;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: TransformServer::Init";
+  return false;
   } catch (YAML::Exception &e) {
     AERROR << "load velodyne128 extrisic file "
            << " error, YAML exception:" << e.what();
-    return false;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: TransformServer::Init";
+  return false;
   }
   // 2. Init lidar and camera extrinsic
   std::vector<std::string> extrinsic_filelist;
@@ -65,7 +71,9 @@ AINFO<<"(DMCZP) EnteringMethod: TransformServer::Init";
       YAML::Node node = YAML::LoadFile(yaml_file);
       if (node.IsNull()) {
         AINFO << "Load " << yaml_file << " failed! please check!";
-        return false;
+        
+  AINFO<<"(DMCZP) (return) LeaveMethod: TransformServer::Init";
+  return false;
       }
       std::string child_frame_id = node["child_frame_id"].as<std::string>();
       std::string frame_id = node["header"]["frame_id"].as<std::string>();
@@ -87,17 +95,25 @@ AINFO<<"(DMCZP) EnteringMethod: TransformServer::Init";
     } catch (YAML::InvalidNode &in) {
       AERROR << "load camera extrisic file " << yaml_file
              << " with error, YAML::InvalidNode exception";
-      return false;
+      
+  AINFO<<"(DMCZP) (return) LeaveMethod: TransformServer::Init";
+  return false;
     } catch (YAML::TypedBadConversion<double> &bc) {
       AERROR << "load camera extrisic file " << yaml_file
              << " with error, YAML::TypedBadConversion exception";
-      return false;
+      
+  AINFO<<"(DMCZP) (return) LeaveMethod: TransformServer::Init";
+  return false;
     } catch (YAML::Exception &e) {
       AERROR << "load camera extrisic file " << yaml_file
              << " with error, YAML exception:" << e.what();
-      return false;
+      
+  AINFO<<"(DMCZP) (return) LeaveMethod: TransformServer::Init";
+  return false;
     }
   }
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: TransformServer::Init";
   return true;
 }
 
@@ -106,7 +122,9 @@ bool TransformServer::LoadFromFile(const std::string &tf_input,
 AINFO<<"(DMCZP) EnteringMethod: TransformServer::LoadFromFile";
   if (frequency <= 0) {
     AERROR << "Error frequency value:" << frequency;
-    return false;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: TransformServer::LoadFromFile";
+  return false;
   }
   std::ifstream fin(tf_input);
   Transform tf;
@@ -126,6 +144,8 @@ AINFO<<"(DMCZP) EnteringMethod: TransformServer::LoadFromFile";
   error_limit_ = 1 / frequency / 2.0f;
   AINFO << "Load tf successfully. count: " << tf_.size()
         << " error limit:" << error_limit_;
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: TransformServer::LoadFromFile";
   return true;
 }
 
@@ -137,9 +157,13 @@ AINFO<<"(DMCZP) EnteringMethod: TransformServer::QueryPos";
       pose->linear() = rotation.matrix();
       pose->translation() << tf.tx, tf.ty, tf.tz;
       AINFO << "Get Pose:\n" << pose->matrix();
-      return true;
+      
+  AINFO<<"(DMCZP) (return) LeaveMethod: TransformServer::QueryPos";
+  return true;
     }
   }
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: TransformServer::QueryPos";
   return false;
 }
 
@@ -155,7 +179,9 @@ AINFO<<"(DMCZP) EnteringMethod: TransformServer::AddTransform";
 
   for (auto iter = begin; iter != end; ++iter) {
     if (iter->second.frame_id == frame_id) {
-      return false;
+      
+  AINFO<<"(DMCZP) (return) LeaveMethod: TransformServer::AddTransform";
+  return false;
     }
   }
 
@@ -172,6 +198,8 @@ AINFO<<"(DMCZP) EnteringMethod: TransformServer::AddTransform";
   edges_.insert({child_frame_id, e});
   edges_.insert({frame_id, e_inv});
 
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: TransformServer::AddTransform";
   return true;
 }
 
@@ -182,13 +210,17 @@ AINFO<<"(DMCZP) EnteringMethod: TransformServer::QueryTransform";
   *transform = Eigen::Affine3d::Identity();
 
   if (child_frame_id == frame_id) {
-    return true;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: TransformServer::QueryTransform";
+  return true;
   }
 
   // Vertices does not exist
   if (vertices_.find(child_frame_id) == vertices_.end() ||
       vertices_.find(frame_id) == vertices_.end()) {
-    return false;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: TransformServer::QueryTransform";
+  return false;
   }
 
   std::map<std::string, bool> visited;
@@ -196,6 +228,8 @@ AINFO<<"(DMCZP) EnteringMethod: TransformServer::QueryTransform";
     visited[item] = false;
   }
 
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: TransformServer::QueryTransform";
   return FindTransform(child_frame_id, frame_id, transform, &visited);
 }
 
@@ -223,18 +257,24 @@ AINFO<<"(DMCZP) EnteringMethod: TransformServer::FindTransform";
 
     if (edge.frame_id == frame_id) {
       *transform = loc_transform;
-      return true;
+      
+  AINFO<<"(DMCZP) (return) LeaveMethod: TransformServer::FindTransform";
+  return true;
     }
 
     Eigen::Affine3d tr = Eigen::Affine3d::Identity();
     if (FindTransform(edge.frame_id, frame_id, &tr, visited)) {
       loc_transform = tr * loc_transform;
       *transform = loc_transform;
-      return true;
+      
+  AINFO<<"(DMCZP) (return) LeaveMethod: TransformServer::FindTransform";
+  return true;
     }
 
     loc_transform = edge.transform.inverse() * loc_transform;
   }
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: TransformServer::FindTransform";
   return false;
 }
 

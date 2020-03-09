@@ -31,7 +31,11 @@ HoughTransfer::HoughTransfer()
       vote_reserve_size_(10),
       vote_map_(),
       query_map_(),
-      distribute_map_() {}
+      distribute_map_() {
+  AINFO<<"(DMCZP) EnteringMethod: HoughTransfer::HoughTransfer";
+
+  AINFO<<"(DMCZP) LeaveMethod: HoughTransfer::HoughTransfer";
+ }
 
 // step1
 // @brief: initiate
@@ -82,6 +86,8 @@ AINFO<<"(DMCZP) EnteringMethod: HoughTransfer::Init";
     ClearWithShrink();
     prepared_ = false;
   }
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: HoughTransfer::Init";
   return prepared_;
 }
 
@@ -94,7 +100,9 @@ bool HoughTransfer::ImageVote(const std::vector<int>& image,
                               bool with_distribute) {
 AINFO<<"(DMCZP) EnteringMethod: HoughTransfer::ImageVote";
   if (image.size() != query_map_.size()) {
-    return false;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: HoughTransfer::ImageVote";
+  return false;
   }
   ResetMaps(with_distribute);
   for (size_t i = 0; i < image.size(); ++i) {
@@ -104,6 +112,8 @@ AINFO<<"(DMCZP) EnteringMethod: HoughTransfer::ImageVote";
       PointVote(x, y, with_distribute);
     }
   }
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: HoughTransfer::ImageVote";
   return true;
 }
 
@@ -140,7 +150,9 @@ bool HoughTransfer::GetLines(int min_pt_num, int r_neibor, int theta_neibor,
                              std::vector<HoughLine>* lines) const {
 AINFO<<"(DMCZP) EnteringMethod: HoughTransfer::GetLines";
   if (!lines) {
-    return false;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: HoughTransfer::GetLines";
+  return false;
   }
   int r_step = 2 * r_neibor + 1;
   int theta_step = 2 * theta_neibor + 1;
@@ -155,9 +167,13 @@ AINFO<<"(DMCZP) EnteringMethod: HoughTransfer::GetLines";
   int idx = 0;
   for (auto i = max_vote_lines.begin(); i != max_vote_lines.end(); ++i) {
     if (!VotePosToHoughLine(*i, with_distribute, &(*lines)[idx++])) {
-      return false;
+      
+  AINFO<<"(DMCZP) (return) LeaveMethod: HoughTransfer::GetLines";
+  return false;
     }
   }
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: HoughTransfer::GetLines";
   return true;
 }
 
@@ -178,6 +194,8 @@ AINFO<<"(DMCZP) EnteringMethod: HoughTransfer::MemoryConsume";
                                         sizeof(distribute[0]));
     }
   }
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: HoughTransfer::MemoryConsume";
   return size;
 }
 
@@ -215,17 +233,27 @@ AINFO<<"(DMCZP) EnteringMethod: HoughTransfer::ClearWithShrink";
 bool HoughTransfer::CheckPrepared() const {
 AINFO<<"(DMCZP) EnteringMethod: HoughTransfer::CheckPrepared";
   if (static_cast<int>(vote_map_.size()) != r_size_ * theta_size_) {
-    return false;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: HoughTransfer::CheckPrepared";
+  return false;
   }
   if (static_cast<int>(query_map_.size()) != img_w_ * img_h_) {
-    return false;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: HoughTransfer::CheckPrepared";
+  return false;
   }
   if (static_cast<int>(distribute_map_.size()) != r_size_ * theta_size_) {
-    return false;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: HoughTransfer::CheckPrepared";
+  return false;
   }
   if (vote_map_.empty() || query_map_.empty() || distribute_map_.empty()) {
-    return false;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: HoughTransfer::CheckPrepared";
+  return false;
   }
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: HoughTransfer::CheckPrepared";
   return true;
 }
 
@@ -258,7 +286,9 @@ bool HoughTransfer::VotePosToHoughLine(int vote_pos, bool with_distribute,
                                        HoughLine* out_line) const {
 AINFO<<"(DMCZP) EnteringMethod: HoughTransfer::VotePosToHoughLine";
   if (!out_line) {
-    return false;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: HoughTransfer::VotePosToHoughLine";
+  return false;
   }
   out_line->r = static_cast<float>(vote_pos / theta_size_ - r_size_ / 2) * d_r_;
   out_line->theta = static_cast<float>(vote_pos % theta_size_) * d_theta_;
@@ -266,7 +296,9 @@ AINFO<<"(DMCZP) EnteringMethod: HoughTransfer::VotePosToHoughLine";
   if (with_distribute) {
     if (out_line->vote_num !=
         static_cast<int>(distribute_map_[vote_pos].size())) {
-      return false;
+      
+  AINFO<<"(DMCZP) (return) LeaveMethod: HoughTransfer::VotePosToHoughLine";
+  return false;
     }
     out_line->pts = distribute_map_[vote_pos];
     const int start_pos = distribute_map_[vote_pos][0];
@@ -279,6 +311,8 @@ AINFO<<"(DMCZP) EnteringMethod: HoughTransfer::VotePosToHoughLine";
         sqrtf(static_cast<float>((start_x - end_x) * (start_x - end_x) +
                                  (start_y - end_y) * (start_y - end_y)));
   }
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: HoughTransfer::VotePosToHoughLine";
   return true;
 }
 

@@ -34,12 +34,18 @@ int FloodFill::Pos(float x, float y) const {
 AINFO<<"(DMCZP) EnteringMethod: FloodFill::Pos";
   const int irow = static_cast<int>((y + _offset_y) / _cell_size);
   if (!IsValidRowIndex(irow)) {
-    return -1;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: FloodFill::Pos";
+  return -1;
   }
   const int jcol = static_cast<int>((x + _offset_x) / _cell_size);
   if (!IsValidColIndex(jcol)) {
-    return -1;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: FloodFill::Pos";
+  return -1;
   }
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: FloodFill::Pos";
   return irow * _grid_num_cols + jcol;
 }
 
@@ -47,12 +53,18 @@ bool FloodFill::Pos2d(float x, float y, int* irow, int* jcol) const {
 AINFO<<"(DMCZP) EnteringMethod: FloodFill::Pos2d";
   *irow = static_cast<int>((y + _offset_y) / _cell_size);
   if (!IsValidRowIndex(*irow)) {
-    return false;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: FloodFill::Pos2d";
+  return false;
   }
   *jcol = static_cast<int>((x + _offset_x) / _cell_size);
   if (!IsValidColIndex(*jcol)) {
-    return false;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: FloodFill::Pos2d";
+  return false;
   }
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: FloodFill::Pos2d";
   return true;
 }
 
@@ -113,6 +125,8 @@ AINFO<<"(DMCZP) EnteringMethod: FloodFill::GetConnectedComponents";
       ++num_components;
     }
   }
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: FloodFill::GetConnectedComponents";
   return num_components;
 }
 

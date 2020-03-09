@@ -21,23 +21,39 @@ namespace perception {
 namespace fusion {
 
 InformationFilter::InformationFilter()
-    : BaseFilter("InformationFilter"), last_observation_init_(false) {}
+    : BaseFilter("InformationFilter"), last_observation_init_(false) {
+  AINFO<<"(DMCZP) EnteringMethod: InformationFilter::InformationFilter";
+
+  AINFO<<"(DMCZP) LeaveMethod: InformationFilter::InformationFilter";
+ }
 
 bool InformationFilter::Init(const Eigen::VectorXd &global_states,
                              const Eigen::MatrixXd &global_uncertainty) {
 AINFO<<"(DMCZP) EnteringMethod: InformationFilter::Init";
   if (global_uncertainty.rows() != global_uncertainty.cols()) {
-    return false;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: InformationFilter::Init";
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: InformationFilter::Init";
+  return false;
   }
 
   states_num_ = static_cast<int>(global_uncertainty.rows());
 
   if (states_num_ <= 0) {
-    return false;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: InformationFilter::Init";
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: InformationFilter::Init";
+  return false;
   }
 
   if (states_num_ != global_states.rows()) {
-    return false;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: InformationFilter::Init";
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: InformationFilter::Init";
+  return false;
   }
 
   global_states_ = global_states;
@@ -57,6 +73,10 @@ AINFO<<"(DMCZP) EnteringMethod: InformationFilter::Init";
   env_uncertainty_.setZero(states_num_, states_num_);
 
   init_ = true;
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: InformationFilter::Init";
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: InformationFilter::Init";
   return true;
 }
 
@@ -67,28 +87,60 @@ bool InformationFilter::SetLastObservation(
     const Eigen::MatrixXd &last_to_cur_env_uncertainty) {
 AINFO<<"(DMCZP) EnteringMethod: InformationFilter::SetLastObservation";
   if (!init_) {
-    return false;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: InformationFilter::SetLastObservation";
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: InformationFilter::SetLastObservation";
+  return false;
   }
   if (last_observation.rows() != states_num_) {
-    return false;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: InformationFilter::SetLastObservation";
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: InformationFilter::SetLastObservation";
+  return false;
   }
   if (last_observation_uncertainty.rows() != states_num_) {
-    return false;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: InformationFilter::SetLastObservation";
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: InformationFilter::SetLastObservation";
+  return false;
   }
   if (last_observation_uncertainty.cols() != states_num_) {
-    return false;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: InformationFilter::SetLastObservation";
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: InformationFilter::SetLastObservation";
+  return false;
   }
   if (last_to_cur_transform_matrix.rows() != states_num_) {
-    return false;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: InformationFilter::SetLastObservation";
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: InformationFilter::SetLastObservation";
+  return false;
   }
   if (last_to_cur_transform_matrix.cols() != states_num_) {
-    return false;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: InformationFilter::SetLastObservation";
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: InformationFilter::SetLastObservation";
+  return false;
   }
   if (last_to_cur_env_uncertainty.rows() != states_num_) {
-    return false;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: InformationFilter::SetLastObservation";
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: InformationFilter::SetLastObservation";
+  return false;
   }
   if (last_to_cur_env_uncertainty.cols() != states_num_) {
-    return false;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: InformationFilter::SetLastObservation";
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: InformationFilter::SetLastObservation";
+  return false;
   }
 
   last_observation_ = last_observation;
@@ -96,6 +148,10 @@ AINFO<<"(DMCZP) EnteringMethod: InformationFilter::SetLastObservation";
   last_to_cur_transform_matrix_ = last_to_cur_transform_matrix;
   last_to_cur_env_uncertainty_ = last_to_cur_env_uncertainty;
   last_observation_init_ = true;
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: InformationFilter::SetLastObservation";
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: InformationFilter::SetLastObservation";
   return true;
 }
 
@@ -103,19 +159,39 @@ bool InformationFilter::Predict(const Eigen::MatrixXd &transform_matrix,
                                 const Eigen::MatrixXd &env_uncertainty) {
 AINFO<<"(DMCZP) EnteringMethod: InformationFilter::Predict";
   if (!init_) {
-    return false;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: InformationFilter::Predict";
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: InformationFilter::Predict";
+  return false;
   }
   if (transform_matrix.rows() != states_num_) {
-    return false;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: InformationFilter::Predict";
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: InformationFilter::Predict";
+  return false;
   }
   if (transform_matrix.cols() != states_num_) {
-    return false;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: InformationFilter::Predict";
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: InformationFilter::Predict";
+  return false;
   }
   if (env_uncertainty.rows() != states_num_) {
-    return false;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: InformationFilter::Predict";
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: InformationFilter::Predict";
+  return false;
   }
   if (env_uncertainty.cols() != states_num_) {
-    return false;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: InformationFilter::Predict";
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: InformationFilter::Predict";
+  return false;
   }
   transform_matrix_ = transform_matrix;
   env_uncertainty_ = env_uncertainty;
@@ -123,6 +199,10 @@ AINFO<<"(DMCZP) EnteringMethod: InformationFilter::Predict";
   global_uncertainty_ =
       transform_matrix_ * global_uncertainty_ * transform_matrix_.transpose() +
       env_uncertainty_;
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: InformationFilter::Predict";
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: InformationFilter::Predict";
   return true;
 }
 
@@ -131,16 +211,32 @@ bool InformationFilter::Correct(
     const Eigen::MatrixXd &cur_observation_uncertainty) {
 AINFO<<"(DMCZP) EnteringMethod: InformationFilter::Correct";
   if (!init_) {
-    return false;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: InformationFilter::Correct";
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: InformationFilter::Correct";
+  return false;
   }
   if (cur_observation.rows() != states_num_) {
-    return false;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: InformationFilter::Correct";
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: InformationFilter::Correct";
+  return false;
   }
   if (cur_observation_uncertainty.rows() != states_num_) {
-    return false;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: InformationFilter::Correct";
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: InformationFilter::Correct";
+  return false;
   }
   if (cur_observation_uncertainty.cols() != states_num_) {
-    return false;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: InformationFilter::Correct";
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: InformationFilter::Correct";
+  return false;
   }
   cur_observation_ = cur_observation;
   cur_observation_uncertainty_ = cur_observation_uncertainty;
@@ -178,19 +274,35 @@ AINFO<<"(DMCZP) EnteringMethod: InformationFilter::Correct";
 
   global_states_ = global_uncertainty_.inverse() * tmp_states_;
   last_observation_init_ = false;
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: InformationFilter::Correct";
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: InformationFilter::Correct";
   return true;
 }
 bool InformationFilter::SetControlMatrix(
     const Eigen::MatrixXd &control_matrix) {
 AINFO<<"(DMCZP) EnteringMethod: InformationFilter::SetControlMatrix";
   if (!init_) {
-    return false;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: InformationFilter::SetControlMatrix";
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: InformationFilter::SetControlMatrix";
+  return false;
   }
   if (control_matrix.rows() != states_num_ ||
       control_matrix.cols() != states_num_) {
-    return false;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: InformationFilter::SetControlMatrix";
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: InformationFilter::SetControlMatrix";
+  return false;
   }
   c_matrix_ = control_matrix;
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: InformationFilter::SetControlMatrix";
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: InformationFilter::SetControlMatrix";
   return true;
 }
 

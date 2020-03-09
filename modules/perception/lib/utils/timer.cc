@@ -44,6 +44,8 @@ AINFO<<"(DMCZP) EnteringMethod: Timer::End";
 
   // start new timer.
   start_time_ = end_time_;
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: Timer::End";
   return elapsed_time;
 }
 

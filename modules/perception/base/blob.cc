@@ -129,12 +129,20 @@ Blob<Dtype>::Blob(const std::vector<int>& shape,
 template <typename Dtype>
 const int* Blob<Dtype>::gpu_shape() const {
   CHECK(shape_data_);
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: Copyright";
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: Copyright";
   return (const int*)shape_data_->gpu_data();
 }
 
 template <typename Dtype>
 const Dtype* Blob<Dtype>::cpu_data() const {
   CHECK(data_);
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: Copyright";
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: Copyright";
   return (const Dtype*)data_->cpu_data();
 }
 
@@ -152,6 +160,10 @@ void Blob<Dtype>::set_cpu_data(Dtype* data) {
 template <typename Dtype>
 const Dtype* Blob<Dtype>::gpu_data() const {
   CHECK(data_);
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: Copyright";
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: Copyright";
   return (const Dtype*)data_->gpu_data();
 }
 
@@ -169,12 +181,20 @@ void Blob<Dtype>::set_gpu_data(Dtype* data) {
 template <typename Dtype>
 Dtype* Blob<Dtype>::mutable_cpu_data() {
   CHECK(data_);
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: Copyright";
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: Copyright";
   return static_cast<Dtype*>(data_->mutable_cpu_data());
 }
 
 template <typename Dtype>
 Dtype* Blob<Dtype>::mutable_gpu_data() {
   CHECK(data_);
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: Copyright";
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: Copyright";
   return static_cast<Dtype*>(data_->mutable_gpu_data());
 }
 
@@ -193,4 +213,8 @@ template class Blob<double>;
 
 }  // namespace base
 }  // namespace perception
-}  // namespace apollo
+
+  AINFO<<"(DMCZP) LeaveMethod: Copyright";
+ 
+  AINFO<<"(DMCZP) LeaveMethod: Copyright";
+ }  // namespace apollo

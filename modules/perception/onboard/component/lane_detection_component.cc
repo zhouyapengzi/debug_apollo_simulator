@@ -61,12 +61,18 @@ AINFO<<"(DMCZP) EnteringMethod: GetGpuId";
   config_file = GetAbsolutePath(work_root, config_file);
   if (!cyber::common::GetProtoFromFile(config_file, &perception_param)) {
     AERROR << "Read config failed: " << config_file;
-    return -1;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: GetGpuId";
+  return -1;
   }
   if (!perception_param.has_gpu_id()) {
     AINFO << "gpu id not found.";
-    return -1;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: GetGpuId";
+  return -1;
   }
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: GetGpuId";
   return perception_param.gpu_id();
 }
 
@@ -88,16 +94,24 @@ AINFO<<"(DMCZP) EnteringMethod: SetCameraHeight";
     *camera_height = base_h + camera_offset;
   } catch (YAML::InvalidNode &in) {
     AERROR << "load camera extrisic file error, YAML::InvalidNode exception";
-    return false;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: SetCameraHeight";
+  return false;
   } catch (YAML::TypedBadConversion<float> &bc) {
     AERROR << "load camera extrisic file error, "
            << "YAML::TypedBadConversion exception";
-    return false;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: SetCameraHeight";
+  return false;
   } catch (YAML::Exception &e) {
     AERROR << "load camera extrisic file "
            << " error, YAML exception:" << e.what();
-    return false;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: SetCameraHeight";
+  return false;
   }
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: SetCameraHeight";
   return true;
 }
 
@@ -107,7 +121,9 @@ static bool LoadExtrinsics(const std::string &yaml_file,
 AINFO<<"(DMCZP) EnteringMethod: LoadExtrinsics";
   if (!apollo::cyber::common::PathExists(yaml_file)) {
     AINFO << yaml_file << " not exist!";
-    return false;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: LoadExtrinsics";
+  return false;
   }
   YAML::Node node = YAML::LoadFile(yaml_file);
   double qw = 0.0;
@@ -120,7 +136,9 @@ AINFO<<"(DMCZP) EnteringMethod: LoadExtrinsics";
   try {
     if (node.IsNull()) {
       AINFO << "Load " << yaml_file << " failed! please check!";
-      return false;
+      
+  AINFO<<"(DMCZP) (return) LeaveMethod: LoadExtrinsics";
+  return false;
     }
     qw = node["transform"]["rotation"]["w"].as<double>();
     qx = node["transform"]["rotation"]["x"].as<double>();
@@ -132,15 +150,21 @@ AINFO<<"(DMCZP) EnteringMethod: LoadExtrinsics";
   } catch (YAML::InvalidNode &in) {
     AERROR << "load camera extrisic file " << yaml_file
            << " with error, YAML::InvalidNode exception";
-    return false;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: LoadExtrinsics";
+  return false;
   } catch (YAML::TypedBadConversion<double> &bc) {
     AERROR << "load camera extrisic file " << yaml_file
            << " with error, YAML::TypedBadConversion exception";
-    return false;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: LoadExtrinsics";
+  return false;
   } catch (YAML::Exception &e) {
     AERROR << "load camera extrisic file " << yaml_file
            << " with error, YAML exception:" << e.what();
-    return false;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: LoadExtrinsics";
+  return false;
   }
   camera_extrinsic->setConstant(0);
   Eigen::Quaterniond q;
@@ -153,6 +177,8 @@ AINFO<<"(DMCZP) EnteringMethod: LoadExtrinsics";
   (*camera_extrinsic)(1, 3) = ty;
   (*camera_extrinsic)(2, 3) = tz;
   (*camera_extrinsic)(3, 3) = 1;
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: LoadExtrinsics";
   return true;
 }
 
@@ -165,7 +191,9 @@ static bool GetProjectMatrix(
 AINFO<<"(DMCZP) EnteringMethod: GetProjectMatrix";
   if (camera_names.size() != 2) {
     AINFO << "camera number must be 2!";
-    return false;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: GetProjectMatrix";
+  return false;
   }
   *project_matrix =
       intrinsic_map.at(camera_names[0]).cast<double>() *
@@ -181,6 +209,8 @@ AINFO<<"(DMCZP) EnteringMethod: GetProjectMatrix";
     *pitch_diff = euler(0);
     AINFO << "pitch diff: " << *pitch_diff;
   }
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: GetProjectMatrix";
   return true;
 }
 
@@ -190,7 +220,9 @@ bool LaneDetectionComponent::Init() {
 AINFO<<"(DMCZP) EnteringMethod: LaneDetectionComponent::Init";
   if (InitConfig() != cyber::SUCC) {
     AERROR << "InitConfig() failed.";
-    return false;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: LaneDetectionComponent::Init";
+  return false;
   }
 
   writer_ = node_->CreateWriter<PerceptionLanes>(output_lanes_channel_name_);
@@ -199,7 +231,9 @@ AINFO<<"(DMCZP) EnteringMethod: LaneDetectionComponent::Init";
 
   if (!EXEC_ALL_FUNS(LaneDetectionComponent, this,
                      LaneDetectionComponent::init_func_arry_)) {
-    return false;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: LaneDetectionComponent::Init";
+  return false;
   }
   SetCameraHeightAndPitch();
 
@@ -234,6 +268,8 @@ AINFO<<"(DMCZP) EnteringMethod: LaneDetectionComponent::Init";
   AINFO << "Init processes all succeed";
   AINFO<< "(pengzi) finish initialize lane perception processes.thread:"<< std::this_thread::get_id();
  
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: LaneDetectionComponent::Init";
   return true;
 }
 
@@ -300,7 +336,9 @@ AINFO<<"(DMCZP) EnteringMethod: LaneDetectionComponent::OnReceiveImage";
     AINFO << "Received an old message. Last ts is " << std::setprecision(19)
           << last_timestamp_ << " current ts is " << msg_timestamp
           << " last - current is " << last_timestamp_ - msg_timestamp;
-    return;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: LaneDetectionComponent::OnReceiveImage";
+  return;
   }
   last_timestamp_ = msg_timestamp;
   ++seq_num_;
@@ -328,7 +366,9 @@ AINFO<<"(DMCZP) EnteringMethod: LaneDetectionComponent::OnReceiveImage";
   if (InternalProc(message, camera_name, &error_code, prefused_message.get(),
                    out_message.get()) != cyber::SUCC) {
     AERROR << "InternalProc failed, error_code: " << error_code;
-    return;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: LaneDetectionComponent::OnReceiveImage";
+  return;
   }
 
   // for e2e lantency statistics
@@ -342,15 +382,21 @@ AINFO<<"(DMCZP) EnteringMethod: LaneDetectionComponent::OnReceiveImage";
           << GLOG_TIMESTAMP(end_timestamp) << "]:cur_latency[" << end_latency
           << "]";
   }
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: LaneDetectionComponent::OnReceiveImage";
+ }
 
 int LaneDetectionComponent::InitConfig() {
 AINFO<<"(DMCZP) EnteringMethod: LaneDetectionComponent::InitConfig";
-  // the macro READ_CONF would return cyber::FAIL if config not exists
+  // the macro READ_CONF would 
+  AINFO<<"(DMCZP) (return) LeaveMethod: LaneDetectionComponent::InitConfig";
+  return cyber::FAIL if config not exists
   apollo::perception::onboard::LaneDetection lane_detection_param;
   if (!GetProtoConfig(&lane_detection_param)) {
     AINFO << "load lane detection component proto param failed";
-    return false;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: LaneDetectionComponent::InitConfig";
+  return false;
   }
 
   std::string camera_names_str = lane_detection_param.camera_names();
@@ -358,7 +404,9 @@ AINFO<<"(DMCZP) EnteringMethod: LaneDetectionComponent::InitConfig";
                           boost::algorithm::is_any_of(","));
   if (camera_names_.size() != 2) {
     AERROR << "Now LaneDetectionComponent only support 2 cameras";
-    return cyber::FAIL;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: LaneDetectionComponent::InitConfig";
+  return cyber::FAIL;
   }
 
   std::string input_camera_channel_names_str =
@@ -369,7 +417,9 @@ AINFO<<"(DMCZP) EnteringMethod: LaneDetectionComponent::InitConfig";
   if (input_camera_channel_names_.size() != camera_names_.size()) {
     AERROR << "wrong input_camera_channel_names_.size(): "
            << input_camera_channel_names_.size();
-    return cyber::FAIL;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: LaneDetectionComponent::InitConfig";
+  return cyber::FAIL;
   }
 
   camera_perception_init_options_.root_dir =
@@ -417,6 +467,8 @@ AINFO<<"(DMCZP) EnteringMethod: LaneDetectionComponent::InitConfig";
 
 AINFO << "(pengzi) this config info is for lane detection. conf_file:" << camera_perception_init_options_.conf_file<<".";
 
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: LaneDetectionComponent::InitConfig";
   return cyber::SUCC;
 }
 
@@ -424,20 +476,26 @@ int LaneDetectionComponent::InitSensorInfo() {
 AINFO<<"(DMCZP) EnteringMethod: LaneDetectionComponent::InitSensorInfo";
   if (camera_names_.size() != 2) {
     AERROR << "invalid camera_names_.size(): " << camera_names_.size();
-    return cyber::FAIL;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: LaneDetectionComponent::InitSensorInfo";
+  return cyber::FAIL;
   }
 
   auto *sensor_manager = common::SensorManager::Instance();
   for (size_t i = 0; i < camera_names_.size(); ++i) {
     if (!sensor_manager->IsSensorExist(camera_names_[i])) {
       AERROR << ("sensor_name: " + camera_names_[i] + " not exists.");
-      return cyber::FAIL;
+      
+  AINFO<<"(DMCZP) (return) LeaveMethod: LaneDetectionComponent::InitSensorInfo";
+  return cyber::FAIL;
     }
 
     base::SensorInfo sensor_info;
     if (!(sensor_manager->GetSensorInfo(camera_names_[i], &sensor_info))) {
       AERROR << "Failed to get sensor info, sensor name: " << camera_names_[i];
-      return cyber::FAIL;
+      
+  AINFO<<"(DMCZP) (return) LeaveMethod: LaneDetectionComponent::InitSensorInfo";
+  return cyber::FAIL;
     }
     sensor_info_map_[camera_names_[i]] = sensor_info;
 
@@ -468,6 +526,8 @@ AINFO<<"(DMCZP) EnteringMethod: LaneDetectionComponent::InitSensorInfo";
           image_height_ % image_channel_num_);
   AINFO << sensor_info_str;
 
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: LaneDetectionComponent::InitSensorInfo";
   return cyber::SUCC;
 }
 
@@ -476,9 +536,13 @@ AINFO<<"(DMCZP) EnteringMethod: LaneDetectionComponent::InitAlgorithmPlugin";
   camera_lane_pipeline_.reset(new camera::LaneCameraPerception);
   if (!camera_lane_pipeline_->Init(camera_perception_init_options_)) {
     AERROR << "camera_lane_pipeline_->Init() failed";
-    return cyber::FAIL;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: LaneDetectionComponent::InitAlgorithmPlugin";
+  return cyber::FAIL;
   }
   AINFO << "camera_lane_pipeline_->Init() succeed";
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: LaneDetectionComponent::InitAlgorithmPlugin";
   return cyber::SUCC;
 }
 
@@ -486,13 +550,17 @@ int LaneDetectionComponent::InitCameraFrames() {
 AINFO<<"(DMCZP) EnteringMethod: LaneDetectionComponent::InitCameraFrames";
   if (camera_names_.size() != 2) {
     AERROR << "invalid camera_names_.size(): " << camera_names_.size();
-    return cyber::FAIL;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: LaneDetectionComponent::InitCameraFrames";
+  return cyber::FAIL;
   }
   // fixed size
   camera_frames_.resize(frame_capacity_);
   if (camera_frames_.empty()) {
     AERROR << "frame_capacity_ must > 0";
-    return cyber::FAIL;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: LaneDetectionComponent::InitCameraFrames";
+  return cyber::FAIL;
   }
 
   // init data_providers for each camera
@@ -504,7 +572,9 @@ AINFO<<"(DMCZP) EnteringMethod: LaneDetectionComponent::InitCameraFrames";
     data_provider_init_options.sensor_name = camera_name;
     int gpu_id = GetGpuId(camera_perception_init_options_);
     if (gpu_id == -1) {
-      return cyber::FAIL;
+      
+  AINFO<<"(DMCZP) (return) LeaveMethod: LaneDetectionComponent::InitCameraFrames";
+  return cyber::FAIL;
     }
     data_provider_init_options.device_id = gpu_id;
     AINFO << "data_provider_init_options.device_id: "
@@ -546,6 +616,8 @@ AINFO<<"(DMCZP) EnteringMethod: LaneDetectionComponent::InitCameraFrames";
     frame.track_feature_blob.reset(new base::Blob<float>());
     frame.lane_detected_blob.reset(new base::Blob<float>());
   }
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: LaneDetectionComponent::InitCameraFrames";
   return cyber::SUCC;
 }
 
@@ -554,7 +626,9 @@ AINFO<<"(DMCZP) EnteringMethod: LaneDetectionComponent::InitProjectMatrix";
   if (!GetProjectMatrix(camera_names_, extrinsic_map_, intrinsic_map_,
                         &project_matrix_, &pitch_diff_)) {
     AERROR << "GetProjectMatrix failed";
-    return cyber::FAIL;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: LaneDetectionComponent::InitProjectMatrix";
+  return cyber::FAIL;
   }
   AINFO << "project_matrix_: " << project_matrix_;
   AINFO << "pitch_diff_:" << pitch_diff_;
@@ -562,6 +636,8 @@ AINFO<<"(DMCZP) EnteringMethod: LaneDetectionComponent::InitProjectMatrix";
   name_camera_pitch_angle_diff_map_[camera_names_[1]] =
       static_cast<float>(pitch_diff_);
 
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: LaneDetectionComponent::InitProjectMatrix";
   return cyber::SUCC;
 }
 
@@ -579,6 +655,8 @@ AINFO<<"(DMCZP) EnteringMethod: LaneDetectionComponent::InitMotionService";
   } else {
     mot_buffer_->set_capacity(motion_buffer_size_);
   }
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: LaneDetectionComponent::InitMotionService";
   return cyber::SUCC;
 }
 
@@ -596,6 +674,8 @@ AINFO<<"(DMCZP) EnteringMethod: LaneDetectionComponent::InitCameraListeners";
                   std::placeholders::_1, camera_name);
     auto camera_reader = node_->CreateReader(channel_name, camera_callback);
   }
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: LaneDetectionComponent::InitCameraListeners";
   return cyber::SUCC;
 }
 
@@ -635,7 +715,9 @@ AINFO<<"(DMCZP) EnteringMethod: LaneDetectionComponent::InternalProc";
     AERROR << err_str;
     *error_code = apollo::common::ErrorCode::PERCEPTION_ERROR_TF;
     prefused_message->error_code_ = *error_code;
-    return cyber::FAIL;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: LaneDetectionComponent::InternalProc";
+  return cyber::FAIL;
   }
   Eigen::Affine3d world2camera = camera2world_trans.inverse();
   prefused_message->frame_->sensor2world_pose = camera2world_trans;
@@ -671,7 +753,9 @@ AINFO <<"(pengzi) Begin camera lane perception" <<".thread:"<< std::this_thread:
            << " msg_timestamp: " << std::to_string(msg_timestamp);
     *error_code = apollo::common::ErrorCode::PERCEPTION_ERROR_PROCESS;
     prefused_message->error_code_ = *error_code;
-    return cyber::FAIL;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: LaneDetectionComponent::InternalProc";
+  return cyber::FAIL;
   }
   AINFO << "##" << camera_name << ": pitch "
         << camera_frame.calibration_service->QueryPitchAngle()
@@ -725,12 +809,16 @@ AINFO <<"(pengzi) Begin camera lane perception" <<".thread:"<< std::this_thread:
   if (MakeProtobufMsg(msg_timestamp, camera_name, camera_frame,
                       lanes_msg.get()) != cyber::SUCC) {
     AERROR << "make lanes_msg failed";
-    return cyber::FAIL;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: LaneDetectionComponent::InternalProc";
+  return cyber::FAIL;
   }
   writer_->Write(lanes_msg);
    AINFO << "(pengzi) send out lane perception message .thread:"<< std::this_thread::get_id();
 
 
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: LaneDetectionComponent::InternalProc";
   return cyber::SUCC;
 }
 
@@ -806,6 +894,8 @@ AINFO<<"(DMCZP) EnteringMethod: LaneDetectionComponent::ConvertLaneToCameraLanel
     lane_end_points->mutable_end()->set_x(end_points.end.x);
     lane_end_points->mutable_end()->set_y(end_points.end.y);
   }
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: LaneDetectionComponent::ConvertLaneToCameraLaneline";
   return cyber::SUCC;
 }
 
@@ -818,7 +908,9 @@ AINFO<<"(DMCZP) EnteringMethod: LaneDetectionComponent::MakeProtobufMsg";
   auto itr = std::find(camera_names_.begin(), camera_names_.end(), camera_name);
   if (itr == camera_names_.end()) {
     AERROR << "invalid camera_name: " << camera_name;
-    return cyber::FAIL;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: LaneDetectionComponent::MakeProtobufMsg";
+  return cyber::FAIL;
   }
   int input_camera_channel_names_idx =
       static_cast<int>(itr - camera_names_.begin());
@@ -830,7 +922,9 @@ AINFO<<"(DMCZP) EnteringMethod: LaneDetectionComponent::MakeProtobufMsg";
            << input_camera_channel_names_idx
            << " input_camera_channel_names_.size(): "
            << input_camera_channel_names_.size();
-    return cyber::FAIL;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: LaneDetectionComponent::MakeProtobufMsg";
+  return cyber::FAIL;
   }
   std::string source_channel_name =
       input_camera_channel_names_[input_camera_channel_names_idx];
@@ -851,6 +945,8 @@ AINFO<<"(DMCZP) EnteringMethod: LaneDetectionComponent::MakeProtobufMsg";
   // Fill the calibrator information(pitch angle)
   float pitch_angle = camera_frame.calibration_service->QueryPitchAngle();
   lanes_msg->mutable_camera_calibrator()->set_pitch_angle(pitch_angle);
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: LaneDetectionComponent::MakeProtobufMsg";
   return cyber::SUCC;
 }
 

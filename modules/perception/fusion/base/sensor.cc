@@ -48,6 +48,8 @@ AINFO<<"(DMCZP) EnteringMethod: Sensor::QueryLatestFrame";
       latest_query_timestamp_ = frames_[i]->GetTimestamp();
     }
   }
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: Sensor::QueryLatestFrame";
   return latest_frame;
 }
 
@@ -58,11 +60,15 @@ AINFO<<"(DMCZP) EnteringMethod: Sensor::GetPose";
   for (int i = static_cast<int>(frames_.size()) - 1; i >= 0; --i) {
     double time_diff = timestamp - frames_[i]->GetTimestamp();
     if (fabs(time_diff) < 1.0e-3) {  // > ?
-      return frames_[i]->GetPose(pose);
+      
+  AINFO<<"(DMCZP) (return) LeaveMethod: Sensor::GetPose";
+  return frames_[i]->GetPose(pose);
     }
   }
 
   AWARN << "Failed to find pose for timestamp: " << timestamp;
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: Sensor::GetPose";
   return false;
 }
 

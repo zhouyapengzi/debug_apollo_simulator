@@ -33,14 +33,24 @@ Inference *CreateInferenceByName(const std::string &name,
                                  const std::string &model_root) {
 AINFO<<"(DMCZP) EnteringMethod: *CreateInferenceByName";
   if (name == "CaffeNet") {
-    return new CaffeNet(proto_file, weight_file, outputs, inputs);
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: *CreateInferenceByName";
+  return new CaffeNet(proto_file, weight_file, outputs, inputs);
   } else if (name == "RTNet") {
-    return new RTNet(proto_file, weight_file, outputs, inputs);
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: *CreateInferenceByName";
+  return new RTNet(proto_file, weight_file, outputs, inputs);
   } else if (name == "RTNetInt8") {
-    return new RTNet(proto_file, weight_file, outputs, inputs, model_root);
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: *CreateInferenceByName";
+  return new RTNet(proto_file, weight_file, outputs, inputs, model_root);
   } else if (name == "PaddleNet") {
-    return new PaddleNet(proto_file, weight_file, outputs, inputs);
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: *CreateInferenceByName";
+  return new PaddleNet(proto_file, weight_file, outputs, inputs);
   }
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: *CreateInferenceByName";
   return nullptr;
 }
 

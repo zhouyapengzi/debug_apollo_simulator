@@ -40,6 +40,8 @@ AINFO<<"(DMCZP) EnteringMethod: vector2string";
     oss << values[i] << " ";
   }
   oss << ")";
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: vector2string";
   return oss.str();
 }
 
@@ -61,19 +63,25 @@ AINFO<<"(DMCZP) EnteringMethod: DstTypeFusion::DstTypeFusion";
   sensor_obj = sensor_obj != nullptr ? sensor_obj : radar_object;
   if (sensor_obj == nullptr) {
     AERROR << "track has no sensor_obj";
-    return;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: DstTypeFusion::DstTypeFusion";
+  return;
   }
   fused_dst_ =
       fused_dst_ + sensor_dst * GetReliability(sensor_obj->GetSensorId());
   UpdateTypeState();
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: DstTypeFusion::DstTypeFusion";
+ }
 
 bool DstTypeFusion::Init() {
 AINFO<<"(DMCZP) EnteringMethod: DstTypeFusion::Init";
   BaseInitOptions options;
   if (!GetFusionInitOptions("DstTypeFusion", &options)) {
     AERROR << "GetFusionInitOptions failed ";
-    return false;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: DstTypeFusion::Init";
+  return false;
   }
 
   std::string woork_root_config = GetAbsolutePath(
@@ -84,7 +92,9 @@ AINFO<<"(DMCZP) EnteringMethod: DstTypeFusion::Init";
 
   if (!cyber::common::GetProtoFromFile(config, &params)) {
     AERROR << "Read config failed: " << config;
-    return false;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: DstTypeFusion::Init";
+  return false;
   }
 
   for (auto camera_param : params.camera_params()) {
@@ -112,10 +122,14 @@ AINFO<<"(DMCZP) EnteringMethod: DstTypeFusion::Init";
   }
 
   if (DstManager::Instance()->IsAppAdded(name_)) {
-    return true;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: DstTypeFusion::Init";
+  return true;
   }
   DstManager::Instance()->AddApp(name_, dst_maps_.fod_subsets_,
                                  dst_maps_.subset_names_);
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: DstTypeFusion::Init";
   return DstManager::Instance()->IsAppAdded(name_);
 }
 
@@ -188,10 +202,14 @@ AINFO<<"(DMCZP) EnteringMethod: DstTypeFusion::UpdateWithoutMeasurement";
       CHECK_GE(dist_score, 0.0);
       constexpr double th = 0.9;
       if (dist_score >= th) {
-        return 0.0;
+        
+  AINFO<<"(DMCZP) (return) LeaveMethod: DstTypeFusion::UpdateWithoutMeasurement";
+  return 0.0;
       }
       double res = 1 - (dist_score / th) * (dist_score / th);
-      return res * res;
+      
+  AINFO<<"(DMCZP) (return) LeaveMethod: DstTypeFusion::UpdateWithoutMeasurement";
+  return res * res;
     };
     double occlusion_score = loss_fun(min_match_dist);
     std::map<uint64_t, double> fp_dst_map = {{DstMaps::OTHERS, 0.7},
@@ -203,18 +221,30 @@ AINFO<<"(DMCZP) EnteringMethod: DstTypeFusion::UpdateWithoutMeasurement";
                      GetReliabilityForUnKnown(sensor_id, measurement_timestamp);
     UpdateTypeState();
   }
-}
 
-std::string DstTypeFusion::Name() const { return name_; }
+  AINFO<<"(DMCZP) LeaveMethod: DstTypeFusion::UpdateWithoutMeasurement";
+ }
+
+std::string DstTypeFusion::Name() const {
+  AINFO<<"(DMCZP) EnteringMethod: DstTypeFusion::Name";
+ 
+  AINFO<<"(DM
+  AINFO<<"(DMCZP) LeaveMethod: DstTypeFusion::Name";
+ CZP) (return) LeaveMethod: DstTypeFusion::Name";
+  return name_; }
 
 bool DstTypeFusion::TypToHyp(size_t object_type,
                              uint64_t *hypothesis_type) const {
 AINFO<<"(DMCZP) EnteringMethod: DstTypeFusion::TypToHyp";
   auto find_res = dst_maps_.typ_to_hyp_map_.find(object_type);
   if (find_res == dst_maps_.typ_to_hyp_map_.end()) {
-    return false;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: DstTypeFusion::TypToHyp";
+  return false;
   }
   *hypothesis_type = find_res->second;
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: DstTypeFusion::TypToHyp";
   return true;
 }
 
@@ -223,9 +253,13 @@ bool DstTypeFusion::HypToTyp(uint64_t hypothesis_type,
 AINFO<<"(DMCZP) EnteringMethod: DstTypeFusion::HypToTyp";
   auto find_res = dst_maps_.hyp_to_typ_map_.find(hypothesis_type);
   if (find_res == dst_maps_.hyp_to_typ_map_.end()) {
-    return false;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: DstTypeFusion::HypToTyp";
+  return false;
   }
   *object_type = find_res->second;
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: DstTypeFusion::HypToTyp";
   return true;
 }
 
@@ -236,7 +270,9 @@ AINFO<<"(DMCZP) EnteringMethod: DstTypeFusion::TypeProbsToDst";
       std::accumulate(type_probs.begin(), type_probs.end(), 0.0);
   if (type_probs_sum < DBL_MIN) {
     // AWARN << "the sum of types probability equal 0.0";
-    return res_dst;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: DstTypeFusion::TypeProbsToDst";
+  return res_dst;
   }
   // if (type_probs.size() > base::ObjectType::UNKNOWN_UNMOVABLE &&
   // type_probs[(int)base::ObjectType::UNKNOWN_UNMOVABLE] > 0.0f) {
@@ -262,6 +298,8 @@ AINFO<<"(DMCZP) EnteringMethod: DstTypeFusion::TypeProbsToDst";
   //     }
   // }
   CHECK(res_dst.SetBba(res_bba_map));
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: DstTypeFusion::TypeProbsToDst";
   return res_dst;
 }
 
@@ -271,8 +309,12 @@ AINFO<<"(DMCZP) EnteringMethod: DstTypeFusion::GetReliability";
   if (find_res == options_.sensor_reliability_.end()) {
     ADEBUG << "the sensor type: " << sensor_id
            << " is not supported by class fusion";
-    return 0.0;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: DstTypeFusion::GetReliability";
+  return 0.0;
   }
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: DstTypeFusion::GetReliability";
   return find_res->second;
 }
 
@@ -283,7 +325,9 @@ AINFO<<"(DMCZP) EnteringMethod: DstTypeFusion::GetReliabilityForUnKnown";
   if (find_res == options_.sensor_reliability_for_unknown_.end()) {
     ADEBUG << "the sensor type: " << sensor_id
            << " is not supported by class fusion";
-    return 0.0;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: DstTypeFusion::GetReliabilityForUnKnown";
+  return 0.0;
   }
   time_t rawtime = static_cast<time_t>(measurement_timestamp);
   struct tm timeinfo;
@@ -293,6 +337,8 @@ AINFO<<"(DMCZP) EnteringMethod: DstTypeFusion::GetReliabilityForUnKnown";
       (common::SensorManager::Instance()->IsCamera(sensor_id) && is_night)
           ? 0.1
           : 1.0;
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: DstTypeFusion::GetReliabilityForUnKnown";
   return find_res->second * prob;
 }
 
