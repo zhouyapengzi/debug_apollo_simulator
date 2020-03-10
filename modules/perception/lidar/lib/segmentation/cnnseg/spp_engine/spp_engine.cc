@@ -68,9 +68,7 @@ AINFO<<"(DMCZP) EnteringMethod: SppEngine::ProcessConnectedComponentCluster";
   size_t num = detector_2d_cc_.Detect(&labels_2d_);
   if (num == 0) {
     ADEBUG << "No object detected";
-    // Later will decide if 
-  AINFO<<"(DMCZP) (return) LeaveMethod: SppEngine::ProcessConnectedComponentCluster";
-  return this function here
+    // Later will decide if return this function here
   }
   double detect_time = timer.toc(true);
   worker_.Join();

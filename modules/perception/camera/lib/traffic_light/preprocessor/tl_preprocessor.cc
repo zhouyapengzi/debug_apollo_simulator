@@ -387,9 +387,7 @@ AINFO<<"(DMCZP) EnteringMethod: TLPreprocessor::GetAlllightsOutsideFlag";
 std::string TLPreprocessor::Name() const {
   AINFO<<"(DMCZP) EnteringMethod: TLPreprocessor::Name";
  
-  AINFO<<"(DMCZP) (retur
-  AINFO<<"(DMCZP) LeaveMethod: TLPreprocessor::Name";
- n) LeaveMethod: TLPreprocessor::Name";
+  AINFO<<"(DMCZP) (return) LeaveMethod: TLPreprocessor::Name";
   return "TLPreprocessor"; }
 
 std::string TLPreprocessor::GetMinFocalLenWorkingCameraName() const {
@@ -403,9 +401,7 @@ AINFO<<"(DMCZP) EnteringMethod: TLPreprocessor::GetMinFocalLenWorkingCameraName"
   return *itr;
     }
   }
-  AWARN << "No working camera, 
-  AINFO<<"(DMCZP) (return) LeaveMethod: TLPreprocessor::GetMinFocalLenWorkingCameraName";
-  return empty camera_name";
+  AWARN << "No working camera, return empty camera_name";
   
   AINFO<<"(DMCZP) (return) LeaveMethod: TLPreprocessor::GetMinFocalLenWorkingCameraName";
   return "";
@@ -422,9 +418,7 @@ AINFO<<"(DMCZP) EnteringMethod: TLPreprocessor::GetMaxFocalLenWorkingCameraName"
   return camera_name;
     }
   }
-  AWARN << "No working camera, 
-  AINFO<<"(DMCZP) (return) LeaveMethod: TLPreprocessor::GetMaxFocalLenWorkingCameraName";
-  return empty camera_name";
+  AWARN << "No working camera, return empty camera_name";
   
   AINFO<<"(DMCZP) (return) LeaveMethod: TLPreprocessor::GetMaxFocalLenWorkingCameraName";
   return "";

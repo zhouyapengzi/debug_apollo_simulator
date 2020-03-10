@@ -72,8 +72,6 @@ AINFO<<"(DMCZP) EnteringMethod: ProjectFeature::Extract";
   if (frame->detected_objects.empty()) {
     
   AINFO<<"(DMCZP) (return) LeaveMethod: ProjectFeature::Extract";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: ProjectFeature::Init";
   return true;
   }
   input_blob->Reshape(frame->track_feature_blob->shape());
@@ -96,23 +94,18 @@ AINFO<<"(DMCZP) EnteringMethod: ProjectFeature::Extract";
   
   AINFO<<"(DMCZP) (return) LeaveMethod: ProjectFeature::Extract";
   
-  AINFO<<"(DMCZP) (return) LeaveMethod: ProjectFeature::Init";
   return true;
 }
 
 std::string ProjectFeature::Name() const {
   AINFO<<"(DMCZP) EnteringMethod: ProjectFeature::Name";
  
-  AINFO<<"(DMCZP) (retur
-  AINFO<<"(DMCZP) LeaveMethod: ProjectFeature::Name";
- n) LeaveMethod: ProjectFeature::Name";
+  AINFO<<"(DMCZP) (return) LeaveMethod: ProjectFeature::Name";
   
-  AINFO<<"(DMCZP) (return) LeaveMethod: ProjectFeature::Init";
   return "ProjectFeature"; }
 
 REGISTER_FEATURE_EXTRACTOR(ProjectFeature);
 
-  AINFO<<"(DMCZP) LeaveMethod: ProjectFeature::Init";
  }  // namespace camera
 }  // namespace perception
 }  // namespace apollo

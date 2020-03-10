@@ -195,8 +195,6 @@ AINFO<<"(DMCZP) EnteringMethod: ClassifyBySimple::Prob2Color";
   AINFO<<"(DMCZP) LeaveMethod: ClassifyBySimple::Prob2Color";
  }
 
-
-  AINFO<<"(DMCZP) LeaveMethod: ClassifyBySimple::Init";
  }  // namespace camera
 }  // namespace perception
 }  // namespace apollo

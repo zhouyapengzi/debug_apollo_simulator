@@ -164,7 +164,6 @@ AINFO<<"(DMCZP) EnteringMethod: DenselineLaneDetector::Detect";
     
   AINFO<<"(DMCZP) (return) LeaveMethod: DenselineLaneDetector::Detect";
   
-  AINFO<<"(DMCZP) (return) LeaveMethod: DenselineLaneDetector::Init";
   return false;
   }
 
@@ -207,7 +206,6 @@ AINFO<<"(DMCZP) EnteringMethod: DenselineLaneDetector::Detect";
   
   AINFO<<"(DMCZP) (return) LeaveMethod: DenselineLaneDetector::Detect";
   
-  AINFO<<"(DMCZP) (return) LeaveMethod: DenselineLaneDetector::Init";
   return true;
 }
 
@@ -216,14 +214,11 @@ AINFO<<"(DMCZP) EnteringMethod: DenselineLaneDetector::Name";
   
   AINFO<<"(DMCZP) (return) LeaveMethod: DenselineLaneDetector::Name";
   
-  AINFO<<"(DMCZP) (return) LeaveMethod: DenselineLaneDetector::Init";
   return "DenselineLaneDetector";
 }
 
 REGISTER_LANE_DETECTOR(DenselineLaneDetector);
 
-
-  AINFO<<"(DMCZP) LeaveMethod: DenselineLaneDetector::Init";
  }  // namespace camera
 }  // namespace perception
 }  // namespace apollo

@@ -32,9 +32,7 @@ int Target::global_track_id = 0;
 int Target::Size() const {
   AINFO<<"(DMCZP) EnteringMethod: Target::Size";
  
-  AINFO<<"(DMCZP) (return) LeaveMethod: Target::
-  AINFO<<"(DMCZP) LeaveMethod: Target::Size";
- Size";
+  AINFO<<"(DMCZP) (return) LeaveMethod: Target::Size";
   return static_cast<int>(tracked_objects.size()); }
 
 void Target::Clear() {
@@ -564,9 +562,7 @@ AINFO<<"(DMCZP) EnteringMethod: Target::isTracked";
 bool Target::isLost() const {
   AINFO<<"(DMCZP) EnteringMethod: Target::isLost";
  
-  AINFO<<"(DMCZP) (r
-  AINFO<<"(DMCZP) LeaveMethod: Target::isLost";
- eturn) LeaveMethod: Target::isLost";
+  AINFO<<"(DMCZP) (return) LeaveMethod: Target::isLost";
   return lost_age > 0; }
 
 }  // namespace camera

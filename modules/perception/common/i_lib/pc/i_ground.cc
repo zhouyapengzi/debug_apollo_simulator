@@ -1437,9 +1437,7 @@ AINFO<<"(DMCZP) EnteringMethod: PlaneFitGroundDetector::Detect";
 const char *PlaneFitGroundDetector::GetLabel() const {
   AINFO<<"(DMCZP) EnteringMethod: *PlaneFitGroundDetector::GetLabel";
  
-  AINFO<<"(DMCZ
-  AINFO<<"(DMCZP) LeaveMethod: *PlaneFitGroundDetector::GetLabel";
- P) (return) LeaveMethod: *PlaneFitGroundDetector::GetLabel";
+  AINFO<<"(DMCZP) (return) LeaveMethod: *PlaneFitGroundDetector::GetLabel";
   return labels_; }
 
 const VoxelGridXY<float> *PlaneFitGroundDetector::GetGrid() const {
@@ -1472,9 +1470,7 @@ const unsigned int PlaneFitGroundDetector::GetGridDimY() const {
 float PlaneFitGroundDetector::GetUnknownHeight() {
   AINFO<<"(DMCZP) EnteringMethod: PlaneFitGroundDetector::GetUnknownHeight";
  
-  AINFO<<"(DMCZ
-  AINFO<<"(DMCZP) LeaveMethod: PlaneFitGroundDetector::GetUnknownHeight";
- P) (return) LeaveMethod: PlaneFitGroundDetector::GetUnknownHeight";
+  AINFO<<"(DMCZP) (return) LeaveMethod: PlaneFitGroundDetector::GetUnknownHeight";
   return FLT_MAX; }
 
 PlaneFitPointCandIndices **PlaneFitGroundDetector::GetCandis() const {

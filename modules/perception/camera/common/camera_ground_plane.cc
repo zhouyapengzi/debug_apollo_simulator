@@ -314,8 +314,6 @@ AINFO<<"(DMCZP) EnteringMethod: CameraGroundPlaneDetector::DetetGround";
   AINFO<<"(DMCZP) (return) LeaveMethod: CameraGroundPlaneDetector::DetetGround";
   return false;
   }
-
-  AINFO<<"(DMCZP) LeaveMethod: CameraGroundPlaneDetector::DetetGround";
  }
 
 bool CameraGroundPlaneDetector::DetectGroundFromSamples(float *vd, int count_vd,

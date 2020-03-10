@@ -192,9 +192,7 @@ AINFO<<"(DMCZP) EnteringMethod: ProbabilisticFusion::Fuse";
 std::string ProbabilisticFusion::Name() const {
   AINFO<<"(DMCZP) EnteringMethod: ProbabilisticFusion::Name";
  
-  AINFO<<"(DMCZP) (return) Le
-  AINFO<<"(DMCZP) LeaveMethod: ProbabilisticFusion::Name";
- aveMethod: ProbabilisticFusion::Name";
+  AINFO<<"(DMCZP) (return) LeaveMethod: ProbabilisticFusion::Name";
   return "ProbabilisticFusion"; }
 
 bool ProbabilisticFusion::IsPublishSensor(
@@ -209,16 +207,10 @@ AINFO<<"(DMCZP) EnteringMethod: ProbabilisticFusion::IsPublishSensor";
   // const auto& itr = std::find(
   //   pub_sensors.begin(), pub_sensors.end(), sensor_id);
   // if (itr != pub_sensors.end()) {
-  //   
-  AINFO<<"(DMCZP) (return) LeaveMethod: ProbabilisticFusion::IsPublishSensor";
-  return true;
+  //   return true;
   // } else {
-  //   
-  AINFO<<"(DMCZP) (return) LeaveMethod: ProbabilisticFusion::IsPublishSensor";
-  return false;
+  //   return false;
   // }
-
-  AINFO<<"(DMCZP) LeaveMethod: ProbabilisticFusion::IsPublishSensor";
  }
 
 void ProbabilisticFusion::FuseFrame(const SensorFramePtr& frame) {

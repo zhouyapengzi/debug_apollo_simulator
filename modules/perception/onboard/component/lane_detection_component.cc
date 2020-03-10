@@ -390,9 +390,7 @@ AINFO<<"(DMCZP) EnteringMethod: LaneDetectionComponent::OnReceiveImage";
 
 int LaneDetectionComponent::InitConfig() {
 AINFO<<"(DMCZP) EnteringMethod: LaneDetectionComponent::InitConfig";
-  // the macro READ_CONF would 
-  AINFO<<"(DMCZP) (return) LeaveMethod: LaneDetectionComponent::InitConfig";
-  return cyber::FAIL if config not exists
+  // the macro READ_CONF would return cyber::FAIL if config not exists
   apollo::perception::onboard::LaneDetection lane_detection_param;
   if (!GetProtoConfig(&lane_detection_param)) {
     AINFO << "load lane detection component proto param failed";

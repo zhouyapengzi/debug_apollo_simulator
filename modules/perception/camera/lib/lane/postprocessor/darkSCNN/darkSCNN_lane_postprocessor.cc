@@ -423,7 +423,6 @@ bool DarkSCNNLanePostprocessor::Process3D(
   
   AINFO<<"(DMCZP) (return) LeaveMethod: DarkSCNNLanePostprocessor::Process3D";
   
-  AINFO<<"(DMCZP) (return) LeaveMethod: DarkSCNNLanePostprocessor::Process2D";
   return true;
 }
 
@@ -455,8 +454,6 @@ AINFO<<"(DMCZP) EnteringMethod: DarkSCNNLanePostprocessor::ConvertImagePoint2Cam
   }
   
   AINFO<<"(DMCZP) (return) LeaveMethod: DarkSCNNLanePostprocessor::ConvertImagePoint2Camera";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: DarkSCNNLanePostprocessor::Process2D";
   return;
 }
 
@@ -498,8 +495,6 @@ AINFO<<"(DMCZP) EnteringMethod: DarkSCNNLanePostprocessor::PolyFitCameraLaneline
   }
   
   AINFO<<"(DMCZP) (return) LeaveMethod: DarkSCNNLanePostprocessor::PolyFitCameraLaneline";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: DarkSCNNLanePostprocessor::Process2D";
   return;
 }
 
@@ -508,13 +503,11 @@ AINFO<<"(DMCZP) EnteringMethod: DarkSCNNLanePostprocessor::Name";
   
   AINFO<<"(DMCZP) (return) LeaveMethod: DarkSCNNLanePostprocessor::Name";
   
-  AINFO<<"(DMCZP) (return) LeaveMethod: DarkSCNNLanePostprocessor::Process2D";
   return "DarkSCNNLanePostprocessor";
 }
 
 REGISTER_LANE_POSTPROCESSOR(DarkSCNNLanePostprocessor);
 
-  AINFO<<"(DMCZP) LeaveMethod: DarkSCNNLanePostprocessor::Process2D";
  }  // namespace camera
 }  // namespace perception
 }  // namespace apollo

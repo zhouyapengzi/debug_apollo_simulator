@@ -63,9 +63,7 @@ bool HalfCircleAngle::operator==(const float &theta) const {
 float HalfCircleAngle::value() const {
   AINFO<<"(DMCZP) EnteringMethod: HalfCircleAngle::value";
  
-  AINFO<<"(DMC
-  AINFO<<"(DMCZP) LeaveMethod: HalfCircleAngle::value";
- ZP) (return) LeaveMethod: HalfCircleAngle::value";
+  AINFO<<"(DMCZP) (return) LeaveMethod: HalfCircleAngle::value";
   return theta_; }
 }  // namespace camera
 }  // namespace perception

@@ -186,7 +186,6 @@ AINFO<<"(DMCZP) EnteringMethod: DarkSCNNLaneDetector::Detect";
     
   AINFO<<"(DMCZP) (return) LeaveMethod: DarkSCNNLaneDetector::Detect";
   
-  AINFO<<"(DMCZP) (return) LeaveMethod: DarkSCNNLaneDetector::Init";
   return false;
   }
 
@@ -310,7 +309,6 @@ AINFO<<"(DMCZP) EnteringMethod: DarkSCNNLaneDetector::Detect";
   
   AINFO<<"(DMCZP) (return) LeaveMethod: DarkSCNNLaneDetector::Detect";
   
-  AINFO<<"(DMCZP) (return) LeaveMethod: DarkSCNNLaneDetector::Init";
   return true;
 }
 
@@ -319,14 +317,11 @@ AINFO<<"(DMCZP) EnteringMethod: DarkSCNNLaneDetector::Name";
   
   AINFO<<"(DMCZP) (return) LeaveMethod: DarkSCNNLaneDetector::Name";
   
-  AINFO<<"(DMCZP) (return) LeaveMethod: DarkSCNNLaneDetector::Init";
   return "DarkSCNNLaneDetector";
 }
 
 REGISTER_LANE_DETECTOR(DarkSCNNLaneDetector);
 
-
-  AINFO<<"(DMCZP) LeaveMethod: DarkSCNNLaneDetector::Init";
  }  // namespace camera
 }  // namespace perception
 }  // namespace apollo

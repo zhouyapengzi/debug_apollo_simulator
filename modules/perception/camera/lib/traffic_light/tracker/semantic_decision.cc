@@ -147,8 +147,6 @@ AINFO<<"(DMCZP) EnteringMethod: SemanticReviser::ReviseBySemantic";
   AINFO<<"(DMCZP) (return) LeaveMethod: SemanticReviser::ReviseBySemantic";
   return max_color;
   }
-
-  AINFO<<"(DMCZP) LeaveMethod: SemanticReviser::ReviseBySemantic";
  }
 
 void SemanticReviser::ReviseLights(std::vector<base::TrafficLightPtr> *lights,
@@ -315,9 +313,7 @@ AINFO<<"(DMCZP) EnteringMethod: SemanticReviser::Track";
 std::string SemanticReviser::Name() const {
   AINFO<<"(DMCZP) EnteringMethod: SemanticReviser::Name";
  
-  AINFO<<"(DMCZP) (return
-  AINFO<<"(DMCZP) LeaveMethod: SemanticReviser::Name";
- ) LeaveMethod: SemanticReviser::Name";
+  AINFO<<"(DMCZP) (return) LeaveMethod: SemanticReviser::Name";
   return "SemanticReviser"; }
 
 REGISTER_TRAFFIC_LIGHT_TRACKER(SemanticReviser);

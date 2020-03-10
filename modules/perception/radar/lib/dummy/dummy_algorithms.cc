@@ -79,9 +79,7 @@ void DummyDetector::ContiObs2Frame(
 bool DummyPreprocessor::Init() {
   AINFO<<"(DMCZP) EnteringMethod: DummyPreprocessor::Init";
  
-  AINFO<<"(D
-  AINFO<<"(DMCZP) LeaveMethod: DummyPreprocessor::Init";
- MCZP) (return) LeaveMethod: DummyPreprocessor::Init";
+  AINFO<<"(DMCZP) (return) LeaveMethod: DummyPreprocessor::Init";
   return true; }
 bool DummyPreprocessor::Preprocess(const drivers::ContiRadar& raw_obstacles,
                                    const PreprocessorOptions& options,
@@ -96,17 +94,13 @@ AINFO<<"(DMCZP) EnteringMethod: DummyPreprocessor::Preprocess";
 std::string DummyPreprocessor::Name() const {
   AINFO<<"(DMCZP) EnteringMethod: DummyPreprocessor::Name";
  
-  AINFO<<"(DMCZP) (return) 
-  AINFO<<"(DMCZP) LeaveMethod: DummyPreprocessor::Name";
- LeaveMethod: DummyPreprocessor::Name";
+  AINFO<<"(DMCZP) (return) LeaveMethod: DummyPreprocessor::Name";
   return "DummyPreprocessor"; }
 
 bool DummyDetector::Init() {
   AINFO<<"(DMCZP) EnteringMethod: DummyDetector::Init";
  
-  AINFO<<"(D
-  AINFO<<"(DMCZP) LeaveMethod: DummyDetector::Init";
- MCZP) (return) LeaveMethod: DummyDetector::Init";
+  AINFO<<"(DMCZP) (return) LeaveMethod: DummyDetector::Init";
   return true; }
 bool DummyDetector::Detect(const drivers::ContiRadar& corrected_obstacles,
                            const DetectorOptions& options,
@@ -120,17 +114,13 @@ AINFO<<"(DMCZP) EnteringMethod: DummyDetector::Detect";
 std::string DummyDetector::Name() const {
   AINFO<<"(DMCZP) EnteringMethod: DummyDetector::Name";
  
-  AINFO<<"(DMCZP) (retu
-  AINFO<<"(DMCZP) LeaveMethod: DummyDetector::Name";
- rn) LeaveMethod: DummyDetector::Name";
+  AINFO<<"(DMCZP) (return) LeaveMethod: DummyDetector::Name";
   return "DummyDetector"; }
 
 bool DummyRoiFilter::Init() {
   AINFO<<"(DMCZP) EnteringMethod: DummyRoiFilter::Init";
  
-  AINFO<<"(D
-  AINFO<<"(DMCZP) LeaveMethod: DummyRoiFilter::Init";
- MCZP) (return) LeaveMethod: DummyRoiFilter::Init";
+  AINFO<<"(DMCZP) (return) LeaveMethod: DummyRoiFilter::Init";
   return true; }
 bool DummyRoiFilter::RoiFilter(const RoiFilterOptions& options,
                                base::FramePtr radar_frame) {
@@ -142,9 +132,7 @@ AINFO<<"(DMCZP) EnteringMethod: DummyRoiFilter::RoiFilter";
 std::string DummyRoiFilter::Name() const {
   AINFO<<"(DMCZP) EnteringMethod: DummyRoiFilter::Name";
  
-  AINFO<<"(DMCZP) (retur
-  AINFO<<"(DMCZP) LeaveMethod: DummyRoiFilter::Name";
- n) LeaveMethod: DummyRoiFilter::Name";
+  AINFO<<"(DMCZP) (return) LeaveMethod: DummyRoiFilter::Name";
   return "DummyRoiFilter"; }
 
 PERCEPTION_REGISTER_PREPROCESSOR(DummyPreprocessor);

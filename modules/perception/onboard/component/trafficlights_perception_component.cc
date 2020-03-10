@@ -1311,7 +1311,6 @@ AINFO<<"(DMCZP) EnteringMethod: TrafficLightsPerceptionComponent::SendSimulation
  }
 
 
-  AINFO<<"(DMCZP) LeaveMethod: TrafficLightsPerceptionComponent::TransformOutputMessage";
  }  // namespace onboard
 }  // namespace perception
 }  // namespace apollo

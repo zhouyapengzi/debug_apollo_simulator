@@ -37,9 +37,7 @@ AINFO<<"(DMCZP) EnteringMethod: MotionService::Init";
   // node_.reset(new cyber::Node("MotionService"));
   vehicle_planemotion_ = new PlaneMotion(motion_buffer_size_);
 
-  // the macro READ_CONF would 
-  AINFO<<"(DMCZP) (return) LeaveMethod: MotionService::Init";
-  return cyber::FAIL if config not exists
+  // the macro READ_CONF would return cyber::FAIL if config not exists
   apollo::perception::onboard::MotionService motion_service_param;
   if (!GetProtoConfig(&motion_service_param)) {
     AINFO << "load lane detection component proto param failed";

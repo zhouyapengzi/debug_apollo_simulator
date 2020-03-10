@@ -478,10 +478,7 @@ AINFO<<"(DMCZP) EnteringMethod: operator*";
   // check w
   if (w < 0.0 || w > 1.0) {
     AERROR << boost::format(
-                  "the weight of bba %lf is not valid, 
-  AINFO<<"(DMCZP) (return) LeaveMethod: operator*";
-  return default bba") %
-                  w;
+                  "the weight of bba %lf is not valid, return default bba") % w;
     
   AINFO<<"(DMCZP) (return) LeaveMethod: operator*";
   return res;

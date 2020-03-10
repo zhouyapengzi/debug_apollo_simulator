@@ -251,8 +251,6 @@ AINFO<<"(DMCZP) EnteringMethod: TrackObjectDistance::QueryProjectionCacheObject"
   return BuildProjectionCacheObject(
       lidar, camera, camera_model, measurement_sensor_id, measurement_timestamp,
       projection_sensor_id, projection_timestamp);
-
-  AINFO<<"(DMCZP) LeaveMethod: TrackObjectDistance::QueryProjectionCacheObject";
  }
 
 void TrackObjectDistance::QueryProjectedVeloCtOnCamera(

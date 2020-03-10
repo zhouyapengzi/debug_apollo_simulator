@@ -189,9 +189,7 @@ AINFO<<"(DMCZP) EnteringMethod: KalmanFilter::SetControlMatrix";
 Eigen::VectorXd KalmanFilter::GetStates() const {
   AINFO<<"(DMCZP) EnteringMethod: KalmanFilter::GetStates";
  
-  AINFO<<"(DMCZP) (ret
-  AINFO<<"(DMCZP) LeaveMethod: KalmanFilter::GetStates";
- urn) LeaveMethod: KalmanFilter::GetStates";
+  AINFO<<"(DMCZP) (return) LeaveMethod: KalmanFilter::GetStates";
   return global_states_; }
 
 Eigen::MatrixXd KalmanFilter::GetUncertainty() const {

@@ -85,7 +85,6 @@ AINFO<<"(DMCZP) EnteringMethod: ExternalFeatureExtractor::InitFeatureExtractor";
   
   AINFO<<"(DMCZP) (return) LeaveMethod: ExternalFeatureExtractor::InitFeatureExtractor";
   
-  AINFO<<"(DMCZP) (return) LeaveMethod: ExternalFeatureExtractor::Init";
   return true;
 }
 bool ExternalFeatureExtractor::Extract(const FeatureExtractorOptions &options,
@@ -114,21 +113,15 @@ AINFO<<"(DMCZP) EnteringMethod: ExternalFeatureExtractor::Extract";
   AINFO << "Extract Done";
   
   AINFO<<"(DMCZP) (return) LeaveMethod: ExternalFeatureExtractor::Extract";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: ExternalFeatureExtractor::Init";
   return true;
 }
 std::string ExternalFeatureExtractor::Name() const {
 AINFO<<"(DMCZP) EnteringMethod: ExternalFeatureExtractor::Name";
   
   AINFO<<"(DMCZP) (return) LeaveMethod: ExternalFeatureExtractor::Name";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: ExternalFeatureExtractor::Init";
   return "ExternalFeatureExtractor";
 }
 REGISTER_FEATURE_EXTRACTOR(ExternalFeatureExtractor);
-
-  AINFO<<"(DMCZP) LeaveMethod: ExternalFeatureExtractor::Init";
  }  // namespace camera
 }  // namespace perception
 }  // namespace apollo

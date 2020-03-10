@@ -93,8 +93,6 @@ AINFO<<"(DMCZP) EnteringMethod: DstExistanceFusion::Init";
   AINFO<<"(DMCZP) (return) LeaveMethod: DstExistanceFusion::Init";
   return DstManager::Instance()->IsAppAdded(name_) &&
          DstManager::Instance()->IsAppAdded(toic_name_);
-
-  AINFO<<"(DMCZP) LeaveMethod: DstExistanceFusion::Init";
  }
 
 void DstExistanceFusion::UpdateWithMeasurement(
@@ -393,9 +391,7 @@ AINFO<<"(DMCZP) EnteringMethod: DstExistanceFusion::UpdateToicWithCameraMeasurem
 std::string DstExistanceFusion::Name() const {
   AINFO<<"(DMCZP) EnteringMethod: DstExistanceFusion::Name";
  
-  AINFO<<"(DM
-  AINFO<<"(DMCZP) LeaveMethod: DstExistanceFusion::Name";
- CZP) (return) LeaveMethod: DstExistanceFusion::Name";
+  AINFO<<"(DMCZP) (return) LeaveMethod: DstExistanceFusion::Name";
   return name_; }
 
 double DstExistanceFusion::GetExistanceProbability() const {
@@ -442,9 +438,7 @@ AINFO<<"(DMCZP) EnteringMethod: DstExistanceFusion::UpdateExistanceState";
   const double max_p = 0.8;
   const double min_p = 0.2;
   double toic_score = scale_probability(toic_p, max_p, min_p);
-  // when this fused object have lidar object, just 
-  AINFO<<"(DMCZP) (return) LeaveMethod: DstExistanceFusion::UpdateExistanceState";
-  return 1.0
+  // when this fused object have lidar object, just return 1.0
   // which means wen do not want introducing historical information
   // to affect the association, but when this fused object have just
   // radar object, we want using the historical information to filter

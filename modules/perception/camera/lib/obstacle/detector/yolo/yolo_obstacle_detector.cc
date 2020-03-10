@@ -291,8 +291,6 @@ AINFO<<"(DMCZP) EnteringMethod: YoloObstacleDetector::Init";
     AERROR << "read proto_config fail";
     
   AINFO<<"(DMCZP) (return) LeaveMethod: YoloObstacleDetector::Init";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: YoloObstacleDetector::InitNet";
   return false;
   }
   const auto &model_param = yolo_param_.model_param();
@@ -311,44 +309,32 @@ AINFO<<"(DMCZP) EnteringMethod: YoloObstacleDetector::Init";
   if (!LoadAnchors(anchors_file, &anchors_)) {
     
   AINFO<<"(DMCZP) (return) LeaveMethod: YoloObstacleDetector::Init";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: YoloObstacleDetector::InitNet";
   return false;
   }
   if (!LoadTypes(types_file, &types_)) {
     
   AINFO<<"(DMCZP) (return) LeaveMethod: YoloObstacleDetector::Init";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: YoloObstacleDetector::InitNet";
   return false;
   }
   if (!LoadExpand(expand_file, &expands_)) {
     
   AINFO<<"(DMCZP) (return) LeaveMethod: YoloObstacleDetector::Init";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: YoloObstacleDetector::InitNet";
   return false;
   }
   CHECK(expands_.size() == types_.size());
   if (!InitNet(yolo_param_, model_root)) {
     
   AINFO<<"(DMCZP) (return) LeaveMethod: YoloObstacleDetector::Init";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: YoloObstacleDetector::InitNet";
   return false;
   }
   InitYoloBlob(yolo_param_.net_param());
   if (!InitFeatureExtractor(model_root)) {
     
   AINFO<<"(DMCZP) (return) LeaveMethod: YoloObstacleDetector::Init";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: YoloObstacleDetector::InitNet";
   return false;
   }
   
   AINFO<<"(DMCZP) (return) LeaveMethod: YoloObstacleDetector::Init";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: YoloObstacleDetector::InitNet";
   return true;
 }
 
@@ -367,14 +353,10 @@ AINFO<<"(DMCZP) EnteringMethod: YoloObstacleDetector::InitFeatureExtractor";
   if (!feature_extractor_->Init(feat_options)) {
     
   AINFO<<"(DMCZP) (return) LeaveMethod: YoloObstacleDetector::InitFeatureExtractor";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: YoloObstacleDetector::InitNet";
   return false;
   }
   
   AINFO<<"(DMCZP) (return) LeaveMethod: YoloObstacleDetector::InitFeatureExtractor";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: YoloObstacleDetector::InitNet";
   return true;
 }
 
@@ -384,8 +366,6 @@ AINFO<<"(DMCZP) EnteringMethod: YoloObstacleDetector::Detect";
   if (frame == nullptr) {
     
   AINFO<<"(DMCZP) (return) LeaveMethod: YoloObstacleDetector::Detect";
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: YoloObstacleDetector::InitNet";
   return false;
   }
 
@@ -395,7 +375,6 @@ AINFO<<"(DMCZP) EnteringMethod: YoloObstacleDetector::Detect";
     
   AINFO<<"(DMCZP) (return) LeaveMethod: YoloObstacleDetector::Detect";
   
-  AINFO<<"(DMCZP) (return) LeaveMethod: YoloObstacleDetector::InitNet";
   return false;
   }
 
@@ -469,15 +448,12 @@ AINFO<<"(DMCZP) EnteringMethod: YoloObstacleDetector::Detect";
   
   AINFO<<"(DMCZP) (return) LeaveMethod: YoloObstacleDetector::Detect";
   
-  AINFO<<"(DMCZP) (return) LeaveMethod: YoloObstacleDetector::InitNet";
   return true;
 }
 
 
 REGISTER_OBSTACLE_DETECTOR(YoloObstacleDetector);
 
-
-  AINFO<<"(DMCZP) LeaveMethod: YoloObstacleDetector::InitNet";
  }  // namespace camera
 }  // namespace perception
 }  // namespace apollo

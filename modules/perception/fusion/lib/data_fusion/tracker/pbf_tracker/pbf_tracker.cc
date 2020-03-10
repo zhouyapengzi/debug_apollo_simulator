@@ -179,9 +179,7 @@ AINFO<<"(DMCZP) EnteringMethod: PbfTracker::UpdateWithoutMeasurement";
 std::string PbfTracker::Name() const {
   AINFO<<"(DMCZP) EnteringMethod: PbfTracker::Name";
  
-  AINFO<<"(DMCZP) (r
-  AINFO<<"(DMCZP) LeaveMethod: PbfTracker::Name";
- eturn) LeaveMethod: PbfTracker::Name";
+  AINFO<<"(DMCZP) (return) LeaveMethod: PbfTracker::Name";
   return "PbfTracker"; }
 
 }  // namespace fusion

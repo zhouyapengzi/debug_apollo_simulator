@@ -394,9 +394,7 @@ AINFO<<"(DMCZP) EnteringMethod: FusionCameraDetectionComponent::OnReceiveImage";
 
 int FusionCameraDetectionComponent::InitConfig() {
 AINFO<<"(DMCZP) EnteringMethod: FusionCameraDetectionComponent::InitConfig";
-  // the macro READ_CONF would 
-  AINFO<<"(DMCZP) (return) LeaveMethod: FusionCameraDetectionComponent::InitConfig";
-  return cyber::FAIL if config not exists
+  // the macro READ_CONF would return cyber::FAIL if config not exists
   apollo::perception::onboard::FusionCameraDetection
       fusion_camera_detection_param;
   if (!GetProtoConfig(&fusion_camera_detection_param)) {

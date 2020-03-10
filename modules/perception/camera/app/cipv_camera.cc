@@ -1217,9 +1217,7 @@ AINFO<<"(DMCZP) EnteringMethod: Cipv::ground2image";
 std::string Cipv::Name() const {
   AINFO<<"(DMCZP) EnteringMethod: Cipv::Name";
  
-  AINFO<<"(DMC
-  AINFO<<"(DMCZP) LeaveMethod: Cipv::Name";
- ZP) (return) LeaveMethod: Cipv::Name";
+  AINFO<<"(DMCZP) (return) LeaveMethod: Cipv::Name";
   return "Cipv"; }
 
 // Register plugin.

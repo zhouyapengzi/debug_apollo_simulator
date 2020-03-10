@@ -85,9 +85,7 @@ AINFO<<"(DMCZP) EnteringMethod: OMTObstacleTracker::Init";
 std::string OMTObstacleTracker::Name() const {
   AINFO<<"(DMCZP) EnteringMethod: OMTObstacleTracker::Name";
  
-  AINFO<<"(DMCZP) (return) L
-  AINFO<<"(DMCZP) LeaveMethod: OMTObstacleTracker::Name";
- eaveMethod: OMTObstacleTracker::Name";
+  AINFO<<"(DMCZP) (return) LeaveMethod: OMTObstacleTracker::Name";
   return "OMTObstacleTracker"; }
 
 // @description combine targets using iou after association
@@ -447,9 +445,7 @@ AINFO<<"(DMCZP) EnteringMethod: OMTObstacleTracker::Associate2D";
   CombineDuplicateTargets();
   ClearTargets();
 
-  // 
-  AINFO<<"(DMCZP) (return) LeaveMethod: OMTObstacleTracker::Associate2D";
-  return filter reulst to original box
+  // return filter reulst to original box
   Eigen::Matrix3d inverse_project = frame->project_matrix.inverse();
   for (auto &target : targets_) {
     if (!target.isLost()) {

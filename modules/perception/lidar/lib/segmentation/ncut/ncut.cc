@@ -499,9 +499,7 @@ AINFO<<"(DMCZP) EnteringMethod: NCut::NormalizedCut";
     delete curr;
   }  // end of while
 #ifdef DEBUG_NCUT
-  std::cout << "graph cut 
-  AINFO<<"(DMCZP) (return) LeaveMethod: NCut::NormalizedCut";
-  return segments: " << std::endl;
+  std::cout << "graph cut return segments: " << std::endl;
   for (size_t i = 0; i < segment_clusters.size(); ++i) {
     std::cout << "seg " << i << ": ";
     for (size_t j = 0; j < segment_clusters[i].size(); ++j) {

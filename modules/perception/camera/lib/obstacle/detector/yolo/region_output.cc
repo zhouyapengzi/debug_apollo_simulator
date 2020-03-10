@@ -50,9 +50,7 @@ float get_bbox_size(const NormalizedBBox &bbox) {
 AINFO<<"(DMCZP) EnteringMethod: get_bbox_size";
   AINFO<<"(pengzi). get bbox size" << std::this_thread::get_id();
   if (bbox.xmax < bbox.xmin || bbox.ymax < bbox.ymin) {
-    // If bbox is invalid (e.g. xmax < xmin or ymax < ymin), 
-  AINFO<<"(DMCZP) (return) LeaveMethod: get_bbox_size";
-  return 0.
+    // If bbox is invalid (e.g. xmax < xmin or ymax < ymin), return 0.
     
   AINFO<<"(DMCZP) (return) LeaveMethod: get_bbox_size";
   return 0;
@@ -96,7 +94,6 @@ AINFO<<"(DMCZP) EnteringMethod: get_jaccard_overlap";
   return 0.;
   }
 
-  AINFO<<"(DMCZP) LeaveMethod: get_jaccard_overlap";
  }
 
 void get_max_score_index(const std::vector<float> &scores,

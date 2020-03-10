@@ -35,25 +35,19 @@ MatchCost::MatchCost(size_t ridx, size_t cidx, double cost)
 size_t MatchCost::RowIdx() const {
   AINFO<<"(DMCZP) EnteringMethod: MatchCost::RowIdx";
  
-  AINFO<<"(DMCZP
-  AINFO<<"(DMCZP) LeaveMethod: MatchCost::RowIdx";
- ) (return) LeaveMethod: MatchCost::RowIdx";
+  AINFO<<"(DMCZP) (return) LeaveMethod: MatchCost::RowIdx";
   return row_idx_; }
 
 size_t MatchCost::ColIdx() const {
   AINFO<<"(DMCZP) EnteringMethod: MatchCost::ColIdx";
  
-  AINFO<<"(DMCZP
-  AINFO<<"(DMCZP) LeaveMethod: MatchCost::ColIdx";
- ) (return) LeaveMethod: MatchCost::ColIdx";
+  AINFO<<"(DMCZP) (return) LeaveMethod: MatchCost::ColIdx";
   return col_idx_; }
 
 double MatchCost::Cost() const {
   AINFO<<"(DMCZP) EnteringMethod: MatchCost::Cost";
  
-  AINFO<<"(DM
-  AINFO<<"(DMCZP) LeaveMethod: MatchCost::Cost";
- CZP) (return) LeaveMethod: MatchCost::Cost";
+  AINFO<<"(DMCZP) (return) LeaveMethod: MatchCost::Cost";
   return cost_; }
 
 bool operator<(const MatchCost& m1, const MatchCost& m2) {

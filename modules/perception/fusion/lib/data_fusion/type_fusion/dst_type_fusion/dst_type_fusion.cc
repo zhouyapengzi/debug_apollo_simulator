@@ -230,9 +230,7 @@ AINFO<<"(DMCZP) EnteringMethod: DstTypeFusion::UpdateWithoutMeasurement";
 std::string DstTypeFusion::Name() const {
   AINFO<<"(DMCZP) EnteringMethod: DstTypeFusion::Name";
  
-  AINFO<<"(DM
-  AINFO<<"(DMCZP) LeaveMethod: DstTypeFusion::Name";
- CZP) (return) LeaveMethod: DstTypeFusion::Name";
+  AINFO<<"(DMCZP) (return) LeaveMethod: DstTypeFusion::Name";
   return name_; }
 
 bool DstTypeFusion::TypToHyp(size_t object_type,

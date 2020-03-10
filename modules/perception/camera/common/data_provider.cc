@@ -322,9 +322,7 @@ AINFO<<"(DMCZP) EnteringMethod: DataProvider::to_gray_image";
                                roi, coeffs);
       gray_ready_ = true;
     } else {
-      AWARN << "No image data filled yet, 
-  AINFO<<"(DMCZP) (return) LeaveMethod: DataProvider::to_gray_image";
-  return uninitialized blob!";
+      AWARN << "No image data filled yet, return uninitialized blob!";
       
   AINFO<<"(DMCZP) (return) LeaveMethod: DataProvider::to_gray_image";
   return false;
@@ -353,9 +351,7 @@ AINFO<<"(DMCZP) EnteringMethod: DataProvider::to_rgb_image";
                        rgb_->mutable_gpu_data(), rgb_->width_step(), roi);
       rgb_ready_ = true;
     } else {
-      AWARN << "No image data filled yet, 
-  AINFO<<"(DMCZP) (return) LeaveMethod: DataProvider::to_rgb_image";
-  return uninitialized blob!";
+      AWARN << "No image data filled yet, return uninitialized blob!";
       
   AINFO<<"(DMCZP) (return) LeaveMethod: DataProvider::to_rgb_image";
   return false;
@@ -383,12 +379,8 @@ AINFO<<"(DMCZP) EnteringMethod: DataProvider::to_bgr_image";
                        bgr_->mutable_gpu_data(), bgr_->width_step(), roi);
       bgr_ready_ = true;
     } else {
-      AWARN << "No image data filled yet, 
-  AINFO<<"(DMCZP) (return) LeaveMethod: DataProvider::to_bgr_image";
-  return uninitialized blob!";
-      
-  AINFO<<"(DMCZP) (return) LeaveMethod: DataProvider::to_bgr_image";
-  return false;
+      AWARN << "No image data filled yet, return uninitialized blob!";
+    return false;
     }
   }
   

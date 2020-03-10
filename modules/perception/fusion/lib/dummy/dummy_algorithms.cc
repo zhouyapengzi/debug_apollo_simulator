@@ -59,9 +59,7 @@ AINFO<<"(DMCZP) EnteringMethod: DummyFusionSystem::Fuse";
 bool DummyDataAssociation::Init() {
   AINFO<<"(DMCZP) EnteringMethod: DummyDataAssociation::Init";
  
-  AINFO<<"(D
-  AINFO<<"(DMCZP) LeaveMethod: DummyDataAssociation::Init";
- MCZP) (return) LeaveMethod: DummyDataAssociation::Init";
+  AINFO<<"(DMCZP) (return) LeaveMethod: DummyDataAssociation::Init";
   return true; }
 
 bool DummyDataAssociation::Associate(const AssociationOptions& options,
