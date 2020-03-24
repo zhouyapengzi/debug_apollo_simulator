@@ -162,10 +162,41 @@ AINFO<<"(DMCZP) EnteringMethod: CaffeNet::Infer";
     }
   }
 
+
+   /* pengzi add code here*/
+//  neuron_coverage(net_);
+   AINFO<<"( pengzipengzi) Calculate Neuron Coverage Here!!!!!"; 
+   /* pengzi add code finish here*/
+
   AINFO << "(pengzi)finish Caffe net infer. thread:" << std::this_thread::get_id();
 
   AINFO<<"(DMCZP) LeaveMethod: CaffeNet::Infer";
  }
+
+
+
+
+/* add function 
+void neuron_coverage(std::shared_ptr<caffe::Net<float>> net_){
+  AINFO << "(pengzi) calculate neuron_coverage";
+  //std::vector<std::vector<Blob<Dtype>*>>  top_vec = net_->top_vecs_ ;
+  std::cout << net_->top_vecs() .size() << ' ';
+  AINFO << "(pengzi) total number of layers in DAG: " << net_->top_vecs() .size();
+  int total_neuron = 0;
+  for (std::vector<std::vector<caffe::Blob<Dtype>*>>::const_iterator i = net_->top_vecs().begin(); i != net_->top_vecs() .end(); ++i){
+    AINFO<<"(pengzi) number of neurons in one layer: "<< *i.size();
+    total_neuron = total_neuron + *i.size();
+    for(std::vector<caffe::Blob<Dtype>*>::const_iterator j = *i.begin(); j!= *i.end(); ++j){
+        std::cout << *j << ' ';       
+        AINFO << "(pengzi) neuron:" << *j;
+    }
+  }
+  AINFO << "(pengzi) Total neurons: " << total_neuron;
+}
+finish add function */
+
+
+
 
 bool CaffeNet::shape(const std::string &name, std::vector<int> *res) {
 AINFO<<"(DMCZP) EnteringMethod: CaffeNet::shape";

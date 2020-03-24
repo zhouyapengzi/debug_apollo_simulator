@@ -42,6 +42,7 @@ class CaffeNet : public Inference {
            const std::vector<std::string> &inputs);
 
   virtual ~CaffeNet() {}
+    
 
   bool Init(const std::map<std::string, std::vector<int>> &shapes) override;
 
@@ -52,7 +53,10 @@ class CaffeNet : public Inference {
   bool reshape();
   bool shape(const std::string &name, std::vector<int> *res);
   std::shared_ptr<caffe::Net<float>> net_ = nullptr;
-
+  
+  void neuron_coverage(std::shared_ptr<caffe::Net<float>> net_);  
+  
+  
  private:
   std::string net_file_;
   std::string model_file_;

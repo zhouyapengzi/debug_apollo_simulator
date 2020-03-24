@@ -408,18 +408,25 @@ double MLPEvaluator::ComputeProbability(
         apollo::prediction::math_util::Normalize(feature_values[i], mean, std));
   }
 
+   //pengzi add:
+   int active_neuron = 0;
+   int total_neuron = 0;
+   //pengzi add end
+
   for (int i = 0; i < model_ptr_->num_layer(); ++i) {
     if (i > 0) {
       layer_input.swap(layer_output);
       layer_output.clear();
     }
     const Layer& layer = model_ptr_->layer(i);
-    for (int col = 0; col < layer.layer_output_dim(); ++col) {
+   
+ for (int col = 0; col < layer.layer_output_dim(); ++col) {
       double neuron_output = layer.layer_bias().columns(col);
       for (int row = 0; row < layer.layer_input_dim(); ++row) {
         double weight = layer.layer_input_weight().rows(row).columns(col);
         neuron_output += (layer_input[row] * weight);
       }
+      AINFO<<"(pengzi) neuron_output before activation_func:" << neuron_output;
       if (layer.layer_activation_func() == Layer::RELU) {
         neuron_output = apollo::prediction::math_util::Relu(neuron_output);
       } else if (layer.layer_activation_func() == Layer::SIGMOID) {
@@ -434,21 +441,34 @@ double MLPEvaluator::ComputeProbability(
       }
       layer_output.push_back(neuron_output);
       AINFO <<"(pengzi) push_back neuron_output. thread: " << std::this_thread::get_id();
-    }
-  }
+      AINFO <<"(pengzi) check neuron_output: "<< neuron_output ;
+     
+      //pengzi add:
+       total_neuron = total_neuron + 1;
+       if(neuron_output > 0.75){
+        active_neuron = active_neuron + 1;
+      }
+      //pengzi add end
 
+    }
+    AINFO<<"(pengzi) total neuron in layer index: "<< i << " total neuron:" << total_neuron <<" active neuron: "<< active_neuron;
+
+ }
+    
   if (layer_output.size() != 1) {
     AERROR << "Model output layer has incorrect # outputs: "
            << layer_output.size();
   } else {
     probability = layer_output[0];
-  }
+    AINFO<<"(pengzi) check layer_output size:" << layer_output.size();
+    }
 
  AINFO<< "(pengzi)ComputeProbability: " << probability
-         << "model input dim = " << model_ptr_->dim_input()
+         << " model input dim = " << model_ptr_->dim_input()
          << "; feature value size = " << feature_values.size()    
-         << " thread: " << std::this_thread::get_id();
-
+         << " total neuron:" << total_neuron <<" active neuron: "<< active_neuron 
+        << " thread: " << std::this_thread::get_id();
+ 
   return probability;
 }
 
