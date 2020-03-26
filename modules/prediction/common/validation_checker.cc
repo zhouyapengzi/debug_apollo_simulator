@@ -26,6 +26,8 @@ using common::TrajectoryPoint;
 
 double ValidationChecker::ProbabilityByCentripetalAcceleration(
     const LaneSequence& lane_sequence, const double speed) {
+  AINFO<<"(DMCZP) EnteringMethod: ValidationChecker::ProbabilityByCentripetalAcceleration";
+
   double centripetal_acc_cost_sum = 0.0;
   double centripetal_acc_cost_sqr_sum = 0.0;
   for (int i = 0; i < lane_sequence.path_point_size(); ++i) {
@@ -38,11 +40,17 @@ double ValidationChecker::ProbabilityByCentripetalAcceleration(
   }
   double mean_cost = centripetal_acc_cost_sqr_sum /
                      (centripetal_acc_cost_sum + FLAGS_double_precision);
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: ValidationChecker::ProbabilityByCentripetalAcceleration";
   return std::exp(-FLAGS_centripetal_acc_coeff * mean_cost);
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: ValidationChecker::ProbabilityByCentripetalAcceleration";
+ }
 
 bool ValidationChecker::ValidCentripetalAcceleration(
     const std::vector<TrajectoryPoint>& trajectory_points) {
+  AINFO<<"(DMCZP) EnteringMethod: ValidationChecker::ValidCentripetalAcceleration";
+
   for (size_t i = 0; i + 1 < trajectory_points.size(); ++i) {
     const auto& p0 = trajectory_points[i];
     const auto& p1 = trajectory_points[i + 1];
@@ -56,14 +64,24 @@ bool ValidationChecker::ValidCentripetalAcceleration(
     double v = (p0.v() + p1.v()) * 0.5;
     double angular_a = v * theta_diff / time_diff;
     if (angular_a > FLAGS_centripedal_acc_threshold) {
-      return false;
+      
+  AINFO<<"(DMCZP) (return) LeaveMethod: ValidationChecker::ValidCentripetalAcceleration";
+  return false;
     }
   }
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: ValidationChecker::ValidCentripetalAcceleration";
   return true;
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: ValidationChecker::ValidCentripetalAcceleration";
+ }
 
 bool ValidationChecker::ValidTrajectoryPoint(
     const TrajectoryPoint& trajectory_point) {
+  AINFO<<"(DMCZP) EnteringMethod: ValidationChecker::ValidTrajectoryPoint";
+
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: ValidationChecker::ValidTrajectoryPoint";
   return trajectory_point.has_path_point() &&
          (!std::isnan(trajectory_point.path_point().x())) &&
          (!std::isnan(trajectory_point.path_point().y())) &&
@@ -71,7 +89,9 @@ bool ValidationChecker::ValidTrajectoryPoint(
          (!std::isnan(trajectory_point.v())) &&
          (!std::isnan(trajectory_point.a())) &&
          (!std::isnan(trajectory_point.relative_time()));
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: ValidationChecker::ValidTrajectoryPoint";
+ }
 
 }  // namespace prediction
 }  // namespace apollo

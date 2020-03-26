@@ -27,16 +27,24 @@ namespace apollo {
 namespace prediction {
 
 void GenerateDataForLearning() {
+  AINFO<<"(DMCZP) EnteringMethod: GenerateDataForLearning";
+
   apollo::hdmap::HDMapUtil::ReloadMaps();
   if (!FeatureOutput::Ready()) {
     AERROR << "Feature output is not ready.";
-    return;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: GenerateDataForLearning";
+  return;
   }
   if (FLAGS_prediction_offline_bags.empty()) {
-    return;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: GenerateDataForLearning";
+  return;
   }
   if (!MessageProcess::Init()) {
-    return;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: GenerateDataForLearning";
+  return;
   }
   std::vector<std::string> inputs;
   common::util::Split(FLAGS_prediction_offline_bags, ':', &inputs);
@@ -53,13 +61,21 @@ void GenerateDataForLearning() {
     }
   }
   FeatureOutput::Close();
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: GenerateDataForLearning";
+ }
 
 }  // namespace prediction
 }  // namespace apollo
 
 int main(int argc, char* argv[]) {
+  AINFO<<"(DMCZP) EnteringMethod: main";
+
   google::ParseCommandLineFlags(&argc, &argv, true);
   apollo::prediction::GenerateDataForLearning();
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: main";
   return 0;
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: main";
+ }

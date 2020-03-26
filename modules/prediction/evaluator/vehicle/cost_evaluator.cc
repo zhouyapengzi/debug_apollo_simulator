@@ -23,10 +23,16 @@ namespace prediction {
 using apollo::prediction::math_util::Sigmoid;
 
 CostEvaluator::CostEvaluator() {
+  AINFO<<"(DMCZP) EnteringMethod: CostEvaluator::CostEvaluator";
+
   evaluator_type_ = ObstacleConf::COST_EVALUATOR;
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: CostEvaluator::CostEvaluator";
+ }
 
 bool CostEvaluator::Evaluate(Obstacle* obstacle_ptr) {
+  AINFO<<"(DMCZP) EnteringMethod: CostEvaluator::Evaluate";
+
   AINFO<<"(pengzi) begin cost evaluate for vehicle. thread:"<<std::this_thread::get_id();
   CHECK_NOTNULL(obstacle_ptr);
 
@@ -36,7 +42,9 @@ bool CostEvaluator::Evaluate(Obstacle* obstacle_ptr) {
   int id = obstacle_ptr->id();
   if (!obstacle_ptr->latest_feature().IsInitialized()) {
     AERROR << "Obstacle [" << id << "] has no latest feature.";
-    return false;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: CostEvaluator::Evaluate";
+  return false;
   }
 
   Feature* latest_feature_ptr = obstacle_ptr->mutable_latest_feature();
@@ -44,7 +52,9 @@ bool CostEvaluator::Evaluate(Obstacle* obstacle_ptr) {
   if (!latest_feature_ptr->has_lane() ||
       !latest_feature_ptr->lane().has_lane_graph()) {
     ADEBUG << "Obstacle [" << id << "] has no lane graph.";
-    return false;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: CostEvaluator::Evaluate";
+  return false;
   }
 
   double obstacle_length = 0.0;
@@ -61,7 +71,9 @@ bool CostEvaluator::Evaluate(Obstacle* obstacle_ptr) {
   CHECK_NOTNULL(lane_graph_ptr);
   if (lane_graph_ptr->lane_sequence_size() == 0) {
     AERROR << "Obstacle [" << id << "] has no lane sequences.";
-    return false;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: CostEvaluator::Evaluate";
+  return false;
   }
 
   for (int i = 0; i < lane_graph_ptr->lane_sequence_size(); ++i) {
@@ -71,35 +83,53 @@ bool CostEvaluator::Evaluate(Obstacle* obstacle_ptr) {
         ComputeProbability(obstacle_length, obstacle_width, *lane_sequence_ptr);
     lane_sequence_ptr->set_probability(probability);
   }
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: CostEvaluator::Evaluate";
   return true;
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: CostEvaluator::Evaluate";
+ }
 
 double CostEvaluator::ComputeProbability(const double obstacle_length,
                                          const double obstacle_width,
                                          const LaneSequence& lane_sequence) {
+  AINFO<<"(DMCZP) EnteringMethod: CostEvaluator::ComputeProbability";
+
   AINFO<<"(pengzi) compute probability. thread:"<<std::this_thread::get_id();                                         
   double front_lateral_distance_cost =
       FrontLateralDistanceCost(obstacle_length, obstacle_width, lane_sequence);
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: CostEvaluator::ComputeProbability";
   return Sigmoid(front_lateral_distance_cost);
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: CostEvaluator::ComputeProbability";
+ }
 
 double CostEvaluator::FrontLateralDistanceCost(
     const double obstacle_length, const double obstacle_width,
     const LaneSequence& lane_sequence) {
+  AINFO<<"(DMCZP) EnteringMethod: CostEvaluator::FrontLateralDistanceCost";
+
    AINFO<<"(pengzi) compute front lateral distance cost. thread:"<<std::this_thread::get_id();  
 
   if (lane_sequence.lane_segment_size() == 0 ||
       lane_sequence.lane_segment(0).lane_point_size() == 0) {
     AWARN << "Empty lane sequence.";
-    return 0.0;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: CostEvaluator::FrontLateralDistanceCost";
+  return 0.0;
   }
   const LanePoint& lane_point = lane_sequence.lane_segment(0).lane_point(0);
   double lane_l = -lane_point.relative_l();
   double distance = std::abs(lane_l - obstacle_length / 2.0 *
                                           std::sin(lane_point.angle_diff()));
   double half_lane_width = lane_point.width() / 2.0;
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: CostEvaluator::FrontLateralDistanceCost";
   return half_lane_width - distance;
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: CostEvaluator::FrontLateralDistanceCost";
+ }
 
 }  // namespace prediction
 }  // namespace apollo

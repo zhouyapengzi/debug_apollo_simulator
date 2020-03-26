@@ -32,10 +32,16 @@ using common::TrajectoryPoint;
 using hdmap::LaneInfo;
 
 LaneSequencePredictor::LaneSequencePredictor() {
+  AINFO<<"(DMCZP) EnteringMethod: LaneSequencePredictor::LaneSequencePredictor";
+
   predictor_type_ = ObstacleConf::LANE_SEQUENCE_PREDICTOR;
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: LaneSequencePredictor::LaneSequencePredictor";
+ }
 
 void LaneSequencePredictor::Predict(Obstacle* obstacle) {
+  AINFO<<"(DMCZP) EnteringMethod: LaneSequencePredictor::Predict";
+
   Clear();
 
   CHECK_NOTNULL(obstacle);
@@ -47,7 +53,9 @@ void LaneSequencePredictor::Predict(Obstacle* obstacle) {
 
   if (!feature.has_lane() || !feature.lane().has_lane_graph()) {
     AERROR << "Obstacle [" << obstacle->id() << " has no lane graph.";
-    return;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: LaneSequencePredictor::Predict";
+  return;
   }
 
   std::string lane_id = "";
@@ -109,18 +117,24 @@ void LaneSequencePredictor::Predict(Obstacle* obstacle) {
     obstacle->mutable_latest_feature()->add_predicted_trajectory()->CopyFrom(
         trajectory);
   }
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: LaneSequencePredictor::Predict";
+ }
 
 void LaneSequencePredictor::DrawLaneSequenceTrajectoryPoints(
     const Obstacle& obstacle, const LaneSequence& lane_sequence,
     const double total_time, const double period,
     std::vector<TrajectoryPoint>* points) {
+  AINFO<<"(DMCZP) EnteringMethod: LaneSequencePredictor::DrawLaneSequenceTrajectoryPoints";
+
   const Feature& feature = obstacle.latest_feature();
   if (!feature.has_position() || !feature.has_velocity() ||
       !feature.position().has_x() || !feature.position().has_y()) {
     AERROR << "Obstacle [" << obstacle.id()
            << " is missing position or velocity";
-    return;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: LaneSequencePredictor::DrawLaneSequenceTrajectoryPoints";
+  return;
   }
 
   Eigen::Vector2d position(feature.position().x(), feature.position().y());
@@ -134,7 +148,9 @@ void LaneSequencePredictor::DrawLaneSequenceTrajectoryPoints(
   double lane_l = 0.0;
   if (!PredictionMap::GetProjection(position, lane_info, &lane_s, &lane_l)) {
     AERROR << "Failed in getting lane s and lane l";
-    return;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: LaneSequencePredictor::DrawLaneSequenceTrajectoryPoints";
+  return;
   }
   double approach_rate = FLAGS_go_approach_rate;
   if (!lane_sequence.vehicle_on_lane()) {
@@ -175,7 +191,9 @@ void LaneSequencePredictor::DrawLaneSequenceTrajectoryPoints(
 
     lane_l *= approach_rate;
   }
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: LaneSequencePredictor::DrawLaneSequenceTrajectoryPoints";
+ }
 
 }  // namespace prediction
 }  // namespace apollo

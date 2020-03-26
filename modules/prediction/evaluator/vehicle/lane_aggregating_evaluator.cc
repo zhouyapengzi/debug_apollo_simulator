@@ -40,11 +40,17 @@ using apollo::perception::PerceptionObstacle;
 using apollo::perception::PerceptionObstacles;
 
 LaneAggregatingEvaluator::LaneAggregatingEvaluator() : device_(torch::kCPU) {
+  AINFO<<"(DMCZP) EnteringMethod: LaneAggregatingEvaluator::LaneAggregatingEvaluator";
+
   evaluator_type_ = ObstacleConf::LANE_AGGREGATING_EVALUATOR;
   LoadModel();
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: LaneAggregatingEvaluator::LaneAggregatingEvaluator";
+ }
 
 void LaneAggregatingEvaluator::LoadModel() {
+  AINFO<<"(DMCZP) EnteringMethod: LaneAggregatingEvaluator::LoadModel";
+
   AINFO<<"(pengzi) Begin LaneAggregatingEvaluator::LoadModel. thread: " << std::this_thread::get_id(); 
 
   torch::set_num_threads(1);
@@ -60,9 +66,13 @@ void LaneAggregatingEvaluator::LoadModel() {
    << " FLAGS_torch_lane_aggregating_lane_encoding_file: "<<FLAGS_torch_lane_aggregating_lane_encoding_file
    <<" FLAGS_torch_lane_aggregating_prediction_layer_file: "<<FLAGS_torch_lane_aggregating_prediction_layer_file
    <<" thread: " << std::this_thread::get_id(); 
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: LaneAggregatingEvaluator::LoadModel";
+ }
 
 bool LaneAggregatingEvaluator::Evaluate(Obstacle* obstacle_ptr) {
+  AINFO<<"(DMCZP) EnteringMethod: LaneAggregatingEvaluator::Evaluate";
+
   AINFO<<"(pengzi) Begin LaneAggregatingEvaluator::Evaluate. thread: " << std::this_thread::get_id(); 
   // Sanity checks.
   CHECK_NOTNULL(obstacle_ptr);
@@ -72,21 +82,27 @@ bool LaneAggregatingEvaluator::Evaluate(Obstacle* obstacle_ptr) {
   int id = obstacle_ptr->id();
   if (!obstacle_ptr->latest_feature().IsInitialized()) {
     AERROR << "Obstacle [" << id << "] has no latest feature.";
-    return false;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: LaneAggregatingEvaluator::Evaluate";
+  return false;
   }
   Feature* latest_feature_ptr = obstacle_ptr->mutable_latest_feature();
   CHECK_NOTNULL(latest_feature_ptr);
   if (!latest_feature_ptr->has_lane() ||
       !latest_feature_ptr->lane().has_lane_graph_ordered()) {
     AERROR << "Obstacle [" << id << "] has no lane graph.";
-    return false;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: LaneAggregatingEvaluator::Evaluate";
+  return false;
   }
   LaneGraph* lane_graph_ptr =
       latest_feature_ptr->mutable_lane()->mutable_lane_graph_ordered();
   CHECK_NOTNULL(lane_graph_ptr);
   if (lane_graph_ptr->lane_sequence_size() == 0) {
     AERROR << "Obstacle [" << id << "] has no lane sequences.";
-    return false;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: LaneAggregatingEvaluator::Evaluate";
+  return false;
   }
   ADEBUG << "There are " << lane_graph_ptr->lane_sequence_size()
          << " lane sequences to scan.";
@@ -102,7 +118,9 @@ bool LaneAggregatingEvaluator::Evaluate(Obstacle* obstacle_ptr) {
     ADEBUG << "Obstacle [" << id << "] has fewer than "
            << "expected obstacle feature_values "
            << obstacle_feature_values.size() << ".";
-    return false;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: LaneAggregatingEvaluator::Evaluate";
+  return false;
   }
   ADEBUG << "Obstacle feature size = " << obstacle_feature_values.size();
 AINFO<<"(pengzi) Encode the obstacle features..Obstacle feature size = " << obstacle_feature_values.size()
@@ -136,7 +154,9 @@ AINFO<<"(pengzi) Encode the obstacle features..Obstacle feature size = " << obst
         SINGLE_LANE_FEATURE_SIZE *
             (LANE_POINTS_SIZE + BACKWARD_LANE_POINTS_SIZE)) {
       AERROR << "Obstacle [" << id << "] has incorrect lane feature size.";
-      return false;
+      
+  AINFO<<"(DMCZP) (return) LeaveMethod: LaneAggregatingEvaluator::Evaluate";
+  return false;
     }
     std::vector<torch::jit::IValue> single_lane_encoding_inputs;
     torch::Tensor single_lane_encoding_inputs_tensor =
@@ -206,11 +226,17 @@ AINFO<<"(pengzi) Encode the obstacle features..Obstacle feature size = " << obst
   }
 
   *(latest_feature_ptr->mutable_lane()->mutable_lane_graph()) = *lane_graph_ptr;
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: LaneAggregatingEvaluator::Evaluate";
   return true;
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: LaneAggregatingEvaluator::Evaluate";
+ }
 
 bool LaneAggregatingEvaluator::ExtractObstacleFeatures(
     const Obstacle* obstacle_ptr, std::vector<double>* feature_values) {
+  AINFO<<"(DMCZP) EnteringMethod: LaneAggregatingEvaluator::ExtractObstacleFeatures";
+
   // Sanity checks.
   CHECK_NOTNULL(obstacle_ptr);
   feature_values->clear();
@@ -315,13 +341,19 @@ bool LaneAggregatingEvaluator::ExtractObstacleFeatures(
     feature_values->push_back(vel_heading_changing_rate_history[i]);
   }
 
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: LaneAggregatingEvaluator::ExtractObstacleFeatures";
   return true;
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: LaneAggregatingEvaluator::ExtractObstacleFeatures";
+ }
 
 bool LaneAggregatingEvaluator::ExtractStaticEnvFeatures(
     const Obstacle* obstacle_ptr, const LaneGraph* lane_graph_ptr,
     std::vector<std::vector<double>>* feature_values,
     std::vector<int>* lane_sequence_idx_to_remove) {
+  AINFO<<"(DMCZP) EnteringMethod: LaneAggregatingEvaluator::ExtractStaticEnvFeatures";
+
   // Sanity checks.
   CHECK_NOTNULL(lane_graph_ptr);
   feature_values->clear();
@@ -448,11 +480,17 @@ bool LaneAggregatingEvaluator::ExtractStaticEnvFeatures(
     feature_values->push_back(curr_feature_values);
   }
 
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: LaneAggregatingEvaluator::ExtractStaticEnvFeatures";
   return true;
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: LaneAggregatingEvaluator::ExtractStaticEnvFeatures";
+ }
 
 torch::Tensor LaneAggregatingEvaluator::AggregateLaneEncodings(
     const std::vector<torch::Tensor>& lane_encoding_list) {
+  AINFO<<"(DMCZP) EnteringMethod: LaneAggregatingEvaluator::AggregateLaneEncodings";
+
   torch::Tensor output_tensor =
       torch::zeros({1, SINGLE_LANE_ENCODING_SIZE * 2});
   torch::Tensor max_pooling_tensor = LaneEncodingMaxPooling(lane_encoding_list);
@@ -463,11 +501,17 @@ torch::Tensor LaneAggregatingEvaluator::AggregateLaneEncodings(
   for (size_t i = 0; i < SINGLE_LANE_ENCODING_SIZE; ++i) {
     output_tensor[0][SINGLE_LANE_ENCODING_SIZE + i] = avg_pooling_tensor[0][i];
   }
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: LaneAggregatingEvaluator::AggregateLaneEncodings";
   return output_tensor;
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: LaneAggregatingEvaluator::AggregateLaneEncodings";
+ }
 
 torch::Tensor LaneAggregatingEvaluator::LaneEncodingMaxPooling(
     const std::vector<torch::Tensor>& lane_encoding_list) {
+  AINFO<<"(DMCZP) EnteringMethod: LaneAggregatingEvaluator::LaneEncodingMaxPooling";
+
   CHECK(!lane_encoding_list.empty());
   torch::Tensor output_tensor = lane_encoding_list[0];
 
@@ -477,11 +521,17 @@ torch::Tensor LaneAggregatingEvaluator::LaneEncodingMaxPooling(
           torch::max(output_tensor[0][j], lane_encoding_list[i][0][j]);
     }
   }
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: LaneAggregatingEvaluator::LaneEncodingMaxPooling";
   return output_tensor;
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: LaneAggregatingEvaluator::LaneEncodingMaxPooling";
+ }
 
 torch::Tensor LaneAggregatingEvaluator::LaneEncodingAvgPooling(
     const std::vector<torch::Tensor>& lane_encoding_list) {
+  AINFO<<"(DMCZP) EnteringMethod: LaneAggregatingEvaluator::LaneEncodingAvgPooling";
+
   CHECK(!lane_encoding_list.empty());
   torch::Tensor output_tensor = lane_encoding_list[0];
 
@@ -496,8 +546,12 @@ torch::Tensor LaneAggregatingEvaluator::LaneEncodingAvgPooling(
   for (size_t i = 0; i < SINGLE_LANE_ENCODING_SIZE; ++i) {
     output_tensor[0][i] /= lane_encoding_list_size[0];
   }
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: LaneAggregatingEvaluator::LaneEncodingAvgPooling";
   return output_tensor;
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: LaneAggregatingEvaluator::LaneEncodingAvgPooling";
+ }
 
 std::vector<double> LaneAggregatingEvaluator::StableSoftmax(
     const std::vector<double>& prediction_scores) {

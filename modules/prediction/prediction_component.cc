@@ -48,11 +48,19 @@ using apollo::planning::ADCTrajectory;
 PredictionComponent::~PredictionComponent() {}
 
 std::string PredictionComponent::Name() const {
+  AINFO<<"(DMCZP) EnteringMethod: PredictionComponent::Name";
+
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: PredictionComponent::Name";
   return FLAGS_prediction_module_name;
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: PredictionComponent::Name";
+ }
 
 void PredictionComponent::OfflineProcessFeatureProtoFile(
     const std::string& features_proto_file_name) {
+  AINFO<<"(DMCZP) EnteringMethod: PredictionComponent::OfflineProcessFeatureProtoFile";
+
   auto obstacles_container_ptr =
       ContainerManager::Instance()->GetContainer<ObstaclesContainer>(
           AdapterConfig::PERCEPTION_OBSTACLES);
@@ -65,13 +73,19 @@ void PredictionComponent::OfflineProcessFeatureProtoFile(
     Obstacle* obstacle_ptr = obstacles_container_ptr->GetObstacle(feature.id());
     EvaluatorManager::Instance()->EvaluateObstacle(obstacle_ptr);
   }
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: PredictionComponent::OfflineProcessFeatureProtoFile";
+ }
 
 bool PredictionComponent::Init() {
+  AINFO<<"(DMCZP) EnteringMethod: PredictionComponent::Init";
+
   component_start_time_ = Clock::NowInSeconds();
 
   if (!MessageProcess::Init()) {
-    return false;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: PredictionComponent::Init";
+  return false;
   }
 
   planning_reader_ = node_->CreateReader<ADCTrajectory>(
@@ -84,11 +98,17 @@ bool PredictionComponent::Init() {
   prediction_writer_ =
       node_->CreateWriter<PredictionObstacles>(FLAGS_prediction_topic);
 
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: PredictionComponent::Init";
   return true;
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: PredictionComponent::Init";
+ }
 
 bool PredictionComponent::Proc(
     const std::shared_ptr<PerceptionObstacles>& perception_obstacles) {
+  AINFO<<"(DMCZP) EnteringMethod: PredictionComponent::Proc";
+
   if (FLAGS_prediction_test_mode &&
       (Clock::NowInSeconds() - component_start_time_ >
        FLAGS_prediction_test_duration)) {
@@ -98,7 +118,9 @@ bool PredictionComponent::Proc(
   // Update relative map if needed
   if (FLAGS_use_navigation_mode && !PredictionMap::Ready()) {
     AERROR << "Relative map is empty.";
-    return false;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: PredictionComponent::Proc";
+  return false;
   }
 
   frame_start_time_ = Clock::NowInSeconds();
@@ -110,7 +132,9 @@ bool PredictionComponent::Proc(
   auto ptr_localization_msg = localization_reader_->GetLatestObserved();
   if (ptr_localization_msg == nullptr) {
     AERROR << "Prediction: cannot receive any localization message.";
-    return false;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: PredictionComponent::Proc";
+  return false;
   }
   auto localization_msg = *ptr_localization_msg;
   MessageProcess::OnLocalization(localization_msg);
@@ -177,8 +201,12 @@ bool PredictionComponent::Proc(
   common::util::FillHeader(node_->Name(), &prediction_obstacles);
   prediction_writer_->Write(
       std::make_shared<PredictionObstacles>(prediction_obstacles));
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: PredictionComponent::Proc";
   return true;
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: PredictionComponent::Proc";
+ }
 
 }  // namespace prediction
 }  // namespace apollo

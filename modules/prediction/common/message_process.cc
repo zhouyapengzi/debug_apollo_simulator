@@ -49,13 +49,17 @@ using cyber::record::RecordMessage;
 using cyber::record::RecordReader;
 
 bool MessageProcess::Init() {
+  AINFO<<"(DMCZP) EnteringMethod: MessageProcess::Init";
+
   // Load prediction conf
   PredictionConf prediction_conf;
   if (!cyber::common::GetProtoFromFile(FLAGS_prediction_conf_file,
                                        &prediction_conf)) {
     AERROR << "Unable to load prediction conf file: "
            << FLAGS_prediction_conf_file;
-    return false;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: MessageProcess::Init";
+  return false;
   }
   ADEBUG << "Prediction config file is loaded into: "
          << prediction_conf.ShortDebugString();
@@ -65,7 +69,9 @@ bool MessageProcess::Init() {
                                        &adapter_conf)) {
     AERROR << "Unable to load adapter conf file: "
            << FLAGS_prediction_adapter_config_filename;
-    return false;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: MessageProcess::Init";
+  return false;
   }
   ADEBUG << "Adapter config file is loaded into: "
          << adapter_conf.ShortDebugString();
@@ -77,15 +83,23 @@ bool MessageProcess::Init() {
 
   if (!FLAGS_use_navigation_mode && !PredictionMap::Ready()) {
     AERROR << "Map cannot be loaded.";
-    return false;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: MessageProcess::Init";
+  return false;
   }
 
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: MessageProcess::Init";
   return true;
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: MessageProcess::Init";
+ }
 
 void MessageProcess::OnPerception(
     const perception::PerceptionObstacles& perception_obstacles,
     PredictionObstacles* const prediction_obstacles) {
+  AINFO<<"(DMCZP) EnteringMethod: MessageProcess::OnPerception";
+
   ADEBUG << "Received a perception message ["
          << perception_obstacles.ShortDebugString() << "].";
 
@@ -168,7 +182,9 @@ void MessageProcess::OnPerception(
       ADEBUG << "Insert feature into feature output";
     }
     // Not doing evaluation on offline mode
-    return;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: MessageProcess::OnPerception";
+  return;
   }
 
   // Make evaluations
@@ -176,17 +192,23 @@ void MessageProcess::OnPerception(
   if (FLAGS_prediction_offline_mode ==
           PredictionConstants::kDumpDataForLearning ||
       FLAGS_prediction_offline_mode == PredictionConstants::kDumpFrameEnv) {
-    return;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: MessageProcess::OnPerception";
+  return;
   }
   // Make predictions
   PredictorManager::Instance()->Run();
 
   // Get predicted obstacles
   *prediction_obstacles = PredictorManager::Instance()->prediction_obstacles();
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: MessageProcess::OnPerception";
+ }
 
 void MessageProcess::OnLocalization(
     const localization::LocalizationEstimate& localization) {
+  AINFO<<"(DMCZP) EnteringMethod: MessageProcess::OnLocalization";
+
   auto ptr_ego_pose_container =
       ContainerManager::Instance()->GetContainer<PoseContainer>(
           AdapterConfig::LOCALIZATION);
@@ -195,9 +217,13 @@ void MessageProcess::OnLocalization(
 
   ADEBUG << "Received a localization message ["
          << localization.ShortDebugString() << "].";
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: MessageProcess::OnLocalization";
+ }
 
 void MessageProcess::OnPlanning(const planning::ADCTrajectory& adc_trajectory) {
+  AINFO<<"(DMCZP) EnteringMethod: MessageProcess::OnPlanning";
+
   auto ptr_ego_trajectory_container =
       ContainerManager::Instance()->GetContainer<ADCTrajectoryContainer>(
           AdapterConfig::PLANNING_TRAJECTORY);
@@ -206,9 +232,13 @@ void MessageProcess::OnPlanning(const planning::ADCTrajectory& adc_trajectory) {
 
   ADEBUG << "Received a planning message [" << adc_trajectory.ShortDebugString()
          << "].";
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: MessageProcess::OnPlanning";
+ }
 
 void MessageProcess::ProcessOfflineData(const std::string& record_filename) {
+  AINFO<<"(DMCZP) EnteringMethod: MessageProcess::ProcessOfflineData";
+
   RecordReader reader(record_filename);
   RecordMessage message;
   while (reader.ReadMessage(&message)) {
@@ -230,7 +260,9 @@ void MessageProcess::ProcessOfflineData(const std::string& record_filename) {
       }
     }
   }
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: MessageProcess::ProcessOfflineData";
+ }
 
 }  // namespace prediction
 }  // namespace apollo

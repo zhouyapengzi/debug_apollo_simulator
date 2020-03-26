@@ -40,55 +40,121 @@ using perception::PerceptionObstacle;
 namespace {
 
 double Damp(const double x, const double sigma) {
+  AINFO<<"(DMCZP) EnteringMethod: Damp";
+
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: Damp";
   return 1.0 / (1.0 + std::exp(1.0 / (std::fabs(x) + sigma)));
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: Damp";
+ }
 
 bool IsClosed(const double x0, const double y0, const double theta0,
               const double x1, const double y1, const double theta1) {
+  AINFO<<"(DMCZP) EnteringMethod: IsClosed";
+
   double angle_diff = std::fabs(common::math::AngleDiff(theta0, theta1));
   double distance = std::hypot(x0 - x1, y0 - y1);
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: IsClosed";
   return distance < FLAGS_distance_threshold_to_junction_exit &&
          angle_diff < FLAGS_angle_threshold_to_junction_exit;
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: IsClosed";
+ }
 
 }  // namespace
 
-PerceptionObstacle::Type Obstacle::type() const { return type_; }
+PerceptionObstacle::Type Obstacle::type() const {
+  AINFO<<"(DMCZP) EnteringMethod: Obstacle::type";
+ 
+  AINFO<<"(DM
+  AINFO<<"(DMCZP) LeaveMethod: Obstacle::type";
+ CZP) (return) LeaveMethod: Obstacle::type";
+  return type_; }
 
-int Obstacle::id() const { return id_; }
+int Obstacle::id() const {
+  AINFO<<"(DMCZP) EnteringMethod: Obstacle::id";
+ 
+  AINFO<<"(
+  AINFO<<"(DMCZP) LeaveMethod: Obstacle::id";
+ DMCZP) (return) LeaveMethod: Obstacle::id";
+  return id_; }
 
 double Obstacle::timestamp() const {
+  AINFO<<"(DMCZP) EnteringMethod: Obstacle::timestamp";
+
   CHECK(!feature_history_.empty());
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: Obstacle::timestamp";
   return feature_history_.front().timestamp();
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: Obstacle::timestamp";
+ }
 
 const Feature& Obstacle::feature(const size_t i) const {
+  AINFO<<"(DMCZP) EnteringMethod: Obstacle::feature";
+
   CHECK(i < feature_history_.size());
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: Obstacle::feature";
   return feature_history_[i];
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: Obstacle::feature";
+ }
 
 Feature* Obstacle::mutable_feature(const size_t i) {
+  AINFO<<"(DMCZP) EnteringMethod: Obstacle::mutable_feature";
+
   CHECK(!feature_history_.empty());
   CHECK(i < feature_history_.size());
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: Obstacle::mutable_feature";
   return &feature_history_[i];
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: Obstacle::mutable_feature";
+ }
 
 const Feature& Obstacle::latest_feature() const {
+  AINFO<<"(DMCZP) EnteringMethod: Obstacle::latest_feature";
+
   CHECK(!feature_history_.empty());
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: Obstacle::latest_feature";
   return feature_history_.front();
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: Obstacle::latest_feature";
+ }
 
 const Feature& Obstacle::earliest_feature() const {
+  AINFO<<"(DMCZP) EnteringMethod: Obstacle::earliest_feature";
+
   CHECK(!feature_history_.empty());
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: Obstacle::earliest_feature";
   return feature_history_.back();
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: Obstacle::earliest_feature";
+ }
 
 Feature* Obstacle::mutable_latest_feature() {
-  CHECK(!feature_history_.empty());
-  return &(feature_history_.front());
-}
+  AINFO<<"(DMCZP) EnteringMethod: Obstacle::mutable_latest_feature";
 
-size_t Obstacle::history_size() const { return feature_history_.size(); }
+  CHECK(!feature_history_.empty());
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: Obstacle::mutable_latest_feature";
+  return &(feature_history_.front());
+
+  AINFO<<"(DMCZP) LeaveMethod: Obstacle::mutable_latest_feature";
+ }
+
+size_t Obstacle::history_size() const {
+  AINFO<<"(DMCZP) EnteringMethod: Obstacle::history_size";
+ 
+  AINFO<<"(DMCZP) (return) Leav
+  AINFO<<"(DMCZP) LeaveMethod: Obstacle::history_size";
+ eMethod: Obstacle::history_size";
+  return feature_history_.size(); }
 
 const KalmanFilter<double, 6, 2, 0>& Obstacle::kf_motion_tracker() const {
   return kf_motion_tracker_;
@@ -99,58 +165,102 @@ const KalmanFilter<double, 2, 2, 4>& Obstacle::kf_pedestrian_tracker() const {
 }
 
 bool Obstacle::IsStill() {
+  AINFO<<"(DMCZP) EnteringMethod: Obstacle::IsStill";
+
   if (feature_history_.size() > 0) {
-    return feature_history_.front().is_still();
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: Obstacle::IsStill";
+  return feature_history_.front().is_still();
   }
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: Obstacle::IsStill";
   return true;
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: Obstacle::IsStill";
+ }
 
 bool Obstacle::IsSlow() {
+  AINFO<<"(DMCZP) EnteringMethod: Obstacle::IsSlow";
+
   const Feature& feature = latest_feature();
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: Obstacle::IsSlow";
   return feature.speed() < FLAGS_slow_obstacle_speed_threshold;
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: Obstacle::IsSlow";
+ }
 
 bool Obstacle::IsOnLane() const {
+  AINFO<<"(DMCZP) EnteringMethod: Obstacle::IsOnLane";
+
   if (feature_history_.empty() ||
       !latest_feature().has_lane() ||
       latest_feature().lane().current_lane_feature().empty()) {
-    return false;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: Obstacle::IsOnLane";
+  return false;
   }
   for (const auto& curr_lane :
        latest_feature().lane().current_lane_feature()) {
     if (curr_lane.lane_type() != hdmap::Lane::CITY_DRIVING) {
-      return false;
+      
+  AINFO<<"(DMCZP) (return) LeaveMethod: Obstacle::IsOnLane";
+  return false;
     }
   }
 
   ADEBUG << "Obstacle [" << id_ << "] is on lane.";
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: Obstacle::IsOnLane";
   return true;
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: Obstacle::IsOnLane";
+ }
 
 bool Obstacle::ToIgnore() {
+  AINFO<<"(DMCZP) EnteringMethod: Obstacle::ToIgnore";
+
   if (feature_history_.empty()) {
-    return true;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: Obstacle::ToIgnore";
+  return true;
   }
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: Obstacle::ToIgnore";
   return latest_feature().priority().priority() == ObstaclePriority::IGNORE;
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: Obstacle::ToIgnore";
+ }
 
 bool Obstacle::IsNearJunction() {
+  AINFO<<"(DMCZP) EnteringMethod: Obstacle::IsNearJunction";
+
   if (feature_history_.empty()) {
-    return false;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: Obstacle::IsNearJunction";
+  return false;
   }
   double pos_x = latest_feature().position().x();
   double pos_y = latest_feature().position().y();
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: Obstacle::IsNearJunction";
   return PredictionMap::NearJunction({pos_x, pos_y},
                                      FLAGS_junction_search_radius);
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: Obstacle::IsNearJunction";
+ }
 
 bool Obstacle::Insert(const PerceptionObstacle& perception_obstacle,
                       const double timestamp,
                       const int prediction_obstacle_id) {
+  AINFO<<"(DMCZP) EnteringMethod: Obstacle::Insert";
+
   if (!perception_obstacle.has_id() || !perception_obstacle.has_type()) {
     AERROR << "Perception obstacle has incomplete information; "
               "skip insertion";
-    return false;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: Obstacle::Insert";
+  return false;
   }
 
   if (ReceivedNewerMessage(timestamp)) {
@@ -158,13 +268,17 @@ bool Obstacle::Insert(const PerceptionObstacle& perception_obstacle,
            << std::setprecision(20) << timestamp
            << "] than the most recent timestamp [ " << this->timestamp()
            << "].";
-    return false;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: Obstacle::Insert";
+  return false;
   }
 
   // Set ID, Type, and Status of the feature.
   Feature feature;
   if (!SetId(perception_obstacle, &feature, prediction_obstacle_id)) {
-    return false;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: Obstacle::Insert";
+  return false;
   }
 
   SetType(perception_obstacle, &feature);
@@ -213,44 +327,70 @@ bool Obstacle::Insert(const PerceptionObstacle& perception_obstacle,
 
   // Trim historical features
   DiscardOutdatedHistory();
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: Obstacle::Insert";
   return true;
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: Obstacle::Insert";
+ }
 
 bool Obstacle::InsertFeature(const Feature& feature) {
+  AINFO<<"(DMCZP) EnteringMethod: Obstacle::InsertFeature";
+
   InsertFeatureToHistory(feature);
   type_ = feature.type();
   id_ = feature.id();
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: Obstacle::InsertFeature";
   return true;
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: Obstacle::InsertFeature";
+ }
 
 bool Obstacle::IsInJunction(const std::string& junction_id) {
+  AINFO<<"(DMCZP) EnteringMethod: Obstacle::IsInJunction";
+
   // TODO(all) Consider if need to use vehicle front rather than position
   if (feature_history_.empty()) {
     AERROR << "Obstacle [" << id_ << "] has no history";
-    return false;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: Obstacle::IsInJunction";
+  return false;
   }
   std::shared_ptr<const JunctionInfo> junction_info_ptr =
       PredictionMap::JunctionById(junction_id);
   const auto& position = latest_feature().position();
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: Obstacle::IsInJunction";
   return PredictionMap::IsPointInJunction(position.x(), position.y(),
                                           junction_info_ptr);
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: Obstacle::IsInJunction";
+ }
 
 void Obstacle::BuildJunctionFeature() {
+  AINFO<<"(DMCZP) EnteringMethod: Obstacle::BuildJunctionFeature";
+
   if (feature_history_.empty()) {
     AERROR << "Obstacle [" << id_ << "] has no history";
-    return;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: Obstacle::BuildJunctionFeature";
+  return;
   }
   const std::string& junction_id = JunctionAnalyzer::GetJunctionId();
   if (!IsInJunction(junction_id)) {
     ADEBUG << "Obstacle [" << id_ << "] is not in junction [" << junction_id
            << "]";
-    return;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: Obstacle::BuildJunctionFeature";
+  return;
   }
   Feature* latest_feature_ptr = mutable_latest_feature();
   if (feature_history_.size() == 1) {
     SetJunctionFeatureWithoutEnterLane(latest_feature_ptr);
-    return;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: Obstacle::BuildJunctionFeature";
+  return;
   }
   const Feature& prev_feature = feature(1);
   if (prev_feature.junction_feature().has_enter_lane()) {
@@ -262,12 +402,18 @@ void Obstacle::BuildJunctionFeature() {
   } else {
     SetJunctionFeatureWithoutEnterLane(latest_feature_ptr);
   }
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: Obstacle::BuildJunctionFeature";
+ }
 
 bool Obstacle::IsCloseToJunctionExit() {
+  AINFO<<"(DMCZP) EnteringMethod: Obstacle::IsCloseToJunctionExit";
+
   if (!HasJunctionFeatureWithExits()) {
     AERROR << "No junction feature found";
-    return false;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: Obstacle::IsCloseToJunctionExit";
+  return false;
   }
   CHECK_GT(history_size(), 0);
   const Feature& latest_feature = feature_history_.front();
@@ -282,22 +428,36 @@ bool Obstacle::IsCloseToJunctionExit() {
     double exit_heading = junction_exit.exit_heading();
     if (IsClosed(position_x, position_y, raw_velocity_heading, exit_x, exit_y,
                  exit_heading)) {
-      return true;
+      
+  AINFO<<"(DMCZP) (return) LeaveMethod: Obstacle::IsCloseToJunctionExit";
+  return true;
     }
   }
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: Obstacle::IsCloseToJunctionExit";
   return false;
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: Obstacle::IsCloseToJunctionExit";
+ }
 
 void Obstacle::SetJunctionFeatureWithEnterLane(const std::string& enter_lane_id,
                                                Feature* const feature_ptr) {
+  AINFO<<"(DMCZP) EnteringMethod: Obstacle::SetJunctionFeatureWithEnterLane";
+
   feature_ptr->mutable_junction_feature()->CopyFrom(
       JunctionAnalyzer::GetJunctionFeature(enter_lane_id));
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: Obstacle::SetJunctionFeatureWithEnterLane";
+ }
 
 void Obstacle::SetJunctionFeatureWithoutEnterLane(Feature* const feature_ptr) {
+  AINFO<<"(DMCZP) EnteringMethod: Obstacle::SetJunctionFeatureWithoutEnterLane";
+
   if (!feature_ptr->has_lane()) {
     ADEBUG << "Obstacle [" << id_ << "] has no lane.";
-    return;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: Obstacle::SetJunctionFeatureWithoutEnterLane";
+  return;
   }
   std::vector<std::string> start_lane_ids;
   if (feature_ptr->lane().current_lane_feature_size() > 0) {
@@ -313,15 +473,21 @@ void Obstacle::SetJunctionFeatureWithoutEnterLane(Feature* const feature_ptr) {
   }
   if (start_lane_ids.empty()) {
     ADEBUG << "Obstacle [" << id_ << "] has no lane in junction";
-    return;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: Obstacle::SetJunctionFeatureWithoutEnterLane";
+  return;
   }
   // TODO(kechxu) Maybe output all exits if no start lane found
   feature_ptr->mutable_junction_feature()->CopyFrom(
       JunctionAnalyzer::GetJunctionFeature(start_lane_ids));
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: Obstacle::SetJunctionFeatureWithoutEnterLane";
+ }
 
 void Obstacle::SetStatus(const PerceptionObstacle& perception_obstacle,
                          const double timestamp, Feature* feature) {
+  AINFO<<"(DMCZP) EnteringMethod: Obstacle::SetStatus";
+
   SetTimestamp(perception_obstacle, timestamp, feature);
   SetPolygonPoints(perception_obstacle, feature);
   SetPosition(perception_obstacle, feature);
@@ -330,13 +496,19 @@ void Obstacle::SetStatus(const PerceptionObstacle& perception_obstacle,
   SetTheta(perception_obstacle, feature);
   SetLengthWidthHeight(perception_obstacle, feature);
   SetIsNearJunction(perception_obstacle, feature);
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: Obstacle::SetStatus";
+ }
 
 void Obstacle::UpdateStatus(Feature* feature) {
+  AINFO<<"(DMCZP) EnteringMethod: Obstacle::UpdateStatus";
+
   // Update motion belief
   if (!kf_motion_tracker_.IsInitialized()) {
     ADEBUG << "Obstacle [" << id_ << "] has not initialized motion tracker.";
-    return;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: Obstacle::UpdateStatus";
+  return;
   }
   auto state = kf_motion_tracker_.GetStateEstimate();
 
@@ -393,7 +565,9 @@ void Obstacle::UpdateStatus(Feature* feature) {
     if (!kf_pedestrian_tracker_.IsInitialized()) {
       ADEBUG << "Obstacle [" << id_
              << "] has not initialized pedestrian tracker.";
-      return;
+      
+  AINFO<<"(DMCZP) (return) LeaveMethod: Obstacle::UpdateStatus";
+  return;
     }
     feature->mutable_t_position()->set_x(
         kf_pedestrian_tracker_.GetStateEstimate()(0, 0));
@@ -405,10 +579,14 @@ void Obstacle::UpdateStatus(Feature* feature) {
            << std::fixed << ", " << std::setprecision(6)
            << feature->t_position().z() << std::fixed << "]";
   }
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: Obstacle::UpdateStatus";
+ }
 
 bool Obstacle::SetId(const PerceptionObstacle& perception_obstacle,
                      Feature* feature, const int prediction_obstacle_id) {
+  AINFO<<"(DMCZP) EnteringMethod: Obstacle::SetId";
+
   int id = prediction_obstacle_id > 0 ? prediction_obstacle_id
                                       : perception_obstacle.id();
   if (id_ < 0) {
@@ -418,22 +596,34 @@ bool Obstacle::SetId(const PerceptionObstacle& perception_obstacle,
     if (id_ != id) {
       AERROR << "Obstacle [" << id_ << "] has a mismatched ID [" << id
              << "] from perception obstacle.";
-      return false;
+      
+  AINFO<<"(DMCZP) (return) LeaveMethod: Obstacle::SetId";
+  return false;
     }
   }
   feature->set_id(id);
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: Obstacle::SetId";
   return true;
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: Obstacle::SetId";
+ }
 
 void Obstacle::SetType(const PerceptionObstacle& perception_obstacle,
                        Feature* feature) {
+  AINFO<<"(DMCZP) EnteringMethod: Obstacle::SetType";
+
   type_ = perception_obstacle.type();
   ADEBUG << "Obstacle [" << id_ << "] has type [" << type_ << "].";
   feature->set_type(type_);
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: Obstacle::SetType";
+ }
 
 void Obstacle::SetTimestamp(const PerceptionObstacle& perception_obstacle,
                             const double timestamp, Feature* feature) {
+  AINFO<<"(DMCZP) EnteringMethod: Obstacle::SetTimestamp";
+
   double ts = timestamp;
   if (perception_obstacle.has_timestamp() &&
       perception_obstacle.timestamp() > 0.0) {
@@ -443,26 +633,38 @@ void Obstacle::SetTimestamp(const PerceptionObstacle& perception_obstacle,
 
   ADEBUG << "Obstacle [" << id_ << "] has timestamp [" << std::fixed
          << std::setprecision(6) << ts << "].";
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: Obstacle::SetTimestamp";
+ }
 
 void Obstacle::SetPolygonPoints(const PerceptionObstacle& perception_obstacle,
                                 Feature* feature) {
+  AINFO<<"(DMCZP) EnteringMethod: Obstacle::SetPolygonPoints";
+
   for (const auto& polygon_point : perception_obstacle.polygon_point()) {
     *feature->add_polygon_point() = polygon_point;
     ADEBUG << "Obstacle [" << id_
            << "] has new corner point:" << polygon_point.DebugString();
   }
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: Obstacle::SetPolygonPoints";
+ }
 
 void Obstacle::SetPosition(const PerceptionObstacle& perception_obstacle,
                            Feature* feature) {
+  AINFO<<"(DMCZP) EnteringMethod: Obstacle::SetPosition";
+
   *feature->mutable_position() = perception_obstacle.position();
   ADEBUG << "Obstacle [" << id_
          << "] has position:" << perception_obstacle.position().DebugString();
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: Obstacle::SetPosition";
+ }
 
 void Obstacle::SetVelocity(const PerceptionObstacle& perception_obstacle,
                            Feature* feature) {
+  AINFO<<"(DMCZP) EnteringMethod: Obstacle::SetVelocity";
+
   double velocity_x = 0.0;
   double velocity_y = 0.0;
   double velocity_z = 0.0;
@@ -551,11 +753,17 @@ void Obstacle::SetVelocity(const PerceptionObstacle& perception_obstacle,
          << std::setprecision(6) << velocity_heading << "] ";
   ADEBUG << "Obstacle [" << id_ << "] has speed [" << std::fixed
          << std::setprecision(6) << speed << "].";
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: Obstacle::SetVelocity";
+ }
 
 void Obstacle::AdjustHeadingByLane(Feature* feature) {
+  AINFO<<"(DMCZP) EnteringMethod: Obstacle::AdjustHeadingByLane";
+
   if (!feature->has_lane() || !feature->lane().has_lane_feature()) {
-    return;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: Obstacle::AdjustHeadingByLane";
+  return;
   }
   double velocity_heading = feature->velocity_heading();
   double lane_heading = feature->lane().lane_feature().lane_heading();
@@ -567,11 +775,15 @@ void Obstacle::AdjustHeadingByLane(Feature* feature) {
     feature->mutable_velocity()->set_y(speed * std::sin(velocity_heading));
     feature->set_velocity_heading(velocity_heading);
   }
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: Obstacle::AdjustHeadingByLane";
+ }
 
 void Obstacle::UpdateVelocity(const double theta, double* velocity_x,
                               double* velocity_y, double* velocity_heading,
                               double* speed) {
+  AINFO<<"(DMCZP) EnteringMethod: Obstacle::UpdateVelocity";
+
   *speed = std::hypot(*velocity_x, *velocity_y);
   double angle_diff = common::math::NormalizeAngle(*velocity_heading - theta);
   if (std::fabs(angle_diff) <= FLAGS_max_lane_angle_diff) {
@@ -579,9 +791,13 @@ void Obstacle::UpdateVelocity(const double theta, double* velocity_x,
     *velocity_x = *speed * std::cos(*velocity_heading);
     *velocity_y = *speed * std::sin(*velocity_heading);
   }
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: Obstacle::UpdateVelocity";
+ }
 
 void Obstacle::SetAcceleration(Feature* feature) {
+  AINFO<<"(DMCZP) EnteringMethod: Obstacle::SetAcceleration";
+
   double acc_x = 0.0;
   double acc_y = 0.0;
   double acc_z = 0.0;
@@ -637,10 +853,14 @@ void Obstacle::SetAcceleration(Feature* feature) {
          << std::setprecision(6) << acc_z << "]";
   ADEBUG << "Obstacle [" << id_ << "] has acceleration value [" << std::fixed
          << std::setprecision(6) << acc << "].";
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: Obstacle::SetAcceleration";
+ }
 
 void Obstacle::SetTheta(const PerceptionObstacle& perception_obstacle,
                         Feature* feature) {
+  AINFO<<"(DMCZP) EnteringMethod: Obstacle::SetTheta";
+
   double theta = 0.0;
   if (perception_obstacle.has_theta()) {
     theta = perception_obstacle.theta();
@@ -649,10 +869,14 @@ void Obstacle::SetTheta(const PerceptionObstacle& perception_obstacle,
 
   ADEBUG << "Obstacle [" << id_ << "] has theta [" << std::fixed
          << std::setprecision(6) << theta << "].";
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: Obstacle::SetTheta";
+ }
 
 void Obstacle::SetLengthWidthHeight(
     const PerceptionObstacle& perception_obstacle, Feature* feature) {
+  AINFO<<"(DMCZP) EnteringMethod: Obstacle::SetLengthWidthHeight";
+
   double length = 0.0;
   double width = 0.0;
   double height = 0.0;
@@ -675,33 +899,53 @@ void Obstacle::SetLengthWidthHeight(
          << std::setprecision(6) << length << ", " << std::fixed
          << std::setprecision(6) << width << ", " << std::fixed
          << std::setprecision(6) << height << "].";
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: Obstacle::SetLengthWidthHeight";
+ }
 
 void Obstacle::SetIsNearJunction(const PerceptionObstacle& perception_obstacle,
                                  Feature* feature) {
+  AINFO<<"(DMCZP) EnteringMethod: Obstacle::SetIsNearJunction";
+
   if (!perception_obstacle.has_position()) {
-    return;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: Obstacle::SetIsNearJunction";
+  return;
   }
   if (!perception_obstacle.position().has_x() ||
       !perception_obstacle.position().has_y()) {
-    return;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: Obstacle::SetIsNearJunction";
+  return;
   }
   double x = perception_obstacle.position().x();
   double y = perception_obstacle.position().y();
   bool is_near_junction =
       PredictionMap::NearJunction({x, y}, FLAGS_junction_search_radius);
   feature->set_is_near_junction(is_near_junction);
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: Obstacle::SetIsNearJunction";
+ }
 
 bool Obstacle::HasJunctionFeatureWithExits() {
+  AINFO<<"(DMCZP) EnteringMethod: Obstacle::HasJunctionFeatureWithExits";
+
   if (history_size() == 0) {
-    return false;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: Obstacle::HasJunctionFeatureWithExits";
+  return false;
   }
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: Obstacle::HasJunctionFeatureWithExits";
   return latest_feature().has_junction_feature() &&
          latest_feature().junction_feature().junction_exit_size() > 0;
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: Obstacle::HasJunctionFeatureWithExits";
+ }
 
 void Obstacle::InitKFMotionTracker(const Feature& feature) {
+  AINFO<<"(DMCZP) EnteringMethod: Obstacle::InitKFMotionTracker";
+
   // Set transition matrix F
   // constant acceleration dynamic model
   Eigen::Matrix<double, 6, 6> F;
@@ -744,9 +988,13 @@ void Obstacle::InitKFMotionTracker(const Feature& feature) {
   x(5, 0) = feature.acceleration().y();
 
   kf_motion_tracker_.SetStateEstimate(x, P);
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: Obstacle::InitKFMotionTracker";
+ }
 
 void Obstacle::UpdateKFMotionTracker(const Feature& feature) {
+  AINFO<<"(DMCZP) EnteringMethod: Obstacle::UpdateKFMotionTracker";
+
   double delta_ts = 0.0;
   if (feature_history_.size() > 0) {
     delta_ts = feature.timestamp() - feature_history_.front().timestamp();
@@ -769,9 +1017,13 @@ void Obstacle::UpdateKFMotionTracker(const Feature& feature) {
     z(1, 0) = feature.position().y();
     kf_motion_tracker_.Correct(z);
   }
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: Obstacle::UpdateKFMotionTracker";
+ }
 
 void Obstacle::InitKFPedestrianTracker(const Feature& feature) {
+  AINFO<<"(DMCZP) EnteringMethod: Obstacle::InitKFPedestrianTracker";
+
   // Set transition matrix F
   Eigen::Matrix<double, 2, 2> F;
   F.setIdentity();
@@ -811,9 +1063,13 @@ void Obstacle::InitKFPedestrianTracker(const Feature& feature) {
   x(1, 0) = feature.position().y();
 
   kf_pedestrian_tracker_.SetStateEstimate(x, P);
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: Obstacle::InitKFPedestrianTracker";
+ }
 
 void Obstacle::UpdateKFPedestrianTracker(const Feature& feature) {
+  AINFO<<"(DMCZP) EnteringMethod: Obstacle::UpdateKFPedestrianTracker";
+
   double delta_ts = 0.0;
   if (!feature_history_.empty()) {
     delta_ts = feature.timestamp() - feature_history_.front().timestamp();
@@ -841,9 +1097,13 @@ void Obstacle::UpdateKFPedestrianTracker(const Feature& feature) {
     z(1, 0) = feature.position().y();
     kf_pedestrian_tracker_.Correct(z);
   }
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: Obstacle::UpdateKFPedestrianTracker";
+ }
 
 void Obstacle::SetCurrentLanes(Feature* feature) {
+  AINFO<<"(DMCZP) EnteringMethod: Obstacle::SetCurrentLanes";
+
   Eigen::Vector2d point(feature->position().x(), feature->position().y());
   double heading = feature->velocity_heading();
   int max_num_lane = FLAGS_max_num_current_lane;
@@ -860,7 +1120,9 @@ void Obstacle::SetCurrentLanes(Feature* feature) {
   current_lanes_ = current_lanes;
   if (current_lanes_.empty()) {
     ADEBUG << "Obstacle [" << id_ << "] has no current lanes.";
-    return;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: Obstacle::SetCurrentLanes";
+  return;
   }
   Lane lane;
   if (feature->has_lane()) {
@@ -916,9 +1178,13 @@ void Obstacle::SetCurrentLanes(Feature* feature) {
   }
 
   feature->mutable_lane()->CopyFrom(lane);
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: Obstacle::SetCurrentLanes";
+ }
 
 void Obstacle::SetNearbyLanes(Feature* feature) {
+  AINFO<<"(DMCZP) EnteringMethod: Obstacle::SetNearbyLanes";
+
   Eigen::Vector2d point(feature->position().x(), feature->position().y());
   int max_num_lane = FLAGS_max_num_nearby_lane;
   double lane_search_radius = FLAGS_lane_search_radius;
@@ -933,7 +1199,9 @@ void Obstacle::SetNearbyLanes(Feature* feature) {
                                            &nearby_lanes);
   if (nearby_lanes.empty()) {
     ADEBUG << "Obstacle [" << id_ << "] has no nearby lanes.";
-    return;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: Obstacle::SetNearbyLanes";
+  return;
   }
 
   for (std::shared_ptr<const LaneInfo> nearby_lane : nearby_lanes) {
@@ -982,24 +1250,34 @@ void Obstacle::SetNearbyLanes(Feature* feature) {
     ADEBUG << "Obstacle [" << id_ << "] has nearby lanes ["
            << lane_feature->ShortDebugString() << "]";
   }
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: Obstacle::SetNearbyLanes";
+ }
 
 void Obstacle::BuildLaneGraph() {
+  AINFO<<"(DMCZP) EnteringMethod: Obstacle::BuildLaneGraph";
+
   // Sanity checks.
   if (history_size() == 0) {
     AERROR << "No feature found.";
-    return;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: Obstacle::BuildLaneGraph";
+  return;
   }
 
   Feature* feature = mutable_latest_feature();
   // No need to BuildLaneGraph for those non-moving obstacles.
   if (feature->is_still()) {
     ADEBUG << "Not build lane graph for still obstacle";
-    return;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: Obstacle::BuildLaneGraph";
+  return;
   }
   if (feature->lane().lane_graph().lane_sequence_size() > 0) {
     ADEBUG << "Not build lane graph for an old obstacle";
-    return;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: Obstacle::BuildLaneGraph";
+  return;
   }
   double speed = feature->speed();
   double t_max = FLAGS_prediction_trajectory_time_length;
@@ -1072,12 +1350,18 @@ void Obstacle::BuildLaneGraph() {
     SetLaneSequencePath(feature->mutable_lane()->mutable_lane_graph());
   }
   ADEBUG << "Obstacle [" << id_ << "] set lane graph features.";
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: Obstacle::BuildLaneGraph";
+ }
 
 void Obstacle::SetLaneSequenceStopSign(LaneSequence* lane_sequence_ptr) {
+  AINFO<<"(DMCZP) EnteringMethod: Obstacle::SetLaneSequenceStopSign";
+
   // Set the nearest stop sign along the lane sequence
   if (lane_sequence_ptr->lane_segment_size() <= 0) {
-    return;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: Obstacle::SetLaneSequenceStopSign";
+  return;
   }
   double accumulate_s = 0.0;
   for (const LaneSegment& lane_segment : lane_sequence_ptr->lane_segment()) {
@@ -1094,15 +1378,21 @@ void Obstacle::SetLaneSequenceStopSign(LaneSequence* lane_sequence_ptr) {
     }
     accumulate_s += lane_segment.total_length();
   }
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: Obstacle::SetLaneSequenceStopSign";
+ }
 
 void Obstacle::GetNeighborLaneSegments(
     std::shared_ptr<const LaneInfo> center_lane_info, bool is_left,
     int recursion_depth, std::list<std::string>* const lane_ids_ordered,
     std::unordered_set<std::string>* const existing_lane_ids) {
+  AINFO<<"(DMCZP) EnteringMethod: Obstacle::GetNeighborLaneSegments";
+
   // Exit recursion if reached max num of allowed search depth.
   if (recursion_depth <= 0) {
-    return;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: Obstacle::GetNeighborLaneSegments";
+  return;
   }
   if (is_left) {
     std::vector<std::string> curr_left_lane_ids;
@@ -1145,24 +1435,34 @@ void Obstacle::GetNeighborLaneSegments(
                               existing_lane_ids);
     }
   }
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: Obstacle::GetNeighborLaneSegments";
+ }
 
 void Obstacle::BuildLaneGraphFromLeftToRight() {
+  AINFO<<"(DMCZP) EnteringMethod: Obstacle::BuildLaneGraphFromLeftToRight";
+
   // Sanity checks.
   if (history_size() == 0) {
     AERROR << "No feature found.";
-    return;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: Obstacle::BuildLaneGraphFromLeftToRight";
+  return;
   }
 
   // No need to BuildLaneGraph for those non-moving obstacles.
   Feature* feature = mutable_latest_feature();
   if (feature->is_still()) {
     ADEBUG << "Don't build lane graph for non-moving obstacle.";
-    return;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: Obstacle::BuildLaneGraphFromLeftToRight";
+  return;
   }
   if (feature->lane().lane_graph_ordered().lane_sequence_size() > 0) {
     ADEBUG << "Don't build lane graph for an old obstacle.";
-    return;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: Obstacle::BuildLaneGraphFromLeftToRight";
+  return;
   }
   // double speed = feature->speed();
   double road_graph_search_distance = 50.0 * 0.95;  // (45mph for 3sec)
@@ -1175,7 +1475,9 @@ void Obstacle::BuildLaneGraphFromLeftToRight() {
   // Treat the most probable lane_segment as the center, put its left
   // and right neighbors into a vector following the left-to-right order.
   if (!feature->has_lane() || !feature->lane().has_lane_feature()) {
-    return;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: Obstacle::BuildLaneGraphFromLeftToRight";
+  return;
   }
   std::shared_ptr<const LaneInfo> center_lane_info =
       PredictionMap::LaneById(feature->lane().lane_feature().lane_id());
@@ -1225,15 +1527,21 @@ void Obstacle::BuildLaneGraphFromLeftToRight() {
     SetLaneSequencePath(feature->mutable_lane()->mutable_lane_graph_ordered());
   }
   ADEBUG << "Obstacle [" << id_ << "] set lane graph features.";
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: Obstacle::BuildLaneGraphFromLeftToRight";
+ }
 
 // The default SetLanePoints applies to lane_graph with
 // FLAGS_target_lane_gap.
 void Obstacle::SetLanePoints(Feature* feature) {
+  AINFO<<"(DMCZP) EnteringMethod: Obstacle::SetLanePoints";
+
   LaneGraph* lane_graph = feature->mutable_lane()->mutable_lane_graph();
   SetLanePoints(feature, FLAGS_target_lane_gap, FLAGS_max_num_lane_point, false,
                 lane_graph);
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: Obstacle::SetLanePoints";
+ }
 
 // The generic SetLanePoints
 void Obstacle::SetLanePoints(const Feature* feature,
@@ -1241,11 +1549,15 @@ void Obstacle::SetLanePoints(const Feature* feature,
                              const uint64_t max_num_lane_point,
                              const bool is_bidirection,
                              LaneGraph* const lane_graph) {
+  AINFO<<"(DMCZP) EnteringMethod: Obstacle::SetLanePoints";
+
   ADEBUG << "Spacing = " << lane_point_spacing;
   // Sanity checks.
   if (feature == nullptr || !feature->has_velocity_heading()) {
     AERROR << "Null feature or no velocity heading.";
-    return;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: Obstacle::SetLanePoints";
+  return;
   }
   double heading = feature->velocity_heading();
   double x = feature->position().x();
@@ -1382,9 +1694,13 @@ void Obstacle::SetLanePoints(const Feature* feature,
     }
   }
   ADEBUG << "Obstacle [" << id_ << "] has lane segments and points.";
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: Obstacle::SetLanePoints";
+ }
 
 void Obstacle::SetLaneSequencePath(LaneGraph* const lane_graph) {
+  AINFO<<"(DMCZP) EnteringMethod: Obstacle::SetLaneSequencePath";
+
   // Go through every lane_sequence.
   for (int i = 0; i < lane_graph->lane_sequence_size(); ++i) {
     LaneSequence* lane_sequence = lane_graph->mutable_lane_sequence(i);
@@ -1435,9 +1751,13 @@ void Obstacle::SetLaneSequencePath(LaneGraph* const lane_graph) {
     }
     lane_sequence->mutable_path_point(num_path_point - 1)->set_kappa(0.0);
   }
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: Obstacle::SetLaneSequencePath";
+ }
 
 void Obstacle::SetNearbyObstacles() {
+  AINFO<<"(DMCZP) EnteringMethod: Obstacle::SetNearbyObstacles";
+
   // This function runs after all basic features have been set up
   Feature* feature_ptr = mutable_latest_feature();
 
@@ -1461,13 +1781,19 @@ void Obstacle::SetNearbyObstacles() {
       lane_sequence->add_nearby_obstacle()->CopyFrom(backward_obstacle);
     }
   }
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: Obstacle::SetNearbyObstacles";
+ }
 
 void Obstacle::SetMotionStatus() {
+  AINFO<<"(DMCZP) EnteringMethod: Obstacle::SetMotionStatus";
+
   int history_size = static_cast<int>(feature_history_.size());
   if (history_size == 0) {
     AERROR << "Zero history found";
-    return;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: Obstacle::SetMotionStatus";
+  return;
   }
   double pos_std = FLAGS_still_obstacle_position_std;
   double speed_threshold = FLAGS_still_obstacle_speed_threshold;
@@ -1490,7 +1816,9 @@ void Obstacle::SetMotionStatus() {
     } else {
       feature_history_.front().set_is_still(false);
     }
-    return;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: Obstacle::SetMotionStatus";
+  return;
   }
 
   double start_x = 0.0;
@@ -1534,9 +1862,13 @@ void Obstacle::SetMotionStatus() {
       feature_history_.front().set_is_still(true);
     }
   }
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: Obstacle::SetMotionStatus";
+ }
 
 void Obstacle::SetMotionStatusBySpeed() {
+  AINFO<<"(DMCZP) EnteringMethod: Obstacle::SetMotionStatusBySpeed";
+
   auto history_size = feature_history_.size();
   if (history_size < 2) {
     ADEBUG << "Obstacle [" << id_ << "] has no history and "
@@ -1544,7 +1876,9 @@ void Obstacle::SetMotionStatusBySpeed() {
     if (history_size > 0) {
       feature_history_.front().set_is_still(false);
     }
-    return;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: Obstacle::SetMotionStatusBySpeed";
+  return;
   }
 
   double speed_threshold = FLAGS_still_obstacle_speed_threshold;
@@ -1557,12 +1891,18 @@ void Obstacle::SetMotionStatusBySpeed() {
       feature_history_.front().set_is_still(false);
     }
   }
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: Obstacle::SetMotionStatusBySpeed";
+ }
 
 void Obstacle::InsertFeatureToHistory(const Feature& feature) {
+  AINFO<<"(DMCZP) EnteringMethod: Obstacle::InsertFeatureToHistory";
+
   feature_history_.emplace_front(feature);
   ADEBUG << "Obstacle [" << id_ << "] inserted a frame into the history.";
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: Obstacle::InsertFeatureToHistory";
+ }
 
 std::unique_ptr<Obstacle> Obstacle::Create(
     const PerceptionObstacle& perception_obstacle, const double timestamp,
@@ -1581,14 +1921,24 @@ std::unique_ptr<Obstacle> Obstacle::Create(const Feature& feature) {
 }
 
 bool Obstacle::ReceivedNewerMessage(const double timestamp) const {
+  AINFO<<"(DMCZP) EnteringMethod: Obstacle::ReceivedNewerMessage";
+
   if (feature_history_.empty()) {
-    return false;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: Obstacle::ReceivedNewerMessage";
+  return false;
   }
   auto last_timestamp_received = feature_history_.front().timestamp();
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: Obstacle::ReceivedNewerMessage";
   return timestamp <= last_timestamp_received;
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: Obstacle::ReceivedNewerMessage";
+ }
 
 void Obstacle::DiscardOutdatedHistory() {
+  AINFO<<"(DMCZP) EnteringMethod: Obstacle::DiscardOutdatedHistory";
+
   auto num_of_frames = feature_history_.size();
   const double latest_ts = feature_history_.front().timestamp();
   while (latest_ts - feature_history_.back().timestamp() >=
@@ -1600,18 +1950,30 @@ void Obstacle::DiscardOutdatedHistory() {
     ADEBUG << "Obstacle [" << id_ << "] discards " << num_of_discarded_frames
            << " historical features";
   }
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: Obstacle::DiscardOutdatedHistory";
+ }
 
 void Obstacle::SetRNNStates(const std::vector<Eigen::MatrixXf>& rnn_states) {
+  AINFO<<"(DMCZP) EnteringMethod: Obstacle::SetRNNStates";
+
   rnn_states_ = rnn_states;
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: Obstacle::SetRNNStates";
+ }
 
 void Obstacle::GetRNNStates(std::vector<Eigen::MatrixXf>* rnn_states) {
+  AINFO<<"(DMCZP) EnteringMethod: Obstacle::GetRNNStates";
+
   rnn_states->clear();
   rnn_states->insert(rnn_states->end(), rnn_states_.begin(), rnn_states_.end());
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: Obstacle::GetRNNStates";
+ }
 
 void Obstacle::InitRNNStates() {
+  AINFO<<"(DMCZP) EnteringMethod: Obstacle::InitRNNStates";
+
   if (network::RnnModel::Instance()->IsOk()) {
     network::RnnModel::Instance()->ResetState();
     network::RnnModel::Instance()->State(&rnn_states_);
@@ -1621,25 +1983,45 @@ void Obstacle::InitRNNStates() {
     AWARN << "Fail to initialize rnn model.";
     rnn_enabled_ = false;
   }
-}
 
-bool Obstacle::RNNEnabled() const { return rnn_enabled_; }
+  AINFO<<"(DMCZP) LeaveMethod: Obstacle::InitRNNStates";
+ }
+
+bool Obstacle::RNNEnabled() const {
+  AINFO<<"(DMCZP) EnteringMethod: Obstacle::RNNEnabled";
+ 
+  AINFO<<"(DMCZP) (r
+  AINFO<<"(DMCZP) LeaveMethod: Obstacle::RNNEnabled";
+ eturn) LeaveMethod: Obstacle::RNNEnabled";
+  return rnn_enabled_; }
 
 void Obstacle::SetCaution() {
+  AINFO<<"(DMCZP) EnteringMethod: Obstacle::SetCaution";
+
   CHECK_GT(feature_history_.size(), 0);
   Feature* feature = mutable_latest_feature();
   feature->mutable_priority()->set_priority(ObstaclePriority::CAUTION);
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: Obstacle::SetCaution";
+ }
 
 void Obstacle::SetEvaluatorType(
     const ObstacleConf::EvaluatorType& evaluator_type) {
+  AINFO<<"(DMCZP) EnteringMethod: Obstacle::SetEvaluatorType";
+
   obstacle_conf_.set_evaluator_type(evaluator_type);
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: Obstacle::SetEvaluatorType";
+ }
 
 void Obstacle::SetPredictorType(
     const ObstacleConf::PredictorType& predictor_type) {
+  AINFO<<"(DMCZP) EnteringMethod: Obstacle::SetPredictorType";
+
   obstacle_conf_.set_predictor_type(predictor_type);
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: Obstacle::SetPredictorType";
+ }
 
 }  // namespace prediction
 }  // namespace apollo

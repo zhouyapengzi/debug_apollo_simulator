@@ -30,10 +30,16 @@ using apollo::common::TrajectoryPoint;
 using apollo::hdmap::LaneInfo;
 
 SingleLanePredictor::SingleLanePredictor() {
+  AINFO<<"(DMCZP) EnteringMethod: SingleLanePredictor::SingleLanePredictor";
+
   predictor_type_ = ObstacleConf::SINGLE_LANE_PREDICTOR;
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: SingleLanePredictor::SingleLanePredictor";
+ }
 
 void SingleLanePredictor::Predict(Obstacle* obstacle) {
+  AINFO<<"(DMCZP) EnteringMethod: SingleLanePredictor::Predict";
+
   Clear();
 
   CHECK_NOTNULL(obstacle);
@@ -45,7 +51,9 @@ void SingleLanePredictor::Predict(Obstacle* obstacle) {
 
   if (!feature.has_lane() || !feature.lane().has_lane_graph()) {
     AERROR << "Obstacle [" << obstacle->id() << "] has no lane graph.";
-    return;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: SingleLanePredictor::Predict";
+  return;
   }
 
   std::string lane_id = "";
@@ -79,18 +87,24 @@ void SingleLanePredictor::Predict(Obstacle* obstacle) {
     obstacle->mutable_latest_feature()->add_predicted_trajectory()->CopyFrom(
         trajectory);
   }
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: SingleLanePredictor::Predict";
+ }
 
 void SingleLanePredictor::GenerateTrajectoryPoints(
     const Obstacle& obstacle, const LaneSequence& lane_sequence,
     const double time_length, const double time_resolution,
     std::vector<TrajectoryPoint>* points) {
+  AINFO<<"(DMCZP) EnteringMethod: SingleLanePredictor::GenerateTrajectoryPoints";
+
   const Feature& feature = obstacle.latest_feature();
   if (!feature.has_position() || !feature.has_velocity() ||
       !feature.position().has_x() || !feature.position().has_y()) {
     AERROR << "Obstacle [" << obstacle.id()
            << " is missing position or velocity";
-    return;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: SingleLanePredictor::GenerateTrajectoryPoints";
+  return;
   }
 
   double probability = lane_sequence.probability();
@@ -110,7 +124,9 @@ void SingleLanePredictor::GenerateTrajectoryPoints(
   double lane_l = 0.0;
   if (!PredictionMap::GetProjection(position, lane_info, &lane_s, &lane_l)) {
     AERROR << "Failed in getting lane s and lane l";
-    return;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: SingleLanePredictor::GenerateTrajectoryPoints";
+  return;
   }
   size_t num_of_points = static_cast<size_t>(time_length / time_resolution);
   for (size_t i = 0; i < num_of_points; ++i) {
@@ -147,7 +163,9 @@ void SingleLanePredictor::GenerateTrajectoryPoints(
 
     lane_l *= approach_rate;
   }
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: SingleLanePredictor::GenerateTrajectoryPoints";
+ }
 
 }  // namespace prediction
 }  // namespace apollo

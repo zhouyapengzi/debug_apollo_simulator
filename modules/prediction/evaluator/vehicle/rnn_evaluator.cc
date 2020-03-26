@@ -30,11 +30,17 @@ namespace prediction {
 using apollo::hdmap::LaneInfo;
 
 RNNEvaluator::RNNEvaluator() {
+  AINFO<<"(DMCZP) EnteringMethod: RNNEvaluator::RNNEvaluator";
+
   evaluator_type_ = ObstacleConf::RNN_EVALUATOR;
   LoadModel(FLAGS_evaluator_vehicle_rnn_file);
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: RNNEvaluator::RNNEvaluator";
+ }
 
 bool RNNEvaluator::Evaluate(Obstacle* obstacle_ptr) {
+  AINFO<<"(DMCZP) EnteringMethod: RNNEvaluator::Evaluate";
+
   Clear();
   CHECK_NOTNULL(obstacle_ptr);
 
@@ -43,7 +49,9 @@ bool RNNEvaluator::Evaluate(Obstacle* obstacle_ptr) {
   int id = obstacle_ptr->id();
   if (!obstacle_ptr->latest_feature().IsInitialized()) {
     ADEBUG << "Obstacle [" << id << "] has no latest feature.";
-    return false;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: RNNEvaluator::Evaluate";
+  return false;
   }
 
   Feature* latest_feature_ptr = obstacle_ptr->mutable_latest_feature();
@@ -51,7 +59,9 @@ bool RNNEvaluator::Evaluate(Obstacle* obstacle_ptr) {
   if (!latest_feature_ptr->has_lane() ||
       !latest_feature_ptr->lane().has_lane_graph()) {
     ADEBUG << "Obstacle [" << id << "] has no lane graph.";
-    return false;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: RNNEvaluator::Evaluate";
+  return false;
   }
 
   LaneGraph* lane_graph_ptr =
@@ -59,7 +69,9 @@ bool RNNEvaluator::Evaluate(Obstacle* obstacle_ptr) {
   CHECK_NOTNULL(lane_graph_ptr);
   if (lane_graph_ptr->lane_sequence_size() == 0) {
     ADEBUG << "Obstacle [" << id << "] has no lane sequences.";
-    return false;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: RNNEvaluator::Evaluate";
+  return false;
   }
 
   Eigen::MatrixXf obstacle_feature_mat;
@@ -67,12 +79,16 @@ bool RNNEvaluator::Evaluate(Obstacle* obstacle_ptr) {
   if (ExtractFeatureValues(obstacle_ptr, &obstacle_feature_mat,
                            &lane_feature_mats) != 0) {
     ADEBUG << "Fail to extract feature from obstacle";
-    return false;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: RNNEvaluator::Evaluate";
+  return false;
   }
   if (obstacle_feature_mat.rows() != 1 ||
       obstacle_feature_mat.size() != DIM_OBSTACLE_FEATURE) {
     ADEBUG << "Dim of obstacle feature is wrong!";
-    return true;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: RNNEvaluator::Evaluate";
+  return true;
   }
 
   Eigen::MatrixXf pred_mat;
@@ -119,12 +135,22 @@ AINFO << "(pengzi) RNN. Probability = " << probability  << " thread:"<<std::this
   }
   model_ptr_->State(&states);
   obstacle_ptr->SetRNNStates(states);
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: RNNEvaluator::Evaluate";
   return true;
-}
 
-void RNNEvaluator::Clear() {}
+  AINFO<<"(DMCZP) LeaveMethod: RNNEvaluator::Evaluate";
+ }
+
+void RNNEvaluator::Clear() {
+  AINFO<<"(DMCZP) EnteringMethod: RNNEvaluator::Clear";
+
+  AINFO<<"(DMCZP) LeaveMethod: RNNEvaluator::Clear";
+ }
 
 void RNNEvaluator::LoadModel(const std::string& model_file) {
+  AINFO<<"(DMCZP) EnteringMethod: RNNEvaluator::LoadModel";
+
   AINFO<<"(pengzi) predict RNN evaluator. load model. thread:"<<std::this_thread::get_id();
   NetParameter net_parameter;
   CHECK(cyber::common::GetProtoFromFile(model_file, &net_parameter))
@@ -136,11 +162,15 @@ void RNNEvaluator::LoadModel(const std::string& model_file) {
   model_ptr_->LoadModel(net_parameter);
 
   AINFO << "(pengzi) RNN. store model to message and pointed with model_ptr_.  thread:"<<std::this_thread::get_id();  
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: RNNEvaluator::LoadModel";
+ }
 
 int RNNEvaluator::ExtractFeatureValues(
     Obstacle* obstacle, Eigen::MatrixXf* const obstacle_feature_mat,
     std::unordered_map<int, Eigen::MatrixXf>* const lane_feature_mats) {
+  AINFO<<"(DMCZP) EnteringMethod: RNNEvaluator::ExtractFeatureValues";
+
   AINFO<<"(pengzi) RNN. extract feature value. thread:"<<std::this_thread::get_id();
   std::vector<float> obstacle_features;
   std::vector<float> lane_features;
@@ -150,7 +180,9 @@ int RNNEvaluator::ExtractFeatureValues(
   }
   if (static_cast<int>(obstacle_features.size()) != DIM_OBSTACLE_FEATURE) {
     AWARN << "Obstacle feature size: " << obstacle_features.size();
-    return -1;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: RNNEvaluator::ExtractFeatureValues";
+  return -1;
   }
   obstacle_feature_mat->resize(1, obstacle_features.size());
   for (size_t i = 0; i < obstacle_features.size(); ++i) {
@@ -160,7 +192,9 @@ int RNNEvaluator::ExtractFeatureValues(
   Feature* feature = obstacle->mutable_latest_feature();
   if (!feature->has_lane() || !feature->lane().has_lane_graph()) {
     AWARN << "Fail to access lane graph!";
-    return -1;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: RNNEvaluator::ExtractFeatureValues";
+  return -1;
   }
   int routes = feature->lane().lane_graph().lane_sequence_size();
   for (int i = 0; i < routes; ++i) {
@@ -182,11 +216,17 @@ int RNNEvaluator::ExtractFeatureValues(
         << obstacle_features.size()
         << " thread:"<<std::this_thread::get_id();
 
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: RNNEvaluator::ExtractFeatureValues";
   return 0;
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: RNNEvaluator::ExtractFeatureValues";
+ }
 
 int RNNEvaluator::SetupObstacleFeature(
     Obstacle* obstacle, std::vector<float>* const feature_values) {
+  AINFO<<"(DMCZP) EnteringMethod: RNNEvaluator::SetupObstacleFeature";
+
   AINFO<<"(pengzi) set up obstacle_features.thread:"<<std::this_thread::get_id();
   feature_values->clear();
   feature_values->reserve(DIM_OBSTACLE_FEATURE);
@@ -199,7 +239,9 @@ int RNNEvaluator::SetupObstacleFeature(
   float dist_rb = 1.0f;
   if (obstacle->history_size() < 1) {
     AWARN << "Size of feature less than 1!";
-    return -1;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: RNNEvaluator::SetupObstacleFeature";
+  return -1;
   }
 
   bool success_setup = false;
@@ -252,7 +294,9 @@ int RNNEvaluator::SetupObstacleFeature(
   }
 
   if (!success_setup) {
-    return -1;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: RNNEvaluator::SetupObstacleFeature";
+  return -1;
   }
   feature_values->push_back(heading);
   feature_values->push_back(speed);
@@ -260,12 +304,18 @@ int RNNEvaluator::SetupObstacleFeature(
   feature_values->push_back(dist_lb);
   feature_values->push_back(dist_rb);
   feature_values->push_back(theta);
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: RNNEvaluator::SetupObstacleFeature";
   return ret;
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: RNNEvaluator::SetupObstacleFeature";
+ }
 
 int RNNEvaluator::SetupLaneFeature(const Feature& feature,
                                    const LaneSequence& lane_sequence,
                                    std::vector<float>* const feature_values) {
+  AINFO<<"(DMCZP) EnteringMethod: RNNEvaluator::SetupLaneFeature";
+
   AINFO<<"(pengzi) RNN prediction evaluator. set up lane feature.thread:"<<std::this_thread::get_id();                                   
   CHECK_LE(LENGTH_LANE_POINT_SEQUENCE, FLAGS_max_num_lane_point);
   feature_values->clear();
@@ -308,22 +358,36 @@ int RNNEvaluator::SetupLaneFeature(const Feature& feature,
   ADEBUG << "Lane sequence feature size: " << counter;
   if (counter < DIM_LANE_POINT_FEATURE) {
     AWARN << "Fail to setup lane feature!";
-    return -1;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: RNNEvaluator::SetupLaneFeature";
+  return -1;
   }
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: RNNEvaluator::SetupLaneFeature";
   return 0;
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: RNNEvaluator::SetupLaneFeature";
+ }
 
 bool RNNEvaluator::IsCutinInHistory(const std::string& curr_lane_id,
                                     const std::string& prev_lane_id) {
+  AINFO<<"(DMCZP) EnteringMethod: RNNEvaluator::IsCutinInHistory";
+
   std::shared_ptr<const LaneInfo> curr_lane_info =
       PredictionMap::LaneById(curr_lane_id);
   std::shared_ptr<const LaneInfo> prev_lane_info =
       PredictionMap::LaneById(prev_lane_id);
   if (!PredictionMap::IsSuccessorLane(curr_lane_info, prev_lane_info)) {
-    return true;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: RNNEvaluator::IsCutinInHistory";
+  return true;
   }
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: RNNEvaluator::IsCutinInHistory";
   return false;
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: RNNEvaluator::IsCutinInHistory";
+ }
 
 }  // namespace prediction
 }  // namespace apollo

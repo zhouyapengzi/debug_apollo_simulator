@@ -32,6 +32,8 @@ namespace {
 
 Eigen::Vector2d GetUnitVector2d(const TrajectoryPoint& from_point,
                                 const TrajectoryPoint& to_point) {
+  AINFO<<"(DMCZP) EnteringMethod: GetUnitVector2d";
+
   double delta_x = to_point.path_point().x() - from_point.path_point().x();
   double delta_y = to_point.path_point().y() - from_point.path_point().y();
   if (std::fabs(delta_x) <= std::numeric_limits<double>::epsilon()) {
@@ -46,25 +48,41 @@ Eigen::Vector2d GetUnitVector2d(const TrajectoryPoint& from_point,
     delta_x /= norm;
     delta_y /= norm;
   }
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: GetUnitVector2d";
   return {delta_x, delta_y};
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: GetUnitVector2d";
+ }
 
 void CompressVector2d(const double to_length, Eigen::Vector2d* vec) {
+  AINFO<<"(DMCZP) EnteringMethod: CompressVector2d";
+
   const double norm = std::hypot(vec->operator[](0), vec->operator[](1));
   if (norm > to_length) {
     const double ratio = to_length / norm;
     vec->operator[](0) *= ratio;
     vec->operator[](1) *= ratio;
   }
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: CompressVector2d";
+ }
 
 double CrossProduct(const Eigen::Vector2d& vec1, const Eigen::Vector2d& vec2) {
+  AINFO<<"(DMCZP) EnteringMethod: CrossProduct";
+
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: CrossProduct";
   return vec1[0] * vec2[1] - vec1[1] * vec2[0];
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: CrossProduct";
+ }
 
 }  // namespace
 
 void RegionalPredictor::Predict(Obstacle* obstacle) {
+  AINFO<<"(DMCZP) EnteringMethod: RegionalPredictor::Predict";
+
   Clear();
 
   CHECK_NOTNULL(obstacle);
@@ -73,7 +91,9 @@ void RegionalPredictor::Predict(Obstacle* obstacle) {
   const Feature& feature = obstacle->latest_feature();
   if (feature.is_still()) {
     ADEBUG << "Obstacle [" << obstacle->id() << "] is still.";
-    return;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: RegionalPredictor::Predict";
+  return;
   }
 
   if (feature.speed() > FLAGS_still_speed) {
@@ -81,19 +101,27 @@ void RegionalPredictor::Predict(Obstacle* obstacle) {
   } else {
     GenerateStillTrajectory(1.0, obstacle);
   }
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: RegionalPredictor::Predict";
+ }
 
 void RegionalPredictor::GenerateStillTrajectory(const double probability,
                                                 Obstacle* obstacle) {
+  AINFO<<"(DMCZP) EnteringMethod: RegionalPredictor::GenerateStillTrajectory";
+
   if (obstacle == nullptr) {
     AERROR << "Missing obstacle.";
-    return;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: RegionalPredictor::GenerateStillTrajectory";
+  return;
   }
   const Feature& feature = obstacle->latest_feature();
   if (!feature.has_position() || !feature.position().has_x() ||
       !feature.position().has_y() || !feature.has_velocity_heading()) {
     AERROR << "Missing position or velocity.";
-    return;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: RegionalPredictor::GenerateStillTrajectory";
+  return;
   }
 
   const Eigen::Vector2d position(feature.position().x(),
@@ -108,20 +136,28 @@ void RegionalPredictor::GenerateStillTrajectory(const double probability,
   obstacle->mutable_latest_feature()->add_predicted_trajectory()->CopyFrom(
       trajectory);
   SetEqualProbability(probability, start_index, obstacle);
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: RegionalPredictor::GenerateStillTrajectory";
+ }
 
 void RegionalPredictor::GenerateMovingTrajectory(const double probability,
                                                  Obstacle* obstacle) {
+  AINFO<<"(DMCZP) EnteringMethod: RegionalPredictor::GenerateMovingTrajectory";
+
   if (obstacle == nullptr) {
     AERROR << "Missing obstacle.";
-    return;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: RegionalPredictor::GenerateMovingTrajectory";
+  return;
   }
   const Feature& feature = obstacle->latest_feature();
   if (!feature.has_position() || !feature.position().has_x() ||
       !feature.position().has_y() || !feature.has_velocity() ||
       !feature.velocity().has_x() || !feature.velocity().has_y()) {
     AERROR << "Missing position or velocity.";
-    return;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: RegionalPredictor::GenerateMovingTrajectory";
+  return;
   }
 
   Eigen::Vector2d position(feature.position().x(), feature.position().y());
@@ -144,11 +180,15 @@ void RegionalPredictor::GenerateMovingTrajectory(const double probability,
   obstacle->mutable_latest_feature()->add_predicted_trajectory()->CopyFrom(
       right_trajectory);
   SetEqualProbability(probability, start_index, obstacle);
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: RegionalPredictor::GenerateMovingTrajectory";
+ }
 
 void RegionalPredictor::DrawStillTrajectory(
     const Eigen::Vector2d& position, const double heading, const double speed,
     const double total_time, std::vector<TrajectoryPoint>* points) {
+  AINFO<<"(DMCZP) EnteringMethod: RegionalPredictor::DrawStillTrajectory";
+
   double delta_ts = FLAGS_prediction_trajectory_time_resolution;
   double x = position[0];
   double y = position[1];
@@ -165,7 +205,9 @@ void RegionalPredictor::DrawStillTrajectory(
     x += direction_x * speed * delta_ts;
     y += direction_y * speed * delta_ts;
   }
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: RegionalPredictor::DrawStillTrajectory";
+ }
 
 void RegionalPredictor::DrawMovingTrajectory(
     const Eigen::Vector2d& position, const Eigen::Vector2d& velocity,
@@ -173,6 +215,8 @@ void RegionalPredictor::DrawMovingTrajectory(
     const common::math::KalmanFilter<double, 2, 2, 4>& kf,
     const double total_time, std::vector<TrajectoryPoint>* left_points,
     std::vector<TrajectoryPoint>* right_points) {
+  AINFO<<"(DMCZP) EnteringMethod: RegionalPredictor::DrawMovingTrajectory";
+
   double delta_ts = FLAGS_prediction_trajectory_time_resolution;
   Eigen::Vector2d vel = velocity;
   CompressVector2d(FLAGS_pedestrian_max_speed, &vel);
@@ -194,7 +238,9 @@ void RegionalPredictor::DrawMovingTrajectory(
 
   if (middle_points.empty() || boundary_points.size() < 2) {
     ADEBUG << "No valid points found.";
-    return;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: RegionalPredictor::DrawMovingTrajectory";
+  return;
   }
 
   UpdateTrajectoryPoints(starting_point, vel, delta_ts, middle_points,
@@ -207,7 +253,9 @@ void RegionalPredictor::DrawMovingTrajectory(
     predictor_util::TranslatePoint(position[0], position[1],
                                    &((*right_points)[i]));
   }
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: RegionalPredictor::DrawMovingTrajectory";
+ }
 
 void RegionalPredictor::GetTrajectoryCandidatePoints(
     const Eigen::Vector2d& position, const Eigen::Vector2d& velocity,
@@ -215,6 +263,8 @@ void RegionalPredictor::GetTrajectoryCandidatePoints(
     const KalmanFilter<double, 2, 2, 4>& kf_pedestrian_tracker,
     const double total_time, std::vector<TrajectoryPoint>* middle_points,
     std::vector<TrajectoryPoint>* boundary_points) {
+  AINFO<<"(DMCZP) EnteringMethod: RegionalPredictor::GetTrajectoryCandidatePoints";
+
   double delta_ts = FLAGS_prediction_trajectory_time_resolution;
   KalmanFilter<double, 2, 2, 4> kf = kf_pedestrian_tracker;
   // set the control matrix and control vector
@@ -267,7 +317,9 @@ void RegionalPredictor::GetTrajectoryCandidatePoints(
     boundary_points->push_back(std::move(boundary_point_1));
     boundary_points->push_back(std::move(boundary_point_2));
   }
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: RegionalPredictor::GetTrajectoryCandidatePoints";
+ }
 
 void RegionalPredictor::UpdateTrajectoryPoints(
     const TrajectoryPoint& starting_point, const Eigen::Vector2d& velocity,
@@ -275,6 +327,8 @@ void RegionalPredictor::UpdateTrajectoryPoints(
     const std::vector<TrajectoryPoint>& boundary_points,
     std::vector<TrajectoryPoint>* left_points,
     std::vector<TrajectoryPoint>* right_points) {
+  AINFO<<"(DMCZP) EnteringMethod: RegionalPredictor::UpdateTrajectoryPoints";
+
   if (2 * middle_points.size() != boundary_points.size()) {
     AWARN << "Middle and ellipse points sizes not match";
   }
@@ -319,7 +373,9 @@ void RegionalPredictor::UpdateTrajectoryPoints(
   right_points->back().set_v(speed);
   right_points->back().set_relative_time(right_i * delta_ts);
   right_points->back().mutable_path_point()->set_theta(right_heading);
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: RegionalPredictor::UpdateTrajectoryPoints";
+ }
 
 void RegionalPredictor::InsertTrajectoryPoint(
     const TrajectoryPoint& prev_middle_point,
@@ -328,6 +384,8 @@ void RegionalPredictor::InsertTrajectoryPoint(
     const double delta_ts, int* left_i, int* right_i, double* left_heading,
     double* right_heading, std::vector<TrajectoryPoint>* left_points,
     std::vector<TrajectoryPoint>* right_points) {
+  AINFO<<"(DMCZP) EnteringMethod: RegionalPredictor::InsertTrajectoryPoint";
+
   Eigen::Vector2d boundary_direction =
       GetUnitVector2d(prev_middle_point, boundary_point);
   double cross_product = CrossProduct(boundary_direction, middle_direction);
@@ -354,20 +412,26 @@ void RegionalPredictor::InsertTrajectoryPoint(
     }
     right_points->push_back(boundary_point);
   }
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: RegionalPredictor::InsertTrajectoryPoint";
+ }
 
 void RegionalPredictor::GetTwoEllipsePoints(
     const double position_x, const double position_y, const double direction_x,
     const double direction_y, const double ellipse_len_x,
     const double ellipse_len_y, TrajectoryPoint* ellipse_point_1,
     TrajectoryPoint* ellipse_point_2) {
+  AINFO<<"(DMCZP) EnteringMethod: RegionalPredictor::GetTwoEllipsePoints";
+
   // vertical case
   if (std::fabs(direction_x) <= std::numeric_limits<double>::epsilon()) {
     ellipse_point_1->mutable_path_point()->set_x(position_x - ellipse_len_x);
     ellipse_point_1->mutable_path_point()->set_y(position_y);
     ellipse_point_2->mutable_path_point()->set_x(position_x + ellipse_len_x);
     ellipse_point_2->mutable_path_point()->set_y(position_y);
-    return;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: RegionalPredictor::GetTwoEllipsePoints";
+  return;
   }
   // horizontal case
   if (std::fabs(direction_y) <= std::numeric_limits<double>::epsilon()) {
@@ -375,7 +439,9 @@ void RegionalPredictor::GetTwoEllipsePoints(
     ellipse_point_1->mutable_path_point()->set_y(position_y + ellipse_len_y);
     ellipse_point_2->mutable_path_point()->set_x(position_x);
     ellipse_point_2->mutable_path_point()->set_y(position_y - ellipse_len_y);
-    return;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: RegionalPredictor::GetTwoEllipsePoints";
+  return;
   }
   // general case
   std::vector<double> coefficients;
@@ -396,12 +462,16 @@ void RegionalPredictor::GetTwoEllipsePoints(
   ellipse_point_1->mutable_path_point()->set_y(ellipse_point_1_y);
   ellipse_point_2->mutable_path_point()->set_x(ellipse_point_2_x);
   ellipse_point_2->mutable_path_point()->set_y(ellipse_point_2_y);
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: RegionalPredictor::GetTwoEllipsePoints";
+ }
 
 void RegionalPredictor::GetQuadraticCoefficients(
     const double position_x, const double position_y, const double direction_x,
     const double direction_y, const double ellipse_len_x,
     const double ellipse_len_y, std::vector<double>* coefficients) {
+  AINFO<<"(DMCZP) EnteringMethod: RegionalPredictor::GetQuadraticCoefficients";
+
   coefficients->clear();
   const double temp_p = 0.0 - direction_x / direction_y;
   const double temp_q = position_y - temp_p * position_x;
@@ -423,12 +493,18 @@ void RegionalPredictor::GetQuadraticCoefficients(
   coefficients->push_back(std::move(coefficient_a));
   coefficients->push_back(std::move(coefficient_b));
   coefficients->push_back(std::move(coefficient_c));
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: RegionalPredictor::GetQuadraticCoefficients";
+ }
 
 void RegionalPredictor::UpdateHeading(const TrajectoryPoint& curr_point,
                                       std::vector<TrajectoryPoint>* points) {
+  AINFO<<"(DMCZP) EnteringMethod: RegionalPredictor::UpdateHeading";
+
   if (points->empty()) {
-    return;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: RegionalPredictor::UpdateHeading";
+  return;
   }
   TrajectoryPoint& prev_point = points->back();
   const double delta_x =
@@ -436,7 +512,9 @@ void RegionalPredictor::UpdateHeading(const TrajectoryPoint& curr_point,
   const double delta_y =
       curr_point.path_point().y() - prev_point.path_point().y();
   prev_point.mutable_path_point()->set_theta(std::atan2(delta_y, delta_x));
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: RegionalPredictor::UpdateHeading";
+ }
 
 }  // namespace prediction
 }  // namespace apollo

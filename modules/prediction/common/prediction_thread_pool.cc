@@ -24,6 +24,8 @@ std::vector<int> BaseThreadPool::THREAD_POOL_CAPACITY = {20, 20, 20};
 
 BaseThreadPool::BaseThreadPool(int thread_num, int next_thread_pool_level)
     : stopped_(false) {
+  AINFO<<"(DMCZP) EnteringMethod: BaseThreadPool::BaseThreadPool";
+
   if (!task_queue_.Init(thread_num,
                         new apollo::cyber::base::BlockWaitStrategy())) {
     throw std::runtime_error("Task queue init failed.");
@@ -39,15 +41,21 @@ BaseThreadPool::BaseThreadPool(int thread_num, int next_thread_pool_level)
       }
     });
   }
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: BaseThreadPool::BaseThreadPool";
+ }
 
 void BaseThreadPool::Stop() {
+  AINFO<<"(DMCZP) EnteringMethod: BaseThreadPool::Stop";
+
   task_queue_.BreakAllWait();
   for (std::thread& worker : workers_) {
     worker.join();
   }
   stopped_ = true;
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: BaseThreadPool::Stop";
+ }
 
 BaseThreadPool::~BaseThreadPool() {
   if (stopped_.exchange(true)) {
@@ -60,6 +68,8 @@ BaseThreadPool::~BaseThreadPool() {
 }
 
 BaseThreadPool* PredictionThreadPool::Instance() {
+  AINFO<<"(DMCZP) EnteringMethod: PredictionThreadPool::Instance";
+
   int pool_level = s_thread_pool_level;
   int max_thread_pool_level =
       static_cast<int>(BaseThreadPool::THREAD_POOL_CAPACITY.size());
@@ -67,18 +77,28 @@ BaseThreadPool* PredictionThreadPool::Instance() {
   int index = s_thread_pool_level;
   switch (index) {
     case 0: {
-      return LevelThreadPool<0>::Instance();
+      
+  AINFO<<"(DMCZP) (return) LeaveMethod: PredictionThreadPool::Instance";
+  return LevelThreadPool<0>::Instance();
     }
     case 1: {
-      return LevelThreadPool<1>::Instance();
+      
+  AINFO<<"(DMCZP) (return) LeaveMethod: PredictionThreadPool::Instance";
+  return LevelThreadPool<1>::Instance();
     }
     case 2: {
-      return LevelThreadPool<2>::Instance();
+      
+  AINFO<<"(DMCZP) (return) LeaveMethod: PredictionThreadPool::Instance";
+  return LevelThreadPool<2>::Instance();
     }
   }
   AERROR << "Should not hit here";
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: PredictionThreadPool::Instance";
   return LevelThreadPool<0>::Instance();
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: PredictionThreadPool::Instance";
+ }
 
 }  // namespace prediction
 }  // namespace apollo

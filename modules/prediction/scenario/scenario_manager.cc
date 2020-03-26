@@ -28,9 +28,15 @@ using common::adapter::AdapterConfig;
 using common::math::Box2d;
 using common::math::Vec2d;
 
-ScenarioManager::ScenarioManager() {}
+ScenarioManager::ScenarioManager() {
+  AINFO<<"(DMCZP) EnteringMethod: ScenarioManager::ScenarioManager";
+
+  AINFO<<"(DMCZP) LeaveMethod: ScenarioManager::ScenarioManager";
+ }
 
 void ScenarioManager::Run() {
+  AINFO<<"(DMCZP) EnteringMethod: ScenarioManager::Run";
+
   auto environment_features = FeatureExtractor::ExtractEnvironmentFeatures();
 
   auto ptr_scenario_features = ScenarioAnalyzer::Analyze(environment_features);
@@ -38,9 +44,17 @@ void ScenarioManager::Run() {
   current_scenario_ = ptr_scenario_features->scenario();
 
   // TODO(all) other functionalities including lane, junction filters
-}
 
-const Scenario& ScenarioManager::scenario() const { return current_scenario_; }
+  AINFO<<"(DMCZP) LeaveMethod: ScenarioManager::Run";
+ }
+
+const Scenario& ScenarioManager::scenario() const {
+  AINFO<<"(DMCZP) EnteringMethod: ScenarioManager::scenario";
+ 
+  AINFO<<"(DMCZP) (return
+  AINFO<<"(DMCZP) LeaveMethod: ScenarioManager::scenario";
+ ) LeaveMethod: ScenarioManager::scenario";
+  return current_scenario_; }
 
 }  // namespace prediction
 }  // namespace apollo

@@ -24,20 +24,52 @@ namespace apollo {
 namespace prediction {
 namespace network {
 
-float sigmoid(const float x) { return 1.0f / (1.0f + std::exp(-x)); }
+float sigmoid(const float x) {
+  AINFO<<"(DMCZP) EnteringMethod: sigmoid";
+ 
+  AINFO<<"(DMCZP) (return) LeaveMeth
+  AINFO<<"(DMCZP) LeaveMethod: sigmoid";
+ od: sigmoid";
+  return 1.0f / (1.0f + std::exp(-x)); }
 
-float tanh(const float x) { return std::tanh(x); }
+float tanh(const float x) {
+  AINFO<<"(DMCZP) EnteringMethod: tanh";
+ 
+  AINFO<<"(DMCZP) (r
+  AINFO<<"(DMCZP) LeaveMethod: tanh";
+ eturn) LeaveMethod: tanh";
+  return std::tanh(x); }
 
-float linear(const float x) { return x; }
+float linear(const float x) {
+  AINFO<<"(DMCZP) EnteringMethod: linear";
+ 
+  AINFO<<
+  AINFO<<"(DMCZP) LeaveMethod: linear";
+ "(DMCZP) (return) LeaveMethod: linear";
+  return x; }
 
 float hard_sigmoid(const float x) {
-  const float z = 0.2f * x + 0.5f;
-  return z <= 0.0f ? 0.0f : (z <= 1.0f ? z : 1.0f);
-}
+  AINFO<<"(DMCZP) EnteringMethod: hard_sigmoid";
 
-float relu(const float x) { return (x > 0.0f) ? x : 0.0f; }
+  const float z = 0.2f * x + 0.5f;
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: hard_sigmoid";
+  return z <= 0.0f ? 0.0f : (z <= 1.0f ? z : 1.0f);
+
+  AINFO<<"(DMCZP) LeaveMethod: hard_sigmoid";
+ }
+
+float relu(const float x) {
+  AINFO<<"(DMCZP) EnteringMethod: relu";
+ 
+  AINFO<<"(DMCZP) (return) Le
+  AINFO<<"(DMCZP) LeaveMethod: relu";
+ aveMethod: relu";
+  return (x > 0.0f) ? x : 0.0f; }
 
 Eigen::MatrixXf FlattenMatrix(const Eigen::MatrixXf& matrix) {
+  AINFO<<"(DMCZP) EnteringMethod: FlattenMatrix";
+
   CHECK_GT(matrix.rows(), 0);
   CHECK_GT(matrix.cols(), 0);
   int output_size = static_cast<int>(matrix.rows() * matrix.cols());
@@ -50,8 +82,12 @@ Eigen::MatrixXf FlattenMatrix(const Eigen::MatrixXf& matrix) {
       ++output_index;
     }
   }
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: FlattenMatrix";
   return output_matrix;
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: FlattenMatrix";
+ }
 
 std::function<float(float)> serialize_to_function(const std::string& str) {
   static const std::unordered_map<std::string, std::function<float(float)>>
@@ -64,9 +100,13 @@ std::function<float(float)> serialize_to_function(const std::string& str) {
 }
 
 bool LoadTensor(const TensorParameter& tensor_pb, Eigen::MatrixXf* matrix) {
+  AINFO<<"(DMCZP) EnteringMethod: LoadTensor";
+
   if (tensor_pb.data_size() == 0 || tensor_pb.shape_size() == 0) {
     AERROR << "Fail to load the necessary fields!";
-    return false;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: LoadTensor";
+  return false;
   }
   if (tensor_pb.shape_size() < 2) {
     ADEBUG << "Load tensor size: (1, " << tensor_pb.shape(0) << ")";
@@ -74,7 +114,9 @@ bool LoadTensor(const TensorParameter& tensor_pb, Eigen::MatrixXf* matrix) {
     for (int i = 0; i < tensor_pb.shape(0); ++i) {
       (*matrix)(0, i) = static_cast<float>(tensor_pb.data(i));
     }
-    return true;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: LoadTensor";
+  return true;
   }
   ADEBUG << "Load tensor size: (" << tensor_pb.shape(0) << ", "
          << tensor_pb.shape(1) << ")";
@@ -86,13 +128,21 @@ bool LoadTensor(const TensorParameter& tensor_pb, Eigen::MatrixXf* matrix) {
           static_cast<float>(tensor_pb.data(i * tensor_pb.shape(1) + j));
     }
   }
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: LoadTensor";
   return true;
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: LoadTensor";
+ }
 
 bool LoadTensor(const TensorParameter& tensor_pb, Eigen::VectorXf* vector) {
+  AINFO<<"(DMCZP) EnteringMethod: LoadTensor";
+
   if (tensor_pb.data_size() == 0 || tensor_pb.shape_size() == 0) {
     AERROR << "Fail to load the necessary fields!";
-    return false;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: LoadTensor";
+  return false;
   }
   ADEBUG << "Load tensor size: (" << tensor_pb.shape(0) << ", 1)";
   CHECK_EQ(tensor_pb.shape_size(), 1);
@@ -102,14 +152,22 @@ bool LoadTensor(const TensorParameter& tensor_pb, Eigen::VectorXf* vector) {
       (*vector)(i) = static_cast<float>(tensor_pb.data(i));
     }
   }
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: LoadTensor";
   return true;
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: LoadTensor";
+ }
 
 bool LoadTensor(const TensorParameter& tensor_pb,
                 std::vector<Eigen::MatrixXf>* const tensor3d) {
+  AINFO<<"(DMCZP) EnteringMethod: LoadTensor";
+
   if (tensor_pb.data_size() == 0 || tensor_pb.shape_size() != 3) {
     AERROR << "Fail to load the necessary fields!";
-    return false;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: LoadTensor";
+  return false;
   }
   int num_depth = tensor_pb.shape(0);
   int num_row = tensor_pb.shape(1);
@@ -127,8 +185,12 @@ bool LoadTensor(const TensorParameter& tensor_pb,
     tensor3d->push_back(matrix);
   }
   CHECK_EQ(tensor_pb_index, num_depth * num_row * num_col);
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: LoadTensor";
   return true;
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: LoadTensor";
+ }
 
 }  // namespace network
 }  // namespace prediction

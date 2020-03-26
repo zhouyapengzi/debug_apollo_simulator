@@ -36,50 +36,84 @@ using apollo::hdmap::LaneInfo;
 // Custom helper functions for sorting purpose.
 bool HeadingIsAtLeft(const std::vector<double>& heading1,
                      const std::vector<double>& heading2, const size_t idx) {
+  AINFO<<"(DMCZP) EnteringMethod: HeadingIsAtLeft";
+
   if (idx >= heading1.size() || idx >= heading2.size()) {
-    return true;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: HeadingIsAtLeft";
+  return true;
   }
   const double angle =
       apollo::common::math::NormalizeAngle(heading1[idx] - heading2[idx]);
   if (angle > 0.0) {
-    return true;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: HeadingIsAtLeft";
+  return true;
   } else if (angle < 0.0) {
-    return false;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: HeadingIsAtLeft";
+  return false;
   }
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: HeadingIsAtLeft";
   return HeadingIsAtLeft(heading1, heading2, idx + 1);
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: HeadingIsAtLeft";
+ }
 
 int ConvertTurnTypeToDegree(const Lane& lane) {
+  AINFO<<"(DMCZP) EnteringMethod: ConvertTurnTypeToDegree";
+
   // Sanity checks.
   if (!lane.has_turn()) {
-    return 0;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: ConvertTurnTypeToDegree";
+  return 0;
   }
 
   // Assign a number to measure how much it is bent to the left.
   switch (lane.turn()) {
     case Lane::NO_TURN:
-      return 0;
+      
+  AINFO<<"(DMCZP) (return) LeaveMethod: ConvertTurnTypeToDegree";
+  return 0;
     case Lane::LEFT_TURN:
-      return 1;
+      
+  AINFO<<"(DMCZP) (return) LeaveMethod: ConvertTurnTypeToDegree";
+  return 1;
     case Lane::U_TURN:
-      return 2;
+      
+  AINFO<<"(DMCZP) (return) LeaveMethod: ConvertTurnTypeToDegree";
+  return 2;
     default:
       break;
   }
 
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: ConvertTurnTypeToDegree";
   return -1;
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: ConvertTurnTypeToDegree";
+ }
 
 bool IsAtLeft(std::shared_ptr<const LaneInfo> lane1,
               std::shared_ptr<const LaneInfo> lane2) {
+  AINFO<<"(DMCZP) EnteringMethod: IsAtLeft";
+
   if (lane1->lane().has_turn() && lane2->lane().has_turn() &&
       lane1->lane().turn() != lane2->lane().turn()) {
     int degree_to_left_1 = ConvertTurnTypeToDegree(lane1->lane());
     int degree_to_left_2 = ConvertTurnTypeToDegree(lane2->lane());
-    return degree_to_left_1 > degree_to_left_2;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: IsAtLeft";
+  return degree_to_left_1 > degree_to_left_2;
   }
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: IsAtLeft";
   return HeadingIsAtLeft(lane1->headings(), lane2->headings(), 0);
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: IsAtLeft";
+ }
 
 }  // namespace
 
@@ -89,20 +123,30 @@ RoadGraph::RoadGraph(const double start_s, const double length,
     : start_s_(start_s),
       length_(length),
       consider_divide_(consider_divide),
-      lane_info_ptr_(lane_info_ptr) {}
+      lane_info_ptr_(lane_info_ptr) {
+  AINFO<<"(DMCZP) EnteringMethod: RoadGraph::RoadGraph";
+
+  AINFO<<"(DMCZP) LeaveMethod: RoadGraph::RoadGraph";
+ }
 
 Status RoadGraph::BuildLaneGraph(LaneGraph* const lane_graph_ptr) {
+  AINFO<<"(DMCZP) EnteringMethod: RoadGraph::BuildLaneGraph";
+
   // Sanity checks.
   if (length_ < 0.0 || lane_info_ptr_ == nullptr) {
     const auto error_msg = common::util::StrCat(
         "Invalid road graph settings. Road graph length = ", length_);
     AERROR << error_msg;
-    return Status(ErrorCode::PREDICTION_ERROR, error_msg);
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: RoadGraph::BuildLaneGraph";
+  return Status(ErrorCode::PREDICTION_ERROR, error_msg);
   }
   if (lane_graph_ptr == nullptr) {
     const auto error_msg = "Invalid input lane graph.";
     AERROR << error_msg;
-    return Status(ErrorCode::PREDICTION_ERROR, error_msg);
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: RoadGraph::BuildLaneGraph";
+  return Status(ErrorCode::PREDICTION_ERROR, error_msg);
   }
 
   // Run the recursive function to perform DFS.
@@ -112,21 +156,31 @@ Status RoadGraph::BuildLaneGraph(LaneGraph* const lane_graph_ptr) {
                         FLAGS_road_graph_max_search_horizon, consider_divide_,
                         &lane_segments, lane_graph_ptr);
 
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: RoadGraph::BuildLaneGraph";
   return Status::OK();
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: RoadGraph::BuildLaneGraph";
+ }
 
 Status RoadGraph::BuildLaneGraphBidirection(LaneGraph* const lane_graph_ptr) {
+  AINFO<<"(DMCZP) EnteringMethod: RoadGraph::BuildLaneGraphBidirection";
+
   // Sanity checks.
   if (length_ < 0.0 || lane_info_ptr_ == nullptr) {
     const auto error_msg = common::util::StrCat(
         "Invalid road graph settings. Road graph length = ", length_);
     AERROR << error_msg;
-    return Status(ErrorCode::PREDICTION_ERROR, error_msg);
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: RoadGraph::BuildLaneGraphBidirection";
+  return Status(ErrorCode::PREDICTION_ERROR, error_msg);
   }
   if (lane_graph_ptr == nullptr) {
     const auto error_msg = "Invalid input lane graph.";
     AERROR << error_msg;
-    return Status(ErrorCode::PREDICTION_ERROR, error_msg);
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: RoadGraph::BuildLaneGraphBidirection";
+  return Status(ErrorCode::PREDICTION_ERROR, error_msg);
   }
 
   // Run the recursive function to perform DFS.
@@ -144,11 +198,17 @@ Status RoadGraph::BuildLaneGraphBidirection(LaneGraph* const lane_graph_ptr) {
   *lane_graph_ptr =
       CombineLaneGraphs(lane_graph_predecessor, lane_graph_successor);
 
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: RoadGraph::BuildLaneGraphBidirection";
   return Status::OK();
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: RoadGraph::BuildLaneGraphBidirection";
+ }
 
 LaneGraph RoadGraph::CombineLaneGraphs(const LaneGraph& lane_graph_predecessor,
                                        const LaneGraph& lane_graph_successor) {
+  AINFO<<"(DMCZP) EnteringMethod: RoadGraph::CombineLaneGraphs";
+
   LaneGraph final_lane_graph;
   for (const auto& lane_sequence_pre : lane_graph_predecessor.lane_sequence()) {
     const auto& ending_lane_segment = lane_sequence_pre.lane_segment(
@@ -176,25 +236,39 @@ LaneGraph RoadGraph::CombineLaneGraphs(const LaneGraph& lane_graph_predecessor,
     }
   }
 
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: RoadGraph::CombineLaneGraphs";
   return final_lane_graph;
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: RoadGraph::CombineLaneGraphs";
+ }
 
 bool RoadGraph::IsOnLaneGraph(std::shared_ptr<const LaneInfo> lane_info_ptr,
                               const LaneGraph& lane_graph) {
+  AINFO<<"(DMCZP) EnteringMethod: RoadGraph::IsOnLaneGraph";
+
   if (!lane_graph.IsInitialized()) {
-    return false;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: RoadGraph::IsOnLaneGraph";
+  return false;
   }
 
   for (const auto& lane_sequence : lane_graph.lane_sequence()) {
     for (const auto& lane_segment : lane_sequence.lane_segment()) {
       if (lane_segment.has_lane_id() &&
           lane_segment.lane_id() == lane_info_ptr->id().id()) {
-        return true;
+        
+  AINFO<<"(DMCZP) (return) LeaveMethod: RoadGraph::IsOnLaneGraph";
+  return true;
       }
     }
   }
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: RoadGraph::IsOnLaneGraph";
   return false;
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: RoadGraph::IsOnLaneGraph";
+ }
 
 void RoadGraph::ConstructLaneSequence(
     const double accumulated_s, const double curr_lane_seg_s,
@@ -202,10 +276,18 @@ void RoadGraph::ConstructLaneSequence(
     const int graph_search_horizon, const bool consider_lane_split,
     std::list<LaneSegment>* const lane_segments,
     LaneGraph* const lane_graph_ptr) const {
+  AINFO<<"(DMCZP) EnteringMethod: RoadGraph::ConstructLaneSequence";
+
+  AINFO<<"(DMCZP) EnteringMethod: RoadGraph::ConstructLaneSequence";
+
   ConstructLaneSequence(true, accumulated_s, curr_lane_seg_s, lane_info_ptr,
                         graph_search_horizon, consider_lane_split,
                         lane_segments, lane_graph_ptr);
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: RoadGraph::ConstructLaneSequence";
+ 
+  AINFO<<"(DMCZP) LeaveMethod: RoadGraph::ConstructLaneSequence";
+ }
 
 void RoadGraph::ConstructLaneSequence(
     const bool search_forward_direction, const double accumulated_s,
@@ -330,6 +412,8 @@ std::shared_ptr<const hdmap::LaneInfo>
 RoadGraph::LaneWithSmallestAverageCurvature(
     const std::vector<std::shared_ptr<const hdmap::LaneInfo>>& lane_infos)
     const {
+  AINFO<<"(DMCZP) EnteringMethod: RoadGraph::LaneWithSmallestAverageCurvature";
+
   CHECK(!lane_infos.empty());
   size_t sample_size = FLAGS_sample_size_for_average_lane_curvature;
   std::shared_ptr<const hdmap::LaneInfo> selected_lane_info = lane_infos[0];
@@ -343,16 +427,24 @@ RoadGraph::LaneWithSmallestAverageCurvature(
       selected_lane_info = lane_info;
     }
   }
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: RoadGraph::LaneWithSmallestAverageCurvature";
   return selected_lane_info;
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: RoadGraph::LaneWithSmallestAverageCurvature";
+ }
 
 double RoadGraph::AverageCurvature(const std::string& lane_id,
                                    const size_t sample_size) const {
+  AINFO<<"(DMCZP) EnteringMethod: RoadGraph::AverageCurvature";
+
   CHECK_GT(sample_size, 0);
   std::shared_ptr<const hdmap::LaneInfo> lane_info_ptr =
       PredictionMap::LaneById(lane_id);
   if (lane_info_ptr == nullptr) {
-    return 0.0;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: RoadGraph::AverageCurvature";
+  return 0.0;
   }
   double lane_length = lane_info_ptr->total_length();
   double s_gap = lane_length / static_cast<double>(sample_size);
@@ -361,8 +453,12 @@ double RoadGraph::AverageCurvature(const std::string& lane_id,
     double s = s_gap * static_cast<double>(i);
     curvature_sum += std::abs(PredictionMap::CurvatureOnLane(lane_id, s));
   }
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: RoadGraph::AverageCurvature";
   return curvature_sum / static_cast<double>(sample_size);
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: RoadGraph::AverageCurvature";
+ }
 
 }  // namespace prediction
 }  // namespace apollo

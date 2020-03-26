@@ -29,10 +29,16 @@ using ::apollo::common::TrajectoryPoint;
 using ::apollo::perception::PerceptionObstacle;
 
 FreeMovePredictor::FreeMovePredictor() {
+  AINFO<<"(DMCZP) EnteringMethod: FreeMovePredictor::FreeMovePredictor";
+
   predictor_type_ = ObstacleConf::FREE_MOVE_PREDICTOR;
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: FreeMovePredictor::FreeMovePredictor";
+ }
 
 void FreeMovePredictor::Predict(Obstacle* obstacle) {
+  AINFO<<"(DMCZP) EnteringMethod: FreeMovePredictor::Predict";
+
   Clear();
 
   CHECK_NOTNULL(obstacle);
@@ -46,7 +52,9 @@ void FreeMovePredictor::Predict(Obstacle* obstacle) {
       !feature.position().has_x() || !feature.position().has_y()) {
     AERROR << "Obstacle [" << obstacle->id()
            << " is missing position or velocity";
-    return;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: FreeMovePredictor::Predict";
+  return;
   }
 
   double prediction_total_time = FLAGS_prediction_trajectory_time_length;
@@ -100,13 +108,17 @@ void FreeMovePredictor::Predict(Obstacle* obstacle) {
       }
     }
   }
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: FreeMovePredictor::Predict";
+ }
 
 void FreeMovePredictor::DrawFreeMoveTrajectoryPoints(
     const Eigen::Vector2d& position, const Eigen::Vector2d& velocity,
     const Eigen::Vector2d& acc, const double theta, const double start_time,
     const double total_time, const double period,
     std::vector<TrajectoryPoint>* points) {
+  AINFO<<"(DMCZP) EnteringMethod: FreeMovePredictor::DrawFreeMoveTrajectoryPoints";
+
   Eigen::Matrix<double, 6, 1> state;
   state.setZero();
   state(0, 0) = 0.0;
@@ -135,7 +147,9 @@ void FreeMovePredictor::DrawFreeMoveTrajectoryPoints(
     ::apollo::prediction::predictor_util::TranslatePoint(
         position[0], position[1], &(points->operator[](i)));
   }
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: FreeMovePredictor::DrawFreeMoveTrajectoryPoints";
+ }
 
 }  // namespace prediction
 }  // namespace apollo

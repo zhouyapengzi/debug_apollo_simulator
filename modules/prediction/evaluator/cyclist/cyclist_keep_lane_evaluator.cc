@@ -20,10 +20,16 @@ namespace apollo {
 namespace prediction {
 
 CyclistKeepLaneEvaluator::CyclistKeepLaneEvaluator() {
+  AINFO<<"(DMCZP) EnteringMethod: CyclistKeepLaneEvaluator::CyclistKeepLaneEvaluator";
+
   evaluator_type_ = ObstacleConf::CYCLIST_KEEP_LANE_EVALUATOR;
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: CyclistKeepLaneEvaluator::CyclistKeepLaneEvaluator";
+ }
 
 bool CyclistKeepLaneEvaluator::Evaluate(Obstacle* obstacle_ptr) {
+  AINFO<<"(DMCZP) EnteringMethod: CyclistKeepLaneEvaluator::Evaluate";
+
   AINFO<<"(pengzi) begin prediction-evaluator of CyclistKeepLaneEvaluator. thread: "<<std::this_thread::get_id();
   CHECK_NOTNULL(obstacle_ptr);
 
@@ -32,7 +38,9 @@ bool CyclistKeepLaneEvaluator::Evaluate(Obstacle* obstacle_ptr) {
   int id = obstacle_ptr->id();
   if (!obstacle_ptr->latest_feature().IsInitialized()) {
     AERROR << "Obstacle [" << id << "] has no latest feature.";
-    return false;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: CyclistKeepLaneEvaluator::Evaluate";
+  return false;
   }
 
   Feature* latest_feature_ptr = obstacle_ptr->mutable_latest_feature();
@@ -41,7 +49,9 @@ bool CyclistKeepLaneEvaluator::Evaluate(Obstacle* obstacle_ptr) {
       !latest_feature_ptr->lane().has_lane_graph() ||
       !latest_feature_ptr->lane().has_lane_feature()) {
     ADEBUG << "Obstacle [" << id << "] has no lane graph.";
-    return false;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: CyclistKeepLaneEvaluator::Evaluate";
+  return false;
   }
 
   LaneGraph* lane_graph_ptr =
@@ -49,7 +59,9 @@ bool CyclistKeepLaneEvaluator::Evaluate(Obstacle* obstacle_ptr) {
   CHECK_NOTNULL(lane_graph_ptr);
   if (lane_graph_ptr->lane_sequence_size() == 0) {
     AERROR << "Obstacle [" << id << "] has no lane sequences.";
-    return false;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: CyclistKeepLaneEvaluator::Evaluate";
+  return false;
   }
 
   std::string curr_lane_id =
@@ -59,22 +71,36 @@ bool CyclistKeepLaneEvaluator::Evaluate(Obstacle* obstacle_ptr) {
     const double probability = ComputeProbability(curr_lane_id, lane_sequence);
     lane_sequence.set_probability(probability);
   }
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: CyclistKeepLaneEvaluator::Evaluate";
   return true;
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: CyclistKeepLaneEvaluator::Evaluate";
+ }
 
 double CyclistKeepLaneEvaluator::ComputeProbability(
     const std::string& curr_lane_id, const LaneSequence& lane_sequence) {
+  AINFO<<"(DMCZP) EnteringMethod: CyclistKeepLaneEvaluator::ComputeProbability";
+
   AINFO<<"(pengzi) computer probaility for CyclistKeepLaneEvaluator. thread:"<<std::this_thread::get_id();
   if (lane_sequence.lane_segment_size() == 0) {
     AWARN << "Empty lane sequence.";
-    return 0.0;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: CyclistKeepLaneEvaluator::ComputeProbability";
+  return 0.0;
   }
   std::string lane_seq_first_id = lane_sequence.lane_segment(0).lane_id();
   if (curr_lane_id == lane_seq_first_id) {
-    return 1.0;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: CyclistKeepLaneEvaluator::ComputeProbability";
+  return 1.0;
   }
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: CyclistKeepLaneEvaluator::ComputeProbability";
   return 0.0;
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: CyclistKeepLaneEvaluator::ComputeProbability";
+ }
 
 }  // namespace prediction
 }  // namespace apollo

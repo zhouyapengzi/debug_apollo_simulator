@@ -33,10 +33,16 @@ using ::apollo::prediction::math_util::EvaluateQuarticPolynomial;
 using ::apollo::prediction::math_util::SolveQuadraticEquation;
 
 MoveSequencePredictor::MoveSequencePredictor() {
+  AINFO<<"(DMCZP) EnteringMethod: MoveSequencePredictor::MoveSequencePredictor";
+
   predictor_type_ = ObstacleConf::MOVE_SEQUENCE_PREDICTOR;
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: MoveSequencePredictor::MoveSequencePredictor";
+ }
 
 void MoveSequencePredictor::Predict(Obstacle* obstacle) {
+  AINFO<<"(DMCZP) EnteringMethod: MoveSequencePredictor::Predict";
+
   Clear();
 
   CHECK_NOTNULL(obstacle);
@@ -48,7 +54,9 @@ void MoveSequencePredictor::Predict(Obstacle* obstacle) {
 
   if (!feature.has_lane() || !feature.lane().has_lane_graph()) {
     AERROR << "Obstacle [" << obstacle->id() << "] has no lane graph.";
-    return;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: MoveSequencePredictor::Predict";
+  return;
   }
 
   std::string lane_id = "";
@@ -106,7 +114,9 @@ void MoveSequencePredictor::Predict(Obstacle* obstacle) {
     obstacle->mutable_latest_feature()->add_predicted_trajectory()->CopyFrom(
         trajectory);
   }
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: MoveSequencePredictor::Predict";
+ }
 
 /**
  * For this function:
@@ -118,6 +128,8 @@ bool MoveSequencePredictor::DrawMoveSequenceTrajectoryPoints(
     const Obstacle& obstacle, const LaneSequence& lane_sequence,
     const double total_time, const double period,
     std::vector<TrajectoryPoint>* points) {
+  AINFO<<"(DMCZP) EnteringMethod: MoveSequencePredictor::DrawMoveSequenceTrajectoryPoints";
+
   // Sanity check.
   points->clear();
   CHECK_NOTNULL(points);
@@ -126,7 +138,9 @@ bool MoveSequencePredictor::DrawMoveSequenceTrajectoryPoints(
       !feature.position().has_x() || !feature.position().has_y()) {
     AERROR << "Obstacle [" << obstacle.id()
            << " is missing position or velocity";
-    return false;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: MoveSequencePredictor::DrawMoveSequenceTrajectoryPoints";
+  return false;
   }
 
   // Fit the lateral and longitudinal polynomials.
@@ -165,7 +179,9 @@ bool MoveSequencePredictor::DrawMoveSequenceTrajectoryPoints(
   double lane_l = 0.0;
   if (!PredictionMap::GetProjection(position, lane_info, &lane_s, &lane_l)) {
     AERROR << "Failed in getting lane s and lane l";
-    return false;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: MoveSequencePredictor::DrawMoveSequenceTrajectoryPoints";
+  return false;
   }
   double prev_lane_l = lane_l;
 
@@ -224,8 +240,12 @@ bool MoveSequencePredictor::DrawMoveSequenceTrajectoryPoints(
       lane_id = lane_sequence.lane_segment(lane_segment_index).lane_id();
     }
   }
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: MoveSequencePredictor::DrawMoveSequenceTrajectoryPoints";
   return true;
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: MoveSequencePredictor::DrawMoveSequenceTrajectoryPoints";
+ }
 
 std::pair<double, double> MoveSequencePredictor::ComputeLonEndState(
     const std::array<double, 3>& init_s, const LaneSequence& lane_sequence) {
@@ -279,6 +299,8 @@ std::pair<double, double> MoveSequencePredictor::ComputeLonEndState(
 
 double MoveSequencePredictor::ComputeTimeToLatEndConditionByVelocity(
     const Obstacle& obstacle, const LaneSequence& lane_sequence) {
+  AINFO<<"(DMCZP) EnteringMethod: MoveSequencePredictor::ComputeTimeToLatEndConditionByVelocity";
+
   // Sanity check.
   CHECK_GT(obstacle.history_size(), 0);
   CHECK_GT(lane_sequence.lane_segment_size(), 0);
@@ -302,10 +324,16 @@ double MoveSequencePredictor::ComputeTimeToLatEndConditionByVelocity(
   // Otherwise, directly calculate the time and return.
   if (std::fabs(v_l) < FLAGS_default_lateral_approach_speed ||
       lane_l * v_l < 0.0) {
-    return std::fabs(lane_l / FLAGS_default_lateral_approach_speed);
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: MoveSequencePredictor::ComputeTimeToLatEndConditionByVelocity";
+  return std::fabs(lane_l / FLAGS_default_lateral_approach_speed);
   }
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: MoveSequencePredictor::ComputeTimeToLatEndConditionByVelocity";
   return std::fabs(lane_l / v_l);
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: MoveSequencePredictor::ComputeTimeToLatEndConditionByVelocity";
+ }
 
 std::vector<double> MoveSequencePredictor::GenerateCandidateTimes() {
   std::vector<double> candidate_times;
@@ -322,6 +350,8 @@ double MoveSequencePredictor::CostFunction(const double max_lat_acc,
                                            const double time_to_end_state,
                                            const double time_to_lane_edge,
                                            const double bell_curve_mu) {
+  AINFO<<"(DMCZP) EnteringMethod: MoveSequencePredictor::CostFunction";
+
   double cost_of_trajectory =
       max_lat_acc + FLAGS_cost_function_alpha * time_to_end_state;
   if (FLAGS_use_bell_curve_for_cost_function) {
@@ -334,8 +364,12 @@ double MoveSequencePredictor::CostFunction(const double max_lat_acc,
                  (2.0 * FLAGS_cost_function_sigma * FLAGS_cost_function_sigma));
     cost_of_trajectory /= (bell_curve_weight + FLAGS_double_precision);
   }
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: MoveSequencePredictor::CostFunction";
   return cost_of_trajectory;
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: MoveSequencePredictor::CostFunction";
+ }
 
 }  // namespace prediction
 }  // namespace apollo

@@ -51,32 +51,50 @@ using IdObstacleListMap = std::unordered_map<int, std::list<Obstacle*>>;
 namespace {
 
 bool IsTrainable(const Feature& feature) {
+  AINFO<<"(DMCZP) EnteringMethod: IsTrainable";
+
   if (feature.id() == FLAGS_ego_vehicle_id) {
-    return false;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: IsTrainable";
+  return false;
   }
   if (feature.priority().priority() == ObstaclePriority::IGNORE ||
       feature.is_still() || feature.type() != PerceptionObstacle::VEHICLE) {
-    return false;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: IsTrainable";
+  return false;
   }
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: IsTrainable";
   return true;
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: IsTrainable";
+ }
 
 void GroupObstaclesByObstacleId(const int obstacle_id,
                                 ObstaclesContainer* const obstacles_container,
                                 IdObstacleListMap* const id_obstacle_map) {
+  AINFO<<"(DMCZP) EnteringMethod: GroupObstaclesByObstacleId";
+
   Obstacle* obstacle_ptr = obstacles_container->GetObstacle(obstacle_id);
   if (obstacle_ptr == nullptr) {
     AERROR << "Null obstacle [" << obstacle_id << "] found";
-    return;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: GroupObstaclesByObstacleId";
+  return;
   }
   if (obstacle_ptr->IsStill()) {
     ADEBUG << "Ignore still obstacle [" << obstacle_id << "]";
-    return;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: GroupObstaclesByObstacleId";
+  return;
   }
   const Feature& feature = obstacle_ptr->latest_feature();
   if (feature.priority().priority() == ObstaclePriority::IGNORE) {
     ADEBUG << "Skip ignored obstacle [" << obstacle_id << "]";
-    return;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: GroupObstaclesByObstacleId";
+  return;
   } else if (feature.priority().priority() == ObstaclePriority::CAUTION) {
     int id_mod = obstacle_id % FLAGS_max_caution_thread_num;
     (*id_obstacle_map)[id_mod].push_back(obstacle_ptr);
@@ -87,13 +105,21 @@ void GroupObstaclesByObstacleId(const int obstacle_id,
     (*id_obstacle_map)[id_mod].push_back(obstacle_ptr);
     ADEBUG << "Normal obstacle [" << obstacle_id << "] for thread" << id_mod;
   }
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: GroupObstaclesByObstacleId";
+ }
 
 }  // namespace
 
-EvaluatorManager::EvaluatorManager() { RegisterEvaluators(); }
+EvaluatorManager::EvaluatorManager() {
+  AINFO<<"(DMCZP) EnteringMethod: EvaluatorManager::EvaluatorManager";
+ RegisterEvaluators(); 
+  AINFO<<"(DMCZP) LeaveMethod: EvaluatorManager::EvaluatorManager";
+ }
 
 void EvaluatorManager::RegisterEvaluators() {
+  AINFO<<"(DMCZP) EnteringMethod: EvaluatorManager::RegisterEvaluators";
+
   RegisterEvaluator(ObstacleConf::MLP_EVALUATOR);
   RegisterEvaluator(ObstacleConf::RNN_EVALUATOR);
   RegisterEvaluator(ObstacleConf::COST_EVALUATOR);
@@ -104,9 +130,13 @@ void EvaluatorManager::RegisterEvaluators() {
   RegisterEvaluator(ObstacleConf::LANE_AGGREGATING_EVALUATOR);
   RegisterEvaluator(ObstacleConf::PEDESTRIAN_INTERACTION_EVALUATOR);
   RegisterEvaluator(ObstacleConf::JUNCTION_MAP_EVALUATOR);
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: EvaluatorManager::RegisterEvaluators";
+ }
 
 void EvaluatorManager::Init(const PredictionConf& config) {
+  AINFO<<"(DMCZP) EnteringMethod: EvaluatorManager::Init";
+
   for (const auto& obstacle_conf : config.obstacle_conf()) {
     if (!obstacle_conf.has_obstacle_type()) {
       AERROR << "Obstacle config [" << obstacle_conf.ShortDebugString()
@@ -182,15 +212,25 @@ void EvaluatorManager::Init(const PredictionConf& config) {
     SemanticMap::Instance()->Init();
     AINFO << "Init SemanticMap instance.";
   }
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: EvaluatorManager::Init";
+ }
 
 Evaluator* EvaluatorManager::GetEvaluator(
     const ObstacleConf::EvaluatorType& type) {
+  AINFO<<"(DMCZP) EnteringMethod: EvaluatorManager::GetEvaluator";
+
   auto it = evaluators_.find(type);
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: EvaluatorManager::GetEvaluator";
   return it != evaluators_.end() ? it->second.get() : nullptr;
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: EvaluatorManager::GetEvaluator";
+ }
 
 void EvaluatorManager::Run() {
+  AINFO<<"(DMCZP) EnteringMethod: EvaluatorManager::Run";
+
   auto obstacles_container =
       ContainerManager::Instance()->GetContainer<ObstaclesContainer>(
           AdapterConfig::PERCEPTION_OBSTACLES);
@@ -201,7 +241,9 @@ void EvaluatorManager::Run() {
     BuildObstacleIdHistoryMap();
     DumpCurrentFrameEnv();
     if (FLAGS_prediction_offline_mode == PredictionConstants::kDumpFrameEnv) {
-      return;
+      
+  AINFO<<"(DMCZP) (return) LeaveMethod: EvaluatorManager::Run";
+  return;
     }
     SemanticMap::Instance()->RunCurrFrame(obstacle_id_history_map_);
   }
@@ -239,10 +281,14 @@ void EvaluatorManager::Run() {
       EvaluateObstacle(obstacle, dynamic_env);
     }
   }
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: EvaluatorManager::Run";
+ }
 
 void EvaluatorManager::EvaluateObstacle(Obstacle* obstacle,
                                         std::vector<Obstacle*> dynamic_env) {
+  AINFO<<"(DMCZP) EnteringMethod: EvaluatorManager::EvaluateObstacle";
+
   Evaluator* evaluator = nullptr;
   // Select different evaluators depending on the obstacle's type.
   switch (obstacle->type()) {
@@ -305,14 +351,22 @@ void EvaluatorManager::EvaluateObstacle(Obstacle* obstacle,
       break;
     }
   }
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: EvaluatorManager::EvaluateObstacle";
+ }
 
 void EvaluatorManager::EvaluateObstacle(Obstacle* obstacle) {
+  AINFO<<"(DMCZP) EnteringMethod: EvaluatorManager::EvaluateObstacle";
+
   std::vector<Obstacle*> dummy_dynamic_env;
   EvaluateObstacle(obstacle, dummy_dynamic_env);
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: EvaluatorManager::EvaluateObstacle";
+ }
 
 void EvaluatorManager::BuildObstacleIdHistoryMap() {
+  AINFO<<"(DMCZP) EnteringMethod: EvaluatorManager::BuildObstacleIdHistoryMap";
+
   obstacle_id_history_map_.clear();
   auto obstacles_container =
       ContainerManager::Instance()->GetContainer<ObstaclesContainer>(
@@ -355,9 +409,13 @@ void EvaluatorManager::BuildObstacleIdHistoryMap() {
     obstacle_id_history_map_[id].set_is_trainable(
         IsTrainable(obstacle->latest_feature()));
   }
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: EvaluatorManager::BuildObstacleIdHistoryMap";
+ }
 
 void EvaluatorManager::DumpCurrentFrameEnv() {
+  AINFO<<"(DMCZP) EnteringMethod: EvaluatorManager::DumpCurrentFrameEnv";
+
   FrameEnv curr_frame_env;
   auto obstacles_container =
       ContainerManager::Instance()->GetContainer<ObstaclesContainer>(
@@ -374,7 +432,9 @@ void EvaluatorManager::DumpCurrentFrameEnv() {
     }
   }
   FeatureOutput::InsertFrameEnv(curr_frame_env);
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: EvaluatorManager::DumpCurrentFrameEnv";
+ }
 
 std::unique_ptr<Evaluator> EvaluatorManager::CreateEvaluator(
     const ObstacleConf::EvaluatorType& type) {
@@ -427,9 +487,13 @@ std::unique_ptr<Evaluator> EvaluatorManager::CreateEvaluator(
 
 void EvaluatorManager::RegisterEvaluator(
     const ObstacleConf::EvaluatorType& type) {
+  AINFO<<"(DMCZP) EnteringMethod: EvaluatorManager::RegisterEvaluator";
+
   evaluators_[type] = CreateEvaluator(type);
   AINFO << "Evaluator [" << type << "] is registered.";
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: EvaluatorManager::RegisterEvaluator";
+ }
 
 }  // namespace prediction
 }  // namespace apollo

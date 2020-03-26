@@ -22,10 +22,16 @@ namespace apollo {
 namespace prediction {
 namespace network {
 
-RnnModel::RnnModel() {}
+RnnModel::RnnModel() {
+  AINFO<<"(DMCZP) EnteringMethod: RnnModel::RnnModel";
+
+  AINFO<<"(DMCZP) LeaveMethod: RnnModel::RnnModel";
+ }
 
 void RnnModel::Run(const std::vector<Eigen::MatrixXf>& inputs,
                    Eigen::MatrixXf* output) const {
+  AINFO<<"(DMCZP) EnteringMethod: RnnModel::Run";
+
   Eigen::MatrixXf inp1;
   Eigen::MatrixXf inp2;
   layers_[0]->Run({inputs[0]}, &inp1);
@@ -65,21 +71,35 @@ void RnnModel::Run(const std::vector<Eigen::MatrixXf>& inputs,
   AINFO<<"(pengzi) run rnn model. prob: "<< prob 
        << " acc:" << acc 
        <<" thread:"<<std::this_thread::get_id();  ;
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: RnnModel::Run";
+ }
 
 void RnnModel::SetState(const std::vector<Eigen::MatrixXf>& states) {
+  AINFO<<"(DMCZP) EnteringMethod: RnnModel::SetState";
+
   layers_[4]->SetState(states);
   layers_[5]->ResetState();
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: RnnModel::SetState";
+ }
 
 void RnnModel::State(std::vector<Eigen::MatrixXf>* states) const {
+  AINFO<<"(DMCZP) EnteringMethod: RnnModel::State";
+
   layers_[4]->State(states);
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: RnnModel::State";
+ }
 
 void RnnModel::ResetState() const {
+  AINFO<<"(DMCZP) EnteringMethod: RnnModel::ResetState";
+
   layers_[4]->ResetState();
   layers_[5]->ResetState();
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: RnnModel::ResetState";
+ }
 
 }  // namespace network
 }  // namespace prediction

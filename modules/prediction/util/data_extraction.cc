@@ -23,14 +23,22 @@ namespace prediction {
 
 void GetRecordFileNames(const boost::filesystem::path& p,
                         std::vector<std::string>* record_files) {
+  AINFO<<"(DMCZP) EnteringMethod: GetRecordFileNames";
+
   CHECK(record_files);
   if (!boost::filesystem::exists(p)) {
-    return;
-  }
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: GetRecordFileNames";
+  return;
+  
+  AINFO<<"(DMCZP) LeaveMethod: GetRecordFileNames";
+ }
   if (boost::filesystem::is_regular_file(p)) {
     AINFO << "Found record file: " << p.c_str();
     record_files->push_back(p.c_str());
-    return;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: GetRecordFileNames";
+  return;
   }
   if (boost::filesystem::is_directory(p)) {
     for (auto& entry : boost::make_iterator_range(

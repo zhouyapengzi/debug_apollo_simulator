@@ -37,23 +37,35 @@ std::unordered_map<std::string, JunctionFeature>
     JunctionAnalyzer::junction_features_;
 
 void JunctionAnalyzer::Init(const std::string& junction_id) {
+  AINFO<<"(DMCZP) EnteringMethod: JunctionAnalyzer::Init";
+
   if (junction_info_ptr_ != nullptr &&
       junction_info_ptr_->id().id() == junction_id) {
-    return;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: JunctionAnalyzer::Init";
+  return;
   }
   Clear();
   junction_info_ptr_ = PredictionMap::JunctionById(junction_id);
   SetAllJunctionExits();
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: JunctionAnalyzer::Init";
+ }
 
 void JunctionAnalyzer::Clear() {
+  AINFO<<"(DMCZP) EnteringMethod: JunctionAnalyzer::Clear";
+
   // Clear all data
   junction_info_ptr_ = nullptr;
   junction_exits_.clear();
   junction_features_.clear();
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: JunctionAnalyzer::Clear";
+ }
 
 void JunctionAnalyzer::SetAllJunctionExits() {
+  AINFO<<"(DMCZP) EnteringMethod: JunctionAnalyzer::SetAllJunctionExits";
+
   CHECK_NOTNULL(junction_info_ptr_);
   for (const auto& overlap_id : junction_info_ptr_->junction().overlap_id()) {
     auto overlap_info_ptr = PredictionMap::OverlapById(overlap_id.id());
@@ -80,7 +92,9 @@ void JunctionAnalyzer::SetAllJunctionExits() {
       }
     }
   }
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: JunctionAnalyzer::SetAllJunctionExits";
+ }
 
 std::vector<JunctionExit> JunctionAnalyzer::GetJunctionExits(
     const std::string& start_lane_id) {
@@ -116,8 +130,12 @@ std::vector<JunctionExit> JunctionAnalyzer::GetJunctionExits(
 
 const JunctionFeature& JunctionAnalyzer::GetJunctionFeature(
     const std::string& start_lane_id) {
+  AINFO<<"(DMCZP) EnteringMethod: JunctionAnalyzer::GetJunctionFeature";
+
   if (junction_features_.find(start_lane_id) != junction_features_.end()) {
-    return junction_features_[start_lane_id];
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: JunctionAnalyzer::GetJunctionFeature";
+  return junction_features_[start_lane_id];
   }
   JunctionFeature junction_feature;
   junction_feature.set_junction_id(GetJunctionId());
@@ -130,11 +148,17 @@ const JunctionFeature& JunctionAnalyzer::GetJunctionFeature(
   junction_feature.mutable_enter_lane()->set_lane_id(start_lane_id);
   junction_feature.add_start_lane_id(start_lane_id);
   junction_features_[start_lane_id] = junction_feature;
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: JunctionAnalyzer::GetJunctionFeature";
   return junction_features_[start_lane_id];
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: JunctionAnalyzer::GetJunctionFeature";
+ }
 
 JunctionFeature JunctionAnalyzer::GetJunctionFeature(
     const std::vector<std::string>& start_lane_ids) {
+  AINFO<<"(DMCZP) EnteringMethod: JunctionAnalyzer::GetJunctionFeature";
+
   JunctionFeature merged_junction_feature;
   bool initialized = false;
   std::unordered_map<std::string, JunctionExit> junction_exits_map;
@@ -157,25 +181,45 @@ JunctionFeature JunctionAnalyzer::GetJunctionFeature(
     merged_junction_feature.add_start_lane_id(exit.first);
     merged_junction_feature.add_junction_exit()->CopyFrom(exit.second);
   }
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: JunctionAnalyzer::GetJunctionFeature";
   return merged_junction_feature;
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: JunctionAnalyzer::GetJunctionFeature";
+ }
 
 bool JunctionAnalyzer::IsExitLane(const std::string& lane_id) {
+  AINFO<<"(DMCZP) EnteringMethod: JunctionAnalyzer::IsExitLane";
+
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: JunctionAnalyzer::IsExitLane";
   return junction_exits_.find(lane_id) != junction_exits_.end();
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: JunctionAnalyzer::IsExitLane";
+ }
 
 const std::string& JunctionAnalyzer::GetJunctionId() {
+  AINFO<<"(DMCZP) EnteringMethod: JunctionAnalyzer::GetJunctionId";
+
   CHECK_NOTNULL(junction_info_ptr_);
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: JunctionAnalyzer::GetJunctionId";
   return junction_info_ptr_->id().id();
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: JunctionAnalyzer::GetJunctionId";
+ }
 
 double JunctionAnalyzer::ComputeJunctionRange() {
+  AINFO<<"(DMCZP) EnteringMethod: JunctionAnalyzer::ComputeJunctionRange";
+
   CHECK_NOTNULL(junction_info_ptr_);
   if (!junction_info_ptr_->junction().has_polygon() ||
       junction_info_ptr_->junction().polygon().point_size() < 3) {
     AERROR << "Junction [" << GetJunctionId()
            << "] has not enough polygon points to compute range";
-    return FLAGS_defualt_junction_range;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: JunctionAnalyzer::ComputeJunctionRange";
+  return FLAGS_defualt_junction_range;
   }
   double x_min = std::numeric_limits<double>::infinity();
   double x_max = -std::numeric_limits<double>::infinity();
@@ -190,8 +234,12 @@ double JunctionAnalyzer::ComputeJunctionRange() {
   double dx = std::abs(x_max - x_min);
   double dy = std::abs(y_max - y_min);
   double range = std::sqrt(dx * dx + dy * dy);
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: JunctionAnalyzer::ComputeJunctionRange";
   return range;
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: JunctionAnalyzer::ComputeJunctionRange";
+ }
 
 }  // namespace prediction
 }  // namespace apollo

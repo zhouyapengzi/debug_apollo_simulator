@@ -25,6 +25,8 @@ namespace prediction {
 namespace network {
 
 bool NetModel::LoadModel(const NetParameter& net_parameter) {
+  AINFO<<"(DMCZP) EnteringMethod: NetModel::LoadModel";
+
   net_parameter_.CopyFrom(net_parameter);
   layers_.clear();
 
@@ -60,21 +62,31 @@ bool NetModel::LoadModel(const NetParameter& net_parameter) {
     }
     if (!layer->Load(layer_pb)) {
       AERROR << "Failed to load " << i << "-layer: " << layer_pb.name().c_str();
-      return false;
+      
+  AINFO<<"(DMCZP) (return) LeaveMethod: NetModel::LoadModel";
+  return false;
     }
     layers_.push_back(std::move(layer));
   }
   ok_ = true;
   AINFO << "Success in loading the model!";
   ADEBUG << "Its Performance:" << PerformanceString().c_str();
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: NetModel::LoadModel";
   return true;
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: NetModel::LoadModel";
+ }
 
 std::string NetModel::PerformanceString() const {
+  AINFO<<"(DMCZP) EnteringMethod: NetModel::PerformanceString";
+
   std::stringstream ss;
   if (!net_parameter_.has_performance()) {
     AWARN << "The protobuf does not contain performance values!";
-    return " ";
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: NetModel::PerformanceString";
+  return " ";
   }
   ss << "\n test: accuracy = ";
   for (int i = 0; i < net_parameter_.performance().accuracy_size(); ++i) {
@@ -89,14 +101,36 @@ std::string NetModel::PerformanceString() const {
     ss << net_parameter_.performance().precision(i) << ",  ";
   }
   ss << std::endl;
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: NetModel::PerformanceString";
   return ss.str();
-}
 
-const std::string& NetModel::Name() const { return net_parameter_.name(); }
+  AINFO<<"(DMCZP) LeaveMethod: NetModel::PerformanceString";
+ }
 
-int NetModel::Id() const { return net_parameter_.id(); }
+const std::string& NetModel::Name() const {
+  AINFO<<"(DMCZP) EnteringMethod: NetModel::Name";
+ 
+  AINFO<<"(DMCZP) (return) Le
+  AINFO<<"(DMCZP) LeaveMethod: NetModel::Name";
+ aveMethod: NetModel::Name";
+  return net_parameter_.name(); }
 
-bool NetModel::IsOk() const { return ok_; }
+int NetModel::Id() const {
+  AINFO<<"(DMCZP) EnteringMethod: NetModel::Id";
+ 
+  AINFO<<"(DMCZP) (return) 
+  AINFO<<"(DMCZP) LeaveMethod: NetModel::Id";
+ LeaveMethod: NetModel::Id";
+  return net_parameter_.id(); }
+
+bool NetModel::IsOk() const {
+  AINFO<<"(DMCZP) EnteringMethod: NetModel::IsOk";
+ 
+  AINFO<<"(
+  AINFO<<"(DMCZP) LeaveMethod: NetModel::IsOk";
+ DMCZP) (return) LeaveMethod: NetModel::IsOk";
+  return ok_; }
 
 }  // namespace network
 }  // namespace prediction

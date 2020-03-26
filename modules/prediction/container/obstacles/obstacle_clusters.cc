@@ -33,21 +33,33 @@ std::unordered_map<std::string, StopSign>
     ObstacleClusters::lane_id_stop_sign_map_;
 
 void ObstacleClusters::Clear() {
+  AINFO<<"(DMCZP) EnteringMethod: ObstacleClusters::Clear";
+
   lane_graphs_.clear();
   lane_obstacles_.clear();
   lane_id_stop_sign_map_.clear();
-}
 
-void ObstacleClusters::Init() { Clear(); }
+  AINFO<<"(DMCZP) LeaveMethod: ObstacleClusters::Clear";
+ }
+
+void ObstacleClusters::Init() {
+  AINFO<<"(DMCZP) EnteringMethod: ObstacleClusters::Init";
+ Clear(); 
+  AINFO<<"(DMCZP) LeaveMethod: ObstacleClusters::Init";
+ }
 
 const LaneGraph& ObstacleClusters::GetLaneGraph(
     const double start_s, const double length, const bool is_on_lane,
     std::shared_ptr<const LaneInfo> lane_info_ptr) {
+  AINFO<<"(DMCZP) EnteringMethod: ObstacleClusters::GetLaneGraph";
+
   std::string lane_id = lane_info_ptr->id().id();
   if (lane_graphs_.find(lane_id) != lane_graphs_.end()) {
     // If this lane_segment has been used for constructing LaneGraph,
     // fetch the previously saved LaneGraph, modify its start_s,
-    // then return this (save the time to construct the entire LaneGraph).
+    // then 
+  AINFO<<"(DMCZP) (return) LeaveMethod: ObstacleClusters::GetLaneGraph";
+  return this (save the time to construct the entire LaneGraph).
     LaneGraph* lane_graph = &lane_graphs_[lane_id];
     for (int i = 0; i < lane_graph->lane_sequence_size(); ++i) {
       LaneSequence* lane_seq_ptr = lane_graph->mutable_lane_sequence(i);
@@ -68,43 +80,65 @@ const LaneGraph& ObstacleClusters::GetLaneGraph(
     road_graph.BuildLaneGraph(&lane_graph);
     lane_graphs_[lane_id] = std::move(lane_graph);
   }
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: ObstacleClusters::GetLaneGraph";
   return lane_graphs_[lane_id];
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: ObstacleClusters::GetLaneGraph";
+ }
 
 LaneGraph ObstacleClusters::GetLaneGraphWithoutMemorizing(
     const double start_s, const double length, bool is_on_lane,
     std::shared_ptr<const LaneInfo> lane_info_ptr) {
+  AINFO<<"(DMCZP) EnteringMethod: ObstacleClusters::GetLaneGraphWithoutMemorizing";
+
   RoadGraph road_graph(start_s, length, true, lane_info_ptr);
   LaneGraph lane_graph;
   road_graph.BuildLaneGraphBidirection(&lane_graph);
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: ObstacleClusters::GetLaneGraphWithoutMemorizing";
   return lane_graph;
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: ObstacleClusters::GetLaneGraphWithoutMemorizing";
+ }
 
 void ObstacleClusters::AddObstacle(const int obstacle_id,
                                    const std::string& lane_id,
                                    const double lane_s, const double lane_l) {
+  AINFO<<"(DMCZP) EnteringMethod: ObstacleClusters::AddObstacle";
+
   LaneObstacle lane_obstacle;
   lane_obstacle.set_obstacle_id(obstacle_id);
   lane_obstacle.set_lane_id(lane_id);
   lane_obstacle.set_lane_s(lane_s);
   lane_obstacle.set_lane_l(lane_l);
   lane_obstacles_[lane_id].push_back(std::move(lane_obstacle));
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: ObstacleClusters::AddObstacle";
+ }
 
 void ObstacleClusters::SortObstacles() {
+  AINFO<<"(DMCZP) EnteringMethod: ObstacleClusters::SortObstacles";
+
   for (auto iter = lane_obstacles_.begin(); iter != lane_obstacles_.end();
        ++iter) {
     std::sort(iter->second.begin(), iter->second.end(),
               [](const LaneObstacle& obs0, const LaneObstacle& obs1) -> bool {
-                return obs0.lane_s() < obs1.lane_s();
+                
+  AINFO<<"(DMCZP) (return) LeaveMethod: ObstacleClusters::SortObstacles";
+  return obs0.lane_s() < obs1.lane_s();
               });
   }
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: ObstacleClusters::SortObstacles";
+ }
 
 bool ObstacleClusters::ForwardNearbyObstacle(
     const LaneSequence& lane_sequence, const int obstacle_id,
     const double obstacle_s, const double obstacle_l,
     NearbyObstacle* const nearby_obstacle_ptr) {
+  AINFO<<"(DMCZP) EnteringMethod: ObstacleClusters::ForwardNearbyObstacle";
+
   double accumulated_s = 0.0;
   for (const LaneSegment& lane_segment : lane_sequence.lane_segment()) {
     std::string lane_id = lane_segment.lane_id();
@@ -124,20 +158,30 @@ bool ObstacleClusters::ForwardNearbyObstacle(
         nearby_obstacle_ptr->set_id(lane_obstacle.obstacle_id());
         nearby_obstacle_ptr->set_s(relative_s);
         nearby_obstacle_ptr->set_l(relative_l);
-        return true;
+        
+  AINFO<<"(DMCZP) (return) LeaveMethod: ObstacleClusters::ForwardNearbyObstacle";
+  return true;
       }
     }
   }
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: ObstacleClusters::ForwardNearbyObstacle";
   return false;
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: ObstacleClusters::ForwardNearbyObstacle";
+ }
 
 bool ObstacleClusters::BackwardNearbyObstacle(
     const LaneSequence& lane_sequence, const int obstacle_id,
     const double obstacle_s, const double obstacle_l,
     NearbyObstacle* const nearby_obstacle_ptr) {
+  AINFO<<"(DMCZP) EnteringMethod: ObstacleClusters::BackwardNearbyObstacle";
+
   if (lane_sequence.lane_segment_size() == 0) {
     AERROR << "Empty lane sequence found.";
-    return false;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: ObstacleClusters::BackwardNearbyObstacle";
+  return false;
   }
   const LaneSegment& lane_segment = lane_sequence.lane_segment(0);
   std::string lane_id = lane_segment.lane_id();
@@ -157,7 +201,9 @@ bool ObstacleClusters::BackwardNearbyObstacle(
         nearby_obstacle_ptr->set_id(lane_obstacle.obstacle_id());
         nearby_obstacle_ptr->set_s(relative_s);
         nearby_obstacle_ptr->set_l(relative_l);
-        return true;
+        
+  AINFO<<"(DMCZP) (return) LeaveMethod: ObstacleClusters::BackwardNearbyObstacle";
+  return true;
       }
     }
   }
@@ -190,14 +236,22 @@ bool ObstacleClusters::BackwardNearbyObstacle(
     }
   }
 
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: ObstacleClusters::BackwardNearbyObstacle";
   return found_one_behind;
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: ObstacleClusters::BackwardNearbyObstacle";
+ }
 
 StopSign ObstacleClusters::QueryStopSignByLaneId(const std::string& lane_id) {
+  AINFO<<"(DMCZP) EnteringMethod: ObstacleClusters::QueryStopSignByLaneId";
+
   StopSign stop_sign;
   // Find the stop_sign by lane_id in the hashtable
   if (lane_id_stop_sign_map_.find(lane_id) != lane_id_stop_sign_map_.end()) {
-    return lane_id_stop_sign_map_[lane_id];
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: ObstacleClusters::QueryStopSignByLaneId";
+  return lane_id_stop_sign_map_[lane_id];
   }
   std::shared_ptr<const LaneInfo> lane_info_ptr =
       PredictionMap::LaneById(lane_id);
@@ -225,8 +279,12 @@ StopSign ObstacleClusters::QueryStopSignByLaneId(const std::string& lane_id) {
       }
     }
   }
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: ObstacleClusters::QueryStopSignByLaneId";
   return lane_id_stop_sign_map_[lane_id];
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: ObstacleClusters::QueryStopSignByLaneId";
+ }
 
 }  // namespace prediction
 }  // namespace apollo

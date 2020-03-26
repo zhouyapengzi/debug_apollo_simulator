@@ -33,10 +33,16 @@ using ::apollo::planning::ADCTrajectory;
 ADCTrajectoryContainer::ADCTrajectoryContainer()
     : adc_junction_info_ptr_(nullptr),
       adc_pnc_junction_info_ptr_(nullptr),
-      s_dist_to_junction_(0.0) {}
+      s_dist_to_junction_(0.0) {
+  AINFO<<"(DMCZP) EnteringMethod: ADCTrajectoryContainer::ADCTrajectoryContainer";
+
+  AINFO<<"(DMCZP) LeaveMethod: ADCTrajectoryContainer::ADCTrajectoryContainer";
+ }
 
 void ADCTrajectoryContainer::Insert(
     const ::google::protobuf::Message& message) {
+  AINFO<<"(DMCZP) EnteringMethod: ADCTrajectoryContainer::Insert";
+
   adc_lane_ids_.clear();
   adc_lane_seq_.clear();
   adc_junction_polygon_ = std::move(Polygon2d());
@@ -58,19 +64,33 @@ void ADCTrajectoryContainer::Insert(
   SetLaneSequence();
   ADEBUG << "Generate an ADC lane id sequence [" << ToString(adc_lane_seq_)
          << "].";
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: ADCTrajectoryContainer::Insert";
+ }
 
 bool ADCTrajectoryContainer::IsPointInJunction(const PathPoint& point) const {
+  AINFO<<"(DMCZP) EnteringMethod: ADCTrajectoryContainer::IsPointInJunction";
+
   if (adc_pnc_junction_info_ptr_ != nullptr) {
-    return IsPointInPNCJunction(point);
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: ADCTrajectoryContainer::IsPointInJunction";
+  return IsPointInPNCJunction(point);
   }
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: ADCTrajectoryContainer::IsPointInJunction";
   return IsPointInRegularJunction(point);
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: ADCTrajectoryContainer::IsPointInJunction";
+ }
 
 bool ADCTrajectoryContainer::IsPointInRegularJunction(
     const PathPoint& point) const {
+  AINFO<<"(DMCZP) EnteringMethod: ADCTrajectoryContainer::IsPointInRegularJunction";
+
   if (adc_junction_polygon_.points().size() < 3) {
-    return false;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: ADCTrajectoryContainer::IsPointInRegularJunction";
+  return false;
   }
   bool in_polygon = adc_junction_polygon_.IsPointIn({point.x(), point.y()});
 
@@ -82,23 +102,43 @@ bool ADCTrajectoryContainer::IsPointInRegularJunction(
     on_virtual_lane = PredictionMap::OnVirtualLane({point.x(), point.y()},
                                                    FLAGS_virtual_lane_radius);
   }
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: ADCTrajectoryContainer::IsPointInRegularJunction";
   return in_polygon && on_virtual_lane;
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: ADCTrajectoryContainer::IsPointInRegularJunction";
+ }
 
 bool ADCTrajectoryContainer::IsPointInPNCJunction(
     const PathPoint& point) const {
+  AINFO<<"(DMCZP) EnteringMethod: ADCTrajectoryContainer::IsPointInPNCJunction";
+
   if (adc_pnc_junction_polygon_.points().size() < 3) {
-    return false;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: ADCTrajectoryContainer::IsPointInPNCJunction";
+  return false;
   }
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: ADCTrajectoryContainer::IsPointInPNCJunction";
   return adc_pnc_junction_polygon_.IsPointIn({point.x(), point.y()});
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: ADCTrajectoryContainer::IsPointInPNCJunction";
+ }
 
 bool ADCTrajectoryContainer::IsProtected() const {
+  AINFO<<"(DMCZP) EnteringMethod: ADCTrajectoryContainer::IsProtected";
+
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: ADCTrajectoryContainer::IsProtected";
   return adc_trajectory_.has_right_of_way_status() &&
          adc_trajectory_.right_of_way_status() == ADCTrajectory::PROTECTED;
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: ADCTrajectoryContainer::IsProtected";
+ }
 
 void ADCTrajectoryContainer::SetJunctionPolygon() {
+  AINFO<<"(DMCZP) EnteringMethod: ADCTrajectoryContainer::SetJunctionPolygon";
+
   std::shared_ptr<const JunctionInfo> junction_info(nullptr);
 
   double s_start = 0.0;
@@ -138,9 +178,13 @@ void ADCTrajectoryContainer::SetJunctionPolygon() {
       adc_junction_polygon_ = Polygon2d{vertices};
     }
   }
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: ADCTrajectoryContainer::SetJunctionPolygon";
+ }
 
 void ADCTrajectoryContainer::SetPNCJunctionPolygon() {
+  AINFO<<"(DMCZP) EnteringMethod: ADCTrajectoryContainer::SetPNCJunctionPolygon";
+
   std::shared_ptr<const PNCJunctionInfo> junction_info(nullptr);
 
   double s_start = 0.0;
@@ -180,27 +224,55 @@ void ADCTrajectoryContainer::SetPNCJunctionPolygon() {
       adc_pnc_junction_polygon_ = Polygon2d{vertices};
     }
   }
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: ADCTrajectoryContainer::SetPNCJunctionPolygon";
+ }
 
 std::shared_ptr<const apollo::hdmap::JunctionInfo>
 ADCTrajectoryContainer::ADCJunction() const {
+  AINFO<<"(DMCZP) EnteringMethod: ADCTrajectoryContainer::ADCJunction";
+
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: ADCTrajectoryContainer::ADCJunction";
   return adc_junction_info_ptr_;
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: ADCTrajectoryContainer::ADCJunction";
+ }
 
 double ADCTrajectoryContainer::ADCDistanceToJunction() const {
+  AINFO<<"(DMCZP) EnteringMethod: ADCTrajectoryContainer::ADCDistanceToJunction";
+
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: ADCTrajectoryContainer::ADCDistanceToJunction";
   return s_dist_to_junction_;
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: ADCTrajectoryContainer::ADCDistanceToJunction";
+ }
 
 const ADCTrajectory& ADCTrajectoryContainer::adc_trajectory() const {
+  AINFO<<"(DMCZP) EnteringMethod: ADCTrajectoryContainer::adc_trajectory";
+
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: ADCTrajectoryContainer::adc_trajectory";
   return adc_trajectory_;
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: ADCTrajectoryContainer::adc_trajectory";
+ }
 
 bool ADCTrajectoryContainer::IsLaneIdInReferenceLine(
     const std::string& lane_id) const {
+  AINFO<<"(DMCZP) EnteringMethod: ADCTrajectoryContainer::IsLaneIdInReferenceLine";
+
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: ADCTrajectoryContainer::IsLaneIdInReferenceLine";
   return adc_lane_ids_.find(lane_id) != adc_lane_ids_.end();
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: ADCTrajectoryContainer::IsLaneIdInReferenceLine";
+ }
 
 void ADCTrajectoryContainer::SetLaneSequence() {
+  AINFO<<"(DMCZP) EnteringMethod: ADCTrajectoryContainer::SetLaneSequence";
+
   for (const auto& lane : adc_trajectory_.lane_id()) {
     if (!lane.id().empty()) {
       if (adc_lane_seq_.empty() || lane.id() != adc_lane_seq_.back()) {
@@ -210,10 +282,16 @@ void ADCTrajectoryContainer::SetLaneSequence() {
   }
   adc_lane_ids_.clear();
   adc_lane_ids_.insert(adc_lane_seq_.begin(), adc_lane_seq_.end());
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: ADCTrajectoryContainer::SetLaneSequence";
+ }
 
 std::string ADCTrajectoryContainer::ToString(
     const std::unordered_set<std::string>& lane_ids) {
+  AINFO<<"(DMCZP) EnteringMethod: ADCTrajectoryContainer::ToString";
+
+  AINFO<<"(DMCZP) EnteringMethod: ADCTrajectoryContainer::ToString";
+
   std::string str_lane_sequence = "";
   auto it = lane_ids.begin();
   if (it != lane_ids.end()) {
@@ -223,8 +301,16 @@ std::string ADCTrajectoryContainer::ToString(
   for (; it != lane_ids.end(); ++it) {
     str_lane_sequence += ("->" + *it);
   }
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: ADCTrajectoryContainer::ToString";
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: ADCTrajectoryContainer::ToString";
   return str_lane_sequence;
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: ADCTrajectoryContainer::ToString";
+ 
+  AINFO<<"(DMCZP) LeaveMethod: ADCTrajectoryContainer::ToString";
+ }
 
 std::string ADCTrajectoryContainer::ToString(
     const std::vector<std::string>& lane_ids) {
@@ -241,16 +327,26 @@ std::string ADCTrajectoryContainer::ToString(
 }
 
 bool ADCTrajectoryContainer::HasOverlap(const LaneSequence& lane_sequence) {
+  AINFO<<"(DMCZP) EnteringMethod: ADCTrajectoryContainer::HasOverlap";
+
   for (const auto& lane_segment : lane_sequence.lane_segment()) {
     std::string lane_id = lane_segment.lane_id();
     if (adc_lane_ids_.find(lane_id) != adc_lane_ids_.end()) {
-      return true;
+      
+  AINFO<<"(DMCZP) (return) LeaveMethod: ADCTrajectoryContainer::HasOverlap";
+  return true;
     }
   }
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: ADCTrajectoryContainer::HasOverlap";
   return false;
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: ADCTrajectoryContainer::HasOverlap";
+ }
 
 void ADCTrajectoryContainer::SetPosition(const Vec2d& position) {
+  AINFO<<"(DMCZP) EnteringMethod: ADCTrajectoryContainer::SetPosition";
+
   for (auto it = adc_lane_seq_.begin(); it != adc_lane_seq_.end(); ++it) {
     auto lane_info = PredictionMap::LaneById(*it);
     if (lane_info != nullptr && lane_info->IsOnLane(position)) {
@@ -260,7 +356,9 @@ void ADCTrajectoryContainer::SetPosition(const Vec2d& position) {
     }
   }
   ADEBUG << "Generate an ADC lane ids [" << ToString(adc_lane_ids_) << "].";
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: ADCTrajectoryContainer::SetPosition";
+ }
 
 const std::vector<std::string>& ADCTrajectoryContainer::GetADCLaneIDSequence()
     const {

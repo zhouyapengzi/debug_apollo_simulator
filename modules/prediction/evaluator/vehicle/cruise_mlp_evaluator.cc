@@ -39,23 +39,39 @@ using apollo::prediction::math_util::Sigmoid;
 
 // Helper function for computing the mean value of a vector.
 double ComputeMean(const std::vector<double>& nums, size_t start, size_t end) {
+  AINFO<<"(DMCZP) EnteringMethod: ComputeMean";
+
   int count = 0;
   double sum = 0.0;
   for (size_t i = start; i <= end && i < nums.size(); i++) {
     sum += nums[i];
     ++count;
   }
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: ComputeMean";
   return (count == 0) ? 0.0 : sum / count;
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: ComputeMean";
+ }
 
 CruiseMLPEvaluator::CruiseMLPEvaluator() : device_(torch::kCPU) {
+  AINFO<<"(DMCZP) EnteringMethod: CruiseMLPEvaluator::CruiseMLPEvaluator";
+
   evaluator_type_ = ObstacleConf::CRUISE_MLP_EVALUATOR;
   LoadModels();
-}
 
-void CruiseMLPEvaluator::Clear() {}
+  AINFO<<"(DMCZP) LeaveMethod: CruiseMLPEvaluator::CruiseMLPEvaluator";
+ }
+
+void CruiseMLPEvaluator::Clear() {
+  AINFO<<"(DMCZP) EnteringMethod: CruiseMLPEvaluator::Clear";
+
+  AINFO<<"(DMCZP) LeaveMethod: CruiseMLPEvaluator::Clear";
+ }
 
 bool CruiseMLPEvaluator::Evaluate(Obstacle* obstacle_ptr) {
+  AINFO<<"(DMCZP) EnteringMethod: CruiseMLPEvaluator::Evaluate";
+
   // Sanity checks.
   omp_set_num_threads(1);
   Clear();
@@ -66,21 +82,27 @@ bool CruiseMLPEvaluator::Evaluate(Obstacle* obstacle_ptr) {
   int id = obstacle_ptr->id();
   if (!obstacle_ptr->latest_feature().IsInitialized()) {
     AERROR << "Obstacle [" << id << "] has no latest feature.";
-    return false;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: CruiseMLPEvaluator::Evaluate";
+  return false;
   }
   Feature* latest_feature_ptr = obstacle_ptr->mutable_latest_feature();
   CHECK_NOTNULL(latest_feature_ptr);
   if (!latest_feature_ptr->has_lane() ||
       !latest_feature_ptr->lane().has_lane_graph()) {
     ADEBUG << "Obstacle [" << id << "] has no lane graph.";
-    return false;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: CruiseMLPEvaluator::Evaluate";
+  return false;
   }
   LaneGraph* lane_graph_ptr =
       latest_feature_ptr->mutable_lane()->mutable_lane_graph();
   CHECK_NOTNULL(lane_graph_ptr);
   if (lane_graph_ptr->lane_sequence_size() == 0) {
     AERROR << "Obstacle [" << id << "] has no lane sequences.";
-    return false;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: CruiseMLPEvaluator::Evaluate";
+  return false;
   }
 
   ADEBUG << "There are " << lane_graph_ptr->lane_sequence_size()
@@ -110,7 +132,9 @@ bool CruiseMLPEvaluator::Evaluate(Obstacle* obstacle_ptr) {
         ADEBUG << "Obstacle [" << id << "] has fewer than "
                << "expected lane feature_values"
                << interaction_feature_values.size() << ".";
-        return false;
+        
+  AINFO<<"(DMCZP) (return) LeaveMethod: CruiseMLPEvaluator::Evaluate";
+  return false;
       }
       ADEBUG << "Interaction feature size = "
              << interaction_feature_values.size();
@@ -120,7 +144,9 @@ bool CruiseMLPEvaluator::Evaluate(Obstacle* obstacle_ptr) {
       FeatureOutput::InsertDataForLearning(*latest_feature_ptr, feature_values,
                                            "lane_scanning", lane_sequence_ptr);
       ADEBUG << "Save extracted features for learning locally.";
-      return true;  // Skip Compute probability for offline mode
+      
+  AINFO<<"(DMCZP) (return) LeaveMethod: CruiseMLPEvaluator::Evaluate";
+  return true;  // Skip Compute probability for offline mode
     }
 
     std::vector<torch::jit::IValue> torch_inputs;
@@ -137,12 +163,18 @@ bool CruiseMLPEvaluator::Evaluate(Obstacle* obstacle_ptr) {
       ModelInference(torch_inputs, torch_cutin_model_ptr_, lane_sequence_ptr);
     }
   }
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: CruiseMLPEvaluator::Evaluate";
   return true;
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: CruiseMLPEvaluator::Evaluate";
+ }
 
 void CruiseMLPEvaluator::ExtractFeatureValues(
     Obstacle* obstacle_ptr, LaneSequence* lane_sequence_ptr,
     std::vector<double>* feature_values) {
+  AINFO<<"(DMCZP) EnteringMethod: CruiseMLPEvaluator::ExtractFeatureValues";
+
   // Sanity checks.
   CHECK_NOTNULL(obstacle_ptr);
   CHECK_NOTNULL(lane_sequence_ptr);
@@ -155,7 +187,9 @@ void CruiseMLPEvaluator::ExtractFeatureValues(
     ADEBUG << "Obstacle [" << id << "] has fewer than "
            << "expected obstacle feature_values "
            << obstacle_feature_values.size() << ".";
-    return;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: CruiseMLPEvaluator::ExtractFeatureValues";
+  return;
   }
   ADEBUG << "Obstacle feature size = " << obstacle_feature_values.size();
   feature_values->insert(feature_values->end(), obstacle_feature_values.begin(),
@@ -169,15 +203,21 @@ void CruiseMLPEvaluator::ExtractFeatureValues(
     ADEBUG << "Obstacle [" << id << "] has fewer than "
            << "expected lane feature_values" << lane_feature_values.size()
            << ".";
-    return;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: CruiseMLPEvaluator::ExtractFeatureValues";
+  return;
   }
   ADEBUG << "Lane feature size = " << lane_feature_values.size();
   feature_values->insert(feature_values->end(), lane_feature_values.begin(),
                          lane_feature_values.end());
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: CruiseMLPEvaluator::ExtractFeatureValues";
+ }
 
 void CruiseMLPEvaluator::SetObstacleFeatureValues(
     const Obstacle* obstacle_ptr, std::vector<double>* feature_values) {
+  AINFO<<"(DMCZP) EnteringMethod: CruiseMLPEvaluator::SetObstacleFeatureValues";
+
   // Sanity checks and variable declarations.
   CHECK_NOTNULL(obstacle_ptr);
   feature_values->clear();
@@ -296,7 +336,9 @@ void CruiseMLPEvaluator::SetObstacleFeatureValues(
   }
   if (count <= 0) {
     ADEBUG << "There is no feature with lane info. Quit.";
-    return;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: CruiseMLPEvaluator::SetObstacleFeatureValues";
+  return;
   }
 
   // The following entire part is setting up the old 23 features.
@@ -408,11 +450,15 @@ void CruiseMLPEvaluator::SetObstacleFeatureValues(
     feature_values->push_back(vel_heading_history[i]);
     feature_values->push_back(vel_heading_changing_rate_history[i]);
   }
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: CruiseMLPEvaluator::SetObstacleFeatureValues";
+ }
 
 void CruiseMLPEvaluator::SetInteractionFeatureValues(
     Obstacle* obstacle_ptr, LaneSequence* lane_sequence_ptr,
     std::vector<double>* feature_values) {
+  AINFO<<"(DMCZP) EnteringMethod: CruiseMLPEvaluator::SetInteractionFeatureValues";
+
   // forward / backward: relative_s, relative_l, speed, length
   feature_values->clear();
   // Initialize forward and backward obstacles
@@ -469,21 +515,29 @@ void CruiseMLPEvaluator::SetInteractionFeatureValues(
     feature_values->push_back(feature.length());
     feature_values->push_back(feature.speed());
   }
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: CruiseMLPEvaluator::SetInteractionFeatureValues";
+ }
 
 void CruiseMLPEvaluator::SetLaneFeatureValues(
     const Obstacle* obstacle_ptr, const LaneSequence* lane_sequence_ptr,
     std::vector<double>* feature_values) {
+  AINFO<<"(DMCZP) EnteringMethod: CruiseMLPEvaluator::SetLaneFeatureValues";
+
   // Sanity checks.
   feature_values->clear();
   feature_values->reserve(SINGLE_LANE_FEATURE_SIZE * LANE_POINTS_SIZE);
   const Feature& feature = obstacle_ptr->latest_feature();
   if (!feature.IsInitialized()) {
     ADEBUG << "Obstacle [" << obstacle_ptr->id() << "] has no latest feature.";
-    return;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: CruiseMLPEvaluator::SetLaneFeatureValues";
+  return;
   } else if (!feature.has_position()) {
     ADEBUG << "Obstacle [" << obstacle_ptr->id() << "] has no position.";
-    return;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: CruiseMLPEvaluator::SetLaneFeatureValues";
+  return;
   }
 
   double heading = feature.velocity_heading();
@@ -532,9 +586,13 @@ void CruiseMLPEvaluator::SetLaneFeatureValues(
 
     size = feature_values->size();
   }
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: CruiseMLPEvaluator::SetLaneFeatureValues";
+ }
 
 void CruiseMLPEvaluator::LoadModels() {
+  AINFO<<"(DMCZP) EnteringMethod: CruiseMLPEvaluator::LoadModels";
+
   // TODO(all) uncomment the following when cuda issue is resolved
   // if (torch::cuda::is_available()) {
   //   ADEBUG << "CUDA is available";
@@ -553,12 +611,16 @@ void CruiseMLPEvaluator::LoadModels() {
       AINFO << "(pengzi) load vehicle cruise MLP model. go_model:"<< FLAGS_torch_vehicle_cruise_go_file 
           << ". cutin model:" << FLAGS_torch_vehicle_cruise_cutin_file 
           <<". Thread: " << this_id ;
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: CruiseMLPEvaluator::LoadModels";
+ }
 
 void CruiseMLPEvaluator::ModelInference(
     const std::vector<torch::jit::IValue>& torch_inputs,
     std::shared_ptr<torch::jit::script::Module> torch_model_ptr,
     LaneSequence* lane_sequence_ptr) {
+  AINFO<<"(DMCZP) EnteringMethod: CruiseMLPEvaluator::ModelInference";
+
   
   AINFO<<"(pengzi) predict cruiseMLP model inference. thread:"<<std::this_thread::get_id();
   auto torch_output_tuple = torch_model_ptr->forward(torch_inputs).toTuple();
@@ -569,7 +631,9 @@ void CruiseMLPEvaluator::ModelInference(
   lane_sequence_ptr->set_time_to_lane_center(
       static_cast<double>(finish_time_tensor.accessor<float, 2>()[0][0]));
     
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: CruiseMLPEvaluator::ModelInference";
+ }
 
 }  // namespace prediction
 }  // namespace apollo

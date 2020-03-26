@@ -33,6 +33,8 @@ namespace prediction {
 namespace {
 
 double ComputeMean(const std::vector<double>& nums, size_t start, size_t end) {
+  AINFO<<"(DMCZP) EnteringMethod: ComputeMean";
+
   AINFO<<"(pengzi)  predictor mlp evaluator: computer mean. thread: " << std::this_thread::get_id();
 
   int count = 0;
@@ -45,19 +47,33 @@ double ComputeMean(const std::vector<double>& nums, size_t start, size_t end) {
   << sum/count
   <<" thread: " << std::this_thread::get_id();
 
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: ComputeMean";
   return (count == 0) ? 0.0 : sum / count;
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: ComputeMean";
+ }
 
 }  // namespace
 
 MLPEvaluator::MLPEvaluator() {
+  AINFO<<"(DMCZP) EnteringMethod: MLPEvaluator::MLPEvaluator";
+
   evaluator_type_ = ObstacleConf::MLP_EVALUATOR;
   LoadModel(FLAGS_evaluator_vehicle_mlp_file);
-}
 
-void MLPEvaluator::Clear() {}
+  AINFO<<"(DMCZP) LeaveMethod: MLPEvaluator::MLPEvaluator";
+ }
+
+void MLPEvaluator::Clear() {
+  AINFO<<"(DMCZP) EnteringMethod: MLPEvaluator::Clear";
+
+  AINFO<<"(DMCZP) LeaveMethod: MLPEvaluator::Clear";
+ }
 
 bool MLPEvaluator::Evaluate(Obstacle* obstacle_ptr) {
+  AINFO<<"(DMCZP) EnteringMethod: MLPEvaluator::Evaluate";
+
    AINFO<<"(pengzi)  predictor mlp evaluator: begin evaluate. thread: " << std::this_thread::get_id();
   Clear();
   CHECK_NOTNULL(obstacle_ptr);
@@ -70,7 +86,9 @@ bool MLPEvaluator::Evaluate(Obstacle* obstacle_ptr) {
   int id = obstacle_ptr->id();
   if (!obstacle_ptr->latest_feature().IsInitialized()) {
     AERROR << "Obstacle [" << id << "] has no latest feature.";
-    return false;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: MLPEvaluator::Evaluate";
+  return false;
   }
 
   Feature* latest_feature_ptr = obstacle_ptr->mutable_latest_feature();
@@ -78,7 +96,9 @@ bool MLPEvaluator::Evaluate(Obstacle* obstacle_ptr) {
   if (!latest_feature_ptr->has_lane() ||
       !latest_feature_ptr->lane().has_lane_graph()) {
     ADEBUG << "Obstacle [" << id << "] has no lane graph.";
-    return false;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: MLPEvaluator::Evaluate";
+  return false;
   }
 
   double speed = latest_feature_ptr->speed();
@@ -88,7 +108,9 @@ bool MLPEvaluator::Evaluate(Obstacle* obstacle_ptr) {
   CHECK_NOTNULL(lane_graph_ptr);
   if (lane_graph_ptr->lane_sequence_size() == 0) {
     AERROR << "Obstacle [" << id << "] has no lane sequences.";
-    return false;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: MLPEvaluator::Evaluate";
+  return false;
   }
 
   std::vector<double> obstacle_feature_values;
@@ -97,7 +119,9 @@ bool MLPEvaluator::Evaluate(Obstacle* obstacle_ptr) {
     ADEBUG << "Obstacle [" << id << "] has fewer than "
            << "expected obstacle feature_values "
            << obstacle_feature_values.size() << ".";
-    return false;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: MLPEvaluator::Evaluate";
+  return false;
   }
 
   for (int i = 0; i < lane_graph_ptr->lane_sequence_size(); ++i) {
@@ -125,7 +149,9 @@ bool MLPEvaluator::Evaluate(Obstacle* obstacle_ptr) {
       FeatureOutput::InsertDataForLearning(*latest_feature_ptr, feature_values,
                                            "mlp", lane_sequence_ptr);
       ADEBUG << "Save extracted features for learning locally.";
-      return true;  // Skip Compute probability for offline mode
+      
+  AINFO<<"(DMCZP) (return) LeaveMethod: MLPEvaluator::Evaluate";
+  return true;  // Skip Compute probability for offline mode
     }
     double probability = ComputeProbability(feature_values);
 
@@ -135,12 +161,18 @@ bool MLPEvaluator::Evaluate(Obstacle* obstacle_ptr) {
     probability *= centripetal_acc_probability;
     lane_sequence_ptr->set_probability(probability);
   }
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: MLPEvaluator::Evaluate";
   return true;
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: MLPEvaluator::Evaluate";
+ }
 
 void MLPEvaluator::ExtractFeatureValues(Obstacle* obstacle_ptr,
                                         LaneSequence* lane_sequence_ptr,
                                         std::vector<double>* feature_values) {
+  AINFO<<"(DMCZP) EnteringMethod: MLPEvaluator::ExtractFeatureValues";
+
   AINFO<<"(pengzi) MLP evaluator, ExtractFeatureValues . thread: " << std::this_thread::get_id();                                    
   int id = obstacle_ptr->id();
   std::vector<double> obstacle_feature_values;
@@ -151,7 +183,9 @@ void MLPEvaluator::ExtractFeatureValues(Obstacle* obstacle_ptr,
     ADEBUG << "Obstacle [" << id << "] has fewer than "
            << "expected obstacle feature_values "
            << obstacle_feature_values.size() << ".";
-    return;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: MLPEvaluator::ExtractFeatureValues";
+  return;
   }
 
   std::vector<double> lane_feature_values;
@@ -160,25 +194,35 @@ void MLPEvaluator::ExtractFeatureValues(Obstacle* obstacle_ptr,
     ADEBUG << "Obstacle [" << id << "] has fewer than "
            << "expected lane feature_values" << lane_feature_values.size()
            << ".";
-    return;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: MLPEvaluator::ExtractFeatureValues";
+  return;
   }
 
   feature_values->insert(feature_values->end(), obstacle_feature_values.begin(),
                          obstacle_feature_values.end());
   feature_values->insert(feature_values->end(), lane_feature_values.begin(),
                          lane_feature_values.end());
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: MLPEvaluator::ExtractFeatureValues";
+ }
 
 void MLPEvaluator::SaveOfflineFeatures(
     LaneSequence* sequence, const std::vector<double>& feature_values) {
+  AINFO<<"(DMCZP) EnteringMethod: MLPEvaluator::SaveOfflineFeatures";
+
 AINFO<<"(pengzi) MLP evaluator, SaveOfflineFeatures . thread: " << std::this_thread::get_id();
   for (double feature_value : feature_values) {
     sequence->mutable_features()->add_mlp_features(feature_value);
   }
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: MLPEvaluator::SaveOfflineFeatures";
+ }
 
 void MLPEvaluator::SetObstacleFeatureValues(
     Obstacle* obstacle_ptr, std::vector<double>* feature_values) {
+  AINFO<<"(DMCZP) EnteringMethod: MLPEvaluator::SetObstacleFeatureValues";
+
   AINFO<<"(pengzi) MLP evaluator, SetObstacleFeatureValues value. thread: " << std::this_thread::get_id();
   feature_values->clear();
   feature_values->reserve(OBSTACLE_FEATURE_SIZE);
@@ -215,7 +259,9 @@ void MLPEvaluator::SetObstacleFeatureValues(
     }
   }
   if (count <= 0) {
-    return;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: MLPEvaluator::SetObstacleFeatureValues";
+  return;
   }
   size_t curr_size = 5;
   size_t hist_size = obstacle_ptr->history_size();
@@ -312,11 +358,15 @@ void MLPEvaluator::SetObstacleFeatureValues(
   feature_values->push_back(lane_types.front() == 1 ? 1.0 : 0.0);
   feature_values->push_back(lane_types.front() == 2 ? 1.0 : 0.0);
   feature_values->push_back(lane_types.front() == 3 ? 1.0 : 0.0);
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: MLPEvaluator::SetObstacleFeatureValues";
+ }
 
 void MLPEvaluator::SetLaneFeatureValues(Obstacle* obstacle_ptr,
                                         LaneSequence* lane_sequence_ptr,
                                         std::vector<double>* feature_values) {
+  AINFO<<"(DMCZP) EnteringMethod: MLPEvaluator::SetLaneFeatureValues";
+
 
     AINFO<<"(pengzi) MLP evaluator, set lane feature value. thread: " << std::this_thread::get_id();
 
@@ -325,10 +375,14 @@ void MLPEvaluator::SetLaneFeatureValues(Obstacle* obstacle_ptr,
   const Feature& feature = obstacle_ptr->latest_feature();
   if (!feature.IsInitialized()) {
     ADEBUG << "Obstacle [" << obstacle_ptr->id() << "] has no latest feature.";
-    return;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: MLPEvaluator::SetLaneFeatureValues";
+  return;
   } else if (!feature.has_position()) {
     ADEBUG << "Obstacle [" << obstacle_ptr->id() << "] has no position.";
-    return;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: MLPEvaluator::SetLaneFeatureValues";
+  return;
   }
 
   double heading = feature.velocity_heading();
@@ -368,9 +422,13 @@ void MLPEvaluator::SetLaneFeatureValues(Obstacle* obstacle_ptr,
     feature_values->push_back(angle_diff);
     size = feature_values->size();
   }
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: MLPEvaluator::SetLaneFeatureValues";
+ }
 
 void MLPEvaluator::LoadModel(const std::string& model_file) {
+  AINFO<<"(DMCZP) EnteringMethod: MLPEvaluator::LoadModel";
+
   model_ptr_.reset(new FnnVehicleModel());
   CHECK(model_ptr_ != nullptr);
   CHECK(cyber::common::GetProtoFromFile(model_file, model_ptr_.get()))
@@ -379,10 +437,14 @@ void MLPEvaluator::LoadModel(const std::string& model_file) {
   AINFO << "Succeeded in loading the model file: " << model_file << ".";
   AINFO<<"(pengzi)  predictor mlp evaluator. Succeeded in loading the model file: " << model_file 
        << "thread: " << std::this_thread::get_id();
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: MLPEvaluator::LoadModel";
+ }
 
 double MLPEvaluator::ComputeProbability(
     const std::vector<double>& feature_values) {
+  AINFO<<"(DMCZP) EnteringMethod: MLPEvaluator::ComputeProbability";
+
  
   CHECK_NOTNULL(model_ptr_.get());
   double probability = 0.0;
@@ -391,7 +453,9 @@ double MLPEvaluator::ComputeProbability(
     ADEBUG << "Model feature size not consistent with model proto definition. "
            << "model input dim = " << model_ptr_->dim_input()
            << "; feature value size = " << feature_values.size();
-    return probability;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: MLPEvaluator::ComputeProbability";
+  return probability;
   }
   std::vector<double> layer_input;
   layer_input.reserve(model_ptr_->dim_input());
@@ -469,8 +533,12 @@ double MLPEvaluator::ComputeProbability(
          << " total neuron:" << total_neuron <<" active neuron: "<< active_neuron 
         << " thread: " << std::this_thread::get_id();
  
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: MLPEvaluator::ComputeProbability";
   return probability;
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: MLPEvaluator::ComputeProbability";
+ }
 
 }  // namespace prediction
 }  // namespace apollo

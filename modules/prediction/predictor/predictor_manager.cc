@@ -50,20 +50,32 @@ namespace {
 void GroupObstaclesByObstacleId(const int obstacle_id,
                                 ObstaclesContainer* const obstacles_container,
                                 IdObstacleListMap* const id_obstacle_map) {
+  AINFO<<"(DMCZP) EnteringMethod: GroupObstaclesByObstacleId";
+
   Obstacle* obstacle_ptr = obstacles_container->GetObstacle(obstacle_id);
   if (obstacle_ptr == nullptr) {
     AERROR << "Null obstacle [" << obstacle_id << "] found";
-    return;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: GroupObstaclesByObstacleId";
+  return;
   }
   int id_mod = obstacle_id % FLAGS_max_thread_num;
   (*id_obstacle_map)[id_mod].push_back(obstacle_ptr);
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: GroupObstaclesByObstacleId";
+ }
 
 }  // namespace
 
-PredictorManager::PredictorManager() { RegisterPredictors(); }
+PredictorManager::PredictorManager() {
+  AINFO<<"(DMCZP) EnteringMethod: PredictorManager::PredictorManager";
+ RegisterPredictors(); 
+  AINFO<<"(DMCZP) LeaveMethod: PredictorManager::PredictorManager";
+ }
 
 void PredictorManager::RegisterPredictors() {
+  AINFO<<"(DMCZP) EnteringMethod: PredictorManager::RegisterPredictors";
+
   RegisterPredictor(ObstacleConf::LANE_SEQUENCE_PREDICTOR);
   RegisterPredictor(ObstacleConf::MOVE_SEQUENCE_PREDICTOR);
   RegisterPredictor(ObstacleConf::SINGLE_LANE_PREDICTOR);
@@ -73,9 +85,13 @@ void PredictorManager::RegisterPredictors() {
   RegisterPredictor(ObstacleConf::JUNCTION_PREDICTOR);
   RegisterPredictor(ObstacleConf::EXTRAPOLATION_PREDICTOR);
   RegisterPredictor(ObstacleConf::INTERACTION_PREDICTOR);
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: PredictorManager::RegisterPredictors";
+ }
 
 void PredictorManager::Init(const PredictionConf& config) {
+  AINFO<<"(DMCZP) EnteringMethod: PredictorManager::Init";
+
   for (const auto& obstacle_conf : config.obstacle_conf()) {
     if (!obstacle_conf.has_obstacle_type()) {
       AERROR << "Obstacle config [" << obstacle_conf.ShortDebugString()
@@ -148,15 +164,25 @@ void PredictorManager::Init(const PredictionConf& config) {
         << default_on_lane_predictor_ << "].";
   AINFO << "Defined default off lane obstacle predictor ["
         << default_off_lane_predictor_ << "].";
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: PredictorManager::Init";
+ }
 
 Predictor* PredictorManager::GetPredictor(
     const ObstacleConf::PredictorType& type) {
+  AINFO<<"(DMCZP) EnteringMethod: PredictorManager::GetPredictor";
+
   auto it = predictors_.find(type);
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: PredictorManager::GetPredictor";
   return it != predictors_.end() ? it->second.get() : nullptr;
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: PredictorManager::GetPredictor";
+ }
 
 void PredictorManager::Run() {
+  AINFO<<"(DMCZP) EnteringMethod: PredictorManager::Run";
+
   prediction_obstacles_.Clear();
   auto obstacles_container =
       ContainerManager::Instance()->GetContainer<ObstaclesContainer>(
@@ -173,11 +199,15 @@ void PredictorManager::Run() {
   } else {
     PredictObstacles(obstacles_container, adc_trajectory_container);
   }
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: PredictorManager::Run";
+ }
 
 void PredictorManager::PredictObstacles(
     ObstaclesContainer* obstacles_container,
     ADCTrajectoryContainer* adc_trajectory_container) {
+  AINFO<<"(DMCZP) EnteringMethod: PredictorManager::PredictObstacles";
+
   for (const int id : obstacles_container->curr_frame_obstacle_ids()) {
     if (id < 0) {
       ADEBUG << "The obstacle has invalid id [" << id << "].";
@@ -206,11 +236,15 @@ void PredictorManager::PredictObstacles(
     prediction_obstacles_.add_prediction_obstacle()->CopyFrom(
         prediction_obstacle);
   }
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: PredictorManager::PredictObstacles";
+ }
 
 void PredictorManager::PredictObstaclesInParallel(
     ObstaclesContainer* obstacles_container,
     ADCTrajectoryContainer* adc_trajectory_container) {
+  AINFO<<"(DMCZP) EnteringMethod: PredictorManager::PredictObstaclesInParallel";
+
   IdPredictionObstacleMap id_prediction_obstacle_map;
   for (int id : obstacles_container->curr_frame_obstacle_ids()) {
     id_prediction_obstacle_map[id] = std::make_shared<PredictionObstacle>();
@@ -250,11 +284,15 @@ void PredictorManager::PredictObstaclesInParallel(
     prediction_obstacles_.add_prediction_obstacle()->CopyFrom(
         *prediction_obstacle_ptr);
   }
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: PredictorManager::PredictObstaclesInParallel";
+ }
 
 void PredictorManager::PredictObstacle(
     Obstacle* obstacle, PredictionObstacle* const prediction_obstacle,
     ADCTrajectoryContainer* adc_trajectory_container) {
+  AINFO<<"(DMCZP) EnteringMethod: PredictorManager::PredictObstacle";
+
   CHECK_NOTNULL(obstacle);
   Predictor* predictor = nullptr;
   prediction_obstacle->set_timestamp(obstacle->timestamp());
@@ -327,7 +365,9 @@ void PredictorManager::PredictObstacle(
     FeatureOutput::InsertPredictionResult(obstacle->id(), *prediction_obstacle,
                                           obstacle->obstacle_conf());
   }
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: PredictorManager::PredictObstacle";
+ }
 
 std::unique_ptr<Predictor> PredictorManager::CreatePredictor(
     const ObstacleConf::PredictorType& type) {
@@ -376,13 +416,23 @@ std::unique_ptr<Predictor> PredictorManager::CreatePredictor(
 
 void PredictorManager::RegisterPredictor(
     const ObstacleConf::PredictorType& type) {
+  AINFO<<"(DMCZP) EnteringMethod: PredictorManager::RegisterPredictor";
+
   predictors_[type] = CreatePredictor(type);
   AINFO << "Predictor [" << type << "] is registered.";
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: PredictorManager::RegisterPredictor";
+ }
 
 const PredictionObstacles& PredictorManager::prediction_obstacles() {
+  AINFO<<"(DMCZP) EnteringMethod: PredictorManager::prediction_obstacles";
+
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: PredictorManager::prediction_obstacles";
   return prediction_obstacles_;
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: PredictorManager::prediction_obstacles";
+ }
 
 }  // namespace prediction
 }  // namespace apollo

@@ -41,11 +41,17 @@ using apollo::perception::PerceptionObstacles;
 
 PedestrianInteractionEvaluator::PedestrianInteractionEvaluator()
     : device_(torch::kCPU) {
+  AINFO<<"(DMCZP) EnteringMethod: PedestrianInteractionEvaluator::PedestrianInteractionEvaluator";
+
   evaluator_type_ = ObstacleConf::PEDESTRIAN_INTERACTION_EVALUATOR;
   LoadModel();
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: PedestrianInteractionEvaluator::PedestrianInteractionEvaluator";
+ }
 
 void PedestrianInteractionEvaluator::Clear() {
+  AINFO<<"(DMCZP) EnteringMethod: PedestrianInteractionEvaluator::Clear";
+
   auto ptr_obstacles_container =
       ContainerManager::Instance()->GetContainer<ObstaclesContainer>(
           AdapterConfig::PERCEPTION_OBSTACLES);
@@ -60,9 +66,13 @@ void PedestrianInteractionEvaluator::Clear() {
   for (const int key : keys_to_delete) {
     obstacle_id_lstm_state_map_.erase(key);
   }
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: PedestrianInteractionEvaluator::Clear";
+ }
 
 void PedestrianInteractionEvaluator::LoadModel() {
+  AINFO<<"(DMCZP) EnteringMethod: PedestrianInteractionEvaluator::LoadModel";
+
   AINFO<<"(pengzi) load model for pedestrian interaction evaluator. thread:"<<std::this_thread::get_id();
   torch::set_num_threads(1);
   // TODO(all) uncomment the following when cuda issue is resolved
@@ -95,14 +105,24 @@ AINFO<< "(pengzi)(pedestrian)load single lstm modelname:" << FLAGS_torch_pedestr
 
    AINFO<< "(pengzi)(pedestrian)load FLAGS_torch_pedestrian_interaction_prediction_layer_file modelname:" << FLAGS_torch_pedestrian_interaction_prediction_layer_file << ". thread:" << this_id <<".";
     
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: PedestrianInteractionEvaluator::LoadModel";
+ }
 
 torch::Tensor PedestrianInteractionEvaluator::GetSocialPooling() {
+  AINFO<<"(DMCZP) EnteringMethod: PedestrianInteractionEvaluator::GetSocialPooling";
+
   // TODO(kechxu) implement more sophisticated logics
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: PedestrianInteractionEvaluator::GetSocialPooling";
   return torch::zeros({1, kGridSize * kGridSize * kHiddenSize});
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: PedestrianInteractionEvaluator::GetSocialPooling";
+ }
 
 bool PedestrianInteractionEvaluator::Evaluate(Obstacle* obstacle_ptr) {
+  AINFO<<"(DMCZP) EnteringMethod: PedestrianInteractionEvaluator::Evaluate";
+
   // Sanity checks.
   CHECK_NOTNULL(obstacle_ptr);
 
@@ -111,7 +131,9 @@ bool PedestrianInteractionEvaluator::Evaluate(Obstacle* obstacle_ptr) {
   int id = obstacle_ptr->id();
   if (!obstacle_ptr->latest_feature().IsInitialized()) {
     AERROR << "Obstacle [" << id << "] has no latest feature.";
-    return false;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: PedestrianInteractionEvaluator::Evaluate";
+  return false;
   }
   Feature* latest_feature_ptr = obstacle_ptr->mutable_latest_feature();
   CHECK_NOTNULL(latest_feature_ptr);
@@ -126,7 +148,9 @@ bool PedestrianInteractionEvaluator::Evaluate(Obstacle* obstacle_ptr) {
     FeatureOutput::InsertDataForLearning(*latest_feature_ptr, feature_values,
                                          "pedestrian", nullptr);
     ADEBUG << "Saving extracted features for learning locally.";
-    return true;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: PedestrianInteractionEvaluator::Evaluate";
+  return true;
   }
 
   constexpr double kShortTermPredictionTimeResolution = 0.4;
@@ -271,11 +295,17 @@ bool PedestrianInteractionEvaluator::Evaluate(Obstacle* obstacle_ptr) {
                              static_cast<double>(i));
   }
 
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: PedestrianInteractionEvaluator::Evaluate";
   return true;
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: PedestrianInteractionEvaluator::Evaluate";
+ }
 
 bool PedestrianInteractionEvaluator::ExtractFeatures(
     const Obstacle* obstacle_ptr, std::vector<double>* feature_values) {
+  AINFO<<"(DMCZP) EnteringMethod: PedestrianInteractionEvaluator::ExtractFeatures";
+
   // Sanity checks.
   CHECK_NOTNULL(obstacle_ptr);
   CHECK_NOTNULL(feature_values);
@@ -292,8 +322,12 @@ bool PedestrianInteractionEvaluator::ExtractFeatures(
   feature_values->push_back(pos_x);
   feature_values->push_back(pos_y);
 
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: PedestrianInteractionEvaluator::ExtractFeatures";
   return true;
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: PedestrianInteractionEvaluator::ExtractFeatures";
+ }
 
 }  // namespace prediction
 }  // namespace apollo

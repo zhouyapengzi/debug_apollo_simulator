@@ -42,18 +42,30 @@ using apollo::common::math::Vec2d;
 using apollo::cyber::common::GetProtoFromFile;
 
 LaneScanningEvaluator::LaneScanningEvaluator() : device_(torch::kCPU) {
+  AINFO<<"(DMCZP) EnteringMethod: LaneScanningEvaluator::LaneScanningEvaluator";
+
   evaluator_type_ = ObstacleConf::LANE_SCANNING_EVALUATOR;
   LoadModel();
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: LaneScanningEvaluator::LaneScanningEvaluator";
+ }
 
 bool LaneScanningEvaluator::Evaluate(Obstacle* obstacle_ptr) {
+  AINFO<<"(DMCZP) EnteringMethod: LaneScanningEvaluator::Evaluate";
+
   std::vector<Obstacle*> dummy_dynamic_env;
   Evaluate(obstacle_ptr, dummy_dynamic_env);
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: LaneScanningEvaluator::Evaluate";
   return true;
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: LaneScanningEvaluator::Evaluate";
+ }
 
 bool LaneScanningEvaluator::Evaluate(Obstacle* obstacle_ptr,
                                      std::vector<Obstacle*> dynamic_env) {
+  AINFO<<"(DMCZP) EnteringMethod: LaneScanningEvaluator::Evaluate";
+
 
   AINFO<<"(pengzi) Begin LaneScanningEvaluator::Evaluate. thread: " << std::this_thread::get_id();                                      
   // Sanity checks.
@@ -65,21 +77,27 @@ bool LaneScanningEvaluator::Evaluate(Obstacle* obstacle_ptr,
   int id = obstacle_ptr->id();
   if (!obstacle_ptr->latest_feature().IsInitialized()) {
     AERROR << "Obstacle [" << id << "] has no latest feature.";
-    return false;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: LaneScanningEvaluator::Evaluate";
+  return false;
   }
   Feature* latest_feature_ptr = obstacle_ptr->mutable_latest_feature();
   CHECK_NOTNULL(latest_feature_ptr);
   if (!latest_feature_ptr->has_lane() ||
       !latest_feature_ptr->lane().has_lane_graph_ordered()) {
     AERROR << "Obstacle [" << id << "] has no lane graph.";
-    return false;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: LaneScanningEvaluator::Evaluate";
+  return false;
   }
   LaneGraph* lane_graph_ptr =
       latest_feature_ptr->mutable_lane()->mutable_lane_graph_ordered();
   CHECK_NOTNULL(lane_graph_ptr);
   if (lane_graph_ptr->lane_sequence_size() == 0) {
     AERROR << "Obstacle [" << id << "] has no lane sequences.";
-    return false;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: LaneScanningEvaluator::Evaluate";
+  return false;
   }
   ADEBUG << "There are " << lane_graph_ptr->lane_sequence_size()
          << " lane sequences to scan.";
@@ -99,7 +117,9 @@ bool LaneScanningEvaluator::Evaluate(Obstacle* obstacle_ptr,
                                          string_feature_values, "cruise",
                                          nullptr);
     ADEBUG << "Save extracted features for learning locally.";
-    return true;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: LaneScanningEvaluator::Evaluate";
+  return true;
   }
 
   feature_values.push_back(static_cast<double>(MAX_NUM_LANE));
@@ -116,12 +136,18 @@ bool LaneScanningEvaluator::Evaluate(Obstacle* obstacle_ptr,
 
   AINFO<<"(pengzi) Finish LaneScanningEvaluator::Evaluate. thread: " << std::this_thread::get_id();               
   
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: LaneScanningEvaluator::Evaluate";
   return true;
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: LaneScanningEvaluator::Evaluate";
+ }
 
 bool LaneScanningEvaluator::ExtractStringFeatures(
     const LaneGraph& lane_graph,
     std::vector<std::string>* const string_feature_values) {
+  AINFO<<"(DMCZP) EnteringMethod: LaneScanningEvaluator::ExtractStringFeatures";
+
   for (const LaneSequence& lane_sequence : lane_graph.lane_sequence()) {
     string_feature_values->push_back("|");
     for (int i = lane_sequence.adc_lane_segment_idx();
@@ -129,12 +155,18 @@ bool LaneScanningEvaluator::ExtractStringFeatures(
       string_feature_values->push_back(lane_sequence.lane_segment(i).lane_id());
     }
   }
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: LaneScanningEvaluator::ExtractStringFeatures";
   return true;
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: LaneScanningEvaluator::ExtractStringFeatures";
+ }
 
 bool LaneScanningEvaluator::ExtractFeatures(
     const Obstacle* obstacle_ptr, const LaneGraph* lane_graph_ptr,
     std::vector<double>* feature_values) {
+  AINFO<<"(DMCZP) EnteringMethod: LaneScanningEvaluator::ExtractFeatures";
+
 
  AINFO<<"(pengzi)  LaneScanningEvaluator::ExtractFeatures. thread: " << std::this_thread::get_id();
    
@@ -152,7 +184,9 @@ bool LaneScanningEvaluator::ExtractFeatures(
     ADEBUG << "Obstacle [" << id << "] has fewer than "
            << "expected obstacle feature_values "
            << obstacle_feature_values.size() << ".";
-    return false;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: LaneScanningEvaluator::ExtractFeatures";
+  return false;
   }
   ADEBUG << "Obstacle feature size = " << obstacle_feature_values.size();
   feature_values->insert(feature_values->end(), obstacle_feature_values.begin(),
@@ -173,16 +207,24 @@ bool LaneScanningEvaluator::ExtractFeatures(
       0) {
     AERROR << "Obstacle [" << id << "] has incorrect static env feature size: "
            << static_feature_values.size() << ".";
-    return false;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: LaneScanningEvaluator::ExtractFeatures";
+  return false;
   }
   feature_values->insert(feature_values->end(), static_feature_values.begin(),
                          static_feature_values.end());
 
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: LaneScanningEvaluator::ExtractFeatures";
   return true;
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: LaneScanningEvaluator::ExtractFeatures";
+ }
 
 bool LaneScanningEvaluator::ExtractObstacleFeatures(
     const Obstacle* obstacle_ptr, std::vector<double>* feature_values) {
+  AINFO<<"(DMCZP) EnteringMethod: LaneScanningEvaluator::ExtractObstacleFeatures";
+
    AINFO<<"(pengzi)  LaneScanningEvaluator::ExtractObstacleFeatures. thread: " << std::this_thread::get_id();
    
   // Sanity checks.
@@ -289,13 +331,19 @@ bool LaneScanningEvaluator::ExtractObstacleFeatures(
     feature_values->push_back(vel_heading_changing_rate_history[i]);
   }
 
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: LaneScanningEvaluator::ExtractObstacleFeatures";
   return true;
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: LaneScanningEvaluator::ExtractObstacleFeatures";
+ }
 
 bool LaneScanningEvaluator::ExtractStaticEnvFeatures(
     const Obstacle* obstacle_ptr, const LaneGraph* lane_graph_ptr,
     std::vector<double>* feature_values,
     std::vector<int>* lane_sequence_idx_to_remove) {
+  AINFO<<"(DMCZP) EnteringMethod: LaneScanningEvaluator::ExtractStaticEnvFeatures";
+
   // Sanity checks.
   CHECK_NOTNULL(lane_graph_ptr);
   feature_values->clear();
@@ -422,7 +470,9 @@ bool LaneScanningEvaluator::ExtractStaticEnvFeatures(
   if (FLAGS_prediction_offline_mode ==
       PredictionConstants::kDumpDataForLearning) {
     // Early exit without appending zero for offline_dataforlearn_dump
-    return true;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: LaneScanningEvaluator::ExtractStaticEnvFeatures";
+  return true;
   }
 
   size_t max_feature_size =
@@ -431,10 +481,16 @@ bool LaneScanningEvaluator::ExtractStaticEnvFeatures(
     feature_values->push_back(0.0);
   }
 
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: LaneScanningEvaluator::ExtractStaticEnvFeatures";
   return true;
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: LaneScanningEvaluator::ExtractStaticEnvFeatures";
+ }
 
 void LaneScanningEvaluator::LoadModel() {
+  AINFO<<"(DMCZP) EnteringMethod: LaneScanningEvaluator::LoadModel";
+
   // TODO(all) uncomment the following when cuda issue is resolved
   // if (torch::cuda::is_available()) {
   //   ADEBUG << "CUDA is available";
@@ -447,12 +503,16 @@ void LaneScanningEvaluator::LoadModel() {
        << " device: "<< device_
        <<" thread: " << std::this_thread::get_id();
   
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: LaneScanningEvaluator::LoadModel";
+ }
 
 void LaneScanningEvaluator::ModelInference(
     const std::vector<torch::jit::IValue>& torch_inputs,
     std::shared_ptr<torch::jit::script::Module> torch_model_ptr,
     Feature* feature_ptr) {
+  AINFO<<"(DMCZP) EnteringMethod: LaneScanningEvaluator::ModelInference";
+
    AINFO<<"(pengzi)  predictor lane scaning evaluator.begin model inferece. thread: " << std::this_thread::get_id();
 
   auto torch_output_tensor = torch_model_ptr->forward(torch_inputs).toTensor();
@@ -472,7 +532,9 @@ void LaneScanningEvaluator::ModelInference(
                             FLAGS_prediction_trajectory_time_resolution);
     feature_ptr->add_short_term_predicted_trajectory_points()->CopyFrom(point);
   }
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: LaneScanningEvaluator::ModelInference";
+ }
 
 }  // namespace prediction
 }  // namespace apollo

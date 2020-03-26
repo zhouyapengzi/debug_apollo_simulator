@@ -31,13 +31,23 @@ namespace apollo {
 namespace prediction {
 
 JunctionMapEvaluator::JunctionMapEvaluator() : device_(torch::kCPU) {
+  AINFO<<"(DMCZP) EnteringMethod: JunctionMapEvaluator::JunctionMapEvaluator";
+
   evaluator_type_ = ObstacleConf::JUNCTION_MAP_EVALUATOR;
   LoadModel();
-}
 
-void JunctionMapEvaluator::Clear() {}
+  AINFO<<"(DMCZP) LeaveMethod: JunctionMapEvaluator::JunctionMapEvaluator";
+ }
+
+void JunctionMapEvaluator::Clear() {
+  AINFO<<"(DMCZP) EnteringMethod: JunctionMapEvaluator::Clear";
+
+  AINFO<<"(DMCZP) LeaveMethod: JunctionMapEvaluator::Clear";
+ }
 
 bool JunctionMapEvaluator::Evaluate(Obstacle* obstacle_ptr) {
+  AINFO<<"(DMCZP) EnteringMethod: JunctionMapEvaluator::Evaluate";
+
   // Sanity checks.
   omp_set_num_threads(1);
 
@@ -48,7 +58,9 @@ bool JunctionMapEvaluator::Evaluate(Obstacle* obstacle_ptr) {
   int id = obstacle_ptr->id();
   if (!obstacle_ptr->latest_feature().IsInitialized()) {
     AERROR << "Obstacle [" << id << "] has no latest feature.";
-    return false;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: JunctionMapEvaluator::Evaluate";
+  return false;
   }
   Feature* latest_feature_ptr = obstacle_ptr->mutable_latest_feature();
   CHECK_NOTNULL(latest_feature_ptr);
@@ -57,22 +69,30 @@ bool JunctionMapEvaluator::Evaluate(Obstacle* obstacle_ptr) {
   if (!latest_feature_ptr->has_junction_feature() ||
       latest_feature_ptr->junction_feature().junction_exit_size() < 2) {
     ADEBUG << "Obstacle [" << id << "] has less than two junction_exits.";
-    return false;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: JunctionMapEvaluator::Evaluate";
+  return false;
   }
   // Extract features of junction_exit_mask
   std::vector<double> feature_values;
   if (!ExtractFeatureValues(obstacle_ptr, &feature_values)) {
     ADEBUG << "Obstacle [" << id << "] failed to extract junction exit mask";
-    return false;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: JunctionMapEvaluator::Evaluate";
+  return false;
   }
 
   if (!FLAGS_enable_semantic_map) {
     ADEBUG << "Not enable semantic map, exit junction_map_evaluator.";
-    return false;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: JunctionMapEvaluator::Evaluate";
+  return false;
   }
   cv::Mat feature_map;
   if (!SemanticMap::Instance()->GetMapById(id, &feature_map)) {
-    return false;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: JunctionMapEvaluator::Evaluate";
+  return false;
   }
 
   // Build input features for torch
@@ -126,7 +146,9 @@ bool JunctionMapEvaluator::Evaluate(Obstacle* obstacle_ptr) {
   CHECK_NOTNULL(lane_graph_ptr);
   if (lane_graph_ptr->lane_sequence_size() == 0) {
     AERROR << "Obstacle [" << id << "] has no lane sequences.";
-    return false;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: JunctionMapEvaluator::Evaluate";
+  return false;
   }
   for (int i = 0; i < lane_graph_ptr->lane_sequence_size(); ++i) {
     LaneSequence* lane_sequence_ptr = lane_graph_ptr->mutable_lane_sequence(i);
@@ -139,24 +161,34 @@ bool JunctionMapEvaluator::Evaluate(Obstacle* obstacle_ptr) {
       }
     }
   }
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: JunctionMapEvaluator::Evaluate";
   return true;
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: JunctionMapEvaluator::Evaluate";
+ }
 
 bool JunctionMapEvaluator::ExtractFeatureValues(
     Obstacle* obstacle_ptr, std::vector<double>* feature_values) {
+  AINFO<<"(DMCZP) EnteringMethod: JunctionMapEvaluator::ExtractFeatureValues";
+
   feature_values->clear();
   feature_values->resize(JUNCTION_FEATURE_SIZE, 0.0);
   Feature* feature_ptr = obstacle_ptr->mutable_latest_feature();
   if (!feature_ptr->has_position()) {
     ADEBUG << "Obstacle [" << obstacle_ptr->id() << "] has no position.";
-    return false;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: JunctionMapEvaluator::ExtractFeatureValues";
+  return false;
   }
   double heading = std::atan2(feature_ptr->raw_velocity().y(),
                               feature_ptr->raw_velocity().x());
   if (!feature_ptr->has_junction_feature()) {
     AERROR << "Obstacle [" << obstacle_ptr->id()
            << "] has no junction_feature.";
-    return false;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: JunctionMapEvaluator::ExtractFeatureValues";
+  return false;
   }
 
   int num_junction_exit = feature_ptr->junction_feature().junction_exit_size();
@@ -172,10 +204,16 @@ bool JunctionMapEvaluator::ExtractFeatureValues(
     int idx = static_cast<int>(floor(d_idx >= 0 ? d_idx : d_idx + 12));
     feature_values->at(idx) = 1.0;
   }
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: JunctionMapEvaluator::ExtractFeatureValues";
   return true;
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: JunctionMapEvaluator::ExtractFeatureValues";
+ }
 
 void JunctionMapEvaluator::LoadModel() {
+  AINFO<<"(DMCZP) EnteringMethod: JunctionMapEvaluator::LoadModel";
+
   // TODO(all) uncomment the following when cuda issue is resolved
   // if (torch::cuda::is_available()) {
   //   ADEBUG << "CUDA is available for JunctionMapEvaluator!";
@@ -188,7 +226,9 @@ void JunctionMapEvaluator::LoadModel() {
 
    AINFO<<"(pengzi) Finish JunctionMapEvaluator::LoadModel. Model file: " << FLAGS_torch_vehicle_junction_map_file
   << " thread: " << std::this_thread::get_id(); 
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: JunctionMapEvaluator::LoadModel";
+ }
 
 }  // namespace prediction
 }  // namespace apollo

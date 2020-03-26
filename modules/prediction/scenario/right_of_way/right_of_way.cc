@@ -39,25 +39,35 @@ using hdmap::OverlapInfo;
 using ConstLaneInfoPtr = std::shared_ptr<const LaneInfo>;
 
 void RightOfWay::Analyze() {
+  AINFO<<"(DMCZP) EnteringMethod: RightOfWay::Analyze";
+
   ObstaclesContainer* obstacles_container =
       ContainerManager::Instance()->GetContainer<ObstaclesContainer>(
           AdapterConfig::PERCEPTION_OBSTACLES);
   if (obstacles_container == nullptr) {
     AERROR << "Null obstacles container found";
-    return;
-  }
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: RightOfWay::Analyze";
+  return;
+  
+  AINFO<<"(DMCZP) LeaveMethod: RightOfWay::Analyze";
+ }
 
   ADCTrajectoryContainer* adc_trajectory_container =
       ContainerManager::Instance()->GetContainer<ADCTrajectoryContainer>(
           AdapterConfig::PLANNING_TRAJECTORY);
   if (adc_trajectory_container == nullptr) {
     AERROR << "adc_trajectory_container is nullptr";
-    return;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: RightOfWay::Analyze";
+  return;
   }
   const std::vector<std::string>& lane_ids =
       adc_trajectory_container->GetADCLaneIDSequence();
   if (lane_ids.empty()) {
-    return;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: RightOfWay::Analyze";
+  return;
   }
 
   auto pose_container =
@@ -65,13 +75,17 @@ void RightOfWay::Analyze() {
           AdapterConfig::LOCALIZATION);
   if (pose_container == nullptr) {
     AERROR << "Pose container pointer is a null pointer.";
-    return;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: RightOfWay::Analyze";
+  return;
   }
   const PerceptionObstacle* pose_obstacle_ptr =
       pose_container->ToPerceptionObstacle();
   if (pose_obstacle_ptr == nullptr) {
     AERROR << "Pose obstacle pointer is a null pointer.";
-    return;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: RightOfWay::Analyze";
+  return;
   }
   double pose_x = pose_obstacle_ptr->position().x();
   double pose_y = pose_obstacle_ptr->position().y();

@@ -35,15 +35,25 @@ using apollo::common::adapter::AdapterConfig;
 using apollo::hdmap::LaneInfo;
 
 void SequencePredictor::Predict(Obstacle* obstacle) {
+  AINFO<<"(DMCZP) EnteringMethod: SequencePredictor::Predict";
+
   Clear();
 
   CHECK_NOTNULL(obstacle);
   CHECK_GT(obstacle->history_size(), 0);
-}
 
-void SequencePredictor::Clear() { Predictor::Clear(); }
+  AINFO<<"(DMCZP) LeaveMethod: SequencePredictor::Predict";
+ }
+
+void SequencePredictor::Clear() {
+  AINFO<<"(DMCZP) EnteringMethod: SequencePredictor::Clear";
+ Predictor::Clear(); 
+  AINFO<<"(DMCZP) LeaveMethod: SequencePredictor::Clear";
+ }
 
 std::string SequencePredictor::ToString(const LaneSequence& sequence) {
+  AINFO<<"(DMCZP) EnteringMethod: SequencePredictor::ToString";
+
   std::string str_lane_sequence = "";
   if (sequence.lane_segment_size() > 0) {
     str_lane_sequence += sequence.lane_segment(0).lane_id();
@@ -51,14 +61,22 @@ std::string SequencePredictor::ToString(const LaneSequence& sequence) {
   for (int i = 1; i < sequence.lane_segment_size(); ++i) {
     str_lane_sequence += ("->" + sequence.lane_segment(i).lane_id());
   }
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: SequencePredictor::ToString";
   return str_lane_sequence;
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: SequencePredictor::ToString";
+ }
 
 void SequencePredictor::FilterLaneSequences(
     const Feature& feature, const std::string& lane_id,
     std::vector<bool>* enable_lane_sequence) {
+  AINFO<<"(DMCZP) EnteringMethod: SequencePredictor::FilterLaneSequences";
+
   if (!feature.has_lane() || !feature.lane().has_lane_graph()) {
-    return;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: SequencePredictor::FilterLaneSequences";
+  return;
   }
   const LaneGraph& lane_graph = feature.lane().lane_graph();
   int num_lane_sequence = lane_graph.lane_sequence_size();
@@ -172,32 +190,50 @@ void SequencePredictor::FilterLaneSequences(
       (*enable_lane_sequence)[i] = false;
     }
   }
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: SequencePredictor::FilterLaneSequences";
+ }
 
 SequencePredictor::LaneChangeType SequencePredictor::GetLaneChangeType(
     const std::string& lane_id, const LaneSequence& lane_sequence) {
+  AINFO<<"(DMCZP) EnteringMethod: SequencePredictor::GetLaneChangeType";
+
   if (lane_id.empty()) {
-    return LaneChangeType::ONTO_LANE;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: SequencePredictor::GetLaneChangeType";
+  return LaneChangeType::ONTO_LANE;
   }
 
   std::string lane_change_id = lane_sequence.lane_segment(0).lane_id();
   if (lane_id == lane_change_id) {
-    return LaneChangeType::STRAIGHT;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: SequencePredictor::GetLaneChangeType";
+  return LaneChangeType::STRAIGHT;
   } else {
     auto ptr_change_lane = PredictionMap::LaneById(lane_change_id);
     auto ptr_current_lane = PredictionMap::LaneById(lane_id);
     if (PredictionMap::IsLeftNeighborLane(ptr_change_lane, ptr_current_lane)) {
-      return LaneChangeType::LEFT;
+      
+  AINFO<<"(DMCZP) (return) LeaveMethod: SequencePredictor::GetLaneChangeType";
+  return LaneChangeType::LEFT;
     } else if (PredictionMap::IsRightNeighborLane(ptr_change_lane,
                                                   ptr_current_lane)) {
-      return LaneChangeType::RIGHT;
+      
+  AINFO<<"(DMCZP) (return) LeaveMethod: SequencePredictor::GetLaneChangeType";
+  return LaneChangeType::RIGHT;
     }
   }
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: SequencePredictor::GetLaneChangeType";
   return LaneChangeType::INVALID;
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: SequencePredictor::GetLaneChangeType";
+ }
 
 double SequencePredictor::GetLaneChangeDistanceWithADC(
     const LaneSequence& lane_sequence) {
+  AINFO<<"(DMCZP) EnteringMethod: SequencePredictor::GetLaneChangeDistanceWithADC";
+
   auto pose_container =
       ContainerManager::Instance()->GetContainer<PoseContainer>(
           AdapterConfig::LOCALIZATION);
@@ -211,7 +247,9 @@ double SequencePredictor::GetLaneChangeDistanceWithADC(
   if (!adc_container->HasOverlap(lane_sequence)) {
     ADEBUG << "The sequence [" << ToString(lane_sequence)
            << "] has no overlap with ADC.";
-    return std::numeric_limits<double>::max();
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: SequencePredictor::GetLaneChangeDistanceWithADC";
+  return std::numeric_limits<double>::max();
   }
 
   Eigen::Vector2d adc_position;
@@ -227,50 +265,78 @@ double SequencePredictor::GetLaneChangeDistanceWithADC(
                                      PredictionMap::LaneById(obstacle_lane_id),
                                      &lane_s, &lane_l)) {
       ADEBUG << "Distance with ADC is " << std::fabs(lane_s - obstacle_lane_s);
-      return obstacle_lane_s - lane_s;
+      
+  AINFO<<"(DMCZP) (return) LeaveMethod: SequencePredictor::GetLaneChangeDistanceWithADC";
+  return obstacle_lane_s - lane_s;
     }
   }
 
   ADEBUG << "Invalid ADC pose.";
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: SequencePredictor::GetLaneChangeDistanceWithADC";
   return std::numeric_limits<double>::max();
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: SequencePredictor::GetLaneChangeDistanceWithADC";
+ }
 
 bool SequencePredictor::LaneSequenceWithMaxProb(const LaneChangeType& type,
                                                 const double probability,
                                                 const double max_prob) {
+  AINFO<<"(DMCZP) EnteringMethod: SequencePredictor::LaneSequenceWithMaxProb";
+
   if (probability > max_prob) {
-    return true;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: SequencePredictor::LaneSequenceWithMaxProb";
+  return true;
   } else {
     double prob_diff = std::fabs(probability - max_prob);
     if (prob_diff <= std::numeric_limits<double>::epsilon() &&
         type == LaneChangeType::STRAIGHT) {
-      return true;
+      
+  AINFO<<"(DMCZP) (return) LeaveMethod: SequencePredictor::LaneSequenceWithMaxProb";
+  return true;
     }
   }
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: SequencePredictor::LaneSequenceWithMaxProb";
   return false;
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: SequencePredictor::LaneSequenceWithMaxProb";
+ }
 
 bool SequencePredictor::LaneChangeWithMaxProb(const LaneChangeType& type,
                                               const double probability,
                                               const double max_prob) {
+  AINFO<<"(DMCZP) EnteringMethod: SequencePredictor::LaneChangeWithMaxProb";
+
   if (type == LaneChangeType::LEFT || type == LaneChangeType::RIGHT) {
     if (probability > max_prob) {
-      return true;
+      
+  AINFO<<"(DMCZP) (return) LeaveMethod: SequencePredictor::LaneChangeWithMaxProb";
+  return true;
     }
   }
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: SequencePredictor::LaneChangeWithMaxProb";
   return false;
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: SequencePredictor::LaneChangeWithMaxProb";
+ }
 
 void SequencePredictor::DrawConstantAccelerationTrajectory(
     const Obstacle& obstacle, const LaneSequence& lane_sequence,
     const double total_time, const double period, const double acceleration,
     std::vector<TrajectoryPoint>* points) {
+  AINFO<<"(DMCZP) EnteringMethod: SequencePredictor::DrawConstantAccelerationTrajectory";
+
   const Feature& feature = obstacle.latest_feature();
   if (!feature.has_position() || !feature.has_velocity() ||
       !feature.position().has_x() || !feature.position().has_y()) {
     AERROR << "Obstacle [" << obstacle.id()
            << " is missing position or velocity";
-    return;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: SequencePredictor::DrawConstantAccelerationTrajectory";
+  return;
   }
 
   Eigen::Vector2d position(feature.position().x(), feature.position().y());
@@ -284,7 +350,9 @@ void SequencePredictor::DrawConstantAccelerationTrajectory(
   double lane_l = 0.0;
   if (!PredictionMap::GetProjection(position, lane_info, &lane_s, &lane_l)) {
     AERROR << "Failed in getting lane s and lane l";
-    return;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: SequencePredictor::DrawConstantAccelerationTrajectory";
+  return;
   }
   size_t total_num = static_cast<size_t>(total_time / period);
   for (size_t i = 0; i < total_num; ++i) {
@@ -326,10 +394,14 @@ void SequencePredictor::DrawConstantAccelerationTrajectory(
 
     lane_l *= FLAGS_go_approach_rate;
   }
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: SequencePredictor::DrawConstantAccelerationTrajectory";
+ }
 
 double SequencePredictor::GetLaneSequenceCurvatureByS(
     const LaneSequence& lane_sequence, const double s) {
+  AINFO<<"(DMCZP) EnteringMethod: SequencePredictor::GetLaneSequenceCurvatureByS";
+
   CHECK_GT(lane_sequence.lane_segment_size(), 0);
   double lane_s = s + lane_sequence.lane_segment(0).start_s();
   for (const LaneSegment& lane_segment : lane_sequence.lane_segment()) {
@@ -340,17 +412,25 @@ double SequencePredictor::GetLaneSequenceCurvatureByS(
     if (lane_s > lane_length + FLAGS_double_precision) {
       lane_s -= lane_length;
     } else {
-      return lane_info_ptr->Curvature(lane_s);
+      
+  AINFO<<"(DMCZP) (return) LeaveMethod: SequencePredictor::GetLaneSequenceCurvatureByS";
+  return lane_info_ptr->Curvature(lane_s);
     }
   }
   ADEBUG << "Outside lane sequence range, use 0.0 to approximate.";
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: SequencePredictor::GetLaneSequenceCurvatureByS";
   return 0.0;
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: SequencePredictor::GetLaneSequenceCurvatureByS";
+ }
 
 bool SequencePredictor::GetLongitudinalPolynomial(
     const Obstacle& obstacle, const LaneSequence& lane_sequence,
     const std::pair<double, double>& lon_end_vt,
     std::array<double, 5>* coefficients) {
+  AINFO<<"(DMCZP) EnteringMethod: SequencePredictor::GetLongitudinalPolynomial";
+
   // Sanity check.
   CHECK_NOTNULL(coefficients);
   CHECK_GT(obstacle.history_size(), 0);
@@ -399,12 +479,18 @@ bool SequencePredictor::GetLongitudinalPolynomial(
   double p3 = p2 * p;
   coefficients->operator[](3) = b0 / p2 - b1 / 3.0 / p;
   coefficients->operator[](4) = -0.5 / p3 * b0 + 0.25 / p2 * b1;
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: SequencePredictor::GetLongitudinalPolynomial";
   return true;
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: SequencePredictor::GetLongitudinalPolynomial";
+ }
 
 bool SequencePredictor::GetLateralPolynomial(
     const Obstacle& obstacle, const LaneSequence& lane_sequence,
     const double time_to_end_state, std::array<double, 4>* coefficients) {
+  AINFO<<"(DMCZP) EnteringMethod: SequencePredictor::GetLateralPolynomial";
+
   // Sanity check.
   CHECK_NOTNULL(coefficients);
   CHECK_GT(obstacle.history_size(), 0);
@@ -456,8 +542,12 @@ bool SequencePredictor::GetLateralPolynomial(
   coefficients->operator[](2) = (3.0 * tmp_var2 - tmp_var1) / p2;
   coefficients->operator[](3) = (tmp_var1 - 2.0 * tmp_var2) / p3;
 
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: SequencePredictor::GetLateralPolynomial";
   return true;
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: SequencePredictor::GetLateralPolynomial";
+ }
 
 }  // namespace prediction
 }  // namespace apollo

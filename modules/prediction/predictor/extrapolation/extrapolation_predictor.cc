@@ -20,10 +20,16 @@ namespace apollo {
 namespace prediction {
 
 ExtrapolationPredictor::ExtrapolationPredictor() {
+  AINFO<<"(DMCZP) EnteringMethod: ExtrapolationPredictor::ExtrapolationPredictor";
+
   predictor_type_ = ObstacleConf::EXTRAPOLATION_PREDICTOR;
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: ExtrapolationPredictor::ExtrapolationPredictor";
+ }
 
 void ExtrapolationPredictor::Predict(Obstacle* obstacle) {
+  AINFO<<"(DMCZP) EnteringMethod: ExtrapolationPredictor::Predict";
+
   Clear();
 
   CHECK_NOTNULL(obstacle);
@@ -35,22 +41,30 @@ void ExtrapolationPredictor::Predict(Obstacle* obstacle) {
 
   if (!feature.has_lane() || !feature.lane().has_lane_graph()) {
     AERROR << "Obstacle [" << obstacle->id() << "] has no lane graph.";
-    return;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: ExtrapolationPredictor::Predict";
+  return;
   }
   std::vector<apollo::common::TrajectoryPoint> trajectory_points;
   DrawShortTermTrajectory(feature, &trajectory_points);
   Trajectory trajectory = GenerateTrajectory(trajectory_points);
   obstacle->mutable_latest_feature()->add_predicted_trajectory()->CopyFrom(
       trajectory);
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: ExtrapolationPredictor::Predict";
+ }
 
 void ExtrapolationPredictor::DrawShortTermTrajectory(
     const Feature& feature,
     std::vector<apollo::common::TrajectoryPoint>* points) {
+  AINFO<<"(DMCZP) EnteringMethod: ExtrapolationPredictor::DrawShortTermTrajectory";
+
   for (const auto& point : feature.short_term_predicted_trajectory_points()) {
     points->push_back(point);
   }
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: ExtrapolationPredictor::DrawShortTermTrajectory";
+ }
 
 }  // namespace prediction
 }  // namespace apollo

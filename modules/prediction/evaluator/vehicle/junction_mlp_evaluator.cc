@@ -44,25 +44,41 @@ using apollo::prediction::math_util::EvaluateCubicPolynomial;
 namespace {
 
 double ComputeMean(const std::vector<double>& nums, size_t start, size_t end) {
+  AINFO<<"(DMCZP) EnteringMethod: ComputeMean";
+
   int count = 0;
   double sum = 0.0;
   for (size_t i = start; i <= end && i < nums.size(); i++) {
     sum += nums[i];
     ++count;
   }
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: ComputeMean";
   return (count == 0) ? 0.0 : sum / count;
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: ComputeMean";
+ }
 
 }  // namespace
 
 JunctionMLPEvaluator::JunctionMLPEvaluator() : device_(torch::kCPU) {
+  AINFO<<"(DMCZP) EnteringMethod: JunctionMLPEvaluator::JunctionMLPEvaluator";
+
   evaluator_type_ = ObstacleConf::JUNCTION_MLP_EVALUATOR;
   LoadModel();
-}
 
-void JunctionMLPEvaluator::Clear() {}
+  AINFO<<"(DMCZP) LeaveMethod: JunctionMLPEvaluator::JunctionMLPEvaluator";
+ }
+
+void JunctionMLPEvaluator::Clear() {
+  AINFO<<"(DMCZP) EnteringMethod: JunctionMLPEvaluator::Clear";
+
+  AINFO<<"(DMCZP) LeaveMethod: JunctionMLPEvaluator::Clear";
+ }
 
 bool JunctionMLPEvaluator::Evaluate(Obstacle* obstacle_ptr) {
+  AINFO<<"(DMCZP) EnteringMethod: JunctionMLPEvaluator::Evaluate";
+
     AINFO<<"(pengzi) Begin JunctionMLPEvaluator::Evaluate. thread: " << std::this_thread::get_id();  
   // Sanity checks.
   omp_set_num_threads(1);
@@ -76,7 +92,9 @@ bool JunctionMLPEvaluator::Evaluate(Obstacle* obstacle_ptr) {
   int id = obstacle_ptr->id();
   if (!obstacle_ptr->latest_feature().IsInitialized()) {
     AERROR << "Obstacle [" << id << "] has no latest feature.";
-    return false;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: JunctionMLPEvaluator::Evaluate";
+  return false;
   }
   Feature* latest_feature_ptr = obstacle_ptr->mutable_latest_feature();
   CHECK_NOTNULL(latest_feature_ptr);
@@ -85,7 +103,9 @@ bool JunctionMLPEvaluator::Evaluate(Obstacle* obstacle_ptr) {
   if (!latest_feature_ptr->has_junction_feature() ||
       latest_feature_ptr->junction_feature().junction_exit_size() < 1) {
     ADEBUG << "Obstacle [" << id << "] has no junction_exit.";
-    return false;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: JunctionMLPEvaluator::Evaluate";
+  return false;
   }
 
   std::vector<double> feature_values;
@@ -97,7 +117,9 @@ bool JunctionMLPEvaluator::Evaluate(Obstacle* obstacle_ptr) {
     FeatureOutput::InsertDataForLearning(*latest_feature_ptr, feature_values,
                                          "junction", nullptr);
     ADEBUG << "Save extracted features for learning locally.";
-    return false;  // Skip Compute probability for offline mode
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: JunctionMLPEvaluator::Evaluate";
+  return false;  // Skip Compute probability for offline mode
   }
   std::vector<torch::jit::IValue> torch_inputs;
   int input_dim = static_cast<int>(
@@ -132,7 +154,9 @@ bool JunctionMLPEvaluator::Evaluate(Obstacle* obstacle_ptr) {
   CHECK_NOTNULL(lane_graph_ptr);
   if (lane_graph_ptr->lane_sequence_size() == 0) {
     AERROR << "Obstacle [" << id << "] has no lane sequences.";
-    return false;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: JunctionMLPEvaluator::Evaluate";
+  return false;
   }
 
   std::unordered_map<std::string, double> junction_exit_prob;
@@ -166,11 +190,17 @@ bool JunctionMLPEvaluator::Evaluate(Obstacle* obstacle_ptr) {
     }
   }
 AINFO<<"(pengzi) Finish JunctionMLPEvaluator::Evaluate. thread: " << std::this_thread::get_id();  
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: JunctionMLPEvaluator::Evaluate";
   return true;
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: JunctionMLPEvaluator::Evaluate";
+ }
 
 void JunctionMLPEvaluator::ExtractFeatureValues(
     Obstacle* obstacle_ptr, std::vector<double>* feature_values) {
+  AINFO<<"(DMCZP) EnteringMethod: JunctionMLPEvaluator::ExtractFeatureValues";
+
   AINFO<<"(pengzi) Begin JunctionMLPEvaluator::ExtractFeatureValues. thread: " << std::this_thread::get_id();     
   CHECK_NOTNULL(obstacle_ptr);
   int id = obstacle_ptr->id();
@@ -182,7 +212,9 @@ void JunctionMLPEvaluator::ExtractFeatureValues(
     AERROR << "Obstacle [" << id << "] has fewer than "
            << "expected obstacle feature_values "
            << obstacle_feature_values.size() << ".";
-    return;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: JunctionMLPEvaluator::ExtractFeatureValues";
+  return;
   }
 
   std::vector<double> ego_vehicle_feature_values;
@@ -191,7 +223,9 @@ void JunctionMLPEvaluator::ExtractFeatureValues(
     AERROR << "Obstacle [" << id << "] has fewer than "
            << "expected ego vehicle feature_values"
            << ego_vehicle_feature_values.size() << ".";
-    return;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: JunctionMLPEvaluator::ExtractFeatureValues";
+  return;
   }
 
   std::vector<double> junction_feature_values;
@@ -200,7 +234,9 @@ void JunctionMLPEvaluator::ExtractFeatureValues(
     AERROR << "Obstacle [" << id << "] has fewer than "
            << "expected junction feature_values"
            << junction_feature_values.size() << ".";
-    return;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: JunctionMLPEvaluator::ExtractFeatureValues";
+  return;
   }
 
   feature_values->insert(feature_values->end(), obstacle_feature_values.begin(),
@@ -212,17 +248,23 @@ void JunctionMLPEvaluator::ExtractFeatureValues(
                          junction_feature_values.end());
 
     AINFO<<"(pengzi) Finish JunctionMLPEvaluator::ExtractFeatureValues. thread: " << std::this_thread::get_id();                         
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: JunctionMLPEvaluator::ExtractFeatureValues";
+ }
 
 void JunctionMLPEvaluator::SetObstacleFeatureValues(
     Obstacle* obstacle_ptr, std::vector<double>* feature_values) {
+  AINFO<<"(DMCZP) EnteringMethod: JunctionMLPEvaluator::SetObstacleFeatureValues";
+
 AINFO<<"(pengzi) Begin JunctionMLPEvaluator::SetObstacleFeatureValues. thread: " << std::this_thread::get_id(); 
   feature_values->clear();
   feature_values->reserve(OBSTACLE_FEATURE_SIZE);
   const Feature& feature = obstacle_ptr->latest_feature();
   if (!feature.has_position()) {
     ADEBUG << "Obstacle [" << obstacle_ptr->id() << "] has no position.";
-    return;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: JunctionMLPEvaluator::SetObstacleFeatureValues";
+  return;
   }
   std::pair<double, double> obs_curr_pos =
       std::make_pair(feature.position().x(), feature.position().y());
@@ -260,10 +302,14 @@ AINFO<<"(pengzi) Begin JunctionMLPEvaluator::SetObstacleFeatureValues. thread: "
     feature_values->push_back(pos_history[i].second);
   }
   AINFO<<"(pengzi) Finish JunctionMLPEvaluator::SetObstacleFeatureValues. thread: " << std::this_thread::get_id(); 
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: JunctionMLPEvaluator::SetObstacleFeatureValues";
+ }
 
 void JunctionMLPEvaluator::SetEgoVehicleFeatureValues(
     Obstacle* obstacle_ptr, std::vector<double>* const feature_values) {
+  AINFO<<"(DMCZP) EnteringMethod: JunctionMLPEvaluator::SetEgoVehicleFeatureValues";
+
   AINFO<<"(pengzi) Begin JunctionMLPEvaluator::SetEgoVehicleFeatureValues. thread: " << std::this_thread::get_id(); 
   feature_values->clear();
   *feature_values = std::vector<double>(4, 0.0);
@@ -273,7 +319,9 @@ void JunctionMLPEvaluator::SetEgoVehicleFeatureValues(
   if (ego_pose_container_ptr == nullptr) {
     (*feature_values)[0] = 100.0;
     (*feature_values)[1] = 100.0;
-    return;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: JunctionMLPEvaluator::SetEgoVehicleFeatureValues";
+  return;
   }
   const auto ego_pose_obstacle_ptr =
       ego_pose_container_ptr->ToPerceptionObstacle();
@@ -295,24 +343,32 @@ void JunctionMLPEvaluator::SetEgoVehicleFeatureValues(
          << ego_relative_position.y() << "} "
          << "ego_relative_velocity = {" << ego_relative_velocity.x() << ", "
          << ego_relative_velocity.y() << "}";
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: JunctionMLPEvaluator::SetEgoVehicleFeatureValues";
+ }
 
 void JunctionMLPEvaluator::SetJunctionFeatureValues(
     Obstacle* obstacle_ptr, std::vector<double>* feature_values) {
+  AINFO<<"(DMCZP) EnteringMethod: JunctionMLPEvaluator::SetJunctionFeatureValues";
+
   AINFO<<"(pengzi) Begin JunctionMLPEvaluator::SetJunctionFeatureValues. thread: " << std::this_thread::get_id(); 
   feature_values->clear();
   feature_values->reserve(JUNCTION_FEATURE_SIZE);
   Feature* feature_ptr = obstacle_ptr->mutable_latest_feature();
   if (!feature_ptr->has_position()) {
     ADEBUG << "Obstacle [" << obstacle_ptr->id() << "] has no position.";
-    return;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: JunctionMLPEvaluator::SetJunctionFeatureValues";
+  return;
   }
   double heading = std::atan2(feature_ptr->raw_velocity().y(),
                               feature_ptr->raw_velocity().x());
   if (!feature_ptr->has_junction_feature()) {
     AERROR << "Obstacle [" << obstacle_ptr->id()
            << "] has no junction_feature.";
-    return;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: JunctionMLPEvaluator::SetJunctionFeatureValues";
+  return;
   }
   std::string junction_id = feature_ptr->junction_feature().junction_id();
   double junction_range = feature_ptr->junction_feature().junction_range();
@@ -371,9 +427,13 @@ void JunctionMLPEvaluator::SetJunctionFeatureValues(
     feature_values->operator[](idx * 8 + 6) = diff_heading;
     feature_values->operator[](idx * 8 + 7) = cost;
   }
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: JunctionMLPEvaluator::SetJunctionFeatureValues";
+ }
 
 void JunctionMLPEvaluator::LoadModel() {
+  AINFO<<"(DMCZP) EnteringMethod: JunctionMLPEvaluator::LoadModel";
+
   AINFO<<"(pengzi) Begin JunctionMLPEvaluator::LoadModel. thread: " << std::this_thread::get_id(); 
   // TODO(all) uncomment the following when cuda issue is resolved
   // if (torch::cuda::is_available()) {
@@ -386,7 +446,9 @@ void JunctionMLPEvaluator::LoadModel() {
 
   AINFO<<"(pengzi) Finish LaneAggregatingEvaluator::LoadModel. Model file: " << FLAGS_torch_vehicle_junction_mlp_file
   <<" thread: " << std::this_thread::get_id(); 
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: JunctionMLPEvaluator::LoadModel";
+ }
 
 }  // namespace prediction
 }  // namespace apollo

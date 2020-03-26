@@ -20,12 +20,20 @@ namespace apollo {
 namespace prediction {
 
 EmptyPredictor::EmptyPredictor() {
+  AINFO<<"(DMCZP) EnteringMethod: EmptyPredictor::EmptyPredictor";
+
   predictor_type_ = ObstacleConf::EMPTY_PREDICTOR;
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: EmptyPredictor::EmptyPredictor";
+ }
 
 void EmptyPredictor::Predict(Obstacle* obstacle) {
+  AINFO<<"(DMCZP) EnteringMethod: EmptyPredictor::Predict";
+
   obstacle->SetPredictorType(predictor_type_);
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: EmptyPredictor::Predict";
+ }
 
 }  // namespace prediction
 }  // namespace apollo

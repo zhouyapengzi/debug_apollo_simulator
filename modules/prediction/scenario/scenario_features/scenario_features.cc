@@ -23,9 +23,19 @@
 namespace apollo {
 namespace prediction {
 
-ScenarioFeatures::ScenarioFeatures() { scenario_.set_type(Scenario::UNKNOWN); }
+ScenarioFeatures::ScenarioFeatures() {
+  AINFO<<"(DMCZP) EnteringMethod: ScenarioFeatures::ScenarioFeatures";
+ scenario_.set_type(Scenario::UNKNOWN); 
+  AINFO<<"(DMCZP) LeaveMethod: ScenarioFeatures::ScenarioFeatures";
+ }
 
-const Scenario& ScenarioFeatures::scenario() const { return scenario_; }
+const Scenario& ScenarioFeatures::scenario() const {
+  AINFO<<"(DMCZP) EnteringMethod: ScenarioFeatures::scenario";
+ 
+  AINFO<<"(DMCZP)
+  AINFO<<"(DMCZP) LeaveMethod: ScenarioFeatures::scenario";
+  (return) LeaveMethod: ScenarioFeatures::scenario";
+  return scenario_; }
 
 }  // namespace prediction
 }  // namespace apollo

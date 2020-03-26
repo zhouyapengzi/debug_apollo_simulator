@@ -42,11 +42,17 @@ using apollo::hdmap::LaneInfo;
 using apollo::prediction::math_util::GetSByConstantAcceleration;
 
 InteractionPredictor::InteractionPredictor() {
+  AINFO<<"(DMCZP) EnteringMethod: InteractionPredictor::InteractionPredictor";
+
   predictor_type_ = ObstacleConf::INTERACTION_PREDICTOR;
   BuildADCTrajectory(FLAGS_collision_cost_time_resolution);
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: InteractionPredictor::InteractionPredictor";
+ }
 
 void InteractionPredictor::Predict(Obstacle* obstacle) {
+  AINFO<<"(DMCZP) EnteringMethod: InteractionPredictor::Predict";
+
   Clear();
 
   CHECK_NOTNULL(obstacle);
@@ -58,7 +64,9 @@ void InteractionPredictor::Predict(Obstacle* obstacle) {
 
   if (!feature_ptr->lane().has_lane_graph()) {
     AERROR << "Obstacle [" << obstacle->id() << "] has no lane graph.";
-    return;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: InteractionPredictor::Predict";
+  return;
   }
   auto* lane_graph = feature_ptr->mutable_lane()->mutable_lane_graph();
 
@@ -141,17 +149,27 @@ void InteractionPredictor::Predict(Obstacle* obstacle) {
     obstacle->mutable_latest_feature()->add_predicted_trajectory()->CopyFrom(
         trajectory);
   }
-}
 
-void InteractionPredictor::Clear() { Predictor::Clear(); }
+  AINFO<<"(DMCZP) LeaveMethod: InteractionPredictor::Predict";
+ }
+
+void InteractionPredictor::Clear() {
+  AINFO<<"(DMCZP) EnteringMethod: InteractionPredictor::Clear";
+ Predictor::Clear(); 
+  AINFO<<"(DMCZP) LeaveMethod: InteractionPredictor::Clear";
+ }
 
 void InteractionPredictor::BuildADCTrajectory(const double time_resolution) {
+  AINFO<<"(DMCZP) EnteringMethod: InteractionPredictor::BuildADCTrajectory";
+
   auto adc_trajectory_container =
       ContainerManager::Instance()->GetContainer<ADCTrajectoryContainer>(
           AdapterConfig::PLANNING_TRAJECTORY);
   if (adc_trajectory_container == nullptr) {
     AERROR << "Null adc trajectory container";
-    return;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: InteractionPredictor::BuildADCTrajectory";
+  return;
   }
   const auto& adc_trajectory = adc_trajectory_container->adc_trajectory();
   double curr_timestamp = 0.0;
@@ -161,12 +179,16 @@ void InteractionPredictor::BuildADCTrajectory(const double time_resolution) {
       curr_timestamp += time_resolution;
     }
   }
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: InteractionPredictor::BuildADCTrajectory";
+ }
 
 bool InteractionPredictor::DrawTrajectory(
     const Obstacle& obstacle, const LaneSequence& lane_sequence,
     const double lon_acceleration, const double total_time, const double period,
     std::vector<TrajectoryPoint>* trajectory_points) {
+  AINFO<<"(DMCZP) EnteringMethod: InteractionPredictor::DrawTrajectory";
+
   // Sanity check.
   CHECK_NOTNULL(trajectory_points);
   trajectory_points->clear();
@@ -175,7 +197,9 @@ bool InteractionPredictor::DrawTrajectory(
       !feature.position().has_x() || !feature.position().has_y()) {
     AERROR << "Obstacle [" << obstacle.id()
            << " is missing position or velocity";
-    return false;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: InteractionPredictor::DrawTrajectory";
+  return false;
   }
 
   Eigen::Vector2d position(feature.position().x(), feature.position().y());
@@ -189,7 +213,9 @@ bool InteractionPredictor::DrawTrajectory(
   double lane_l = 0.0;
   if (!PredictionMap::GetProjection(position, lane_info, &lane_s, &lane_l)) {
     AERROR << "Failed in getting lane s and lane l";
-    return false;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: InteractionPredictor::DrawTrajectory";
+  return false;
   }
   double approach_rate = FLAGS_go_approach_rate;
   if (!lane_sequence.vehicle_on_lane()) {
@@ -233,12 +259,18 @@ bool InteractionPredictor::DrawTrajectory(
     lane_l *= approach_rate;
   }
 
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: InteractionPredictor::DrawTrajectory";
   return true;
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: InteractionPredictor::DrawTrajectory";
+ }
 
 double InteractionPredictor::ComputeTrajectoryCost(
     const Obstacle& obstacle, const LaneSequence& lane_sequence,
     const double acceleration) {
+  AINFO<<"(DMCZP) EnteringMethod: InteractionPredictor::ComputeTrajectoryCost";
+
   CHECK_GT(obstacle.history_size(), 0);
   double speed = obstacle.latest_feature().speed();
   double total_cost = 0.0;
@@ -266,17 +298,29 @@ double InteractionPredictor::ComputeTrajectoryCost(
                                        adc_trajectory_);
   }
 
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: InteractionPredictor::ComputeTrajectoryCost";
   return total_cost;
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: InteractionPredictor::ComputeTrajectoryCost";
+ }
 
 double InteractionPredictor::LongitudinalAccelerationCost(
     const double acceleration) {
+  AINFO<<"(DMCZP) EnteringMethod: InteractionPredictor::LongitudinalAccelerationCost";
+
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: InteractionPredictor::LongitudinalAccelerationCost";
   return acceleration * acceleration;
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: InteractionPredictor::LongitudinalAccelerationCost";
+ }
 
 double InteractionPredictor::CentripetalAccelerationCost(
     const LaneSequence& lane_sequence, const double speed,
     const double acceleration) {
+  AINFO<<"(DMCZP) EnteringMethod: InteractionPredictor::CentripetalAccelerationCost";
+
   double cost_abs_sum = 0.0;
   double cost_sqr_sum = 0.0;
   double curr_time = 0.0;
@@ -289,12 +333,18 @@ double InteractionPredictor::CentripetalAccelerationCost(
     cost_sqr_sum += centri_acc * centri_acc;
     curr_time += FLAGS_collision_cost_time_resolution;
   }
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: InteractionPredictor::CentripetalAccelerationCost";
   return cost_sqr_sum / (cost_abs_sum + FLAGS_double_precision);
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: InteractionPredictor::CentripetalAccelerationCost";
+ }
 
 double InteractionPredictor::CollisionWithEgoVehicleCost(
     const LaneSequence& lane_sequence, const double speed,
     const double acceleration) {
+  AINFO<<"(DMCZP) EnteringMethod: InteractionPredictor::CollisionWithEgoVehicleCost";
+
   CHECK_GT(lane_sequence.lane_segment_size(), 0);
   double cost_abs_sum = 0.0;
   double cost_sqr_sum = 0.0;
@@ -341,30 +391,54 @@ double InteractionPredictor::CollisionWithEgoVehicleCost(
     // Out of the while loop
     prev_s = curr_s;
   }
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: InteractionPredictor::CollisionWithEgoVehicleCost";
   return cost_sqr_sum / (cost_abs_sum + FLAGS_double_precision);
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: InteractionPredictor::CollisionWithEgoVehicleCost";
+ }
 
 bool InteractionPredictor::LowerRightOfWayThanEgo(
     const Obstacle& obstacle, const LaneSequence& lane_sequence) {
+  AINFO<<"(DMCZP) EnteringMethod: InteractionPredictor::LowerRightOfWayThanEgo";
+
   auto adc_trajectory_container =
       ContainerManager::Instance()->GetContainer<ADCTrajectoryContainer>(
           AdapterConfig::PLANNING_TRAJECTORY);
   if (adc_trajectory_container != nullptr &&
       adc_trajectory_container->IsProtected()) {
-    return true;
+    
+  AINFO<<"(DMCZP) (return) LeaveMethod: InteractionPredictor::LowerRightOfWayThanEgo";
+  return true;
   }
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: InteractionPredictor::LowerRightOfWayThanEgo";
   return lane_sequence.right_of_way() < 0;
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: InteractionPredictor::LowerRightOfWayThanEgo";
+ }
 
 double InteractionPredictor::ComputeLikelihood(const double cost) {
+  AINFO<<"(DMCZP) EnteringMethod: InteractionPredictor::ComputeLikelihood";
+
   double alpha = FLAGS_likelihood_exp_coefficient;
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: InteractionPredictor::ComputeLikelihood";
   return std::exp(-alpha * cost);
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: InteractionPredictor::ComputeLikelihood";
+ }
 
 double InteractionPredictor::ComputePosterior(const double prior,
                                               const double likelihood) {
+  AINFO<<"(DMCZP) EnteringMethod: InteractionPredictor::ComputePosterior";
+
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: InteractionPredictor::ComputePosterior";
   return prior * likelihood;
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: InteractionPredictor::ComputePosterior";
+ }
 
 }  // namespace prediction
 }  // namespace apollo

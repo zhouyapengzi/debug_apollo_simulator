@@ -34,10 +34,16 @@ using apollo::prediction::math_util::ComputePolynomial;
 using apollo::prediction::math_util::EvaluateCubicPolynomial;
 
 JunctionPredictor::JunctionPredictor() {
+  AINFO<<"(DMCZP) EnteringMethod: JunctionPredictor::JunctionPredictor";
+
   predictor_type_ = ObstacleConf::JUNCTION_PREDICTOR;
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: JunctionPredictor::JunctionPredictor";
+ }
 
 void JunctionPredictor::Predict(Obstacle* obstacle) {
+  AINFO<<"(DMCZP) EnteringMethod: JunctionPredictor::Predict";
+
   Clear();
   CHECK_NOTNULL(obstacle);
   CHECK_GT(obstacle->history_size(), 0);
@@ -56,12 +62,16 @@ void JunctionPredictor::Predict(Obstacle* obstacle) {
     obstacle->mutable_latest_feature()->add_predicted_trajectory()->CopyFrom(
         trajectory);
   }
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: JunctionPredictor::Predict";
+ }
 
 void JunctionPredictor::DrawJunctionTrajectoryPoints(
     const Feature& feature, const JunctionExit& junction_exit,
     const double total_time, const double period,
     std::vector<TrajectoryPoint>* trajectory_points) {
+  AINFO<<"(DMCZP) EnteringMethod: JunctionPredictor::DrawJunctionTrajectoryPoints";
+
   double speed = feature.speed();
   const std::array<double, 2> start_x = {feature.position().x(),
                                          feature.raw_velocity().x()};
@@ -109,7 +119,9 @@ void JunctionPredictor::DrawJunctionTrajectoryPoints(
                                             &theta)) {
       AERROR << "Unable to get smooth point from lane [" << lane_id
              << "] with s [" << lane_s << "] and l [" << 0.0 << "]";
-      return;
+      
+  AINFO<<"(DMCZP) (return) LeaveMethod: JunctionPredictor::DrawJunctionTrajectoryPoints";
+  return;
     }
     TrajectoryPoint trajectory_point;
     PathPoint path_point;
@@ -127,15 +139,21 @@ void JunctionPredictor::DrawJunctionTrajectoryPoints(
     while (lane_s > PredictionMap::LaneById(lane_id)->total_length()) {
       lane_s = lane_s - PredictionMap::LaneById(lane_id)->total_length();
       if (PredictionMap::LaneById(lane_id)->lane().successor_id_size() < 1) {
-        return;
+        
+  AINFO<<"(DMCZP) (return) LeaveMethod: JunctionPredictor::DrawJunctionTrajectoryPoints";
+  return;
       }
       // TODO(all) consider the logic to choose successor_id
       lane_id = PredictionMap::LaneById(lane_id)->lane().successor_id(0).id();
     }
     t += period;
   }
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: JunctionPredictor::DrawJunctionTrajectoryPoints";
   return;
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: JunctionPredictor::DrawJunctionTrajectoryPoints";
+ }
 
 std::vector<JunctionExit> JunctionPredictor::MostLikelyJunctions(
     const Feature& feature) {
@@ -177,6 +195,8 @@ double JunctionPredictor::GetBestTime(const std::array<double, 2>& start_x,
                                       const std::array<double, 2>& end_x,
                                       const std::array<double, 2>& start_y,
                                       const std::array<double, 2>& end_y) {
+  AINFO<<"(DMCZP) EnteringMethod: JunctionPredictor::GetBestTime";
+
   // Generate candidate finish times.
   std::vector<double> candidate_times = GenerateCandidateTimes();
   double best_time = 0.0;
@@ -193,12 +213,18 @@ double JunctionPredictor::GetBestTime(const std::array<double, 2>& start_x,
       best_time = time_to_exit;
     }
   }
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: JunctionPredictor::GetBestTime";
   return best_time;
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: JunctionPredictor::GetBestTime";
+ }
 
 double JunctionPredictor::CostFunction(const std::array<double, 4>& x_coeffs,
                                        const std::array<double, 4>& y_coeffs,
                                        const double time_to_exit) {
+  AINFO<<"(DMCZP) EnteringMethod: JunctionPredictor::CostFunction";
+
   double t = 0.0;
   double cost = 0.0;
   while (t <= time_to_exit) {
@@ -212,8 +238,12 @@ double JunctionPredictor::CostFunction(const std::array<double, 4>& x_coeffs,
                            time_to_exit);
     t += FLAGS_prediction_trajectory_time_resolution;
   }
+  
+  AINFO<<"(DMCZP) (return) LeaveMethod: JunctionPredictor::CostFunction";
   return cost;
-}
+
+  AINFO<<"(DMCZP) LeaveMethod: JunctionPredictor::CostFunction";
+ }
 
 std::vector<double> JunctionPredictor::GenerateCandidateTimes() {
   std::vector<double> candidate_times;
