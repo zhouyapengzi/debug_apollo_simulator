@@ -48,7 +48,6 @@ bool Layer::Load(const LayerParameter& layer_pb) {
   AINFO<<"(DMCZP) (return) LeaveMethod: Layer::Load";
   return true;
 
-  AINFO<<"(DMCZP) LeaveMethod: Layer::Load";
  }
 
 bool Dense::Load(const LayerParameter& layer_pb) {
@@ -65,7 +64,6 @@ bool Dense::Load(const LayerParameter& layer_pb) {
   AINFO<<"(DMCZP) (return) LeaveMethod: Dense::Load";
   return Load(dense_pb);
 
-  AINFO<<"(DMCZP) LeaveMethod: Dense::Load";
  }
 
 bool Dense::Load(const DenseParameter& dense_pb) {
@@ -100,7 +98,6 @@ bool Dense::Load(const DenseParameter& dense_pb) {
   AINFO<<"(DMCZP) (return) LeaveMethod: Dense::Load";
   return true;
 
-  AINFO<<"(DMCZP) LeaveMethod: Dense::Load";
  }
 
 void Dense::Run(const std::vector<Eigen::MatrixXf>& inputs,
@@ -133,7 +130,6 @@ bool Conv1d::Load(const LayerParameter& layer_pb) {
   AINFO<<"(DMCZP) (return) LeaveMethod: Conv1d::Load";
   return Load(conv1d_pb);
 
-  AINFO<<"(DMCZP) LeaveMethod: Conv1d::Load";
  }
 
 bool Conv1d::Load(const Conv1dParameter& conv1d_pb) {
@@ -169,7 +165,6 @@ bool Conv1d::Load(const Conv1dParameter& conv1d_pb) {
   AINFO<<"(DMCZP) (return) LeaveMethod: Conv1d::Load";
   return true;
 
-  AINFO<<"(DMCZP) LeaveMethod: Conv1d::Load";
  }
 
 void Conv1d::Run(const std::vector<Eigen::MatrixXf>& inputs,
@@ -218,7 +213,6 @@ bool MaxPool1d::Load(const LayerParameter& layer_pb) {
   AINFO<<"(DMCZP) (return) LeaveMethod: MaxPool1d::Load";
   return true;
 
-  AINFO<<"(DMCZP) LeaveMethod: MaxPool1d::Load";
  }
 
 bool MaxPool1d::Load(const MaxPool1dParameter& maxpool1d_pb) {
@@ -237,7 +231,6 @@ bool MaxPool1d::Load(const MaxPool1dParameter& maxpool1d_pb) {
   AINFO<<"(DMCZP) (return) LeaveMethod: MaxPool1d::Load";
   return true;
 
-  AINFO<<"(DMCZP) LeaveMethod: MaxPool1d::Load";
  }
 
 void MaxPool1d::Run(const std::vector<Eigen::MatrixXf>& inputs,
@@ -282,7 +275,6 @@ bool AvgPool1d::Load(const LayerParameter& layer_pb) {
   AINFO<<"(DMCZP) (return) LeaveMethod: AvgPool1d::Load";
   return true;
 
-  AINFO<<"(DMCZP) LeaveMethod: AvgPool1d::Load";
  }
 
 bool AvgPool1d::Load(const AvgPool1dParameter& avgpool1d_pb) {
@@ -301,7 +293,6 @@ bool AvgPool1d::Load(const AvgPool1dParameter& avgpool1d_pb) {
   AINFO<<"(DMCZP) (return) LeaveMethod: AvgPool1d::Load";
   return true;
 
-  AINFO<<"(DMCZP) LeaveMethod: AvgPool1d::Load";
  }
 
 void AvgPool1d::Run(const std::vector<Eigen::MatrixXf>& inputs,
@@ -348,7 +339,6 @@ bool Activation::Load(const LayerParameter& layer_pb) {
   AINFO<<"(DMCZP) (return) LeaveMethod: Activation::Load";
   return true;
 
-  AINFO<<"(DMCZP) LeaveMethod: Activation::Load";
  }
 
 bool Activation::Load(const ActivationParameter& activation_pb) {
@@ -363,7 +353,6 @@ bool Activation::Load(const ActivationParameter& activation_pb) {
   AINFO<<"(DMCZP) (return) LeaveMethod: Activation::Load";
   return true;
 
-  AINFO<<"(DMCZP) LeaveMethod: Activation::Load";
  }
 
 void Activation::Run(const std::vector<Eigen::MatrixXf>& inputs,
@@ -424,7 +413,6 @@ bool BatchNormalization::Load(const LayerParameter& layer_pb) {
   AINFO<<"(DMCZP) (return) LeaveMethod: BatchNormalization::Load";
   return true;
 
-  AINFO<<"(DMCZP) LeaveMethod: BatchNormalization::Load";
  }
 
 void BatchNormalization::Run(const std::vector<Eigen::MatrixXf>& inputs,
@@ -586,7 +574,6 @@ bool LSTM::Load(const LayerParameter& layer_pb) {
   AINFO<<"(DMCZP) (return) LeaveMethod: LSTM::Load";
   return true;
 
-  AINFO<<"(DMCZP) LeaveMethod: LSTM::Load";
  }
 
 void LSTM::Step(const Eigen::MatrixXf& input, Eigen::MatrixXf* output,
@@ -681,7 +668,6 @@ bool Flatten::Load(const LayerParameter& layer_pb) {
   AINFO<<"(DMCZP) (return) LeaveMethod: Flatten::Load";
   return true;
 
-  AINFO<<"(DMCZP) LeaveMethod: Flatten::Load";
  }
 
 void Flatten::Run(const std::vector<Eigen::MatrixXf>& inputs,
@@ -734,7 +720,6 @@ bool Input::Load(const LayerParameter& layer_pb) {
   AINFO<<"(DMCZP) (return) LeaveMethod: Input::Load";
   return true;
 
-  AINFO<<"(DMCZP) LeaveMethod: Input::Load";
  }
 
 void Input::Run(const std::vector<Eigen::MatrixXf>& inputs,
@@ -769,7 +754,6 @@ bool Concatenate::Load(const LayerParameter& layer_pb) {
   AINFO<<"(DMCZP) (return) LeaveMethod: Concatenate::Load";
   return true;
 
-  AINFO<<"(DMCZP) LeaveMethod: Concatenate::Load";
  }
 
 void Concatenate::Run(const std::vector<Eigen::MatrixXf>& inputs,
