@@ -298,8 +298,6 @@ bool PedestrianInteractionEvaluator::Evaluate(Obstacle* obstacle_ptr) {
   
   AINFO<<"(DMCZP) (return) LeaveMethod: PedestrianInteractionEvaluator::Evaluate";
   return true;
-
-  AINFO<<"(DMCZP) LeaveMethod: PedestrianInteractionEvaluator::Evaluate";
  }
 
 bool PedestrianInteractionEvaluator::ExtractFeatures(
@@ -325,8 +323,6 @@ bool PedestrianInteractionEvaluator::ExtractFeatures(
   
   AINFO<<"(DMCZP) (return) LeaveMethod: PedestrianInteractionEvaluator::ExtractFeatures";
   return true;
-
-  AINFO<<"(DMCZP) LeaveMethod: PedestrianInteractionEvaluator::ExtractFeatures";
  }
 
 }  // namespace prediction

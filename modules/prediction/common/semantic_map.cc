@@ -180,7 +180,6 @@ cv::Mat SemanticMap::CropArea(const cv::Mat& input_img,
   AINFO<<"(DMCZP) (return) LeaveMethod: SemanticMap::CropArea";
   return output_img;
 
-  AINFO<<"(DMCZP) LeaveMethod: SemanticMap::CropArea";
  }
 
 cv::Mat SemanticMap::CropByHistory(const ObstacleHistory& history,
@@ -196,7 +195,7 @@ cv::Mat SemanticMap::CropByHistory(const ObstacleHistory& history,
   AINFO<<"(DMCZP) (return) LeaveMethod: SemanticMap::CropByHistory";
   return CropArea(feature_map, center_point, curr_feature.theta());
 
-  AINFO<<"(DMCZP) LeaveMethod: SemanticMap::CropByHistory";
+
  }
 
 bool SemanticMap::GetMapById(const int obstacle_id, cv::Mat* feature_map) {
@@ -215,7 +214,7 @@ bool SemanticMap::GetMapById(const int obstacle_id, cv::Mat* feature_map) {
   AINFO<<"(DMCZP) (return) LeaveMethod: SemanticMap::GetMapById";
   return true;
 
-  AINFO<<"(DMCZP) LeaveMethod: SemanticMap::GetMapById";
+  
  }
 
 }  // namespace prediction

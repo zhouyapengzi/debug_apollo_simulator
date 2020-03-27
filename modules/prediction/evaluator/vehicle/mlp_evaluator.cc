@@ -164,8 +164,6 @@ bool MLPEvaluator::Evaluate(Obstacle* obstacle_ptr) {
   
   AINFO<<"(DMCZP) (return) LeaveMethod: MLPEvaluator::Evaluate";
   return true;
-
-  AINFO<<"(DMCZP) LeaveMethod: MLPEvaluator::Evaluate";
  }
 
 void MLPEvaluator::ExtractFeatureValues(Obstacle* obstacle_ptr,
@@ -536,8 +534,6 @@ double MLPEvaluator::ComputeProbability(
   
   AINFO<<"(DMCZP) (return) LeaveMethod: MLPEvaluator::ComputeProbability";
   return probability;
-
-  AINFO<<"(DMCZP) LeaveMethod: MLPEvaluator::ComputeProbability";
  }
 
 }  // namespace prediction

@@ -125,8 +125,6 @@ const PerceptionObstacle* PoseContainer::ToPerceptionObstacle() {
   
   AINFO<<"(DMCZP) (return) LeaveMethod: PoseContainer::ToPerceptionObstacle";
   return obstacle_ptr_.get();
-
-  AINFO<<"(DMCZP) LeaveMethod: PoseContainer::ToPerceptionObstacle";
  }
 
 }  // namespace prediction

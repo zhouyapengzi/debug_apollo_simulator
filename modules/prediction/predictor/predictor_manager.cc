@@ -177,7 +177,7 @@ Predictor* PredictorManager::GetPredictor(
   AINFO<<"(DMCZP) (return) LeaveMethod: PredictorManager::GetPredictor";
   return it != predictors_.end() ? it->second.get() : nullptr;
 
-  AINFO<<"(DMCZP) LeaveMethod: PredictorManager::GetPredictor";
+  
  }
 
 void PredictorManager::Run() {
@@ -371,6 +371,7 @@ void PredictorManager::PredictObstacle(
 
 std::unique_ptr<Predictor> PredictorManager::CreatePredictor(
     const ObstacleConf::PredictorType& type) {
+  AINFO<<"(DMCZP) EnteringMethod: PredictorManager::CreatePredictor";
   std::unique_ptr<Predictor> predictor_ptr(nullptr);
   switch (type) {
     case ObstacleConf::LANE_SEQUENCE_PREDICTOR: {
@@ -411,6 +412,7 @@ std::unique_ptr<Predictor> PredictorManager::CreatePredictor(
     }
     default: { break; }
   }
+  AINFO<<"(DMCZP) LeaveMethod: PredictorManager::CreatePredictor";
   return predictor_ptr;
 }
 
@@ -431,7 +433,7 @@ const PredictionObstacles& PredictorManager::prediction_obstacles() {
   AINFO<<"(DMCZP) (return) LeaveMethod: PredictorManager::prediction_obstacles";
   return prediction_obstacles_;
 
-  AINFO<<"(DMCZP) LeaveMethod: PredictorManager::prediction_obstacles";
+  
  }
 
 }  // namespace prediction

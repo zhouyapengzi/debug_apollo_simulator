@@ -97,7 +97,6 @@ BaseThreadPool* PredictionThreadPool::Instance() {
   AINFO<<"(DMCZP) (return) LeaveMethod: PredictionThreadPool::Instance";
   return LevelThreadPool<0>::Instance();
 
-  AINFO<<"(DMCZP) LeaveMethod: PredictionThreadPool::Instance";
  }
 
 }  // namespace prediction

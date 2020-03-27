@@ -92,8 +92,7 @@ bool FeatureOutput::Ready() {
   
   AINFO<<"(DMCZP) (return) LeaveMethod: FeatureOutput::Ready";
   return true;
-
-  AINFO<<"(DMCZP) LeaveMethod: FeatureOutput::Ready";
+ 
  }
 
 void FeatureOutput::InsertFeatureProto(const Feature& feature) {
@@ -109,14 +108,9 @@ void FeatureOutput::InsertDataForLearning(
     const std::string& category, const LaneSequence* lane_sequence_ptr) {
   AINFO<<"(DMCZP) EnteringMethod: FeatureOutput::InsertDataForLearning";
 
-  AINFO<<"(DMCZP) EnteringMethod: FeatureOutput::InsertDataForLearning";
-
   const std::vector<std::string> dummy_string_feature_values;
   InsertDataForLearning(feature, feature_values, dummy_string_feature_values,
                         category, lane_sequence_ptr);
-
-  AINFO<<"(DMCZP) LeaveMethod: FeatureOutput::InsertDataForLearning";
- 
   AINFO<<"(DMCZP) LeaveMethod: FeatureOutput::InsertDataForLearning";
  }
 
@@ -124,6 +118,7 @@ void FeatureOutput::InsertDataForLearning(
     const Feature& feature, const std::vector<double>& feature_values,
     const std::vector<std::string>& string_feature_values,
     const std::string& category, const LaneSequence* lane_sequence_ptr) {
+      AINFO<<"(DMCZP) EnteringMethod: FeatureOutput::InsertDataForLearning";
   DataForLearning* data_for_learning =
       list_data_for_learning_.add_data_for_learning();
   data_for_learning->set_id(feature.id());
@@ -139,6 +134,7 @@ void FeatureOutput::InsertDataForLearning(
     data_for_learning->set_lane_sequence_id(
         lane_sequence_ptr->lane_sequence_id());
   }
+  AINFO<<"(DMCZP) LeaveMethod: FeatureOutput::InsertDataForLearning";
 }
 
 void FeatureOutput::InsertPredictionResult(
@@ -278,9 +274,7 @@ void FeatureOutput::WriteDataForTuning() {
 int FeatureOutput::Size() {
   AINFO<<"(DMCZP) EnteringMethod: FeatureOutput::Size";
  
-  AINFO<<"(DMCZP) (return) Leave
-  AINFO<<"(DMCZP) LeaveMethod: FeatureOutput::Size";
- Method: FeatureOutput::Size";
+  AINFO<<"(DMCZP) (return) LeaveMethod: FeatureOutput::Size";
   return features_.feature_size(); }
 
 int FeatureOutput::SizeOfDataForLearning() {
@@ -290,7 +284,6 @@ int FeatureOutput::SizeOfDataForLearning() {
   AINFO<<"(DMCZP) (return) LeaveMethod: FeatureOutput::SizeOfDataForLearning";
   return list_data_for_learning_.data_for_learning_size();
 
-  AINFO<<"(DMCZP) LeaveMethod: FeatureOutput::SizeOfDataForLearning";
  }
 
 int FeatureOutput::SizeOfPredictionResult() {
@@ -300,15 +293,12 @@ int FeatureOutput::SizeOfPredictionResult() {
   AINFO<<"(DMCZP) (return) LeaveMethod: FeatureOutput::SizeOfPredictionResult";
   return list_prediction_result_.prediction_result_size();
 
-  AINFO<<"(DMCZP) LeaveMethod: FeatureOutput::SizeOfPredictionResult";
  }
 
 int FeatureOutput::SizeOfFrameEnv() {
   AINFO<<"(DMCZP) EnteringMethod: FeatureOutput::SizeOfFrameEnv";
  
-  AINFO<<"(DMCZP) (return) LeaveMethod: 
-  AINFO<<"(DMCZP) LeaveMethod: FeatureOutput::SizeOfFrameEnv";
- FeatureOutput::SizeOfFrameEnv";
+  AINFO<<"(DMCZP) (return) LeaveMethod: FeatureOutput::SizeOfFrameEnv";
   return list_frame_env_.frame_env_size(); }
 
 int FeatureOutput::SizeOfDataForTuning() {
@@ -317,8 +307,6 @@ int FeatureOutput::SizeOfDataForTuning() {
   
   AINFO<<"(DMCZP) (return) LeaveMethod: FeatureOutput::SizeOfDataForTuning";
   return list_data_for_tuning_.data_for_tuning_size();
-
-  AINFO<<"(DMCZP) LeaveMethod: FeatureOutput::SizeOfDataForTuning";
  }
 
 }  // namespace prediction

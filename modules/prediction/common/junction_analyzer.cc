@@ -98,6 +98,7 @@ void JunctionAnalyzer::SetAllJunctionExits() {
 
 std::vector<JunctionExit> JunctionAnalyzer::GetJunctionExits(
     const std::string& start_lane_id) {
+      AINFO<<"(DMCZP) EnteringMethod: JunctionAnalyzer::GetJunctionExits";
   // TODO(hongyi) make this a gflag
   int max_search_level = 5;
 
@@ -125,6 +126,7 @@ std::vector<JunctionExit> JunctionAnalyzer::GetJunctionExits(
       lane_info_queue.emplace(succ_lane_ptr, level + 1);
     }
   }
+  AINFO<<"(DMCZP) (return) LeaveMethod: JunctionAnalyzer::GetJunctionExits";
   return junction_exits;
 }
 
@@ -151,8 +153,6 @@ const JunctionFeature& JunctionAnalyzer::GetJunctionFeature(
   
   AINFO<<"(DMCZP) (return) LeaveMethod: JunctionAnalyzer::GetJunctionFeature";
   return junction_features_[start_lane_id];
-
-  AINFO<<"(DMCZP) LeaveMethod: JunctionAnalyzer::GetJunctionFeature";
  }
 
 JunctionFeature JunctionAnalyzer::GetJunctionFeature(
@@ -184,8 +184,6 @@ JunctionFeature JunctionAnalyzer::GetJunctionFeature(
   
   AINFO<<"(DMCZP) (return) LeaveMethod: JunctionAnalyzer::GetJunctionFeature";
   return merged_junction_feature;
-
-  AINFO<<"(DMCZP) LeaveMethod: JunctionAnalyzer::GetJunctionFeature";
  }
 
 bool JunctionAnalyzer::IsExitLane(const std::string& lane_id) {
@@ -195,7 +193,6 @@ bool JunctionAnalyzer::IsExitLane(const std::string& lane_id) {
   AINFO<<"(DMCZP) (return) LeaveMethod: JunctionAnalyzer::IsExitLane";
   return junction_exits_.find(lane_id) != junction_exits_.end();
 
-  AINFO<<"(DMCZP) LeaveMethod: JunctionAnalyzer::IsExitLane";
  }
 
 const std::string& JunctionAnalyzer::GetJunctionId() {
@@ -205,8 +202,6 @@ const std::string& JunctionAnalyzer::GetJunctionId() {
   
   AINFO<<"(DMCZP) (return) LeaveMethod: JunctionAnalyzer::GetJunctionId";
   return junction_info_ptr_->id().id();
-
-  AINFO<<"(DMCZP) LeaveMethod: JunctionAnalyzer::GetJunctionId";
  }
 
 double JunctionAnalyzer::ComputeJunctionRange() {
@@ -237,8 +232,6 @@ double JunctionAnalyzer::ComputeJunctionRange() {
   
   AINFO<<"(DMCZP) (return) LeaveMethod: JunctionAnalyzer::ComputeJunctionRange";
   return range;
-
-  AINFO<<"(DMCZP) LeaveMethod: JunctionAnalyzer::ComputeJunctionRange";
  }
 
 }  // namespace prediction

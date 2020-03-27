@@ -25,6 +25,7 @@ namespace prediction {
 
 std::shared_ptr<ScenarioFeatures> ScenarioAnalyzer::Analyze(
     const EnvironmentFeatures& environment_features) {
+      AINFO<<"(DMCZP) EnteringMethod: ScenarioAnalyzer::Analyze";
   Scenario::Type scenario_type = Scenario::UNKNOWN;
 
   if (environment_features.has_front_junction() &&
@@ -49,7 +50,8 @@ std::shared_ptr<ScenarioFeatures> ScenarioAnalyzer::Analyze(
         environment_features);
     return junction_scenario_features;
   }
-
+ 
+  AINFO<<"(DMCZP) LeaveMethod: ScenarioAnalyzer::Analyze";
   return std::make_shared<ScenarioFeatures>();
 }
 

@@ -55,8 +55,6 @@ double ComputeMean(const std::vector<double>& nums, size_t start, size_t end) {
   
   AINFO<<"(DMCZP) (return) LeaveMethod: ComputeMean";
   return (count == 0) ? 0.0 : sum / count;
-
-  AINFO<<"(DMCZP) LeaveMethod: ComputeMean";
  }
 
 }  // namespace
@@ -193,8 +191,6 @@ AINFO<<"(pengzi) Finish JunctionMLPEvaluator::Evaluate. thread: " << std::this_t
   
   AINFO<<"(DMCZP) (return) LeaveMethod: JunctionMLPEvaluator::Evaluate";
   return true;
-
-  AINFO<<"(DMCZP) LeaveMethod: JunctionMLPEvaluator::Evaluate";
  }
 
 void JunctionMLPEvaluator::ExtractFeatureValues(

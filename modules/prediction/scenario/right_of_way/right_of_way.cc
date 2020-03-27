@@ -49,8 +49,6 @@ void RightOfWay::Analyze() {
     
   AINFO<<"(DMCZP) (return) LeaveMethod: RightOfWay::Analyze";
   return;
-  
-  AINFO<<"(DMCZP) LeaveMethod: RightOfWay::Analyze";
  }
 
   ADCTrajectoryContainer* adc_trajectory_container =
@@ -164,6 +162,7 @@ void RightOfWay::Analyze() {
       }
     }
   }
+  AINFO<<"(DMCZP) LeaveMethod: RightOfWay::Analyze";
 }
 
 }  // namespace prediction

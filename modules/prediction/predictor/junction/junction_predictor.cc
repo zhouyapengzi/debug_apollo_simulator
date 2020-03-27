@@ -152,11 +152,11 @@ void JunctionPredictor::DrawJunctionTrajectoryPoints(
   AINFO<<"(DMCZP) (return) LeaveMethod: JunctionPredictor::DrawJunctionTrajectoryPoints";
   return;
 
-  AINFO<<"(DMCZP) LeaveMethod: JunctionPredictor::DrawJunctionTrajectoryPoints";
  }
 
 std::vector<JunctionExit> JunctionPredictor::MostLikelyJunctions(
     const Feature& feature) {
+      AINFO<<"(DMCZP) EnteringMethod: JunctionPredictor::MostLikelyJunctions";
   if (!feature.has_junction_feature()) {
     AERROR << "No junction_feature exist!";
     return {};
@@ -188,6 +188,7 @@ std::vector<JunctionExit> JunctionPredictor::MostLikelyJunctions(
       junction_exits.push_back(junction_exit);
     }
   }
+  AINFO<<"(DMCZP) LeaveMethod: JunctionPredictor::MostLikelyJunctions";
   return junction_exits;
 }
 
@@ -216,8 +217,6 @@ double JunctionPredictor::GetBestTime(const std::array<double, 2>& start_x,
   
   AINFO<<"(DMCZP) (return) LeaveMethod: JunctionPredictor::GetBestTime";
   return best_time;
-
-  AINFO<<"(DMCZP) LeaveMethod: JunctionPredictor::GetBestTime";
  }
 
 double JunctionPredictor::CostFunction(const std::array<double, 4>& x_coeffs,
@@ -241,11 +240,10 @@ double JunctionPredictor::CostFunction(const std::array<double, 4>& x_coeffs,
   
   AINFO<<"(DMCZP) (return) LeaveMethod: JunctionPredictor::CostFunction";
   return cost;
-
-  AINFO<<"(DMCZP) LeaveMethod: JunctionPredictor::CostFunction";
  }
 
 std::vector<double> JunctionPredictor::GenerateCandidateTimes() {
+  AINFO<<"(DMCZP) EnteringMethod: JunctionPredictor::GenerateCandidateTimes";
   std::vector<double> candidate_times;
   double t = 1.0;
   double time_gap = 0.5;
@@ -253,6 +251,7 @@ std::vector<double> JunctionPredictor::GenerateCandidateTimes() {
     candidate_times.push_back(t);
     t += time_gap;
   }
+  AINFO<<"(DMCZP) LeaveMethod: JunctionPredictor::GenerateCandidateTimes";
   return candidate_times;
 }
 

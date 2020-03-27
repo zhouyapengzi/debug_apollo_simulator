@@ -54,7 +54,7 @@ std::string PredictionComponent::Name() const {
   AINFO<<"(DMCZP) (return) LeaveMethod: PredictionComponent::Name";
   return FLAGS_prediction_module_name;
 
-  AINFO<<"(DMCZP) LeaveMethod: PredictionComponent::Name";
+   
  }
 
 void PredictionComponent::OfflineProcessFeatureProtoFile(
@@ -102,7 +102,7 @@ bool PredictionComponent::Init() {
   AINFO<<"(DMCZP) (return) LeaveMethod: PredictionComponent::Init";
   return true;
 
-  AINFO<<"(DMCZP) LeaveMethod: PredictionComponent::Init";
+  
  }
 
 bool PredictionComponent::Proc(
@@ -205,7 +205,7 @@ bool PredictionComponent::Proc(
   AINFO<<"(DMCZP) (return) LeaveMethod: PredictionComponent::Proc";
   return true;
 
-  AINFO<<"(DMCZP) LeaveMethod: PredictionComponent::Proc";
+ 
  }
 
 }  // namespace prediction

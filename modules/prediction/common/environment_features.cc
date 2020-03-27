@@ -37,7 +37,7 @@ const apollo::common::Point3D& EnvironmentFeatures::get_ego_position() const {
   AINFO<<"(DMCZP) (return) LeaveMethod: EnvironmentFeatures::get_ego_position";
   return ego_position_;
 
-  AINFO<<"(DMCZP) LeaveMethod: EnvironmentFeatures::get_ego_position";
+  
  }
 
 void EnvironmentFeatures::set_ego_speed(const double ego_speed) {
@@ -51,9 +51,7 @@ void EnvironmentFeatures::set_ego_speed(const double ego_speed) {
 double EnvironmentFeatures::get_ego_speed() const {
   AINFO<<"(DMCZP) EnteringMethod: EnvironmentFeatures::get_ego_speed";
  
-  AINFO<<"(DMCZP) 
-  AINFO<<"(DMCZP) LeaveMethod: EnvironmentFeatures::get_ego_speed";
- (return) LeaveMethod: EnvironmentFeatures::get_ego_speed";
+  AINFO<<"(DMCZP) (return) LeaveMethod: EnvironmentFeatures::get_ego_speed";
   return ego_speed_; }
 
 void EnvironmentFeatures::set_ego_heading(const double ego_heading) {
@@ -67,9 +65,7 @@ void EnvironmentFeatures::set_ego_heading(const double ego_heading) {
 double EnvironmentFeatures::get_ego_heading() const {
   AINFO<<"(DMCZP) EnteringMethod: EnvironmentFeatures::get_ego_heading";
  
-  AINFO<<"(DMCZP) (r
-  AINFO<<"(DMCZP) LeaveMethod: EnvironmentFeatures::get_ego_heading";
- eturn) LeaveMethod: EnvironmentFeatures::get_ego_heading";
+  AINFO<<"(DMCZP) (return) LeaveMethod: EnvironmentFeatures::get_ego_heading";
   return ego_heading_; }
 
 void EnvironmentFeatures::set_ego_acceleration(const double ego_acceleration) {
@@ -87,15 +83,13 @@ double EnvironmentFeatures::get_ego_acceleration() const {
   AINFO<<"(DMCZP) (return) LeaveMethod: EnvironmentFeatures::get_ego_acceleration";
   return ego_acceleration_;
 
-  AINFO<<"(DMCZP) LeaveMethod: EnvironmentFeatures::get_ego_acceleration";
+   
  }
 
 bool EnvironmentFeatures::has_ego_lane() const {
   AINFO<<"(DMCZP) EnteringMethod: EnvironmentFeatures::has_ego_lane";
  
-  AINFO<<"(DMCZP) (re
-  AINFO<<"(DMCZP) LeaveMethod: EnvironmentFeatures::has_ego_lane";
- turn) LeaveMethod: EnvironmentFeatures::has_ego_lane";
+  AINFO<<"(DMCZP) (return) LeaveMethod: EnvironmentFeatures::has_ego_lane";
   return has_ego_lane_; }
 
 void EnvironmentFeatures::reset_ego_lane() {
@@ -130,8 +124,6 @@ bool EnvironmentFeatures::has_left_neighbor_lane() const {
   
   AINFO<<"(DMCZP) (return) LeaveMethod: EnvironmentFeatures::has_left_neighbor_lane";
   return has_left_neighbor_lane_;
-
-  AINFO<<"(DMCZP) LeaveMethod: EnvironmentFeatures::has_left_neighbor_lane";
  }
 
 void EnvironmentFeatures::reset_left_neighbor_lane() {
@@ -165,8 +157,6 @@ bool EnvironmentFeatures::has_right_neighbor_lane() const {
   
   AINFO<<"(DMCZP) (return) LeaveMethod: EnvironmentFeatures::has_right_neighbor_lane";
   return has_right_neighbor_lane_;
-
-  AINFO<<"(DMCZP) LeaveMethod: EnvironmentFeatures::has_right_neighbor_lane";
  }
 
 void EnvironmentFeatures::reset_right_neighbor_lane() {
@@ -200,8 +190,6 @@ bool EnvironmentFeatures::has_front_junction() const {
   
   AINFO<<"(DMCZP) (return) LeaveMethod: EnvironmentFeatures::has_front_junction";
   return has_front_junction_;
-
-  AINFO<<"(DMCZP) LeaveMethod: EnvironmentFeatures::has_front_junction";
  }
 
 void EnvironmentFeatures::reset_front_junction() {
@@ -224,7 +212,9 @@ void EnvironmentFeatures::SetFrontJunction(const std::string& junction_id,
  }
 
 std::pair<std::string, double> EnvironmentFeatures::GetFrontJunction() const {
+  AINFO<<"(DMCZP) EnteringMethod: EnvironmentFeatures::GetFrontJunction()";
   CHECK(has_front_junction_);
+  AINFO<<"(DMCZP) LeaveMethod: EnvironmentFeatures::GetFrontJunction()";
   return {front_junction_id_, dist_to_front_junction_};
 }
 
@@ -247,8 +237,6 @@ EnvironmentFeatures::nonneglectable_reverse_lanes() const {
   
   AINFO<<"(DMCZP) (return) LeaveMethod: EnvironmentFeatures::nonneglectable_reverse_lanes";
   return nonneglectable_reverse_lanes_;
-
-  AINFO<<"(DMCZP) LeaveMethod: EnvironmentFeatures::nonneglectable_reverse_lanes";
  }
 
 void EnvironmentFeatures::AddNonneglectableReverseLanes(
@@ -274,8 +262,6 @@ bool EnvironmentFeatures::RemoveNonneglectableReverseLanes(
   
   AINFO<<"(DMCZP) (return) LeaveMethod: EnvironmentFeatures::RemoveNonneglectableReverseLanes";
   return true;
-
-  AINFO<<"(DMCZP) LeaveMethod: EnvironmentFeatures::RemoveNonneglectableReverseLanes";
  }
 
 }  // namespace prediction

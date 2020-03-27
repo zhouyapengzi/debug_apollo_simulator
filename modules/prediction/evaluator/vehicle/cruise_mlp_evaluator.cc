@@ -50,8 +50,6 @@ double ComputeMean(const std::vector<double>& nums, size_t start, size_t end) {
   
   AINFO<<"(DMCZP) (return) LeaveMethod: ComputeMean";
   return (count == 0) ? 0.0 : sum / count;
-
-  AINFO<<"(DMCZP) LeaveMethod: ComputeMean";
  }
 
 CruiseMLPEvaluator::CruiseMLPEvaluator() : device_(torch::kCPU) {
@@ -166,8 +164,6 @@ bool CruiseMLPEvaluator::Evaluate(Obstacle* obstacle_ptr) {
   
   AINFO<<"(DMCZP) (return) LeaveMethod: CruiseMLPEvaluator::Evaluate";
   return true;
-
-  AINFO<<"(DMCZP) LeaveMethod: CruiseMLPEvaluator::Evaluate";
  }
 
 void CruiseMLPEvaluator::ExtractFeatureValues(

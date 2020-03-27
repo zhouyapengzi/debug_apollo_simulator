@@ -44,7 +44,6 @@ double ValidationChecker::ProbabilityByCentripetalAcceleration(
   AINFO<<"(DMCZP) (return) LeaveMethod: ValidationChecker::ProbabilityByCentripetalAcceleration";
   return std::exp(-FLAGS_centripetal_acc_coeff * mean_cost);
 
-  AINFO<<"(DMCZP) LeaveMethod: ValidationChecker::ProbabilityByCentripetalAcceleration";
  }
 
 bool ValidationChecker::ValidCentripetalAcceleration(
@@ -73,7 +72,6 @@ bool ValidationChecker::ValidCentripetalAcceleration(
   AINFO<<"(DMCZP) (return) LeaveMethod: ValidationChecker::ValidCentripetalAcceleration";
   return true;
 
-  AINFO<<"(DMCZP) LeaveMethod: ValidationChecker::ValidCentripetalAcceleration";
  }
 
 bool ValidationChecker::ValidTrajectoryPoint(
@@ -90,7 +88,7 @@ bool ValidationChecker::ValidTrajectoryPoint(
          (!std::isnan(trajectory_point.a())) &&
          (!std::isnan(trajectory_point.relative_time()));
 
-  AINFO<<"(DMCZP) LeaveMethod: ValidationChecker::ValidTrajectoryPoint";
+  
  }
 
 }  // namespace prediction

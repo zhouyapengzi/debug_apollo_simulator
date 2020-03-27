@@ -91,8 +91,6 @@ bool MessageProcess::Init() {
   
   AINFO<<"(DMCZP) (return) LeaveMethod: MessageProcess::Init";
   return true;
-
-  AINFO<<"(DMCZP) LeaveMethod: MessageProcess::Init";
  }
 
 void MessageProcess::OnPerception(

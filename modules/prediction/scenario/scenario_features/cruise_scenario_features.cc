@@ -46,8 +46,6 @@ bool CruiseScenarioFeatures::IsLaneOfInterest(
   
   AINFO<<"(DMCZP) (return) LeaveMethod: CruiseScenarioFeatures::IsLaneOfInterest";
   return lane_ids_of_interest_.find(lane_id) != lane_ids_of_interest_.end();
-
-  AINFO<<"(DMCZP) LeaveMethod: CruiseScenarioFeatures::IsLaneOfInterest";
  }
 
 void CruiseScenarioFeatures::InsertLaneOfInterest(const std::string& lane_id) {

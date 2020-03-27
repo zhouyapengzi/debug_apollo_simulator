@@ -33,8 +33,6 @@ int Predictor::NumOfTrajectories(const Obstacle& obstacle) {
   
   AINFO<<"(DMCZP) (return) LeaveMethod: Predictor::NumOfTrajectories";
   return obstacle.latest_feature().predicted_trajectory_size();
-
-  AINFO<<"(DMCZP) LeaveMethod: Predictor::NumOfTrajectories";
  }
 
 Trajectory Predictor::GenerateTrajectory(
@@ -46,8 +44,6 @@ Trajectory Predictor::GenerateTrajectory(
   
   AINFO<<"(DMCZP) (return) LeaveMethod: Predictor::GenerateTrajectory";
   return trajectory;
-
-  AINFO<<"(DMCZP) LeaveMethod: Predictor::GenerateTrajectory";
  }
 
 void Predictor::SetEqualProbability(const double total_probability,
@@ -158,8 +154,6 @@ bool Predictor::TrimTrajectory(
   
   AINFO<<"(DMCZP) (return) LeaveMethod: Predictor::TrimTrajectory";
   return true;
-
-  AINFO<<"(DMCZP) LeaveMethod: Predictor::TrimTrajectory";
  }
 
 bool Predictor::SupposedToStop(const Feature& feature,
@@ -184,7 +178,6 @@ bool Predictor::SupposedToStop(const Feature& feature,
   return *acceleration <= -FLAGS_double_precision &&
          *acceleration >= FLAGS_vehicle_min_linear_acc;
 
-  AINFO<<"(DMCZP) LeaveMethod: Predictor::SupposedToStop";
  }
 
 const ObstacleConf::PredictorType& Predictor::predictor_type() {
@@ -193,8 +186,6 @@ const ObstacleConf::PredictorType& Predictor::predictor_type() {
   
   AINFO<<"(DMCZP) (return) LeaveMethod: Predictor::predictor_type";
   return predictor_type_;
-
-  AINFO<<"(DMCZP) LeaveMethod: Predictor::predictor_type";
  }
 
 }  // namespace prediction

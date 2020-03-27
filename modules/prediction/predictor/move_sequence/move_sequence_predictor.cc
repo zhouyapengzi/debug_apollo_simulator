@@ -331,11 +331,10 @@ double MoveSequencePredictor::ComputeTimeToLatEndConditionByVelocity(
   
   AINFO<<"(DMCZP) (return) LeaveMethod: MoveSequencePredictor::ComputeTimeToLatEndConditionByVelocity";
   return std::fabs(lane_l / v_l);
-
-  AINFO<<"(DMCZP) LeaveMethod: MoveSequencePredictor::ComputeTimeToLatEndConditionByVelocity";
  }
 
 std::vector<double> MoveSequencePredictor::GenerateCandidateTimes() {
+  AINFO<<"(DMCZP) EnteringMethod: MoveSequencePredictor::GenerateCandidateTimes";
   std::vector<double> candidate_times;
   double t = FLAGS_time_lower_bound_to_lane_center;
   double time_gap = FLAGS_sample_time_gap;
@@ -343,6 +342,7 @@ std::vector<double> MoveSequencePredictor::GenerateCandidateTimes() {
     candidate_times.push_back(t);
     t += time_gap;
   }
+  AINFO<<"(DMCZP) (return) LeaveMethod: MoveSequencePredictor::GenerateCandidateTimes";
   return candidate_times;
 }
 
@@ -367,8 +367,6 @@ double MoveSequencePredictor::CostFunction(const double max_lat_acc,
   
   AINFO<<"(DMCZP) (return) LeaveMethod: MoveSequencePredictor::CostFunction";
   return cost_of_trajectory;
-
-  AINFO<<"(DMCZP) LeaveMethod: MoveSequencePredictor::CostFunction";
  }
 
 }  // namespace prediction

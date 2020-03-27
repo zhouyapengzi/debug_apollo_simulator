@@ -51,9 +51,7 @@ void ScenarioManager::Run() {
 const Scenario& ScenarioManager::scenario() const {
   AINFO<<"(DMCZP) EnteringMethod: ScenarioManager::scenario";
  
-  AINFO<<"(DMCZP) (return
-  AINFO<<"(DMCZP) LeaveMethod: ScenarioManager::scenario";
- ) LeaveMethod: ScenarioManager::scenario";
+  AINFO<<"(DMCZP) (return) LeaveMethod: ScenarioManager::scenario";
   return current_scenario_; }
 
 }  // namespace prediction

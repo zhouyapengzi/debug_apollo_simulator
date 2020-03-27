@@ -262,8 +262,6 @@ bool InteractionPredictor::DrawTrajectory(
   
   AINFO<<"(DMCZP) (return) LeaveMethod: InteractionPredictor::DrawTrajectory";
   return true;
-
-  AINFO<<"(DMCZP) LeaveMethod: InteractionPredictor::DrawTrajectory";
  }
 
 double InteractionPredictor::ComputeTrajectoryCost(
@@ -301,8 +299,6 @@ double InteractionPredictor::ComputeTrajectoryCost(
   
   AINFO<<"(DMCZP) (return) LeaveMethod: InteractionPredictor::ComputeTrajectoryCost";
   return total_cost;
-
-  AINFO<<"(DMCZP) LeaveMethod: InteractionPredictor::ComputeTrajectoryCost";
  }
 
 double InteractionPredictor::LongitudinalAccelerationCost(
@@ -312,8 +308,6 @@ double InteractionPredictor::LongitudinalAccelerationCost(
   
   AINFO<<"(DMCZP) (return) LeaveMethod: InteractionPredictor::LongitudinalAccelerationCost";
   return acceleration * acceleration;
-
-  AINFO<<"(DMCZP) LeaveMethod: InteractionPredictor::LongitudinalAccelerationCost";
  }
 
 double InteractionPredictor::CentripetalAccelerationCost(
@@ -336,8 +330,6 @@ double InteractionPredictor::CentripetalAccelerationCost(
   
   AINFO<<"(DMCZP) (return) LeaveMethod: InteractionPredictor::CentripetalAccelerationCost";
   return cost_sqr_sum / (cost_abs_sum + FLAGS_double_precision);
-
-  AINFO<<"(DMCZP) LeaveMethod: InteractionPredictor::CentripetalAccelerationCost";
  }
 
 double InteractionPredictor::CollisionWithEgoVehicleCost(
@@ -394,8 +386,6 @@ double InteractionPredictor::CollisionWithEgoVehicleCost(
   
   AINFO<<"(DMCZP) (return) LeaveMethod: InteractionPredictor::CollisionWithEgoVehicleCost";
   return cost_sqr_sum / (cost_abs_sum + FLAGS_double_precision);
-
-  AINFO<<"(DMCZP) LeaveMethod: InteractionPredictor::CollisionWithEgoVehicleCost";
  }
 
 bool InteractionPredictor::LowerRightOfWayThanEgo(
@@ -414,8 +404,6 @@ bool InteractionPredictor::LowerRightOfWayThanEgo(
   
   AINFO<<"(DMCZP) (return) LeaveMethod: InteractionPredictor::LowerRightOfWayThanEgo";
   return lane_sequence.right_of_way() < 0;
-
-  AINFO<<"(DMCZP) LeaveMethod: InteractionPredictor::LowerRightOfWayThanEgo";
  }
 
 double InteractionPredictor::ComputeLikelihood(const double cost) {
@@ -425,8 +413,6 @@ double InteractionPredictor::ComputeLikelihood(const double cost) {
   
   AINFO<<"(DMCZP) (return) LeaveMethod: InteractionPredictor::ComputeLikelihood";
   return std::exp(-alpha * cost);
-
-  AINFO<<"(DMCZP) LeaveMethod: InteractionPredictor::ComputeLikelihood";
  }
 
 double InteractionPredictor::ComputePosterior(const double prior,
@@ -436,8 +422,6 @@ double InteractionPredictor::ComputePosterior(const double prior,
   
   AINFO<<"(DMCZP) (return) LeaveMethod: InteractionPredictor::ComputePosterior";
   return prior * likelihood;
-
-  AINFO<<"(DMCZP) LeaveMethod: InteractionPredictor::ComputePosterior";
  }
 
 }  // namespace prediction

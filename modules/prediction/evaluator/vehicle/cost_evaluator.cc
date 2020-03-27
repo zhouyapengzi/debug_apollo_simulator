@@ -86,8 +86,6 @@ bool CostEvaluator::Evaluate(Obstacle* obstacle_ptr) {
   
   AINFO<<"(DMCZP) (return) LeaveMethod: CostEvaluator::Evaluate";
   return true;
-
-  AINFO<<"(DMCZP) LeaveMethod: CostEvaluator::Evaluate";
  }
 
 double CostEvaluator::ComputeProbability(const double obstacle_length,
@@ -101,8 +99,6 @@ double CostEvaluator::ComputeProbability(const double obstacle_length,
   
   AINFO<<"(DMCZP) (return) LeaveMethod: CostEvaluator::ComputeProbability";
   return Sigmoid(front_lateral_distance_cost);
-
-  AINFO<<"(DMCZP) LeaveMethod: CostEvaluator::ComputeProbability";
  }
 
 double CostEvaluator::FrontLateralDistanceCost(
@@ -127,8 +123,6 @@ double CostEvaluator::FrontLateralDistanceCost(
   
   AINFO<<"(DMCZP) (return) LeaveMethod: CostEvaluator::FrontLateralDistanceCost";
   return half_lane_width - distance;
-
-  AINFO<<"(DMCZP) LeaveMethod: CostEvaluator::FrontLateralDistanceCost";
  }
 
 }  // namespace prediction

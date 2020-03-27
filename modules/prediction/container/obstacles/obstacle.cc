@@ -45,8 +45,6 @@ double Damp(const double x, const double sigma) {
   
   AINFO<<"(DMCZP) (return) LeaveMethod: Damp";
   return 1.0 / (1.0 + std::exp(1.0 / (std::fabs(x) + sigma)));
-
-  AINFO<<"(DMCZP) LeaveMethod: Damp";
  }
 
 bool IsClosed(const double x0, const double y0, const double theta0,
@@ -60,7 +58,6 @@ bool IsClosed(const double x0, const double y0, const double theta0,
   return distance < FLAGS_distance_threshold_to_junction_exit &&
          angle_diff < FLAGS_angle_threshold_to_junction_exit;
 
-  AINFO<<"(DMCZP) LeaveMethod: IsClosed";
  }
 
 }  // namespace
@@ -68,17 +65,13 @@ bool IsClosed(const double x0, const double y0, const double theta0,
 PerceptionObstacle::Type Obstacle::type() const {
   AINFO<<"(DMCZP) EnteringMethod: Obstacle::type";
  
-  AINFO<<"(DM
-  AINFO<<"(DMCZP) LeaveMethod: Obstacle::type";
- CZP) (return) LeaveMethod: Obstacle::type";
+  AINFO<<"(DMCZP) (return) LeaveMethod: Obstacle::type";
   return type_; }
 
 int Obstacle::id() const {
   AINFO<<"(DMCZP) EnteringMethod: Obstacle::id";
  
-  AINFO<<"(
-  AINFO<<"(DMCZP) LeaveMethod: Obstacle::id";
- DMCZP) (return) LeaveMethod: Obstacle::id";
+  AINFO<<"(DMCZP) (return) LeaveMethod: Obstacle::id";
   return id_; }
 
 double Obstacle::timestamp() const {
@@ -88,8 +81,6 @@ double Obstacle::timestamp() const {
   
   AINFO<<"(DMCZP) (return) LeaveMethod: Obstacle::timestamp";
   return feature_history_.front().timestamp();
-
-  AINFO<<"(DMCZP) LeaveMethod: Obstacle::timestamp";
  }
 
 const Feature& Obstacle::feature(const size_t i) const {
@@ -99,8 +90,6 @@ const Feature& Obstacle::feature(const size_t i) const {
   
   AINFO<<"(DMCZP) (return) LeaveMethod: Obstacle::feature";
   return feature_history_[i];
-
-  AINFO<<"(DMCZP) LeaveMethod: Obstacle::feature";
  }
 
 Feature* Obstacle::mutable_feature(const size_t i) {
@@ -111,8 +100,6 @@ Feature* Obstacle::mutable_feature(const size_t i) {
   
   AINFO<<"(DMCZP) (return) LeaveMethod: Obstacle::mutable_feature";
   return &feature_history_[i];
-
-  AINFO<<"(DMCZP) LeaveMethod: Obstacle::mutable_feature";
  }
 
 const Feature& Obstacle::latest_feature() const {
@@ -123,7 +110,6 @@ const Feature& Obstacle::latest_feature() const {
   AINFO<<"(DMCZP) (return) LeaveMethod: Obstacle::latest_feature";
   return feature_history_.front();
 
-  AINFO<<"(DMCZP) LeaveMethod: Obstacle::latest_feature";
  }
 
 const Feature& Obstacle::earliest_feature() const {
@@ -134,7 +120,6 @@ const Feature& Obstacle::earliest_feature() const {
   AINFO<<"(DMCZP) (return) LeaveMethod: Obstacle::earliest_feature";
   return feature_history_.back();
 
-  AINFO<<"(DMCZP) LeaveMethod: Obstacle::earliest_feature";
  }
 
 Feature* Obstacle::mutable_latest_feature() {
@@ -145,22 +130,25 @@ Feature* Obstacle::mutable_latest_feature() {
   AINFO<<"(DMCZP) (return) LeaveMethod: Obstacle::mutable_latest_feature";
   return &(feature_history_.front());
 
-  AINFO<<"(DMCZP) LeaveMethod: Obstacle::mutable_latest_feature";
  }
 
 size_t Obstacle::history_size() const {
   AINFO<<"(DMCZP) EnteringMethod: Obstacle::history_size";
  
-  AINFO<<"(DMCZP) (return) Leav
-  AINFO<<"(DMCZP) LeaveMethod: Obstacle::history_size";
- eMethod: Obstacle::history_size";
+  AINFO<<"(DMCZP) (return) LeaveMethod: Obstacle::history_size";
   return feature_history_.size(); }
 
 const KalmanFilter<double, 6, 2, 0>& Obstacle::kf_motion_tracker() const {
+   AINFO<<"(DMCZP) EnteringMethod: Obstacle::kf_motion_tracker";
+ 
+  AINFO<<"(DMCZP) (return) LeaveMethod: Obstacle::kf_motion_tracker";
   return kf_motion_tracker_;
 }
 
 const KalmanFilter<double, 2, 2, 4>& Obstacle::kf_pedestrian_tracker() const {
+     AINFO<<"(DMCZP) EnteringMethod: Obstacle::kf_pedestrian_tracker()";
+ 
+  AINFO<<"(DMCZP) (return) LeaveMethod: Obstacle::kf_pedestrian_tracker()";
   return kf_pedestrian_tracker_;
 }
 
@@ -175,8 +163,6 @@ bool Obstacle::IsStill() {
   
   AINFO<<"(DMCZP) (return) LeaveMethod: Obstacle::IsStill";
   return true;
-
-  AINFO<<"(DMCZP) LeaveMethod: Obstacle::IsStill";
  }
 
 bool Obstacle::IsSlow() {
@@ -186,8 +172,6 @@ bool Obstacle::IsSlow() {
   
   AINFO<<"(DMCZP) (return) LeaveMethod: Obstacle::IsSlow";
   return feature.speed() < FLAGS_slow_obstacle_speed_threshold;
-
-  AINFO<<"(DMCZP) LeaveMethod: Obstacle::IsSlow";
  }
 
 bool Obstacle::IsOnLane() const {
@@ -213,8 +197,6 @@ bool Obstacle::IsOnLane() const {
   
   AINFO<<"(DMCZP) (return) LeaveMethod: Obstacle::IsOnLane";
   return true;
-
-  AINFO<<"(DMCZP) LeaveMethod: Obstacle::IsOnLane";
  }
 
 bool Obstacle::ToIgnore() {
@@ -228,8 +210,6 @@ bool Obstacle::ToIgnore() {
   
   AINFO<<"(DMCZP) (return) LeaveMethod: Obstacle::ToIgnore";
   return latest_feature().priority().priority() == ObstaclePriority::IGNORE;
-
-  AINFO<<"(DMCZP) LeaveMethod: Obstacle::ToIgnore";
  }
 
 bool Obstacle::IsNearJunction() {
@@ -246,8 +226,6 @@ bool Obstacle::IsNearJunction() {
   AINFO<<"(DMCZP) (return) LeaveMethod: Obstacle::IsNearJunction";
   return PredictionMap::NearJunction({pos_x, pos_y},
                                      FLAGS_junction_search_radius);
-
-  AINFO<<"(DMCZP) LeaveMethod: Obstacle::IsNearJunction";
  }
 
 bool Obstacle::Insert(const PerceptionObstacle& perception_obstacle,
@@ -330,8 +308,6 @@ bool Obstacle::Insert(const PerceptionObstacle& perception_obstacle,
   
   AINFO<<"(DMCZP) (return) LeaveMethod: Obstacle::Insert";
   return true;
-
-  AINFO<<"(DMCZP) LeaveMethod: Obstacle::Insert";
  }
 
 bool Obstacle::InsertFeature(const Feature& feature) {
@@ -343,8 +319,6 @@ bool Obstacle::InsertFeature(const Feature& feature) {
   
   AINFO<<"(DMCZP) (return) LeaveMethod: Obstacle::InsertFeature";
   return true;
-
-  AINFO<<"(DMCZP) LeaveMethod: Obstacle::InsertFeature";
  }
 
 bool Obstacle::IsInJunction(const std::string& junction_id) {
@@ -436,8 +410,6 @@ bool Obstacle::IsCloseToJunctionExit() {
   
   AINFO<<"(DMCZP) (return) LeaveMethod: Obstacle::IsCloseToJunctionExit";
   return false;
-
-  AINFO<<"(DMCZP) LeaveMethod: Obstacle::IsCloseToJunctionExit";
  }
 
 void Obstacle::SetJunctionFeatureWithEnterLane(const std::string& enter_lane_id,
@@ -606,7 +578,6 @@ bool Obstacle::SetId(const PerceptionObstacle& perception_obstacle,
   AINFO<<"(DMCZP) (return) LeaveMethod: Obstacle::SetId";
   return true;
 
-  AINFO<<"(DMCZP) LeaveMethod: Obstacle::SetId";
  }
 
 void Obstacle::SetType(const PerceptionObstacle& perception_obstacle,
@@ -1990,9 +1961,7 @@ void Obstacle::InitRNNStates() {
 bool Obstacle::RNNEnabled() const {
   AINFO<<"(DMCZP) EnteringMethod: Obstacle::RNNEnabled";
  
-  AINFO<<"(DMCZP) (r
-  AINFO<<"(DMCZP) LeaveMethod: Obstacle::RNNEnabled";
- eturn) LeaveMethod: Obstacle::RNNEnabled";
+  AINFO<<"(DMCZP) (return) LeaveMethod: Obstacle::RNNEnabled";
   return rnn_enabled_; }
 
 void Obstacle::SetCaution() {

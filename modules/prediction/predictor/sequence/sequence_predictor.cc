@@ -64,8 +64,6 @@ std::string SequencePredictor::ToString(const LaneSequence& sequence) {
   
   AINFO<<"(DMCZP) (return) LeaveMethod: SequencePredictor::ToString";
   return str_lane_sequence;
-
-  AINFO<<"(DMCZP) LeaveMethod: SequencePredictor::ToString";
  }
 
 void SequencePredictor::FilterLaneSequences(
@@ -226,8 +224,6 @@ SequencePredictor::LaneChangeType SequencePredictor::GetLaneChangeType(
   
   AINFO<<"(DMCZP) (return) LeaveMethod: SequencePredictor::GetLaneChangeType";
   return LaneChangeType::INVALID;
-
-  AINFO<<"(DMCZP) LeaveMethod: SequencePredictor::GetLaneChangeType";
  }
 
 double SequencePredictor::GetLaneChangeDistanceWithADC(
@@ -275,8 +271,6 @@ double SequencePredictor::GetLaneChangeDistanceWithADC(
   
   AINFO<<"(DMCZP) (return) LeaveMethod: SequencePredictor::GetLaneChangeDistanceWithADC";
   return std::numeric_limits<double>::max();
-
-  AINFO<<"(DMCZP) LeaveMethod: SequencePredictor::GetLaneChangeDistanceWithADC";
  }
 
 bool SequencePredictor::LaneSequenceWithMaxProb(const LaneChangeType& type,
@@ -300,8 +294,6 @@ bool SequencePredictor::LaneSequenceWithMaxProb(const LaneChangeType& type,
   
   AINFO<<"(DMCZP) (return) LeaveMethod: SequencePredictor::LaneSequenceWithMaxProb";
   return false;
-
-  AINFO<<"(DMCZP) LeaveMethod: SequencePredictor::LaneSequenceWithMaxProb";
  }
 
 bool SequencePredictor::LaneChangeWithMaxProb(const LaneChangeType& type,
@@ -319,8 +311,6 @@ bool SequencePredictor::LaneChangeWithMaxProb(const LaneChangeType& type,
   
   AINFO<<"(DMCZP) (return) LeaveMethod: SequencePredictor::LaneChangeWithMaxProb";
   return false;
-
-  AINFO<<"(DMCZP) LeaveMethod: SequencePredictor::LaneChangeWithMaxProb";
  }
 
 void SequencePredictor::DrawConstantAccelerationTrajectory(
@@ -421,8 +411,6 @@ double SequencePredictor::GetLaneSequenceCurvatureByS(
   
   AINFO<<"(DMCZP) (return) LeaveMethod: SequencePredictor::GetLaneSequenceCurvatureByS";
   return 0.0;
-
-  AINFO<<"(DMCZP) LeaveMethod: SequencePredictor::GetLaneSequenceCurvatureByS";
  }
 
 bool SequencePredictor::GetLongitudinalPolynomial(
@@ -482,8 +470,6 @@ bool SequencePredictor::GetLongitudinalPolynomial(
   
   AINFO<<"(DMCZP) (return) LeaveMethod: SequencePredictor::GetLongitudinalPolynomial";
   return true;
-
-  AINFO<<"(DMCZP) LeaveMethod: SequencePredictor::GetLongitudinalPolynomial";
  }
 
 bool SequencePredictor::GetLateralPolynomial(
@@ -546,7 +532,6 @@ bool SequencePredictor::GetLateralPolynomial(
   AINFO<<"(DMCZP) (return) LeaveMethod: SequencePredictor::GetLateralPolynomial";
   return true;
 
-  AINFO<<"(DMCZP) LeaveMethod: SequencePredictor::GetLateralPolynomial";
  }
 
 }  // namespace prediction

@@ -67,8 +67,6 @@ bool IsTrainable(const Feature& feature) {
   
   AINFO<<"(DMCZP) (return) LeaveMethod: IsTrainable";
   return true;
-
-  AINFO<<"(DMCZP) LeaveMethod: IsTrainable";
  }
 
 void GroupObstaclesByObstacleId(const int obstacle_id,
@@ -224,8 +222,6 @@ Evaluator* EvaluatorManager::GetEvaluator(
   
   AINFO<<"(DMCZP) (return) LeaveMethod: EvaluatorManager::GetEvaluator";
   return it != evaluators_.end() ? it->second.get() : nullptr;
-
-  AINFO<<"(DMCZP) LeaveMethod: EvaluatorManager::GetEvaluator";
  }
 
 void EvaluatorManager::Run() {

@@ -178,8 +178,6 @@ Obstacle* ObstaclesContainer::GetObstacleWithLRUUpdate(const int obstacle_id) {
   
   AINFO<<"(DMCZP) (return) LeaveMethod: ObstaclesContainer::GetObstacleWithLRUUpdate";
   return nullptr;
-
-  AINFO<<"(DMCZP) LeaveMethod: ObstaclesContainer::GetObstacleWithLRUUpdate";
  }
 
 void ObstaclesContainer::Clear() {
@@ -201,11 +199,12 @@ const PerceptionObstacle& ObstaclesContainer::GetPerceptionObstacle(
   
   AINFO<<"(DMCZP) (return) LeaveMethod: ObstaclesContainer::GetPerceptionObstacle";
   return curr_frame_id_perception_obstacle_map_[id];
-
-  AINFO<<"(DMCZP) LeaveMethod: ObstaclesContainer::GetPerceptionObstacle";
  }
 
 const std::vector<int>& ObstaclesContainer::curr_frame_movable_obstacle_ids() {
+   AINFO<<"(DMCZP) EnteringMethod: ObstaclesContainer::curr_frame_movable_obstacle_ids";
+
+  AINFO<<"(DMCZP) (return) LeaveMethod: ObstaclesContainer::curr_frame_movable_obstacle_ids";
   return curr_frame_movable_obstacle_ids_;
 }
 
@@ -213,22 +212,16 @@ const std::vector<int>&
 ObstaclesContainer::curr_frame_unmovable_obstacle_ids() {
   AINFO<<"(DMCZP) EnteringMethod: ObstaclesContainer::curr_frame_unmovable_obstacle_ids";
 
-  
   AINFO<<"(DMCZP) (return) LeaveMethod: ObstaclesContainer::curr_frame_unmovable_obstacle_ids";
   return curr_frame_unmovable_obstacle_ids_;
-
-  AINFO<<"(DMCZP) LeaveMethod: ObstaclesContainer::curr_frame_unmovable_obstacle_ids";
  }
 
 const std::vector<int>&
 ObstaclesContainer::curr_frame_considered_obstacle_ids() {
   AINFO<<"(DMCZP) EnteringMethod: ObstaclesContainer::curr_frame_considered_obstacle_ids";
 
-  
   AINFO<<"(DMCZP) (return) LeaveMethod: ObstaclesContainer::curr_frame_considered_obstacle_ids";
   return curr_frame_considered_obstacle_ids_;
-
-  AINFO<<"(DMCZP) LeaveMethod: ObstaclesContainer::curr_frame_considered_obstacle_ids";
  }
 
 void ObstaclesContainer::SetConsideredObstacleIds() {
@@ -416,8 +409,6 @@ int ObstaclesContainer::PerceptionIdToPredictionId(const int perception_id) {
   
   AINFO<<"(DMCZP) (return) LeaveMethod: ObstaclesContainer::PerceptionIdToPredictionId";
   return curr_frame_id_mapping_[perception_id];
-
-  AINFO<<"(DMCZP) LeaveMethod: ObstaclesContainer::PerceptionIdToPredictionId";
  }
 
 void ObstaclesContainer::BuildLaneGraph() {
@@ -516,8 +507,6 @@ bool ObstaclesContainer::AdaptTracking(
   
   AINFO<<"(DMCZP) (return) LeaveMethod: ObstaclesContainer::AdaptTracking";
   return false;
-
-  AINFO<<"(DMCZP) LeaveMethod: ObstaclesContainer::AdaptTracking";
  }
 
 bool ObstaclesContainer::IsMovable(
@@ -540,9 +529,7 @@ bool ObstaclesContainer::IsMovable(
 double ObstaclesContainer::timestamp() const {
   AINFO<<"(DMCZP) EnteringMethod: ObstaclesContainer::timestamp";
  
-  AINFO<<"(DMCZP) 
-  AINFO<<"(DMCZP) LeaveMethod: ObstaclesContainer::timestamp";
- (return) LeaveMethod: ObstaclesContainer::timestamp";
+  AINFO<<"(DMCZP) (return) LeaveMethod: ObstaclesContainer::timestamp";
   return timestamp_; }
 
 }  // namespace prediction

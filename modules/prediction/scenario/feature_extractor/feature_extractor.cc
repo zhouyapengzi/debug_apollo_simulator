@@ -90,8 +90,6 @@ EnvironmentFeatures FeatureExtractor::ExtractEnvironmentFeatures() {
   
   AINFO<<"(DMCZP) (return) LeaveMethod: FeatureExtractor::ExtractEnvironmentFeatures";
   return environment_features;
-
-  AINFO<<"(DMCZP) LeaveMethod: FeatureExtractor::ExtractEnvironmentFeatures";
  }
 
 void FeatureExtractor::ExtractEgoLaneFeatures(
@@ -228,8 +226,6 @@ LaneInfoPtr FeatureExtractor::GetEgoLane(const common::Point3D& position,
   return PredictionMap::GetMostLikelyCurrentLane(
       position_enu, FLAGS_lane_distance_threshold, heading,
       FLAGS_lane_angle_difference_threshold);
-
-  AINFO<<"(DMCZP) LeaveMethod: FeatureExtractor::GetEgoLane";
  }
 
 }  // namespace prediction

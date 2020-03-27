@@ -59,8 +59,6 @@ bool IsLaneSequenceInReferenceLine(
   
   AINFO<<"(DMCZP) (return) LeaveMethod: IsLaneSequenceInReferenceLine";
   return false;
-
-  AINFO<<"(DMCZP) LeaveMethod: IsLaneSequenceInReferenceLine";
  }
 
 int NearestFrontObstacleIdOnLaneSequence(const LaneSequence& lane_sequence) {
@@ -81,8 +79,6 @@ int NearestFrontObstacleIdOnLaneSequence(const LaneSequence& lane_sequence) {
   
   AINFO<<"(DMCZP) (return) LeaveMethod: NearestFrontObstacleIdOnLaneSequence";
   return nearest_front_obstacle_id;
-
-  AINFO<<"(DMCZP) LeaveMethod: NearestFrontObstacleIdOnLaneSequence";
  }
 
 int NearestBackwardObstacleIdOnLaneSequence(const LaneSequence& lane_sequence) {
@@ -103,8 +99,6 @@ int NearestBackwardObstacleIdOnLaneSequence(const LaneSequence& lane_sequence) {
   
   AINFO<<"(DMCZP) (return) LeaveMethod: NearestBackwardObstacleIdOnLaneSequence";
   return nearest_backward_obstacle_id;
-
-  AINFO<<"(DMCZP) LeaveMethod: NearestBackwardObstacleIdOnLaneSequence";
  }
 
 }  // namespace
@@ -358,9 +352,7 @@ void ObstaclesPrioritizer::AssignCautionLevelByEgoReferenceLine() {
     
   AINFO<<"(DMCZP) (return) LeaveMethod: ObstaclesPrioritizer::AssignCautionLevelByEgoReferenceLine";
   return;
-  
-  AINFO<<"(DMCZP) LeaveMethod: ObstaclesPrioritizer::AssignCautionLevelByEgoReferenceLine";
- }
+  }
 
   ADCTrajectoryContainer* adc_trajectory_container =
       ContainerManager::Instance()->GetContainer<ADCTrajectoryContainer>(
@@ -508,6 +500,8 @@ void ObstaclesPrioritizer::AssignCautionLevelByEgoReferenceLine() {
       }
     }
   }
+   
+  AINFO<<"(DMCZP) LeaveMethod: ObstaclesPrioritizer::AssignCautionLevelByEgoReferenceLine";
 }
 
 void ObstaclesPrioritizer::AssignCautionByMerge(

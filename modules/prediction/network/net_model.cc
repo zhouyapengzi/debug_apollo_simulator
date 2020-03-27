@@ -74,8 +74,6 @@ bool NetModel::LoadModel(const NetParameter& net_parameter) {
   
   AINFO<<"(DMCZP) (return) LeaveMethod: NetModel::LoadModel";
   return true;
-
-  AINFO<<"(DMCZP) LeaveMethod: NetModel::LoadModel";
  }
 
 std::string NetModel::PerformanceString() const {
@@ -104,32 +102,24 @@ std::string NetModel::PerformanceString() const {
   
   AINFO<<"(DMCZP) (return) LeaveMethod: NetModel::PerformanceString";
   return ss.str();
-
-  AINFO<<"(DMCZP) LeaveMethod: NetModel::PerformanceString";
  }
 
 const std::string& NetModel::Name() const {
   AINFO<<"(DMCZP) EnteringMethod: NetModel::Name";
  
-  AINFO<<"(DMCZP) (return) Le
-  AINFO<<"(DMCZP) LeaveMethod: NetModel::Name";
- aveMethod: NetModel::Name";
+  AINFO<<"(DMCZP) (return) LeaveMethod: NetModel::Name";
   return net_parameter_.name(); }
 
 int NetModel::Id() const {
   AINFO<<"(DMCZP) EnteringMethod: NetModel::Id";
  
-  AINFO<<"(DMCZP) (return) 
-  AINFO<<"(DMCZP) LeaveMethod: NetModel::Id";
- LeaveMethod: NetModel::Id";
+  AINFO<<"(DMCZP) (return) LeaveMethod: NetModel::Id";
   return net_parameter_.id(); }
 
 bool NetModel::IsOk() const {
   AINFO<<"(DMCZP) EnteringMethod: NetModel::IsOk";
  
-  AINFO<<"(
-  AINFO<<"(DMCZP) LeaveMethod: NetModel::IsOk";
- DMCZP) (return) LeaveMethod: NetModel::IsOk";
+  AINFO<<"(DMCZP) (return) LeaveMethod: NetModel::IsOk";
   return ok_; }
 
 }  // namespace network

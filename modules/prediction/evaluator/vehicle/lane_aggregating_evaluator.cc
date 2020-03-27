@@ -229,8 +229,6 @@ AINFO<<"(pengzi) Encode the obstacle features..Obstacle feature size = " << obst
   
   AINFO<<"(DMCZP) (return) LeaveMethod: LaneAggregatingEvaluator::Evaluate";
   return true;
-
-  AINFO<<"(DMCZP) LeaveMethod: LaneAggregatingEvaluator::Evaluate";
  }
 
 bool LaneAggregatingEvaluator::ExtractObstacleFeatures(
@@ -344,8 +342,6 @@ bool LaneAggregatingEvaluator::ExtractObstacleFeatures(
   
   AINFO<<"(DMCZP) (return) LeaveMethod: LaneAggregatingEvaluator::ExtractObstacleFeatures";
   return true;
-
-  AINFO<<"(DMCZP) LeaveMethod: LaneAggregatingEvaluator::ExtractObstacleFeatures";
  }
 
 bool LaneAggregatingEvaluator::ExtractStaticEnvFeatures(
@@ -483,8 +479,6 @@ bool LaneAggregatingEvaluator::ExtractStaticEnvFeatures(
   
   AINFO<<"(DMCZP) (return) LeaveMethod: LaneAggregatingEvaluator::ExtractStaticEnvFeatures";
   return true;
-
-  AINFO<<"(DMCZP) LeaveMethod: LaneAggregatingEvaluator::ExtractStaticEnvFeatures";
  }
 
 torch::Tensor LaneAggregatingEvaluator::AggregateLaneEncodings(
@@ -504,8 +498,6 @@ torch::Tensor LaneAggregatingEvaluator::AggregateLaneEncodings(
   
   AINFO<<"(DMCZP) (return) LeaveMethod: LaneAggregatingEvaluator::AggregateLaneEncodings";
   return output_tensor;
-
-  AINFO<<"(DMCZP) LeaveMethod: LaneAggregatingEvaluator::AggregateLaneEncodings";
  }
 
 torch::Tensor LaneAggregatingEvaluator::LaneEncodingMaxPooling(
@@ -524,8 +516,6 @@ torch::Tensor LaneAggregatingEvaluator::LaneEncodingMaxPooling(
   
   AINFO<<"(DMCZP) (return) LeaveMethod: LaneAggregatingEvaluator::LaneEncodingMaxPooling";
   return output_tensor;
-
-  AINFO<<"(DMCZP) LeaveMethod: LaneAggregatingEvaluator::LaneEncodingMaxPooling";
  }
 
 torch::Tensor LaneAggregatingEvaluator::LaneEncodingAvgPooling(
@@ -549,12 +539,11 @@ torch::Tensor LaneAggregatingEvaluator::LaneEncodingAvgPooling(
   
   AINFO<<"(DMCZP) (return) LeaveMethod: LaneAggregatingEvaluator::LaneEncodingAvgPooling";
   return output_tensor;
-
-  AINFO<<"(DMCZP) LeaveMethod: LaneAggregatingEvaluator::LaneEncodingAvgPooling";
  }
 
 std::vector<double> LaneAggregatingEvaluator::StableSoftmax(
     const std::vector<double>& prediction_scores) {
+      AINFO<<"(DMCZP) EnteringMethod: LaneAggregatingEvaluator::StableSoftmax";
   double max_score = prediction_scores[0];
   for (const auto& prediction_score : prediction_scores) {
     max_score = std::fmax(max_score, prediction_score);
@@ -570,6 +559,7 @@ std::vector<double> LaneAggregatingEvaluator::StableSoftmax(
   for (auto& element : output_probabilities) {
     element = element / denominator;
   }
+    AINFO<<"(DMCZP) (return) LeaveMethod: LaneAggregatingEvaluator::StableSoftmax";
   return output_probabilities;
 }
 

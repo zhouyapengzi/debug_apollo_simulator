@@ -27,25 +27,19 @@ namespace network {
 float sigmoid(const float x) {
   AINFO<<"(DMCZP) EnteringMethod: sigmoid";
  
-  AINFO<<"(DMCZP) (return) LeaveMeth
-  AINFO<<"(DMCZP) LeaveMethod: sigmoid";
- od: sigmoid";
+  AINFO<<"(DMCZP) (return) LeaveMethod: sigmoid";
   return 1.0f / (1.0f + std::exp(-x)); }
 
 float tanh(const float x) {
   AINFO<<"(DMCZP) EnteringMethod: tanh";
  
-  AINFO<<"(DMCZP) (r
-  AINFO<<"(DMCZP) LeaveMethod: tanh";
- eturn) LeaveMethod: tanh";
+  AINFO<<"(DMCZP) (return) LeaveMethod: tanh";
   return std::tanh(x); }
 
 float linear(const float x) {
   AINFO<<"(DMCZP) EnteringMethod: linear";
  
-  AINFO<<
-  AINFO<<"(DMCZP) LeaveMethod: linear";
- "(DMCZP) (return) LeaveMethod: linear";
+  AINFO<<"(DMCZP) (return) LeaveMethod: linear";
   return x; }
 
 float hard_sigmoid(const float x) {
@@ -55,16 +49,12 @@ float hard_sigmoid(const float x) {
   
   AINFO<<"(DMCZP) (return) LeaveMethod: hard_sigmoid";
   return z <= 0.0f ? 0.0f : (z <= 1.0f ? z : 1.0f);
-
-  AINFO<<"(DMCZP) LeaveMethod: hard_sigmoid";
  }
 
 float relu(const float x) {
   AINFO<<"(DMCZP) EnteringMethod: relu";
  
-  AINFO<<"(DMCZP) (return) Le
-  AINFO<<"(DMCZP) LeaveMethod: relu";
- aveMethod: relu";
+  AINFO<<"(DMCZP) (return) LeaveMethod: relu";
   return (x > 0.0f) ? x : 0.0f; }
 
 Eigen::MatrixXf FlattenMatrix(const Eigen::MatrixXf& matrix) {
@@ -85,8 +75,6 @@ Eigen::MatrixXf FlattenMatrix(const Eigen::MatrixXf& matrix) {
   
   AINFO<<"(DMCZP) (return) LeaveMethod: FlattenMatrix";
   return output_matrix;
-
-  AINFO<<"(DMCZP) LeaveMethod: FlattenMatrix";
  }
 
 std::function<float(float)> serialize_to_function(const std::string& str) {
@@ -131,8 +119,6 @@ bool LoadTensor(const TensorParameter& tensor_pb, Eigen::MatrixXf* matrix) {
   
   AINFO<<"(DMCZP) (return) LeaveMethod: LoadTensor";
   return true;
-
-  AINFO<<"(DMCZP) LeaveMethod: LoadTensor";
  }
 
 bool LoadTensor(const TensorParameter& tensor_pb, Eigen::VectorXf* vector) {
@@ -155,8 +141,6 @@ bool LoadTensor(const TensorParameter& tensor_pb, Eigen::VectorXf* vector) {
   
   AINFO<<"(DMCZP) (return) LeaveMethod: LoadTensor";
   return true;
-
-  AINFO<<"(DMCZP) LeaveMethod: LoadTensor";
  }
 
 bool LoadTensor(const TensorParameter& tensor_pb,
@@ -188,8 +172,6 @@ bool LoadTensor(const TensorParameter& tensor_pb,
   
   AINFO<<"(DMCZP) (return) LeaveMethod: LoadTensor";
   return true;
-
-  AINFO<<"(DMCZP) LeaveMethod: LoadTensor";
  }
 
 }  // namespace network

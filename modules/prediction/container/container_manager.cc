@@ -57,6 +57,7 @@ void ContainerManager::RegisterContainers() {
 
 std::unique_ptr<Container> ContainerManager::CreateContainer(
     const AdapterConfig::MessageType& type) {
+      AINFO<<"(DMCZP) EnteringMethod: ContainerManager::CreateContainer";
   std::unique_ptr<Container> container_ptr(nullptr);
   if (type == AdapterConfig::PERCEPTION_OBSTACLES) {
     container_ptr.reset(new ObstaclesContainer());
@@ -65,6 +66,7 @@ std::unique_ptr<Container> ContainerManager::CreateContainer(
   } else if (type == AdapterConfig::PLANNING_TRAJECTORY) {
     container_ptr.reset(new ADCTrajectoryContainer());
   }
+  AINFO<<"(DMCZP) LeaveMethod: ContainerManager::CreateContainer";
   return container_ptr;
 }
 

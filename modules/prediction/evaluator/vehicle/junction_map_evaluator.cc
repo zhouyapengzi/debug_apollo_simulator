@@ -164,8 +164,6 @@ bool JunctionMapEvaluator::Evaluate(Obstacle* obstacle_ptr) {
   
   AINFO<<"(DMCZP) (return) LeaveMethod: JunctionMapEvaluator::Evaluate";
   return true;
-
-  AINFO<<"(DMCZP) LeaveMethod: JunctionMapEvaluator::Evaluate";
  }
 
 bool JunctionMapEvaluator::ExtractFeatureValues(
@@ -207,8 +205,6 @@ bool JunctionMapEvaluator::ExtractFeatureValues(
   
   AINFO<<"(DMCZP) (return) LeaveMethod: JunctionMapEvaluator::ExtractFeatureValues";
   return true;
-
-  AINFO<<"(DMCZP) LeaveMethod: JunctionMapEvaluator::ExtractFeatureValues";
  }
 
 void JunctionMapEvaluator::LoadModel() {

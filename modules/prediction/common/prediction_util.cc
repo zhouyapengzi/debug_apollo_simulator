@@ -33,7 +33,6 @@ double Normalize(const double value, const double mean, const double std) {
   AINFO<<"(DMCZP) (return) LeaveMethod: Normalize";
   return (value - mean) / (std + eps);
 
-  AINFO<<"(DMCZP) LeaveMethod: Normalize";
  }
 
 double Sigmoid(const double value) {
@@ -43,18 +42,16 @@ double Sigmoid(const double value) {
   AINFO<<"(DMCZP) (return) LeaveMethod: Sigmoid";
   return 1.0 / (1.0 + std::exp(-1.0 * value));
 
-  AINFO<<"(DMCZP) LeaveMethod: Sigmoid";
  }
 
 double Relu(const double value) {
   AINFO<<"(DMCZP) EnteringMethod: Relu";
  
-  AINFO<<"(DMCZP) (return) LeaveMet
-  AINFO<<"(DMCZP) LeaveMethod: Relu";
- hod: Relu";
+  AINFO<<"(DMCZP) (return) LeaveMethod: Relu";
   return (value > 0.0) ? value : 0.0; }
 
 std::vector<double> Softmax(const std::vector<double>& value, bool use_exp) {
+  AINFO<<"(DMCZP) EnteringMethod: Softmax";
   std::vector<double> result;
   double sum = 0.0;
   for (std::size_t i = 0; i < value.size(); ++i) {
@@ -68,6 +65,7 @@ std::vector<double> Softmax(const std::vector<double>& value, bool use_exp) {
   for (std::size_t i = 0; i < value.size(); ++i) {
     result[i] = result[i] / sum;
   }
+  AINFO<<"(DMCZP) LeaveMethod: Softmax";
   return result;
 }
 
@@ -102,8 +100,6 @@ int SolveQuadraticEquation(const std::vector<double>& coefficients,
   
   AINFO<<"(DMCZP) (return) LeaveMethod: SolveQuadraticEquation";
   return 0;
-
-  AINFO<<"(DMCZP) LeaveMethod: SolveQuadraticEquation";
  }
 
 double EvaluateQuinticPolynomial(const std::array<double, 6>& coeffs,
@@ -323,7 +319,6 @@ double GetSByConstantAcceleration(const double v0, const double acceleration,
   AINFO<<"(DMCZP) (return) LeaveMethod: GetSByConstantAcceleration";
   return v0 * t_actual + 0.5 * acceleration * t_actual * t_actual;
 
-  AINFO<<"(DMCZP) LeaveMethod: GetSByConstantAcceleration";
  }
 
 }  // namespace math_util
@@ -452,7 +447,6 @@ double AdjustSpeedByCurvature(const double speed, const double curvature) {
       FLAGS_speed_at_upper_curvature, FLAGS_turning_curvature_upper_bound,
       curvature);
 
-  AINFO<<"(DMCZP) LeaveMethod: AdjustSpeedByCurvature";
  }
 
 }  // namespace predictor_util

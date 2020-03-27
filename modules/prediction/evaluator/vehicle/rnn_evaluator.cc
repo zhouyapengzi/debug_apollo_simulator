@@ -138,8 +138,6 @@ AINFO << "(pengzi) RNN. Probability = " << probability  << " thread:"<<std::this
   
   AINFO<<"(DMCZP) (return) LeaveMethod: RNNEvaluator::Evaluate";
   return true;
-
-  AINFO<<"(DMCZP) LeaveMethod: RNNEvaluator::Evaluate";
  }
 
 void RNNEvaluator::Clear() {
@@ -219,8 +217,6 @@ int RNNEvaluator::ExtractFeatureValues(
   
   AINFO<<"(DMCZP) (return) LeaveMethod: RNNEvaluator::ExtractFeatureValues";
   return 0;
-
-  AINFO<<"(DMCZP) LeaveMethod: RNNEvaluator::ExtractFeatureValues";
  }
 
 int RNNEvaluator::SetupObstacleFeature(
@@ -307,8 +303,6 @@ int RNNEvaluator::SetupObstacleFeature(
   
   AINFO<<"(DMCZP) (return) LeaveMethod: RNNEvaluator::SetupObstacleFeature";
   return ret;
-
-  AINFO<<"(DMCZP) LeaveMethod: RNNEvaluator::SetupObstacleFeature";
  }
 
 int RNNEvaluator::SetupLaneFeature(const Feature& feature,
@@ -365,8 +359,6 @@ int RNNEvaluator::SetupLaneFeature(const Feature& feature,
   
   AINFO<<"(DMCZP) (return) LeaveMethod: RNNEvaluator::SetupLaneFeature";
   return 0;
-
-  AINFO<<"(DMCZP) LeaveMethod: RNNEvaluator::SetupLaneFeature";
  }
 
 bool RNNEvaluator::IsCutinInHistory(const std::string& curr_lane_id,
@@ -385,8 +377,6 @@ bool RNNEvaluator::IsCutinInHistory(const std::string& curr_lane_id,
   
   AINFO<<"(DMCZP) (return) LeaveMethod: RNNEvaluator::IsCutinInHistory";
   return false;
-
-  AINFO<<"(DMCZP) LeaveMethod: RNNEvaluator::IsCutinInHistory";
  }
 
 }  // namespace prediction

@@ -74,8 +74,6 @@ bool CyclistKeepLaneEvaluator::Evaluate(Obstacle* obstacle_ptr) {
   
   AINFO<<"(DMCZP) (return) LeaveMethod: CyclistKeepLaneEvaluator::Evaluate";
   return true;
-
-  AINFO<<"(DMCZP) LeaveMethod: CyclistKeepLaneEvaluator::Evaluate";
  }
 
 double CyclistKeepLaneEvaluator::ComputeProbability(
@@ -98,8 +96,6 @@ double CyclistKeepLaneEvaluator::ComputeProbability(
   
   AINFO<<"(DMCZP) (return) LeaveMethod: CyclistKeepLaneEvaluator::ComputeProbability";
   return 0.0;
-
-  AINFO<<"(DMCZP) LeaveMethod: CyclistKeepLaneEvaluator::ComputeProbability";
  }
 
 }  // namespace prediction

@@ -58,8 +58,6 @@ bool LaneScanningEvaluator::Evaluate(Obstacle* obstacle_ptr) {
   
   AINFO<<"(DMCZP) (return) LeaveMethod: LaneScanningEvaluator::Evaluate";
   return true;
-
-  AINFO<<"(DMCZP) LeaveMethod: LaneScanningEvaluator::Evaluate";
  }
 
 bool LaneScanningEvaluator::Evaluate(Obstacle* obstacle_ptr,
@@ -139,8 +137,6 @@ bool LaneScanningEvaluator::Evaluate(Obstacle* obstacle_ptr,
   
   AINFO<<"(DMCZP) (return) LeaveMethod: LaneScanningEvaluator::Evaluate";
   return true;
-
-  AINFO<<"(DMCZP) LeaveMethod: LaneScanningEvaluator::Evaluate";
  }
 
 bool LaneScanningEvaluator::ExtractStringFeatures(
@@ -158,8 +154,6 @@ bool LaneScanningEvaluator::ExtractStringFeatures(
   
   AINFO<<"(DMCZP) (return) LeaveMethod: LaneScanningEvaluator::ExtractStringFeatures";
   return true;
-
-  AINFO<<"(DMCZP) LeaveMethod: LaneScanningEvaluator::ExtractStringFeatures";
  }
 
 bool LaneScanningEvaluator::ExtractFeatures(
@@ -217,8 +211,6 @@ bool LaneScanningEvaluator::ExtractFeatures(
   
   AINFO<<"(DMCZP) (return) LeaveMethod: LaneScanningEvaluator::ExtractFeatures";
   return true;
-
-  AINFO<<"(DMCZP) LeaveMethod: LaneScanningEvaluator::ExtractFeatures";
  }
 
 bool LaneScanningEvaluator::ExtractObstacleFeatures(
@@ -334,8 +326,6 @@ bool LaneScanningEvaluator::ExtractObstacleFeatures(
   
   AINFO<<"(DMCZP) (return) LeaveMethod: LaneScanningEvaluator::ExtractObstacleFeatures";
   return true;
-
-  AINFO<<"(DMCZP) LeaveMethod: LaneScanningEvaluator::ExtractObstacleFeatures";
  }
 
 bool LaneScanningEvaluator::ExtractStaticEnvFeatures(
@@ -484,8 +474,6 @@ bool LaneScanningEvaluator::ExtractStaticEnvFeatures(
   
   AINFO<<"(DMCZP) (return) LeaveMethod: LaneScanningEvaluator::ExtractStaticEnvFeatures";
   return true;
-
-  AINFO<<"(DMCZP) LeaveMethod: LaneScanningEvaluator::ExtractStaticEnvFeatures";
  }
 
 void LaneScanningEvaluator::LoadModel() {

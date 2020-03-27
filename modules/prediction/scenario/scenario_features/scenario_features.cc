@@ -32,9 +32,7 @@ ScenarioFeatures::ScenarioFeatures() {
 const Scenario& ScenarioFeatures::scenario() const {
   AINFO<<"(DMCZP) EnteringMethod: ScenarioFeatures::scenario";
  
-  AINFO<<"(DMCZP)
-  AINFO<<"(DMCZP) LeaveMethod: ScenarioFeatures::scenario";
-  (return) LeaveMethod: ScenarioFeatures::scenario";
+  AINFO<<"(DMCZP)(return) LeaveMethod: ScenarioFeatures::scenario";
   return scenario_; }
 
 }  // namespace prediction

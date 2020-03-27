@@ -51,8 +51,6 @@ Eigen::Vector2d GetUnitVector2d(const TrajectoryPoint& from_point,
   
   AINFO<<"(DMCZP) (return) LeaveMethod: GetUnitVector2d";
   return {delta_x, delta_y};
-
-  AINFO<<"(DMCZP) LeaveMethod: GetUnitVector2d";
  }
 
 void CompressVector2d(const double to_length, Eigen::Vector2d* vec) {
@@ -74,8 +72,6 @@ double CrossProduct(const Eigen::Vector2d& vec1, const Eigen::Vector2d& vec2) {
   
   AINFO<<"(DMCZP) (return) LeaveMethod: CrossProduct";
   return vec1[0] * vec2[1] - vec1[1] * vec2[0];
-
-  AINFO<<"(DMCZP) LeaveMethod: CrossProduct";
  }
 
 }  // namespace
