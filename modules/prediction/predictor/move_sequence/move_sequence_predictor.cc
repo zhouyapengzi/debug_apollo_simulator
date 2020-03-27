@@ -245,7 +245,6 @@ bool MoveSequencePredictor::DrawMoveSequenceTrajectoryPoints(
   AINFO<<"(DMCZP) (return) LeaveMethod: MoveSequencePredictor::DrawMoveSequenceTrajectoryPoints";
   return true;
 
-  AINFO<<"(DMCZP) LeaveMethod: MoveSequencePredictor::DrawMoveSequenceTrajectoryPoints";
  }
 
 std::pair<double, double> MoveSequencePredictor::ComputeLonEndState(

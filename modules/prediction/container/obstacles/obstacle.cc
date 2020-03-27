@@ -340,7 +340,6 @@ bool Obstacle::IsInJunction(const std::string& junction_id) {
   return PredictionMap::IsPointInJunction(position.x(), position.y(),
                                           junction_info_ptr);
 
-  AINFO<<"(DMCZP) LeaveMethod: Obstacle::IsInJunction";
  }
 
 void Obstacle::BuildJunctionFeature() {

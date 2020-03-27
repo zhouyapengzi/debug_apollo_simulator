@@ -58,9 +58,7 @@ const LaneGraph& ObstacleClusters::GetLaneGraph(
   if (lane_graphs_.find(lane_id) != lane_graphs_.end()) {
     // If this lane_segment has been used for constructing LaneGraph,
     // fetch the previously saved LaneGraph, modify its start_s,
-    // then 
-  AINFO<<"(DMCZP) (return) LeaveMethod: ObstacleClusters::GetLaneGraph";
-  return this (save the time to construct the entire LaneGraph).
+    // then return this (save the time to construct the entire LaneGraph).
     LaneGraph* lane_graph = &lane_graphs_[lane_id];
     for (int i = 0; i < lane_graph->lane_sequence_size(); ++i) {
       LaneSequence* lane_seq_ptr = lane_graph->mutable_lane_sequence(i);
