@@ -12,6 +12,7 @@ cc_library(
     deps = [
         "//modules/prediction/container:container_manager",
         "//modules/prediction/predictor",
+        "//cyber/common:log",
     ],
 )
 

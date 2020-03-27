@@ -14,6 +14,7 @@ cc_library(
         "//modules/prediction/common:feature_output",
         "//modules/prediction/common:prediction_util",
         "//modules/prediction/predictor/sequence:sequence_predictor",
+        "//cyber/common:log",
     ],
 )
 
@@ -31,6 +32,7 @@ cc_test(
         "//modules/prediction/common:kml_map_based_test",
         "//modules/prediction/evaluator/vehicle:mlp_evaluator",
         "//modules/prediction/predictor/interaction:interaction_predictor",
+        
     ],
 )
 

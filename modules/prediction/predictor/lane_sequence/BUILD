@@ -12,6 +12,7 @@ cc_library(
     deps = [
         "//modules/prediction/common:validation_checker",
         "//modules/prediction/predictor/sequence:sequence_predictor",
+        "//cyber/common:log",
     ],
 )
 

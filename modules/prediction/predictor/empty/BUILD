@@ -11,6 +11,7 @@ cc_library(
     ],
     deps = [
         "//modules/prediction/predictor",
+        "//cyber/common:log",
     ],
 )
 
@@ -30,6 +31,7 @@ cc_test(
         "//modules/prediction/evaluator/vehicle:mlp_evaluator",
         "//modules/prediction/predictor/empty:empty_predictor",
         "@gtest//:main",
+        "//cyber/common:log",
     ],
 )
 

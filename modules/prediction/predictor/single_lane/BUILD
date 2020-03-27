@@ -11,6 +11,7 @@ cc_library(
     ],
     deps = [
         "//modules/prediction/predictor/sequence:sequence_predictor",
+        "//cyber/common:log",
     ],
 )
 

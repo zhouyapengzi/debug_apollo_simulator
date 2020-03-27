@@ -11,6 +11,7 @@ cc_library(
     ],
     deps = [
         "//modules/prediction/container:container_manager",
+        "//cyber/common:log",
     ],
 )
 
@@ -25,6 +26,7 @@ cc_test(
     deps = [
         ":feature_extractor",
         "//modules/prediction/common:kml_map_based_test",
+        "//cyber/common:log",
     ],
 )
 

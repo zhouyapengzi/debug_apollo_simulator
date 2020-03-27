@@ -12,6 +12,7 @@ cc_library(
     deps = [
         "//modules/prediction/common:prediction_util",
         "//modules/prediction/predictor",
+        "//cyber/common:log",
     ],
 )
 
@@ -30,6 +31,7 @@ cc_test(
         "//modules/prediction/container/obstacles:obstacles_container",
         "//modules/prediction/predictor/free_move:free_move_predictor",
         "@gtest//:main",
+        "//cyber/common:log",
     ],
 )
 

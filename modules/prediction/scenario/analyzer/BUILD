@@ -12,6 +12,7 @@ cc_library(
     deps = [
         "//modules/prediction/scenario/scenario_features:cruise_scenario_features",
         "//modules/prediction/scenario/scenario_features:junction_scenario_features",
+        "//cyber/common:log",
     ],
 )
 
@@ -27,6 +28,7 @@ cc_test(
         ":scenario_analyzer",
         "//modules/prediction/common:kml_map_based_test",
         "@gtest//:main",
+        "//cyber/common:log",
     ],
 )
 
