@@ -34,6 +34,7 @@ cc_test(
     ],
     deps = [
         ":prediction_component_lib",
+        
     ],
 )
 
