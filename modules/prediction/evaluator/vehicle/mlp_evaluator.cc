@@ -62,7 +62,14 @@ MLPEvaluator::MLPEvaluator() {
 
   evaluator_type_ = ObstacleConf::MLP_EVALUATOR;
   LoadModel(FLAGS_evaluator_vehicle_mlp_file);
-
+  // pengzi add
+  for(int i = 0; i< model_ptr_->num_layer(); ++i){
+     for(int col = 0; col < model_ptr_->layer(i).layer_output_dim(); ++col){
+        mlp_evaluator_neuron_coverage[i][col] = false;
+     }
+   }
+   AINFO<<"(pengzi) initial mlp_evaluator_neuron_coverage。num_layer:" << mlp_evaluator_neuron_coverage.size() << " ;";
+  // pengzi end insert
   AINFO<<"(DMCZP) LeaveMethod: MLPEvaluator::MLPEvaluator";
  }
 
@@ -151,17 +158,34 @@ bool MLPEvaluator::Evaluate(Obstacle* obstacle_ptr) {
                                            "mlp", lane_sequence_ptr);
       ADEBUG << "Save extracted features for learning locally.";
       
-  AINFO<<"(DMCZP) (return) LeaveMethod: MLPEvaluator::Evaluate";
-  return true;  // Skip Compute probability for offline mode
+      AINFO<<"(DMCZP) (return) LeaveMethod: MLPEvaluator::Evaluate";
+      return true;  // Skip Compute probability for offline mode
     }
-    double probability = ComputeProbability(feature_values);
 
+    double probability = ComputeProbability(feature_values);
+ 
     double centripetal_acc_probability =
         ValidationChecker::ProbabilityByCentripetalAcceleration(
             *lane_sequence_ptr, speed);
     probability *= centripetal_acc_probability;
     lane_sequence_ptr->set_probability(probability);
   }
+
+  //pengzi insert:
+   int active_neuron = 0;
+   int total_neuron = 0;
+   for(int i = 0; i < mlp_evaluator_neuron_coverage.size(); i ++){
+      for(int j = 0; j < mlp_evaluator_neuron_coverage[i].size(); j++){
+        total_neuron = total_neuron + 1;
+        if(mlp_evaluator_neuron_coverage[i][j]){
+          active_neuron = active_neuron + 1;
+        }
+      }
+    }
+    AINFO<< " total neuron:" << total_neuron <<" active neuron: "<< active_neuron 
+         << " neuron coverage = " << active_neuron/total_neuron
+        << " thread: " << std::this_thread::get_id();
+  //pengzi end insert
   
   AINFO<<"(DMCZP) (return) LeaveMethod: MLPEvaluator::Evaluate";
   return true;
@@ -444,7 +468,6 @@ double MLPEvaluator::ComputeProbability(
     const std::vector<double>& feature_values) {
   AINFO<<"(DMCZP) EnteringMethod: MLPEvaluator::ComputeProbability";
 
- 
   CHECK_NOTNULL(model_ptr_.get());
   double probability = 0.0;
 
@@ -460,8 +483,6 @@ double MLPEvaluator::ComputeProbability(
   layer_input.reserve(model_ptr_->dim_input());
   std::vector<double> layer_output;
 
-
-
   // normalization
    AINFO <<"(pengzi) normalization. thread: " << std::this_thread::get_id();
   for (int i = 0; i < model_ptr_->dim_input(); ++i) {
@@ -474,6 +495,7 @@ double MLPEvaluator::ComputeProbability(
    //pengzi add:
    int active_neuron = 0;
    int total_neuron = 0;
+   
    //pengzi add end
 
   for (int i = 0; i < model_ptr_->num_layer(); ++i) {
@@ -507,14 +529,15 @@ double MLPEvaluator::ComputeProbability(
       AINFO <<"(pengzi) check neuron_output: "<< neuron_output ;
      
       //pengzi add:
-       total_neuron = total_neuron + 1;
-       if(neuron_output > 0.75){
-        active_neuron = active_neuron + 1;
+      if (i > 0){
+        total_neuron = total_neuron + 1;    
+        if(neuron_output > 0.75){
+          mlp_evaluator_neuron_coverage[i][col] = true;
+          //active_neuron = active_neuron + 1;
+        }
       }
       //pengzi add end
-
     }
-    AINFO<<"(pengzi) total neuron in layer index: "<< i << " total neuron:" << total_neuron <<" active neuron: "<< active_neuron;
 
  }
     
@@ -526,13 +549,25 @@ double MLPEvaluator::ComputeProbability(
     AINFO<<"(pengzi) check layer_output size:" << layer_output.size();
     }
 
+ //pengzi add:
+ for(int i = 0; i < mlp_evaluator_neuron_coverage.size(); i ++){
+      for(int j = 0; j < mlp_evaluator_neuron_coverage[i].size(); j++){
+        if(mlp_evaluator_neuron_coverage[i][j]){
+          active_neuron = active_neuron + 1;
+        }
+      }
+    }
+//pengzi add end
+
  AINFO<< "(pengzi)ComputeProbability: " << probability
          << " model input dim = " << model_ptr_->dim_input()
          << "; feature value size = " << feature_values.size()    
          << " total neuron:" << total_neuron <<" active neuron: "<< active_neuron 
+         << " neuron coverage = " << active_neuron/total_neuron
         << " thread: " << std::this_thread::get_id();
  
-  
+ 
+
   AINFO<<"(DMCZP) (return) LeaveMethod: MLPEvaluator::ComputeProbability";
   return probability;
  }
