@@ -63,12 +63,14 @@ MLPEvaluator::MLPEvaluator() {
   evaluator_type_ = ObstacleConf::MLP_EVALUATOR;
   LoadModel(FLAGS_evaluator_vehicle_mlp_file);
   // pengzi add
+  mlp_evaluator_neuron_coverage.resize(model_ptr_->num_layer());
   for(int i = 0; i< model_ptr_->num_layer(); ++i){
+     mlp_evaluator_neuron_coverage.resize(model_ptr_->layer(i).layer_output_dim());
      for(int col = 0; col < model_ptr_->layer(i).layer_output_dim(); ++col){
         mlp_evaluator_neuron_coverage[i][col] = false;
      }
    }
-   AINFO<<"(pengzi) initial mlp_evaluator_neuron_coverage。num_layer:" << mlp_evaluator_neuron_coverage.size() << " ;";
+   AINFO<<"(pengzi) initial mlp_evaluator_neuron_coverage. num_layer:" << mlp_evaluator_neuron_coverage.size() << " ;";
   // pengzi end insert
   AINFO<<"(DMCZP) LeaveMethod: MLPEvaluator::MLPEvaluator";
  }
@@ -174,8 +176,8 @@ bool MLPEvaluator::Evaluate(Obstacle* obstacle_ptr) {
   //pengzi insert:
    int active_neuron = 0;
    int total_neuron = 0;
-   for(int i = 0; i < mlp_evaluator_neuron_coverage.size(); i ++){
-      for(int j = 0; j < mlp_evaluator_neuron_coverage[i].size(); j++){
+   for(std::size_t  i = 0; i < mlp_evaluator_neuron_coverage.size(); i++){
+      for(std::size_t j = 0; j < mlp_evaluator_neuron_coverage[i].size(); j++){
         total_neuron = total_neuron + 1;
         if(mlp_evaluator_neuron_coverage[i][j]){
           active_neuron = active_neuron + 1;
@@ -550,8 +552,8 @@ double MLPEvaluator::ComputeProbability(
     }
 
  //pengzi add:
- for(int i = 0; i < mlp_evaluator_neuron_coverage.size(); i ++){
-      for(int j = 0; j < mlp_evaluator_neuron_coverage[i].size(); j++){
+ for(std::size_t i = 0; i < mlp_evaluator_neuron_coverage.size(); i++){
+      for(std::size_t j = 0; j < mlp_evaluator_neuron_coverage[i].size(); j++){
         if(mlp_evaluator_neuron_coverage[i][j]){
           active_neuron = active_neuron + 1;
         }
