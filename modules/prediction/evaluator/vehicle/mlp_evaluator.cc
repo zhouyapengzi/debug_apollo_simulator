@@ -178,9 +178,11 @@ bool MLPEvaluator::Evaluate(Obstacle* obstacle_ptr) {
    int total_neuron = 0;
    for(std::size_t  i = 0; i < mlp_evaluator_neuron_coverage.size(); i++){
       for(std::size_t j = 0; j < mlp_evaluator_neuron_coverage[i].size(); j++){
-        total_neuron = total_neuron + 1;
-        if(mlp_evaluator_neuron_coverage[i][j]){
-          active_neuron = active_neuron + 1;
+        if(i>0){
+          total_neuron = total_neuron + 1;
+          if(mlp_evaluator_neuron_coverage[i][j]){
+            active_neuron = active_neuron + 1;
+          }
         }
       }
     }
