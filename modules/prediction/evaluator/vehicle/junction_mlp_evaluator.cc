@@ -129,7 +129,12 @@ bool JunctionMLPEvaluator::Evaluate(Obstacle* obstacle_ptr) {
   }
   torch_inputs.push_back(torch_input.to(device_));
   std::vector<double> probability;
-  if (latest_feature_ptr->junction_feature().junction_exit_size() > 1) {
+ 
+//pengzi: test
+//pengzi:end
+
+
+ if (latest_feature_ptr->junction_feature().junction_exit_size() > 1) {
     CHECK_NOTNULL(torch_model_ptr_);
     at::Tensor torch_output_tensor =
         torch_model_ptr_->forward(torch_inputs).toTensor().to(torch::kCPU);
@@ -143,6 +148,11 @@ bool JunctionMLPEvaluator::Evaluate(Obstacle* obstacle_ptr) {
                                            EGO_VEHICLE_FEATURE_SIZE + 8 * i]);
     }
   }
+
+//pengzi add
+AINFO<<"(pengzi) model: "<<torch_model_ptr_;
+//pengzi end add
+
   for (double prob : probability) {
     latest_feature_ptr->mutable_junction_feature()
         ->add_junction_mlp_probability(prob);
