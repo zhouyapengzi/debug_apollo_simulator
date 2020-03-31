@@ -1,4 +1,3 @@
-#include "cyber/common/log.h"
 /******************************************************************************
  * Copyright 2017 The Apollo Authors. All Rights Reserved.
  *
@@ -41,8 +40,6 @@ std::size_t FeatureOutput::idx_frame_env_ = 0;
 std::size_t FeatureOutput::idx_tuning_ = 0;
 
 void FeatureOutput::Close() {
-  AINFO<<"(DMCZP) EnteringMethod: FeatureOutput::Close";
-
   ADEBUG << "Close feature output";
   switch (FLAGS_prediction_offline_mode) {
     case 1: {
@@ -71,55 +68,36 @@ void FeatureOutput::Close() {
     }
   }
   Clear();
-
-  AINFO<<"(DMCZP) LeaveMethod: FeatureOutput::Close";
- }
+}
 
 void FeatureOutput::Clear() {
-  AINFO<<"(DMCZP) EnteringMethod: FeatureOutput::Clear";
-
   idx_feature_ = 0;
   idx_learning_ = 0;
   features_.Clear();
   list_data_for_learning_.Clear();
-
-  AINFO<<"(DMCZP) LeaveMethod: FeatureOutput::Clear";
- }
+}
 
 bool FeatureOutput::Ready() {
-  AINFO<<"(DMCZP) EnteringMethod: FeatureOutput::Ready";
-
   Clear();
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: FeatureOutput::Ready";
   return true;
- 
- }
+}
 
 void FeatureOutput::InsertFeatureProto(const Feature& feature) {
-  AINFO<<"(DMCZP) EnteringMethod: FeatureOutput::InsertFeatureProto";
-
   features_.add_feature()->CopyFrom(feature);
-
-  AINFO<<"(DMCZP) LeaveMethod: FeatureOutput::InsertFeatureProto";
- }
+}
 
 void FeatureOutput::InsertDataForLearning(
     const Feature& feature, const std::vector<double>& feature_values,
     const std::string& category, const LaneSequence* lane_sequence_ptr) {
-  AINFO<<"(DMCZP) EnteringMethod: FeatureOutput::InsertDataForLearning";
-
   const std::vector<std::string> dummy_string_feature_values;
   InsertDataForLearning(feature, feature_values, dummy_string_feature_values,
                         category, lane_sequence_ptr);
-  AINFO<<"(DMCZP) LeaveMethod: FeatureOutput::InsertDataForLearning";
- }
+}
 
 void FeatureOutput::InsertDataForLearning(
     const Feature& feature, const std::vector<double>& feature_values,
     const std::vector<std::string>& string_feature_values,
     const std::string& category, const LaneSequence* lane_sequence_ptr) {
-      AINFO<<"(DMCZP) EnteringMethod: FeatureOutput::InsertDataForLearning";
   DataForLearning* data_for_learning =
       list_data_for_learning_.add_data_for_learning();
   data_for_learning->set_id(feature.id());
@@ -135,14 +113,11 @@ void FeatureOutput::InsertDataForLearning(
     data_for_learning->set_lane_sequence_id(
         lane_sequence_ptr->lane_sequence_id());
   }
-  AINFO<<"(DMCZP) LeaveMethod: FeatureOutput::InsertDataForLearning";
 }
 
 void FeatureOutput::InsertPredictionResult(
     const int obstacle_id, const PredictionObstacle& prediction_obstacle,
     const ObstacleConf& obstacle_conf) {
-  AINFO<<"(DMCZP) EnteringMethod: FeatureOutput::InsertPredictionResult";
-
   PredictionResult* prediction_result =
       list_prediction_result_.add_prediction_result();
   prediction_result->set_id(obstacle_id);
@@ -152,24 +127,16 @@ void FeatureOutput::InsertPredictionResult(
         prediction_obstacle.trajectory(i));
     prediction_result->mutable_obstacle_conf()->CopyFrom(obstacle_conf);
   }
-
-  AINFO<<"(DMCZP) LeaveMethod: FeatureOutput::InsertPredictionResult";
- }
+}
 
 void FeatureOutput::InsertFrameEnv(const FrameEnv& frame_env) {
-  AINFO<<"(DMCZP) EnteringMethod: FeatureOutput::InsertFrameEnv";
-
   list_frame_env_.add_frame_env()->CopyFrom(frame_env);
-
-  AINFO<<"(DMCZP) LeaveMethod: FeatureOutput::InsertFrameEnv";
- }
+}
 
 void FeatureOutput::InsertDataForTuning(
     const Feature& feature, const std::vector<double>& feature_values,
     const std::string& category, const LaneSequence& lane_sequence,
     const std::vector<TrajectoryPoint>& adc_trajectory) {
-  AINFO<<"(DMCZP) EnteringMethod: FeatureOutput::InsertDataForTuning";
-
   DataForTuning* data_for_tuning = list_data_for_tuning_.add_data_for_tuning();
   data_for_tuning->set_id(feature.id());
   data_for_tuning->set_timestamp(feature.timestamp());
@@ -182,13 +149,9 @@ void FeatureOutput::InsertDataForTuning(
   for (const auto& adc_traj_point : adc_trajectory) {
     data_for_tuning->add_adc_trajectory_point()->CopyFrom(adc_traj_point);
   }
-
-  AINFO<<"(DMCZP) LeaveMethod: FeatureOutput::InsertDataForTuning";
- }
+}
 
 void FeatureOutput::WriteFeatureProto() {
-  AINFO<<"(DMCZP) EnteringMethod: FeatureOutput::WriteFeatureProto";
-
   if (features_.feature_size() <= 0) {
     ADEBUG << "Skip writing empty feature.";
   } else {
@@ -198,13 +161,9 @@ void FeatureOutput::WriteFeatureProto() {
     features_.Clear();
     ++idx_feature_;
   }
-
-  AINFO<<"(DMCZP) LeaveMethod: FeatureOutput::WriteFeatureProto";
- }
+}
 
 void FeatureOutput::WriteDataForLearning() {
-  AINFO<<"(DMCZP) EnteringMethod: FeatureOutput::WriteDataForLearning";
-
   if (list_data_for_learning_.data_for_learning().empty()) {
     ADEBUG << "Skip writing empty data_for_learning.";
   } else {
@@ -215,13 +174,9 @@ void FeatureOutput::WriteDataForLearning() {
     list_data_for_learning_.Clear();
     ++idx_learning_;
   }
-
-  AINFO<<"(DMCZP) LeaveMethod: FeatureOutput::WriteDataForLearning";
- }
+}
 
 void FeatureOutput::WritePredictionResult() {
-  AINFO<<"(DMCZP) EnteringMethod: FeatureOutput::WritePredictionResult";
-
   if (list_prediction_result_.prediction_result().empty()) {
     ADEBUG << "Skip writing empty prediction_result.";
   } else {
@@ -232,13 +187,9 @@ void FeatureOutput::WritePredictionResult() {
     list_prediction_result_.Clear();
     ++idx_prediction_result_;
   }
-
-  AINFO<<"(DMCZP) LeaveMethod: FeatureOutput::WritePredictionResult";
- }
+}
 
 void FeatureOutput::WriteFrameEnv() {
-  AINFO<<"(DMCZP) EnteringMethod: FeatureOutput::WriteFrameEnv";
-
   if (list_frame_env_.frame_env().empty()) {
     ADEBUG << "Skip writing empty prediction_result.";
   } else {
@@ -249,18 +200,12 @@ void FeatureOutput::WriteFrameEnv() {
     list_frame_env_.Clear();
     ++idx_frame_env_;
   }
-
-  AINFO<<"(DMCZP) LeaveMethod: FeatureOutput::WriteFrameEnv";
- }
+}
 
 void FeatureOutput::WriteDataForTuning() {
-  AINFO<<"(DMCZP) EnteringMethod: FeatureOutput::WriteDataForTuning";
-
   if (list_data_for_tuning_.data_for_tuning().empty()) {
     ADEBUG << "Skip writing empty data_for_tuning.";
-    
-  AINFO<<"(DMCZP) (return) LeaveMethod: FeatureOutput::WriteDataForTuning";
-  return;
+    return;
   }
   const std::string file_name =
       StrCat(FLAGS_prediction_data_dir, "/datatuning.",
@@ -268,47 +213,23 @@ void FeatureOutput::WriteDataForTuning() {
   cyber::common::SetProtoToBinaryFile(list_data_for_tuning_, file_name);
   list_data_for_tuning_.Clear();
   ++idx_tuning_;
+}
 
-  AINFO<<"(DMCZP) LeaveMethod: FeatureOutput::WriteDataForTuning";
- }
-
-int FeatureOutput::Size() {
-  AINFO<<"(DMCZP) EnteringMethod: FeatureOutput::Size";
- 
-  AINFO<<"(DMCZP) (return) LeaveMethod: FeatureOutput::Size";
-  return features_.feature_size(); }
+int FeatureOutput::Size() { return features_.feature_size(); }
 
 int FeatureOutput::SizeOfDataForLearning() {
-  AINFO<<"(DMCZP) EnteringMethod: FeatureOutput::SizeOfDataForLearning";
-
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: FeatureOutput::SizeOfDataForLearning";
   return list_data_for_learning_.data_for_learning_size();
-
- }
+}
 
 int FeatureOutput::SizeOfPredictionResult() {
-  AINFO<<"(DMCZP) EnteringMethod: FeatureOutput::SizeOfPredictionResult";
-
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: FeatureOutput::SizeOfPredictionResult";
   return list_prediction_result_.prediction_result_size();
+}
 
- }
-
-int FeatureOutput::SizeOfFrameEnv() {
-  AINFO<<"(DMCZP) EnteringMethod: FeatureOutput::SizeOfFrameEnv";
- 
-  AINFO<<"(DMCZP) (return) LeaveMethod: FeatureOutput::SizeOfFrameEnv";
-  return list_frame_env_.frame_env_size(); }
+int FeatureOutput::SizeOfFrameEnv() { return list_frame_env_.frame_env_size(); }
 
 int FeatureOutput::SizeOfDataForTuning() {
-  AINFO<<"(DMCZP) EnteringMethod: FeatureOutput::SizeOfDataForTuning";
-
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: FeatureOutput::SizeOfDataForTuning";
   return list_data_for_tuning_.data_for_tuning_size();
- }
+}
 
 }  // namespace prediction
 }  // namespace apollo

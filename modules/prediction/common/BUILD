@@ -13,9 +13,6 @@ cc_library(
         "prediction_system_gflags.h",
     ],
     deps = [
-        "@com_github_gflags_gflags//:gflags",
-        "//cyber/common:log",
-
     ],
 )
 
@@ -29,7 +26,6 @@ cc_library(
     deps = [
         ":prediction_gflags",
         ":prediction_map",
-         "//cyber/common:log",
     ],
 )
 
@@ -53,7 +49,6 @@ cc_library(
     deps = [
         ":prediction_gflags",
         "//modules/map/pnc_map",
-         "//cyber/common:log",
     ],
 )
 
@@ -84,7 +79,6 @@ cc_library(
         "//modules/prediction/common:prediction_gflags",
         "//modules/prediction/proto:offline_features_proto",
         "//modules/prediction/proto:prediction_proto",
-         "//cyber/common:log",
     ],
 )
 
@@ -110,7 +104,6 @@ cc_library(
         "//modules/prediction/common:prediction_constants",
         "//modules/prediction/common:prediction_gflags",
         "//modules/prediction/proto:lane_graph_proto",
-         "//cyber/common:log",
     ],
 )
 
@@ -144,7 +137,6 @@ cc_library(
         "//modules/common/math",
         "//modules/prediction/common:prediction_gflags",
         "//modules/prediction/proto:lane_graph_proto",
-         "//cyber/common:log",
     ],
 )
 
@@ -228,7 +220,6 @@ cc_library(
         "//modules/prediction/proto:offline_features_proto",
         "//modules/prediction/scenario:scenario_manager",
         "//modules/prediction/util:data_extraction",
-         "//cyber/common:log",
     ],
 )
 

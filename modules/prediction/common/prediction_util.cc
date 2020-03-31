@@ -1,4 +1,3 @@
-#include "cyber/common/log.h"
 /******************************************************************************
  * Copyright 2017 The Apollo Authors. All Rights Reserved.
  *
@@ -27,32 +26,17 @@ namespace prediction {
 namespace math_util {
 
 double Normalize(const double value, const double mean, const double std) {
-  AINFO<<"(DMCZP) EnteringMethod: Normalize";
-
   const double eps = 1e-10;
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: Normalize";
   return (value - mean) / (std + eps);
-
- }
+}
 
 double Sigmoid(const double value) {
-  AINFO<<"(DMCZP) EnteringMethod: Sigmoid";
-
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: Sigmoid";
   return 1.0 / (1.0 + std::exp(-1.0 * value));
+}
 
- }
-
-double Relu(const double value) {
-  AINFO<<"(DMCZP) EnteringMethod: Relu";
- 
-  AINFO<<"(DMCZP) (return) LeaveMethod: Relu";
-  return (value > 0.0) ? value : 0.0; }
+double Relu(const double value) { return (value > 0.0) ? value : 0.0; }
 
 std::vector<double> Softmax(const std::vector<double>& value, bool use_exp) {
-  AINFO<<"(DMCZP) EnteringMethod: Softmax";
   std::vector<double> result;
   double sum = 0.0;
   for (std::size_t i = 0; i < value.size(); ++i) {
@@ -66,48 +50,35 @@ std::vector<double> Softmax(const std::vector<double>& value, bool use_exp) {
   for (std::size_t i = 0; i < value.size(); ++i) {
     result[i] = result[i] / sum;
   }
-  AINFO<<"(DMCZP) LeaveMethod: Softmax";
   return result;
 }
 
 int SolveQuadraticEquation(const std::vector<double>& coefficients,
                            std::pair<double, double>* roots) {
-  AINFO<<"(DMCZP) EnteringMethod: SolveQuadraticEquation";
-
   if (coefficients.size() != 3) {
-    
-  AINFO<<"(DMCZP) (return) LeaveMethod: SolveQuadraticEquation";
-  return -1;
+    return -1;
   }
   const double a = coefficients[0];
   const double b = coefficients[1];
   const double c = coefficients[2];
   if (std::fabs(a) <= std::numeric_limits<double>::epsilon()) {
-    
-  AINFO<<"(DMCZP) (return) LeaveMethod: SolveQuadraticEquation";
-  return -1;
+    return -1;
   }
 
   double delta = b * b - 4.0 * a * c;
   if (delta < 0.0) {
-    
-  AINFO<<"(DMCZP) (return) LeaveMethod: SolveQuadraticEquation";
-  return -1;
+    return -1;
   }
 
   double sqrt_delta = std::sqrt(delta);
   roots->first = (-b + sqrt_delta) * 0.5 / a;
   roots->second = (-b - sqrt_delta) * 0.5 / a;
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: SolveQuadraticEquation";
   return 0;
- }
+}
 
 double EvaluateQuinticPolynomial(const std::array<double, 6>& coeffs,
                                  const double t, const uint32_t order,
                                  const double end_t, const double end_v) {
-  AINFO<<"(DMCZP) EnteringMethod: EvaluateQuinticPolynomial";
-
   if (t >= end_t) {
     switch (order) {
       case 0: {
@@ -118,76 +89,52 @@ double EvaluateQuinticPolynomial(const std::array<double, 6>& coeffs,
              coeffs[1]) *
                 end_t +
             coeffs[0];
-        
-  AINFO<<"(DMCZP) (return) LeaveMethod: EvaluateQuinticPolynomial";
-  return end_value + end_v * (t - end_t);
+        return end_value + end_v * (t - end_t);
       }
       case 1: {
-        
-  AINFO<<"(DMCZP) (return) LeaveMethod: EvaluateQuinticPolynomial";
-  return end_v;
+        return end_v;
       }
-      default: { 
-  AINFO<<"(DMCZP) (return) LeaveMethod: EvaluateQuinticPolynomial";
-  return 0.0; }
+      default: { return 0.0; }
     }
   }
   switch (order) {
     case 0: {
-      
-  AINFO<<"(DMCZP) (return) LeaveMethod: EvaluateQuinticPolynomial";
-  return ((((coeffs[5] * t + coeffs[4]) * t + coeffs[3]) * t + coeffs[2]) *
+      return ((((coeffs[5] * t + coeffs[4]) * t + coeffs[3]) * t + coeffs[2]) *
                   t +
               coeffs[1]) *
                  t +
              coeffs[0];
     }
     case 1: {
-      
-  AINFO<<"(DMCZP) (return) LeaveMethod: EvaluateQuinticPolynomial";
-  return (((5.0 * coeffs[5] * t + 4.0 * coeffs[4]) * t + 3.0 * coeffs[3]) *
+      return (((5.0 * coeffs[5] * t + 4.0 * coeffs[4]) * t + 3.0 * coeffs[3]) *
                   t +
               2.0 * coeffs[2]) *
                  t +
              coeffs[1];
     }
     case 2: {
-      
-  AINFO<<"(DMCZP) (return) LeaveMethod: EvaluateQuinticPolynomial";
-  return (((20.0 * coeffs[5] * t + 12.0 * coeffs[4]) * t) +
+      return (((20.0 * coeffs[5] * t + 12.0 * coeffs[4]) * t) +
               6.0 * coeffs[3]) *
                  t +
              2.0 * coeffs[2];
     }
     case 3: {
-      
-  AINFO<<"(DMCZP) (return) LeaveMethod: EvaluateQuinticPolynomial";
-  return (60.0 * coeffs[5] * t + 24.0 * coeffs[4]) * t + 6.0 * coeffs[3];
+      return (60.0 * coeffs[5] * t + 24.0 * coeffs[4]) * t + 6.0 * coeffs[3];
     }
     case 4: {
-      
-  AINFO<<"(DMCZP) (return) LeaveMethod: EvaluateQuinticPolynomial";
-  return 120.0 * coeffs[5] * t + 24.0 * coeffs[4];
+      return 120.0 * coeffs[5] * t + 24.0 * coeffs[4];
     }
     case 5: {
-      
-  AINFO<<"(DMCZP) (return) LeaveMethod: EvaluateQuinticPolynomial";
-  return 120.0 * coeffs[5];
+      return 120.0 * coeffs[5];
     }
     default:
-      
-  AINFO<<"(DMCZP) (return) LeaveMethod: EvaluateQuinticPolynomial";
-  return 0.0;
+      return 0.0;
   }
-
-  AINFO<<"(DMCZP) LeaveMethod: EvaluateQuinticPolynomial";
- }
+}
 
 double EvaluateQuarticPolynomial(const std::array<double, 5>& coeffs,
                                  const double t, const uint32_t order,
                                  const double end_t, const double end_v) {
-  AINFO<<"(DMCZP) EnteringMethod: EvaluateQuarticPolynomial";
-
   if (t >= end_t) {
     switch (order) {
       case 0: {
@@ -196,131 +143,84 @@ double EvaluateQuarticPolynomial(const std::array<double, 5>& coeffs,
              coeffs[1]) *
                 end_t +
             coeffs[0];
-        
-  AINFO<<"(DMCZP) (return) LeaveMethod: EvaluateQuarticPolynomial";
-  return end_value + (t - end_t) * end_v;
+        return end_value + (t - end_t) * end_v;
       }
       case 1: {
-        
-  AINFO<<"(DMCZP) (return) LeaveMethod: EvaluateQuarticPolynomial";
-  return end_v;
+        return end_v;
       }
-      default: { 
-  AINFO<<"(DMCZP) (return) LeaveMethod: EvaluateQuarticPolynomial";
-  return 0.0; }
+      default: { return 0.0; }
     }
   }
   switch (order) {
     case 0: {
-      
-  AINFO<<"(DMCZP) (return) LeaveMethod: EvaluateQuarticPolynomial";
-  return (((coeffs[4] * t + coeffs[3]) * t + coeffs[2]) * t + coeffs[1]) *
+      return (((coeffs[4] * t + coeffs[3]) * t + coeffs[2]) * t + coeffs[1]) *
                  t +
              coeffs[0];
     }
     case 1: {
-      
-  AINFO<<"(DMCZP) (return) LeaveMethod: EvaluateQuarticPolynomial";
-  return ((4.0 * coeffs[4] * t + 3.0 * coeffs[3]) * t + 2.0 * coeffs[2]) *
+      return ((4.0 * coeffs[4] * t + 3.0 * coeffs[3]) * t + 2.0 * coeffs[2]) *
                  t +
              coeffs[1];
     }
     case 2: {
-      
-  AINFO<<"(DMCZP) (return) LeaveMethod: EvaluateQuarticPolynomial";
-  return (12.0 * coeffs[4] * t + 6.0 * coeffs[3]) * t + 2.0 * coeffs[2];
+      return (12.0 * coeffs[4] * t + 6.0 * coeffs[3]) * t + 2.0 * coeffs[2];
     }
     case 3: {
-      
-  AINFO<<"(DMCZP) (return) LeaveMethod: EvaluateQuarticPolynomial";
-  return 24.0 * coeffs[4] * t + 6.0 * coeffs[3];
+      return 24.0 * coeffs[4] * t + 6.0 * coeffs[3];
     }
     case 4: {
-      
-  AINFO<<"(DMCZP) (return) LeaveMethod: EvaluateQuarticPolynomial";
-  return 24.0 * coeffs[4];
+      return 24.0 * coeffs[4];
     }
     default:
-      
-  AINFO<<"(DMCZP) (return) LeaveMethod: EvaluateQuarticPolynomial";
-  return 0.0;
+      return 0.0;
   }
-
-  AINFO<<"(DMCZP) LeaveMethod: EvaluateQuarticPolynomial";
- }
+}
 
 double EvaluateCubicPolynomial(const std::array<double, 4>& coefs,
                                const double t, const uint32_t order,
                                const double end_t, const double end_v) {
-  AINFO<<"(DMCZP) EnteringMethod: EvaluateCubicPolynomial";
-
   if (t > end_t) {
     switch (order) {
       case 0: {
         double end_value =
             ((coefs[3] * end_t + coefs[2]) * end_t + coefs[1]) * end_t +
             coefs[0];
-        
-  AINFO<<"(DMCZP) (return) LeaveMethod: EvaluateCubicPolynomial";
-  return end_value + (t - end_t) * end_v;
+        return end_value + (t - end_t) * end_v;
       }
       case 1: {
-        
-  AINFO<<"(DMCZP) (return) LeaveMethod: EvaluateCubicPolynomial";
-  return end_v;
+        return end_v;
       }
-      default: { 
-  AINFO<<"(DMCZP) (return) LeaveMethod: EvaluateCubicPolynomial";
-  return 0.0; }
+      default: { return 0.0; }
     }
   }
 
   switch (order) {
     case 0: {
-      
-  AINFO<<"(DMCZP) (return) LeaveMethod: EvaluateCubicPolynomial";
-  return ((coefs[3] * t + coefs[2]) * t + coefs[1]) * t + coefs[0];
+      return ((coefs[3] * t + coefs[2]) * t + coefs[1]) * t + coefs[0];
     }
     case 1: {
-      
-  AINFO<<"(DMCZP) (return) LeaveMethod: EvaluateCubicPolynomial";
-  return (3.0 * coefs[3] * t + 2.0 * coefs[2]) * t + coefs[1];
+      return (3.0 * coefs[3] * t + 2.0 * coefs[2]) * t + coefs[1];
     }
     case 2: {
-      
-  AINFO<<"(DMCZP) (return) LeaveMethod: EvaluateCubicPolynomial";
-  return 6.0 * coefs[3] * t + 2.0 * coefs[2];
+      return 6.0 * coefs[3] * t + 2.0 * coefs[2];
     }
     case 3: {
-      
-  AINFO<<"(DMCZP) (return) LeaveMethod: EvaluateCubicPolynomial";
-  return 6.0 * coefs[3];
+      return 6.0 * coefs[3];
     }
     default:
-      
-  AINFO<<"(DMCZP) (return) LeaveMethod: EvaluateCubicPolynomial";
-  return 0.0;
+      return 0.0;
   }
-
-  AINFO<<"(DMCZP) LeaveMethod: EvaluateCubicPolynomial";
- }
+}
 
 double GetSByConstantAcceleration(const double v0, const double acceleration,
                                   const double t) {
-  AINFO<<"(DMCZP) EnteringMethod: GetSByConstantAcceleration";
-
   if (acceleration > -FLAGS_double_precision) {
-    
-  AINFO<<"(DMCZP) (return) LeaveMethod: GetSByConstantAcceleration";
-  return v0 * t + 0.5 * acceleration * t * t;
+    return v0 * t + 0.5 * acceleration * t * t;
   }
   double t_stop = v0 / (-acceleration);
   double t_actual = std::min(t, t_stop);
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: GetSByConstantAcceleration";
   return v0 * t_actual + 0.5 * acceleration * t_actual * t_actual;
-
- }
+}
 
 }  // namespace math_util
 
@@ -331,29 +231,21 @@ using apollo::common::TrajectoryPoint;
 
 void TranslatePoint(const double translate_x, const double translate_y,
                     TrajectoryPoint* point) {
-  AINFO<<"(DMCZP) EnteringMethod: TranslatePoint";
-
   if (point == nullptr || !point->has_path_point()) {
     AERROR << "Point is nullptr or has NO path_point.";
-    
-  AINFO<<"(DMCZP) (return) LeaveMethod: TranslatePoint";
-  return;
+    return;
   }
   const double original_x = point->path_point().x();
   const double original_y = point->path_point().y();
   point->mutable_path_point()->set_x(original_x + translate_x);
   point->mutable_path_point()->set_y(original_y + translate_y);
-
-  AINFO<<"(DMCZP) LeaveMethod: TranslatePoint";
- }
+}
 
 void GenerateFreeMoveTrajectoryPoints(
     Eigen::Matrix<double, 6, 1>* state,
     const Eigen::Matrix<double, 6, 6>& transition, double theta,
     const double start_time, const std::size_t num, const double period,
     std::vector<TrajectoryPoint>* points) {
-  AINFO<<"(DMCZP) EnteringMethod: GenerateFreeMoveTrajectoryPoints";
-
   double x = (*state)(0, 0);
   double y = (*state)(1, 0);
   double v_x = (*state)(2, 0);
@@ -424,31 +316,20 @@ void GenerateFreeMoveTrajectoryPoints(
     acc_x = (*state)(4, 0);
     acc_y = (*state)(5, 0);
   }
-
-  AINFO<<"(DMCZP) LeaveMethod: GenerateFreeMoveTrajectoryPoints";
- }
+}
 
 double AdjustSpeedByCurvature(const double speed, const double curvature) {
-  AINFO<<"(DMCZP) EnteringMethod: AdjustSpeedByCurvature";
-
   if (std::abs(curvature) < FLAGS_turning_curvature_lower_bound) {
-    
-  AINFO<<"(DMCZP) (return) LeaveMethod: AdjustSpeedByCurvature";
-  return speed;
+    return speed;
   }
   if (std::abs(curvature) > FLAGS_turning_curvature_upper_bound) {
-    
-  AINFO<<"(DMCZP) (return) LeaveMethod: AdjustSpeedByCurvature";
-  return FLAGS_speed_at_upper_curvature;
+    return FLAGS_speed_at_upper_curvature;
   }
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: AdjustSpeedByCurvature";
   return apollo::common::math::lerp(
       FLAGS_speed_at_lower_curvature, FLAGS_turning_curvature_lower_bound,
       FLAGS_speed_at_upper_curvature, FLAGS_turning_curvature_upper_bound,
       curvature);
-
- }
+}
 
 }  // namespace predictor_util
 }  // namespace prediction

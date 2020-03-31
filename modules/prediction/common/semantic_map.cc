@@ -30,15 +30,9 @@
 namespace apollo {
 namespace prediction {
 
-SemanticMap::SemanticMap() {
-  AINFO<<"(DMCZP) EnteringMethod: SemanticMap::SemanticMap";
-
-  AINFO<<"(DMCZP) LeaveMethod: SemanticMap::SemanticMap";
- }
+SemanticMap::SemanticMap() {}
 
 void SemanticMap::Init() {
-  AINFO<<"(DMCZP) EnteringMethod: SemanticMap::Init";
-
   const std::string semantic_map_path =
       apollo::common::util::StrCat(FLAGS_map_dir, "/semantic_map.png");
   if (cyber::common::PathExists(semantic_map_path)) {
@@ -49,24 +43,16 @@ void SemanticMap::Init() {
       FLAGS_map_dir, "/semantic_map_config.pb.txt");
   if (!cyber::common::GetProtoFromFile(config_path, &config_)) {
     AERROR << "Failed to load config file: " << config_path;
-    
-  AINFO<<"(DMCZP) (return) LeaveMethod: SemanticMap::Init";
-  return;
+    return;
   }
   curr_img_ = cv::Mat(2000, 2000, CV_8UC3, cv::Scalar(0, 0, 0));
-
-  AINFO<<"(DMCZP) LeaveMethod: SemanticMap::Init";
- }
+}
 
 void SemanticMap::RunCurrFrame(
     const std::unordered_map<int, ObstacleHistory>& obstacle_id_history_map) {
-  AINFO<<"(DMCZP) EnteringMethod: SemanticMap::RunCurrFrame";
-
   if (obstacle_id_history_map.find(FLAGS_ego_vehicle_id) ==
       obstacle_id_history_map.end()) {
-    
-  AINFO<<"(DMCZP) (return) LeaveMethod: SemanticMap::RunCurrFrame";
-  return;
+    return;
   }
   obstacle_id_history_map_ = obstacle_id_history_map;
   const Feature& ego_feature =
@@ -98,14 +84,10 @@ void SemanticMap::RunCurrFrame(
       cv::waitKey();
     }
   }
-
-  AINFO<<"(DMCZP) LeaveMethod: SemanticMap::RunCurrFrame";
- }
+}
 
 void SemanticMap::DrawRect(const Feature& feature, const cv::Scalar& color,
                            cv::Mat* img) {
-  AINFO<<"(DMCZP) EnteringMethod: SemanticMap::DrawRect";
-
   double obs_l = feature.length();
   double obs_w = feature.width();
   double obs_x = feature.position().x();
@@ -129,27 +111,19 @@ void SemanticMap::DrawRect(const Feature& feature, const cv::Scalar& color,
       GetTransPoint(obs_x + (cos(theta) * obs_l - sin(theta) * -obs_w) / 2,
                     obs_y + (sin(theta) * obs_l + cos(theta) * -obs_w) / 2));
   cv::fillPoly(*img, std::vector<std::vector<cv::Point>>({polygon}), color);
-
-  AINFO<<"(DMCZP) LeaveMethod: SemanticMap::DrawRect";
- }
+}
 
 void SemanticMap::DrawPoly(const Feature& feature, const cv::Scalar& color,
                            cv::Mat* img) {
-  AINFO<<"(DMCZP) EnteringMethod: SemanticMap::DrawPoly";
-
   std::vector<cv::Point> polygon;
   for (auto& polygon_point : feature.polygon_point()) {
     polygon.push_back(GetTransPoint(polygon_point.x(), polygon_point.y()));
   }
   cv::fillPoly(*img, std::vector<std::vector<cv::Point>>({polygon}), color);
-
-  AINFO<<"(DMCZP) LeaveMethod: SemanticMap::DrawPoly";
- }
+}
 
 void SemanticMap::DrawHistory(const ObstacleHistory& history,
                               const cv::Scalar& color, cv::Mat* img) {
-  AINFO<<"(DMCZP) EnteringMethod: SemanticMap::DrawHistory";
-
   for (int i = history.feature_size() - 1; i >= 0; --i) {
     const Feature& feature = history.feature(i);
     double time_decay = 1.0 - curr_timestamp_ + feature.timestamp();
@@ -160,15 +134,11 @@ void SemanticMap::DrawHistory(const ObstacleHistory& history,
       DrawPoly(feature, decay_color, img);
     }
   }
-
-  AINFO<<"(DMCZP) LeaveMethod: SemanticMap::DrawHistory";
- }
+}
 
 cv::Mat SemanticMap::CropArea(const cv::Mat& input_img,
                               const cv::Point2i& center_point,
                               const double heading) {
-  AINFO<<"(DMCZP) EnteringMethod: SemanticMap::CropArea";
-
   cv::Mat rotation_mat =
       cv::getRotationMatrix2D(center_point, 90.0 - heading * 180.0 / M_PI, 1.0);
   cv::Mat rotated_mat;
@@ -176,46 +146,29 @@ cv::Mat SemanticMap::CropArea(const cv::Mat& input_img,
   cv::Rect rect(center_point.x - 200, center_point.y - 300, 400, 400);
   cv::Mat output_img;
   cv::resize(rotated_mat(rect), output_img, cv::Size(224, 224));
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: SemanticMap::CropArea";
   return output_img;
-
- }
+}
 
 cv::Mat SemanticMap::CropByHistory(const ObstacleHistory& history,
                                    const cv::Scalar& color) {
-  AINFO<<"(DMCZP) EnteringMethod: SemanticMap::CropByHistory";
-
   cv::Mat feature_map = curr_img_.clone();
   DrawHistory(history, color, &feature_map);
   const Feature& curr_feature = history.feature(0);
   cv::Point2i center_point =
       GetTransPoint(curr_feature.position().x(), curr_feature.position().y());
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: SemanticMap::CropByHistory";
   return CropArea(feature_map, center_point, curr_feature.theta());
-
-
- }
+}
 
 bool SemanticMap::GetMapById(const int obstacle_id, cv::Mat* feature_map) {
-  AINFO<<"(DMCZP) EnteringMethod: SemanticMap::GetMapById";
-
   if (obstacle_id_history_map_.find(obstacle_id) ==
       obstacle_id_history_map_.end()) {
-    
-  AINFO<<"(DMCZP) (return) LeaveMethod: SemanticMap::GetMapById";
-  return false;
+    return false;
   }
   cv::Mat output_img = CropByHistory(obstacle_id_history_map_[obstacle_id],
                                      cv::Scalar(0, 0, 255));
   output_img.copyTo(*feature_map);
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: SemanticMap::GetMapById";
   return true;
-
-  
- }
+}
 
 }  // namespace prediction
 }  // namespace apollo
