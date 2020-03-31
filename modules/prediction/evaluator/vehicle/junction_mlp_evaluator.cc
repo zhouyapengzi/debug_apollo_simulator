@@ -150,7 +150,6 @@ bool JunctionMLPEvaluator::Evaluate(Obstacle* obstacle_ptr) {
   }
 
 //pengzi add
-AINFO<<"(pengzi) model: "<<torch_model_ptr_;
 //pengzi end add
 
   for (double prob : probability) {
