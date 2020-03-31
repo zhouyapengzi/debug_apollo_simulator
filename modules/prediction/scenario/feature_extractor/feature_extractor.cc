@@ -1,4 +1,3 @@
-#include "cyber/common/log.h"
 /******************************************************************************
  * Copyright 2018 The Apollo Authors. All Rights Reserved.
  *
@@ -30,8 +29,6 @@ using LaneInfoPtr = std::shared_ptr<const LaneInfo>;
 using JunctionInfoPtr = std::shared_ptr<const JunctionInfo>;
 
 EnvironmentFeatures FeatureExtractor::ExtractEnvironmentFeatures() {
-  AINFO<<"(DMCZP) EnteringMethod: FeatureExtractor::ExtractEnvironmentFeatures";
-
   EnvironmentFeatures environment_features;
 
   auto ego_state_container =
@@ -42,9 +39,7 @@ EnvironmentFeatures FeatureExtractor::ExtractEnvironmentFeatures() {
       ego_state_container->ToPerceptionObstacle() == nullptr) {
     AERROR << "Null ego state container found or "
               "the container pointer is nullptr";
-    
-  AINFO<<"(DMCZP) (return) LeaveMethod: FeatureExtractor::ExtractEnvironmentFeatures";
-  return environment_features;
+    return environment_features;
   }
 
   auto ptr_ego_state = ego_state_container->ToPerceptionObstacle();
@@ -53,9 +48,7 @@ EnvironmentFeatures FeatureExtractor::ExtractEnvironmentFeatures() {
       !ptr_ego_state->has_velocity() || !ptr_ego_state->velocity().has_x() ||
       !ptr_ego_state->velocity().has_y()) {
     AERROR << "Incomplete ego pose information.";
-    
-  AINFO<<"(DMCZP) (return) LeaveMethod: FeatureExtractor::ExtractEnvironmentFeatures";
-  return environment_features;
+    return environment_features;
   }
 
   if (std::isnan(ptr_ego_state->position().x()) ||
@@ -64,9 +57,7 @@ EnvironmentFeatures FeatureExtractor::ExtractEnvironmentFeatures() {
       std::isnan(ptr_ego_state->velocity().x()) ||
       std::isnan(ptr_ego_state->velocity().y())) {
     AERROR << "nan found in ego state";
-    
-  AINFO<<"(DMCZP) (return) LeaveMethod: FeatureExtractor::ExtractEnvironmentFeatures";
-  return environment_features;
+    return environment_features;
   }
 
   Vec2d ego_position(ptr_ego_state->position().x(),
@@ -88,21 +79,15 @@ EnvironmentFeatures FeatureExtractor::ExtractEnvironmentFeatures() {
 
   ExtractFrontJunctionFeatures(&environment_features);
 
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: FeatureExtractor::ExtractEnvironmentFeatures";
   return environment_features;
- }
+}
 
 void FeatureExtractor::ExtractEgoLaneFeatures(
     EnvironmentFeatures* ptr_environment_features,
     const LaneInfoPtr& ptr_ego_lane, const common::math::Vec2d& ego_position) {
-  AINFO<<"(DMCZP) EnteringMethod: FeatureExtractor::ExtractEgoLaneFeatures";
-
   if (ptr_ego_lane == nullptr) {
     ADEBUG << "Ego vehicle is not on any lane.";
-    
-  AINFO<<"(DMCZP) (return) LeaveMethod: FeatureExtractor::ExtractEgoLaneFeatures";
-  return;
+    return;
   }
   ADEBUG << "Ego vehicle is on lane [" << ptr_ego_lane->id().id() << "]";
   double curr_lane_s = 0.0;
@@ -128,20 +113,14 @@ void FeatureExtractor::ExtractEgoLaneFeatures(
           ptr_environment_features->AddNonneglectableReverseLanes(t.id());
         });
   }
-
-  AINFO<<"(DMCZP) LeaveMethod: FeatureExtractor::ExtractEgoLaneFeatures";
- }
+}
 
 void FeatureExtractor::ExtractNeighborLaneFeatures(
     EnvironmentFeatures* ptr_environment_features,
     const LaneInfoPtr& ptr_ego_lane, const Vec2d& ego_position) {
-  AINFO<<"(DMCZP) EnteringMethod: FeatureExtractor::ExtractNeighborLaneFeatures";
-
   if (ptr_ego_lane == nullptr) {
     ADEBUG << "Ego vehicle is not on any lane.";
-    
-  AINFO<<"(DMCZP) (return) LeaveMethod: FeatureExtractor::ExtractNeighborLaneFeatures";
-  return;
+    return;
   }
 
   auto ptr_left_neighbor_lane = PredictionMap::GetLeftNeighborLane(
@@ -169,28 +148,20 @@ void FeatureExtractor::ExtractNeighborLaneFeatures(
     ptr_environment_features->SetRightNeighborLane(
         ptr_right_neighbor_lane->id().id(), right_neighbor_lane_s);
   }
-
-  AINFO<<"(DMCZP) LeaveMethod: FeatureExtractor::ExtractNeighborLaneFeatures";
- }
+}
 
 void FeatureExtractor::ExtractFrontJunctionFeatures(
     EnvironmentFeatures* ptr_environment_features) {
-  AINFO<<"(DMCZP) EnteringMethod: FeatureExtractor::ExtractFrontJunctionFeatures";
-
   auto ego_trajectory_container =
       ContainerManager::Instance()->GetContainer<ADCTrajectoryContainer>(
           AdapterConfig::PLANNING_TRAJECTORY);
   if (ego_trajectory_container == nullptr) {
     AERROR << "Null ego trajectory container";
-    
-  AINFO<<"(DMCZP) (return) LeaveMethod: FeatureExtractor::ExtractFrontJunctionFeatures";
-  return;
+    return;
   }
   JunctionInfoPtr junction = ego_trajectory_container->ADCJunction();
   if (junction == nullptr) {
-    
-  AINFO<<"(DMCZP) (return) LeaveMethod: FeatureExtractor::ExtractFrontJunctionFeatures";
-  return;
+    return;
   }
   // Only consider junction have overlap with signal or stop_sign
   bool need_consider = FLAGS_enable_all_junction;
@@ -209,25 +180,19 @@ void FeatureExtractor::ExtractFrontJunctionFeatures(
     ptr_environment_features->SetFrontJunction(
         junction->id().id(), ego_trajectory_container->ADCDistanceToJunction());
   }
-
-  AINFO<<"(DMCZP) LeaveMethod: FeatureExtractor::ExtractFrontJunctionFeatures";
- }
+}
 
 LaneInfoPtr FeatureExtractor::GetEgoLane(const common::Point3D& position,
                                          const double heading) {
-  AINFO<<"(DMCZP) EnteringMethod: FeatureExtractor::GetEgoLane";
-
   common::PointENU position_enu;
   position_enu.set_x(position.x());
   position_enu.set_y(position.y());
   position_enu.set_z(position.z());
 
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: FeatureExtractor::GetEgoLane";
   return PredictionMap::GetMostLikelyCurrentLane(
       position_enu, FLAGS_lane_distance_threshold, heading,
       FLAGS_lane_angle_difference_threshold);
- }
+}
 
 }  // namespace prediction
 }  // namespace apollo

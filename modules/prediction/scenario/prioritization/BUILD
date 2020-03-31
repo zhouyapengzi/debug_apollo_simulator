@@ -15,7 +15,6 @@ cc_library(
         "//modules/prediction/container/pose:pose_container",
         "//modules/prediction/scenario/scenario_features",
         "//modules/prediction/scenario/scenario_features:cruise_scenario_features",
-        "//cyber/common:log",
     ],
 )
 

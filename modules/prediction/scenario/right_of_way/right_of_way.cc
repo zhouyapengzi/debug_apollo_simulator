@@ -1,4 +1,3 @@
-#include "cyber/common/log.h"
 /******************************************************************************
  * Copyright 2019 The Apollo Authors. All Rights Reserved.
  *
@@ -40,33 +39,25 @@ using hdmap::OverlapInfo;
 using ConstLaneInfoPtr = std::shared_ptr<const LaneInfo>;
 
 void RightOfWay::Analyze() {
-  AINFO<<"(DMCZP) EnteringMethod: RightOfWay::Analyze";
-
   ObstaclesContainer* obstacles_container =
       ContainerManager::Instance()->GetContainer<ObstaclesContainer>(
           AdapterConfig::PERCEPTION_OBSTACLES);
   if (obstacles_container == nullptr) {
     AERROR << "Null obstacles container found";
-    
-  AINFO<<"(DMCZP) (return) LeaveMethod: RightOfWay::Analyze";
-  return;
- }
+    return;
+  }
 
   ADCTrajectoryContainer* adc_trajectory_container =
       ContainerManager::Instance()->GetContainer<ADCTrajectoryContainer>(
           AdapterConfig::PLANNING_TRAJECTORY);
   if (adc_trajectory_container == nullptr) {
     AERROR << "adc_trajectory_container is nullptr";
-    
-  AINFO<<"(DMCZP) (return) LeaveMethod: RightOfWay::Analyze";
-  return;
+    return;
   }
   const std::vector<std::string>& lane_ids =
       adc_trajectory_container->GetADCLaneIDSequence();
   if (lane_ids.empty()) {
-    
-  AINFO<<"(DMCZP) (return) LeaveMethod: RightOfWay::Analyze";
-  return;
+    return;
   }
 
   auto pose_container =
@@ -74,17 +65,13 @@ void RightOfWay::Analyze() {
           AdapterConfig::LOCALIZATION);
   if (pose_container == nullptr) {
     AERROR << "Pose container pointer is a null pointer.";
-    
-  AINFO<<"(DMCZP) (return) LeaveMethod: RightOfWay::Analyze";
-  return;
+    return;
   }
   const PerceptionObstacle* pose_obstacle_ptr =
       pose_container->ToPerceptionObstacle();
   if (pose_obstacle_ptr == nullptr) {
     AERROR << "Pose obstacle pointer is a null pointer.";
-    
-  AINFO<<"(DMCZP) (return) LeaveMethod: RightOfWay::Analyze";
-  return;
+    return;
   }
   double pose_x = pose_obstacle_ptr->position().x();
   double pose_y = pose_obstacle_ptr->position().y();
@@ -163,7 +150,6 @@ void RightOfWay::Analyze() {
       }
     }
   }
-  AINFO<<"(DMCZP) LeaveMethod: RightOfWay::Analyze";
 }
 
 }  // namespace prediction

@@ -1,4 +1,3 @@
-#include "cyber/common/log.h"
 /******************************************************************************
  * Copyright 2019 The Apollo Authors. All Rights Reserved.
  *
@@ -47,24 +46,16 @@ namespace {
 bool IsLaneSequenceInReferenceLine(
     const LaneSequence& lane_sequence,
     const ADCTrajectoryContainer* ego_trajectory_container) {
-  AINFO<<"(DMCZP) EnteringMethod: IsLaneSequenceInReferenceLine";
-
   for (const auto& lane_segment : lane_sequence.lane_segment()) {
     std::string lane_id = lane_segment.lane_id();
     if (ego_trajectory_container->IsLaneIdInReferenceLine(lane_id)) {
-      
-  AINFO<<"(DMCZP) (return) LeaveMethod: IsLaneSequenceInReferenceLine";
-  return true;
+      return true;
     }
   }
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: IsLaneSequenceInReferenceLine";
   return false;
- }
+}
 
 int NearestFrontObstacleIdOnLaneSequence(const LaneSequence& lane_sequence) {
-  AINFO<<"(DMCZP) EnteringMethod: NearestFrontObstacleIdOnLaneSequence";
-
   int nearest_front_obstacle_id = std::numeric_limits<int>::min();
   double smallest_relative_s = std::numeric_limits<double>::max();
   for (const auto& nearby_obs : lane_sequence.nearby_obstacle()) {
@@ -77,14 +68,10 @@ int NearestFrontObstacleIdOnLaneSequence(const LaneSequence& lane_sequence) {
       nearest_front_obstacle_id = nearby_obs.id();
     }
   }
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: NearestFrontObstacleIdOnLaneSequence";
   return nearest_front_obstacle_id;
- }
+}
 
 int NearestBackwardObstacleIdOnLaneSequence(const LaneSequence& lane_sequence) {
-  AINFO<<"(DMCZP) EnteringMethod: NearestBackwardObstacleIdOnLaneSequence";
-
   int nearest_backward_obstacle_id = std::numeric_limits<int>::min();
   double smallest_relative_s = std::numeric_limits<double>::max();
   for (const auto& nearby_obs : lane_sequence.nearby_obstacle()) {
@@ -97,40 +84,26 @@ int NearestBackwardObstacleIdOnLaneSequence(const LaneSequence& lane_sequence) {
       nearest_backward_obstacle_id = nearby_obs.id();
     }
   }
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: NearestBackwardObstacleIdOnLaneSequence";
   return nearest_backward_obstacle_id;
- }
+}
 
 }  // namespace
 
-ObstaclesPrioritizer::ObstaclesPrioritizer() {
-  AINFO<<"(DMCZP) EnteringMethod: ObstaclesPrioritizer::ObstaclesPrioritizer";
-
-  AINFO<<"(DMCZP) LeaveMethod: ObstaclesPrioritizer::ObstaclesPrioritizer";
- }
+ObstaclesPrioritizer::ObstaclesPrioritizer() {}
 
 void ObstaclesPrioritizer::PrioritizeObstacles() {
-  AINFO<<"(DMCZP) EnteringMethod: ObstaclesPrioritizer::PrioritizeObstacles";
-
   ego_back_lane_id_set_.clear();
   AssignIgnoreLevel();
   AssignCautionLevel();
-
-  AINFO<<"(DMCZP) LeaveMethod: ObstaclesPrioritizer::PrioritizeObstacles";
- }
+}
 
 void ObstaclesPrioritizer::AssignIgnoreLevel() {
-  AINFO<<"(DMCZP) EnteringMethod: ObstaclesPrioritizer::AssignIgnoreLevel";
-
   auto obstacles_container =
       ContainerManager::Instance()->GetContainer<ObstaclesContainer>(
           AdapterConfig::PERCEPTION_OBSTACLES);
   if (obstacles_container == nullptr) {
     AERROR << "Obstacles container pointer is a null pointer.";
-    
-  AINFO<<"(DMCZP) (return) LeaveMethod: ObstaclesPrioritizer::AssignIgnoreLevel";
-  return;
+    return;
   }
 
   auto pose_container =
@@ -138,18 +111,14 @@ void ObstaclesPrioritizer::AssignIgnoreLevel() {
           AdapterConfig::LOCALIZATION);
   if (pose_container == nullptr) {
     AERROR << "Pose container pointer is a null pointer.";
-    
-  AINFO<<"(DMCZP) (return) LeaveMethod: ObstaclesPrioritizer::AssignIgnoreLevel";
-  return;
+    return;
   }
 
   const PerceptionObstacle* pose_obstacle_ptr =
       pose_container->ToPerceptionObstacle();
   if (pose_obstacle_ptr == nullptr) {
     AERROR << "Pose obstacle pointer is a null pointer.";
-    
-  AINFO<<"(DMCZP) (return) LeaveMethod: ObstaclesPrioritizer::AssignIgnoreLevel";
-  return;
+    return;
   }
 
   double pose_theta = pose_obstacle_ptr->theta();
@@ -211,45 +180,31 @@ void ObstaclesPrioritizer::AssignIgnoreLevel() {
     }
   }
   obstacles_container->SetConsideredObstacleIds();
-
-  AINFO<<"(DMCZP) LeaveMethod: ObstaclesPrioritizer::AssignIgnoreLevel";
- }
+}
 
 void ObstaclesPrioritizer::AssignCautionLevel() {
-  AINFO<<"(DMCZP) EnteringMethod: ObstaclesPrioritizer::AssignCautionLevel";
-
   AssignCautionLevelCruiseKeepLane();
   AssignCautionLevelCruiseChangeLane();
   AssignCautionLevelByEgoReferenceLine();
-
-  AINFO<<"(DMCZP) LeaveMethod: ObstaclesPrioritizer::AssignCautionLevel";
- }
+}
 
 void ObstaclesPrioritizer::AssignCautionLevelCruiseKeepLane() {
-  AINFO<<"(DMCZP) EnteringMethod: ObstaclesPrioritizer::AssignCautionLevelCruiseKeepLane";
-
   ObstaclesContainer* obstacles_container =
       ContainerManager::Instance()->GetContainer<ObstaclesContainer>(
           AdapterConfig::PERCEPTION_OBSTACLES);
   if (obstacles_container == nullptr) {
     AERROR << "Null obstacles container found";
-    
-  AINFO<<"(DMCZP) (return) LeaveMethod: ObstaclesPrioritizer::AssignCautionLevelCruiseKeepLane";
-  return;
+    return;
   }
   Obstacle* ego_vehicle =
       obstacles_container->GetObstacle(FLAGS_ego_vehicle_id);
   if (ego_vehicle == nullptr) {
     AERROR << "Ego vehicle not found";
-    
-  AINFO<<"(DMCZP) (return) LeaveMethod: ObstaclesPrioritizer::AssignCautionLevelCruiseKeepLane";
-  return;
+    return;
   }
   if (ego_vehicle->history_size() == 0) {
     AERROR << "Ego vehicle has no history";
-    
-  AINFO<<"(DMCZP) (return) LeaveMethod: ObstaclesPrioritizer::AssignCautionLevelCruiseKeepLane";
-  return;
+    return;
   }
   const Feature& ego_latest_feature = ego_vehicle->latest_feature();
   for (const LaneSequence& lane_sequence :
@@ -267,21 +222,15 @@ void ObstaclesPrioritizer::AssignCautionLevelCruiseKeepLane() {
     }
     obstacle_ptr->SetCaution();
   }
-
-  AINFO<<"(DMCZP) LeaveMethod: ObstaclesPrioritizer::AssignCautionLevelCruiseKeepLane";
- }
+}
 
 void ObstaclesPrioritizer::AssignCautionLevelCruiseChangeLane() {
-  AINFO<<"(DMCZP) EnteringMethod: ObstaclesPrioritizer::AssignCautionLevelCruiseChangeLane";
-
   ObstaclesContainer* obstacles_container =
       ContainerManager::Instance()->GetContainer<ObstaclesContainer>(
           AdapterConfig::PERCEPTION_OBSTACLES);
   if (obstacles_container == nullptr) {
     AERROR << "Null obstacles container found";
-    
-  AINFO<<"(DMCZP) (return) LeaveMethod: ObstaclesPrioritizer::AssignCautionLevelCruiseChangeLane";
-  return;
+    return;
   }
   ADCTrajectoryContainer* ego_trajectory_container =
       ContainerManager::Instance()->GetContainer<ADCTrajectoryContainer>(
@@ -290,15 +239,11 @@ void ObstaclesPrioritizer::AssignCautionLevelCruiseChangeLane() {
       obstacles_container->GetObstacle(FLAGS_ego_vehicle_id);
   if (ego_vehicle == nullptr) {
     AERROR << "Ego vehicle not found";
-    
-  AINFO<<"(DMCZP) (return) LeaveMethod: ObstaclesPrioritizer::AssignCautionLevelCruiseChangeLane";
-  return;
+    return;
   }
   if (ego_vehicle->history_size() == 0) {
     AERROR << "Ego vehicle has no history";
-    
-  AINFO<<"(DMCZP) (return) LeaveMethod: ObstaclesPrioritizer::AssignCautionLevelCruiseChangeLane";
-  return;
+    return;
   }
   const Feature& ego_latest_feature = ego_vehicle->latest_feature();
   for (const LaneSequence& lane_sequence :
@@ -338,21 +283,15 @@ void ObstaclesPrioritizer::AssignCautionLevelCruiseChangeLane() {
       }
     }
   }
-
-  AINFO<<"(DMCZP) LeaveMethod: ObstaclesPrioritizer::AssignCautionLevelCruiseChangeLane";
- }
+}
 
 void ObstaclesPrioritizer::AssignCautionLevelByEgoReferenceLine() {
-  AINFO<<"(DMCZP) EnteringMethod: ObstaclesPrioritizer::AssignCautionLevelByEgoReferenceLine";
-
   ObstaclesContainer* obstacles_container =
       ContainerManager::Instance()->GetContainer<ObstaclesContainer>(
           AdapterConfig::PERCEPTION_OBSTACLES);
   if (obstacles_container == nullptr) {
     AERROR << "Null obstacles container found";
-    
-  AINFO<<"(DMCZP) (return) LeaveMethod: ObstaclesPrioritizer::AssignCautionLevelByEgoReferenceLine";
-  return;
+    return;
   }
 
   ADCTrajectoryContainer* adc_trajectory_container =
@@ -360,16 +299,12 @@ void ObstaclesPrioritizer::AssignCautionLevelByEgoReferenceLine() {
           AdapterConfig::PLANNING_TRAJECTORY);
   if (adc_trajectory_container == nullptr) {
     AERROR << "adc_trajectory_container is nullptr";
-    
-  AINFO<<"(DMCZP) (return) LeaveMethod: ObstaclesPrioritizer::AssignCautionLevelByEgoReferenceLine";
-  return;
+    return;
   }
   const std::vector<std::string>& lane_ids =
       adc_trajectory_container->GetADCLaneIDSequence();
   if (lane_ids.empty()) {
-    
-  AINFO<<"(DMCZP) (return) LeaveMethod: ObstaclesPrioritizer::AssignCautionLevelByEgoReferenceLine";
-  return;
+    return;
   }
 
   auto pose_container =
@@ -377,17 +312,13 @@ void ObstaclesPrioritizer::AssignCautionLevelByEgoReferenceLine() {
           AdapterConfig::LOCALIZATION);
   if (pose_container == nullptr) {
     AERROR << "Pose container pointer is a null pointer.";
-    
-  AINFO<<"(DMCZP) (return) LeaveMethod: ObstaclesPrioritizer::AssignCautionLevelByEgoReferenceLine";
-  return;
+    return;
   }
   const PerceptionObstacle* pose_obstacle_ptr =
       pose_container->ToPerceptionObstacle();
   if (pose_obstacle_ptr == nullptr) {
     AERROR << "Pose obstacle pointer is a null pointer.";
-    
-  AINFO<<"(DMCZP) (return) LeaveMethod: ObstaclesPrioritizer::AssignCautionLevelByEgoReferenceLine";
-  return;
+    return;
   }
   double pose_x = pose_obstacle_ptr->position().x();
   double pose_y = pose_obstacle_ptr->position().y();
@@ -501,27 +432,19 @@ void ObstaclesPrioritizer::AssignCautionLevelByEgoReferenceLine() {
       }
     }
   }
-   
-  AINFO<<"(DMCZP) LeaveMethod: ObstaclesPrioritizer::AssignCautionLevelByEgoReferenceLine";
 }
 
 void ObstaclesPrioritizer::AssignCautionByMerge(
     std::shared_ptr<const LaneInfo> lane_info_ptr,
     std::unordered_set<std::string>* const visited_lanes) {
-  AINFO<<"(DMCZP) EnteringMethod: ObstaclesPrioritizer::AssignCautionByMerge";
-
   SetCautionBackward(lane_info_ptr,
                      FLAGS_caution_search_distance_backward_for_merge,
                      visited_lanes);
-
-  AINFO<<"(DMCZP) LeaveMethod: ObstaclesPrioritizer::AssignCautionByMerge";
- }
+}
 
 void ObstaclesPrioritizer::AssignCautionByOverlap(
     std::shared_ptr<const LaneInfo> lane_info_ptr,
     std::unordered_set<std::string>* const visited_lanes) {
-  AINFO<<"(DMCZP) EnteringMethod: ObstaclesPrioritizer::AssignCautionByOverlap";
-
   std::string lane_id = lane_info_ptr->id().id();
   const std::vector<std::shared_ptr<const OverlapInfo>> cross_lanes =
       lane_info_ptr->cross_lanes();
@@ -554,22 +477,16 @@ void ObstaclesPrioritizer::AssignCautionByOverlap(
           visited_lanes);
     }
   }
-
-  AINFO<<"(DMCZP) LeaveMethod: ObstaclesPrioritizer::AssignCautionByOverlap";
- }
+}
 
 void ObstaclesPrioritizer::SetCautionBackward(
     std::shared_ptr<const LaneInfo> start_lane_info_ptr,
     const double max_distance,
     std::unordered_set<std::string>* const visited_lanes) {
-  AINFO<<"(DMCZP) EnteringMethod: ObstaclesPrioritizer::SetCautionBackward";
-
   std::string start_lane_id = start_lane_info_ptr->id().id();
   if (ego_back_lane_id_set_.find(start_lane_id) !=
       ego_back_lane_id_set_.end()) {
-    
-  AINFO<<"(DMCZP) (return) LeaveMethod: ObstaclesPrioritizer::SetCautionBackward";
-  return;
+    return;
   }
   ObstaclesContainer* obstacles_container =
       ContainerManager::Instance()->GetContainer<ObstaclesContainer>(
@@ -618,9 +535,7 @@ void ObstaclesPrioritizer::SetCautionBackward(
                               cumu_distance + pre_lane_ptr->total_length());
     }
   }
-
-  AINFO<<"(DMCZP) LeaveMethod: ObstaclesPrioritizer::SetCautionBackward";
- }
+}
 
 }  // namespace prediction
 }  // namespace apollo

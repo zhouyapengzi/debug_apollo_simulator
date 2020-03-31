@@ -11,7 +11,6 @@ cc_library(
     ],
     deps = [
         "//modules/prediction/proto:scenario_proto",
-        "//cyber/common:log",
     ],
 )
 
@@ -26,7 +25,6 @@ cc_library(
         ":scenario_features",
         "//modules/prediction/common:environment_features",
         "//modules/prediction/common:prediction_map",
-        "//cyber/common:log",
     ],
 )
 
@@ -40,7 +38,6 @@ cc_library(
     deps = [
         ":scenario_features",
         "//modules/prediction/common:environment_features",
-        "//cyber/common:log",
     ],
 )
 
@@ -53,7 +50,6 @@ cc_test(
     deps = [
         ":cruise_scenario_features",
         "@gtest//:main",
-        "//cyber/common:log",
     ],
 )
 

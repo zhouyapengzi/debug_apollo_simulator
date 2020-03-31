@@ -14,7 +14,6 @@ cc_library(
         "//modules/prediction/scenario/feature_extractor",
         "//modules/prediction/scenario/prioritization:obstacles_prioritizer",
         "//modules/prediction/scenario/right_of_way",
-        "//cyber/common:log",
     ],
 )
 
@@ -25,7 +24,6 @@ cc_test(
     data = [
         "//modules/prediction:prediction_data",
         "//modules/prediction:prediction_testdata",
-        "//cyber/common:log",
     ],
     deps = [
         ":scenario_manager",
