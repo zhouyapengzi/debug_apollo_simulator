@@ -63,14 +63,16 @@ MLPEvaluator::MLPEvaluator() {
   evaluator_type_ = ObstacleConf::MLP_EVALUATOR;
   LoadModel(FLAGS_evaluator_vehicle_mlp_file);
   // pengzi add
-  mlp_evaluator_neuron_coverage.resize(model_ptr_->num_layer());
+  AINFO<<"(pengzi) initial mlp_evaluator_neuron_coverage.";
+  // mlp_evaluator_neuron_coverage.resize(model_ptr_->num_layer());
   for(int i = 0; i< model_ptr_->num_layer(); ++i){
-     mlp_evaluator_neuron_coverage.resize(model_ptr_->layer(i).layer_output_dim());
+    mlp_evaluator_neuron_coverage.push_back(std::vector<bool>());
+     //mlp_evaluator_neuron_coverage.resize(model_ptr_->layer(i).layer_output_dim());
      for(int col = 0; col < model_ptr_->layer(i).layer_output_dim(); ++col){
-        mlp_evaluator_neuron_coverage[i][col] = false;
+        mlp_evaluator_neuron_coverage[i].push_back(col);
      }
-   }
-   AINFO<<"(pengzi) initial mlp_evaluator_neuron_coverage. num_layer:" << mlp_evaluator_neuron_coverage.size() << " ;";
+   } 
+  AINFO<<"(pengzi) initial mlp_evaluator_neuron_coverage. num_layer:" << mlp_evaluator_neuron_coverage.size() << " ;";
   // pengzi end insert
   AINFO<<"(DMCZP) LeaveMethod: MLPEvaluator::MLPEvaluator";
  }
