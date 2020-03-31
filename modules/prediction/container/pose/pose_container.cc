@@ -28,39 +28,27 @@ using apollo::perception::PerceptionObstacle;
 using Point = apollo::common::Point3D;
 
 void PoseContainer::Insert(const ::google::protobuf::Message& message) {
-  AINFO<<"(DMCZP) EnteringMethod: PoseContainer::Insert";
-
   localization::LocalizationEstimate localization;
   localization.CopyFrom(dynamic_cast<const LocalizationEstimate&>(message));
   Update(localization);
-
-  AINFO<<"(DMCZP) LeaveMethod: PoseContainer::Insert";
- }
+}
 
 void PoseContainer::Update(
     const localization::LocalizationEstimate& localization) {
-  AINFO<<"(DMCZP) EnteringMethod: PoseContainer::Update";
-
   if (!localization.has_header() ||
       !localization.header().has_timestamp_sec()) {
     AERROR << "Localization message has no timestamp ["
            << localization.ShortDebugString() << "].";
-    
-  AINFO<<"(DMCZP) (return) LeaveMethod: PoseContainer::Update";
-  return;
+    return;
   } else if (!localization.has_pose()) {
     AERROR << "Localization message has no pose ["
            << localization.ShortDebugString() << "].";
-    
-  AINFO<<"(DMCZP) (return) LeaveMethod: PoseContainer::Update";
-  return;
+    return;
   } else if (!localization.pose().has_position() ||
              !localization.pose().has_linear_velocity()) {
     AERROR << "Localization message has no position or linear velocity ["
            << localization.ShortDebugString() << "].";
-    
-  AINFO<<"(DMCZP) (return) LeaveMethod: PoseContainer::Update";
-  return;
+    return;
   }
 
   if (obstacle_ptr_.get() == nullptr) {
@@ -99,33 +87,19 @@ void PoseContainer::Update(
   obstacle_ptr_->set_timestamp(localization.header().timestamp_sec());
 
   ADEBUG << "ADC obstacle [" << obstacle_ptr_->ShortDebugString() << "].";
-
-  AINFO<<"(DMCZP) LeaveMethod: PoseContainer::Update";
- }
+}
 
 double PoseContainer::GetTimestamp() {
-  AINFO<<"(DMCZP) EnteringMethod: PoseContainer::GetTimestamp";
-
   if (obstacle_ptr_ != nullptr) {
-    
-  AINFO<<"(DMCZP) (return) LeaveMethod: PoseContainer::GetTimestamp";
-  return obstacle_ptr_->timestamp();
+    return obstacle_ptr_->timestamp();
   } else {
-    
-  AINFO<<"(DMCZP) (return) LeaveMethod: PoseContainer::GetTimestamp";
-  return 0.0;
+    return 0.0;
   }
-
-  AINFO<<"(DMCZP) LeaveMethod: PoseContainer::GetTimestamp";
- }
+}
 
 const PerceptionObstacle* PoseContainer::ToPerceptionObstacle() {
-  AINFO<<"(DMCZP) EnteringMethod: PoseContainer::ToPerceptionObstacle";
-
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: PoseContainer::ToPerceptionObstacle";
   return obstacle_ptr_.get();
- }
+}
 
 }  // namespace prediction
 }  // namespace apollo

@@ -1,4 +1,3 @@
-#include "cyber/common/log.h"
 /******************************************************************************
  * Copyright 2017 The Apollo Authors. All Rights Reserved.
  *
@@ -36,17 +35,11 @@ using apollo::prediction::PredictionConstants;
 
 ObstaclesContainer::ObstaclesContainer()
     : ptr_obstacles_(FLAGS_max_num_obstacles),
-      id_mapping_(FLAGS_max_num_obstacles) {
-  AINFO<<"(DMCZP) EnteringMethod: ObstaclesContainer::ObstaclesContainer";
-
-  AINFO<<"(DMCZP) LeaveMethod: ObstaclesContainer::ObstaclesContainer";
- }
+      id_mapping_(FLAGS_max_num_obstacles) {}
 
 // This is called by Perception module at every frame to insert all
 // detected obstacles.
 void ObstaclesContainer::Insert(const ::google::protobuf::Message& message) {
-  AINFO<<"(DMCZP) EnteringMethod: ObstaclesContainer::Insert";
-
   // Clean up the history and get the PerceptionObstacles
   curr_frame_id_mapping_.clear();
   curr_frame_movable_obstacle_ids_.clear();
@@ -75,9 +68,7 @@ void ObstaclesContainer::Insert(const ::google::protobuf::Message& message) {
   } else if (timestamp <= timestamp_) {
     AERROR << "Invalid timestamp curr [" << timestamp << "] v.s. prev ["
            << timestamp_ << "].";
-    
-  AINFO<<"(DMCZP) (return) LeaveMethod: ObstaclesContainer::Insert";
-  return;
+    return;
   }
 
   switch (FLAGS_prediction_offline_mode) {
@@ -147,87 +138,52 @@ void ObstaclesContainer::Insert(const ::google::protobuf::Message& message) {
   }
   // 3. Sort the Obstacles
   ObstacleClusters::SortObstacles();
-
-  AINFO<<"(DMCZP) LeaveMethod: ObstaclesContainer::Insert";
- }
+}
 
 Obstacle* ObstaclesContainer::GetObstacle(const int id) {
-  AINFO<<"(DMCZP) EnteringMethod: ObstaclesContainer::GetObstacle";
-
   auto ptr_obstacle = ptr_obstacles_.GetSilently(id);
   if (ptr_obstacle != nullptr) {
-    
-  AINFO<<"(DMCZP) (return) LeaveMethod: ObstaclesContainer::GetObstacle";
-  return ptr_obstacle->get();
+    return ptr_obstacle->get();
   }
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: ObstaclesContainer::GetObstacle";
   return nullptr;
-
-  AINFO<<"(DMCZP) LeaveMethod: ObstaclesContainer::GetObstacle";
- }
+}
 
 Obstacle* ObstaclesContainer::GetObstacleWithLRUUpdate(const int obstacle_id) {
-  AINFO<<"(DMCZP) EnteringMethod: ObstaclesContainer::GetObstacleWithLRUUpdate";
-
   auto ptr_obstacle = ptr_obstacles_.Get(obstacle_id);
   if (ptr_obstacle != nullptr) {
-    
-  AINFO<<"(DMCZP) (return) LeaveMethod: ObstaclesContainer::GetObstacleWithLRUUpdate";
-  return ptr_obstacle->get();
+    return ptr_obstacle->get();
   }
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: ObstaclesContainer::GetObstacleWithLRUUpdate";
   return nullptr;
- }
+}
 
 void ObstaclesContainer::Clear() {
-  AINFO<<"(DMCZP) EnteringMethod: ObstaclesContainer::Clear";
-
   ptr_obstacles_.Clear();
   id_mapping_.Clear();
   timestamp_ = -1.0;
-
-  AINFO<<"(DMCZP) LeaveMethod: ObstaclesContainer::Clear";
- }
+}
 
 const PerceptionObstacle& ObstaclesContainer::GetPerceptionObstacle(
     const int id) {
-  AINFO<<"(DMCZP) EnteringMethod: ObstaclesContainer::GetPerceptionObstacle";
-
   CHECK(curr_frame_id_perception_obstacle_map_.find(id) !=
         curr_frame_id_perception_obstacle_map_.end());
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: ObstaclesContainer::GetPerceptionObstacle";
   return curr_frame_id_perception_obstacle_map_[id];
- }
+}
 
 const std::vector<int>& ObstaclesContainer::curr_frame_movable_obstacle_ids() {
-   AINFO<<"(DMCZP) EnteringMethod: ObstaclesContainer::curr_frame_movable_obstacle_ids";
-
-  AINFO<<"(DMCZP) (return) LeaveMethod: ObstaclesContainer::curr_frame_movable_obstacle_ids";
   return curr_frame_movable_obstacle_ids_;
 }
 
 const std::vector<int>&
 ObstaclesContainer::curr_frame_unmovable_obstacle_ids() {
-  AINFO<<"(DMCZP) EnteringMethod: ObstaclesContainer::curr_frame_unmovable_obstacle_ids";
-
-  AINFO<<"(DMCZP) (return) LeaveMethod: ObstaclesContainer::curr_frame_unmovable_obstacle_ids";
   return curr_frame_unmovable_obstacle_ids_;
- }
+}
 
 const std::vector<int>&
 ObstaclesContainer::curr_frame_considered_obstacle_ids() {
-  AINFO<<"(DMCZP) EnteringMethod: ObstaclesContainer::curr_frame_considered_obstacle_ids";
-
-  AINFO<<"(DMCZP) (return) LeaveMethod: ObstaclesContainer::curr_frame_considered_obstacle_ids";
   return curr_frame_considered_obstacle_ids_;
- }
+}
 
 void ObstaclesContainer::SetConsideredObstacleIds() {
-  AINFO<<"(DMCZP) EnteringMethod: ObstaclesContainer::SetConsideredObstacleIds";
-
   curr_frame_considered_obstacle_ids_.clear();
   for (const int id : curr_frame_movable_obstacle_ids_) {
     Obstacle* obstacle_ptr = GetObstacle(id);
@@ -241,9 +197,7 @@ void ObstaclesContainer::SetConsideredObstacleIds() {
     }
     curr_frame_considered_obstacle_ids_.push_back(id);
   }
-
-  AINFO<<"(DMCZP) LeaveMethod: ObstaclesContainer::SetConsideredObstacleIds";
- }
+}
 
 std::vector<int> ObstaclesContainer::curr_frame_obstacle_ids() {
   std::vector<int> curr_frame_obs_ids = curr_frame_movable_obstacle_ids_;
@@ -255,8 +209,6 @@ std::vector<int> ObstaclesContainer::curr_frame_obstacle_ids() {
 
 void ObstaclesContainer::InsertPerceptionObstacle(
     const PerceptionObstacle& perception_obstacle, const double timestamp) {
-  AINFO<<"(DMCZP) EnteringMethod: ObstaclesContainer::InsertPerceptionObstacle";
-
   // Sanity checks.
   int id = PerceptionIdToPredictionId(perception_obstacle.id());
   if (id != perception_obstacle.id()) {
@@ -266,17 +218,13 @@ void ObstaclesContainer::InsertPerceptionObstacle(
   curr_frame_id_perception_obstacle_map_[id] = perception_obstacle;
   if (id < FLAGS_ego_vehicle_id) {
     AERROR << "Invalid ID [" << id << "]";
-    
-  AINFO<<"(DMCZP) (return) LeaveMethod: ObstaclesContainer::InsertPerceptionObstacle";
-  return;
+    return;
   }
   if (!IsMovable(perception_obstacle)) {
     ADEBUG << "Perception obstacle [" << perception_obstacle.id()
            << "] is unmovable.";
     curr_frame_unmovable_obstacle_ids_.push_back(id);
-    
-  AINFO<<"(DMCZP) (return) LeaveMethod: ObstaclesContainer::InsertPerceptionObstacle";
-  return;
+    return;
   }
 
   // Insert the obstacle and also update the LRUCache.
@@ -288,9 +236,7 @@ void ObstaclesContainer::InsertPerceptionObstacle(
     auto ptr_obstacle = Obstacle::Create(perception_obstacle, timestamp, id);
     if (ptr_obstacle == nullptr) {
       AERROR << "Failed to insert obstacle into container";
-      
-  AINFO<<"(DMCZP) (return) LeaveMethod: ObstaclesContainer::InsertPerceptionObstacle";
-  return;
+      return;
     }
     ptr_obstacles_.Put(id, std::move(ptr_obstacle));
     ADEBUG << "Insert obstacle [" << id << "]";
@@ -300,18 +246,12 @@ void ObstaclesContainer::InsertPerceptionObstacle(
     curr_frame_movable_obstacle_ids_.push_back(id);
   }
   SetConsideredObstacleIds();
-
-  AINFO<<"(DMCZP) LeaveMethod: ObstaclesContainer::InsertPerceptionObstacle";
- }
+}
 
 void ObstaclesContainer::InsertFeatureProto(const Feature& feature) {
-  AINFO<<"(DMCZP) EnteringMethod: ObstaclesContainer::InsertFeatureProto";
-
   if (!feature.has_id()) {
     AERROR << "Invalid feature, no ID found.";
-    
-  AINFO<<"(DMCZP) (return) LeaveMethod: ObstaclesContainer::InsertFeatureProto";
-  return;
+    return;
   }
   int id = feature.id();
   auto obstacle_ptr = GetObstacleWithLRUUpdate(id);
@@ -321,20 +261,14 @@ void ObstaclesContainer::InsertFeatureProto(const Feature& feature) {
     auto ptr_obstacle = Obstacle::Create(feature);
     if (ptr_obstacle == nullptr) {
       AERROR << "Failed to insert obstacle into container";
-      
-  AINFO<<"(DMCZP) (return) LeaveMethod: ObstaclesContainer::InsertFeatureProto";
-  return;
+      return;
     }
     ptr_obstacles_.Put(id, std::move(ptr_obstacle));
   }
-
-  AINFO<<"(DMCZP) LeaveMethod: ObstaclesContainer::InsertFeatureProto";
- }
+}
 
 void ObstaclesContainer::BuildCurrentFrameIdMapping(
     const PerceptionObstacles& perception_obstacles) {
-  AINFO<<"(DMCZP) EnteringMethod: ObstaclesContainer::BuildCurrentFrameIdMapping";
-
   // Go through every obstacle in the current frame, after some
   // sanity checks, build current_frame_id_mapping for every obstacle
 
@@ -394,27 +328,17 @@ void ObstaclesContainer::BuildCurrentFrameIdMapping(
       }
     }
   }
-
-  AINFO<<"(DMCZP) LeaveMethod: ObstaclesContainer::BuildCurrentFrameIdMapping";
- }
+}
 
 int ObstaclesContainer::PerceptionIdToPredictionId(const int perception_id) {
-  AINFO<<"(DMCZP) EnteringMethod: ObstaclesContainer::PerceptionIdToPredictionId";
-
   if (curr_frame_id_mapping_.find(perception_id) ==
       curr_frame_id_mapping_.end()) {
-    
-  AINFO<<"(DMCZP) (return) LeaveMethod: ObstaclesContainer::PerceptionIdToPredictionId";
-  return perception_id;
+    return perception_id;
   }
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: ObstaclesContainer::PerceptionIdToPredictionId";
   return curr_frame_id_mapping_[perception_id];
- }
+}
 
 void ObstaclesContainer::BuildLaneGraph() {
-  AINFO<<"(DMCZP) EnteringMethod: ObstaclesContainer::BuildLaneGraph";
-
   // Go through every obstacle in the current frame, after some
   // sanity checks, build lane graph for non-junction cases.
   for (const int id : curr_frame_considered_obstacle_ids_) {
@@ -438,19 +362,13 @@ void ObstaclesContainer::BuildLaneGraph() {
   Obstacle* ego_vehicle_ptr = GetObstacle(FLAGS_ego_vehicle_id);
   if (ego_vehicle_ptr == nullptr) {
     AERROR << "Ego vehicle not inserted";
-    
-  AINFO<<"(DMCZP) (return) LeaveMethod: ObstaclesContainer::BuildLaneGraph";
-  return;
+    return;
   }
   ego_vehicle_ptr->BuildLaneGraph();
   ego_vehicle_ptr->SetNearbyObstacles();
-
-  AINFO<<"(DMCZP) LeaveMethod: ObstaclesContainer::BuildLaneGraph";
- }
+}
 
 void ObstaclesContainer::BuildJunctionFeature() {
-  AINFO<<"(DMCZP) EnteringMethod: ObstaclesContainer::BuildJunctionFeature";
-
   // Go through every obstacle in the current frame, after some
   // sanity checks, build junction features for those that are in junction.
   for (const int id : curr_frame_considered_obstacle_ids_) {
@@ -466,20 +384,14 @@ void ObstaclesContainer::BuildJunctionFeature() {
       obstacle_ptr->BuildJunctionFeature();
     }
   }
-
-  AINFO<<"(DMCZP) LeaveMethod: ObstaclesContainer::BuildJunctionFeature";
- }
+}
 
 bool ObstaclesContainer::AdaptTracking(
     const PerceptionObstacle& perception_obstacle, Obstacle* obstacle_ptr) {
-  AINFO<<"(DMCZP) EnteringMethod: ObstaclesContainer::AdaptTracking";
-
   if (!perception_obstacle.has_type() ||
       perception_obstacle.type() != obstacle_ptr->type()) {
     // different obstacle type, can't be same obstacle
-    
-  AINFO<<"(DMCZP) (return) LeaveMethod: ObstaclesContainer::AdaptTracking";
-  return false;
+    return false;
   }
   // test perception_obstacle position with possible obstacle position
   if (perception_obstacle.has_position() &&
@@ -500,38 +412,22 @@ bool ObstaclesContainer::AdaptTracking(
     double cross_prod = dist_x * vel_y - dist_y * vel_x;
     if (std::abs(dot_prod) < FLAGS_max_tracking_dist * vel &&
         std::abs(cross_prod) < FLAGS_max_tracking_dist * vel / 3) {
-      
-  AINFO<<"(DMCZP) (return) LeaveMethod: ObstaclesContainer::AdaptTracking";
-  return true;
+      return true;
     }
   }
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: ObstaclesContainer::AdaptTracking";
   return false;
- }
+}
 
 bool ObstaclesContainer::IsMovable(
     const PerceptionObstacle& perception_obstacle) {
-  AINFO<<"(DMCZP) EnteringMethod: ObstaclesContainer::IsMovable";
-
   if (!perception_obstacle.has_type() ||
       perception_obstacle.type() == PerceptionObstacle::UNKNOWN_UNMOVABLE) {
-    
-  AINFO<<"(DMCZP) (return) LeaveMethod: ObstaclesContainer::IsMovable";
-  return false;
+    return false;
   }
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: ObstaclesContainer::IsMovable";
   return true;
+}
 
-  AINFO<<"(DMCZP) LeaveMethod: ObstaclesContainer::IsMovable";
- }
-
-double ObstaclesContainer::timestamp() const {
-  AINFO<<"(DMCZP) EnteringMethod: ObstaclesContainer::timestamp";
- 
-  AINFO<<"(DMCZP) (return) LeaveMethod: ObstaclesContainer::timestamp";
-  return timestamp_; }
+double ObstaclesContainer::timestamp() const { return timestamp_; }
 
 }  // namespace prediction
 }  // namespace apollo
