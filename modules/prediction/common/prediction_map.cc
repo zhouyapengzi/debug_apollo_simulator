@@ -44,92 +44,92 @@ bool PredictionMap::Ready() {
 
 Eigen::Vector2d PredictionMap::PositionOnLane(
     const std::shared_ptr<const LaneInfo> lane_info, const double s) {
-  AINFO<<"(DMCZP) EnteringMethod: PredictionMap::PositionOnLane";
+  //AINFO<<"(DMCZP) EnteringMethod: PredictionMap::PositionOnLane";
 
   common::PointENU point = lane_info->GetSmoothPoint(s);
   
-  AINFO<<"(DMCZP) (return) LeaveMethod: PredictionMap::PositionOnLane";
+  //AINFO<<"(DMCZP) (return) LeaveMethod: PredictionMap::PositionOnLane";
   return {point.x(), point.y()};
  }
 
 double PredictionMap::HeadingOnLane(
     const std::shared_ptr<const LaneInfo> lane_info, const double s) {
-  AINFO<<"(DMCZP) EnteringMethod: PredictionMap::HeadingOnLane";
+ // AINFO<<"(DMCZP) EnteringMethod: PredictionMap::HeadingOnLane";
 
   
-  AINFO<<"(DMCZP) (return) LeaveMethod: PredictionMap::HeadingOnLane";
+ // AINFO<<"(DMCZP) (return) LeaveMethod: PredictionMap::HeadingOnLane";
   return lane_info->Heading(s);
  }
 
 double PredictionMap::CurvatureOnLane(const std::string& lane_id,
                                       const double s) {
-  AINFO<<"(DMCZP) EnteringMethod: PredictionMap::CurvatureOnLane";
+  //AINFO<<"(DMCZP) EnteringMethod: PredictionMap::CurvatureOnLane";
 
   std::shared_ptr<const hdmap::LaneInfo> lane_info = LaneById(lane_id);
   if (lane_info == nullptr) {
     AERROR << "Null lane_info ptr found";
     
-  AINFO<<"(DMCZP) (return) LeaveMethod: PredictionMap::CurvatureOnLane";
+  //AINFO<<"(DMCZP) (return) LeaveMethod: PredictionMap::CurvatureOnLane";
   return 0.0;
   }
   
-  AINFO<<"(DMCZP) (return) LeaveMethod: PredictionMap::CurvatureOnLane";
+ // AINFO<<"(DMCZP) (return) LeaveMethod: PredictionMap::CurvatureOnLane";
   return lane_info->Curvature(s);
  }
 
 double PredictionMap::LaneTotalWidth(
     const std::shared_ptr<const hdmap::LaneInfo> lane_info, const double s) {
-  AINFO<<"(DMCZP) EnteringMethod: PredictionMap::LaneTotalWidth";
+ // AINFO<<"(DMCZP) EnteringMethod: PredictionMap::LaneTotalWidth";
 
   double left = 0.0;
   double right = 0.0;
   lane_info->GetWidth(s, &left, &right);
   
-  AINFO<<"(DMCZP) (return) LeaveMethod: PredictionMap::LaneTotalWidth";
+  //AINFO<<"(DMCZP) (return) LeaveMethod: PredictionMap::LaneTotalWidth";
   return left + right;
 
  }
 
 std::shared_ptr<const LaneInfo> PredictionMap::LaneById(
     const std::string& str_id) {
-       AINFO<<"(DMCZP) EnteringMethod: PredictionMap::LaneById";
-      AINFO<<"(DMCZP) (return) LeaveMethod: PredictionMap::LaneById";
+  //     AINFO<<"(DMCZP) EnteringMethod: PredictionMap::LaneById";
+  //    AINFO<<"(DMCZP) (return) LeaveMethod: PredictionMap::LaneById";
   return HDMapUtil::BaseMap().GetLaneById(hdmap::MakeMapId(str_id));
 }
 
 std::shared_ptr<const JunctionInfo> PredictionMap::JunctionById(
     const std::string& str_id) {
-      AINFO<<"(DMCZP) EnteringMethod: PredictionMap::JunctionById";
-      AINFO<<"(DMCZP) (return) LeaveMethod: PredictionMap::JunctionById";
+   //   AINFO<<"(DMCZP) EnteringMethod: PredictionMap::JunctionById";
+    //  AINFO<<"(DMCZP) (return) LeaveMethod: PredictionMap::JunctionById";
   return HDMapUtil::BaseMap().GetJunctionById(hdmap::MakeMapId(str_id));
 }
 
 std::shared_ptr<const OverlapInfo> PredictionMap::OverlapById(
     const std::string& str_id) {
-      AINFO<<"(DMCZP) EnteringMethod: PredictionMap::OverlapById";
-      AINFO<<"(DMCZP) (return) LeaveMethod: PredictionMap::OverlapById";
+  //    AINFO<<"(DMCZP) EnteringMethod: PredictionMap::OverlapById";
+  //    AINFO<<"(DMCZP) (return) LeaveMethod: PredictionMap::OverlapById";
   return HDMapUtil::BaseMap().GetOverlapById(hdmap::MakeMapId(str_id));
 }
 
 bool PredictionMap::GetProjection(
     const Eigen::Vector2d& pos, const std::shared_ptr<const LaneInfo> lane_info,
     double* s, double* l) {
-  AINFO<<"(DMCZP) EnteringMethod: PredictionMap::GetProjection";
+//  AINFO<<"(DMCZP) EnteringMethod: PredictionMap::GetProjection";
 
   if (lane_info == nullptr) {
     
-  AINFO<<"(DMCZP) (return) LeaveMethod: PredictionMap::GetProjection";
+//  AINFO<<"(DMCZP) (return) LeaveMethod: PredictionMap::GetProjection";
   return false;
   }
   
-  AINFO<<"(DMCZP) (return) LeaveMethod: PredictionMap::GetProjection";
+ // AINFO<<"(DMCZP) (return) LeaveMethod: PredictionMap::GetProjection";
   return lane_info->GetProjection({pos.x(), pos.y()}, s, l);
 
  }
 
 bool PredictionMap::HasNearbyLane(const double x, const double y,
                                   const double radius) {
-  AINFO<<"(DMCZP) EnteringMethod: PredictionMap::HasNearbyLane";
+//  AINFO<<"(DMCZP) EnteringMethod: PredictionMap::HasNearbyLane";
 
   common::PointENU point_enu;
   point_enu.set_x(x);
@@ -137,18 +137,18 @@ bool PredictionMap::HasNearbyLane(const double x, const double y,
   std::vector<std::shared_ptr<const LaneInfo>> lanes;
   HDMapUtil::BaseMap().GetLanes(point_enu, radius, &lanes);
   
-  AINFO<<"(DMCZP) (return) LeaveMethod: PredictionMap::HasNearbyLane";
+//  AINFO<<"(DMCZP) (return) LeaveMethod: PredictionMap::HasNearbyLane";
   return (!lanes.empty());
  }
 
 bool PredictionMap::ProjectionFromLane(
     std::shared_ptr<const LaneInfo> lane_info, const double s,
     MapPathPoint* path_point) {
-  AINFO<<"(DMCZP) EnteringMethod: PredictionMap::ProjectionFromLane";
+//  AINFO<<"(DMCZP) EnteringMethod: PredictionMap::ProjectionFromLane";
 
   if (lane_info == nullptr) {
     
-  AINFO<<"(DMCZP) (return) LeaveMethod: PredictionMap::ProjectionFromLane";
+//  AINFO<<"(DMCZP) (return) LeaveMethod: PredictionMap::ProjectionFromLane";
   return false;
   }
   const common::PointENU point = lane_info->GetSmoothPoint(s);
@@ -157,7 +157,7 @@ bool PredictionMap::ProjectionFromLane(
   path_point->set_y(point.y());
   path_point->set_heading(heading);
   
-  AINFO<<"(DMCZP) (return) LeaveMethod: PredictionMap::ProjectionFromLane";
+//  AINFO<<"(DMCZP) (return) LeaveMethod: PredictionMap::ProjectionFromLane";
   return true;
  }
 
@@ -274,7 +274,7 @@ void PredictionMap::OnLane(
 std::shared_ptr<const LaneInfo> PredictionMap::GetMostLikelyCurrentLane(
     const common::PointENU& position, const double radius, const double heading,
     const double angle_diff_threshold) {
-      AINFO<<"(DMCZP) EnteringMethod: PredictionMap::GetMostLikelyCurrentLane";
+    //  AINFO<<"(DMCZP) EnteringMethod: PredictionMap::GetMostLikelyCurrentLane";
   std::vector<std::shared_ptr<const LaneInfo>> candidate_lanes;
   if (HDMapUtil::BaseMap().GetLanesWithHeading(position, radius, heading,
                                                angle_diff_threshold,
@@ -298,7 +298,7 @@ std::shared_ptr<const LaneInfo> PredictionMap::GetMostLikelyCurrentLane(
       curr_lane_ptr = candidate_lane;
     }
   }
-  AINFO<<"(DMCZP) (return) LeaveMethod: PredictionMap::GetMostLikelyCurrentLane";
+  //AINFO<<"(DMCZP) (return) LeaveMethod: PredictionMap::GetMostLikelyCurrentLane";
   return curr_lane_ptr;
 }
 
@@ -370,21 +370,21 @@ bool PredictionMap::IsPointInJunction(
 
 std::vector<std::shared_ptr<const JunctionInfo>> PredictionMap::GetJunctions(
     const Eigen::Vector2d& point, const double radius) {
-      AINFO<<"(DMCZP) EnteringMethod: PredictionMap::GetJunctions";
+  //    AINFO<<"(DMCZP) EnteringMethod: PredictionMap::GetJunctions";
 
   common::PointENU hdmap_point;
   hdmap_point.set_x(point.x());
   hdmap_point.set_y(point.y());
   std::vector<std::shared_ptr<const JunctionInfo>> junctions;
   HDMapUtil::BaseMap().GetJunctions(hdmap_point, radius, &junctions);
-  AINFO<<"(DMCZP) (return) LeaveMethod: PredictionMap::GetJunctions";
+ // AINFO<<"(DMCZP) (return) LeaveMethod: PredictionMap::GetJunctions";
   return junctions;
 }
 
 std::vector<std::shared_ptr<const PNCJunctionInfo>>
 PredictionMap::GetPNCJunctions(const Eigen::Vector2d& point,
                                const double radius) {
-  AINFO<<"(DMCZP) EnteringMethod: PredictionMap::GetPNCJunctions";
+//  AINFO<<"(DMCZP) EnteringMethod: PredictionMap::GetPNCJunctions";
 
   common::PointENU hdmap_point;
   hdmap_point.set_x(point.x());
@@ -392,7 +392,7 @@ PredictionMap::GetPNCJunctions(const Eigen::Vector2d& point,
   std::vector<std::shared_ptr<const PNCJunctionInfo>> junctions;
   HDMapUtil::BaseMap().GetPNCJunctions(hdmap_point, radius, &junctions);
   
-  AINFO<<"(DMCZP) (return) LeaveMethod: PredictionMap::GetPNCJunctions";
+//  AINFO<<"(DMCZP) (return) LeaveMethod: PredictionMap::GetPNCJunctions";
   return junctions;
  }
 
@@ -563,26 +563,26 @@ void PredictionMap::NearbyLanesByCurrentLanes(
 std::shared_ptr<const LaneInfo> PredictionMap::GetLeftNeighborLane(
     const std::shared_ptr<const LaneInfo>& ptr_ego_lane,
     const Eigen::Vector2d& ego_position, const double threshold) {
-      AINFO<<"(DMCZP) EnteringMethod: PredictionMap::GetLeftNeighborLane";
+   //   AINFO<<"(DMCZP) EnteringMethod: PredictionMap::GetLeftNeighborLane";
   std::vector<std::string> neighbor_ids;
   for (const auto& lane_id :
        ptr_ego_lane->lane().left_neighbor_forward_lane_id()) {
     neighbor_ids.push_back(lane_id.id());
   }
-AINFO<<"(DMCZP) LeaveMethod: PredictionMap::GetLeftNeighborLane";
+//AINFO<<"(DMCZP) LeaveMethod: PredictionMap::GetLeftNeighborLane";
   return GetNeighborLane(ptr_ego_lane, ego_position, neighbor_ids, threshold);
 }
 
 std::shared_ptr<const LaneInfo> PredictionMap::GetRightNeighborLane(
     const std::shared_ptr<const LaneInfo>& ptr_ego_lane,
     const Eigen::Vector2d& ego_position, const double threshold) {
-      AINFO<<"(DMCZP) EnteringMethod: PredictionMap::GetRightNeighborLane";
+   //   AINFO<<"(DMCZP) EnteringMethod: PredictionMap::GetRightNeighborLane";
   std::vector<std::string> neighbor_ids;
   for (const auto& lane_id :
        ptr_ego_lane->lane().right_neighbor_forward_lane_id()) {
     neighbor_ids.push_back(lane_id.id());
   }
-AINFO<<"(DMCZP) LeaveMethod: PredictionMap::GetRightNeighborLane";
+//AINFO<<"(DMCZP) LeaveMethod: PredictionMap::GetRightNeighborLane";
   return GetNeighborLane(ptr_ego_lane, ego_position, neighbor_ids, threshold);
 }
 
@@ -590,7 +590,7 @@ std::shared_ptr<const LaneInfo> PredictionMap::GetNeighborLane(
     const std::shared_ptr<const LaneInfo>& ptr_ego_lane,
     const Eigen::Vector2d& ego_position,
     const std::vector<std::string>& neighbor_lane_ids, const double threshold) {
-      AINFO<<"(DMCZP) EnteringMethod: PredictionMap::GetNeighborLane";
+  //    AINFO<<"(DMCZP) EnteringMethod: PredictionMap::GetNeighborLane";
   double ego_s = 0.0;
   double ego_l = 0.0;
   GetProjection(ego_position, ptr_ego_lane, &ego_s, &ego_l);
@@ -614,13 +614,13 @@ std::shared_ptr<const LaneInfo> PredictionMap::GetNeighborLane(
   if (s_diff_min > threshold) {
     return nullptr;
   }
-  AINFO<<"(DMCZP) LeaveMethod: PredictionMap::GetNeighborLane";
+ // AINFO<<"(DMCZP) LeaveMethod: PredictionMap::GetNeighborLane";
   return ptr_lane_min;
 }
 
 std::vector<std::string> PredictionMap::NearbyLaneIds(
     const Eigen::Vector2d& point, const double radius) {
-      AINFO<<"(DMCZP) EnteringMethod: PredictionMap::NearbyLaneIds";
+ //     AINFO<<"(DMCZP) EnteringMethod: PredictionMap::NearbyLaneIds";
   std::vector<std::string> lane_ids;
   std::vector<std::shared_ptr<const LaneInfo>> lanes;
   common::PointENU hdmap_point;
@@ -630,7 +630,7 @@ std::vector<std::string> PredictionMap::NearbyLaneIds(
   for (const auto& lane : lanes) {
     lane_ids.push_back(lane->id().id());
   }
-   AINFO<<"(DMCZP) (return) LeaveMethod: PredictionMap::NearbyLaneIds";
+//   AINFO<<"(DMCZP) (return) LeaveMethod: PredictionMap::NearbyLaneIds";
   return lane_ids;
 }
 
@@ -861,16 +861,17 @@ int PredictionMap::LaneTurnType(const std::string& lane_id) {
 
 std::vector<std::shared_ptr<const LaneInfo>> PredictionMap::GetNearbyLanes(
     const common::PointENU& position, const double nearby_radius) {
-      AINFO<<"(DMCZP) EnteringMethod: PredictionMap::GetNearbyLanes";
+  //    AINFO<<"(DMCZP) EnteringMethod: PredictionMap::GetNearbyLanes";
   CHECK(position.has_x() && position.has_y() && position.has_z());
   CHECK(nearby_radius > 0.0);
 
   std::vector<std::shared_ptr<const LaneInfo>> nearby_lanes;
 
   HDMapUtil::BaseMap().GetLanes(position, nearby_radius, &nearby_lanes);
-    AINFO<<"(DMCZP) (return) LeaveMethod: PredictionMap::GetNearbyLanes";
+ //   AINFO<<"(DMCZP) (return) LeaveMethod: PredictionMap::GetNearbyLanes";
   return nearby_lanes;
 }
 
 }  // namespace prediction
 }  // namespace apollo
+
