@@ -77,10 +77,9 @@ int Obstacle::id() const {
 
 double Obstacle::timestamp() const {
   AINFO<<"(DMCZP) EnteringMethod: Obstacle::timestamp";
-
+  AINFO <<"(pengzi) feature_history_ size:"<<feature_history_.size();
   CHECK(!feature_history_.empty());
-  
-  AINFO<<"(DMCZP) (return) LeaveMethod: Obstacle::timestamp";
+  AINFO<<"(DMCZP) LeaveMethod: Obstacle::timpestamp";
   return feature_history_.front().timestamp();
  }
 
