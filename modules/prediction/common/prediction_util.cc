@@ -1,3 +1,4 @@
+#include "cyber/common/log.h"
 /******************************************************************************
  * Copyright 2017 The Apollo Authors. All Rights Reserved.
  *
@@ -26,15 +27,21 @@ namespace prediction {
 namespace math_util {
 
 double Normalize(const double value, const double mean, const double std) {
+    AINFO<<"(DMCZP) EnteringMethod: Normalize";
+
   const double eps = 1e-10;
   return (value - mean) / (std + eps);
 }
 
 double Sigmoid(const double value) {
+    AINFO<<"(DMCZP) EnteringMethod: Sigmoid";
+
   return 1.0 / (1.0 + std::exp(-1.0 * value));
 }
 
-double Relu(const double value) { return (value > 0.0) ? value : 0.0; }
+double Relu(const double value) {
+    AINFO<<"(DMCZP) EnteringMethod: Relu";
+ return (value > 0.0) ? value : 0.0; }
 
 std::vector<double> Softmax(const std::vector<double>& value, bool use_exp) {
   std::vector<double> result;
@@ -55,6 +62,8 @@ std::vector<double> Softmax(const std::vector<double>& value, bool use_exp) {
 
 int SolveQuadraticEquation(const std::vector<double>& coefficients,
                            std::pair<double, double>* roots) {
+    AINFO<<"(DMCZP) EnteringMethod: SolveQuadraticEquation";
+
   if (coefficients.size() != 3) {
     return -1;
   }
@@ -79,6 +88,8 @@ int SolveQuadraticEquation(const std::vector<double>& coefficients,
 double EvaluateQuinticPolynomial(const std::array<double, 6>& coeffs,
                                  const double t, const uint32_t order,
                                  const double end_t, const double end_v) {
+    AINFO<<"(DMCZP) EnteringMethod: EvaluateQuinticPolynomial";
+
   if (t >= end_t) {
     switch (order) {
       case 0: {
@@ -135,6 +146,8 @@ double EvaluateQuinticPolynomial(const std::array<double, 6>& coeffs,
 double EvaluateQuarticPolynomial(const std::array<double, 5>& coeffs,
                                  const double t, const uint32_t order,
                                  const double end_t, const double end_v) {
+    AINFO<<"(DMCZP) EnteringMethod: EvaluateQuarticPolynomial";
+
   if (t >= end_t) {
     switch (order) {
       case 0: {
@@ -179,6 +192,8 @@ double EvaluateQuarticPolynomial(const std::array<double, 5>& coeffs,
 double EvaluateCubicPolynomial(const std::array<double, 4>& coefs,
                                const double t, const uint32_t order,
                                const double end_t, const double end_v) {
+    AINFO<<"(DMCZP) EnteringMethod: EvaluateCubicPolynomial";
+
   if (t > end_t) {
     switch (order) {
       case 0: {
@@ -214,6 +229,8 @@ double EvaluateCubicPolynomial(const std::array<double, 4>& coefs,
 
 double GetSByConstantAcceleration(const double v0, const double acceleration,
                                   const double t) {
+    AINFO<<"(DMCZP) EnteringMethod: GetSByConstantAcceleration";
+
   if (acceleration > -FLAGS_double_precision) {
     return v0 * t + 0.5 * acceleration * t * t;
   }
@@ -231,6 +248,8 @@ using apollo::common::TrajectoryPoint;
 
 void TranslatePoint(const double translate_x, const double translate_y,
                     TrajectoryPoint* point) {
+    AINFO<<"(DMCZP) EnteringMethod: TranslatePoint";
+
   if (point == nullptr || !point->has_path_point()) {
     AERROR << "Point is nullptr or has NO path_point.";
     return;
@@ -246,6 +265,8 @@ void GenerateFreeMoveTrajectoryPoints(
     const Eigen::Matrix<double, 6, 6>& transition, double theta,
     const double start_time, const std::size_t num, const double period,
     std::vector<TrajectoryPoint>* points) {
+    AINFO<<"(DMCZP) EnteringMethod: GenerateFreeMoveTrajectoryPoints";
+
   double x = (*state)(0, 0);
   double y = (*state)(1, 0);
   double v_x = (*state)(2, 0);
@@ -319,6 +340,8 @@ void GenerateFreeMoveTrajectoryPoints(
 }
 
 double AdjustSpeedByCurvature(const double speed, const double curvature) {
+    AINFO<<"(DMCZP) EnteringMethod: AdjustSpeedByCurvature";
+
   if (std::abs(curvature) < FLAGS_turning_curvature_lower_bound) {
     return speed;
   }

@@ -25,6 +25,8 @@ namespace prediction {
 namespace network {
 
 bool NetModel::LoadModel(const NetParameter& net_parameter) {
+    AINFO<<"(DMCZP) EnteringMethod: NetModel::LoadModel";
+
   net_parameter_.CopyFrom(net_parameter);
   layers_.clear();
 
@@ -71,6 +73,8 @@ bool NetModel::LoadModel(const NetParameter& net_parameter) {
 }
 
 std::string NetModel::PerformanceString() const {
+    AINFO<<"(DMCZP) EnteringMethod: NetModel::PerformanceString";
+
   std::stringstream ss;
   if (!net_parameter_.has_performance()) {
     AWARN << "The protobuf does not contain performance values!";
@@ -92,11 +96,17 @@ std::string NetModel::PerformanceString() const {
   return ss.str();
 }
 
-const std::string& NetModel::Name() const { return net_parameter_.name(); }
+const std::string& NetModel::Name() const {
+    AINFO<<"(DMCZP) EnteringMethod: NetModel::Name";
+ return net_parameter_.name(); }
 
-int NetModel::Id() const { return net_parameter_.id(); }
+int NetModel::Id() const {
+    AINFO<<"(DMCZP) EnteringMethod: NetModel::Id";
+ return net_parameter_.id(); }
 
-bool NetModel::IsOk() const { return ok_; }
+bool NetModel::IsOk() const {
+    AINFO<<"(DMCZP) EnteringMethod: NetModel::IsOk";
+ return ok_; }
 
 }  // namespace network
 }  // namespace prediction

@@ -1,3 +1,4 @@
+#include "cyber/common/log.h"
 /******************************************************************************
  * Copyright 2019 The Apollo Authors. All Rights Reserved.
  *
@@ -39,6 +40,8 @@ using hdmap::OverlapInfo;
 using ConstLaneInfoPtr = std::shared_ptr<const LaneInfo>;
 
 void RightOfWay::Analyze() {
+    AINFO<<"(DMCZP) EnteringMethod: RightOfWay::Analyze";
+
   ObstaclesContainer* obstacles_container =
       ContainerManager::Instance()->GetContainer<ObstaclesContainer>(
           AdapterConfig::PERCEPTION_OBSTACLES);

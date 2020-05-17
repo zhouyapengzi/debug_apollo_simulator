@@ -21,38 +21,58 @@ namespace apollo {
 namespace prediction {
 
 void EnvironmentFeatures::set_ego_position(const double x, const double y) {
+    AINFO<<"(DMCZP) EnteringMethod: EnvironmentFeatures::set_ego_position";
+
   ego_position_.set_x(x);
   ego_position_.set_y(y);
   ego_position_.set_z(0.0);
 }
 
 const apollo::common::Point3D& EnvironmentFeatures::get_ego_position() const {
+    AINFO<<"(DMCZP) EnteringMethod: EnvironmentFeatures::get_ego_position";
+
   return ego_position_;
 }
 
 void EnvironmentFeatures::set_ego_speed(const double ego_speed) {
+    AINFO<<"(DMCZP) EnteringMethod: EnvironmentFeatures::set_ego_speed";
+
   ego_speed_ = ego_speed;
 }
 
-double EnvironmentFeatures::get_ego_speed() const { return ego_speed_; }
+double EnvironmentFeatures::get_ego_speed() const {
+    AINFO<<"(DMCZP) EnteringMethod: EnvironmentFeatures::get_ego_speed";
+ return ego_speed_; }
 
 void EnvironmentFeatures::set_ego_heading(const double ego_heading) {
+    AINFO<<"(DMCZP) EnteringMethod: EnvironmentFeatures::set_ego_heading";
+
   ego_heading_ = ego_heading;
 }
 
-double EnvironmentFeatures::get_ego_heading() const { return ego_heading_; }
+double EnvironmentFeatures::get_ego_heading() const {
+    AINFO<<"(DMCZP) EnteringMethod: EnvironmentFeatures::get_ego_heading";
+ return ego_heading_; }
 
 void EnvironmentFeatures::set_ego_acceleration(const double ego_acceleration) {
+    AINFO<<"(DMCZP) EnteringMethod: EnvironmentFeatures::set_ego_acceleration";
+
   ego_acceleration_ = ego_acceleration;
 }
 
 double EnvironmentFeatures::get_ego_acceleration() const {
+    AINFO<<"(DMCZP) EnteringMethod: EnvironmentFeatures::get_ego_acceleration";
+
   return ego_acceleration_;
 }
 
-bool EnvironmentFeatures::has_ego_lane() const { return has_ego_lane_; }
+bool EnvironmentFeatures::has_ego_lane() const {
+    AINFO<<"(DMCZP) EnteringMethod: EnvironmentFeatures::has_ego_lane";
+ return has_ego_lane_; }
 
 void EnvironmentFeatures::reset_ego_lane() {
+    AINFO<<"(DMCZP) EnteringMethod: EnvironmentFeatures::reset_ego_lane";
+
   has_ego_lane_ = false;
   ego_lane_id_ = "";
   ego_lane_s_ = -1.0;
@@ -60,6 +80,8 @@ void EnvironmentFeatures::reset_ego_lane() {
 
 void EnvironmentFeatures::SetEgoLane(const std::string& lane_id,
                                      const double lane_s) {
+    AINFO<<"(DMCZP) EnteringMethod: EnvironmentFeatures::SetEgoLane";
+
   has_ego_lane_ = true;
   ego_lane_id_ = lane_id;
   ego_lane_s_ = lane_s;
@@ -71,15 +93,21 @@ std::pair<std::string, double> EnvironmentFeatures::GetEgoLane() const {
 }
 
 bool EnvironmentFeatures::has_left_neighbor_lane() const {
+    AINFO<<"(DMCZP) EnteringMethod: EnvironmentFeatures::has_left_neighbor_lane";
+
   return has_left_neighbor_lane_;
 }
 
 void EnvironmentFeatures::reset_left_neighbor_lane() {
+    AINFO<<"(DMCZP) EnteringMethod: EnvironmentFeatures::reset_left_neighbor_lane";
+
   has_left_neighbor_lane_ = false;
 }
 
 void EnvironmentFeatures::SetLeftNeighborLane(const std::string& lane_id,
                                               const double lane_s) {
+    AINFO<<"(DMCZP) EnteringMethod: EnvironmentFeatures::SetLeftNeighborLane";
+
   has_left_neighbor_lane_ = true;
   left_neighbor_lane_id_ = lane_id;
   left_neighbor_lane_s_ = lane_s;
@@ -92,15 +120,21 @@ std::pair<std::string, double> EnvironmentFeatures::GetLeftNeighborLane()
 }
 
 bool EnvironmentFeatures::has_right_neighbor_lane() const {
+    AINFO<<"(DMCZP) EnteringMethod: EnvironmentFeatures::has_right_neighbor_lane";
+
   return has_right_neighbor_lane_;
 }
 
 void EnvironmentFeatures::reset_right_neighbor_lane() {
+    AINFO<<"(DMCZP) EnteringMethod: EnvironmentFeatures::reset_right_neighbor_lane";
+
   has_right_neighbor_lane_ = false;
 }
 
 void EnvironmentFeatures::SetRightNeighborLane(const std::string& lane_id,
                                                const double lane_s) {
+    AINFO<<"(DMCZP) EnteringMethod: EnvironmentFeatures::SetRightNeighborLane";
+
   has_right_neighbor_lane_ = true;
   right_neighbor_lane_id_ = lane_id;
   right_neighbor_lane_s_ = lane_s;
@@ -113,15 +147,21 @@ std::pair<std::string, double> EnvironmentFeatures::GetRightNeighborLane()
 }
 
 bool EnvironmentFeatures::has_front_junction() const {
+    AINFO<<"(DMCZP) EnteringMethod: EnvironmentFeatures::has_front_junction";
+
   return has_front_junction_;
 }
 
 void EnvironmentFeatures::reset_front_junction() {
+    AINFO<<"(DMCZP) EnteringMethod: EnvironmentFeatures::reset_front_junction";
+
   has_front_junction_ = false;
 }
 
 void EnvironmentFeatures::SetFrontJunction(const std::string& junction_id,
                                            const double dist) {
+    AINFO<<"(DMCZP) EnteringMethod: EnvironmentFeatures::SetFrontJunction";
+
   has_front_junction_ = true;
   front_junction_id_ = junction_id;
   dist_to_front_junction_ = dist;
@@ -133,6 +173,8 @@ std::pair<std::string, double> EnvironmentFeatures::GetFrontJunction() const {
 }
 
 void EnvironmentFeatures::AddObstacleId(const int obstacle_id) {
+    AINFO<<"(DMCZP) EnteringMethod: EnvironmentFeatures::AddObstacleId";
+
   obstacle_ids_.push_back(obstacle_id);
 }
 
@@ -142,16 +184,22 @@ const std::vector<int>& EnvironmentFeatures::get_obstacle_ids() const {
 
 const std::unordered_set<std::string>&
 EnvironmentFeatures::nonneglectable_reverse_lanes() const {
+    AINFO<<"(DMCZP) EnteringMethod: EnvironmentFeatures::nonneglectable_reverse_lanes";
+
   return nonneglectable_reverse_lanes_;
 }
 
 void EnvironmentFeatures::AddNonneglectableReverseLanes(
     const std::string& lane_id) {
+    AINFO<<"(DMCZP) EnteringMethod: EnvironmentFeatures::AddNonneglectableReverseLanes";
+
   nonneglectable_reverse_lanes_.insert(lane_id);
 }
 
 bool EnvironmentFeatures::RemoveNonneglectableReverseLanes(
     const std::string& lane_id) {
+    AINFO<<"(DMCZP) EnteringMethod: EnvironmentFeatures::RemoveNonneglectableReverseLanes";
+
   if (nonneglectable_reverse_lanes_.find(lane_id) ==
       nonneglectable_reverse_lanes_.end()) {
     return false;

@@ -1,3 +1,4 @@
+#include "cyber/common/log.h"
 /******************************************************************************
  * Copyright 2017 The Apollo Authors. All Rights Reserved.
  *
@@ -26,14 +27,20 @@ namespace prediction {
 using apollo::common::adapter::AdapterConfig;
 using apollo::common::adapter::AdapterManagerConfig;
 
-ContainerManager::ContainerManager() {}
+ContainerManager::ContainerManager() {
+    AINFO<<"(DMCZP) EnteringMethod: ContainerManager::ContainerManager";
+}
 
 void ContainerManager::Init(const AdapterManagerConfig& config) {
+    AINFO<<"(DMCZP) EnteringMethod: ContainerManager::Init";
+
   config_.CopyFrom(config);
   RegisterContainers();
 }
 
 void ContainerManager::RegisterContainers() {
+    AINFO<<"(DMCZP) EnteringMethod: ContainerManager::RegisterContainers";
+
   for (const auto& adapter_config : config_.config()) {
     if (adapter_config.has_type() &&
         (adapter_config.mode() == AdapterConfig::RECEIVE_ONLY ||
@@ -58,6 +65,8 @@ std::unique_ptr<Container> ContainerManager::CreateContainer(
 
 void ContainerManager::RegisterContainer(
     const AdapterConfig::MessageType& type) {
+    AINFO<<"(DMCZP) EnteringMethod: ContainerManager::RegisterContainer";
+
   containers_[static_cast<int>(type)] = CreateContainer(type);
   AINFO << "Container [" << type << "] is registered.";
 }

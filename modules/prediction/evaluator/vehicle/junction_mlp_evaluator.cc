@@ -1,3 +1,4 @@
+#include "cyber/common/log.h"
 /******************************************************************************
  * Copyright 2018 The Apollo Authors. All Rights Reserved.
  *
@@ -44,6 +45,8 @@ using apollo::prediction::math_util::EvaluateCubicPolynomial;
 namespace {
 
 double ComputeMean(const std::vector<double>& nums, size_t start, size_t end) {
+    AINFO<<"(DMCZP) EnteringMethod: ComputeMean";
+
   int count = 0;
   double sum = 0.0;
   for (size_t i = start; i <= end && i < nums.size(); i++) {
@@ -56,13 +59,19 @@ double ComputeMean(const std::vector<double>& nums, size_t start, size_t end) {
 }  // namespace
 
 JunctionMLPEvaluator::JunctionMLPEvaluator() : device_(torch::kCPU) {
+    AINFO<<"(DMCZP) EnteringMethod: JunctionMLPEvaluator::JunctionMLPEvaluator";
+
   evaluator_type_ = ObstacleConf::JUNCTION_MLP_EVALUATOR;
   LoadModel();
 }
 
-void JunctionMLPEvaluator::Clear() {}
+void JunctionMLPEvaluator::Clear() {
+    AINFO<<"(DMCZP) EnteringMethod: JunctionMLPEvaluator::Clear";
+}
 
 bool JunctionMLPEvaluator::Evaluate(Obstacle* obstacle_ptr) {
+    AINFO<<"(DMCZP) EnteringMethod: JunctionMLPEvaluator::Evaluate";
+
     AINFO<<"(pengzi) Begin JunctionMLPEvaluator::Evaluate. thread: " << std::this_thread::get_id();  
   // Sanity checks.
   omp_set_num_threads(1);
@@ -171,6 +180,8 @@ AINFO<<"(pengzi) Finish JunctionMLPEvaluator::Evaluate. thread: " << std::this_t
 
 void JunctionMLPEvaluator::ExtractFeatureValues(
     Obstacle* obstacle_ptr, std::vector<double>* feature_values) {
+    AINFO<<"(DMCZP) EnteringMethod: JunctionMLPEvaluator::ExtractFeatureValues";
+
   AINFO<<"(pengzi) Begin JunctionMLPEvaluator::ExtractFeatureValues. thread: " << std::this_thread::get_id();     
   CHECK_NOTNULL(obstacle_ptr);
   int id = obstacle_ptr->id();
@@ -216,6 +227,8 @@ void JunctionMLPEvaluator::ExtractFeatureValues(
 
 void JunctionMLPEvaluator::SetObstacleFeatureValues(
     Obstacle* obstacle_ptr, std::vector<double>* feature_values) {
+    AINFO<<"(DMCZP) EnteringMethod: JunctionMLPEvaluator::SetObstacleFeatureValues";
+
 AINFO<<"(pengzi) Begin JunctionMLPEvaluator::SetObstacleFeatureValues. thread: " << std::this_thread::get_id(); 
   feature_values->clear();
   feature_values->reserve(OBSTACLE_FEATURE_SIZE);
@@ -264,6 +277,8 @@ AINFO<<"(pengzi) Begin JunctionMLPEvaluator::SetObstacleFeatureValues. thread: "
 
 void JunctionMLPEvaluator::SetEgoVehicleFeatureValues(
     Obstacle* obstacle_ptr, std::vector<double>* const feature_values) {
+    AINFO<<"(DMCZP) EnteringMethod: JunctionMLPEvaluator::SetEgoVehicleFeatureValues";
+
   AINFO<<"(pengzi) Begin JunctionMLPEvaluator::SetEgoVehicleFeatureValues. thread: " << std::this_thread::get_id(); 
   feature_values->clear();
   *feature_values = std::vector<double>(4, 0.0);
@@ -299,6 +314,8 @@ void JunctionMLPEvaluator::SetEgoVehicleFeatureValues(
 
 void JunctionMLPEvaluator::SetJunctionFeatureValues(
     Obstacle* obstacle_ptr, std::vector<double>* feature_values) {
+    AINFO<<"(DMCZP) EnteringMethod: JunctionMLPEvaluator::SetJunctionFeatureValues";
+
   AINFO<<"(pengzi) Begin JunctionMLPEvaluator::SetJunctionFeatureValues. thread: " << std::this_thread::get_id(); 
   feature_values->clear();
   feature_values->reserve(JUNCTION_FEATURE_SIZE);
@@ -374,6 +391,8 @@ void JunctionMLPEvaluator::SetJunctionFeatureValues(
 }
 
 void JunctionMLPEvaluator::LoadModel() {
+    AINFO<<"(DMCZP) EnteringMethod: JunctionMLPEvaluator::LoadModel";
+
   AINFO<<"(pengzi) Begin JunctionMLPEvaluator::LoadModel. thread: " << std::this_thread::get_id(); 
   // TODO(all) uncomment the following when cuda issue is resolved
   // if (torch::cuda::is_available()) {

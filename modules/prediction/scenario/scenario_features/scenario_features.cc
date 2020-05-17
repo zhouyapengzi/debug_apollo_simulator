@@ -1,3 +1,4 @@
+#include "cyber/common/log.h"
 /******************************************************************************
  * Copyright 2018 The Apollo Authors. All Rights Reserved.
  *
@@ -23,9 +24,13 @@
 namespace apollo {
 namespace prediction {
 
-ScenarioFeatures::ScenarioFeatures() { scenario_.set_type(Scenario::UNKNOWN); }
+ScenarioFeatures::ScenarioFeatures() {
+    AINFO<<"(DMCZP) EnteringMethod: ScenarioFeatures::ScenarioFeatures";
+ scenario_.set_type(Scenario::UNKNOWN); }
 
-const Scenario& ScenarioFeatures::scenario() const { return scenario_; }
+const Scenario& ScenarioFeatures::scenario() const {
+    AINFO<<"(DMCZP) EnteringMethod: ScenarioFeatures::scenario";
+ return scenario_; }
 
 }  // namespace prediction
 }  // namespace apollo

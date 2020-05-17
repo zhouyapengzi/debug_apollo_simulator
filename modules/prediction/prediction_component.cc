@@ -1,3 +1,4 @@
+#include "cyber/common/log.h"
 /******************************************************************************
  * Copyright 2018 The Apollo Authors. All Rights Reserved.
  *
@@ -48,11 +49,15 @@ using apollo::planning::ADCTrajectory;
 PredictionComponent::~PredictionComponent() {}
 
 std::string PredictionComponent::Name() const {
+    AINFO<<"(DMCZP) EnteringMethod: PredictionComponent::Name";
+
   return FLAGS_prediction_module_name;
 }
 
 void PredictionComponent::OfflineProcessFeatureProtoFile(
     const std::string& features_proto_file_name) {
+    AINFO<<"(DMCZP) EnteringMethod: PredictionComponent::OfflineProcessFeatureProtoFile";
+
   auto obstacles_container_ptr =
       ContainerManager::Instance()->GetContainer<ObstaclesContainer>(
           AdapterConfig::PERCEPTION_OBSTACLES);
@@ -68,6 +73,8 @@ void PredictionComponent::OfflineProcessFeatureProtoFile(
 }
 
 bool PredictionComponent::Init() {
+    AINFO<<"(DMCZP) EnteringMethod: PredictionComponent::Init";
+
   component_start_time_ = Clock::NowInSeconds();
 
   if (!MessageProcess::Init()) {
@@ -89,6 +96,8 @@ bool PredictionComponent::Init() {
 
 bool PredictionComponent::Proc(
     const std::shared_ptr<PerceptionObstacles>& perception_obstacles) {
+    AINFO<<"(DMCZP) EnteringMethod: PredictionComponent::Proc";
+
   if (FLAGS_prediction_test_mode &&
       (Clock::NowInSeconds() - component_start_time_ >
        FLAGS_prediction_test_duration)) {

@@ -1,3 +1,4 @@
+#include "cyber/common/log.h"
 /******************************************************************************
  * Copyright 2017 The Apollo Authors. All Rights Reserved.
  *
@@ -33,6 +34,8 @@ namespace prediction {
 namespace {
 
 double ComputeMean(const std::vector<double>& nums, size_t start, size_t end) {
+    AINFO<<"(DMCZP) EnteringMethod: ComputeMean";
+
   AINFO<<"(pengzi)  predictor mlp evaluator: computer mean. thread: " << std::this_thread::get_id();
 
   int count = 0;
@@ -51,13 +54,19 @@ double ComputeMean(const std::vector<double>& nums, size_t start, size_t end) {
 }  // namespace
 
 MLPEvaluator::MLPEvaluator() {
+    AINFO<<"(DMCZP) EnteringMethod: MLPEvaluator::MLPEvaluator";
+
   evaluator_type_ = ObstacleConf::MLP_EVALUATOR;
   LoadModel(FLAGS_evaluator_vehicle_mlp_file);
 }
 
-void MLPEvaluator::Clear() {}
+void MLPEvaluator::Clear() {
+    AINFO<<"(DMCZP) EnteringMethod: MLPEvaluator::Clear";
+}
 
 bool MLPEvaluator::Evaluate(Obstacle* obstacle_ptr) {
+    AINFO<<"(DMCZP) EnteringMethod: MLPEvaluator::Evaluate";
+
    AINFO<<"(pengzi)  predictor mlp evaluator: begin evaluate. thread: " << std::this_thread::get_id();
   Clear();
   CHECK_NOTNULL(obstacle_ptr);
@@ -141,6 +150,8 @@ bool MLPEvaluator::Evaluate(Obstacle* obstacle_ptr) {
 void MLPEvaluator::ExtractFeatureValues(Obstacle* obstacle_ptr,
                                         LaneSequence* lane_sequence_ptr,
                                         std::vector<double>* feature_values) {
+    AINFO<<"(DMCZP) EnteringMethod: MLPEvaluator::ExtractFeatureValues";
+
   AINFO<<"(pengzi) MLP evaluator, ExtractFeatureValues . thread: " << std::this_thread::get_id();                                    
   int id = obstacle_ptr->id();
   std::vector<double> obstacle_feature_values;
@@ -171,6 +182,8 @@ void MLPEvaluator::ExtractFeatureValues(Obstacle* obstacle_ptr,
 
 void MLPEvaluator::SaveOfflineFeatures(
     LaneSequence* sequence, const std::vector<double>& feature_values) {
+    AINFO<<"(DMCZP) EnteringMethod: MLPEvaluator::SaveOfflineFeatures";
+
 AINFO<<"(pengzi) MLP evaluator, SaveOfflineFeatures . thread: " << std::this_thread::get_id();
   for (double feature_value : feature_values) {
     sequence->mutable_features()->add_mlp_features(feature_value);
@@ -179,6 +192,8 @@ AINFO<<"(pengzi) MLP evaluator, SaveOfflineFeatures . thread: " << std::this_thr
 
 void MLPEvaluator::SetObstacleFeatureValues(
     Obstacle* obstacle_ptr, std::vector<double>* feature_values) {
+    AINFO<<"(DMCZP) EnteringMethod: MLPEvaluator::SetObstacleFeatureValues";
+
   AINFO<<"(pengzi) MLP evaluator, SetObstacleFeatureValues value. thread: " << std::this_thread::get_id();
   feature_values->clear();
   feature_values->reserve(OBSTACLE_FEATURE_SIZE);
@@ -317,6 +332,8 @@ void MLPEvaluator::SetObstacleFeatureValues(
 void MLPEvaluator::SetLaneFeatureValues(Obstacle* obstacle_ptr,
                                         LaneSequence* lane_sequence_ptr,
                                         std::vector<double>* feature_values) {
+    AINFO<<"(DMCZP) EnteringMethod: MLPEvaluator::SetLaneFeatureValues";
+
 
     AINFO<<"(pengzi) MLP evaluator, set lane feature value. thread: " << std::this_thread::get_id();
 
@@ -371,6 +388,8 @@ void MLPEvaluator::SetLaneFeatureValues(Obstacle* obstacle_ptr,
 }
 
 void MLPEvaluator::LoadModel(const std::string& model_file) {
+    AINFO<<"(DMCZP) EnteringMethod: MLPEvaluator::LoadModel";
+
   model_ptr_.reset(new FnnVehicleModel());
   CHECK(model_ptr_ != nullptr);
   CHECK(cyber::common::GetProtoFromFile(model_file, model_ptr_.get()))
@@ -383,6 +402,8 @@ void MLPEvaluator::LoadModel(const std::string& model_file) {
 
 double MLPEvaluator::ComputeProbability(
     const std::vector<double>& feature_values) {
+    AINFO<<"(DMCZP) EnteringMethod: MLPEvaluator::ComputeProbability";
+
  
   CHECK_NOTNULL(model_ptr_.get());
   double probability = 0.0;

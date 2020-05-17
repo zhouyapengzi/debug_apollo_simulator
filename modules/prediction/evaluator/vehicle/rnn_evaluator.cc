@@ -1,3 +1,4 @@
+#include "cyber/common/log.h"
 /******************************************************************************
  * Copyright 2017 The Apollo Authors. All Rights Reserved.
  *
@@ -30,11 +31,15 @@ namespace prediction {
 using apollo::hdmap::LaneInfo;
 
 RNNEvaluator::RNNEvaluator() {
+    AINFO<<"(DMCZP) EnteringMethod: RNNEvaluator::RNNEvaluator";
+
   evaluator_type_ = ObstacleConf::RNN_EVALUATOR;
   LoadModel(FLAGS_evaluator_vehicle_rnn_file);
 }
 
 bool RNNEvaluator::Evaluate(Obstacle* obstacle_ptr) {
+    AINFO<<"(DMCZP) EnteringMethod: RNNEvaluator::Evaluate";
+
   Clear();
   CHECK_NOTNULL(obstacle_ptr);
 
@@ -122,9 +127,13 @@ AINFO << "(pengzi) RNN. Probability = " << probability  << " thread:"<<std::this
   return true;
 }
 
-void RNNEvaluator::Clear() {}
+void RNNEvaluator::Clear() {
+    AINFO<<"(DMCZP) EnteringMethod: RNNEvaluator::Clear";
+}
 
 void RNNEvaluator::LoadModel(const std::string& model_file) {
+    AINFO<<"(DMCZP) EnteringMethod: RNNEvaluator::LoadModel";
+
   AINFO<<"(pengzi) predict RNN evaluator. load model. thread:"<<std::this_thread::get_id();
   NetParameter net_parameter;
   CHECK(cyber::common::GetProtoFromFile(model_file, &net_parameter))
@@ -141,6 +150,8 @@ void RNNEvaluator::LoadModel(const std::string& model_file) {
 int RNNEvaluator::ExtractFeatureValues(
     Obstacle* obstacle, Eigen::MatrixXf* const obstacle_feature_mat,
     std::unordered_map<int, Eigen::MatrixXf>* const lane_feature_mats) {
+    AINFO<<"(DMCZP) EnteringMethod: RNNEvaluator::ExtractFeatureValues";
+
   AINFO<<"(pengzi) RNN. extract feature value. thread:"<<std::this_thread::get_id();
   std::vector<float> obstacle_features;
   std::vector<float> lane_features;
@@ -187,6 +198,8 @@ int RNNEvaluator::ExtractFeatureValues(
 
 int RNNEvaluator::SetupObstacleFeature(
     Obstacle* obstacle, std::vector<float>* const feature_values) {
+    AINFO<<"(DMCZP) EnteringMethod: RNNEvaluator::SetupObstacleFeature";
+
   AINFO<<"(pengzi) set up obstacle_features.thread:"<<std::this_thread::get_id();
   feature_values->clear();
   feature_values->reserve(DIM_OBSTACLE_FEATURE);
@@ -266,6 +279,8 @@ int RNNEvaluator::SetupObstacleFeature(
 int RNNEvaluator::SetupLaneFeature(const Feature& feature,
                                    const LaneSequence& lane_sequence,
                                    std::vector<float>* const feature_values) {
+    AINFO<<"(DMCZP) EnteringMethod: RNNEvaluator::SetupLaneFeature";
+
   AINFO<<"(pengzi) RNN prediction evaluator. set up lane feature.thread:"<<std::this_thread::get_id();                                   
   CHECK_LE(LENGTH_LANE_POINT_SEQUENCE, FLAGS_max_num_lane_point);
   feature_values->clear();
@@ -315,6 +330,8 @@ int RNNEvaluator::SetupLaneFeature(const Feature& feature,
 
 bool RNNEvaluator::IsCutinInHistory(const std::string& curr_lane_id,
                                     const std::string& prev_lane_id) {
+    AINFO<<"(DMCZP) EnteringMethod: RNNEvaluator::IsCutinInHistory";
+
   std::shared_ptr<const LaneInfo> curr_lane_info =
       PredictionMap::LaneById(curr_lane_id);
   std::shared_ptr<const LaneInfo> prev_lane_info =

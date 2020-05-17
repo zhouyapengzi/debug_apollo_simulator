@@ -1,3 +1,4 @@
+#include "cyber/common/log.h"
 /******************************************************************************
  * Copyright 2018 The Apollo Authors. All Rights Reserved.
  *
@@ -34,10 +35,14 @@ using apollo::prediction::math_util::ComputePolynomial;
 using apollo::prediction::math_util::EvaluateCubicPolynomial;
 
 JunctionPredictor::JunctionPredictor() {
+    AINFO<<"(DMCZP) EnteringMethod: JunctionPredictor::JunctionPredictor";
+
   predictor_type_ = ObstacleConf::JUNCTION_PREDICTOR;
 }
 
 void JunctionPredictor::Predict(Obstacle* obstacle) {
+    AINFO<<"(DMCZP) EnteringMethod: JunctionPredictor::Predict";
+
   Clear();
   CHECK_NOTNULL(obstacle);
   CHECK_GT(obstacle->history_size(), 0);
@@ -62,6 +67,8 @@ void JunctionPredictor::DrawJunctionTrajectoryPoints(
     const Feature& feature, const JunctionExit& junction_exit,
     const double total_time, const double period,
     std::vector<TrajectoryPoint>* trajectory_points) {
+    AINFO<<"(DMCZP) EnteringMethod: JunctionPredictor::DrawJunctionTrajectoryPoints";
+
   double speed = feature.speed();
   const std::array<double, 2> start_x = {feature.position().x(),
                                          feature.raw_velocity().x()};
@@ -177,6 +184,8 @@ double JunctionPredictor::GetBestTime(const std::array<double, 2>& start_x,
                                       const std::array<double, 2>& end_x,
                                       const std::array<double, 2>& start_y,
                                       const std::array<double, 2>& end_y) {
+    AINFO<<"(DMCZP) EnteringMethod: JunctionPredictor::GetBestTime";
+
   // Generate candidate finish times.
   std::vector<double> candidate_times = GenerateCandidateTimes();
   double best_time = 0.0;
@@ -199,6 +208,8 @@ double JunctionPredictor::GetBestTime(const std::array<double, 2>& start_x,
 double JunctionPredictor::CostFunction(const std::array<double, 4>& x_coeffs,
                                        const std::array<double, 4>& y_coeffs,
                                        const double time_to_exit) {
+    AINFO<<"(DMCZP) EnteringMethod: JunctionPredictor::CostFunction";
+
   double t = 0.0;
   double cost = 0.0;
   while (t <= time_to_exit) {

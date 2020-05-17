@@ -1,3 +1,4 @@
+#include "cyber/common/log.h"
 /******************************************************************************
  * Copyright 2018 The Apollo Authors. All Rights Reserved.
  *
@@ -30,6 +31,8 @@ using ConstLaneInfoPtr = std::shared_ptr<const LaneInfo>;
 using apollo::hdmap::Lane;
 
 CruiseScenarioFeatures::CruiseScenarioFeatures() {
+    AINFO<<"(DMCZP) EnteringMethod: CruiseScenarioFeatures::CruiseScenarioFeatures";
+
   scenario_.set_type(Scenario::CRUISE);
 }
 
@@ -37,15 +40,21 @@ CruiseScenarioFeatures::~CruiseScenarioFeatures() {}
 
 bool CruiseScenarioFeatures::IsLaneOfInterest(
     const std::string& lane_id) const {
+    AINFO<<"(DMCZP) EnteringMethod: CruiseScenarioFeatures::IsLaneOfInterest";
+
   return lane_ids_of_interest_.find(lane_id) != lane_ids_of_interest_.end();
 }
 
 void CruiseScenarioFeatures::InsertLaneOfInterest(const std::string& lane_id) {
+    AINFO<<"(DMCZP) EnteringMethod: CruiseScenarioFeatures::InsertLaneOfInterest";
+
   lane_ids_of_interest_.insert(lane_id);
 }
 
 void CruiseScenarioFeatures::BuildCruiseScenarioFeatures(
     const EnvironmentFeatures& environment_features) {
+    AINFO<<"(DMCZP) EnteringMethod: CruiseScenarioFeatures::BuildCruiseScenarioFeatures";
+
   // Forward lanes
   if (environment_features.has_ego_lane()) {
     auto ego_lane = environment_features.GetEgoLane();
@@ -87,6 +96,8 @@ void CruiseScenarioFeatures::BuildCruiseScenarioFeatures(
 void CruiseScenarioFeatures::SearchForwardAndInsert(
     const std::string& start_lane_id, const double start_lane_s,
     const double range) {
+    AINFO<<"(DMCZP) EnteringMethod: CruiseScenarioFeatures::SearchForwardAndInsert";
+
   ConstLaneInfoPtr start_lane_info = PredictionMap::LaneById(start_lane_id);
   double start_lane_length = start_lane_info->total_length();
   double start_accumulated_s = start_lane_length - start_lane_s;

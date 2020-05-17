@@ -1,3 +1,4 @@
+#include "cyber/common/log.h"
 /******************************************************************************
  * Copyright 2019 The Apollo Authors. All Rights Reserved.
  *
@@ -31,13 +32,19 @@ namespace apollo {
 namespace prediction {
 
 JunctionMapEvaluator::JunctionMapEvaluator() : device_(torch::kCPU) {
+    AINFO<<"(DMCZP) EnteringMethod: JunctionMapEvaluator::JunctionMapEvaluator";
+
   evaluator_type_ = ObstacleConf::JUNCTION_MAP_EVALUATOR;
   LoadModel();
 }
 
-void JunctionMapEvaluator::Clear() {}
+void JunctionMapEvaluator::Clear() {
+    AINFO<<"(DMCZP) EnteringMethod: JunctionMapEvaluator::Clear";
+}
 
 bool JunctionMapEvaluator::Evaluate(Obstacle* obstacle_ptr) {
+    AINFO<<"(DMCZP) EnteringMethod: JunctionMapEvaluator::Evaluate";
+
   // Sanity checks.
   omp_set_num_threads(1);
 
@@ -144,6 +151,8 @@ bool JunctionMapEvaluator::Evaluate(Obstacle* obstacle_ptr) {
 
 bool JunctionMapEvaluator::ExtractFeatureValues(
     Obstacle* obstacle_ptr, std::vector<double>* feature_values) {
+    AINFO<<"(DMCZP) EnteringMethod: JunctionMapEvaluator::ExtractFeatureValues";
+
   feature_values->clear();
   feature_values->resize(JUNCTION_FEATURE_SIZE, 0.0);
   Feature* feature_ptr = obstacle_ptr->mutable_latest_feature();
@@ -176,6 +185,8 @@ bool JunctionMapEvaluator::ExtractFeatureValues(
 }
 
 void JunctionMapEvaluator::LoadModel() {
+    AINFO<<"(DMCZP) EnteringMethod: JunctionMapEvaluator::LoadModel";
+
   // TODO(all) uncomment the following when cuda issue is resolved
   // if (torch::cuda::is_available()) {
   //   ADEBUG << "CUDA is available for JunctionMapEvaluator!";

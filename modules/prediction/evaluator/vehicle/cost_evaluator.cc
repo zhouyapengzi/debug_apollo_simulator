@@ -1,3 +1,4 @@
+#include "cyber/common/log.h"
 /******************************************************************************
  * Copyright 2018 The Apollo Authors. All Rights Reserved.
  *
@@ -23,10 +24,14 @@ namespace prediction {
 using apollo::prediction::math_util::Sigmoid;
 
 CostEvaluator::CostEvaluator() {
+    AINFO<<"(DMCZP) EnteringMethod: CostEvaluator::CostEvaluator";
+
   evaluator_type_ = ObstacleConf::COST_EVALUATOR;
 }
 
 bool CostEvaluator::Evaluate(Obstacle* obstacle_ptr) {
+    AINFO<<"(DMCZP) EnteringMethod: CostEvaluator::Evaluate";
+
   AINFO<<"(pengzi) begin cost evaluate for vehicle. thread:"<<std::this_thread::get_id();
   CHECK_NOTNULL(obstacle_ptr);
 
@@ -77,6 +82,8 @@ bool CostEvaluator::Evaluate(Obstacle* obstacle_ptr) {
 double CostEvaluator::ComputeProbability(const double obstacle_length,
                                          const double obstacle_width,
                                          const LaneSequence& lane_sequence) {
+    AINFO<<"(DMCZP) EnteringMethod: CostEvaluator::ComputeProbability";
+
   AINFO<<"(pengzi) compute probability. thread:"<<std::this_thread::get_id();                                         
   double front_lateral_distance_cost =
       FrontLateralDistanceCost(obstacle_length, obstacle_width, lane_sequence);
@@ -86,6 +93,8 @@ double CostEvaluator::ComputeProbability(const double obstacle_length,
 double CostEvaluator::FrontLateralDistanceCost(
     const double obstacle_length, const double obstacle_width,
     const LaneSequence& lane_sequence) {
+    AINFO<<"(DMCZP) EnteringMethod: CostEvaluator::FrontLateralDistanceCost";
+
    AINFO<<"(pengzi) compute front lateral distance cost. thread:"<<std::this_thread::get_id();  
 
   if (lane_sequence.lane_segment_size() == 0 ||

@@ -1,3 +1,4 @@
+#include "cyber/common/log.h"
 /******************************************************************************
  * Copyright 2017 The Apollo Authors. All Rights Reserved.
  *
@@ -27,12 +28,16 @@ using apollo::common::PathPoint;
 using apollo::common::TrajectoryPoint;
 
 int Predictor::NumOfTrajectories(const Obstacle& obstacle) {
+    AINFO<<"(DMCZP) EnteringMethod: Predictor::NumOfTrajectories";
+
   CHECK_GT(obstacle.history_size(), 0);
   return obstacle.latest_feature().predicted_trajectory_size();
 }
 
 Trajectory Predictor::GenerateTrajectory(
     const std::vector<TrajectoryPoint>& points) {
+    AINFO<<"(DMCZP) EnteringMethod: Predictor::GenerateTrajectory";
+
   Trajectory trajectory;
   *trajectory.mutable_trajectory_point() = {points.begin(), points.end()};
   return trajectory;
@@ -41,6 +46,8 @@ Trajectory Predictor::GenerateTrajectory(
 void Predictor::SetEqualProbability(const double total_probability,
                                     const int start_index,
                                     Obstacle* obstacle_ptr) {
+    AINFO<<"(DMCZP) EnteringMethod: Predictor::SetEqualProbability";
+
   int num = NumOfTrajectories(*obstacle_ptr);
   CHECK(num > start_index);
 
@@ -52,11 +59,15 @@ void Predictor::SetEqualProbability(const double total_probability,
   }
 }
 
-void Predictor::Clear() {}
+void Predictor::Clear() {
+    AINFO<<"(DMCZP) EnteringMethod: Predictor::Clear";
+}
 
 void Predictor::TrimTrajectories(
     const ADCTrajectoryContainer& adc_trajectory_container,
     Obstacle* obstacle) {
+    AINFO<<"(DMCZP) EnteringMethod: Predictor::TrimTrajectories";
+
   for (auto& predicted_trajectory :
        *obstacle->mutable_latest_feature()->mutable_predicted_trajectory()) {
     TrimTrajectory(adc_trajectory_container, obstacle, &predicted_trajectory);
@@ -66,6 +77,8 @@ void Predictor::TrimTrajectories(
 bool Predictor::TrimTrajectory(
     const ADCTrajectoryContainer& adc_trajectory_container, Obstacle* obstacle,
     Trajectory* trajectory) {
+    AINFO<<"(DMCZP) EnteringMethod: Predictor::TrimTrajectory";
+
   if (!adc_trajectory_container.IsProtected()) {
     ADEBUG << "Not in protection mode.";
     return false;
@@ -125,6 +138,8 @@ bool Predictor::TrimTrajectory(
 bool Predictor::SupposedToStop(const Feature& feature,
                                const double stop_distance,
                                double* acceleration) {
+    AINFO<<"(DMCZP) EnteringMethod: Predictor::SupposedToStop";
+
   if (stop_distance < std::max(feature.length() * 0.5, 1.0)) {
     return false;
   }
@@ -138,6 +153,8 @@ bool Predictor::SupposedToStop(const Feature& feature,
 }
 
 const ObstacleConf::PredictorType& Predictor::predictor_type() {
+    AINFO<<"(DMCZP) EnteringMethod: Predictor::predictor_type";
+
   return predictor_type_;
 }
 

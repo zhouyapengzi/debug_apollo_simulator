@@ -1,3 +1,4 @@
+#include "cyber/common/log.h"
 /******************************************************************************
  * Copyright 2018 The Apollo Authors. All Rights Reserved.
  *
@@ -39,6 +40,8 @@ using apollo::prediction::math_util::Sigmoid;
 
 // Helper function for computing the mean value of a vector.
 double ComputeMean(const std::vector<double>& nums, size_t start, size_t end) {
+    AINFO<<"(DMCZP) EnteringMethod: ComputeMean";
+
   int count = 0;
   double sum = 0.0;
   for (size_t i = start; i <= end && i < nums.size(); i++) {
@@ -49,13 +52,19 @@ double ComputeMean(const std::vector<double>& nums, size_t start, size_t end) {
 }
 
 CruiseMLPEvaluator::CruiseMLPEvaluator() : device_(torch::kCPU) {
+    AINFO<<"(DMCZP) EnteringMethod: CruiseMLPEvaluator::CruiseMLPEvaluator";
+
   evaluator_type_ = ObstacleConf::CRUISE_MLP_EVALUATOR;
   LoadModels();
 }
 
-void CruiseMLPEvaluator::Clear() {}
+void CruiseMLPEvaluator::Clear() {
+    AINFO<<"(DMCZP) EnteringMethod: CruiseMLPEvaluator::Clear";
+}
 
 bool CruiseMLPEvaluator::Evaluate(Obstacle* obstacle_ptr) {
+    AINFO<<"(DMCZP) EnteringMethod: CruiseMLPEvaluator::Evaluate";
+
   // Sanity checks.
   omp_set_num_threads(1);
   Clear();
@@ -143,6 +152,8 @@ bool CruiseMLPEvaluator::Evaluate(Obstacle* obstacle_ptr) {
 void CruiseMLPEvaluator::ExtractFeatureValues(
     Obstacle* obstacle_ptr, LaneSequence* lane_sequence_ptr,
     std::vector<double>* feature_values) {
+    AINFO<<"(DMCZP) EnteringMethod: CruiseMLPEvaluator::ExtractFeatureValues";
+
   // Sanity checks.
   CHECK_NOTNULL(obstacle_ptr);
   CHECK_NOTNULL(lane_sequence_ptr);
@@ -178,6 +189,8 @@ void CruiseMLPEvaluator::ExtractFeatureValues(
 
 void CruiseMLPEvaluator::SetObstacleFeatureValues(
     const Obstacle* obstacle_ptr, std::vector<double>* feature_values) {
+    AINFO<<"(DMCZP) EnteringMethod: CruiseMLPEvaluator::SetObstacleFeatureValues";
+
   // Sanity checks and variable declarations.
   CHECK_NOTNULL(obstacle_ptr);
   feature_values->clear();
@@ -413,6 +426,8 @@ void CruiseMLPEvaluator::SetObstacleFeatureValues(
 void CruiseMLPEvaluator::SetInteractionFeatureValues(
     Obstacle* obstacle_ptr, LaneSequence* lane_sequence_ptr,
     std::vector<double>* feature_values) {
+    AINFO<<"(DMCZP) EnteringMethod: CruiseMLPEvaluator::SetInteractionFeatureValues";
+
   // forward / backward: relative_s, relative_l, speed, length
   feature_values->clear();
   // Initialize forward and backward obstacles
@@ -474,6 +489,8 @@ void CruiseMLPEvaluator::SetInteractionFeatureValues(
 void CruiseMLPEvaluator::SetLaneFeatureValues(
     const Obstacle* obstacle_ptr, const LaneSequence* lane_sequence_ptr,
     std::vector<double>* feature_values) {
+    AINFO<<"(DMCZP) EnteringMethod: CruiseMLPEvaluator::SetLaneFeatureValues";
+
   // Sanity checks.
   feature_values->clear();
   feature_values->reserve(SINGLE_LANE_FEATURE_SIZE * LANE_POINTS_SIZE);
@@ -535,6 +552,8 @@ void CruiseMLPEvaluator::SetLaneFeatureValues(
 }
 
 void CruiseMLPEvaluator::LoadModels() {
+    AINFO<<"(DMCZP) EnteringMethod: CruiseMLPEvaluator::LoadModels";
+
   // TODO(all) uncomment the following when cuda issue is resolved
   // if (torch::cuda::is_available()) {
   //   ADEBUG << "CUDA is available";
@@ -559,6 +578,8 @@ void CruiseMLPEvaluator::ModelInference(
     const std::vector<torch::jit::IValue>& torch_inputs,
     std::shared_ptr<torch::jit::script::Module> torch_model_ptr,
     LaneSequence* lane_sequence_ptr) {
+    AINFO<<"(DMCZP) EnteringMethod: CruiseMLPEvaluator::ModelInference";
+
   
   AINFO<<"(pengzi) predict cruiseMLP model inference. thread:"<<std::this_thread::get_id();
   auto torch_output_tuple = torch_model_ptr->forward(torch_inputs).toTuple();

@@ -24,20 +24,32 @@ namespace apollo {
 namespace prediction {
 namespace network {
 
-float sigmoid(const float x) { return 1.0f / (1.0f + std::exp(-x)); }
+float sigmoid(const float x) {
+    AINFO<<"(DMCZP) EnteringMethod: sigmoid";
+ return 1.0f / (1.0f + std::exp(-x)); }
 
-float tanh(const float x) { return std::tanh(x); }
+float tanh(const float x) {
+    AINFO<<"(DMCZP) EnteringMethod: tanh";
+ return std::tanh(x); }
 
-float linear(const float x) { return x; }
+float linear(const float x) {
+    AINFO<<"(DMCZP) EnteringMethod: linear";
+ return x; }
 
 float hard_sigmoid(const float x) {
+    AINFO<<"(DMCZP) EnteringMethod: hard_sigmoid";
+
   const float z = 0.2f * x + 0.5f;
   return z <= 0.0f ? 0.0f : (z <= 1.0f ? z : 1.0f);
 }
 
-float relu(const float x) { return (x > 0.0f) ? x : 0.0f; }
+float relu(const float x) {
+    AINFO<<"(DMCZP) EnteringMethod: relu";
+ return (x > 0.0f) ? x : 0.0f; }
 
 Eigen::MatrixXf FlattenMatrix(const Eigen::MatrixXf& matrix) {
+    AINFO<<"(DMCZP) EnteringMethod: FlattenMatrix";
+
   CHECK_GT(matrix.rows(), 0);
   CHECK_GT(matrix.cols(), 0);
   int output_size = static_cast<int>(matrix.rows() * matrix.cols());
@@ -64,6 +76,8 @@ std::function<float(float)> serialize_to_function(const std::string& str) {
 }
 
 bool LoadTensor(const TensorParameter& tensor_pb, Eigen::MatrixXf* matrix) {
+    AINFO<<"(DMCZP) EnteringMethod: LoadTensor";
+
   if (tensor_pb.data_size() == 0 || tensor_pb.shape_size() == 0) {
     AERROR << "Fail to load the necessary fields!";
     return false;
@@ -90,6 +104,8 @@ bool LoadTensor(const TensorParameter& tensor_pb, Eigen::MatrixXf* matrix) {
 }
 
 bool LoadTensor(const TensorParameter& tensor_pb, Eigen::VectorXf* vector) {
+    AINFO<<"(DMCZP) EnteringMethod: LoadTensor";
+
   if (tensor_pb.data_size() == 0 || tensor_pb.shape_size() == 0) {
     AERROR << "Fail to load the necessary fields!";
     return false;
@@ -107,6 +123,8 @@ bool LoadTensor(const TensorParameter& tensor_pb, Eigen::VectorXf* vector) {
 
 bool LoadTensor(const TensorParameter& tensor_pb,
                 std::vector<Eigen::MatrixXf>* const tensor3d) {
+    AINFO<<"(DMCZP) EnteringMethod: LoadTensor";
+
   if (tensor_pb.data_size() == 0 || tensor_pb.shape_size() != 3) {
     AERROR << "Fail to load the necessary fields!";
     return false;

@@ -1,3 +1,4 @@
+#include "cyber/common/log.h"
 /******************************************************************************
  * Copyright 2019 The Apollo Authors. All Rights Reserved.
  *
@@ -20,10 +21,14 @@ namespace apollo {
 namespace prediction {
 
 ExtrapolationPredictor::ExtrapolationPredictor() {
+    AINFO<<"(DMCZP) EnteringMethod: ExtrapolationPredictor::ExtrapolationPredictor";
+
   predictor_type_ = ObstacleConf::EXTRAPOLATION_PREDICTOR;
 }
 
 void ExtrapolationPredictor::Predict(Obstacle* obstacle) {
+    AINFO<<"(DMCZP) EnteringMethod: ExtrapolationPredictor::Predict";
+
   Clear();
 
   CHECK_NOTNULL(obstacle);
@@ -47,6 +52,8 @@ void ExtrapolationPredictor::Predict(Obstacle* obstacle) {
 void ExtrapolationPredictor::DrawShortTermTrajectory(
     const Feature& feature,
     std::vector<apollo::common::TrajectoryPoint>* points) {
+    AINFO<<"(DMCZP) EnteringMethod: ExtrapolationPredictor::DrawShortTermTrajectory";
+
   for (const auto& point : feature.short_term_predicted_trajectory_points()) {
     points->push_back(point);
   }

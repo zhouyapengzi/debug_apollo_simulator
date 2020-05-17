@@ -1,3 +1,4 @@
+#include "cyber/common/log.h"
 /******************************************************************************
  * Copyright 2017 The Apollo Authors. All Rights Reserved.
  *
@@ -33,10 +34,14 @@ using ::apollo::prediction::math_util::EvaluateQuarticPolynomial;
 using ::apollo::prediction::math_util::SolveQuadraticEquation;
 
 MoveSequencePredictor::MoveSequencePredictor() {
+    AINFO<<"(DMCZP) EnteringMethod: MoveSequencePredictor::MoveSequencePredictor";
+
   predictor_type_ = ObstacleConf::MOVE_SEQUENCE_PREDICTOR;
 }
 
 void MoveSequencePredictor::Predict(Obstacle* obstacle) {
+    AINFO<<"(DMCZP) EnteringMethod: MoveSequencePredictor::Predict";
+
   Clear();
 
   CHECK_NOTNULL(obstacle);
@@ -118,6 +123,8 @@ bool MoveSequencePredictor::DrawMoveSequenceTrajectoryPoints(
     const Obstacle& obstacle, const LaneSequence& lane_sequence,
     const double total_time, const double period,
     std::vector<TrajectoryPoint>* points) {
+    AINFO<<"(DMCZP) EnteringMethod: MoveSequencePredictor::DrawMoveSequenceTrajectoryPoints";
+
   // Sanity check.
   points->clear();
   CHECK_NOTNULL(points);
@@ -279,6 +286,8 @@ std::pair<double, double> MoveSequencePredictor::ComputeLonEndState(
 
 double MoveSequencePredictor::ComputeTimeToLatEndConditionByVelocity(
     const Obstacle& obstacle, const LaneSequence& lane_sequence) {
+    AINFO<<"(DMCZP) EnteringMethod: MoveSequencePredictor::ComputeTimeToLatEndConditionByVelocity";
+
   // Sanity check.
   CHECK_GT(obstacle.history_size(), 0);
   CHECK_GT(lane_sequence.lane_segment_size(), 0);
@@ -322,6 +331,8 @@ double MoveSequencePredictor::CostFunction(const double max_lat_acc,
                                            const double time_to_end_state,
                                            const double time_to_lane_edge,
                                            const double bell_curve_mu) {
+    AINFO<<"(DMCZP) EnteringMethod: MoveSequencePredictor::CostFunction";
+
   double cost_of_trajectory =
       max_lat_acc + FLAGS_cost_function_alpha * time_to_end_state;
   if (FLAGS_use_bell_curve_for_cost_function) {

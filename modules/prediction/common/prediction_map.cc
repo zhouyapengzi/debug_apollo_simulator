@@ -1,3 +1,4 @@
+#include "cyber/common/log.h"
 /******************************************************************************
  * Copyright 2017 The Apollo Authors. All Rights Reserved.
  *
@@ -35,21 +36,29 @@ using apollo::hdmap::MapPathPoint;
 using apollo::hdmap::OverlapInfo;
 using apollo::hdmap::PNCJunctionInfo;
 
-bool PredictionMap::Ready() { return HDMapUtil::BaseMapPtr() != nullptr; }
+bool PredictionMap::Ready() {
+    AINFO<<"(DMCZP) EnteringMethod: PredictionMap::Ready";
+ return HDMapUtil::BaseMapPtr() != nullptr; }
 
 Eigen::Vector2d PredictionMap::PositionOnLane(
     const std::shared_ptr<const LaneInfo> lane_info, const double s) {
+    AINFO<<"(DMCZP) EnteringMethod: PredictionMap::PositionOnLane";
+
   common::PointENU point = lane_info->GetSmoothPoint(s);
   return {point.x(), point.y()};
 }
 
 double PredictionMap::HeadingOnLane(
     const std::shared_ptr<const LaneInfo> lane_info, const double s) {
+    AINFO<<"(DMCZP) EnteringMethod: PredictionMap::HeadingOnLane";
+
   return lane_info->Heading(s);
 }
 
 double PredictionMap::CurvatureOnLane(const std::string& lane_id,
                                       const double s) {
+    AINFO<<"(DMCZP) EnteringMethod: PredictionMap::CurvatureOnLane";
+
   std::shared_ptr<const hdmap::LaneInfo> lane_info = LaneById(lane_id);
   if (lane_info == nullptr) {
     AERROR << "Null lane_info ptr found";
@@ -60,6 +69,8 @@ double PredictionMap::CurvatureOnLane(const std::string& lane_id,
 
 double PredictionMap::LaneTotalWidth(
     const std::shared_ptr<const hdmap::LaneInfo> lane_info, const double s) {
+    AINFO<<"(DMCZP) EnteringMethod: PredictionMap::LaneTotalWidth";
+
   double left = 0.0;
   double right = 0.0;
   lane_info->GetWidth(s, &left, &right);
@@ -84,6 +95,8 @@ std::shared_ptr<const OverlapInfo> PredictionMap::OverlapById(
 bool PredictionMap::GetProjection(
     const Eigen::Vector2d& pos, const std::shared_ptr<const LaneInfo> lane_info,
     double* s, double* l) {
+    AINFO<<"(DMCZP) EnteringMethod: PredictionMap::GetProjection";
+
   if (lane_info == nullptr) {
     return false;
   }
@@ -92,6 +105,8 @@ bool PredictionMap::GetProjection(
 
 bool PredictionMap::HasNearbyLane(const double x, const double y,
                                   const double radius) {
+    AINFO<<"(DMCZP) EnteringMethod: PredictionMap::HasNearbyLane";
+
   common::PointENU point_enu;
   point_enu.set_x(x);
   point_enu.set_y(y);
@@ -103,6 +118,8 @@ bool PredictionMap::HasNearbyLane(const double x, const double y,
 bool PredictionMap::ProjectionFromLane(
     std::shared_ptr<const LaneInfo> lane_info, const double s,
     MapPathPoint* path_point) {
+    AINFO<<"(DMCZP) EnteringMethod: PredictionMap::ProjectionFromLane";
+
   if (lane_info == nullptr) {
     return false;
   }
@@ -115,6 +132,8 @@ bool PredictionMap::ProjectionFromLane(
 }
 
 bool PredictionMap::IsVirtualLane(const std::string& lane_id) {
+    AINFO<<"(DMCZP) EnteringMethod: PredictionMap::IsVirtualLane";
+
   std::shared_ptr<const LaneInfo> lane_info =
       HDMapUtil::BaseMap().GetLaneById(hdmap::MakeMapId(lane_id));
   if (lane_info == nullptr) {
@@ -132,6 +151,8 @@ bool PredictionMap::IsVirtualLane(const std::string& lane_id) {
 
 bool PredictionMap::OnVirtualLane(const Eigen::Vector2d& point,
                                   const double radius) {
+    AINFO<<"(DMCZP) EnteringMethod: PredictionMap::OnVirtualLane";
+
   std::vector<std::shared_ptr<const LaneInfo>> lanes;
   common::PointENU hdmap_point;
   hdmap_point.set_x(point[0]);
@@ -151,6 +172,8 @@ void PredictionMap::OnLane(
     const bool on_lane, const int max_num_lane,
     const double max_lane_angle_diff,
     std::vector<std::shared_ptr<const LaneInfo>>* lanes) {
+    AINFO<<"(DMCZP) EnteringMethod: PredictionMap::OnLane";
+
   std::vector<std::shared_ptr<const LaneInfo>> candidate_lanes;
 
   common::PointENU hdmap_point;
@@ -237,6 +260,8 @@ std::shared_ptr<const LaneInfo> PredictionMap::GetMostLikelyCurrentLane(
 
 bool PredictionMap::IsProjectionApproximateWithinLane(
     const Eigen::Vector2d& ego_position, const std::string& lane_id) {
+    AINFO<<"(DMCZP) EnteringMethod: PredictionMap::IsProjectionApproximateWithinLane";
+
   auto ptr_lane = LaneById(lane_id);
   const auto& lane_points = ptr_lane->points();
   if (lane_points.size() < 2) {
@@ -266,6 +291,8 @@ bool PredictionMap::IsProjectionApproximateWithinLane(
 
 bool PredictionMap::NearJunction(const Eigen::Vector2d& point,
                                  const double radius) {
+    AINFO<<"(DMCZP) EnteringMethod: PredictionMap::NearJunction";
+
   common::PointENU hdmap_point;
   hdmap_point.set_x(point.x());
   hdmap_point.set_y(point.y());
@@ -277,6 +304,8 @@ bool PredictionMap::NearJunction(const Eigen::Vector2d& point,
 bool PredictionMap::IsPointInJunction(
     const double x, const double y,
     const std::shared_ptr<const JunctionInfo> junction_info_ptr) {
+    AINFO<<"(DMCZP) EnteringMethod: PredictionMap::IsPointInJunction";
+
   const Polygon2d& polygon = junction_info_ptr->polygon();
   return polygon.IsPointIn({x, y});
 }
@@ -294,6 +323,8 @@ std::vector<std::shared_ptr<const JunctionInfo>> PredictionMap::GetJunctions(
 std::vector<std::shared_ptr<const PNCJunctionInfo>>
 PredictionMap::GetPNCJunctions(const Eigen::Vector2d& point,
                                const double radius) {
+    AINFO<<"(DMCZP) EnteringMethod: PredictionMap::GetPNCJunctions";
+
   common::PointENU hdmap_point;
   hdmap_point.set_x(point.x());
   hdmap_point.set_y(point.y());
@@ -304,6 +335,8 @@ PredictionMap::GetPNCJunctions(const Eigen::Vector2d& point,
 
 bool PredictionMap::InJunction(const Eigen::Vector2d& point,
                                const double radius) {
+    AINFO<<"(DMCZP) EnteringMethod: PredictionMap::InJunction";
+
   auto junction_infos = GetJunctions(point, radius);
   if (junction_infos.empty()) {
     return false;
@@ -330,6 +363,8 @@ bool PredictionMap::InJunction(const Eigen::Vector2d& point,
 bool PredictionMap::IsLaneInJunction(
     const std::shared_ptr<const LaneInfo> lane_info,
     const std::string& junction_id) {
+    AINFO<<"(DMCZP) EnteringMethod: PredictionMap::IsLaneInJunction";
+
   if (lane_info == nullptr) {
     return false;
   }
@@ -357,6 +392,8 @@ bool PredictionMap::IsLaneInJunction(
 
 double PredictionMap::PathHeading(std::shared_ptr<const LaneInfo> lane_info,
                                   const common::PointENU& point) {
+    AINFO<<"(DMCZP) EnteringMethod: PredictionMap::PathHeading";
+
   double s = 0.0;
   double l = 0.0;
   if (lane_info->GetProjection({point.x(), point.y()}, &s, &l)) {
@@ -369,6 +406,8 @@ double PredictionMap::PathHeading(std::shared_ptr<const LaneInfo> lane_info,
 bool PredictionMap::SmoothPointFromLane(const std::string& id, const double s,
                                         const double l, Eigen::Vector2d* point,
                                         double* heading) {
+    AINFO<<"(DMCZP) EnteringMethod: PredictionMap::SmoothPointFromLane";
+
   if (point == nullptr || heading == nullptr) {
     return false;
   }
@@ -385,6 +424,8 @@ void PredictionMap::NearbyLanesByCurrentLanes(
     const std::vector<std::shared_ptr<const LaneInfo>>& lanes,
     const int max_num_lane,
     std::vector<std::shared_ptr<const LaneInfo>>* nearby_lanes) {
+    AINFO<<"(DMCZP) EnteringMethod: PredictionMap::NearbyLanesByCurrentLanes";
+
   if (lanes.empty()) {
     std::vector<std::shared_ptr<const LaneInfo>> prev_lanes;
     OnLane(prev_lanes, point, heading, radius, false, max_num_lane,
@@ -500,6 +541,10 @@ std::vector<std::string> PredictionMap::NearbyLaneIds(
 bool PredictionMap::IsLeftNeighborLane(
     std::shared_ptr<const LaneInfo> target_lane,
     std::shared_ptr<const LaneInfo> curr_lane) {
+    AINFO<<"(DMCZP) EnteringMethod: PredictionMap::IsLeftNeighborLane";
+
+    AINFO<<"(DMCZP) EnteringMethod: PredictionMap::IsLeftNeighborLane";
+
   if (curr_lane == nullptr) {
     return true;
   }
@@ -532,6 +577,10 @@ bool PredictionMap::IsLeftNeighborLane(
 bool PredictionMap::IsRightNeighborLane(
     std::shared_ptr<const LaneInfo> target_lane,
     std::shared_ptr<const LaneInfo> curr_lane) {
+    AINFO<<"(DMCZP) EnteringMethod: PredictionMap::IsRightNeighborLane";
+
+    AINFO<<"(DMCZP) EnteringMethod: PredictionMap::IsRightNeighborLane";
+
   if (curr_lane == nullptr) {
     return true;
   }
@@ -563,6 +612,8 @@ bool PredictionMap::IsRightNeighborLane(
 
 bool PredictionMap::IsSuccessorLane(std::shared_ptr<const LaneInfo> target_lane,
                                     std::shared_ptr<const LaneInfo> curr_lane) {
+    AINFO<<"(DMCZP) EnteringMethod: PredictionMap::IsSuccessorLane";
+
   if (curr_lane == nullptr) {
     return true;
   }
@@ -580,6 +631,8 @@ bool PredictionMap::IsSuccessorLane(std::shared_ptr<const LaneInfo> target_lane,
 bool PredictionMap::IsSuccessorLane(
     std::shared_ptr<const LaneInfo> target_lane,
     const std::vector<std::shared_ptr<const LaneInfo>>& lanes) {
+    AINFO<<"(DMCZP) EnteringMethod: PredictionMap::IsSuccessorLane";
+
   if (lanes.empty()) {
     return true;
   }
@@ -594,6 +647,10 @@ bool PredictionMap::IsSuccessorLane(
 bool PredictionMap::IsPredecessorLane(
     std::shared_ptr<const LaneInfo> target_lane,
     std::shared_ptr<const LaneInfo> curr_lane) {
+    AINFO<<"(DMCZP) EnteringMethod: PredictionMap::IsPredecessorLane";
+
+    AINFO<<"(DMCZP) EnteringMethod: PredictionMap::IsPredecessorLane";
+
   if (curr_lane == nullptr) {
     return true;
   }
@@ -624,6 +681,8 @@ bool PredictionMap::IsPredecessorLane(
 
 bool PredictionMap::IsIdenticalLane(std::shared_ptr<const LaneInfo> other_lane,
                                     std::shared_ptr<const LaneInfo> curr_lane) {
+    AINFO<<"(DMCZP) EnteringMethod: PredictionMap::IsIdenticalLane";
+
   if (curr_lane == nullptr || other_lane == nullptr) {
     return true;
   }
@@ -633,6 +692,8 @@ bool PredictionMap::IsIdenticalLane(std::shared_ptr<const LaneInfo> other_lane,
 bool PredictionMap::IsIdenticalLane(
     std::shared_ptr<const LaneInfo> other_lane,
     const std::vector<std::shared_ptr<const LaneInfo>>& lanes) {
+    AINFO<<"(DMCZP) EnteringMethod: PredictionMap::IsIdenticalLane";
+
   if (lanes.empty()) {
     return true;
   }
@@ -645,6 +706,8 @@ bool PredictionMap::IsIdenticalLane(
 }
 
 int PredictionMap::LaneTurnType(const std::string& lane_id) {
+    AINFO<<"(DMCZP) EnteringMethod: PredictionMap::LaneTurnType";
+
   std::shared_ptr<const LaneInfo> lane = LaneById(lane_id);
   if (lane != nullptr) {
     return static_cast<int>(lane->lane().turn());

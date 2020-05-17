@@ -1,3 +1,4 @@
+#include "cyber/common/log.h"
 /******************************************************************************
  * Copyright 2018 The Apollo Authors. All Rights Reserved.
  *
@@ -30,10 +31,14 @@ using apollo::common::TrajectoryPoint;
 using apollo::hdmap::LaneInfo;
 
 SingleLanePredictor::SingleLanePredictor() {
+    AINFO<<"(DMCZP) EnteringMethod: SingleLanePredictor::SingleLanePredictor";
+
   predictor_type_ = ObstacleConf::SINGLE_LANE_PREDICTOR;
 }
 
 void SingleLanePredictor::Predict(Obstacle* obstacle) {
+    AINFO<<"(DMCZP) EnteringMethod: SingleLanePredictor::Predict";
+
   Clear();
 
   CHECK_NOTNULL(obstacle);
@@ -85,6 +90,8 @@ void SingleLanePredictor::GenerateTrajectoryPoints(
     const Obstacle& obstacle, const LaneSequence& lane_sequence,
     const double time_length, const double time_resolution,
     std::vector<TrajectoryPoint>* points) {
+    AINFO<<"(DMCZP) EnteringMethod: SingleLanePredictor::GenerateTrajectoryPoints";
+
   const Feature& feature = obstacle.latest_feature();
   if (!feature.has_position() || !feature.has_velocity() ||
       !feature.position().has_x() || !feature.position().has_y()) {
